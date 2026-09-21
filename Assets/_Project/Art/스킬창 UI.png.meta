@@ -1,0 +1,192 @@
+fileFormatVersion: 2
+guid: 6eb1b86b0efb1dc468e5747af323e30e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7347689055921157281
+    second: "\uC2A4\uD0AC\uCC3D UI_0"
+  - first:
+      213: -7166016042743719365
+    second: "\uC2A4\uD0AC\uCC3D UI_1"
+  - first:
+      213: 7499906482213765750
+    second: "\uC2A4\uD0AC\uCC3D UI_2"
+  - first:
+      213: 397505162382749943
+    second: "\uC2A4\uD0AC\uCC3D UI_3"
+  - first:
+      213: 6979647346882132969
+    second: "\uC2A4\uD0AC\uCC3D UI_4"
+  - first:
+      213: 6545044208471224204
+    second: "\uC2A4\uD0AC\uCC3D UI_5"
+  - first:
+      213: 4689528949869533203
+    second: "\uC2A4\uD0AC\uCC3D UI_6"
+  - first:
+      213: 3154958710910805485
+    second: "\uC2A4\uD0AC\uCC3D UI_7"
+  - first:
+      213: -4583747701254967685
+    second: "\uC2A4\uD0AC\uCC3D UI_8"
+  - first:
+      213: -589562389605506398
+    second: "\uC2A4\uD0AC\uCC3D UI_9"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "\uC2A4\uD0AC\uCC3D UI_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3
+        width: 1672
+        height: 933
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a4b432444c38f560800000000000000
+      internalID: 7347689055921157281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 236f98e519d9a9240b77c5f85108081f
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "\uC2A4\uD0AC\uCC3D UI_0": 7347689055921157281
+      "\uC2A4\uD0AC\uCC3D UI_1": -7166016042743719365
+      "\uC2A4\uD0AC\uCC3D UI_2": 7499906482213765750
+      "\uC2A4\uD0AC\uCC3D UI_3": 397505162382749943
+      "\uC2A4\uD0AC\uCC3D UI_4": 6979647346882132969
+      "\uC2A4\uD0AC\uCC3D UI_5": 6545044208471224204
+      "\uC2A4\uD0AC\uCC3D UI_6": 4689528949869533203
+      "\uC2A4\uD0AC\uCC3D UI_7": 3154958710910805485
+      "\uC2A4\uD0AC\uCC3D UI_8": -4583747701254967685
+      "\uC2A4\uD0AC\uCC3D UI_9": -589562389605506398
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

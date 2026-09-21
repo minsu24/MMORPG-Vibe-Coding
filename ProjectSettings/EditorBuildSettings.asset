@@ -6,8 +6,32 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_Project/Scenes/MainScreen.unity
+    guid: 8ad88add0b13a41489e485c434842c19
+  - enabled: 1
+    path: Assets/_Project/Scenes/ChooseCharactor.unity
+    guid: 63c53e7b7b7138946899fc36746b9a78
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/_Project/Scenes/MovementPrototype.unity
+    guid: 2167c8cd56cecd744b888e2c7b7a0a21
+  - enabled: 1
+    path: Assets/_Project/Scenes/PrologueVilage.unity
+    guid: db5bf7f042d97594c983173cd455571f
+  - enabled: 1
+    path: Assets/_Project/Scenes/Cemetery.unity
+    guid: ae70e241f5565a84cb96182e939ba77f
+  - enabled: 1
+    path: Assets/_Project/Scenes/SpiderCave.unity
+    guid: 32e30f6ec0ec6534f9090d8fdaaca689
+  - enabled: 1
+    path: Assets/_Project/Scenes/Marshland.unity
+    guid: 5de7e82b59cabbc45b273bc138364143
+  - enabled: 1
+    path: Assets/_Project/Scenes/BrokenSeal.unity
+    guid: 7f672664903d9454d9c9e5bea1e7a2d3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

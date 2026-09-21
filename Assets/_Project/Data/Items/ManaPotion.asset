@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ada75e50a69424c83357669e06485c, type: 3}
+  m_Name: ManaPotion
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemDefinition
+  itemId: 1f7cbfca399a4f3fa7ba88f5a992731f
+  displayName: "\uB9C8\uB098 \uBB3C\uC57D"
+  description: "\uC18C\uBAA8\uD55C \uB9C8\uB098\uB97C \uD68C\uBCF5\uC2DC\uD0A4\uB294
+    \uD478\uB978 \uBB3C\uC57D\uC785\uB2C8\uB2E4."
+  icon: {fileID: 3620759080294560354, guid: 47291779247afed47a9cd6df0da9749f, type: 3}
+  category: 1
+  equipmentSlot: 0
+  attackBonus: 0
+  defenseBonus: 0
+  consumableEffect: 2
+  useAmount: 30
+  maximumStack: 99
+  buyPrice: 25
+  sellPrice: 12

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b4975242059f343afe3b917812425b, type: 3}
+  m_Name: FirstTalismanShield
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.SkillDefinition
+  skillId: 4a26741ad39e4bd8aa2f15e14391d266
+  displayName: "\uBD80\uC801 \uC2E4\uB4DC"
+  shortDescription: "\uBD80\uC801\uC73C\uB85C \uBCF4\uD638\uB9C9\uC744 \uC0DD\uC131\uD558\uB294
+    \uBC29\uC5B4 \uC2A4\uD0AC\uC785\uB2C8\uB2E4."
+  detailedDescription: "\uBCF4\uD638\uB9C9 \uC218\uCE58, \uC9C0\uC18D\uC2DC\uAC04\uACFC
+    \uC7AC\uC0AC\uC6A9 \uB300\uAE30\uC2DC\uAC04\uC740 \uC5EC\uAE30\uC5D0 \uC791\uC131\uD558\uC138\uC694."
+  tier: 1
+  activationType: 1
+  maximumLevel: 1
+  cooldownSeconds: 10
+  icon: {fileID: -27775029027750616, guid: 2ac0d094d661233419e61691c72c737a, type: 3}
+  effectType: 0
+  effectPerLevel: 0
+  requirements:
+  - skill: {fileID: 11400000, guid: 390809e0eddc5c049ab519420debe55e, type: 2}
+    requiredLevel: 1

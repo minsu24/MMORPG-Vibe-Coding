@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b4975242059f343afe3b917812425b, type: 3}
+  m_Name: FirstTeleport
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.SkillDefinition
+  skillId: 5fc2143103384512999c8ade50c1658b
+  displayName: "\uD154\uB808\uD3EC\uD2B8"
+  shortDescription: "\uBC14\uB77C\uBCF4\uB294 \uBC29\uD5A5\uC73C\uB85C \uBE60\uB974\uAC8C
+    \uC774\uB3D9\uD558\uB294 \uC2A4\uD0AC\uC785\uB2C8\uB2E4."
+  detailedDescription: "\uC774\uB3D9 \uAC70\uB9AC, \uBB34\uC801 \uC5EC\uBD80\uC640
+    \uC7AC\uC0AC\uC6A9 \uB300\uAE30\uC2DC\uAC04\uC740 \uC5EC\uAE30\uC5D0 \uC791\uC131\uD558\uC138\uC694."
+  tier: 1
+  activationType: 1
+  maximumLevel: 1
+  cooldownSeconds: 6
+  icon: {fileID: -8384912458420545468, guid: 2ac0d094d661233419e61691c72c737a, type: 3}
+  effectType: 0
+  effectPerLevel: 0
+  requirements:
+  - skill: {fileID: 11400000, guid: 2c898bc42be3ada4ab1cd4ee7a2c0c0d, type: 2}
+    requiredLevel: 1

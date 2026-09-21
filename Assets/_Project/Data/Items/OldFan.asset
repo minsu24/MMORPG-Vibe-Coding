@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ada75e50a69424c83357669e06485c, type: 3}
+  m_Name: OldFan
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemDefinition
+  itemId: d90df51f0e694480bdbe37be9e25ecf9
+  displayName: "\uD5CC \uBD80\uCC44"
+  description: "\uC624\uB798 \uC0AC\uC6A9\uD574 \uAC00\uC7A5\uC790\uB9AC\uAC00 \uB2F3\uC740
+    \uBD80\uCC44\uC785\uB2C8\uB2E4."
+  icon: {fileID: -2768467324346786774, guid: 47291779247afed47a9cd6df0da9749f, type: 3}
+  category: 0
+  equipmentSlot: 1
+  attackBonus: 3
+  defenseBonus: 0
+  consumableEffect: 0
+  useAmount: 0
+  maximumStack: 1
+  buyPrice: 120
+  sellPrice: 60

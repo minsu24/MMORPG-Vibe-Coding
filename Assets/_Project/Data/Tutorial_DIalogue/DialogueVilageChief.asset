@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e9ea2bcc66bfc94c97504490c8cff41, type: 3}
+  m_Name: DialogueVilageChief
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dialogue.DialogueCharacter
+  displayName: "\uCD0C\uC7A5"
+  portrait: {fileID: -4677422521664489816, guid: 18f7be0cf54d0854d82a65554209ba86, type: 3}

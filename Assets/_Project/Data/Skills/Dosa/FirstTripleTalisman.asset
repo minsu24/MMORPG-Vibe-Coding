@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b4975242059f343afe3b917812425b, type: 3}
+  m_Name: FirstTripleTalisman
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.SkillDefinition
+  skillId: d1c890fd5e024456be0cc769cdc3b337
+  displayName: "3\uB2E8 \uBD80\uC801 \uB0A0\uB9AC\uAE30"
+  shortDescription: "\uC804\uBC29\uC73C\uB85C \uBD80\uC801 \uC138 \uC7A5\uC744 \uB0A0\uB9AC\uB294
+    \uACF5\uACA9 \uC2A4\uD0AC\uC785\uB2C8\uB2E4."
+  detailedDescription: "\uD53C\uD574\uB7C9, \uD22C\uC0AC\uCCB4 \uAC04\uACA9\uACFC
+    \uC7AC\uC0AC\uC6A9 \uB300\uAE30\uC2DC\uAC04\uC740 \uC5EC\uAE30\uC5D0 \uC791\uC131\uD558\uC138\uC694."
+  tier: 1
+  activationType: 1
+  maximumLevel: 1
+  cooldownSeconds: 4
+  icon: {fileID: 6925722185343869235, guid: 2ac0d094d661233419e61691c72c737a, type: 3}
+  effectType: 0
+  effectPerLevel: 0
+  requirements:
+  - skill: {fileID: 11400000, guid: 1591e04543bc7e647a835f0c3a19492b, type: 2}
+    requiredLevel: 1

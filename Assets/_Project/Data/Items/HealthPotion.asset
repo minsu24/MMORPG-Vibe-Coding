@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ada75e50a69424c83357669e06485c, type: 3}
+  m_Name: HealthPotion
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemDefinition
+  itemId: 90791131e2f445ec988d341f26aca77f
+  displayName: "\uCCB4\uB825 \uBB3C\uC57D"
+  description: "\uC0C1\uCC98\uB97C \uD68C\uBCF5\uC2DC\uD0A4\uB294 \uBD89\uC740 \uBB3C\uC57D\uC785\uB2C8\uB2E4."
+  icon: {fileID: -1896902462632175424, guid: 47291779247afed47a9cd6df0da9749f, type: 3}
+  category: 1
+  equipmentSlot: 0
+  attackBonus: 0
+  defenseBonus: 0
+  consumableEffect: 1
+  useAmount: 30
+  maximumStack: 99
+  buyPrice: 20
+  sellPrice: 10

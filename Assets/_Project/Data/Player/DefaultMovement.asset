@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DefaultMovement
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerMovementSettings
   moveSpeed: 6
-  jumpSpeed: 11
+  jumpSpeed: 13
   gravityScale: 3
   groundCheckDistance: 0.05

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ada75e50a69424c83357669e06485c, type: 3}
+  m_Name: ClothGloves
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemDefinition
+  itemId: 15686e9c547e45049a638e85f0e0fb82
+  displayName: "\uCC9C \uC7A5\uAC11"
+  description: "\uC190\uC744 \uBCF4\uD638\uD574 \uC8FC\uB294 \uC587\uC740 \uCC9C
+    \uC7A5\uAC11\uC785\uB2C8\uB2E4."
+  icon: {fileID: 7838146981733018178, guid: 47291779247afed47a9cd6df0da9749f, type: 3}
+  category: 0
+  equipmentSlot: 5
+  attackBonus: 0
+  defenseBonus: 1
+  consumableEffect: 0
+  useAmount: 0
+  maximumStack: 1
+  buyPrice: 60
+  sellPrice: 30

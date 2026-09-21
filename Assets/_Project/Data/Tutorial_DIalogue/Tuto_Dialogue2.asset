@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1556faa70b3ce43862d54865c7f42e, type: 3}
+  m_Name: Tuto_Dialogue2
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dialogue.DialogueSequence
+  playerCharacter: {fileID: 11400000, guid: 2758d9b9772cd2441bb27040af28cb98, type: 2}
+  partnerCharacter: {fileID: 0}
+  lines:
+  - speaker: 0
+    text: "\uD5C8, \uB3C4\uAE68\uBE44\uB77C..."
+  - speaker: 0
+    text: "\uB9C8\uC744 \uAC00\uAE4C\uC774\uC5D0 \uC788\uB2E4\uB2C8 \uB4DC\uBB38
+      \uC77C\uC774\uAD6C\uB098"
+  - speaker: 0
+    text: "\uC5B4\uB514 \uBCF4\uC790. \uC544\uC9C1\uB3C4 \uB3C4\uC220\uC744 \uC0AC\uC6A9\uD560
+      \uC218 \uC788\uC73C\uB824\uB098?"

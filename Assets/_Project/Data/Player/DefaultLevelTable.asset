@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 959caba968cae1f4c88b0d54fc5a249f, type: 3}
+  m_Name: DefaultLevelTable
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerLevelTable
+  requiredExperience: 6400000096000000e100000045010000c201000058020000200300001a04000046050000

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b4975242059f343afe3b917812425b, type: 3}
+  m_Name: BaseMana
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.SkillDefinition
+  skillId: 66de03de2f264cd4a20f10f73ea520b7
+  displayName: "\uB9C8\uB098 \uC99D\uAC00"
+  shortDescription: "\uCD5C\uB300 \uB9C8\uB098\uB97C \uC99D\uAC00\uC2DC\uD0A4\uB294
+    \uAE30\uBCF8 \uD328\uC2DC\uBE0C \uC2A4\uD0AC\uC785\uB2C8\uB2E4."
+  detailedDescription: "\uC2A4\uD0AC \uB808\uBCA8\uB2F9 \uCD5C\uB300 MP\uAC00 30
+    \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  tier: 0
+  activationType: 0
+  maximumLevel: 3
+  cooldownSeconds: 0
+  icon: {fileID: 1598827017827673858, guid: 2ac0d094d661233419e61691c72c737a, type: 3}
+  effectType: 2
+  effectPerLevel: 30
+  requirements: []
