@@ -253,14 +253,19 @@ MonoBehaviour:
   _maxHP: 120
   _attackPower: 12
   _moveSpeed: 2
-  _detectRange: 7
+  _detectRange: 12
   _reward_EXP: 120
   _rewardYeopjeon: 30
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashMaterial: {fileID: 2100000, guid: d9c05dfd99bd6004291d1d4a8dc904bb, type: 2}
+  hitFlashDuration: 0.08
+  horizontalKnockbackPower: 4
+  verticalKnockbackPower: 2
   damageTextPrefab: {fileID: 3890553193077931215, guid: ffe84f00c64695a48b630feb8433f6f6, type: 3}
   textSpawnPoint: {fileID: 809193265}
+  isKnockback: 0
   attackRange: 4
   verticalTolerance: 1.5
   hitDelay: 0.375

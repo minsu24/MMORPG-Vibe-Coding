@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5087017787710510796}
   - component: {fileID: 8450452893221151621}
   - component: {fileID: 5203962354868452749}
-  - component: {fileID: 7431613365909762513}
   - component: {fileID: 6244438462432620799}
   - component: {fileID: 280497897855269070}
+  - component: {fileID: 1832701202999549682}
   m_Layer: 7
   m_Name: Spider
   m_TagString: Monster
@@ -118,44 +118,13 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashMaterial: {fileID: 2100000, guid: d9c05dfd99bd6004291d1d4a8dc904bb, type: 2}
+  hitFlashDuration: 0.08
+  horizontalKnockbackPower: 2
+  verticalKnockbackPower: 1
   damageTextPrefab: {fileID: 3890553193077931215, guid: ffe84f00c64695a48b630feb8433f6f6, type: 3}
   textSpawnPoint: {fileID: 4856002280838881238}
---- !u!58 &7431613365909762513
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7001910860304806286}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.053470135, y: -0.042776108}
-  m_Radius: 0.44986582
+  isKnockback: 0
 --- !u!50 &6244438462432620799
 Rigidbody2D:
   serializedVersion: 5
@@ -205,6 +174,43 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!70 &1832701202999549682
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7001910860304806286}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.0144376755, y: 0.00975132}
+  m_Size: {x: 0.83662224, y: 0.83662224}
+  m_Direction: 0
 --- !u!1 &7436042277647766491
 GameObject:
   m_ObjectHideFlags: 0

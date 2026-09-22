@@ -22,9 +22,10 @@ MonoBehaviour:
   activationType: 1
   maximumLevel: 1
   cooldownSeconds: 6
+  manaCost: 5
   icon: {fileID: -8384912458420545468, guid: 2ac0d094d661233419e61691c72c737a, type: 3}
   effectType: 0
   effectPerLevel: 0
   requirements:
   - skill: {fileID: 11400000, guid: 2c898bc42be3ada4ab1cd4ee7a2c0c0d, type: 2}
-    requiredLevel: 1
+    requiredLevel: 3

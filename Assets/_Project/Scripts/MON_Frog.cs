@@ -120,5 +120,8 @@ public sealed class MON_Frog : EnemyController
         Gizmos.DrawWireCube(
             transform.position,
             new Vector3(attackRange * 2f, verticalTolerance * 2f, 0f));
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, _detectRange);
     }
 }

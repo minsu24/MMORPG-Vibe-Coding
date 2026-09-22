@@ -17,14 +17,18 @@ MonoBehaviour:
   shortDescription: "\uBD80\uC801\uC73C\uB85C \uBCF4\uD638\uB9C9\uC744 \uC0DD\uC131\uD558\uB294
     \uBC29\uC5B4 \uC2A4\uD0AC\uC785\uB2C8\uB2E4."
   detailedDescription: "\uBCF4\uD638\uB9C9 \uC218\uCE58, \uC9C0\uC18D\uC2DC\uAC04\uACFC
-    \uC7AC\uC0AC\uC6A9 \uB300\uAE30\uC2DC\uAC04\uC740 \uC5EC\uAE30\uC5D0 \uC791\uC131\uD558\uC138\uC694."
+    \uC7AC\uC0AC\uC6A9 \uB300\uAE30\uC2DC\uAC04\uC740 \uC5EC\uAE30\uC5D0 \uC791\uC131\uD558\uC138\uC694.
+    \n5\uCD08\uAC04 \uBCF4\uD638\uB9C9\uC744 \uB458\uB7EC \uBC1B\uB294 \uB370\uBBF8\uC9C0\uB97C
+    30\uD504\uB85C \uAC10\uC18C\uC2DC\uD0B5\uB2C8\uB2E4.\n\uC7AC\uC0AC\uC6A9 \uB300\uAE30\uC2DC\uAC04
+    : 10\uCD08  "
   tier: 1
   activationType: 1
   maximumLevel: 1
   cooldownSeconds: 10
+  manaCost: 0
   icon: {fileID: -27775029027750616, guid: 2ac0d094d661233419e61691c72c737a, type: 3}
   effectType: 0
   effectPerLevel: 0
   requirements:
   - skill: {fileID: 11400000, guid: 390809e0eddc5c049ab519420debe55e, type: 2}
-    requiredLevel: 1
+    requiredLevel: 3

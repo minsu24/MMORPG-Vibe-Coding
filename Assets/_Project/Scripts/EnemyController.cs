@@ -15,6 +15,16 @@ public abstract class EnemyController : Entity
     [SerializeField, Min(0)] private int _rewardYeopjeon = 5;
     [SerializeField] protected LayerMask _playerLayer;
 
+    [Header("Hit Flash")]
+    [SerializeField] private Material hitFlashMaterial;
+    [SerializeField, Min(0.01f)] private float hitFlashDuration = 0.08f;
+
+    [SerializeField, Min(0f)] private float horizontalKnockbackPower = 2f;
+    [SerializeField, Min(0f)] private float verticalKnockbackPower = 1f;
+
+    private Material originalMaterial;
+    private Coroutine hitFlashRoutine;
+
     public GameObject damageTextPrefab; // Inspector에서 프리팹 할당
 
     public Transform textSpawnPoint;    // 텍스트가 뜰 위치 (예: 몬스터 머리 위 빈 오브젝트)
@@ -26,7 +36,9 @@ public abstract class EnemyController : Entity
     protected PlayerCurrency playerCurrency;
     protected SpriteRenderer spriteRenderer;
     protected Rigidbody2D rb;
+    protected CapsuleCollider2D capsuleCollider2D;
     protected Animator animator;
+    public bool isKnockback = false;
     protected bool isAttacking, inFarAttackRange = false;
     private bool isDefeated;
     public override float maxHP => _maxHP;
@@ -38,11 +50,14 @@ public abstract class EnemyController : Entity
     {
         base.Setup();
         rb = GetComponent<Rigidbody2D>();
+        capsuleCollider2D = GetComponent<CapsuleCollider2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerMovement2D>();
         playerEntity = player.GetComponent<PlayerEntity>();
         playerProgression = player.GetComponent<PlayerProgression>();
         playerCurrency = player.GetComponent<PlayerCurrency>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalMaterial = spriteRenderer.sharedMaterial;
         target = playerEntity;
         animator = GetComponent<Animator>();
         Attack_Power = _attackPower;
@@ -51,7 +66,7 @@ public abstract class EnemyController : Entity
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator.SetBool("isDead", false);
     }
 
     // Update is called once per frame
@@ -72,18 +87,11 @@ public abstract class EnemyController : Entity
     }
     void FixedUpdate()
     {
-        if(isAttacking || inFarAttackRange) return;
+        if(isAttacking || inFarAttackRange || isKnockback || isDefeated) return;
         Collider2D detectPlayer = Physics2D.OverlapCircle(transform.position, _detectRange, _playerLayer);
         if(detectPlayer != null){
             if (detectPlayer.CompareTag("Player"))
             {
-                // direction = player.transform.position - transform.position;
-                // if(direction.y > 0)
-                // {
-                //     direction.y = 0;
-                // }
-                // moveDirection = direction.normalized;
-                // rb.linearVelocity = moveDirection * _moveSpeed;
                 if(rb.linearVelocityX >= 0)
                 {
                     transform.localScale = new Vector3(-1, 1, 1);
@@ -119,9 +127,10 @@ public abstract class EnemyController : Entity
     public override void TakeDamage(float damage) // 데미지 계산
     {
         if (isDefeated || damage <= 0f)
+        {
             return;
-
-        if(HP > 0)
+        }
+        if (HP > 0)
         {
             HP -= damage;
             // 1. 데미지 텍스트 생성
@@ -145,17 +154,27 @@ public abstract class EnemyController : Entity
         }
         Debug.Log("적 HP : " + HP);
 
-        StartCoroutine("HitAnimation");
+        if (hitFlashMaterial != null) 
+        {
+            if (hitFlashRoutine != null)
+                {
+                    StopCoroutine(hitFlashRoutine);
+                }
+
+            hitFlashRoutine = StartCoroutine(HitAnimation());
+        }
     }
 
     protected virtual void OnDefeated()
     {
+        capsuleCollider2D.isTrigger = true;
+        rb.simulated = false;
         if (_reward_EXP > 0f && playerProgression != null)
             playerProgression.AddExperience(_reward_EXP);
         if (_rewardYeopjeon > 0 && playerCurrency != null)
             playerCurrency.Add(_rewardYeopjeon);
+        StartCoroutine(DeadAnimation());
 
-        Destroy(gameObject);
     }
 
     private void OnDrawGizmosSelected()
@@ -167,15 +186,57 @@ public abstract class EnemyController : Entity
     
     private IEnumerator HitAnimation() 
     {
-        Color color = spriteRenderer.color;
+        spriteRenderer.sharedMaterial = hitFlashMaterial;
 
-        color.a = 0.2f;
-        spriteRenderer.color = color;
+        yield return new WaitForSeconds(hitFlashDuration);
 
+        spriteRenderer.sharedMaterial = originalMaterial;
+        hitFlashRoutine = null;
+    }
+
+    private IEnumerator DeadAnimation()
+    {
+        
+        animator.SetTrigger("isDead");
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
+
+    }
+
+    public void ApplyKnockback(float directionX)
+    {
+        if (isDefeated || rb == null)
+        return;
+
+        StartCoroutine(KnockBackTRoutine());
+
+        rb.linearVelocity = Vector2.zero;
+
+        Vector2 knockbackForce = new Vector2(
+            directionX * horizontalKnockbackPower,
+            verticalKnockbackPower
+        );
+
+        rb.AddForce(knockbackForce, ForceMode2D.Impulse);
+    }
+
+    private IEnumerator KnockBackTRoutine()
+    {
+        isKnockback = true;
         yield return new WaitForSeconds(0.2f);
+        isKnockback = false;
+    }
 
-        color.a = 1;
-        spriteRenderer.color = color;
+    private void OnDisable()
+    {
+        if (hitFlashRoutine != null)
+        {
+            StopCoroutine(hitFlashRoutine);
+            hitFlashRoutine = null;
+        }
+
+        if (spriteRenderer != null && originalMaterial != null)
+            spriteRenderer.sharedMaterial = originalMaterial;
     }
     protected virtual bool CanUseAbility()
     {

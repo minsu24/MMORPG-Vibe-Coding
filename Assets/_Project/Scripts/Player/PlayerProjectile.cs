@@ -5,6 +5,8 @@ namespace EasternFantasy.Player
     [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D), typeof(Rigidbody2D))]
     public sealed class PlayerProjectile : MonoBehaviour
     {
+        [SerializeField] private GameObject explosionPrefab;
+        [SerializeField, Min(0f)] private float explosionLifetime = 0.25f;
         private Vector2 direction;
         private Vector2 startPosition;
         private float speed;
@@ -13,6 +15,7 @@ namespace EasternFantasy.Player
         private Entity owner;
         private Rigidbody2D body;
         private bool launched;
+        
 
         private void Awake()
         {
@@ -68,10 +71,24 @@ namespace EasternFantasy.Player
 
             float healthBeforeHit = hitEntity.HP;
             hitEntity.TakeDamage(damage);
+            if (hitEntity is EnemyController enemy && enemy.HP > 0f)
+                enemy.ApplyKnockback(Mathf.Sign(direction.x));
             float dealtDamage = Mathf.Max(0f, healthBeforeHit - hitEntity.HP);
             if (owner is PlayerEntity playerOwner)
                 playerOwner.ApplyLifeSteal(dealtDamage);
             launched = false;
+
+            if (explosionPrefab != null)
+            {
+                GameObject explosion = Instantiate(
+                    explosionPrefab,
+                    transform.position,
+                    Quaternion.identity
+                );
+
+                Destroy(explosion, explosionLifetime);
+            }
+
             Destroy(gameObject);
         }
     }

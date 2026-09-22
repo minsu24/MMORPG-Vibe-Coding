@@ -3083,14 +3083,19 @@ MonoBehaviour:
   _maxHP: 100
   _attackPower: 5
   _moveSpeed: 3
-  _detectRange: 4
+  _detectRange: 6
   _reward_EXP: 100
   _rewardYeopjeon: 5
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashMaterial: {fileID: 2100000, guid: d9c05dfd99bd6004291d1d4a8dc904bb, type: 2}
+  hitFlashDuration: 0.08
+  horizontalKnockbackPower: 2
+  verticalKnockbackPower: 1
   damageTextPrefab: {fileID: 3890553193077931215, guid: ffe84f00c64695a48b630feb8433f6f6, type: 3}
   textSpawnPoint: {fileID: 234067421}
+  isKnockback: 0
   defeatedDialogue: {fileID: 11400000, guid: 008e2d9d5f1fb4241b62e7accabf2c0b, type: 2}
 --- !u!50 &188694901
 Rigidbody2D:
@@ -5040,8 +5045,8 @@ Transform:
   m_GameObject: {fileID: 297243605}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.26, y: 1.05, z: 0}
-  m_LocalScale: {x: 1.6510131, y: 1.6510131, z: 1.6510131}
+  m_LocalPosition: {x: 6.26, y: 1.0657, z: 0}
+  m_LocalScale: {x: 1.6510131, y: 1.6468856, z: 1.6510131}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -30333,7 +30338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2485368207948759539, guid: 57887a7653fe91b468a18c514e40c506, type: 3}
       propertyPath: baseAttackPower
-      value: 300
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2485368207948759539, guid: 57887a7653fe91b468a18c514e40c506, type: 3}
       propertyPath: verticalKnockbackPower

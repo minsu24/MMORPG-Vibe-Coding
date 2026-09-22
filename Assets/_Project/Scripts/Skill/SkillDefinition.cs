@@ -46,6 +46,8 @@ namespace EasternFantasy.Skill
         [SerializeField] private SkillActivationType activationType;
         [SerializeField, Min(1)] private int maximumLevel = 1;
         [SerializeField, Min(0f)] private float cooldownSeconds;
+        [SerializeField, Min(0f)] private float manaCost;
+
         [SerializeField] private Sprite icon;
         [SerializeField] private SkillEffectType effectType;
         [SerializeField, Min(0f)] private float effectPerLevel;
@@ -59,6 +61,8 @@ namespace EasternFantasy.Skill
         public SkillActivationType ActivationType => activationType;
         public int MaximumLevel => maximumLevel;
         public float CooldownSeconds => cooldownSeconds;
+        public float ManaCost => manaCost;
+
         public Sprite Icon => icon;
         public SkillEffectType EffectType => effectType;
         public float EffectPerLevel => effectPerLevel;
@@ -72,6 +76,7 @@ namespace EasternFantasy.Skill
             maximumLevel = Mathf.Max(1, maximumLevel);
             effectPerLevel = Mathf.Max(0f, effectPerLevel);
             cooldownSeconds = Mathf.Max(0f, cooldownSeconds);
+            manaCost = Mathf.Max(0f, manaCost);
         }
     }
 }

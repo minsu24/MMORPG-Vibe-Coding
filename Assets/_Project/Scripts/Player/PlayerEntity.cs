@@ -181,6 +181,16 @@ namespace EasternFantasy.Player
             return true;
         }
 
+        public bool TrySpendMana(float amount)
+        {
+            if (amount < 0f || MP < amount)
+                return false;
+
+            MP -= amount;
+            StatsChanged?.Invoke();
+            return true;
+        }
+
         public override void TakeDamage(float damage)
         {
             if (IsDead || isInvincible || damage <= 0f)

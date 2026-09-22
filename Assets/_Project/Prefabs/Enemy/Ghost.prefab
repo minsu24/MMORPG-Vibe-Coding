@@ -140,8 +140,13 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  hitFlashMaterial: {fileID: 2100000, guid: d9c05dfd99bd6004291d1d4a8dc904bb, type: 2}
+  hitFlashDuration: 0.08
+  horizontalKnockbackPower: 2
+  verticalKnockbackPower: 1
   damageTextPrefab: {fileID: 3890553193077931215, guid: ffe84f00c64695a48b630feb8433f6f6, type: 3}
   textSpawnPoint: {fileID: 5172696669081138323}
+  isKnockback: 0
   questDefinition: {fileID: 11400000, guid: 60c83731829d76749a21f2aef8916d29, type: 2}
 --- !u!50 &8684673219341745850
 Rigidbody2D:

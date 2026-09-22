@@ -192,3 +192,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2b6e7eae85a0f6408d4e80ae8fc38d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerProjectile
+  explosionPrefab: {fileID: 7338162945797066078, guid: 2110b81cda96f6b4fa553ea1b5b57ff8, type: 3}
+  explosionLifetime: 0.25
