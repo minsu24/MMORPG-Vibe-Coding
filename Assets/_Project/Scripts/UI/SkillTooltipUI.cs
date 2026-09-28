@@ -31,7 +31,13 @@ namespace EasternFantasy.UI
             string requirement = skillSystem.GetRequirementText(skill);
             string typeText = skill.ActivationType == SkillActivationType.Passive
                 ? "패시브"
-                : $"액티브 · 재사용 대기시간 {skill.CooldownSeconds:0.#}초";
+                : skill.CooldownSeconds > 0f
+                    ? $"액티브 · 재사용 대기시간 {skill.CooldownSeconds:0.#}초"
+                    : "액티브 · 재사용 대기시간 없음";
+            if (skill.ActivationType == SkillActivationType.Active
+                && skillSystem.GetComponent<EasternFantasy.Player.MonkEnergy>() != null)
+                typeText += skill.ResourceCost == SkillResourceCost.FullEnergy
+                    ? " · 기력 완충 시 사용" : " · 기력 소모 없음";
             descriptionText.text = typeText + "\n\n" + skill.ShortDescription;
             if (!string.IsNullOrWhiteSpace(skill.DetailedDescription))
                 descriptionText.text += "\n\n" + skill.DetailedDescription;

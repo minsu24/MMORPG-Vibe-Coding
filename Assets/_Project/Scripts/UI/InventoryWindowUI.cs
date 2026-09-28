@@ -19,12 +19,16 @@ namespace EasternFantasy.UI
         [SerializeField] private TMPro.TMP_Text currencyText;
 
         private PlayerCurrency currency;
+        private Vector2 defaultWindowPosition;
+        private bool slotsInitialized;
 
         private ItemCategory selectedCategory = ItemCategory.Equipment;
 
         public static InventoryWindowUI Instance { get; private set; }
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
         public ItemCategory SelectedCategory => selectedCategory;
+        public ItemTooltipUI Tooltip => tooltip;
+        public PlayerInventory Inventory => inventory;
 
         private void Awake()
         {
@@ -37,13 +41,14 @@ namespace EasternFantasy.UI
             Instance = this;
             DontDestroyOnLoad(gameObject);
             if (windowRoot != null)
+                defaultWindowPosition = ((RectTransform)windowRoot.transform).anchoredPosition;
+            if (windowRoot != null)
                 windowRoot.SetActive(false);
         }
 
         private void Start()
         {
-            if (inventory == null)
-                inventory = FindFirstObjectByType<PlayerInventory>();
+            BindCurrentInventory();
             currency = FindFirstObjectByType<PlayerCurrency>();
             if (inventory == null)
             {
@@ -55,10 +60,6 @@ namespace EasternFantasy.UI
             equipmentTab.onClick.AddListener(() => SelectCategory(ItemCategory.Equipment));
             consumableTab.onClick.AddListener(() => SelectCategory(ItemCategory.Consumable));
             miscellaneousTab.onClick.AddListener(() => SelectCategory(ItemCategory.Miscellaneous));
-            foreach (InventorySlotUI slot in slots)
-                slot.Initialize(inventory, tooltip);
-
-            inventory.InventoryChanged += Refresh;
             if (currency != null)
                 currency.CurrencyChanged += OnCurrencyChanged;
             Refresh();
@@ -66,7 +67,19 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
-            if (Keyboard.current?.iKey.wasPressedThisFrame != true)
+            if (IsOpen && (inventory == null || inventory.gameObject == null))
+                BindCurrentInventory();
+            Keyboard keyboard = Keyboard.current;
+            if (keyboard == null)
+                return;
+
+            if (IsOpen && keyboard.escapeKey.wasPressedThisFrame)
+            {
+                SetOpen(false);
+                return;
+            }
+
+            if (!keyboard.iKey.wasPressedThisFrame)
                 return;
 
             bool dialogueBlocksOpening = !IsOpen
@@ -83,6 +96,7 @@ namespace EasternFantasy.UI
 
             if (open)
             {
+                BindCurrentInventory();
                 PlayerStatsWindowUI.Instance?.SetOpen(false);
                 SkillWindowUI.Instance?.SetOpen(false);
                 Refresh();
@@ -90,9 +104,34 @@ namespace EasternFantasy.UI
             else
             {
                 tooltip?.Hide();
+                EquipmentWindowUI.Instance?.CloseFromInventory();
             }
 
             windowRoot.SetActive(open);
+        }
+
+        public void SetEquipmentLayout(bool equipmentOpen)
+        {
+            if (windowRoot != null)
+                ((RectTransform)windowRoot.transform).anchoredPosition = defaultWindowPosition
+                    + (equipmentOpen ? new Vector2(-470f, 0f) : Vector2.zero);
+        }
+
+        private void BindCurrentInventory()
+        {
+            PlayerInventory current = FindFirstObjectByType<PlayerInventory>();
+            if (current == inventory && current != null && slotsInitialized)
+                return;
+            if (inventory != null)
+                inventory.InventoryChanged -= Refresh;
+            inventory = current;
+            if (inventory == null)
+                return;
+            foreach (InventorySlotUI slot in slots)
+                slot.Initialize(inventory, tooltip);
+            slotsInitialized = true;
+            inventory.InventoryChanged += Refresh;
+            EquipmentWindowUI.Instance?.SetInventory(inventory);
         }
 
         public void SelectCategory(ItemCategory category)
@@ -108,7 +147,7 @@ namespace EasternFantasy.UI
                 return;
 
             if (currencyText != null)
-                currencyText.text = $"엽전  {(currency != null ? currency.Yeopjeon : 0)}";
+                currencyText.text = $"{(currency != null ? currency.Yeopjeon : 0)}";
 
             equipmentTab.interactable = selectedCategory != ItemCategory.Equipment;
             consumableTab.interactable = selectedCategory != ItemCategory.Consumable;

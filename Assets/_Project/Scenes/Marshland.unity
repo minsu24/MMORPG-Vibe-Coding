@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 81355418}
   - component: {fileID: 81355417}
   - component: {fileID: 81355416}
+  - component: {fileID: 81355419}
   m_Layer: 7
   m_Name: Frog
   m_TagString: Monster
@@ -254,6 +255,7 @@ MonoBehaviour:
   _attackPower: 12
   _moveSpeed: 2
   _detectRange: 12
+  patrolRange: 0
   _reward_EXP: 120
   _rewardYeopjeon: 30
   _playerLayer:
@@ -336,6 +338,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 6
+--- !u!114 &81355419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81355412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fafb4a9592654409b21c10f4575cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.EnemyLootDrop
+  pickupPrefab: {fileID: 1989097639827239875, guid: 554de1e741f28c1438da42f16684da6a, type: 3}
+  drops:
+  - item: {fileID: 11400000, guid: 88a440264c3f63443a1a5955641169a4, type: 2}
+    dropChance: 1
+    minimumQuantity: 1
+    maximumQuantity: 1
+  - item: {fileID: 11400000, guid: dcbf5479bd032a24a95f5a25fb6574fe, type: 2}
+    dropChance: 1
+    minimumQuantity: 1
+    maximumQuantity: 1
+  spawnHeight: 0.4
+  horizontalScatter: 0.7
 --- !u!1 &211856709
 GameObject:
   m_ObjectHideFlags: 0

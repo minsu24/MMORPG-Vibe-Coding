@@ -23,6 +23,13 @@ namespace EasternFantasy.Skill
         Active
     }
 
+    public enum SkillResourceCost
+    {
+        Mana,
+        None,
+        FullEnergy
+    }
+
     [Serializable]
     public sealed class SkillRequirement
     {
@@ -47,6 +54,7 @@ namespace EasternFantasy.Skill
         [SerializeField, Min(1)] private int maximumLevel = 1;
         [SerializeField, Min(0f)] private float cooldownSeconds;
         [SerializeField, Min(0f)] private float manaCost;
+        [SerializeField] private SkillResourceCost resourceCost;
 
         [SerializeField] private Sprite icon;
         [SerializeField] private SkillEffectType effectType;
@@ -62,6 +70,7 @@ namespace EasternFantasy.Skill
         public int MaximumLevel => maximumLevel;
         public float CooldownSeconds => cooldownSeconds;
         public float ManaCost => manaCost;
+        public SkillResourceCost ResourceCost => resourceCost;
 
         public Sprite Icon => icon;
         public SkillEffectType EffectType => effectType;

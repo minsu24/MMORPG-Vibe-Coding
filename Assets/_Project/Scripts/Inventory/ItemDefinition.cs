@@ -18,7 +18,10 @@ namespace EasternFantasy.Inventory
         Top,
         Bottom,
         Gloves,
-        Shoes
+        Shoes,
+        Ring,
+        Necklace,
+        Bracelet
     }
 
     public enum ConsumableEffect

@@ -4,6 +4,7 @@ using UnityEngine;
 public class MON_Ghost : EnemyController
 {
     [SerializeField] private QuestDefinition questDefinition;
+    public QuestDefinition Quest => questDefinition;
     protected override void MonsterAbility()
     {
         

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using EasternFantasy.CharacterSelection;
 using EasternFantasy.Player;
 using TMPro;
 using UnityEngine;
@@ -41,7 +42,6 @@ namespace EasternFantasy.Dialogue
         private int lineIndex;
         private bool isTyping;
         private bool playerInputWasEnabled;
-        private float previousTimeScale = 1f;
         private Action<bool> pendingQuestDecision;
         private string pendingQuestTitle;
         private bool isWaitingForQuestDecision;
@@ -122,11 +122,13 @@ namespace EasternFantasy.Dialogue
             lineIndex = 0;
             IsDialogueActive = true;
 
-            previousTimeScale = Time.timeScale;
-            Time.timeScale = 0f;
+            GameTimeController.SetPaused(this, true);
             DisablePlayerInput();
 
-            ApplyCharacter(playerPortrait, playerNameText, sequence.PlayerCharacter);
+            DialogueCharacter selectedPlayer =
+                PlayerClassRuntime.ActiveDefinition?.DialogueCharacter
+                ?? sequence.PlayerCharacter;
+            ApplyCharacter(playerPortrait, playerNameText, selectedPlayer);
             ApplyCharacter(partnerPortrait, partnerNameText, sequence.PartnerCharacter);
             if (portraitRoot != null)
                 portraitRoot.SetActive(true);
@@ -182,7 +184,7 @@ namespace EasternFantasy.Dialogue
                 portraitRoot.SetActive(false);
 
             RestorePlayerInput();
-            Time.timeScale = previousTimeScale;
+            GameTimeController.SetPaused(this, false);
             DialogueEnded?.Invoke();
         }
 
@@ -216,7 +218,13 @@ namespace EasternFantasy.Dialogue
             DialogueLine line = currentSequence.Lines[lineIndex];
             SetActiveSpeaker(line.Speaker);
             StopTyping();
-            typingRoutine = StartCoroutine(TypeLine(line.Text ?? string.Empty));
+
+            CharacterClassDefinition activeClass =
+                PlayerClassRuntime.ActiveDefinition;
+            string text = activeClass != null
+                ? line.GetText(activeClass.ClassId)
+                : line.Text;
+            typingRoutine = StartCoroutine(TypeLine(text ?? string.Empty));
         }
 
         private IEnumerator TypeLine(string text)

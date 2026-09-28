@@ -53,6 +53,7 @@ namespace EasternFantasy.Player
 
         public bool isInvincible, isKnockback = false;
         public event Action<float> Damaged;
+        public event Action<float> DamageReduced;
         public event Action Died;
         public event Action StatsChanged;
         private int playerLayer, EnemyLayer;
@@ -70,6 +71,13 @@ namespace EasternFantasy.Player
         public string ResourceName => statGrowth != null ? statGrowth.ResourceName : "MP";
         public bool IsDead => HP <= 0f;
         public float ActiveDamageReduction => activeDamageReduction;
+        public MonkEnergy Energy => GetComponent<MonkEnergy>();
+
+        public void ConfigureClass(PlayerStatGrowthTable growthTable)
+        {
+            if (growthTable != null)
+                statGrowth = growthTable;
+        }
 
         private void Awake()
         {
@@ -195,16 +203,50 @@ namespace EasternFantasy.Player
         {
             if (IsDead || isInvincible || damage <= 0f)
                 return;
+            MonkEnergy monkEnergy = Energy;
+            if (monkEnergy != null && monkEnergy.TryParry())
+                return;
 
-            float mitigatedDamage = damage
-                * (1f - Mathf.Clamp01(activeDamageReduction))
+            float defendedDamage = damage
                 * (100f / (100f + Mathf.Max(0f, Defense)));
+            float shieldReduction = Mathf.Clamp01(activeDamageReduction);
+            float mitigatedDamage = defendedDamage * (1f - shieldReduction);
             float appliedDamage = Mathf.Min(Mathf.Max(1f, mitigatedDamage), HP);
             HP -= appliedDamage;
+            if (shieldReduction > 0f)
+                DamageReduced?.Invoke(defendedDamage * shieldReduction);
             Damaged?.Invoke(appliedDamage);
 
             if (IsDead)
                 Died?.Invoke();
+        }
+
+        public void Revive()
+        {
+            HP = maxHP;
+            MP = maxMP;
+            if (Energy != null)
+                Energy.ResetEnergy();
+            isInvincible = false;
+            isKnockback = false;
+            activeDamageReduction = 0f;
+            if (damageReductionRoutine != null)
+            {
+                StopCoroutine(damageReductionRoutine);
+                damageReductionRoutine = null;
+            }
+            SetVisualAlpha(1f);
+            StatsChanged?.Invoke();
+        }
+
+        public void KillForTesting()
+        {
+            if (IsDead)
+                return;
+
+            HP = 0f;
+            StatsChanged?.Invoke();
+            Died?.Invoke();
         }
 
         public void ActivateDamageReduction(float reductionRate, float duration)
@@ -226,15 +268,21 @@ namespace EasternFantasy.Player
 
         void OnCollisionEnter2D(Collision2D collision)
         {
+            if (IsDead)
+                return;
             if (collision.collider.CompareTag("Monster"))
             {
                 EnemyController enemyController = collision.collider.GetComponent<EnemyController>();
                 if(enemyController != null)
                 {
                     Debug.Log("적이랑 충돌");
+                    float previousHealth = HP;
                     TakeDamage(enemyController.Attack_Power);
-                    float direction = transform.position.x > collision.transform.position.x ? 1f : -1f;
-                    ApplyKnockback(direction);
+                    if (!IsDead && HP < previousHealth)
+                    {
+                        float direction = transform.position.x > collision.transform.position.x ? 1f : -1f;
+                        ApplyKnockback(direction);
+                    }
                     Debug.Log(enemyController.Attack_Power);
                     //StartCoroutine(InvincibleCoroutine());    
                 }
@@ -255,8 +303,11 @@ namespace EasternFantasy.Player
             Physics2D.IgnoreLayerCollision(EnemyLayer, playerLayer, true);
             SetVisualAlpha(0.5f);
             yield return new WaitForSeconds(invincibleDuration);
-            Physics2D.IgnoreLayerCollision(EnemyLayer, playerLayer, false);
-            SetVisualAlpha(1.0f);
+            if (!IsDead)
+            {
+                Physics2D.IgnoreLayerCollision(EnemyLayer, playerLayer, false);
+                SetVisualAlpha(1.0f);
+            }
             isInvincible = false;
         }
         private void SetVisualAlpha(float alpha)

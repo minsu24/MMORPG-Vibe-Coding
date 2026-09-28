@@ -38,7 +38,9 @@ namespace EasternFantasy.Inventory
     [RequireComponent(typeof(PlayerEntity))]
     public sealed class PlayerInventory : MonoBehaviour
     {
+        public const int ConsumableSlotCount = 4;
         [SerializeField] private InventoryStack[] initialItems = Array.Empty<InventoryStack>();
+        [SerializeField] private ItemDefinition[] consumableSlots = new ItemDefinition[ConsumableSlotCount];
 
         private readonly List<InventoryStack> items = new List<InventoryStack>();
         private readonly Dictionary<EquipmentSlot, ItemDefinition> equippedItems =
@@ -56,6 +58,7 @@ namespace EasternFantasy.Inventory
                 return items;
             }
         }
+        public IReadOnlyList<ItemDefinition> ConsumableSlots => consumableSlots;
         public event Action InventoryChanged;
 
         public float EquippedAttackBonus
@@ -94,6 +97,13 @@ namespace EasternFantasy.Inventory
                 return;
 
             initialized = true;
+            if (consumableSlots == null || consumableSlots.Length != ConsumableSlotCount)
+            {
+                ItemDefinition[] previous = consumableSlots;
+                consumableSlots = new ItemDefinition[ConsumableSlotCount];
+                if (previous != null)
+                    Array.Copy(previous, consumableSlots, Mathf.Min(previous.Length, ConsumableSlotCount));
+            }
             if (playerEntity == null)
                 playerEntity = GetComponent<PlayerEntity>();
             items.Clear();
@@ -184,6 +194,37 @@ namespace EasternFantasy.Inventory
                 && equipped == item;
         }
 
+        public ItemDefinition GetEquipped(EquipmentSlot slot)
+        {
+            EnsureInitialized();
+            return equippedItems.TryGetValue(slot, out ItemDefinition equipped) ? equipped : null;
+        }
+
+        public bool TryEquip(ItemDefinition item)
+        {
+            EnsureInitialized();
+            if (item == null || item.Category != ItemCategory.Equipment
+                || item.EquipmentSlot == EquipmentSlot.None || GetQuantity(item) <= 0)
+                return false;
+
+            if (IsEquipped(item))
+                return true;
+
+            equippedItems[item.EquipmentSlot] = item;
+            InventoryChanged?.Invoke();
+            return true;
+        }
+
+        public bool TryUnequip(EquipmentSlot slot)
+        {
+            EnsureInitialized();
+            if (!equippedItems.Remove(slot))
+                return false;
+
+            InventoryChanged?.Invoke();
+            return true;
+        }
+
         public bool TryUseOrEquip(ItemDefinition item)
         {
             EnsureInitialized();
@@ -195,6 +236,38 @@ namespace EasternFantasy.Inventory
             if (item.Category == ItemCategory.Consumable)
                 return UseConsumable(item);
             return false;
+        }
+
+        public bool AssignConsumableSlot(int index, ItemDefinition item)
+        {
+            EnsureInitialized();
+            if (index < 0 || index >= ConsumableSlotCount || item == null
+                || item.Category != ItemCategory.Consumable || GetQuantity(item) <= 0)
+                return false;
+
+            for (int i = 0; i < consumableSlots.Length; i++)
+                if (consumableSlots[i] == item)
+                    consumableSlots[i] = null;
+            consumableSlots[index] = item;
+            InventoryChanged?.Invoke();
+            return true;
+        }
+
+        public void ClearConsumableSlot(int index)
+        {
+            EnsureInitialized();
+            if (index < 0 || index >= ConsumableSlotCount || consumableSlots[index] == null)
+                return;
+            consumableSlots[index] = null;
+            InventoryChanged?.Invoke();
+        }
+
+        public bool TryUseConsumableSlot(int index)
+        {
+            EnsureInitialized();
+            return index >= 0 && index < ConsumableSlotCount
+                && consumableSlots[index] != null
+                && TryUseOrEquip(consumableSlots[index]);
         }
 
         public int GetQuantity(ItemDefinition item)
@@ -210,12 +283,8 @@ namespace EasternFantasy.Inventory
                 return false;
 
             if (IsEquipped(item))
-                equippedItems.Remove(item.EquipmentSlot);
-            else
-                equippedItems[item.EquipmentSlot] = item;
-
-            InventoryChanged?.Invoke();
-            return true;
+                return TryUnequip(item.EquipmentSlot);
+            return TryEquip(item);
         }
 
         private bool UseConsumable(ItemDefinition item)

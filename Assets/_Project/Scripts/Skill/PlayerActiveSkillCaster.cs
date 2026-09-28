@@ -8,7 +8,7 @@ namespace EasternFantasy.Skill
     [RequireComponent(typeof(PlayerMovement2D))]
     [RequireComponent(typeof(PlayerProjectileShooter))]
     [RequireComponent(typeof(PlayerEntity))]
-    public sealed class PlayerActiveSkillCaster : MonoBehaviour
+    public sealed class PlayerActiveSkillCaster : MonoBehaviour, IPlayerSkillCaster
     {
         [Header("Skill Definitions")]
         [SerializeField] private SkillDefinition tripleTalismanSkill;
@@ -21,10 +21,13 @@ namespace EasternFantasy.Skill
 
         [Header("Teleport")]
         [SerializeField, Min(0f)] private float teleportDistance = 4f;
+        [SerializeField] private GameObject teleportEffectPrefab;
+        [SerializeField, Min(0f)] private float teleportEffectLifetime = 0.4f;
 
         [Header("Talisman Shield")]
         [SerializeField, Range(0f, 0.95f)] private float shieldDamageReduction = 0.3f;
         [SerializeField, Min(0f)] private float shieldDuration = 5f;
+        [SerializeField] private TalismanShieldEffect shieldEffect;
 
         private readonly Dictionary<SkillDefinition, float> cooldownEnds =
             new Dictionary<SkillDefinition, float>();
@@ -46,7 +49,7 @@ namespace EasternFantasy.Skill
             if (skill == null || skill.ActivationType != SkillActivationType.Active
                 || GetCooldownRemaining(skill) > 0f)
                 return false;
-            if (entity.IsDead || !entity.TrySpendMana(skill.ManaCost))
+            if (entity.IsDead || entity.MP < skill.ManaCost)
                 return false;
             bool cast;
             if (skill == tripleTalismanSkill)
@@ -58,14 +61,19 @@ namespace EasternFantasy.Skill
                 float direction = animationController != null
                     ? animationController.FacingDirectionX
                     : 1f;
+                Vector3 origin = transform.position;
+                SpawnTeleportEffect(origin);
                 movement.TeleportTo(
-                    transform.position + Vector3.right * direction * teleportDistance,
+                    origin + Vector3.right * direction * teleportDistance,
                     transform.rotation);
+                SpawnTeleportEffect(transform.position);
                 cast = true;
             }
             else if (skill == talismanShieldSkill)
             {
                 entity.ActivateDamageReduction(shieldDamageReduction, shieldDuration);
+                if (shieldEffect != null)
+                    shieldEffect.Show(shieldDuration);
                 cast = true;
             }
             else
@@ -75,11 +83,21 @@ namespace EasternFantasy.Skill
 
             if (cast)
             {
-                entity.TrySpendMana(skill.ManaCost);
+                if (!entity.TrySpendMana(skill.ManaCost))
+                    return false;
                 cooldownEnds[skill] = Time.time + skill.CooldownSeconds;
             }
 
             return cast;
+        }
+
+        private void SpawnTeleportEffect(Vector3 position)
+        {
+            if (teleportEffectPrefab == null)
+                return;
+
+            GameObject effect = Instantiate(teleportEffectPrefab, position, Quaternion.identity);
+            Destroy(effect, teleportEffectLifetime);
         }
 
         public float GetCooldownRemaining(SkillDefinition skill)

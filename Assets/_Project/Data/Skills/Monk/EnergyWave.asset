@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b4975242059f343afe3b917812425b, type: 3}
+  m_Name: EnergyWave
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.SkillDefinition
+  skillId: monk_energywave
+  displayName: "\uC7A5\uD48D"
+  shortDescription: "\uAE30\uB825\uC774 \uC644\uC804\uD788 \uCC3C\uC744 \uB54C \uC804\uBC29
+    \uBA3C \uAC70\uB9AC\uC758 \uC801\uC5D0\uAC8C \uAC15\uB825\uD55C \uD53C\uD574\uB97C
+    \uC90D\uB2C8\uB2E4."
+  detailedDescription: "\uAE30\uB825 \uC2A4\uD0AC \xB7 \uAE30\uB825 \uC644\uCDA9
+    \uC2DC \uC0AC\uC6A9 \xB7 \uD604\uC7AC \uAE30\uB825 \uC804\uB7C9 \uC18C\uBAA8"
+  tier: 1
+  activationType: 1
+  maximumLevel: 1
+  cooldownSeconds: 4
+  manaCost: 0
+  resourceCost: 2
+  icon: {fileID: 1123564237087817166, guid: ebe37f8cfe605a84c998198ab141fab7, type: 3}
+  effectType: 0
+  effectPerLevel: 0
+  requirements: []

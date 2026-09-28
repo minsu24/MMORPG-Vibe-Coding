@@ -12,6 +12,7 @@ namespace EasternFantasy.Player
         private float speed;
         private float maximumTravelDistance;
         private float damage;
+        private bool isCritical;
         private Entity owner;
         private Rigidbody2D body;
         private bool launched;
@@ -27,12 +28,14 @@ namespace EasternFantasy.Player
             float launchSpeed,
             float travelDistance,
             float attackDamage,
-            Entity attackOwner)
+            Entity attackOwner,
+            bool critical = false)
         {
             direction = launchDirection.normalized;
             speed = Mathf.Max(0f, launchSpeed);
             maximumTravelDistance = Mathf.Max(0f, travelDistance);
             damage = Mathf.Max(0f, attackDamage);
+            isCritical = critical;
             owner = attackOwner;
             startPosition = body.position;
             launched = true;
@@ -70,7 +73,10 @@ namespace EasternFantasy.Player
                 return;
 
             float healthBeforeHit = hitEntity.HP;
-            hitEntity.TakeDamage(damage);
+            if (hitEntity is EnemyController targetEnemy)
+                targetEnemy.TakeDamage(damage, isCritical);
+            else
+                hitEntity.TakeDamage(damage);
             if (hitEntity is EnemyController enemy && enemy.HP > 0f)
                 enemy.ApplyKnockback(Mathf.Sign(direction.x));
             float dealtDamage = Mathf.Max(0f, healthBeforeHit - hitEntity.HP);

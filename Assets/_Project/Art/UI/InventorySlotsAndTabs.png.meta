@@ -1,0 +1,448 @@
+fileFormatVersion: 2
+guid: c465e0d1bed649d4fa4f0b50fdbf893e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 459867619020897087
+    second: InventorySlotsAndTabs_0
+  - first:
+      213: -2258180419124948931
+    second: InventorySlotsAndTabs_1
+  - first:
+      213: -8620382546292423846
+    second: InventorySlotsAndTabs_2
+  - first:
+      213: -2722410172266459576
+    second: InventorySlotsAndTabs_3
+  - first:
+      213: 1826868256779170237
+    second: InventorySlotsAndTabs_4
+  - first:
+      213: 2722914029147526678
+    second: InventorySlotsAndTabs_5
+  - first:
+      213: -1369117005955479275
+    second: InventorySlotsAndTabs_6
+  - first:
+      213: -4047003204322625572
+    second: InventorySlotsAndTabs_7
+  - first:
+      213: -295194848421125627
+    second: InventorySlotsAndTabs_8
+  - first:
+      213: -3775184243430211089
+    second: InventorySlotsAndTabs_9
+  - first:
+      213: 5710244238983654320
+    second: InventorySlotsAndTabs_10
+  - first:
+      213: 7291923606053349796
+    second: InventorySlotsAndTabs_11
+  - first:
+      213: 2978134633860485014
+    second: InventorySlotsAndTabs_12
+  - first:
+      213: 3782243241135152332
+    second: InventorySlotsAndTabs_13
+  - first:
+      213: -7475182400526632015
+    second: InventorySlotsAndTabs_14
+  - first:
+      213: 8625264910532559296
+    second: InventorySlotsAndTabs_15
+  - first:
+      213: -3779157720343744993
+    second: InventorySlotsAndTabs_16
+  - first:
+      213: 2478684149208823147
+    second: InventorySlotsAndTabs_17
+  - first:
+      213: 7782299963076087987
+    second: InventorySlotsAndTabs_18
+  - first:
+      213: -4591544543643904956
+    second: InventorySlotsAndTabs_19
+  - first:
+      213: -4202976248598421144
+    second: InventorySlotsAndTabs_20
+  - first:
+      213: 7509223599424075101
+    second: InventorySlot_Normal
+  - first:
+      213: 952619300088506535
+    second: InventorySlot_Hover
+  - first:
+      213: 8821413904343291600
+    second: InventorySlot_Selected
+  - first:
+      213: 1853343808981424487
+    second: InventorySlot_Locked
+  - first:
+      213: -2293761464339918592
+    second: InventorySlot_Disabled
+  - first:
+      213: 5693559801014675356
+    second: InventoryTab_Normal
+  - first:
+      213: 1675085807766502529
+    second: InventoryTab_Pressed
+  - first:
+      213: -4087978048215181987
+    second: InventoryTab_Hover
+  - first:
+      213: 4612559019239992973
+    second: InventoryTab_Disabled
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: InventorySlot_Normal
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 716
+        width: 250
+        height: 248
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 24, y: 24, z: 24, w: 24}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d55f6aef31f163860800000000000000
+      internalID: 7509223599424075101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InventorySlot_Hover
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 710
+        width: 252
+        height: 253
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 24, y: 24, z: 24, w: 24}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a8e4fbc432683d00800000000000000
+      internalID: 952619300088506535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InventorySlot_Selected
+      rect:
+        serializedVersion: 2
+        x: 581
+        y: 686
+        width: 290
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 24, y: 24, z: 24, w: 24}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d6d2194535fb6a70800000000000000
+      internalID: 8821413904343291600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InventorySlot_Locked
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 713
+        width: 248
+        height: 252
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 24, y: 24, z: 24, w: 24}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 769d105ff5668b910800000000000000
+      internalID: 1853343808981424487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InventorySlot_Disabled
+      rect:
+        serializedVersion: 2
+        x: 1151
+        y: 713
+        width: 248
+        height: 252
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 24, y: 24, z: 24, w: 24}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0011a8ed91cea20e0800000000000000
+      internalID: -2293761464339918592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InventoryTab_Normal
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 516
+        width: 642
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 24, y: 24, z: 24, w: 24}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c976ce62976930f40800000000000000
+      internalID: 5693559801014675356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InventoryTab_Pressed
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 516
+        width: 642
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 24, y: 24, z: 24, w: 24}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18c783ccaa91f3710800000000000000
+      internalID: 1675085807766502529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InventoryTab_Hover
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 354
+        width: 642
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 24, y: 24, z: 24, w: 24}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d551a8acf959447c0800000000000000
+      internalID: -4087978048215181987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InventoryTab_Disabled
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 354
+        width: 642
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 24, y: 24, z: 24, w: 24}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8ee2575df9130040800000000000000
+      internalID: 4612559019239992973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      InventorySlot_Disabled: -2293761464339918592
+      InventorySlot_Hover: 952619300088506535
+      InventorySlot_Locked: 1853343808981424487
+      InventorySlot_Normal: 7509223599424075101
+      InventorySlot_Selected: 8821413904343291600
+      InventorySlotsAndTabs_0: 459867619020897087
+      InventorySlotsAndTabs_1: -2258180419124948931
+      InventorySlotsAndTabs_10: 5710244238983654320
+      InventorySlotsAndTabs_11: 7291923606053349796
+      InventorySlotsAndTabs_12: 2978134633860485014
+      InventorySlotsAndTabs_13: 3782243241135152332
+      InventorySlotsAndTabs_14: -7475182400526632015
+      InventorySlotsAndTabs_15: 8625264910532559296
+      InventorySlotsAndTabs_16: -3779157720343744993
+      InventorySlotsAndTabs_17: 2478684149208823147
+      InventorySlotsAndTabs_18: 7782299963076087987
+      InventorySlotsAndTabs_19: -4591544543643904956
+      InventorySlotsAndTabs_2: -8620382546292423846
+      InventorySlotsAndTabs_20: -4202976248598421144
+      InventorySlotsAndTabs_3: -2722410172266459576
+      InventorySlotsAndTabs_4: 1826868256779170237
+      InventorySlotsAndTabs_5: 2722914029147526678
+      InventorySlotsAndTabs_6: -1369117005955479275
+      InventorySlotsAndTabs_7: -4047003204322625572
+      InventorySlotsAndTabs_8: -295194848421125627
+      InventorySlotsAndTabs_9: -3775184243430211089
+      InventoryTab_Disabled: 4612559019239992973
+      InventoryTab_Hover: -4087978048215181987
+      InventoryTab_Normal: 5693559801014675356
+      InventoryTab_Pressed: 1675085807766502529
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

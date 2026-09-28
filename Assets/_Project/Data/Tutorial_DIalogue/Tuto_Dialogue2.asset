@@ -16,10 +16,21 @@ MonoBehaviour:
   partnerCharacter: {fileID: 0}
   lines:
   - speaker: 0
-    text: "\uD5C8, \uB3C4\uAE68\uBE44\uB77C..."
+    text: "\uD5C8, \uB3C4\uAE68\uBE44\uB77C... \n\uB9C8\uC744 \uAC00\uAE4C\uC774\uC5D0
+      \uC788\uB2E4\uB2C8 \uB4DC\uBB38 \uC77C\uC774\uAD6C\uB098"
+    classOverrides:
+    - characterClass: 1
+      text: "\uB3C4\uAE68\uBE44\uC778\uAC00? \uB9C8\uC744 \uAC00\uAE4C\uC774\uC120
+        \uCC98\uC74C \uBCF4\uB294\uAD70"
   - speaker: 0
-    text: "\uB9C8\uC744 \uAC00\uAE4C\uC774\uC5D0 \uC788\uB2E4\uB2C8 \uB4DC\uBB38
-      \uC77C\uC774\uAD6C\uB098"
-  - speaker: 0
-    text: "\uC5B4\uB514 \uBCF4\uC790. \uC544\uC9C1\uB3C4 \uB3C4\uC220\uC744 \uC0AC\uC6A9\uD560
+    text: "\uC5B4\uB514 \uBCF4\uC790. \n\uC544\uC9C1\uB3C4 \uB3C4\uC220\uC744 \uC0AC\uC6A9\uD560
       \uC218 \uC788\uC73C\uB824\uB098?"
+    classOverrides:
+    - characterClass: 1
+      text: "\uC9C0\uAE08\uAE4C\uC9C0\uC758 \uC218\uD589\uC758 \uACB0\uACFC\uB97C
+        \uBCFC \uC218 \uC788\uACA0\uC5B4."
+  - speaker: 0
+    text: "Ctrl\uD0A4\uB85C \uAE30\uBCF8 \uACF5\uACA9\uC744 \uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    classOverrides:
+    - characterClass: 1
+      text: "Ctrl\uD0A4\uB85C \uAE30\uBCF8 \uACF5\uACA9\uC744 \uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."

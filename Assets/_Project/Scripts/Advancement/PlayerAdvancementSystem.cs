@@ -35,6 +35,11 @@ namespace EasternFantasy.Advancement
 
         public event Action Advanced;
 
+        public void ConfigureClass(AdvancementDefinition advancement)
+        {
+            automaticAdvancement = advancement;
+        }
+
         private void Start()
         {
             progression = GetComponent<PlayerProgression>();

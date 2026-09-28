@@ -1,8 +1,10 @@
 using EasternFantasy.Dialogue;
 using EasternFantasy.Player;
+using EasternFantasy.CharacterSelection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace EasternFantasy.UI
 {
@@ -39,31 +41,49 @@ namespace EasternFantasy.UI
             DontDestroyOnLoad(gameObject);
             if (windowRoot != null)
                 windowRoot.SetActive(false);
+            if (Profile != null)
                 Profile.SetActive(false);
         }
 
         private void Start()
         {
-            if (playerEntity == null)
-                playerEntity = FindFirstObjectByType<PlayerEntity>();
-            if (playerProgression == null)
-                playerProgression = FindFirstObjectByType<PlayerProgression>();
-
-            if (playerEntity == null || playerProgression == null)
-            {
-                Debug.LogError("PlayerStatsWindowUI needs PlayerEntity and PlayerProgression.", this);
-                enabled = false;
-                return;
-            }
-
-            playerEntity.StatsChanged += Refresh;
-            playerProgression.LevelChanged += OnLevelChanged;
+            BindCurrentPlayer();
             Refresh();
+        }
+
+        private void BindCurrentPlayer()
+        {
+            PlayerEntity current = FindFirstObjectByType<PlayerEntity>();
+            if (current == playerEntity && playerProgression != null)
+                return;
+
+            if (playerEntity != null)
+                playerEntity.StatsChanged -= Refresh;
+            if (playerProgression != null)
+                playerProgression.LevelChanged -= OnLevelChanged;
+
+            playerEntity = current;
+            playerProgression = current != null
+                ? current.GetComponent<PlayerProgression>() : null;
+            if (playerEntity != null)
+                playerEntity.StatsChanged += Refresh;
+            if (playerProgression != null)
+                playerProgression.LevelChanged += OnLevelChanged;
         }
 
         private void Update()
         {
-            if (Keyboard.current?.cKey.wasPressedThisFrame == true)
+            Keyboard keyboard = Keyboard.current;
+            if (keyboard == null)
+                return;
+
+            if (IsOpen && keyboard.escapeKey.wasPressedThisFrame)
+            {
+                SetOpen(false);
+                return;
+            }
+
+            if (keyboard.cKey.wasPressedThisFrame)
             {
                 bool dialogueBlocksOpening = !IsOpen
                     && DialogueManager.Instance != null
@@ -90,7 +110,8 @@ namespace EasternFantasy.UI
             if (open)
                 Refresh();
             windowRoot.SetActive(open);
-            Profile.SetActive(open);
+            if (Profile != null)
+                Profile.SetActive(open);
         }
 
         private void OnLevelChanged(int newLevel)
@@ -100,13 +121,27 @@ namespace EasternFantasy.UI
 
         public void Refresh()
         {
+            BindCurrentPlayer();
             if (playerEntity == null || playerProgression == null)
                 return;
 
             if (classAndLevelText != null)
             {
-                classAndLevelText.text =
-                    $"{playerEntity.ClassName}    LEVEL  {playerProgression.CurrentLevel}";
+                CharacterClassDefinition definition = PlayerClassRuntime.ActiveDefinition;
+                string className = definition != null ? definition.DisplayName : playerEntity.ClassName;
+                classAndLevelText.text = $"{className}    LEVEL  {playerProgression.CurrentLevel}";
+                if (Profile != null && definition != null)
+                {
+                    Image portrait = Profile.GetComponent<Image>();
+                    Sprite portraitSprite = definition.DialogueCharacter != null
+                        && definition.DialogueCharacter.Portrait != null
+                        ? definition.DialogueCharacter.Portrait : definition.Portrait;
+                    if (portrait != null && portraitSprite != null)
+                    {
+                        portrait.sprite = portraitSprite;
+                        portrait.preserveAspect = true;
+                    }
+                }
             }
 
             if (HPstatsText == null || MPstatsText == null || AttackstatsText == null || DefensestatsText == null || 
@@ -115,7 +150,10 @@ namespace EasternFantasy.UI
                 return;
 
             HPstatsText.text = $"체력 {playerEntity.HP:F0} / {playerEntity.maxHP:F0}\n\n";
-            MPstatsText.text = $"마나 {playerEntity.MP:F0} / {playerEntity.maxMP:F0}\n\n";
+            MonkEnergy monkEnergy = playerEntity.Energy;
+            MPstatsText.text = monkEnergy != null
+                ? $"기력 {monkEnergy.Current:F0} / {monkEnergy.Maximum:F0}\n\n"
+                : $"{playerEntity.ResourceName} {playerEntity.MP:F0} / {playerEntity.maxMP:F0}\n\n";
             AttackstatsText.text = $"공격력 {playerEntity.Attack_Power:F0}\n\n";
             DefensestatsText.text = $"방어력 {playerEntity.Defense:F0}\n\n";
             LifeStealstatsText.text = $"흡혈 {playerEntity.LifeStealRate * 100f:F1}%\n\n";

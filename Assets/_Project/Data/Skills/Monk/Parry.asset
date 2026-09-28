@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b4975242059f343afe3b917812425b, type: 3}
+  m_Name: Parry
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.SkillDefinition
+  skillId: monk_parry
+  displayName: "\uD328\uB9C1"
+  shortDescription: "\uC9E7\uC740 \uC2DC\uAC04 \uB3D9\uC548 \uACF5\uACA9\uC744 \uBC1B\uC544\uCE69\uB2C8\uB2E4.
+    \uC131\uACF5\uD558\uBA74 \uAE30\uB825\uC744 50 \uC5BB\uC2B5\uB2C8\uB2E4."
+  detailedDescription: "\uC77C\uBC18 \uC2A4\uD0AC \xB7 \uAE30\uB825 \uC18C\uBAA8
+    \uC5C6\uC74C \xB7 \uD328\uB9C1 \uD310\uC815 0.35\uCD08"
+  tier: 1
+  activationType: 1
+  maximumLevel: 1
+  cooldownSeconds: 12
+  manaCost: 0
+  resourceCost: 1
+  icon: {fileID: 1749490924301287536, guid: b10ecd7b469b3934f867b2ff316632e9, type: 3}
+  effectType: 0
+  effectPerLevel: 0
+  requirements: []

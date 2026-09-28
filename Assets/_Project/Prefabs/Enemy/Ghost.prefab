@@ -134,7 +134,10 @@ MonoBehaviour:
   _maxHP: 90
   _attackPower: 5
   _moveSpeed: 4
+  detectionShape: 0
   _detectRange: 10
+  detectionHalfHeight: 1.5
+  patrolRange: 3
   _reward_EXP: 100
   _rewardYeopjeon: 40
   _playerLayer:

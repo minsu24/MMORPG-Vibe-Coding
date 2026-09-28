@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1556faa70b3ce43862d54865c7f42e, type: 3}
+  m_Name: MonkFirstAdvancementDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dialogue.DialogueSequence
+  playerCharacter: {fileID: 11400000, guid: 3c315d075ef57fde24b215698e734dd4, type: 2}
+  partnerCharacter: {fileID: 0}
+  lines:
+  - speaker: 0
+    text: "\uC228\uC744 \uACE0\uB974\uACE0 \uAE30\uC758 \uD750\uB984\uC5D0 \uC9D1\uC911\uD55C\uB2E4."
+    classOverrides: []
+  - speaker: 0
+    text: "\uBAB8 \uC548\uC5D0 \uBAA8\uC778 \uAE30\uB825\uC774 \uB354\uC6B1 \uC120\uBA85\uD558\uAC8C
+      \uB290\uAEF4\uC9C4\uB2E4."
+    classOverrides: []
+  - speaker: 0
+    text: "\uC774\uC81C \uC0C8\uB85C\uC6B4 \uAD8C\uBC95\uC744 \uD3BC\uCE60 \uC218
+      \uC788\uB2E4."
+    classOverrides: []

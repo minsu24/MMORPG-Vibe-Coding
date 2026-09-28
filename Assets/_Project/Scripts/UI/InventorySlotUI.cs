@@ -13,7 +13,8 @@ namespace EasternFantasy.UI
         IBeginDragHandler,
         IDragHandler,
         IEndDragHandler,
-        IDropHandler
+        IDropHandler,
+        IPointerClickHandler
     {
         [SerializeField] private Button button;
         [SerializeField] private Image iconImage;
@@ -28,6 +29,8 @@ namespace EasternFantasy.UI
         private CanvasGroup canvasGroup;
         private GameObject dragVisual;
 
+        public ItemDefinition Definition => item;
+
         public void Initialize(PlayerInventory playerInventory, ItemTooltipUI itemTooltip)
         {
             inventory = playerInventory;
@@ -36,7 +39,6 @@ namespace EasternFantasy.UI
             if (canvasGroup == null)
                 canvasGroup = gameObject.AddComponent<CanvasGroup>();
             button.onClick.RemoveListener(UseOrEquip);
-            button.onClick.AddListener(UseOrEquip);
             Clear();
         }
 
@@ -53,7 +55,9 @@ namespace EasternFantasy.UI
                 ? quantity.ToString()
                 : string.Empty;
             equippedText.gameObject.SetActive(hasItem && inventory.IsEquipped(item));
-            button.interactable = hasItem;
+            // Empty slots remain interactive so their hover visual is shown and
+            // they continue to feel like valid inventory drop targets.
+            button.interactable = true;
         }
 
         public void Clear(int index = 0)
@@ -65,13 +69,22 @@ namespace EasternFantasy.UI
             placeholderText.gameObject.SetActive(false);
             quantityText.text = string.Empty;
             equippedText.gameObject.SetActive(false);
-            button.interactable = false;
+            button.interactable = true;
         }
 
         private void UseOrEquip()
         {
             if (item != null && inventory.TryUseOrEquip(item))
                 tooltip?.Show(item, inventory);
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button != PointerEventData.InputButton.Left || item == null)
+                return;
+            if (item.Category == ItemCategory.Equipment && eventData.clickCount < 2)
+                return;
+            UseOrEquip();
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -101,6 +114,9 @@ namespace EasternFantasy.UI
             image.sprite = item.Icon;
             image.color = item.Icon != null ? Color.white : new Color(0.8f, 0.7f, 0.4f, 0.9f);
             image.raycastTarget = false;
+            Canvas dragCanvas = dragVisual.AddComponent<Canvas>();
+            dragCanvas.overrideSorting = true;
+            dragCanvas.sortingOrder = 500;
             dragVisual.transform.position = eventData.position;
         }
 
@@ -119,6 +135,14 @@ namespace EasternFantasy.UI
 
         public void OnDrop(PointerEventData eventData)
         {
+            EquipmentSlotUI equippedSource = eventData.pointerDrag != null
+                ? eventData.pointerDrag.GetComponent<EquipmentSlotUI>() : null;
+            if (equippedSource != null)
+            {
+                inventory.TryUnequip(equippedSource.Slot);
+                return;
+            }
+
             InventorySlotUI source = eventData.pointerDrag != null
                 ? eventData.pointerDrag.GetComponent<InventorySlotUI>()
                 : null;

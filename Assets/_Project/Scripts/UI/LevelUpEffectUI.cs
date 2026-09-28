@@ -1,7 +1,9 @@
 using System.Collections;
+using EasternFantasy.CharacterSelection;
 using EasternFantasy.Dialogue;
 using EasternFantasy.Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace EasternFantasy.UI
@@ -39,6 +41,7 @@ namespace EasternFantasy.UI
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += HandleSceneLoaded;
 
             if (effectImage != null)
                 effectRect = effectImage.rectTransform;
@@ -48,17 +51,36 @@ namespace EasternFantasy.UI
 
         private void Start()
         {
-            if (playerProgression == null)
-                playerProgression = FindFirstObjectByType<PlayerProgression>();
+            BindCurrentProgression();
+        }
 
-            if (playerProgression == null)
+        private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            BindCurrentProgression();
+        }
+
+        private void BindCurrentProgression()
+        {
+            PlayerProgression current = FindCurrentProgression();
+            if (playerProgression != null)
+                playerProgression.LevelChanged -= QueueLevelUpEffect;
+            playerProgression = current;
+            if (playerProgression != null)
+                playerProgression.LevelChanged += QueueLevelUpEffect;
+        }
+
+        private static PlayerProgression FindCurrentProgression()
+        {
+            foreach (PlayerProgression candidate in
+                FindObjectsByType<PlayerProgression>(FindObjectsSortMode.None))
             {
-                Debug.LogError("LevelUpEffectUI needs a PlayerProgression in the scene.", this);
-                enabled = false;
-                return;
+                PlayerClassRuntime playerClass = candidate.GetComponent<PlayerClassRuntime>();
+                if (playerClass != null
+                    && playerClass.RepresentedClass == CharacterSelectionState.SelectedClass)
+                    return candidate;
             }
 
-            playerProgression.LevelChanged += QueueLevelUpEffect;
+            return FindFirstObjectByType<PlayerProgression>();
         }
 
         private void QueueLevelUpEffect(int newLevel)
@@ -148,6 +170,7 @@ namespace EasternFantasy.UI
 
         private void OnDestroy()
         {
+            SceneManager.sceneLoaded -= HandleSceneLoaded;
             if (playerProgression != null)
                 playerProgression.LevelChanged -= QueueLevelUpEffect;
 

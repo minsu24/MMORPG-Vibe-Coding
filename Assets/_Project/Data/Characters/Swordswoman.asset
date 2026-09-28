@@ -21,6 +21,11 @@ MonoBehaviour:
     \uD544\uC694\uD55C \uADFC\uC811 \uB51C\uB7EC\uC785\uB2C8\uB2E4."
   portrait: {fileID: 21300000, guid: 95d460ee8a39379469e9682634f00679, type: 3}
   playable: 0
+  playerPrefab: {fileID: 0}
+  dialogueCharacter: {fileID: 11400000, guid: 4d426e186f0680ef35c3267a9f845ee5, type: 2}
+  statGrowth: {fileID: 11400000, guid: 6f64803a8128a20157e5489cb1a67007, type: 2}
+  availableSkills: []
+  automaticAdvancement: {fileID: 0}
   attack: 5
   defense: 3
   mobility: 5

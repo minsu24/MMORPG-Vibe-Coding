@@ -99,7 +99,8 @@ namespace EasternFantasy.Editor
 
             QuickSlotBarUI quickSlotBar = Object.FindFirstObjectByType<QuickSlotBarUI>();
             if (quickSlotBar == null)
-                quickSlotBar = CreateQuickSlotBar(sceneSystem, sceneCaster);
+                quickSlotBar = CreateQuickSlotBar(sceneSystem);
+            QuickBarLayoutUpgrade.Upgrade(quickSlotBar.gameObject);
 
             EventSystem eventSystem = Object.FindFirstObjectByType<EventSystem>();
             if (eventSystem != null && eventSystem.GetComponent<PersistentEventSystem>() == null)
@@ -321,9 +322,7 @@ namespace EasternFantasy.Editor
             return slot;
         }
 
-        private static QuickSlotBarUI CreateQuickSlotBar(
-            PlayerSkillSystem system,
-            PlayerActiveSkillCaster caster)
+        private static QuickSlotBarUI CreateQuickSlotBar(PlayerSkillSystem system)
         {
             TMP_FontAsset font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
             GameObject root = new GameObject(
@@ -410,8 +409,8 @@ namespace EasternFantasy.Editor
                 slotList.GetArrayElementAtIndex(i).objectReferenceValue = slots[i];
             controllerData.FindProperty("currencyText").objectReferenceValue = currency;
             controllerData.FindProperty("skillSystem").objectReferenceValue = system;
-            controllerData.FindProperty("caster").objectReferenceValue = caster;
             controllerData.FindProperty("currency").objectReferenceValue = system.GetComponent<PlayerCurrency>();
+            controllerData.FindProperty("inventory").objectReferenceValue = system.GetComponent<PlayerInventory>();
             controllerData.ApplyModifiedPropertiesWithoutUndo();
             return controller;
         }

@@ -4,8 +4,12 @@ using EasternFantasy.Quest;
 
 namespace EasternFantasy.Player
 {
+    public interface IPlayerBasicAttack
+    {
+        bool TryAttack();
+    }
+
     [RequireComponent(typeof(PlayerMovement2D))]
-    [RequireComponent(typeof(PlayerProjectileShooter))]
     [RequireComponent(typeof(PlayerQuestInteraction))]
     public sealed class PlayerInputReader : MonoBehaviour
     {
@@ -17,12 +21,14 @@ namespace EasternFantasy.Player
         private InputAction attack;
         private InputAction interact;
         private PlayerMovement2D movement;
-        private PlayerProjectileShooter projectileShooter;
+        private PlayerEntity entity;
+        private IPlayerBasicAttack basicAttack;
         private PlayerQuestInteraction questInteraction;
 
         private void Awake()
         {
             movement = GetComponent<PlayerMovement2D>();
+            entity = GetComponent<PlayerEntity>();
             if (inputActions == null)
             {
                 Debug.LogError("PlayerInputReader requires an InputActionAsset.", this);
@@ -35,7 +41,18 @@ namespace EasternFantasy.Player
             jump = runtimeActions.FindAction("Player/Jump", true);
             attack = runtimeActions.FindAction("Player/Attack", true);
             interact = runtimeActions.FindAction("Player/Interact", true);
-            projectileShooter = GetComponent<PlayerProjectileShooter>();
+            foreach (MonoBehaviour component in GetComponents<MonoBehaviour>())
+            {
+                if (component is IPlayerBasicAttack attackHandler
+                    && component.enabled)
+                {
+                    basicAttack = attackHandler;
+                    break;
+                }
+            }
+
+            if (basicAttack == null)
+                Debug.LogWarning("Player prefab has no enabled basic attack handler.", this);
             questInteraction = GetComponent<PlayerQuestInteraction>();
         }
 
@@ -50,10 +67,15 @@ namespace EasternFantasy.Player
 
         private void Update()
         {
+            if (entity != null && entity.IsDead)
+            {
+                movement.ClearInput();
+                return;
+            }
             movement.SetMoveInput(move.ReadValue<Vector2>().x);
             if (jump.WasPressedThisFrame()) movement.RequestJump();
-            if (attack.WasPressedThisFrame() && projectileShooter != null)
-                projectileShooter.TryFire();
+            if (attack.WasPressedThisFrame() && basicAttack != null)
+                basicAttack.TryAttack();
             if (interact.WasPressedThisFrame() && questInteraction != null)
                 questInteraction.TryInteract();
         }

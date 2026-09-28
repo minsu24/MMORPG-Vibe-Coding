@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f0e2ad42bc24cab91ef82365b401aa1, type: 3}
+  m_Name: CharacterClassCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.CharacterSelection.CharacterClassCatalog
+  classes:
+  - {fileID: 11400000, guid: 3db5586fc3e39ed48890b40252b0078e, type: 2}
+  - {fileID: 11400000, guid: 76489f1e0125b3e4aadeeb639af3a0c7, type: 2}
+  - {fileID: 11400000, guid: ffe1ef50947e4bd4889e503b4d223edd, type: 2}

@@ -18,8 +18,8 @@ namespace EasternFantasy.CharacterSelection
         [SerializeField] private TMP_Text roleText;
         [SerializeField] private TMP_Text availabilityText;
 
-        private static readonly Color NormalColor = new Color(0.045f, 0.055f, 0.065f, 0.94f);
-        private static readonly Color HoverColor = new Color(0.16f, 0.11f, 0.055f, 0.98f);
+        private static readonly Color NormalColor = new Color(1f, 1f, 1f, 1f);
+        private static readonly Color HoverColor = new Color(1f, 1f, 0.45f, 1f);
 
         private CharacterSelectionController controller;
         private Vector3 normalScale;
@@ -38,10 +38,10 @@ namespace EasternFantasy.CharacterSelection
             portraitImage.enabled = definition.Portrait != null;
             classNameText.text = definition.DisplayName;
             roleText.text = definition.CombatRole;
-            availabilityText.text = definition.Playable ? "선택" : "준비 중";
+            availabilityText.text = definition.Playable ? "선택 가능" : "준비 중";
             availabilityText.color = definition.Playable
-                ? new Color(0.95f, 0.76f, 0.32f, 1f)
-                : new Color(0.68f, 0.68f, 0.68f, 1f);
+                ? new Color(0f, 0f, 0f, 1f)
+                : new Color(0f, 0f, 0f, 1f);
             cardBackground.color = NormalColor;
         }
 

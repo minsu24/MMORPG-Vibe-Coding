@@ -6,13 +6,20 @@ using UnityEngine;
 
 namespace EasternFantasy.Skill
 {
+    public interface IPlayerSkillCaster
+    {
+        bool TryCast(SkillDefinition skill);
+        float GetCooldownRemaining(SkillDefinition skill);
+    }
+
     [DisallowMultipleComponent]
     [RequireComponent(typeof(PlayerProgression))]
     public sealed class PlayerSkillSystem : MonoBehaviour
     {
         [SerializeField, Min(0)] private int skillPoints;
         [SerializeField] private SkillDefinition[] availableSkills = Array.Empty<SkillDefinition>();
-        [SerializeField] private SkillDefinition[] quickSlots = new SkillDefinition[3];
+        public const int QuickSlotCount = 8;
+        [SerializeField] private SkillDefinition[] quickSlots = new SkillDefinition[QuickSlotCount];
 
         private readonly Dictionary<SkillDefinition, int> skillLevels =
             new Dictionary<SkillDefinition, int>();
@@ -25,6 +32,14 @@ namespace EasternFantasy.Skill
         public event Action SkillsChanged;
         public event Action QuickSlotsChanged;
 
+        public void ConfigureClass(SkillDefinition[] skills)
+        {
+            availableSkills = skills ?? Array.Empty<SkillDefinition>();
+            skillLevels.Clear();
+            quickSlots = new SkillDefinition[QuickSlotCount];
+            EnsureSkillState();
+        }
+
         private void Awake()
         {
             EnsureSkillState();
@@ -32,8 +47,13 @@ namespace EasternFantasy.Skill
 
         private void EnsureSkillState()
         {
-            if (quickSlots == null || quickSlots.Length != 3)
-                quickSlots = new SkillDefinition[3];
+            if (quickSlots == null || quickSlots.Length != QuickSlotCount)
+            {
+                SkillDefinition[] previous = quickSlots;
+                quickSlots = new SkillDefinition[QuickSlotCount];
+                if (previous != null)
+                    Array.Copy(previous, quickSlots, Mathf.Min(previous.Length, QuickSlotCount));
+            }
             if (availableSkills == null)
                 availableSkills = Array.Empty<SkillDefinition>();
             foreach (SkillDefinition skill in availableSkills)
@@ -136,8 +156,18 @@ namespace EasternFantasy.Skill
         {
             if (index < 0 || index >= quickSlots.Length || !CanPlaceInQuickSlot(quickSlots[index]))
                 return false;
-            PlayerActiveSkillCaster caster = GetComponent<PlayerActiveSkillCaster>();
+            IPlayerSkillCaster caster = ResolveSkillCaster();
             return caster != null && caster.TryCast(quickSlots[index]);
+        }
+
+        public IPlayerSkillCaster ResolveSkillCaster()
+        {
+            foreach (MonoBehaviour component in GetComponents<MonoBehaviour>())
+                if (component is IPlayerSkillCaster caster
+                    && component.isActiveAndEnabled)
+                    return caster;
+
+            return null;
         }
 
         public string GetRequirementText(SkillDefinition skill)

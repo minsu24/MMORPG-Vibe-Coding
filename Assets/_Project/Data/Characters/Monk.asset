@@ -19,8 +19,19 @@ MonoBehaviour:
     \uC9C0\uD0B5\uB2C8\uB2E4. \uC138 \uC9C1\uC5C5 \uC911 \uAC00\uC7A5 \uB192\uC740
     \uBC29\uC5B4\uB825\uC744 \uBC14\uD0D5\uC73C\uB85C \uC801\uC758 \uACF5\uACA9\uC744
     \uBC84\uD2F0\uB294 \uADFC\uC811 \uC804\uC0AC\uC785\uB2C8\uB2E4."
-  portrait: {fileID: 21300000, guid: 25e72bfc802044544b14e55a6f844ccc, type: 3}
-  playable: 0
+  portrait: {fileID: 8191357250318044281, guid: 73e15127e2ebdb241a81a600cd4220b9, type: 3}
+  playable: 1
+  playerPrefab: {fileID: 6769348460131052449, guid: b41eaf2bbd9c1284c93365e384984ce4, type: 3}
+  dialogueCharacter: {fileID: 11400000, guid: 3c315d075ef57fde24b215698e734dd4, type: 2}
+  statGrowth: {fileID: 11400000, guid: 5e537f29701791f046d4378ba0956ff6, type: 2}
+  availableSkills:
+  - {fileID: 11400000, guid: 390809e0eddc5c049ab519420debe55e, type: 2}
+  - {fileID: 11400000, guid: 4a227fe19548eb04f9538dfa75e00895, type: 2}
+  - {fileID: 11400000, guid: 2c898bc42be3ada4ab1cd4ee7a2c0c0d, type: 2}
+  - {fileID: 11400000, guid: 67ed475d7fa7cf64c974c39901520a4b, type: 2}
+  - {fileID: 11400000, guid: e736e42a6ec1ed64c98248ca8501a449, type: 2}
+  - {fileID: 11400000, guid: b3e3a3f9ccdbeb940b4c6cd7979e5b5b, type: 2}
+  automaticAdvancement: {fileID: 11400000, guid: 78a70960ea83a9944a46eb5292f6efd9, type: 2}
   attack: 3
   defense: 5
   mobility: 3

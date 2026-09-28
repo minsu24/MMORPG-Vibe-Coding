@@ -21,7 +21,6 @@ namespace EasternFantasy.UI
         [Header("Optional - found automatically in gameplay scenes")]
         [SerializeField] private PlayerInputReader playerInput;
 
-        private float previousTimeScale = 1f;
         private bool playerInputWasEnabled;
 
         public bool IsOpen { get; private set; }
@@ -61,9 +60,8 @@ namespace EasternFantasy.UI
                 return;
             }
 
-            previousTimeScale = Time.timeScale;
             DisablePlayerInput();
-            Time.timeScale = 0f;
+            GameTimeController.SetPaused(this, true);
 
             IsOpen = true;
             settingsRoot.SetActive(true);
@@ -77,7 +75,7 @@ namespace EasternFantasy.UI
 
             IsOpen = false;
             settingsRoot.SetActive(false);
-            Time.timeScale = previousTimeScale;
+            GameTimeController.SetPaused(this, false);
             RestorePlayerInput();
         }
 

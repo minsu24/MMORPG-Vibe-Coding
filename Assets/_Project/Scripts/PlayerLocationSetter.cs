@@ -57,12 +57,25 @@ namespace EasternFantasy.Player
                 return;
             }
 
-            playerController.TeleportTo(spawnPoint.transform.position, spawnPoint.transform.rotation);
-            RetargetCinemachineCamera(spawnPoint.transform.position);
-            MoveMainCameraTo(spawnPoint.transform.position);
+            TeleportToAndRetarget(spawnPoint.transform);
             MapTransferData.Clear();
 
             Debug.Log($"Moved player to portal '{targetName}' in scene '{scene.name}'.", this);
+        }
+
+        public void TeleportToAndRetarget(Transform destination)
+        {
+            if (destination == null)
+                return;
+
+            TeleportToAndRetarget(destination.position, destination.rotation);
+        }
+
+        public void TeleportToAndRetarget(Vector3 position, Quaternion rotation)
+        {
+            playerController.TeleportTo(position, rotation);
+            RetargetCinemachineCamera(position);
+            MoveMainCameraTo(position);
         }
 
         private void RetargetCinemachineCamera(Vector3 targetPosition)

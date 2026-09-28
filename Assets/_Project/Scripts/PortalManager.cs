@@ -17,6 +17,10 @@ public sealed class PortalManager : MonoBehaviour
         if (playerInPortal == null || isLoadingScene)
             return;
 
+        PlayerEntity entity = playerInPortal.GetComponent<PlayerEntity>();
+        if (entity != null && entity.IsDead)
+            return;
+
         if (Keyboard.current?.upArrowKey.wasPressedThisFrame == true)
             MoveToScene();
     }

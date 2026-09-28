@@ -8,9 +8,9 @@ namespace EasternFantasy.Player
         menuName = "Eastern Fantasy/Player/Level Table")]
     public sealed class PlayerLevelTable : ScriptableObject
     {
-        public const int MaximumLevel = 10;
+        public const int MaximumLevel = 15;
 
-        [Tooltip("Index 0 is the EXP needed for level 1 to reach level 2. Index 8 is level 9 to 10.")]
+        [Tooltip("Index 0 is level 1 to 2; index 13 is level 14 to 15.")]
         [SerializeField] private int[] requiredExperience =
         {
             100,
@@ -21,7 +21,12 @@ namespace EasternFantasy.Player
             600,
             800,
             1050,
-            1350
+            1350,
+            1800,
+            2400,
+            3200,
+            4000,
+            5500
         };
 
         public int GetRequiredExperience(int currentLevel)

@@ -17,17 +17,19 @@ public sealed class MON_Frog : EnemyController
     [SerializeField] private GameObject BossMapPortal;
 
     private float nextAttackTime;
+    private LineRenderer attackWarning;
+    private Material attackWarningMaterial;
 
     protected override bool CanUseAbility()
     {
-        if (player == null)
+        if (!HasLivingPlayer)
         {
             inFarAttackRange = false;
             return false;
         }
 
         Vector2 offset = player.transform.position - transform.position;
-        bool detected = offset.sqrMagnitude <= _detectRange * _detectRange;
+        bool detected = base.CanUseAbility();
 
         inFarAttackRange = detected
             && Mathf.Abs(offset.x) <= attackRange
@@ -46,6 +48,8 @@ public sealed class MON_Frog : EnemyController
 
     protected override void OnDefeated()
     {
+        if (attackWarning != null)
+            attackWarning.enabled = false;
         BossMapPortal.SetActive(true);
         base.OnDefeated();
     }
@@ -65,7 +69,14 @@ public sealed class MON_Frog : EnemyController
             animator.SetTrigger(AttackTrigger);
         }
 
+        ShowAttackWarning();
+
         yield return new WaitForSeconds(Mathf.Min(hitDelay, attackAnimationDuration));
+
+        if (attackWarning != null)
+            attackWarning.enabled = false;
+        if (HP <= 0f)
+            yield break;
 
         TryHitPlayer();
 
@@ -89,7 +100,8 @@ public sealed class MON_Frog : EnemyController
         playerEntity.TakeDamage(Attack_Power);
 
         float knockbackDirection = offset.x >= 0f ? 1f : -1f;
-        playerEntity.ApplyKnockback(knockbackDirection);
+        if (!playerEntity.IsDead)
+            playerEntity.ApplyKnockback(knockbackDirection);
     }
 
     private void FacePlayer()
@@ -114,14 +126,50 @@ public sealed class MON_Frog : EnemyController
         attackCooldown = Mathf.Max(0f, attackCooldown);
     }
 
-    private void OnDrawGizmosSelected()
+    protected override void OnDrawGizmosSelected()
     {
+        base.OnDrawGizmosSelected();
         Gizmos.color = new Color(1f, 0.25f, 0.15f, 0.85f);
         Gizmos.DrawWireCube(
             transform.position,
             new Vector3(attackRange * 2f, verticalTolerance * 2f, 0f));
+    }
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, _detectRange);
+    private void ShowAttackWarning()
+    {
+        if (attackWarning == null)
+        {
+            Shader shader = Shader.Find("Sprites/Default");
+            if (shader == null)
+                shader = Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default");
+            if (shader == null)
+                return;
+            GameObject warning = new GameObject("Tongue Attack Range", typeof(LineRenderer));
+            warning.transform.SetParent(transform, false);
+            attackWarning = warning.GetComponent<LineRenderer>();
+            attackWarningMaterial = new Material(shader);
+            attackWarning.sharedMaterial = attackWarningMaterial;
+            attackWarning.useWorldSpace = true;
+            attackWarning.loop = true;
+            attackWarning.positionCount = 4;
+            attackWarning.widthMultiplier = 0.06f;
+            attackWarning.startColor = attackWarning.endColor =
+                new Color(1f, 0.2f, 0.1f, 0.85f);
+            attackWarning.sortingLayerID = spriteRenderer.sortingLayerID;
+            attackWarning.sortingOrder = spriteRenderer.sortingOrder + 2;
+        }
+
+        Vector3 center = transform.position;
+        attackWarning.SetPosition(0, center + new Vector3(-attackRange, -verticalTolerance));
+        attackWarning.SetPosition(1, center + new Vector3(attackRange, -verticalTolerance));
+        attackWarning.SetPosition(2, center + new Vector3(attackRange, verticalTolerance));
+        attackWarning.SetPosition(3, center + new Vector3(-attackRange, verticalTolerance));
+        attackWarning.enabled = true;
+    }
+
+    private void OnDestroy()
+    {
+        if (attackWarningMaterial != null)
+            Destroy(attackWarningMaterial);
     }
 }

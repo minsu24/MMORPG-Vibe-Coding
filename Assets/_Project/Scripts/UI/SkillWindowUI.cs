@@ -1,4 +1,6 @@
 using EasternFantasy.Dialogue;
+using EasternFantasy.CharacterSelection;
+using EasternFantasy.Player;
 using EasternFantasy.Skill;
 using TMPro;
 using UnityEngine;
@@ -14,6 +16,8 @@ namespace EasternFantasy.UI
         [SerializeField] private SkillSlotUI[] skillSlots;
         [SerializeField] private SkillTooltipUI tooltip;
         [SerializeField] private PlayerSkillSystem skillSystem;
+
+        private bool skillSlotsInitialized;
 
         public static SkillWindowUI Instance { get; private set; }
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
@@ -34,26 +38,58 @@ namespace EasternFantasy.UI
 
         private void Start()
         {
-            if (skillSystem == null)
-                skillSystem = FindFirstObjectByType<PlayerSkillSystem>();
+            BindCurrentSkillSystem();
+            Refresh();
+        }
 
-            if (skillSystem == null)
-            {
-                Debug.LogError("SkillWindowUI needs a PlayerSkillSystem.", this);
-                enabled = false;
+        private void BindCurrentSkillSystem()
+        {
+            PlayerSkillSystem current = FindCurrentSkillSystem();
+            if (current == skillSystem && current != null && skillSlotsInitialized)
                 return;
+            if (skillSystem != null)
+                skillSystem.SkillsChanged -= Refresh;
+            skillSystem = current;
+            skillSlotsInitialized = false;
+            if (skillSystem == null)
+                return;
+
+            for (int i = 0; i < skillSlots.Length; i++)
+                if (skillSlots[i] != null)
+                    skillSlots[i].Initialize(skillSystem,
+                        i < skillSystem.AvailableSkills.Count
+                            ? skillSystem.AvailableSkills[i] : null, tooltip);
+            skillSlotsInitialized = true;
+            skillSystem.SkillsChanged += Refresh;
+        }
+
+        private static PlayerSkillSystem FindCurrentSkillSystem()
+        {
+            foreach (PlayerSkillSystem candidate in
+                FindObjectsByType<PlayerSkillSystem>(FindObjectsSortMode.None))
+            {
+                PlayerClassRuntime playerClass = candidate.GetComponent<PlayerClassRuntime>();
+                if (playerClass != null
+                    && playerClass.RepresentedClass == CharacterSelectionState.SelectedClass)
+                    return candidate;
             }
 
-            for (int i = 0; i < skillSlots.Length && i < skillSystem.AvailableSkills.Count; i++)
-                skillSlots[i].Initialize(skillSystem, skillSystem.AvailableSkills[i], tooltip);
-
-            skillSystem.SkillsChanged += Refresh;
-            Refresh();
+            return FindFirstObjectByType<PlayerSkillSystem>();
         }
 
         private void Update()
         {
-            if (Keyboard.current?.kKey.wasPressedThisFrame != true)
+            Keyboard keyboard = Keyboard.current;
+            if (keyboard == null)
+                return;
+
+            if (IsOpen && keyboard.escapeKey.wasPressedThisFrame)
+            {
+                SetOpen(false);
+                return;
+            }
+
+            if (!keyboard.kKey.wasPressedThisFrame)
                 return;
 
             bool dialogueBlocksOpening = !IsOpen
@@ -82,6 +118,7 @@ namespace EasternFantasy.UI
 
         public void Refresh()
         {
+            BindCurrentSkillSystem();
             if (skillSystem == null)
                 return;
 
