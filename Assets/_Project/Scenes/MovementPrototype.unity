@@ -3626,6 +3626,7 @@ MonoBehaviour:
   patrolMinSpeedFactor: 0.7
   _reward_EXP: 100
   _rewardYeopjeon: 5
+  currencyPickupPrefab: {fileID: 2418306721129126886, guid: 829c1feb6fac8ac4797d80cee72e4053, type: 3}
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -30440,7 +30441,7 @@ GameObject:
   - component: {fileID: 1661845602}
   - component: {fileID: 1661845601}
   m_Layer: 0
-  m_Name: Ground
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36541,6 +36542,7 @@ GameObject:
   - component: {fileID: 2145438972}
   - component: {fileID: 2145438971}
   - component: {fileID: 2145438970}
+  - component: {fileID: 2145438974}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -36657,6 +36659,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2145438974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145438969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8889ca4f3864aa54588975b48c06bd1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFollowDetail
+  responsiveDamping: 0.15
+  fastMovementDamping: 0.85
+  fastMovementSpeed: 6
+  dampingBlendSpeed: 4
+  verticalDamping: 0.3
+  boundaryDamping: 0.2
+  boundarySlowingDistance: 1.5
 --- !u!1 &2146374416
 GameObject:
   m_ObjectHideFlags: 0

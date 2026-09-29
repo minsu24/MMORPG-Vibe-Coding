@@ -261,7 +261,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -1.1199899, y: -4.4790072}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -271,7 +271,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 17.696762, y: 9.97663}
+  m_Size: {x: 20.279688, y: 11.413389}
   m_EdgeRadius: 0
 --- !u!4 &229384509
 Transform:
@@ -282,7 +282,7 @@ Transform:
   m_GameObject: {fileID: 229384507}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.11018, y: 4.48911, z: 0}
+  m_LocalPosition: {x: -0.51, y: 0.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1056,6 +1056,7 @@ GameObject:
   - component: {fileID: 1967199818}
   - component: {fileID: 1967199817}
   - component: {fileID: 1967199816}
+  - component: {fileID: 1967199820}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -1139,7 +1140,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 5
+    OrthographicSize: 4.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1172,6 +1173,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1967199820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967199815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8889ca4f3864aa54588975b48c06bd1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFollowDetail
+  responsiveDamping: 0.15
+  fastMovementDamping: 0.85
+  fastMovementSpeed: 6
+  dampingBlendSpeed: 4
+  verticalDamping: 0.3
+  boundaryDamping: 0.2
+  boundarySlowingDistance: 1.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

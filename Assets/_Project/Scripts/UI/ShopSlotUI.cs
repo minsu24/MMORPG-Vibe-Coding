@@ -1,12 +1,13 @@
 using EasternFantasy.Inventory;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace EasternFantasy.UI
 {
     [DisallowMultipleComponent]
-    public sealed class ShopSlotUI : MonoBehaviour
+    public sealed class ShopSlotUI : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private Button button;
         [SerializeField] private Image iconImage;
@@ -20,8 +21,7 @@ namespace EasternFantasy.UI
         public void Initialize(ShopWindowUI shopWindow)
         {
             owner = shopWindow;
-            button.onClick.RemoveListener(Select);
-            button.onClick.AddListener(Select);
+            button.onClick.RemoveAllListeners();
             Clear();
         }
 
@@ -51,9 +51,11 @@ namespace EasternFantasy.UI
             button.interactable = false;
         }
 
-        private void Select()
+        public void OnPointerClick(PointerEventData eventData)
         {
-            if (item != null)
+            if (item != null && button.interactable
+                && eventData.button == PointerEventData.InputButton.Left
+                && (owner.IsSelling || eventData.clickCount >= 2))
                 owner.ProcessItem(item);
         }
     }

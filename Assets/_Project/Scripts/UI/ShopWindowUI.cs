@@ -26,6 +26,7 @@ namespace EasternFantasy.UI
 
         public static ShopWindowUI Instance { get; private set; }
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
+        public bool IsSelling => selling;
 
         private void Awake()
         {

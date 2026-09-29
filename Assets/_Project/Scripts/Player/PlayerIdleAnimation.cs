@@ -218,7 +218,7 @@ namespace EasternFantasy.Player
             bool usePositiveScale = faceRight == spriteFacesRight;
             scale.x = usePositiveScale ? magnitude : -magnitude;
             visual.localScale = scale;
-            FacingDirectionX = faceRight ? 1f : -1f;
+            FacingDirectionX = faceRight ? 1f :- 1f;
         }
     }
 }

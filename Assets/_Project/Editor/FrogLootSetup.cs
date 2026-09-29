@@ -63,6 +63,10 @@ namespace EasternFantasy.Editor
 
                 SerializedObject data = new SerializedObject(loot);
                 data.FindProperty("pickupPrefab").objectReferenceValue = pickupPrefab;
+                Collider2D floor = marshland.GetRootGameObjects()
+                    .SelectMany(root => root.GetComponentsInChildren<Collider2D>(true))
+                    .FirstOrDefault(collider => collider.gameObject.name == "Floor");
+                data.FindProperty("floorCollider").objectReferenceValue = floor;
                 data.FindProperty("spawnHeight").floatValue = 0.4f;
                 data.FindProperty("horizontalScatter").floatValue = 0.7f;
 

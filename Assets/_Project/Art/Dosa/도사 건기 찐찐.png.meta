@@ -1,61 +1,25 @@
 fileFormatVersion: 2
-guid: 14c72222b4802554aa287932efc47930
+guid: 1a01ce22723f76f428a57c4adbb099a5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6442060587085325170
-    second: "\uB450\uAEBC\uBE44 \uCE68_0"
+      213: -6905557256579622445
+    second: "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_0"
   - first:
-      213: -7845696776608004436
-    second: "\uB450\uAEBC\uBE44 \uCE68_1"
+      213: 3988510889480933044
+    second: "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_1"
   - first:
-      213: -4832809718653023500
-    second: "\uB450\uAEBC\uBE44 \uCE68_2"
+      213: -767126792445184334
+    second: "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_2"
   - first:
-      213: -2413122552056953890
-    second: "\uB450\uAEBC\uBE44 \uCE68_3"
+      213: -9065798942553423724
+    second: "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_3"
   - first:
-      213: -7305590387192919944
-    second: "\uB450\uAEBC\uBE44 \uCE68_4"
+      213: 6459644664003498990
+    second: "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_4"
   - first:
-      213: -1705042064989970049
-    second: "\uB450\uAEBC\uBE44 \uCE68_5"
-  - first:
-      213: -3781923015871151942
-    second: "\uB450\uAEBC\uBE44 \uCE68_6"
-  - first:
-      213: -6607924577637554156
-    second: "\uB450\uAEBC\uBE44 \uCE68_7"
-  - first:
-      213: -1572092555189039312
-    second: "\uB450\uAEBC\uBE44 \uCE68_8"
-  - first:
-      213: 6530536813778703439
-    second: "\uB450\uAEBC\uBE44 \uCE68_9"
-  - first:
-      213: -2899030075884877859
-    second: "\uB450\uAEBC\uBE44 \uCE68_10"
-  - first:
-      213: 7966789709830057516
-    second: "\uB450\uAEBC\uBE44 \uCE68_11"
-  - first:
-      213: -8266543650070188087
-    second: "\uB450\uAEBC\uBE44 \uCE68_12"
-  - first:
-      213: -8330896475787432812
-    second: "\uB450\uAEBC\uBE44 \uCE68_13"
-  - first:
-      213: 5719963042031555545
-    second: "\uB450\uAEBC\uBE44 \uCE68_14"
-  - first:
-      213: 5228931469632773795
-    second: "\uB450\uAEBC\uBE44 \uCE68_15"
-  - first:
-      213: 8676603169856826987
-    second: "\uB450\uAEBC\uBE44 \uCE68_16"
-  - first:
-      213: 7698972928781297219
-    second: "\uB450\uAEBC\uBE44 \uCE68_17"
+      213: -6469663685195569291
+    second: "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_5"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -88,7 +52,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -102,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 50
+  spritePixelsToUnits: 270
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -164,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uB450\uAEBC\uBE44 \uCE68_0"
+      name: "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_0"
       rect:
         serializedVersion: 2
-        x: 15
-        y: 339
-        width: 215
-        height: 209
+        x: 40
+        y: 113
+        width: 339
+        height: 500
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 273e3c2f8fbc66950800000000000000
-      internalID: 6442060587085325170
+      spriteID: 3d9537923488a20a0800000000000000
+      internalID: -6905557256579622445
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uB450\uAEBC\uBE44 \uCE68_2"
+      name: "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_1"
       rect:
         serializedVersion: 2
-        x: 506
-        y: 367
-        width: 316
-        height: 130
+        x: 384
+        y: 113
+        width: 347
+        height: 498
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -201,20 +165,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4fa81ac8a296eecb0800000000000000
-      internalID: -4832809718653023500
+      spriteID: 4bec94e95890a5730800000000000000
+      internalID: 3988510889480933044
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uB450\uAEBC\uBE44 \uCE68_7"
+      name: "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_2"
       rect:
         serializedVersion: 2
-        x: 237
-        y: 333
-        width: 256
-        height: 170
+        x: 738
+        y: 111
+        width: 361
+        height: 503
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 418275f5b9feb44a0800000000000000
-      internalID: -6607924577637554156
+      spriteID: 2b6be962f3e9a55f0800000000000000
+      internalID: -767126792445184334
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uB450\uAEBC\uBE44 \uCE68_8"
+      name: "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_3"
       rect:
         serializedVersion: 2
-        x: 832
-        y: 372
-        width: 346
-        height: 109
+        x: 1110
+        y: 109
+        width: 303
+        height: 502
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -245,8 +209,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 03fcbed762ece2ae0800000000000000
-      internalID: -1572092555189039312
+      spriteID: 490cdf7f4efcf2280800000000000000
+      internalID: -9065798942553423724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_4"
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 110
+        width: 321
+        height: 500
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee31d25e89445a950800000000000000
+      internalID: 6459644664003498990
       vertices: []
       indices: 
       edges: []
@@ -255,7 +241,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e7fc112d99e8dc94b95735a8d16653a6
+    spriteID: 3ca7ef1c13c04984986ad98cfbb57300
     internalID: 0
     vertices: []
     indices: 
@@ -265,24 +251,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\uB450\uAEBC\uBE44 \uCE68_0": 6442060587085325170
-      "\uB450\uAEBC\uBE44 \uCE68_1": -7845696776608004436
-      "\uB450\uAEBC\uBE44 \uCE68_10": -2899030075884877859
-      "\uB450\uAEBC\uBE44 \uCE68_11": 7966789709830057516
-      "\uB450\uAEBC\uBE44 \uCE68_12": -8266543650070188087
-      "\uB450\uAEBC\uBE44 \uCE68_13": -8330896475787432812
-      "\uB450\uAEBC\uBE44 \uCE68_14": 5719963042031555545
-      "\uB450\uAEBC\uBE44 \uCE68_15": 5228931469632773795
-      "\uB450\uAEBC\uBE44 \uCE68_16": 8676603169856826987
-      "\uB450\uAEBC\uBE44 \uCE68_17": 7698972928781297219
-      "\uB450\uAEBC\uBE44 \uCE68_2": -4832809718653023500
-      "\uB450\uAEBC\uBE44 \uCE68_3": -2413122552056953890
-      "\uB450\uAEBC\uBE44 \uCE68_4": -7305590387192919944
-      "\uB450\uAEBC\uBE44 \uCE68_5": -1705042064989970049
-      "\uB450\uAEBC\uBE44 \uCE68_6": -3781923015871151942
-      "\uB450\uAEBC\uBE44 \uCE68_7": -6607924577637554156
-      "\uB450\uAEBC\uBE44 \uCE68_8": -1572092555189039312
-      "\uB450\uAEBC\uBE44 \uCE68_9": 6530536813778703439
+      "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_0": -6905557256579622445
+      "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_1": 3988510889480933044
+      "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_2": -767126792445184334
+      "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_3": -9065798942553423724
+      "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_4": 6459644664003498990
+      "\uB3C4\uC0AC \uAC74\uAE30 \uCC10\uCC10_5": -6469663685195569291
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

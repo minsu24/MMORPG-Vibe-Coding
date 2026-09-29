@@ -12,9 +12,9 @@ public class MON_Goblin : EnemyController
 
     protected override void OnDefeated()
     {
+        base.OnDefeated();
         if (defeatedDialogue != null && DialogueManager.Instance != null)
             DialogueManager.Instance.StartDialogue(defeatedDialogue);
-
-        base.OnDefeated();
+        
     }
 }

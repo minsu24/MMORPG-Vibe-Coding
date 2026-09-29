@@ -1,25 +1,28 @@
 fileFormatVersion: 2
-guid: 6c1722f99973a134bad4422d23747262
+guid: 89f7be568634e3349a69aa24c94a16be
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8732821127451433533
-    second: "\uB3C4\uC0AC \uD22C\uC0AC\uCCB4_0"
+      213: -1169218212443549933
+    second: "\uC0C1\uC810 \uCC3D UI_0"
   - first:
-      213: -6544656849709307454
-    second: "\uB3C4\uC0AC \uD22C\uC0AC\uCCB4_1"
+      213: -5896917568282110531
+    second: "\uC0C1\uC810 \uCC3D UI_1"
   - first:
-      213: -951392778318422238
-    second: "\uB3C4\uC0AC \uD22C\uC0AC\uCCB4_2"
+      213: -8128233945855852753
+    second: "\uC0C1\uC810 \uCC3D UI_2"
   - first:
-      213: 1644987888484786293
-    second: "\uB3C4\uC0AC \uD22C\uC0AC\uCCB4_3"
+      213: 7354602671224257957
+    second: "\uC0C1\uC810 \uCC3D UI_3"
   - first:
-      213: -2369733134457346819
-    second: "\uB3C4\uC0AC \uD22C\uC0AC\uCCB4_4"
+      213: -5913547931455806093
+    second: "\uC0C1\uC810 \uCC3D UI_4"
   - first:
-      213: -4214880092849243806
-    second: "\uB3C4\uC0AC \uD22C\uC0AC\uCCB4_5"
+      213: -2225243473975873471
+    second: "\uC0C1\uC810 \uCC3D UI_5"
+  - first:
+      213: 1780072839545384798
+    second: "\uC0C1\uC810 \uCC3D UI_6"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -66,7 +69,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 200
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -128,13 +131,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uB3C4\uC0AC \uD22C\uC0AC\uCCB4_3"
+      name: "\uC0C1\uC810 \uCC3D UI_0"
       rect:
         serializedVersion: 2
-        x: 730
-        y: 274
-        width: 350
-        height: 182
+        x: 0
+        y: 79
+        width: 1448
+        height: 1007
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,96 +146,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 22f557e0f49fbc2f0800000000000000
-      internalID: -951392778318422238
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uB3C4\uC0AC \uD22C\uC0AC\uCCB4_2"
-      rect:
-        serializedVersion: 2
-        x: 1109
-        y: 274
-        width: 344
-        height: 182
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 570a4f0e4cb24d610800000000000000
-      internalID: 1644987888484786293
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uB3C4\uC0AC \uD22C\uC0AC\uCCB4_1"
-      rect:
-        serializedVersion: 2
-        x: 1489
-        y: 275
-        width: 315
-        height: 181
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: df4623405440d1fd0800000000000000
-      internalID: -2369733134457346819
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uB3C4\uC0AC \uD22C\uC0AC\uCCB4_0"
-      rect:
-        serializedVersion: 2
-        x: 1856
-        y: 275
-        width: 281
-        height: 181
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 269fade03ecb185c0800000000000000
-      internalID: -4214880092849243806
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Projectile_5
-      rect:
-        serializedVersion: 2
-        x: 15
-        y: 242
-        width: 297
-        height: 235
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b1e5e703f234ccf4e8bb562250f3a3ee
-      internalID: -1647015261
+      spriteID: 31f82660b3a16cfe0800000000000000
+      internalID: -1169218212443549933
       vertices: []
       indices: 
       edges: []
@@ -241,7 +156,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1cfd6862e5cff00438fbf3a46b540285
+    spriteID: 030aead4403b669488b2625384e78f35
     internalID: 0
     vertices: []
     indices: 
@@ -249,13 +164,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1448.0,"y":1086.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Projectile_5: -1647015261
-      "\uB3C4\uC0AC \uD22C\uC0AC\uCCB4_0": -4214880092849243806
-      "\uB3C4\uC0AC \uD22C\uC0AC\uCCB4_1": -2369733134457346819
-      "\uB3C4\uC0AC \uD22C\uC0AC\uCCB4_2": 1644987888484786293
-      "\uB3C4\uC0AC \uD22C\uC0AC\uCCB4_3": -951392778318422238
+      "\uC0C1\uC810 \uCC3D UI_0": -1169218212443549933
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

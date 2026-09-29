@@ -2335,6 +2335,7 @@ GameObject:
   - component: {fileID: 1692600349}
   - component: {fileID: 1692600348}
   - component: {fileID: 1692600347}
+  - component: {fileID: 1692600351}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -2451,6 +2452,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1692600351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692600346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8889ca4f3864aa54588975b48c06bd1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFollowDetail
+  responsiveDamping: 0.15
+  fastMovementDamping: 0.85
+  fastMovementSpeed: 6
+  dampingBlendSpeed: 4
+  verticalDamping: 0.3
+  boundaryDamping: 0.2
+  boundarySlowingDistance: 1.5
 --- !u!1 &1731928931
 GameObject:
   m_ObjectHideFlags: 0

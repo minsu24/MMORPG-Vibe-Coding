@@ -35,6 +35,7 @@ public abstract class EnemyController : Entity
 
     [SerializeField] private float _reward_EXP;
     [SerializeField, Min(0)] private int _rewardYeopjeon = 5;
+    [SerializeField] private WorldCurrencyPickup currencyPickupPrefab;
     [SerializeField] protected LayerMask _playerLayer;
 
     [Header("Hit Flash")]
@@ -312,8 +313,23 @@ public abstract class EnemyController : Entity
         rb.simulated = false;
         if (_reward_EXP > 0f && playerProgression != null)
             playerProgression.AddExperience(_reward_EXP);
-        if (_rewardYeopjeon > 0 && playerCurrency != null)
-            playerCurrency.Add(_rewardYeopjeon);
+        if (_rewardYeopjeon > 0)
+        {
+            WorldCurrencyPickup prefab = currencyPickupPrefab;
+            Collider2D floor = DropPlacement2D.FindFloor(gameObject.scene, transform.position);
+            if (prefab != null && DropPlacement2D.TryFindLanding(floor, transform.position,
+                transform.position.x, prefab.VisualWidth * 0.5f, out Vector3 landing))
+            {
+                WorldCurrencyPickup pickup = Instantiate(prefab,
+                    transform.position + Vector3.up * 0.4f, Quaternion.identity);
+                pickup.Initialize(_rewardYeopjeon, landing);
+            }
+            else if (playerCurrency != null)
+            {
+                // Preserve the reward if this scene has no suitable Floor or pickup prefab.
+                playerCurrency.Add(_rewardYeopjeon);
+            }
+        }
         Defeated?.Invoke(this);
         StartCoroutine(DeadAnimation());
 

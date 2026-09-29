@@ -254,10 +254,16 @@ MonoBehaviour:
   _maxHP: 120
   _attackPower: 12
   _moveSpeed: 2
+  detectionShape: 0
   _detectRange: 12
+  detectionHalfHeight: 1.5
   patrolRange: 0
+  patrolMinWait: 0.3
+  patrolMaxWait: 1.5
+  patrolMinSpeedFactor: 0.7
   _reward_EXP: 120
   _rewardYeopjeon: 30
+  currencyPickupPrefab: {fileID: 2418306721129126886, guid: 829c1feb6fac8ac4797d80cee72e4053, type: 3}
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -273,6 +279,28 @@ MonoBehaviour:
   hitDelay: 0.375
   attackAnimationDuration: 0.75
   attackCooldown: 1.5
+  spitProjectilePrefab: {fileID: 1140000000000000001, guid: fcb2a69db83440b7a45a73721428f192, type: 3}
+  mouthOffset: {x: 1.15, y: 0.35}
+  rangedDamage: 20
+  rangedProjectileSpeed: 15
+  rangedTravelDistance: 14
+  rangedVerticalTolerance: 4
+  rangedWindup: 0.35
+  rangedAnimationDuration: 0.75
+  rangedCooldown: 2
+  jumpRange: 7
+  jumpVerticalTolerance: 3
+  jumpHeight: 3.2
+  jumpApexTime: 0.3
+  jumpHangTime: 0.6
+  jumpLandingTime: 0.5
+  jumpAnimationDuration: 1.1666666
+  jumpCooldown: 5
+  slamWidth: 3.8
+  slamVerticalTolerance: 2.5
+  slamDamageMultiplier: 2.5
+  warningHeight: 0.32
+  warningOpacity: 0.32
   BossMapPortal: {fileID: 1453308125}
 --- !u!70 &81355417
 CapsuleCollider2D:
@@ -351,6 +379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.EnemyLootDrop
   pickupPrefab: {fileID: 1989097639827239875, guid: 554de1e741f28c1438da42f16684da6a, type: 3}
+  floorCollider: {fileID: 407543981}
   drops:
   - item: {fileID: 11400000, guid: 88a440264c3f63443a1a5955641169a4, type: 2}
     dropChance: 1
@@ -569,7 +598,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -1.1199899, y: -4.4790072}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -579,7 +608,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 17.696762, y: 9.97663}
+  m_Size: {x: 18.621063, y: 10.479918}
   m_EdgeRadius: 0
 --- !u!4 &600196958
 Transform:
@@ -590,7 +619,7 @@ Transform:
   m_GameObject: {fileID: 600196956}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.11018, y: 4.48911, z: 0}
+  m_LocalPosition: {x: -0.11, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -755,7 +784,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -780,7 +809,7 @@ Transform:
   m_GameObject: {fileID: 929379491}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.009809494, y: 0.010092735, z: -22.159399}
+  m_LocalPosition: {x: -1.4205246, y: -0.77996016, z: -22.159399}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1044,6 +1073,7 @@ GameObject:
   - component: {fileID: 1129675623}
   - component: {fileID: 1129675622}
   - component: {fileID: 1129675621}
+  - component: {fileID: 1129675625}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -1127,7 +1157,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 5
+    OrthographicSize: 4.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1160,6 +1190,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1129675625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129675620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8889ca4f3864aa54588975b48c06bd1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFollowDetail
+  responsiveDamping: 0.15
+  fastMovementDamping: 0.85
+  fastMovementSpeed: 6
+  dampingBlendSpeed: 4
+  verticalDamping: 0.3
+  boundaryDamping: 0.2
+  boundarySlowingDistance: 1.5
 --- !u!1 &1242967246
 GameObject:
   m_ObjectHideFlags: 0

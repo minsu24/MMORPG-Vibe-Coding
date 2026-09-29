@@ -22,6 +22,7 @@ namespace EasternFantasy.Inventory
     public sealed class EnemyLootDrop : MonoBehaviour
     {
         [SerializeField] private WorldItemPickup pickupPrefab;
+        [SerializeField] private Collider2D floorCollider;
         [SerializeField] private EnemyDropEntry[] drops = Array.Empty<EnemyDropEntry>();
         [SerializeField, Min(0f)] private float spawnHeight = 0.35f;
         [SerializeField, Min(0f)] private float horizontalScatter = 0.65f;
@@ -53,6 +54,9 @@ namespace EasternFantasy.Inventory
                 return;
 
             hasDropped = true;
+            Collider2D floor = floorCollider != null
+                ? floorCollider
+                : DropPlacement2D.FindFloor(gameObject.scene, transform.position);
             foreach (EnemyDropEntry drop in drops)
             {
                 if (drop == null || drop.Item == null ||
@@ -63,12 +67,19 @@ namespace EasternFantasy.Inventory
                 int maximum = Mathf.Max(minimum, drop.MaximumQuantity);
                 int quantity = UnityEngine.Random.Range(minimum, maximum + 1);
                 float scatter = UnityEngine.Random.Range(-horizontalScatter, horizontalScatter);
+                if (!DropPlacement2D.TryFindLanding(floor, transform.position,
+                    transform.position.x + scatter, pickupPrefab.VisualWidth * 0.5f,
+                    out Vector3 landing))
+                {
+                    Debug.LogWarning($"No free Floor landing spot for {drop.Item.DisplayName}.", this);
+                    continue;
+                }
 
                 WorldItemPickup pickup = Instantiate(
                     pickupPrefab,
                     transform.position + Vector3.up * spawnHeight,
                     Quaternion.identity);
-                pickup.Initialize(drop.Item, quantity, scatter);
+                pickup.Initialize(drop.Item, quantity, landing);
             }
         }
 

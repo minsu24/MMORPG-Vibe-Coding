@@ -1,22 +1,19 @@
 using System.Collections;
-using EasternFantasy.Player;
 using UnityEngine;
 
 namespace EasternFantasy.Inventory
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(SpriteRenderer), typeof(CircleCollider2D))]
-    public sealed class WorldItemPickup : MonoBehaviour
+    public sealed class WorldCurrencyPickup : MonoBehaviour
     {
-        [Header("Appearance")]
-        [SerializeField, Min(0.1f)] private float worldIconSize = 0.8f;
+        private static Sprite fallbackSprite;
         [SerializeField, Min(0.05f)] private float pickupRadius = 0.45f;
-
-        [Header("Drop Motion")]
+        [SerializeField, Min(0f)] private float pickupDelay = 0.2f;
         [SerializeField, Min(0.05f)] private float tossDuration = 0.4f;
         [SerializeField, Min(0f)] private float tossHeight = 0.55f;
-        [SerializeField, Min(0f)] private float pickupDelay = 0.2f;
         [SerializeField, Min(0f)] private float lifetime = 120f;
+        [SerializeField, Min(0.1f)] private float visualWidth = 0.65f;
 
         [Header("Collection Feedback")]
         [SerializeField, Min(0.05f)] private float collectPopDuration = 0.18f;
@@ -27,59 +24,51 @@ namespace EasternFantasy.Inventory
         [SerializeField] private AudioClip collectSound;
         [SerializeField, Range(0f, 1f)] private float collectSoundVolume = 0.8f;
 
-        private SpriteRenderer iconRenderer;
         private CircleCollider2D pickupCollider;
-        private ItemDefinition item;
-        private int quantity;
         private Vector3 startPosition;
         private Vector3 landingPosition;
         private float elapsed;
-        private bool initialized;
+        private int amount;
         private bool collected;
 
-        public ItemDefinition Item => item;
-        public int Quantity => quantity;
+        public int Amount => amount;
         public Vector3 LandingPosition => landingPosition;
-        public float VisualWidth => worldIconSize;
+        public float VisualWidth => visualWidth;
 
         private void Awake()
         {
-            iconRenderer = GetComponent<SpriteRenderer>();
+            SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+            if (renderer.sprite == null)
+                renderer.sprite = GetFallbackSprite();
+            renderer.sortingOrder = Mathf.Max(renderer.sortingOrder, 8);
             pickupCollider = GetComponent<CircleCollider2D>();
             pickupCollider.isTrigger = true;
             pickupCollider.enabled = false;
-            pickupRadius = Mathf.Max(0.05f, pickupRadius);
-            iconRenderer.sortingOrder = Mathf.Max(iconRenderer.sortingOrder, 8);
+            pickupCollider.radius = pickupRadius;
         }
 
-        public void Initialize(ItemDefinition definition, int amount, Vector3 landingPoint)
+        public void Initialize(int value, Vector3 landingPoint)
         {
-            if (definition == null || amount <= 0)
+            if (value <= 0)
             {
                 Destroy(gameObject);
                 return;
             }
 
-            item = definition;
-            quantity = amount;
-            name = $"{definition.DisplayName} x{amount}";
-            iconRenderer.sprite = definition.Icon;
-            FitIconToWorldSize();
-
+            amount = value;
+            name = $"Yeopjeon x{value}";
             startPosition = transform.position;
             landingPosition = landingPoint;
-            if (iconRenderer.sprite != null)
-                landingPosition.y += iconRenderer.bounds.extents.y;
-            elapsed = 0f;
-            initialized = true;
-
+            SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+            if (renderer.sprite != null)
+                landingPosition.y += renderer.bounds.extents.y;
             if (lifetime > 0f)
                 Destroy(gameObject, lifetime);
         }
 
         private void Update()
         {
-            if (!initialized || collected)
+            if (amount <= 0 || collected)
                 return;
 
             elapsed += Time.deltaTime;
@@ -99,30 +88,24 @@ namespace EasternFantasy.Inventory
                 pickupCollider.enabled = true;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            Collect(other);
-        }
-
-        private void OnTriggerStay2D(Collider2D other)
-        {
-            Collect(other);
-        }
+        private void OnTriggerEnter2D(Collider2D other) => Collect(other);
+        private void OnTriggerStay2D(Collider2D other) => Collect(other);
 
         private void Collect(Collider2D other)
         {
-            if (!initialized || collected || !other.CompareTag("Player"))
+            if (collected || amount <= 0 || !other.CompareTag("Player"))
                 return;
 
-            PlayerInventory inventory = other.GetComponentInParent<PlayerInventory>();
-            if (inventory == null || !inventory.AddItem(item, quantity))
+            PlayerCurrency currency = other.GetComponentInParent<PlayerCurrency>();
+            if (currency == null)
                 return;
 
             collected = true;
+            currency.Add(amount);
             pickupCollider.enabled = false;
             if (collectSound != null)
                 AudioSource.PlayClipAtPoint(collectSound, transform.position, collectSoundVolume);
-            StartCoroutine(CollectFeedbackRoutine(inventory.transform));
+            StartCoroutine(CollectFeedbackRoutine(currency.transform));
         }
 
         private IEnumerator CollectFeedbackRoutine(Transform player)
@@ -159,32 +142,41 @@ namespace EasternFantasy.Inventory
             Destroy(gameObject);
         }
 
-        private void FitIconToWorldSize()
-        {
-            if (iconRenderer.sprite == null)
-                return;
-
-            Vector2 spriteSize = iconRenderer.sprite.bounds.size;
-            float largestSide = Mathf.Max(spriteSize.x, spriteSize.y);
-            if (largestSide <= 0f)
-                return;
-
-            float scale = worldIconSize / largestSide;
-            transform.localScale = Vector3.one * scale;
-            pickupCollider.radius = pickupRadius / scale;
-        }
-
         private void OnValidate()
         {
-            worldIconSize = Mathf.Max(0.1f, worldIconSize);
             pickupRadius = Mathf.Max(0.05f, pickupRadius);
             tossDuration = Mathf.Max(0.05f, tossDuration);
-            tossHeight = Mathf.Max(0f, tossHeight);
-            pickupDelay = Mathf.Max(0f, pickupDelay);
-            lifetime = Mathf.Max(0f, lifetime);
+            visualWidth = Mathf.Max(0.1f, visualWidth);
             collectPopDuration = Mathf.Max(0.05f, collectPopDuration);
             collectPopHeight = Mathf.Max(0f, collectPopHeight);
             collectFlyDuration = Mathf.Max(0.05f, collectFlyDuration);
+        }
+
+        private static Sprite GetFallbackSprite()
+        {
+            if (fallbackSprite != null)
+                return fallbackSprite;
+
+            const int size = 32;
+            Texture2D texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
+            texture.filterMode = FilterMode.Point;
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    float distance = Vector2.Distance(new Vector2(x, y), new Vector2(15.5f, 15.5f));
+                    Color color = distance > 14f ? Color.clear
+                        : distance > 11f ? new Color(0.45f, 0.24f, 0.05f)
+                        : distance < 4f ? new Color(0.42f, 0.22f, 0.04f)
+                        : new Color(1f, 0.76f, 0.2f);
+                    texture.SetPixel(x, y, color);
+                }
+            }
+            texture.Apply();
+            fallbackSprite = Sprite.Create(texture, new Rect(0, 0, size, size),
+                new Vector2(0.5f, 0.5f), 48f);
+            fallbackSprite.name = "Yeopjeon Placeholder";
+            return fallbackSprite;
         }
     }
 }
