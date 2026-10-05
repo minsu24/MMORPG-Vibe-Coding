@@ -277,7 +277,7 @@ namespace EasternFantasy.Player
                 {
                     Debug.Log("적이랑 충돌");
                     float previousHealth = HP;
-                    TakeDamage(enemyController.Attack_Power);
+                    TakeDamage(enemyController.ContactDamage);
                     if (!IsDead && HP < previousHealth)
                     {
                         float direction = transform.position.x > collision.transform.position.x ? 1f : -1f;

@@ -67,6 +67,11 @@ namespace EasternFantasy.Player
 
         private void Update()
         {
+            if (EasternFantasy.UI.DungeonWindowUI.Instance != null && EasternFantasy.UI.DungeonWindowUI.Instance.IsOpen)
+            {
+                movement.ClearInput();
+                return;
+            }
             if (entity != null && entity.IsDead)
             {
                 movement.ClearInput();

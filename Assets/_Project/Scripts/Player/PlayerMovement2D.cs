@@ -16,6 +16,9 @@ namespace EasternFantasy.Player
         private float moveInput;
         private bool jumpRequested;
 
+        private RigidbodyConstraints2D constraintsBeforeLock;
+        public bool IsMovementLocked { get; private set; }
+
         public bool IsGrounded { get; private set; }
         public float MoveInput => moveInput;
 
@@ -38,7 +41,26 @@ namespace EasternFantasy.Player
         }
 
         public void SetMoveInput(float value) => moveInput = Mathf.Clamp(value, -1f, 1f);
-        public void RequestJump() => jumpRequested = true;
+        public void RequestJump()
+        {
+            if (!IsMovementLocked) jumpRequested = true;
+        }
+
+        public void SetMovementLocked(bool locked)
+        {
+            if (IsMovementLocked == locked) return;
+            IsMovementLocked = locked;
+            jumpRequested = false;
+            if (body == null) return;
+            body.linearVelocity = Vector2.zero;
+            body.angularVelocity = 0f;
+            if (locked)
+            {
+                constraintsBeforeLock = body.constraints;
+                body.constraints = RigidbodyConstraints2D.FreezeAll;
+            }
+            else body.constraints = constraintsBeforeLock;
+        }
 
         public void ClearInput()
         {
@@ -58,6 +80,12 @@ namespace EasternFantasy.Player
 
         private void FixedUpdate()
         {
+            if (IsMovementLocked)
+            {
+                jumpRequested = false;
+                body.linearVelocity = Vector2.zero;
+                return;
+            }
             IsGrounded = false;
             // A wall contact must not grant a jump; only upward-facing surfaces count.
             if (body.linearVelocity.y <= 0.1f)
@@ -91,6 +119,7 @@ namespace EasternFantasy.Player
 
         private void OnDisable()
         {
+            SetMovementLocked(false);
             ClearInput();
             if (body != null) body.linearVelocity = new Vector2(0f, body.linearVelocity.y);
         }

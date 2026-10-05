@@ -9,12 +9,18 @@ public sealed class PortalManager : MonoBehaviour
     [SerializeField] private string sceneName;
     [SerializeField] private string targetPointName;
 
+    [SerializeField] private bool startsLocked;
+    private bool isLocked;
+    public bool IsLocked => isLocked;
+    public void SetLocked(bool locked) => isLocked = locked;
+    private void Awake() => isLocked = startsLocked;
+
     private PlayerMovement2D playerInPortal;
     private bool isLoadingScene;
 
     private void Update()
     {
-        if (playerInPortal == null || isLoadingScene)
+        if (isLocked || Time.timeScale <= 0f || playerInPortal == null || isLoadingScene || (EasternFantasy.UI.DungeonWindowUI.Instance != null && EasternFantasy.UI.DungeonWindowUI.Instance.IsOpen))
             return;
 
         PlayerEntity entity = playerInPortal.GetComponent<PlayerEntity>();
@@ -27,6 +33,7 @@ public sealed class PortalManager : MonoBehaviour
 
     private void MoveToScene()
     {
+        if (isLocked || Time.timeScale <= 0f || playerInPortal == null || isLoadingScene) return;
         if (string.IsNullOrWhiteSpace(sceneName))
         {
             Debug.LogError($"Portal '{name}' has no destination scene name.", this);

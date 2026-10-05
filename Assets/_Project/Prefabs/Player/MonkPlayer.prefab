@@ -162,6 +162,7 @@ MonoBehaviour:
   animator: {fileID: 8836460492422581657}
   movementThreshold: 0.05
   attackStateName: MonkAttack
+  throwStateName: PlayerThrowTails
   idleStateName: MonkIdle
   deathStateName: MonkDead
   spriteFacesRight: 1
@@ -190,6 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerProjectileShooter
   projectilePrefab: {fileID: 0}
+  burstProjectilePrefab: {fileID: 0}
   projectileSpeed: 10
   maximumTravelDistance: 8
   spawnOffset: {x: 0.8, y: 0.25}
@@ -277,6 +279,8 @@ MonoBehaviour:
   interactionLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  interactionPromptPrefab: {fileID: 2815858192085291982, guid: 597139e0b0543644d888ad63bea64b75, type: 3}
+  promptOffset: 0.35
 --- !u!114 &4536540480486117035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,13 +446,14 @@ MonoBehaviour:
   punchOffset: {x: 0.85, y: 0.15}
   punchSize: {x: 1.45, y: 1}
   punchDamageMultiplier: 1.25
-  waveOffset: {x: 3.5, y: 0.15}
-  waveSize: {x: 7, y: 1.4}
+  waveRange: 8
   waveDamageMultiplier: 3.5
-  invertFacingDirection: 1
+  invertFacingDirection: 0
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
+  punchImpactPrefab: {fileID: 7626212061485368255, guid: 01b2516f76863234d9db5b14c4f89cc3, type: 3}
+  wavePrefab: {fileID: 502484610862425850, guid: 2dfb21521eacca9448d6993efb33e0e6, type: 3}
 --- !u!1 &7998046781919826993
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,6 +465,8 @@ GameObject:
   - component: {fileID: 1047660655586686563}
   - component: {fileID: 6749449187529274334}
   - component: {fileID: 8836460492422581657}
+  - component: {fileID: 3805738272136015532}
+  - component: {fileID: 429744387780298597}
   m_Layer: 6
   m_Name: CharacterVisual
   m_TagString: Untagged
@@ -563,3 +570,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3805738272136015532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7998046781919826993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d92098fa6fde0e41867c0e33d51bb6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.MonkPunchAnimationEvents
+--- !u!114 &429744387780298597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7998046781919826993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d519e54a02bb4404ca7d70d0ccf9abdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.MonkBlastAnimationEvents

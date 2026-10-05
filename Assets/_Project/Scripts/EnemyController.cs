@@ -72,6 +72,10 @@ public abstract class EnemyController : Entity
     private bool hasPatrolTarget;
     private bool wasChasing;
     protected bool HasLivingPlayer => playerEntity != null && !playerEntity.IsDead;
+    public virtual float ContactDamage => Attack_Power;
+    protected virtual bool ControlsAttackMovement => false;
+    protected virtual void AttackFixedUpdate() { }
+    protected virtual string DeathAnimationState => null;
     public override float maxHP => _maxHP;
     public override float maxMP => 0;
     public override float maxMental => 0f;
@@ -82,11 +86,8 @@ public abstract class EnemyController : Entity
         base.Setup();
         rb = GetComponent<Rigidbody2D>();
         capsuleCollider2D = GetComponent<CapsuleCollider2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerController = player.GetComponent<PlayerMovement2D>();
-        playerEntity = player.GetComponent<PlayerEntity>();
-        playerProgression = player.GetComponent<PlayerProgression>();
-        playerCurrency = player.GetComponent<PlayerCurrency>();
+        ResolvePlayer();
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalMaterial = spriteRenderer.sharedMaterial;
         target = HasLivingPlayer ? playerEntity : null;
@@ -134,12 +135,20 @@ public abstract class EnemyController : Entity
     }
     void FixedUpdate()
     {
+        if (player == null)
+            ResolvePlayer();
+
         target = HasLivingPlayer ? playerEntity : null;
         if (isDefeated || isKnockback)
             return;
 
         if (isAttacking || inFarAttackRange)
         {
+            if (ControlsAttackMovement)
+            {
+                AttackFixedUpdate();
+                return;
+            }
             SetHorizontalVelocity(0f);
             return;
         }
@@ -162,6 +171,18 @@ public abstract class EnemyController : Entity
         }
 
         Patrol();
+    }
+
+    private void ResolvePlayer()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+            return;
+
+        playerController = player.GetComponent<PlayerMovement2D>();
+        playerEntity = player.GetComponent<PlayerEntity>();
+        playerProgression = player.GetComponent<PlayerProgression>();
+        playerCurrency = player.GetComponent<PlayerCurrency>();
     }
 
     protected bool CanDetectLivingPlayer()
@@ -267,6 +288,11 @@ public abstract class EnemyController : Entity
 
     public void TakeDamage(float damage, bool isCritical)
     {
+        TakeDamage(damage, isCritical, true);
+    }
+
+    public void TakeDamage(float damage, bool isCritical, bool showDamageText)
+    {
         if (isDefeated || damage <= 0f)
         {
             return;
@@ -277,15 +303,19 @@ public abstract class EnemyController : Entity
             CombatImpactFeedback.Play(transform.position, isCritical);
             // 1. 데미지 텍스트 생성
             // 몬스터 머리 위 위치 기준, 약간의 랜덤성을 주면 글자가 겹치지 않아 더 자연스럽습니다.
-            Vector3 spawnPosition = textSpawnPoint.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(0, 0.3f), 0);
-            GameObject textObj = Instantiate(damageTextPrefab, spawnPosition, Quaternion.identity);
-
-            // 2. 데미지 수치 전달
-            DamageText damageText = textObj.GetComponent<DamageText>();
-    
-            if (damageText != null)
+            if (showDamageText && damageTextPrefab != null)
             {
-                damageText.Setup(damage, isCritical);
+                Vector3 textOrigin = textSpawnPoint != null ? textSpawnPoint.position : transform.position;
+                Vector3 spawnPosition = textOrigin + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(0, 0.3f), 0);
+                GameObject textObj = Instantiate(damageTextPrefab, spawnPosition, Quaternion.identity);
+
+                // 2. 데미지 수치 전달
+                DamageText damageText = textObj.GetComponent<DamageText>();
+    
+                if (damageText != null)
+                {
+                    damageText.Setup(damage, isCritical);
+                }
             }
         }
         if(HP<=0)
@@ -368,14 +398,31 @@ public abstract class EnemyController : Entity
 
     private IEnumerator DeadAnimation()
     {
-        
-        animator.SetTrigger("isDead");
-        yield return new WaitForSeconds(1f);
+        float duration = 1f;
+        if (animator != null)
+        {
+            if (!string.IsNullOrEmpty(DeathAnimationState)
+                && animator.HasState(0, Animator.StringToHash(DeathAnimationState)))
+            {
+                animator.Play(DeathAnimationState, 0, 0f);
+                animator.Update(0f);
+                AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+                float speed = Mathf.Abs(state.speed * state.speedMultiplier * animator.speed);
+                foreach (AnimatorClipInfo clip in animator.GetCurrentAnimatorClipInfo(0))
+                    if (speed > 0.001f)
+                        duration = Mathf.Max(duration, clip.clip.length / speed + 0.2f);
+            }
+            else
+            {
+                animator.SetTrigger("isDead");
+            }
+        }
+        yield return new WaitForSeconds(duration);
         Destroy(gameObject);
 
     }
 
-    public void ApplyKnockback(float directionX)
+    public virtual void ApplyKnockback(float directionX)
     {
         if (isDefeated || rb == null)
         return;
@@ -399,7 +446,7 @@ public abstract class EnemyController : Entity
         isKnockback = false;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         if (hitFlashRoutine != null)
         {

@@ -49,7 +49,7 @@ namespace EasternFantasy.Skill
             if (skill == null || skill.ActivationType != SkillActivationType.Active
                 || GetCooldownRemaining(skill) > 0f)
                 return false;
-            if (entity.IsDead || entity.MP < skill.ManaCost)
+            if (!SkillResourcePayment.CanAfford(entity, skill))
                 return false;
             bool cast;
             if (skill == tripleTalismanSkill)
@@ -83,7 +83,7 @@ namespace EasternFantasy.Skill
 
             if (cast)
             {
-                if (!entity.TrySpendMana(skill.ManaCost))
+                if (!SkillResourcePayment.TrySpend(entity, skill))
                     return false;
                 cooldownEnds[skill] = Time.time + skill.CooldownSeconds;
             }

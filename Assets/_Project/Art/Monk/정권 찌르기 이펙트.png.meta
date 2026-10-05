@@ -111,7 +111,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 330
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -132,7 +132,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -176,12 +176,12 @@ TextureImporter:
       name: "\uC815\uAD8C \uCC0C\uB974\uAE30 \uC774\uD399\uD2B8_0"
       rect:
         serializedVersion: 2
-        x: 10
-        y: 225
-        width: 318
-        height: 257
+        x: 0
+        y: 140
+        width: 362
+        height: 450
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -198,12 +198,12 @@ TextureImporter:
       name: "\uC815\uAD8C \uCC0C\uB974\uAE30 \uC774\uD399\uD2B8_1"
       rect:
         serializedVersion: 2
-        x: 364
-        y: 179
-        width: 315
-        height: 379
+        x: 362
+        y: 140
+        width: 362
+        height: 450
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -220,12 +220,12 @@ TextureImporter:
       name: "\uC815\uAD8C \uCC0C\uB974\uAE30 \uC774\uD399\uD2B8_2"
       rect:
         serializedVersion: 2
-        x: 708
-        y: 177
-        width: 387
-        height: 383
+        x: 724
+        y: 140
+        width: 362
+        height: 450
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -234,6 +234,72 @@ TextureImporter:
       bones: []
       spriteID: 4da23ced5552cce4784c8f7d3cc228eb
       internalID: -9219904247856451023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC815\uAD8C \uCC0C\uB974\uAE30 \uC774\uD399\uD2B8_3"
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 140
+        width: 362
+        height: 450
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e8d7b495acd1ef409ddef0a04d71efb
+      internalID: 242492824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC815\uAD8C \uCC0C\uB974\uAE30 \uC774\uD399\uD2B8_4"
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 140
+        width: 362
+        height: 450
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 825588acfabf49d47bd9b36ee7fe9e1c
+      internalID: 1784961954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC815\uAD8C \uCC0C\uB974\uAE30 \uC774\uD399\uD2B8_5"
+      rect:
+        serializedVersion: 2
+        x: 1810
+        y: 140
+        width: 362
+        height: 450
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e06b9bb2fec51ec4398831333cde6332
+      internalID: 949421149
       vertices: []
       indices: 
       edges: []
@@ -257,6 +323,9 @@ TextureImporter:
       "\uC815\uAD8C \uCC0C\uB974\uAE30 \uC774\uD399\uD2B8_0": -2469771938087035975
       "\uC815\uAD8C \uCC0C\uB974\uAE30 \uC774\uD399\uD2B8_1": 4979839642433329488
       "\uC815\uAD8C \uCC0C\uB974\uAE30 \uC774\uD399\uD2B8_2": -9219904247856451023
+      "\uC815\uAD8C \uCC0C\uB974\uAE30 \uC774\uD399\uD2B8_3": 242492824
+      "\uC815\uAD8C \uCC0C\uB974\uAE30 \uC774\uD399\uD2B8_4": 1784961954
+      "\uC815\uAD8C \uCC0C\uB974\uAE30 \uC774\uD399\uD2B8_5": 949421149
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

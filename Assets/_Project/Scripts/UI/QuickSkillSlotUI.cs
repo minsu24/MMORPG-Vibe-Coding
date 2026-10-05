@@ -204,14 +204,7 @@ namespace EasternFantasy.UI
                 : caster == null ? "사용할 수 없는 캐릭터입니다"
                 : caster.GetCooldownRemaining(skill) > 0.05f
                     ? $"재사용 대기 중 ({Mathf.CeilToInt(caster.GetCooldownRemaining(skill))}초)"
-                : player != null && player.Energy != null
-                    && skill.ResourceCost == SkillResourceCost.FullEnergy
-                    && !player.Energy.IsFull
-                    ? "기력이 완전히 충전되어야 합니다"
-                : player != null && skill.ResourceCost == SkillResourceCost.Mana
-                    && player.MP < skill.ManaCost
-                    ? $"MP 부족 (필요 {skill.ManaCost:0})"
-                : string.Empty;
+                : SkillResourcePayment.GetUnavailableReason(player, skill);
         }
 
         private static void CreateLockPart(string objectName, Transform parent,

@@ -4,8 +4,7 @@ using UnityEngine;
 using EasternFantasy.Shop;
 using EasternFantasy.Player;
 using EasternFantasy.UI;
-using TMPro;
-using UnityEngine.UI;
+using EasternFantasy.Dungeon;
 
 namespace EasternFantasy.Quest
 {
@@ -14,6 +13,11 @@ namespace EasternFantasy.Quest
     {
         [SerializeField, Min(0.1f)] private float interactionRadius = 2f;
         [SerializeField] private LayerMask interactionLayers = ~0;
+
+        [Header("Interaction Prompt")]
+        [Tooltip("World-space UI prefab displayed above the nearest NPC.")]
+        [SerializeField] private GameObject interactionPromptPrefab;
+        [SerializeField, Min(0f)] private float promptOffset = 0.35f;
 
         private readonly List<QuestGiver> nearbyQuestGivers = new List<QuestGiver>();
         private GameObject interactionPrompt;
@@ -40,7 +44,8 @@ namespace EasternFantasy.Quest
             PlayerEntity entity = GetComponent<PlayerEntity>();
             if ((entity != null && entity.IsDead)
                 || (DialogueManager.Instance != null && DialogueManager.Instance.IsDialogueActive)
-                || (ShopWindowUI.Instance != null && ShopWindowUI.Instance.IsOpen))
+                || (ShopWindowUI.Instance != null && ShopWindowUI.Instance.IsOpen)
+                || (DungeonWindowUI.Instance != null && DungeonWindowUI.Instance.IsOpen))
             {
                 currentPromptTarget = null;
                 if (interactionPrompt != null)
@@ -48,9 +53,10 @@ namespace EasternFantasy.Quest
                 return;
             }
 
-            Shopkeeper shopkeeper = FindNearestShopkeeper();
+            DungeonPortal dungeon = FindNearestDungeonPortal();
+            Shopkeeper shopkeeper = dungeon == null ? FindNearestShopkeeper() : null;
             QuestGiver questGiver = shopkeeper == null ? FindNearestQuestGiver() : null;
-            Transform target = shopkeeper != null ? shopkeeper.transform
+            Transform target = dungeon != null ? dungeon.transform : shopkeeper != null ? shopkeeper.transform
                 : questGiver != null ? questGiver.transform : null;
             if (target == null)
             {
@@ -60,8 +66,8 @@ namespace EasternFantasy.Quest
                 return;
             }
 
-            if (interactionPrompt == null)
-                CreateInteractionPrompt();
+            if (interactionPrompt == null && !CreateInteractionPrompt())
+                return;
             if (currentPromptTarget != target)
             {
                 currentPromptTarget = target;
@@ -70,65 +76,35 @@ namespace EasternFantasy.Quest
                 float top = targetSprite != null ? targetSprite.bounds.max.y
                     : targetCollider != null ? targetCollider.bounds.max.y
                     : target.position.y + 1.3f;
-                promptHeight = top - target.position.y + 0.35f;
+                promptHeight = top - target.position.y + promptOffset;
             }
             interactionPrompt.transform.position = target.position + Vector3.up * promptHeight;
             interactionPrompt.SetActive(true);
         }
 
-        private void CreateInteractionPrompt()
+        private bool CreateInteractionPrompt()
         {
-            interactionPrompt = new GameObject("Interact T Prompt", typeof(RectTransform),
-                typeof(Canvas));
-            interactionPrompt.transform.localScale = Vector3.one * 0.008f;
-            RectTransform root = interactionPrompt.GetComponent<RectTransform>();
-            root.sizeDelta = new Vector2(64f, 64f);
-            Canvas canvas = interactionPrompt.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.WorldSpace;
-            canvas.overrideSorting = true;
-            canvas.sortingOrder = 300;
+            if (interactionPromptPrefab == null)
+                return false;
 
-            GameObject badge = new GameObject("Key Badge", typeof(RectTransform),
-                typeof(CanvasRenderer), typeof(Image), typeof(Outline));
-            badge.transform.SetParent(interactionPrompt.transform, false);
-            RectTransform badgeRect = badge.GetComponent<RectTransform>();
-            badgeRect.anchorMin = Vector2.zero;
-            badgeRect.anchorMax = Vector2.one;
-            badgeRect.offsetMin = badgeRect.offsetMax = Vector2.zero;
-            Image background = badge.GetComponent<Image>();
-            background.sprite = Sprite.Create(Texture2D.whiteTexture,
-                new Rect(0f, 0f, 1f, 1f), new Vector2(0.5f, 0.5f));
-            background.color = new Color(0.04f, 0.06f, 0.065f, 0.92f);
-            background.raycastTarget = false;
-            Outline border = badge.GetComponent<Outline>();
-            border.effectColor = new Color(1f, 0.77f, 0.34f);
-            border.effectDistance = new Vector2(3f, -3f);
-
-            GameObject label = new GameObject("T", typeof(RectTransform),
-                typeof(CanvasRenderer), typeof(TextMeshProUGUI));
-            label.transform.SetParent(badge.transform, false);
-            RectTransform labelRect = label.GetComponent<RectTransform>();
-            labelRect.anchorMin = Vector2.zero;
-            labelRect.anchorMax = Vector2.one;
-            labelRect.offsetMin = labelRect.offsetMax = Vector2.zero;
-            TextMeshProUGUI text = label.GetComponent<TextMeshProUGUI>();
-            text.text = "T";
-            text.fontSize = 42f;
-            text.fontStyle = FontStyles.Bold;
-            text.color = new Color(1f, 0.9f, 0.6f);
-            text.alignment = TextAlignmentOptions.Center;
-            text.raycastTarget = false;
+            interactionPrompt = Instantiate(interactionPromptPrefab);
+            interactionPrompt.name = "Interact T Prompt";
+            return true;
         }
 
         public bool TryInteract()
         {
+            if (DungeonWindowUI.Instance != null && DungeonWindowUI.Instance.IsOpen) return false;
             if (DialogueManager.Instance != null && DialogueManager.Instance.IsDialogueActive)
                 return false;
+
+            DungeonPortal dungeon = FindNearestDungeonPortal();
+            if (dungeon != null) return dungeon.Interact(GetComponent<PlayerMovement2D>());
 
             Shopkeeper nearestShopkeeper = FindNearestShopkeeper();
             if (nearestShopkeeper != null)
             {
-                nearestShopkeeper.OpenShop();
+                nearestShopkeeper.Interact();
                 return true;
             }
 
@@ -221,6 +197,19 @@ namespace EasternFantasy.Quest
             return nearest;
         }
 
+        private DungeonPortal FindNearestDungeonPortal()
+        {
+            DungeonPortal nearest = null;
+            float distance = interactionRadius * interactionRadius;
+            foreach (Collider2D overlap in Physics2D.OverlapCircleAll(transform.position, interactionRadius, interactionLayers))
+            {
+                DungeonPortal candidate = overlap.GetComponentInParent<DungeonPortal>();
+                if (candidate == null || !candidate.isActiveAndEnabled) continue;
+                float sqr = (candidate.transform.position - transform.position).sqrMagnitude;
+                if (sqr <= distance) { nearest = candidate; distance = sqr; }
+            }
+            return nearest;
+        }
         private void OnDisable()
         {
             nearbyQuestGivers.Clear();

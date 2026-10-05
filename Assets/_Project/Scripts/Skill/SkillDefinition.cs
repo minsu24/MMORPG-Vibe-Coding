@@ -25,9 +25,10 @@ namespace EasternFantasy.Skill
 
     public enum SkillResourceCost
     {
-        Mana,
-        None,
-        FullEnergy
+        Mana = 0,
+        None = 1,
+        FullEnergy = 2,
+        Energy = 3
     }
 
     [Serializable]
@@ -55,6 +56,7 @@ namespace EasternFantasy.Skill
         [SerializeField, Min(0f)] private float cooldownSeconds;
         [SerializeField, Min(0f)] private float manaCost;
         [SerializeField] private SkillResourceCost resourceCost;
+        [SerializeField, Min(0f), Tooltip("Amount spent when Resource Cost is Energy.")] private float energyCost;
 
         [SerializeField] private Sprite icon;
         [SerializeField] private SkillEffectType effectType;
@@ -71,6 +73,7 @@ namespace EasternFantasy.Skill
         public float CooldownSeconds => cooldownSeconds;
         public float ManaCost => manaCost;
         public SkillResourceCost ResourceCost => resourceCost;
+        public float EnergyCost => energyCost;
 
         public Sprite Icon => icon;
         public SkillEffectType EffectType => effectType;
@@ -86,6 +89,7 @@ namespace EasternFantasy.Skill
             effectPerLevel = Mathf.Max(0f, effectPerLevel);
             cooldownSeconds = Mathf.Max(0f, cooldownSeconds);
             manaCost = Mathf.Max(0f, manaCost);
+            energyCost = Mathf.Max(0f, energyCost);
         }
     }
 }

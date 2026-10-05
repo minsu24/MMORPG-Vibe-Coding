@@ -24,8 +24,11 @@ MonoBehaviour:
   maximumLevel: 1
   cooldownSeconds: 4
   manaCost: 0
-  resourceCost: 2
+  resourceCost: 3
+  energyCost: 0
   icon: {fileID: 1123564237087817166, guid: ebe37f8cfe605a84c998198ab141fab7, type: 3}
   effectType: 0
   effectPerLevel: 0
-  requirements: []
+  requirements:
+  - skill: {fileID: 11400000, guid: 4a227fe19548eb04f9538dfa75e00895, type: 2}
+    requiredLevel: 3

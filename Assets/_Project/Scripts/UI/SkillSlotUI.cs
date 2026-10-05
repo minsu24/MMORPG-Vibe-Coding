@@ -146,6 +146,9 @@ namespace EasternFantasy.UI
             image.sprite = definition.Icon;
             image.color = definition.Icon != null ? Color.white : new Color(0.8f, 0.7f, 0.35f, 0.9f);
             image.raycastTarget = false;
+            Canvas dragCanvas = dragVisual.AddComponent<Canvas>();
+            dragCanvas.overrideSorting = true;
+            dragCanvas.sortingOrder = 500;
             dragVisual.transform.position = eventData.position;
         }
 

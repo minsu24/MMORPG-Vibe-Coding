@@ -81,7 +81,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 166
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -102,7 +102,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -150,8 +150,8 @@ TextureImporter:
         y: 173
         width: 236
         height: 322
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5031171}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -172,8 +172,8 @@ TextureImporter:
         y: 171
         width: 248
         height: 326
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4969439}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -194,8 +194,8 @@ TextureImporter:
         y: 170
         width: 244
         height: 375
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.43200988}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -216,8 +216,8 @@ TextureImporter:
         y: 169
         width: 253
         height: 311
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.52091223}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -238,8 +238,8 @@ TextureImporter:
         y: 171
         width: 243
         height: 326
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4969439}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -260,8 +260,8 @@ TextureImporter:
         y: 173
         width: 240
         height: 325
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49847296}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -296,6 +296,8 @@ TextureImporter:
       "\uC815\uAD8C \uCC0C\uB974\uAE30 \uBE44\uC728 \uC218\uC815_3": -2741973217725321137
       "\uC815\uAD8C \uCC0C\uB974\uAE30 \uBE44\uC728 \uC218\uC815_4": 5483726191059596729
       "\uC815\uAD8C \uCC0C\uB974\uAE30 \uBE44\uC728 \uC218\uC815_5": -5835113953040247829
+      "\uC815\uAD8C \uCC0C\uB974\uAE30 \uBE44\uC728 \uC218\uC815_SecondThrust": 1524254945
+      "\uC815\uAD8C \uCC0C\uB974\uAE30 \uBE44\uC728 \uC218\uC815_SecondWindup": 731829175
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

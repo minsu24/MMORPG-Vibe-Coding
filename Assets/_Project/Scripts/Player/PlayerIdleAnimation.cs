@@ -28,6 +28,7 @@ namespace EasternFantasy.Player
         private bool hasMovingParameter;
         private bool hasJumpingParameter;
         private bool hasAttackParameter;
+        private bool lockAttackFacing;
 
         public float FacingDirectionX { get; private set; }
         public bool IsAttacking { get; private set; }
@@ -62,9 +63,9 @@ namespace EasternFantasy.Player
             if (playerEntity != null && playerEntity.isKnockback)
                 return;
 
-            float horizontalInput = movement != null ? movement.MoveInput : 0f;
+            float horizontalInput = movement != null && !movement.IsMovementLocked ? movement.MoveInput : 0f;
             bool isMoving = Mathf.Abs(horizontalInput) > movementThreshold;
-            if (isMoving) ApplyFacingDirection(horizontalInput);
+            if (isMoving && !lockAttackFacing) ApplyFacingDirection(horizontalInput);
             if (isMoving == wasMoving) return;
 
             wasMoving = isMoving;
@@ -104,6 +105,22 @@ namespace EasternFantasy.Player
             return true;
         }
 
+        public bool TryRequestSkillAnimation(string stateName)
+        {
+            if (!isActiveAndEnabled || IsAttacking || animator == null)
+                return false;
+            string statePath = "Base Layer." + stateName;
+            if (!animator.HasState(0, Animator.StringToHash(statePath)))
+                return false;
+
+            IsAttacking = true;
+            lockAttackFacing = true;
+            if (hasAttackParameter) animator.ResetTrigger(AttackParameter);
+            animator.Play(statePath, 0, 0f);
+            attackLockRoutine = StartCoroutine(WaitForAttackAnimation(Animator.StringToHash(stateName)));
+            return true;
+        }
+
         public void SetJumping(bool isJumping)
         {
             if (animator != null && hasJumpingParameter)
@@ -116,6 +133,7 @@ namespace EasternFantasy.Player
                 StopCoroutine(attackLockRoutine);
             attackLockRoutine = null;
             IsAttacking = false;
+            lockAttackFacing = false;
             if (hasAttackParameter)
                 animator.ResetTrigger(AttackParameter);
             SetJumping(false);
@@ -168,6 +186,7 @@ namespace EasternFantasy.Player
             }
 
             IsAttacking = false;
+            lockAttackFacing = false;
             attackLockRoutine = null;
         }
 
@@ -181,6 +200,7 @@ namespace EasternFantasy.Player
 
             attackLockRoutine = null;
             IsAttacking = false;
+            lockAttackFacing = false;
         }
 
         private void CacheAnimatorParameters()

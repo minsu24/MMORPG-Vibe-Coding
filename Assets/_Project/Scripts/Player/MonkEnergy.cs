@@ -68,9 +68,16 @@ namespace EasternFantasy.Player
             SetEnergy(energy + amount);
         }
 
+        public bool TrySpend(float amount)
+        {
+            if (entity.IsDead || amount < 0f || energy < amount) return false;
+            SetEnergy(energy - amount);
+            RegisterCombat();
+            return true;
+        }
         public bool TrySpendFullCharge()
         {
-            if (!IsFull) return false;
+            if (entity.IsDead || !IsFull) return false;
             SetEnergy(0f);
             RegisterCombat();
             return true;

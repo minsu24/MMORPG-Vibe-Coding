@@ -23,6 +23,7 @@ public class HP_MP_EXP_UI : MonoBehaviour
     private Slider sliderEXP;
     [SerializeField]
     private TextMeshProUGUI textEXP;
+    [SerializeField] private MonkEnergyBarUI monkEnergyBarPrefab;
     private GameObject manaBarRoot;
     private bool manaBarWasActive;
     private MonkEnergyBarUI energyBar;
@@ -31,10 +32,6 @@ public class HP_MP_EXP_UI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerController = player.GetComponent<PlayerEntity>();
-        playerProgression = player.GetComponent<PlayerProgression>();
-
         if (sliderMP != null)
         {
             manaBarRoot = sliderMP.transform.parent.gameObject;
@@ -42,9 +39,21 @@ public class HP_MP_EXP_UI : MonoBehaviour
         }
     }
 
+    private bool TryBindPlayer()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) return false;
+        playerController = player.GetComponent<PlayerEntity>();
+        playerProgression = player.GetComponent<PlayerProgression>();
+        showingEnergy = null;
+        return playerController != null;
+    }
     // Update is called once per frame
     private void Update()
     {
+        if ((playerController == null || !playerController.gameObject.activeInHierarchy)
+            && !TryBindPlayer()) return;
+
         if(sliderHP != null) sliderHP.value = Utils.Percent(playerController.HP, playerController.maxHP); // 슬라이드를 이용한 HP 표시
         if(textHP != null) textHP.text = $"{playerController.HP:F0}/{playerController.maxHP:F0}"; // 수치에 따른 텍스트 변경
 
@@ -55,14 +64,14 @@ public class HP_MP_EXP_UI : MonoBehaviour
             showingEnergy = isMonk;
             if (isMonk && energyBar == null && manaBarRoot != null)
             {
-                MonkEnergyBarUI prefab = Resources.Load<MonkEnergyBarUI>("UI/MonkEnergyBar");
+                MonkEnergyBarUI prefab = monkEnergyBarPrefab;
                 if (prefab != null)
                 {
                     energyBar = Instantiate(prefab, manaBarRoot.transform.parent, false);
                     energyBar.transform.SetSiblingIndex(manaBarRoot.transform.GetSiblingIndex() + 1);
                 }
                 else
-                    Debug.LogError("MonkEnergyBar prefab is missing from Resources/UI.", this);
+                    Debug.LogError("Assign the MonkEnergyBar prefab to the HUD.", this);
             }
             if (manaBarRoot != null)
                 manaBarRoot.SetActive((!isMonk || energyBar == null)

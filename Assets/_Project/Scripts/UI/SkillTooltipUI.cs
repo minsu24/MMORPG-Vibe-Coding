@@ -34,10 +34,24 @@ namespace EasternFantasy.UI
                 : skill.CooldownSeconds > 0f
                     ? $"액티브 · 재사용 대기시간 {skill.CooldownSeconds:0.#}초"
                     : "액티브 · 재사용 대기시간 없음";
-            if (skill.ActivationType == SkillActivationType.Active
-                && skillSystem.GetComponent<EasternFantasy.Player.MonkEnergy>() != null)
-                typeText += skill.ResourceCost == SkillResourceCost.FullEnergy
-                    ? " · 기력 완충 시 사용" : " · 기력 소모 없음";
+            if (skill.ActivationType == SkillActivationType.Active)
+            {
+                switch (skill.ResourceCost)
+                {
+                    case SkillResourceCost.Energy:
+                        typeText += $" · 기력 {skill.EnergyCost:0.#} 소모";
+                        break;
+                    case SkillResourceCost.FullEnergy:
+                        typeText += " · 기력 완충 시 사용 · 기력 전량 소모";
+                        break;
+                    case SkillResourceCost.Mana:
+                        typeText += $" · MP {skill.ManaCost:0.#} 소모";
+                        break;
+                    case SkillResourceCost.None:
+                        typeText += " · 자원 소모 없음";
+                        break;
+                }
+            }
             descriptionText.text = typeText + "\n\n" + skill.ShortDescription;
             if (!string.IsNullOrWhiteSpace(skill.DetailedDescription))
                 descriptionText.text += "\n\n" + skill.DetailedDescription;

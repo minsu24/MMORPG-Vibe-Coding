@@ -887,6 +887,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d22b223f85f814a8efbb67caff581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Quest.PlayerQuestInteraction
+  interactionPromptPrefab: {fileID: 2815858192085291982, guid: 597139e0b0543644d888ad63bea64b75, type: 3}
+  promptOffset: 0.35
   interactionRadius: 2
   interactionLayers:
     serializedVersion: 2

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.SkillDefinition
   skillId: monk_straightpunch
   displayName: "\uC815\uAD8C\uCC0C\uB974\uAE30"
-  shortDescription: "\uC804\uBC29\uC758 \uC801\uC744 \uBE60\uB974\uAC8C \uCC0C\uB985\uB2C8\uB2E4.
-    \uC801\uC911\uD558\uBA74 \uAE30\uB825\uC744 10 \uC5BB\uC2B5\uB2C8\uB2E4."
+  shortDescription: "\uC804\uBC29\uC758 \uC801\uC744 \uBE60\uB974\uAC8C \uB450 \uBC88
+    \uCC0C\uB985\uB2C8\uB2E4. \uC801\uC911\uD558\uBA74 \uAE30\uB825\uC744 10 \uC5BB\uC2B5\uB2C8\uB2E4."
   detailedDescription: "\uC77C\uBC18 \uC2A4\uD0AC \xB7 \uAE30\uB825 \uC18C\uBAA8
     \uC5C6\uC74C \xB7 \uC7AC\uC0AC\uC6A9 \uB300\uAE30\uC2DC\uAC04 \uC5C6\uC74C"
   tier: 1
@@ -24,7 +24,10 @@ MonoBehaviour:
   cooldownSeconds: 0
   manaCost: 0
   resourceCost: 1
+  energyCost: 0
   icon: {fileID: 479793385259737664, guid: ebe37f8cfe605a84c998198ab141fab7, type: 3}
   effectType: 0
   effectPerLevel: 0
-  requirements: []
+  requirements:
+  - skill: {fileID: 11400000, guid: 390809e0eddc5c049ab519420debe55e, type: 2}
+    requiredLevel: 3

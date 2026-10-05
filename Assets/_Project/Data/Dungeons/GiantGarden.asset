@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a1eca575a9e7484db4a5ea87600d091, type: 3}
+  m_Name: GiantGarden
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dungeon.DungeonDefinition
+  displayName: "\uAC70\uC778\uC758 \uB18D\uC7A5"
+  description: "\uC548\uAC1C \uB108\uBA38, \uAC70\uB300\uD55C \uB18D\uC6D0\uC774
+    \uBAA8\uC2B5\uC744 \uB4DC\uB7EC\uB0C5\uB2C8\uB2E4."
+  preview: {fileID: 3548261074904864037, guid: cd068dc8201486e498b6f80077d6f945, type: 3}
+  sceneName: GiantFarm_01
+  spawnPointName: DungeonSpawn
+  available: 1
+  minimumLevel: 1
+  timeLimitSeconds: 600
+  monsterCount: 0
+  clearRewards: []

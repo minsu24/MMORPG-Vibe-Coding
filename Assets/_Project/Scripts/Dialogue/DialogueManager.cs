@@ -50,6 +50,7 @@ namespace EasternFantasy.Dialogue
         public bool IsDialogueActive { get; private set; }
         public event Action DialogueStarted;
         public event Action DialogueEnded;
+        public event Action<DialogueSequence> DialogueCompleted;
 
         private void Awake()
         {
@@ -156,11 +157,18 @@ namespace EasternFantasy.Dialogue
                 if (pendingQuestDecision != null)
                     ShowQuestDecision();
                 else
-                    EndDialogue();
+                    CompleteDialogue();
                 return;
             }
 
             ShowCurrentLine();
+        }
+
+        private void CompleteDialogue()
+        {
+            DialogueSequence completed = currentSequence;
+            EndDialogue();
+            if (completed != null) DialogueCompleted?.Invoke(completed);
         }
 
         public void EndDialogue()

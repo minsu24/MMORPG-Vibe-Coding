@@ -24,7 +24,10 @@ MonoBehaviour:
   cooldownSeconds: 12
   manaCost: 0
   resourceCost: 1
+  energyCost: 0
   icon: {fileID: 1749490924301287536, guid: b10ecd7b469b3934f867b2ff316632e9, type: 3}
   effectType: 0
   effectPerLevel: 0
-  requirements: []
+  requirements:
+  - skill: {fileID: 11400000, guid: 2c898bc42be3ada4ab1cd4ee7a2c0c0d, type: 2}
+    requiredLevel: 3

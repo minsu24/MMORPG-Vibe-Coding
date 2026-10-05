@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using EasternFantasy.Player;
 using UnityEngine;
@@ -18,10 +19,11 @@ namespace EasternFantasy.Skill
         [SerializeField] private Vector2 punchSize = new Vector2(1.45f, 1f);
         [SerializeField, Min(0f)] private float punchDamageMultiplier = 1.25f;
         [SerializeField, Min(0.1f)] private float waveRange = 8f;
-        [SerializeField, Min(0.1f)] private float waveSpeed = 14f;
         [SerializeField, Min(0f)] private float waveDamageMultiplier = 3.5f;
         [SerializeField] private bool invertFacingDirection = true;
         [SerializeField] private LayerMask enemyLayers;
+        [SerializeField] private GameObject punchImpactPrefab;
+        [SerializeField] private MonkEnergyWave wavePrefab;
 
         private readonly Collider2D[] hitBuffer = new Collider2D[32];
         private readonly HashSet<EnemyController> hitEnemies = new HashSet<EnemyController>();
@@ -30,9 +32,33 @@ namespace EasternFantasy.Skill
         private MonkEnergy energy;
         private PlayerIdleAnimation animationController;
 
+        private Coroutine punchRoutine;
+        private Coroutine waveRoutine;
+        private MonkEnergyWave activeWave;
+        private PlayerMovement2D movement;
+        private bool wavePending;
+        private float waveDirection;
+        private bool punchActive;
+        private bool punchEnergyGranted;
+        private int lastStrike;
+        private float punchDirection;
+        private float punchDamage;
+        private bool punchCritical;
+        private readonly List<PunchHit> punchHits = new List<PunchHit>();
+
+        private struct PunchHit
+        {
+            public EnemyController Enemy;
+            public GameObject TextPrefab;
+            public Vector3 TextPosition;
+            public Vector3 ImpactPosition;
+            public Vector3 ImpactOffset;
+        }
+
         private void Awake()
         {
             entity = GetComponent<PlayerEntity>();
+            movement = GetComponent<PlayerMovement2D>();
             energy = GetComponent<MonkEnergy>();
             animationController = GetComponent<PlayerIdleAnimation>();
             if (enemyLayers.value == 0)
@@ -44,15 +70,22 @@ namespace EasternFantasy.Skill
 
         public bool TryCast(SkillDefinition skill)
         {
-            if (skill == null || entity.IsDead || Time.timeScale <= 0f
-                || GetCooldownRemaining(skill) > 0f) return false;
+            if (!isActiveAndEnabled || skill == null || entity.IsDead || entity.isKnockback || Time.timeScale <= 0f
+                || GetCooldownRemaining(skill) > 0f || !SkillResourcePayment.CanAfford(entity, skill)) return false;
 
             if (skill == straightPunchSkill)
             {
-                if (animationController != null && !animationController.TryRequestAttack())
+                if (animationController == null || punchActive
+                    || !animationController.TryRequestSkillAnimation("MonkStab"))
                     return false;
-                int hitCount = DamageInFront(punchOffset, punchSize, punchDamageMultiplier);
-                if (hitCount > 0) energy.Gain(punchEnergyOnHit);
+                punchActive = true;
+                punchEnergyGranted = false;
+                lastStrike = 0;
+                punchDirection = GetDirection();
+                punchDamage = entity.RollAttackDamage(out punchCritical) * punchDamageMultiplier;
+                hitEnemies.Clear();
+                punchHits.Clear();
+                punchRoutine = StartCoroutine(WaitForPunch());
             }
             else if (skill == parrySkill)
             {
@@ -60,15 +93,19 @@ namespace EasternFantasy.Skill
             }
             else if (skill == energyWaveSkill)
             {
-                if (!energy.IsFull) return false;
-                if (animationController != null && !animationController.TryRequestAttack())
+                if (wavePrefab == null || waveRoutine != null
+                    || animationController == null
+                    || !animationController.TryRequestSkillAnimation("MonkBlast"))
                     return false;
-                MonkEnergyWave.Launch(entity, energy, GetDirection(),
-                    waveRange, waveSpeed, waveDamageMultiplier, enemyLayers);
-                energy.TrySpendFullCharge();
+
+                if (movement != null) movement.SetMovementLocked(true);
+                waveDirection = GetDirection();
+                wavePending = true;
+                waveRoutine = StartCoroutine(WaitForWave());
             }
             else return false;
 
+            if (!SkillResourcePayment.TrySpend(entity, skill)) return false;
             if (skill.CooldownSeconds > 0f)
                 cooldownEnds[skill] = Time.time + skill.CooldownSeconds;
             return true;
@@ -80,35 +117,131 @@ namespace EasternFantasy.Skill
                 ? Mathf.Max(0f, end - Time.time) : 0f;
         }
 
-        private int DamageInFront(Vector2 offset, Vector2 size, float multiplier)
+        private IEnumerator WaitForWave()
         {
-            float direction = GetDirection();
-            Vector2 center = (Vector2)transform.position + new Vector2(offset.x * direction, offset.y);
+            yield return null;
+            while ((animationController.IsAttacking || activeWave != null) && !entity.IsDead)
+                yield return null;
+            if (movement != null) movement.SetMovementLocked(false);
+            wavePending = false;
+            waveRoutine = null;
+        }
+
+        public void OnEnergyWaveRelease()
+        {
+            if (!wavePending || entity.IsDead || entity.isKnockback) return;
+            wavePending = false;
+            activeWave = MonkEnergyWave.Launch(wavePrefab, entity, energy, waveDirection,
+                waveRange, waveDamageMultiplier, enemyLayers);
+        }
+        private IEnumerator WaitForPunch()
+        {
+            yield return null;
+            while (animationController.IsAttacking && !entity.IsDead)
+                yield return null;
+            ClearPunch();
+            punchRoutine = null;
+        }
+
+        public void OnStraightPunchHit(int strike)
+        {
+            if (!punchActive || entity.IsDead || entity.isKnockback
+                || strike != lastStrike + 1 || strike > 2)
+                return;
+            lastStrike = strike;
+
+            // The second motion repeats feedback, never the damage or hit reaction.
+            if (strike == 2)
+                foreach (PunchHit hit in punchHits)
+                    ShowPunchHit(hit, 2);
+
+            Vector2 center = (Vector2)transform.position
+                + new Vector2(punchOffset.x * punchDirection, punchOffset.y);
             ContactFilter2D filter = new ContactFilter2D
             {
                 useLayerMask = true,
                 layerMask = enemyLayers,
                 useTriggers = true
             };
-            int count = Physics2D.OverlapBox(center, size, 0f, filter, hitBuffer);
-            hitEnemies.Clear();
-            float damage = entity.RollAttackDamage(out bool critical) * multiplier;
+            int count = Physics2D.OverlapBox(center, punchSize, 0f, filter, hitBuffer);
             for (int i = 0; i < count; i++)
             {
-                EnemyController enemy = hitBuffer[i] != null
-                    ? hitBuffer[i].GetComponentInParent<EnemyController>() : null;
-                if (enemy == null || !hitEnemies.Add(enemy)) continue;
+                Collider2D collider = hitBuffer[i];
+                EnemyController enemy = collider != null
+                    ? collider.GetComponentInParent<EnemyController>() : null;
+                if (enemy == null || enemy.HP <= 0f || !hitEnemies.Add(enemy)) continue;
+                PunchHit hit = new PunchHit
+                {
+                    Enemy = enemy,
+                    TextPrefab = enemy.damageTextPrefab,
+                    TextPosition = enemy.textSpawnPoint != null
+                        ? enemy.textSpawnPoint.position : enemy.transform.position,
+                    ImpactPosition = collider.ClosestPoint(center),
+                    ImpactOffset = (Vector3)collider.ClosestPoint(center) - enemy.transform.position
+                };
                 float before = enemy.HP;
-                enemy.TakeDamage(damage, critical);
+                enemy.TakeDamage(punchDamage, punchCritical, false);
                 float dealt = Mathf.Max(0f, before - enemy.HP);
                 if (dealt <= 0f) continue;
                 entity.ApplyLifeSteal(dealt);
                 energy.RegisterCombat();
-                if (enemy.HP > 0f) enemy.ApplyKnockback(direction);
+                if (!punchEnergyGranted)
+                {
+                    energy.Gain(punchEnergyOnHit);
+                    punchEnergyGranted = true;
+                }
+                if (enemy.HP > 0f) enemy.ApplyKnockback(punchDirection);
+                punchHits.Add(hit);
+                ShowPunchHit(hit, 1, strike == 1);
+                // An enemy first reached by the second thrust still gets both numbers.
+                if (strike == 2) ShowPunchHit(hit, 2);
             }
-            return hitEnemies.Count;
         }
 
+        private void ShowPunchHit(PunchHit hit, int strike, bool showImpact = true)
+        {
+            Vector3 origin = hit.Enemy != null && hit.Enemy.textSpawnPoint != null
+                ? hit.Enemy.textSpawnPoint.position : hit.TextPosition;
+            if (hit.TextPrefab != null)
+            {
+                Vector3 offset = new Vector3(strike == 1 ? -0.18f : 0.18f,
+                    strike == 1 ? 0f : 0.2f, 0f);
+                GameObject text = Instantiate(hit.TextPrefab, origin + offset, Quaternion.identity);
+                float first = Mathf.Round(punchDamage * 0.5f);
+                text.GetComponent<DamageText>()?.Setup(
+                    strike == 1 ? first : punchDamage - first, punchCritical);
+            }
+            if (showImpact && punchImpactPrefab != null)
+            {
+                GameObject impact = Instantiate(punchImpactPrefab,
+                    hit.Enemy != null ? hit.Enemy.transform.position + hit.ImpactOffset
+                        : hit.ImpactPosition, Quaternion.identity);
+                Vector3 scale = impact.transform.localScale;
+                scale.x = Mathf.Abs(scale.x) * punchDirection;
+                impact.transform.localScale = scale;
+            }
+        }
+
+        private void ClearPunch()
+        {
+            punchActive = false;
+            punchHits.Clear();
+            hitEnemies.Clear();
+            System.Array.Clear(hitBuffer, 0, hitBuffer.Length);
+        }
+
+        private void OnDisable()
+        {
+            if (punchRoutine != null) StopCoroutine(punchRoutine);
+            punchRoutine = null;
+            ClearPunch();
+            if (waveRoutine != null) StopCoroutine(waveRoutine);
+            waveRoutine = null;
+            wavePending = false;
+            if (activeWave != null) Destroy(activeWave.gameObject);
+            activeWave = null;
+            if (movement != null) movement.SetMovementLocked(false);
+        }
         private float GetDirection()
         {
             float direction = animationController != null ? animationController.FacingDirectionX : 1f;
