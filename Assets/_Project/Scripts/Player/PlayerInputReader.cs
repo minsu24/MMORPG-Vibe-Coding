@@ -67,6 +67,12 @@ namespace EasternFantasy.Player
 
         private void Update()
         {
+            if (EasternFantasy.Dungeon.DungeonRunController.Instance != null
+                && EasternFantasy.Dungeon.DungeonRunController.Instance.IsExitPromptOpen)
+            {
+                movement.ClearInput();
+                return;
+            }
             if (EasternFantasy.UI.DungeonWindowUI.Instance != null && EasternFantasy.UI.DungeonWindowUI.Instance.IsOpen)
             {
                 movement.ClearInput();

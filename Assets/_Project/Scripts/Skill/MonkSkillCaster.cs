@@ -12,11 +12,16 @@ namespace EasternFantasy.Skill
     {
         [SerializeField] private SkillDefinition straightPunchSkill;
         [SerializeField] private SkillDefinition parrySkill;
+        [SerializeField] private SkillDefinition dashSkill;
         [SerializeField] private SkillDefinition energyWaveSkill;
-        [SerializeField, Min(0f)] private float punchEnergyOnHit = 10f;
+        [SerializeField, Min(0f)] private float punchEnergyOnHit = 20f;
+        [SerializeField, Min(0.01f)] private float dashDistance = 3f;
+        [SerializeField, Min(0.01f)] private float dashDuration = 0.18f;
         [SerializeField, Min(0f)] private float parryWindow = 0.35f;
-        [SerializeField] private Vector2 punchOffset = new Vector2(0.85f, 0.15f);
-        [SerializeField] private Vector2 punchSize = new Vector2(1.45f, 1f);
+        [SerializeField] private Vector2 punchOffset = new Vector2(1f, 0.2f);
+        [SerializeField] private Vector2 punchSize = new Vector2(2.1f, 1.5f);
+        [Tooltip("Seconds to keep checking for new targets after each punch frame.")]
+        [SerializeField, Min(0f)] private float punchHitWindow = 0.12f;
         [SerializeField, Min(0f)] private float punchDamageMultiplier = 1.25f;
         [SerializeField, Min(0.1f)] private float waveRange = 8f;
         [SerializeField, Min(0f)] private float waveDamageMultiplier = 3.5f;
@@ -33,6 +38,7 @@ namespace EasternFantasy.Skill
         private PlayerIdleAnimation animationController;
 
         private Coroutine punchRoutine;
+        private Coroutine dashRoutine;
         private Coroutine waveRoutine;
         private MonkEnergyWave activeWave;
         private PlayerMovement2D movement;
@@ -42,6 +48,7 @@ namespace EasternFantasy.Skill
         private bool punchEnergyGranted;
         private int lastStrike;
         private float punchDirection;
+        private float punchHitWindowEnd;
         private float punchDamage;
         private bool punchCritical;
         private readonly List<PunchHit> punchHits = new List<PunchHit>();
@@ -71,6 +78,7 @@ namespace EasternFantasy.Skill
         public bool TryCast(SkillDefinition skill)
         {
             if (!isActiveAndEnabled || skill == null || entity.IsDead || entity.isKnockback || Time.timeScale <= 0f
+                || dashRoutine != null
                 || GetCooldownRemaining(skill) > 0f || !SkillResourcePayment.CanAfford(entity, skill)) return false;
 
             if (skill == straightPunchSkill)
@@ -81,11 +89,21 @@ namespace EasternFantasy.Skill
                 punchActive = true;
                 punchEnergyGranted = false;
                 lastStrike = 0;
+                punchHitWindowEnd = 0f;
                 punchDirection = GetDirection();
                 punchDamage = entity.RollAttackDamage(out punchCritical) * punchDamageMultiplier;
                 hitEnemies.Clear();
                 punchHits.Clear();
                 punchRoutine = StartCoroutine(WaitForPunch());
+            }
+            else if (skill == dashSkill)
+            {
+                if (movement == null || !movement.CanDash || animationController == null
+                    || !animationController.TryRequestSkillAnimation("MonkDash", dashDuration))
+                    return false;
+                // Movement direction is independent of the punch sprite's inversion.
+                movement.BeginDash(animationController.FacingDirectionX, dashDistance, dashDuration);
+                dashRoutine = StartCoroutine(WaitForDash());
             }
             else if (skill == parrySkill)
             {
@@ -138,7 +156,14 @@ namespace EasternFantasy.Skill
         {
             yield return null;
             while (animationController.IsAttacking && !entity.IsDead)
+            {
+                // Keep the thrust active briefly so moving targets do not need to
+                // overlap on one exact animation frame. Each enemy is damaged once.
+                if (lastStrike > 0 && Time.time <= punchHitWindowEnd
+                    && !entity.isKnockback && Time.timeScale > 0f)
+                    ApplyPunchHits(lastStrike);
                 yield return null;
+            }
             ClearPunch();
             punchRoutine = null;
         }
@@ -155,6 +180,21 @@ namespace EasternFantasy.Skill
                 foreach (PunchHit hit in punchHits)
                     ShowPunchHit(hit, 2);
 
+            punchHitWindowEnd = Time.time + punchHitWindow;
+            ApplyPunchHits(strike);
+        }
+
+        private IEnumerator WaitForDash()
+        {
+            while (movement != null && movement.IsDashing && !entity.IsDead)
+                yield return null;
+            if (movement != null) movement.EndDash();
+            if (animationController != null) animationController.FinishSkillAnimation();
+            dashRoutine = null;
+        }
+
+        private void ApplyPunchHits(int strike)
+        {
             Vector2 center = (Vector2)transform.position
                 + new Vector2(punchOffset.x * punchDirection, punchOffset.y);
             ContactFilter2D filter = new ContactFilter2D
@@ -225,6 +265,7 @@ namespace EasternFantasy.Skill
         private void ClearPunch()
         {
             punchActive = false;
+            punchHitWindowEnd = 0f;
             punchHits.Clear();
             hitEnemies.Clear();
             System.Array.Clear(hitBuffer, 0, hitBuffer.Length);
@@ -232,6 +273,13 @@ namespace EasternFantasy.Skill
 
         private void OnDisable()
         {
+            if (dashRoutine != null)
+            {
+                StopCoroutine(dashRoutine);
+                dashRoutine = null;
+                if (movement != null) movement.EndDash();
+                if (animationController != null) animationController.FinishSkillAnimation();
+            }
             if (punchRoutine != null) StopCoroutine(punchRoutine);
             punchRoutine = null;
             ClearPunch();
@@ -247,6 +295,27 @@ namespace EasternFantasy.Skill
             float direction = animationController != null ? animationController.FacingDirectionX : 1f;
             if (Mathf.Approximately(direction, 0f)) direction = 1f;
             return invertFacingDirection ? -direction : direction;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            PlayerIdleAnimation facing = animationController != null
+                ? animationController : GetComponent<PlayerIdleAnimation>();
+            float direction = facing != null ? facing.FacingDirectionX : 1f;
+            if (Mathf.Approximately(direction, 0f)) direction = 1f;
+            direction = punchActive ? punchDirection
+                : (invertFacingDirection ? -direction : direction);
+            Vector2 center = (Vector2)transform.position
+                + new Vector2(punchOffset.x * direction, punchOffset.y);
+            Gizmos.color = new Color(1f, 0.75f, 0.15f, 0.6f);
+            Gizmos.DrawWireCube(center, punchSize);
+        }
+
+        private void OnValidate()
+        {
+            punchSize.x = Mathf.Max(0.01f, punchSize.x);
+            punchSize.y = Mathf.Max(0.01f, punchSize.y);
+            punchHitWindow = Mathf.Max(0f, punchHitWindow);
         }
     }
 }

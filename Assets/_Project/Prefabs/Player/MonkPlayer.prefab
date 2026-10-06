@@ -254,11 +254,11 @@ MonoBehaviour:
   skillPoints: 0
   availableSkills:
   - {fileID: 11400000, guid: 390809e0eddc5c049ab519420debe55e, type: 2}
-  - {fileID: 11400000, guid: 1591e04543bc7e647a835f0c3a19492b, type: 2}
+  - {fileID: 11400000, guid: 4a227fe19548eb04f9538dfa75e00895, type: 2}
   - {fileID: 11400000, guid: 2c898bc42be3ada4ab1cd4ee7a2c0c0d, type: 2}
-  - {fileID: 11400000, guid: 424a2df3e5122c94184b2b21e87266ae, type: 2}
-  - {fileID: 11400000, guid: 21fd44cf3ec9aee48a50617a1758ad66, type: 2}
-  - {fileID: 11400000, guid: e916551652459d9429808841e39b8c81, type: 2}
+  - {fileID: 11400000, guid: 67ed475d7fa7cf64c974c39901520a4b, type: 2}
+  - {fileID: 11400000, guid: a83dc257d7284ed1a05db747366b157a, type: 2}
+  - {fileID: 11400000, guid: b3e3a3f9ccdbeb940b4c6cd7979e5b5b, type: 2}
   quickSlots:
   - {fileID: 0}
   - {fileID: 0}
@@ -440,11 +440,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.MonkSkillCaster
   straightPunchSkill: {fileID: 11400000, guid: 67ed475d7fa7cf64c974c39901520a4b, type: 2}
   parrySkill: {fileID: 11400000, guid: e736e42a6ec1ed64c98248ca8501a449, type: 2}
+  dashSkill: {fileID: 11400000, guid: a83dc257d7284ed1a05db747366b157a, type: 2}
   energyWaveSkill: {fileID: 11400000, guid: b3e3a3f9ccdbeb940b4c6cd7979e5b5b, type: 2}
-  punchEnergyOnHit: 10
+  punchEnergyOnHit: 20
+  dashDistance: 3
+  dashDuration: 0.18
   parryWindow: 0.35
-  punchOffset: {x: 0.85, y: 0.15}
-  punchSize: {x: 1.45, y: 1}
+  punchOffset: {x: 1, y: 0.2}
+  punchSize: {x: 2.1, y: 1.5}
+  punchHitWindow: 0.12
   punchDamageMultiplier: 1.25
   waveRange: 8
   waveDamageMultiplier: 3.5

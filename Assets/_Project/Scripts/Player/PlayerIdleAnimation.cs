@@ -29,6 +29,8 @@ namespace EasternFantasy.Player
         private bool hasJumpingParameter;
         private bool hasAttackParameter;
         private bool lockAttackFacing;
+        private bool skillSpeedOverridden;
+        private float speedBeforeSkill;
 
         public float FacingDirectionX { get; private set; }
         public bool IsAttacking { get; private set; }
@@ -63,7 +65,8 @@ namespace EasternFantasy.Player
             if (playerEntity != null && playerEntity.isKnockback)
                 return;
 
-            float horizontalInput = movement != null && !movement.IsMovementLocked ? movement.MoveInput : 0f;
+            float horizontalInput = movement != null && !movement.IsMovementLocked && !movement.IsDashing
+                ? movement.MoveInput : 0f;
             bool isMoving = Mathf.Abs(horizontalInput) > movementThreshold;
             if (isMoving && !lockAttackFacing) ApplyFacingDirection(horizontalInput);
             if (isMoving == wasMoving) return;
@@ -105,7 +108,7 @@ namespace EasternFantasy.Player
             return true;
         }
 
-        public bool TryRequestSkillAnimation(string stateName)
+        public bool TryRequestSkillAnimation(string stateName, float playbackDuration = 0f)
         {
             if (!isActiveAndEnabled || IsAttacking || animator == null)
                 return false;
@@ -117,8 +120,36 @@ namespace EasternFantasy.Player
             lockAttackFacing = true;
             if (hasAttackParameter) animator.ResetTrigger(AttackParameter);
             animator.Play(statePath, 0, 0f);
+            if (playbackDuration > 0f)
+            {
+                foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
+                    if (clip.name == stateName)
+                    {
+                        speedBeforeSkill = animator.speed;
+                        skillSpeedOverridden = true;
+                        animator.speed = clip.length / playbackDuration;
+                        break;
+                    }
+            }
             attackLockRoutine = StartCoroutine(WaitForAttackAnimation(Animator.StringToHash(stateName)));
             return true;
+        }
+
+        public void FinishSkillAnimation()
+        {
+            if (attackLockRoutine != null) StopCoroutine(attackLockRoutine);
+            attackLockRoutine = null;
+            IsAttacking = false;
+            lockAttackFacing = false;
+            RestoreSkillAnimationSpeed();
+            if (playerEntity == null || !playerEntity.IsDead) PlayIdle();
+        }
+
+        private void RestoreSkillAnimationSpeed()
+        {
+            if (!skillSpeedOverridden) return;
+            if (animator != null) animator.speed = speedBeforeSkill;
+            skillSpeedOverridden = false;
         }
 
         public void SetJumping(bool isJumping)
@@ -129,6 +160,7 @@ namespace EasternFantasy.Player
 
         public void PlayDeath()
         {
+            RestoreSkillAnimationSpeed();
             if (attackLockRoutine != null)
                 StopCoroutine(attackLockRoutine);
             attackLockRoutine = null;
@@ -188,10 +220,12 @@ namespace EasternFantasy.Player
             IsAttacking = false;
             lockAttackFacing = false;
             attackLockRoutine = null;
+            RestoreSkillAnimationSpeed();
         }
 
         private void OnDisable()
         {
+            RestoreSkillAnimationSpeed();
             if (attackLockRoutine != null)
                 StopCoroutine(attackLockRoutine);
 

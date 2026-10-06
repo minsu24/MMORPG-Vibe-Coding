@@ -17,6 +17,9 @@ MonoBehaviour:
     \uBAA8\uC2B5\uC744 \uB4DC\uB7EC\uB0C5\uB2C8\uB2E4."
   preview: {fileID: 3548261074904864037, guid: cd068dc8201486e498b6f80077d6f945, type: 3}
   sceneName: GiantFarm_01
+  continuationScenes:
+  - GiantFarm_02
+  - GiantFarm_03_Boss
   spawnPointName: DungeonSpawn
   available: 1
   minimumLevel: 1

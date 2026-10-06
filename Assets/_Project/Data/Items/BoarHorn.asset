@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ada75e50a69424c83357669e06485c, type: 3}
+  m_Name: BoarHorn
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemDefinition
+  itemId: fe6f0d7aa9464652aafec9eb1c8130e0
+  displayName: "\uBA67\uB3FC\uC9C0\uC758 \uC5C4\uB2C8"
+  description: "\uAC70\uC778\uC758 \uC560\uC644 \uBA67\uB3FC\uC9C0\uC5D0\uAC8C\uC11C
+    \uB4DC\uB78D\uB418\uB294 \uC544\uC774\uD15C."
+  icon: {fileID: 465900438229139267, guid: 36717bad346aa844c988ad08ba76946a, type: 3}
+  category: 0
+  equipmentSlot: 0
+  attackBonus: 0
+  defenseBonus: 0
+  consumableEffect: 0
+  useAmount: 0
+  maximumStack: 99
+  buyPrice: 0
+  sellPrice: 0

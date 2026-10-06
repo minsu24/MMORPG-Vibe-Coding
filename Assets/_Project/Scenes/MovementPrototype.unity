@@ -3615,7 +3615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MON_Goblin
   target: {fileID: 0}
   _maxHP: 100
-  _attackPower: 500
+  _attackPower: 5
   _moveSpeed: 3
   detectionShape: 0
   _detectRange: 6

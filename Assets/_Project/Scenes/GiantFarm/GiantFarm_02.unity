@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 89609597}
   - component: {fileID: 89609596}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -341,7 +341,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 6290280122759144847, guid: d5a15e9f8972b1044b8b0e79dbe1915d, type: 3}
+  m_Sprite: {fileID: -8125096929928641627, guid: dc8aa70f1531040479612920bd6bb907, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -361,8 +361,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.02, y: -1.74, z: 0}
-  m_LocalScale: {x: 3.1112444, y: 3.1112444, z: 3.1112444}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -745,6 +745,7 @@ GameObject:
   - component: {fileID: 1131282733}
   - component: {fileID: 1131282732}
   - component: {fileID: 1131282731}
+  - component: {fileID: 1131282734}
   m_Layer: 7
   m_Name: Boar
   m_TagString: Untagged
@@ -874,7 +875,7 @@ MonoBehaviour:
   patrolMinSpeedFactor: 0.7
   _reward_EXP: 0
   _rewardYeopjeon: 5
-  currencyPickupPrefab: {fileID: 0}
+  currencyPickupPrefab: {fileID: 2418306721129126886, guid: 829c1feb6fac8ac4797d80cee72e4053, type: 3}
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -954,6 +955,72 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1131282734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131282727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fafb4a9592654409b21c10f4575cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.EnemyLootDrop
+  pickupPrefab: {fileID: 1989097639827239875, guid: 554de1e741f28c1438da42f16684da6a, type: 3}
+  floorCollider: {fileID: 0}
+  drops:
+  - item: {fileID: 11400000, guid: b418c28d75b4c9642b5316996de41d74, type: 2}
+    dropChance: 1
+    minimumQuantity: 1
+    maximumQuantity: 1
+  spawnHeight: 0.35
+  horizontalScatter: 0.65
+--- !u!1 &1209137740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1209137742}
+  - component: {fileID: 1209137741}
+  m_Layer: 0
+  m_Name: Dungeon Run Settings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1209137741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209137740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28fe3e1021598bd42b646bef18cada4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dungeon.DungeonSceneController
+  definition: {fileID: 11400000, guid: 4a126dae107f006498f9d0ac8eac978d, type: 2}
+--- !u!4 &1209137742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209137740}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1247451125
 GameObject:
   m_ObjectHideFlags: 0
@@ -1271,7 +1338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7851668189856598021, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
       propertyPath: sceneName
-      value: GiantFarm_03
+      value: GiantFarm_03_Boss
       objectReference: {fileID: 0}
     - target: {fileID: 7851668189856598021, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
       propertyPath: startsLocked
@@ -1483,3 +1550,4 @@ SceneRoots:
   - {fileID: 76122247}
   - {fileID: 1380167738}
   - {fileID: 1131282730}
+  - {fileID: 1209137742}

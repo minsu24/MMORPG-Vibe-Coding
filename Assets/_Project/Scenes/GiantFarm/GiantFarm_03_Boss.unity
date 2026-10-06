@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 1096090675}
   - component: {fileID: 1096090674}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -453,7 +453,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 4318340511912797801, guid: de0300a675179e546933e80c3fe41949, type: 3}
+  m_Sprite: {fileID: 324463522049842414, guid: 853e906e2b79be349b061bd246034f35, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -473,7 +473,52 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.02, y: -1.74, z: 0}
-  m_LocalScale: {x: 3.6005607, y: 3.6005607, z: 3.6005607}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1209137740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1209137742}
+  - component: {fileID: 1209137741}
+  m_Layer: 0
+  m_Name: Dungeon Run Settings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1209137741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209137740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28fe3e1021598bd42b646bef18cada4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dungeon.DungeonSceneController
+  definition: {fileID: 11400000, guid: 4a126dae107f006498f9d0ac8eac978d, type: 2}
+--- !u!4 &1209137742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209137740}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -493,6 +538,7 @@ GameObject:
   - component: {fileID: 1220630859}
   - component: {fileID: 1220630861}
   - component: {fileID: 1220630860}
+  - component: {fileID: 1220630862}
   m_Layer: 7
   m_Name: Giant
   m_TagString: Monster
@@ -686,7 +732,7 @@ MonoBehaviour:
   patrolMinSpeedFactor: 0.7
   _reward_EXP: 0
   _rewardYeopjeon: 0
-  currencyPickupPrefab: {fileID: 0}
+  currencyPickupPrefab: {fileID: 2418306721129126886, guid: 829c1feb6fac8ac4797d80cee72e4053, type: 3}
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -780,6 +826,27 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!114 &1220630862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220630854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fafb4a9592654409b21c10f4575cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.EnemyLootDrop
+  pickupPrefab: {fileID: 1989097639827239875, guid: 554de1e741f28c1438da42f16684da6a, type: 3}
+  floorCollider: {fileID: 0}
+  drops:
+  - item: {fileID: 11400000, guid: 01aeae1147d10d044beb90de90c60a2c, type: 2}
+    dropChance: 1
+    minimumQuantity: 1
+    maximumQuantity: 1
+  spawnHeight: 0.35
+  horizontalScatter: 0.65
 --- !u!1 &1457867229
 GameObject:
   m_ObjectHideFlags: 0
@@ -1404,3 +1471,4 @@ SceneRoots:
   - {fileID: 1781758328}
   - {fileID: 1220630858}
   - {fileID: 208247585}
+  - {fileID: 1209137742}

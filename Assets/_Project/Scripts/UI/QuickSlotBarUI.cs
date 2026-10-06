@@ -59,6 +59,8 @@ namespace EasternFantasy.UI
                 ? skillSystem.GetComponent<PlayerEntity>()
                 : null;
             if (skillSystem != null && keyboard != null && Time.timeScale > 0f
+                && (EasternFantasy.Dungeon.DungeonRunController.Instance == null
+                    || !EasternFantasy.Dungeon.DungeonRunController.Instance.IsExitPromptOpen)
                 && (DialogueManager.Instance == null || !DialogueManager.Instance.IsDialogueActive)
                 && (InventoryWindowUI.Instance == null || !InventoryWindowUI.Instance.IsOpen)
                 && (SkillWindowUI.Instance == null || !SkillWindowUI.Instance.IsOpen)

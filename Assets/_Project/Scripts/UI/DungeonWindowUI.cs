@@ -129,6 +129,7 @@ namespace EasternFantasy.UI
             if (!IsOpen || loading || player == null || !CanEnter(Selected)) return;
             if (player.GetComponent<PlayerEntity>() is PlayerEntity entity && entity.IsDead) return;
             string destination = Selected.sceneName;
+            DungeonRunController.Begin(Selected);
             if (!player.TryGetComponent<PlayerLocationSetter>(out _)) player.gameObject.AddComponent<PlayerLocationSetter>();
             if (!string.IsNullOrWhiteSpace(Selected.spawnPointName)) MapTransferData.SetTarget(Selected.spawnPointName);
             else MapTransferData.Clear();

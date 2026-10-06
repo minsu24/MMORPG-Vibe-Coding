@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b4975242059f343afe3b917812425b, type: 3}
+  m_Name: MonkDash
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.SkillDefinition
+  skillId: monk_dash
+  displayName: "\uAE08\uAC15\uBCF4"
+  shortDescription: "\uBC14\uB77C\uBCF4\uB294 \uBC29\uD5A5\uC73C\uB85C \uC9E7\uACE0
+    \uBB35\uC9C1\uD558\uAC8C \uB3CC\uC9C4\uD569\uB2C8\uB2E4. \uB3CC\uC9C4 \uC911\uC5D0\uB294
+    \uD53C\uD574\uC640 \uAD70\uC911 \uC81C\uC5B4 \uD6A8\uACFC\uC5D0 \uBA74\uC5ED\uC785\uB2C8\uB2E4."
+  detailedDescription: " \uC7AC\uC0AC\uC6A9 \uB300\uAE30\uC2DC\uAC04 5\uCD08 \xB7
+    \uB3CC\uC9C4 \uAC70\uB9AC 3 \xB7 \uB3CC\uC9C4 \uC2DC\uAC04 0.18\uCD08"
+  tier: 1
+  activationType: 1
+  maximumLevel: 1
+  cooldownSeconds: 5
+  manaCost: 0
+  resourceCost: 1
+  energyCost: 0
+  icon: {fileID: 2121057170133260169, guid: 0537b445fa4d4504c8feb4704b28a4ab, type: 3}
+  effectType: 0
+  effectPerLevel: 0
+  requirements:
+  - skill: {fileID: 11400000, guid: 2c898bc42be3ada4ab1cd4ee7a2c0c0d, type: 2}
+    requiredLevel: 3

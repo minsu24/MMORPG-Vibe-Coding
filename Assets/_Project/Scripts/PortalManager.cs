@@ -20,6 +20,8 @@ public sealed class PortalManager : MonoBehaviour
 
     private void Update()
     {
+        if (EasternFantasy.Dungeon.DungeonRunController.Instance != null
+            && EasternFantasy.Dungeon.DungeonRunController.Instance.IsExitPromptOpen) return;
         if (isLocked || Time.timeScale <= 0f || playerInPortal == null || isLoadingScene || (EasternFantasy.UI.DungeonWindowUI.Instance != null && EasternFantasy.UI.DungeonWindowUI.Instance.IsOpen))
             return;
 

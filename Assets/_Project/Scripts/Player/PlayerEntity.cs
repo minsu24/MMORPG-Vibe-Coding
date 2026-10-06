@@ -70,6 +70,8 @@ namespace EasternFantasy.Player
         public string ClassName => statGrowth != null ? statGrowth.ClassName : "DOSA";
         public string ResourceName => statGrowth != null ? statGrowth.ResourceName : "MP";
         public bool IsDead => HP <= 0f;
+        public bool IsCrowdControlImmune => playerController != null && playerController.IsDashing;
+        public bool IsDamageImmune => isInvincible || IsCrowdControlImmune;
         public float ActiveDamageReduction => activeDamageReduction;
         public MonkEnergy Energy => GetComponent<MonkEnergy>();
 
@@ -201,7 +203,7 @@ namespace EasternFantasy.Player
 
         public override void TakeDamage(float damage)
         {
-            if (IsDead || isInvincible || damage <= 0f)
+            if (IsDead || IsDamageImmune || damage <= 0f)
                 return;
             MonkEnergy monkEnergy = Energy;
             if (monkEnergy != null && monkEnergy.TryParry())
@@ -223,6 +225,7 @@ namespace EasternFantasy.Player
 
         public void Revive()
         {
+            if (playerController != null) playerController.EndDash();
             HP = maxHP;
             MP = maxMP;
             if (Energy != null)
@@ -291,6 +294,7 @@ namespace EasternFantasy.Player
 
         public void ApplyKnockback(float direction)
         {
+            if (IsDead || IsCrowdControlImmune) return;
             StartCoroutine(KnockBackTRoutine()); // 이동 제어권 강탈
             playerController.body.linearVelocity = Vector2.zero;
             Vector2 knockbackForce = new Vector2(direction * horizontalKnockbackPower, verticalKnockbackPower);

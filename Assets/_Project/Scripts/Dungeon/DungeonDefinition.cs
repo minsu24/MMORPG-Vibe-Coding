@@ -11,6 +11,7 @@ namespace EasternFantasy.Dungeon
         [TextArea] public string description;
         public Sprite preview;
         public string sceneName;
+        public string[] continuationScenes = Array.Empty<string>();
         public string spawnPointName = "DungeonSpawn";
         public bool available = true;
         [Min(1)] public int minimumLevel = 1;
