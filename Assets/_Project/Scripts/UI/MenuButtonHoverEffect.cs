@@ -1,3 +1,4 @@
+﻿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -25,6 +26,7 @@ namespace EasternFantasy.UI
         private Color normalColor;
         private bool pointerInside;
         private bool selected;
+        private Sequence hoverTween;
 
         private bool IsHighlighted => pointerInside || selected;
 
@@ -39,34 +41,47 @@ namespace EasternFantasy.UI
                 normalColor = targetGraphic.color;
         }
 
-        private void Update()
+        private void SetHighlightState(bool pointer, bool selection)
         {
-            float blend = transitionSpeed <= 0f
-                ? 1f
-                : 1f - Mathf.Exp(-transitionSpeed * Time.unscaledDeltaTime);
+            bool wasHighlighted = IsHighlighted;
+            bool wasPointerInside = pointerInside;
+            pointerInside = pointer;
+            selected = selection;
+            if (!isActiveAndEnabled || (wasHighlighted == IsHighlighted && wasPointerInside == pointerInside))
+                return;
 
-            Vector3 targetScale = IsHighlighted
-                ? normalScale * hoverScale
-                : normalScale;
-            rectTransform.localScale = Vector3.Lerp(
-                rectTransform.localScale,
-                targetScale,
-                blend);
-
-            if (targetGraphic != null)
+            hoverTween?.Kill();
+            hoverTween = null;
+            // Mouse hover stays distinct even when EventSystem selected this button first.
+            float emphasis = pointerInside ? 1f : (selected ? 0.5f : 0f);
+            Vector3 targetScale = normalScale * Mathf.Lerp(1f, hoverScale, emphasis);
+            Color targetColor = Color.Lerp(normalColor, hoverColor, emphasis);
+            if (transitionSpeed <= 0f)
             {
-                Color targetColor = IsHighlighted ? hoverColor : normalColor;
-                targetGraphic.color = Color.Lerp(targetGraphic.color, targetColor, blend);
+                rectTransform.localScale = targetScale;
+                if (targetGraphic != null)
+                    targetGraphic.color = targetColor;
+                return;
             }
+
+            // Preserve the existing Inspector speed: higher values produce shorter tweens.
+            float duration = 3f / transitionSpeed;
+            hoverTween = DOTween.Sequence().SetUpdate(true);
+            hoverTween.Append(rectTransform.DOScale(targetScale, duration)
+                .SetEase(IsHighlighted ? Ease.OutBack : Ease.OutQuad));
+            if (targetGraphic != null)
+                hoverTween.Join(targetGraphic.DOColor(targetColor, duration).SetEase(Ease.OutQuad));
         }
 
-        public void OnPointerEnter(PointerEventData eventData) => pointerInside = true;
-        public void OnPointerExit(PointerEventData eventData) => pointerInside = false;
-        public void OnSelect(BaseEventData eventData) => selected = true;
-        public void OnDeselect(BaseEventData eventData) => selected = false;
+        public void OnPointerEnter(PointerEventData eventData) => SetHighlightState(true, selected);
+        public void OnPointerExit(PointerEventData eventData) => SetHighlightState(false, selected);
+        public void OnSelect(BaseEventData eventData) => SetHighlightState(pointerInside, true);
+        public void OnDeselect(BaseEventData eventData) => SetHighlightState(pointerInside, false);
 
         private void OnDisable()
         {
+            hoverTween?.Kill();
+            hoverTween = null;
             pointerInside = false;
             selected = false;
 
@@ -75,5 +90,7 @@ namespace EasternFantasy.UI
             if (targetGraphic != null)
                 targetGraphic.color = normalColor;
         }
+
+        private void OnDestroy() => hoverTween?.Kill();
     }
 }

@@ -1,10 +1,11 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using EasternFantasy.Dialogue;
 using UnityEngine;
 using EasternFantasy.Shop;
 using EasternFantasy.Player;
 using EasternFantasy.UI;
 using EasternFantasy.Dungeon;
+using EasternFantasy.EquipmentUpgrade;
 
 namespace EasternFantasy.Quest
 {
@@ -44,6 +45,7 @@ namespace EasternFantasy.Quest
             PlayerEntity entity = GetComponent<PlayerEntity>();
             if ((entity != null && entity.IsDead)
                 || (DialogueManager.Instance != null && DialogueManager.Instance.IsDialogueActive)
+                || (EquipmentUpgradeWindowUI.Instance != null && EquipmentUpgradeWindowUI.Instance.IsOpen)
                 || (ShopWindowUI.Instance != null && ShopWindowUI.Instance.IsOpen)
                 || (DungeonWindowUI.Instance != null && DungeonWindowUI.Instance.IsOpen))
             {
@@ -54,9 +56,10 @@ namespace EasternFantasy.Quest
             }
 
             DungeonPortal dungeon = FindNearestDungeonPortal();
-            Shopkeeper shopkeeper = dungeon == null ? FindNearestShopkeeper() : null;
-            QuestGiver questGiver = shopkeeper == null ? FindNearestQuestGiver() : null;
-            Transform target = dungeon != null ? dungeon.transform : shopkeeper != null ? shopkeeper.transform
+            EquipmentUpgradeBlacksmith blacksmith = dungeon == null ? FindNearestBlacksmith() : null;
+            Shopkeeper shopkeeper = dungeon == null && blacksmith == null ? FindNearestShopkeeper() : null;
+            QuestGiver questGiver = dungeon == null && blacksmith == null && shopkeeper == null ? FindNearestQuestGiver() : null;
+            Transform target = dungeon != null ? dungeon.transform : blacksmith != null ? blacksmith.transform : shopkeeper != null ? shopkeeper.transform
                 : questGiver != null ? questGiver.transform : null;
             if (target == null)
             {
@@ -94,12 +97,17 @@ namespace EasternFantasy.Quest
 
         public bool TryInteract()
         {
+            if (EquipmentUpgradeWindowUI.Instance != null && EquipmentUpgradeWindowUI.Instance.IsOpen) return false;
+            if (ShopWindowUI.Instance != null && ShopWindowUI.Instance.IsOpen) return false;
             if (DungeonWindowUI.Instance != null && DungeonWindowUI.Instance.IsOpen) return false;
             if (DialogueManager.Instance != null && DialogueManager.Instance.IsDialogueActive)
                 return false;
 
             DungeonPortal dungeon = FindNearestDungeonPortal();
             if (dungeon != null) return dungeon.Interact(GetComponent<PlayerMovement2D>());
+
+            EquipmentUpgradeBlacksmith blacksmith = FindNearestBlacksmith();
+            if (blacksmith != null) { blacksmith.Interact(); return true; }
 
             Shopkeeper nearestShopkeeper = FindNearestShopkeeper();
             if (nearestShopkeeper != null)
@@ -194,6 +202,21 @@ namespace EasternFantasy.Quest
                 }
             }
 
+            return nearest;
+        }
+
+        private EquipmentUpgradeBlacksmith FindNearestBlacksmith()
+        {
+            EquipmentUpgradeBlacksmith nearest = null;
+            float distance = interactionRadius * interactionRadius;
+            foreach (Collider2D overlap in Physics2D.OverlapCircleAll(transform.position, interactionRadius, interactionLayers))
+            {
+                var candidate = overlap.GetComponentInParent<EquipmentUpgradeBlacksmith>();
+                if (candidate == null || !candidate.isActiveAndEnabled) continue;
+                // Match the overlap range to the NPC body, including large or offset colliders.
+                float sqr = (overlap.ClosestPoint(transform.position) - (Vector2)transform.position).sqrMagnitude;
+                if (sqr <= distance) { nearest = candidate; distance = sqr; }
+            }
             return nearest;
         }
 

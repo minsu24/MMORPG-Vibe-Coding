@@ -59,7 +59,7 @@ namespace EasternFantasy.Editor
         {
             string[] names =
             {
-                "OldFan", "OldHat", "ClothTop", "ClothBottom",
+                "OldFan", "MonkGauntlets", "OldHat", "ClothTop", "ClothBottom",
                 "ClothGloves", "ClothShoes", "HealthPotion", "ManaPotion"
             };
             var stock = new List<ItemDefinition>();

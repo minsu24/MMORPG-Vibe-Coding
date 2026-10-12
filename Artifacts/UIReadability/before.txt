@@ -1,0 +1,264 @@
+FILE Assets/_Project/Prefabs/Text (TMP).prefab
+Text (TMP) font=7 auto=False min=18 rect=(20.00, 5.00) pos=(0.00, 0.00) overflow=Overflow text=Sample text
+FILE Assets/_Project/Prefabs/UI/DeathScreen.prefab
+DeathTitle font=64 auto=False min=18 rect=(500.00, 110.00) pos=(0.00, 212.00) overflow=Overflow text=사망
+RespawnLabel font=60 auto=False min=18 rect=(525.91, 157.77) pos=(0.00, 0.00) overflow=Overflow text=부활
+RespawnLabel (1) font=30 auto=False min=18 rect=(525.91, 157.77) pos=(0.00, -165.00) overflow=Overflow text=버튼 클릭시 가까운 마을에서 부활하게 됩니다.
+FILE Assets/_Project/Prefabs/UI/DungeonWindow.prefab
+Description font=24 auto=True min=18 rect=(935.00, 46.00) pos=(22.00, -518.00) overflow=Overflow text=안개 너머, 거대한 농원이 모습을 드러냅니다.
+DungeonName font=28 auto=True min=21 rect=(210.00, 71.00) pos=(217.00, -711.00) overflow=Overflow text=거인의 농장
+DungeonCategory font=19 auto=True min=14.25 rect=(205.00, 30.00) pos=(217.00, -786.00) overflow=Overflow text=일반 던전
+Level font=17 auto=True min=12.75 rect=(116.00, 35.00) pos=(540.00, -695.00) overflow=Overflow text=
+Time font=16 auto=True min=12 rect=(119.00, 35.00) pos=(741.00, -695.00) overflow=Overflow text=
+Monsters font=16 auto=True min=12 rect=(117.00, 35.00) pos=(945.00, -695.00) overflow=Overflow text=
+RewardCount0 font=14 auto=True min=10.5 rect=(59.00, 18.00) pos=(587.00, -824.00) overflow=Overflow text=
+RewardCount1 font=14 auto=True min=10.5 rect=(59.00, 18.00) pos=(663.00, -824.00) overflow=Overflow text=
+RewardCount2 font=14 auto=True min=10.5 rect=(59.00, 18.00) pos=(739.00, -824.00) overflow=Overflow text=
+RewardCount3 font=14 auto=True min=10.5 rect=(59.00, 18.00) pos=(815.00, -824.00) overflow=Overflow text=
+RewardCount4 font=14 auto=True min=10.5 rect=(59.00, 18.00) pos=(891.00, -824.00) overflow=Overflow text=
+RewardCount5 font=14 auto=True min=10.5 rect=(59.00, 18.00) pos=(967.00, -824.00) overflow=Overflow text=
+RewardSummary font=16 auto=True min=12 rect=(596.00, 25.00) pos=(473.00, -745.00) overflow=Overflow text=
+Name font=22 auto=True min=16.5 rect=(198.00, 56.00) pos=(111.00, -22.00) overflow=Overflow text=
+State font=17 auto=True min=12.75 rect=(55.00, 37.00) pos=(323.00, -34.00) overflow=Overflow text=
+EnterLabel font=32 auto=True min=24 rect=(425.00, 69.00) pos=(15.00, -10.00) overflow=Overflow text=던전 입장
+Status font=16 auto=True min=12 rect=(450.00, 28.00) pos=(1135.00, -855.00) overflow=Overflow text=
+CloseLabel font=30 auto=True min=22.5 rect=(39.00, 35.00) pos=(0.00, 0.00) overflow=Overflow text=×
+FILE Assets/_Project/Prefabs/UI/EquipmentUpgradeWindow.prefab
+Title font=34 auto=True min=12 rect=(400.00, 50.00) pos=(0.00, 272.00) overflow=Overflow text=장비 승급
+Instruction font=17 auto=True min=12 rect=(750.00, 28.00) pos=(0.00, 220.00) overflow=Overflow text=장비와 재료를 넣어 다음 등급으로 승급합니다
+TargetName font=21 auto=True min=12 rect=(650.00, 28.00) pos=(0.00, 30.00) overflow=Overflow text=승급 대상 장비
+NextGrade font=17 auto=True min=12 rect=(750.00, 24.00) pos=(0.00, 0.00) overflow=Overflow text=장비를 선택해 주세요
+MaterialsTitle font=20 auto=True min=12 rect=(450.00, 26.00) pos=(0.00, -40.00) overflow=Overflow text=필요 재료
+MaterialLabel_0 font=16 auto=True min=12 rect=(152.00, 38.00) pos=(-241.50, -177.00) overflow=Overflow text=재료 없음
+MaterialLabel_1 font=16 auto=True min=12 rect=(152.00, 38.00) pos=(-80.50, -177.00) overflow=Overflow text=재료 없음
+MaterialLabel_2 font=16 auto=True min=12 rect=(152.00, 38.00) pos=(80.50, -177.00) overflow=Overflow text=재료 없음
+MaterialLabel_3 font=16 auto=True min=12 rect=(152.00, 38.00) pos=(241.50, -177.00) overflow=Overflow text=재료 없음
+Message font=16 auto=True min=12 rect=(790.00, 22.00) pos=(0.00, -208.00) overflow=Overflow text=
+Cost font=18 auto=True min=12 rect=(600.00, 30.00) pos=(0.00, 0.00) overflow=Overflow text=필요 엽전 미설정
+Label font=21 auto=True min=12 rect=(359.00, 42.00) pos=(0.00, 0.00) overflow=Overflow text=승급 확인
+Label font=21 auto=True min=12 rect=(23.00, 42.00) pos=(0.00, 0.00) overflow=Overflow text=×
+PickerTitle font=27 auto=True min=12 rect=(300.00, 44.00) pos=(0.00, 310.00) overflow=Overflow text=보유 장비
+Label font=21 auto=True min=12 rect=(115.00, 38.00) pos=(0.00, 0.00) overflow=Overflow text=장비
+Label font=21 auto=True min=12 rect=(115.00, 38.00) pos=(0.00, 0.00) overflow=Overflow text=재료
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+Quantity font=14 auto=True min=12 rect=(28.00, 20.00) pos=(20.00, -21.00) overflow=Overflow text=
+PickerHint font=17 auto=True min=12 rect=(305.00, 165.00) pos=(0.00, -248.00) overflow=Overflow text=클릭 또는 끌어 놓기로 등록 / 등록된 슬롯을 누르면 취소 / 재료는 승급할 때 차감됩니다 /  / [ ESC ] 닫기
+FILE Assets/_Project/Prefabs/UI/EquipmentWindow.prefab
+Title font=34 auto=True min=18 rect=(250.00, 55.00) pos=(0.00, 360.00) overflow=Overflow text=장비
+Hint font=18 auto=True min=18 rect=(580.00, 38.00) pos=(0.00, -365.00) overflow=Overflow text=[ J ] 닫기  ·  두 번 클릭 또는 드래그
+Label font=18 auto=True min=18 rect=(94.00, 86.00) pos=(0.00, 0.00) overflow=Overflow text=무기
+Label font=18 auto=True min=18 rect=(94.00, 86.00) pos=(0.00, 0.00) overflow=Overflow text=모자
+Label font=18 auto=True min=18 rect=(94.00, 86.00) pos=(0.00, 0.00) overflow=Overflow text=상의
+Label font=18 auto=True min=18 rect=(94.00, 86.00) pos=(0.00, 0.00) overflow=Overflow text=하의
+Label font=18 auto=True min=18 rect=(94.00, 86.00) pos=(0.00, 0.00) overflow=Overflow text=장갑
+Label font=18 auto=True min=18 rect=(94.00, 86.00) pos=(0.00, 0.00) overflow=Overflow text=신발
+Label font=18 auto=True min=18 rect=(94.00, 86.00) pos=(0.00, 0.00) overflow=Overflow text=반지
+Label font=18 auto=True min=18 rect=(94.00, 86.00) pos=(0.00, 0.00) overflow=Overflow text=목걸이
+Label font=18 auto=True min=18 rect=(94.00, 86.00) pos=(0.00, 0.00) overflow=Overflow text=팔찌
+FILE Assets/_Project/Prefabs/UI/InteractionPrompt.prefab
+T font=42 auto=False min=18 rect=(64.00, 64.00) pos=(0.00, 0.00) overflow=Overflow text=T
+FILE Assets/_Project/Prefabs/UI/InventoryWindow.prefab
+Title font=38 auto=False min=18 rect=(600.00, 54.00) pos=(0.00, 374.00) overflow=Overflow text=인벤토리
+Currency font=23 auto=False min=18 rect=(220.00, 42.00) pos=(285.00, 323.00) overflow=Overflow text=엽전  0
+Label font=24 auto=False min=18 rect=(170.00, 45.00) pos=(0.00, 0.00) overflow=Overflow text=장비
+Label font=24 auto=False min=18 rect=(170.00, 45.00) pos=(0.00, 0.00) overflow=Overflow text=소비
+Label font=24 auto=False min=18 rect=(170.00, 45.00) pos=(0.00, 0.00) overflow=Overflow text=기타
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+Placeholder font=38 auto=False min=18 rect=(74.00, 74.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Quantity font=18 auto=False min=18 rect=(78.00, 25.00) pos=(0.00, -31.00) overflow=Overflow text=
+Equipped font=14 auto=False min=18 rect=(78.00, 24.00) pos=(0.00, 31.00) overflow=Overflow text=장착
+ItemName font=27 auto=False min=18 rect=(280.00, 45.00) pos=(0.00, 165.00) overflow=Overflow text=
+Category font=18 auto=False min=18 rect=(280.00, 30.00) pos=(0.00, 125.00) overflow=Overflow text=
+Description font=18 auto=False min=18 rect=(280.00, 120.00) pos=(0.00, 35.00) overflow=Overflow text=
+Effect font=19 auto=False min=18 rect=(280.00, 130.00) pos=(0.00, -115.00) overflow=Overflow text=
+CloseHint font=20 auto=False min=18 rect=(500.00, 36.00) pos=(0.00, -394.00) overflow=Overflow text=[ I ]  닫기
+FILE Assets/_Project/Prefabs/UI/Minimap.prefab
+Region Name font=18 auto=False min=18 rect=(332.00, 30.00) pos=(0.00, -5.00) overflow=Overflow text=지역 지도
+Legend font=12 auto=False min=18 rect=(332.00, 26.00) pos=(0.00, 3.00) overflow=Overflow text=하늘색: 나   P: 포탈   S: 상점
+FILE Assets/_Project/Prefabs/UI/MonkEnergyBar.prefab
+Text_Energy font=18 auto=False min=18 rect=(244.00, 36.00) pos=(13.60, -1.90) overflow=Overflow text=0/100
+FILE Assets/_Project/Prefabs/UI/PlayerStatsWindow.prefab
+Header font=28 auto=False min=18 rect=(540.00, 55.00) pos=(0.00, 341.40) overflow=Overflow text=스탯창
+ClassAndLevel font=23 auto=False min=18 rect=(530.00, 42.00) pos=(0.00, 275.00) overflow=Overflow text=
+Stats font=22 auto=False min=18 rect=(470.00, 570.00) pos=(0.00, -35.00) overflow=Overflow text=
+CloseHint font=20 auto=False min=18 rect=(530.00, 35.00) pos=(0.00, -375.00) overflow=Overflow text=[ C ]  CLOSE
+FILE Assets/_Project/Prefabs/UI/QuestHUD.prefab
+QuestTrackerHeader font=28 auto=False min=18 rect=(350.00, 45.00) pos=(0.00, 133.00) overflow=Overflow text=ACTIVE QUESTS
+QuestList font=22 auto=False min=18 rect=(350.00, 245.00) pos=(0.00, -35.00) overflow=Overflow text=
+FILE Assets/_Project/Prefabs/UI/QuickSlotBar.prefab
+SkillName font=13 auto=True min=9 rect=(68.00, 58.00) pos=(0.00, 0.00) overflow=Overflow text=
+Cooldown font=34 auto=False min=18 rect=(76.00, 76.00) pos=(0.00, 0.00) overflow=Overflow text=
+Hotkey font=18 auto=False min=18 rect=(70.00, 70.00) pos=(0.00, 0.00) overflow=Overflow text=Q
+SkillName font=13 auto=True min=9 rect=(68.00, 58.00) pos=(0.00, 0.00) overflow=Overflow text=
+Cooldown font=34 auto=False min=18 rect=(76.00, 76.00) pos=(0.00, 0.00) overflow=Overflow text=
+Hotkey font=18 auto=False min=18 rect=(70.00, 70.00) pos=(0.00, 0.00) overflow=Overflow text=W
+SkillName font=13 auto=True min=9 rect=(68.00, 58.00) pos=(0.00, 0.00) overflow=Overflow text=
+Cooldown font=34 auto=False min=18 rect=(76.00, 76.00) pos=(0.00, 0.00) overflow=Overflow text=
+Hotkey font=18 auto=False min=18 rect=(70.00, 70.00) pos=(0.00, 0.00) overflow=Overflow text=E
+SkillName font=13 auto=True min=9 rect=(68.00, 58.00) pos=(0.00, 0.00) overflow=Overflow text=
+Cooldown font=34 auto=False min=18 rect=(76.00, 76.00) pos=(0.00, 0.00) overflow=Overflow text=
+Hotkey font=18 auto=False min=18 rect=(70.00, 70.00) pos=(0.00, 0.00) overflow=Overflow text=R
+SkillName font=13 auto=True min=9 rect=(68.00, 58.00) pos=(0.00, 0.00) overflow=Overflow text=
+Cooldown font=34 auto=False min=18 rect=(76.00, 76.00) pos=(0.00, 0.00) overflow=Overflow text=
+Hotkey font=18 auto=False min=18 rect=(70.00, 70.00) pos=(0.00, 0.00) overflow=Overflow text=A
+SkillName font=13 auto=True min=9 rect=(68.00, 58.00) pos=(0.00, 0.00) overflow=Overflow text=
+Cooldown font=34 auto=False min=18 rect=(76.00, 76.00) pos=(0.00, 0.00) overflow=Overflow text=
+Hotkey font=18 auto=False min=18 rect=(70.00, 70.00) pos=(0.00, 0.00) overflow=Overflow text=S
+SkillName font=13 auto=True min=9 rect=(68.00, 58.00) pos=(0.00, 0.00) overflow=Overflow text=
+Cooldown font=34 auto=False min=18 rect=(76.00, 76.00) pos=(0.00, 0.00) overflow=Overflow text=
+Hotkey font=18 auto=False min=18 rect=(70.00, 70.00) pos=(0.00, 0.00) overflow=Overflow text=D
+SkillName font=13 auto=True min=9 rect=(68.00, 58.00) pos=(0.00, 0.00) overflow=Overflow text=
+Cooldown font=34 auto=False min=18 rect=(76.00, 76.00) pos=(0.00, 0.00) overflow=Overflow text=
+Hotkey font=18 auto=False min=18 rect=(70.00, 70.00) pos=(0.00, 0.00) overflow=Overflow text=F
+Skill Group Label font=20 auto=False min=18 rect=(300.00, 28.00) pos=(0.00, 90.00) overflow=Overflow text=스킬
+SkillName font=13 auto=True min=9 rect=(68.00, 58.00) pos=(0.00, 0.00) overflow=Overflow text=
+Cooldown font=20 auto=False min=18 rect=(76.00, 76.00) pos=(0.00, 0.00) overflow=Overflow text=
+Hotkey font=18 auto=False min=18 rect=(70.00, 70.00) pos=(0.00, 0.00) overflow=Overflow text=1
+SkillName font=13 auto=True min=9 rect=(68.00, 58.00) pos=(0.00, 0.00) overflow=Overflow text=
+Cooldown font=20 auto=False min=18 rect=(76.00, 76.00) pos=(0.00, 0.00) overflow=Overflow text=
+Hotkey font=18 auto=False min=18 rect=(70.00, 70.00) pos=(0.00, 0.00) overflow=Overflow text=2
+SkillName font=13 auto=True min=9 rect=(68.00, 58.00) pos=(0.00, 0.00) overflow=Overflow text=
+Cooldown font=20 auto=False min=18 rect=(76.00, 76.00) pos=(0.00, 0.00) overflow=Overflow text=
+Hotkey font=18 auto=False min=18 rect=(70.00, 70.00) pos=(0.00, 0.00) overflow=Overflow text=3
+SkillName font=13 auto=True min=9 rect=(68.00, 58.00) pos=(0.00, 0.00) overflow=Overflow text=
+Cooldown font=20 auto=False min=18 rect=(76.00, 76.00) pos=(0.00, 0.00) overflow=Overflow text=
+Hotkey font=18 auto=False min=18 rect=(70.00, 70.00) pos=(0.00, 0.00) overflow=Overflow text=4
+Consumable Group Label font=20 auto=False min=18 rect=(300.00, 28.00) pos=(0.00, 43.00) overflow=Overflow text=소모품
+Currency font=28 auto=False min=18 rect=(300.00, 54.00) pos=(-34.00, -30.00) overflow=Overflow text=엽전  0
+FILE Assets/_Project/Prefabs/UI/SettingsMenu.prefab
+SettingsTitle font=100 auto=False min=18 rect=(620.00, 70.00) pos=(0.00, 280.00) overflow=Overflow text=설정
+VolumeLabel font=40 auto=False min=18 rect=(250.00, 50.00) pos=(-190.00, 92.00) overflow=Overflow text=소리
+FullscreenLabel font=40 auto=False min=18 rect=(250.00, 50.00) pos=(-190.00, 5.00) overflow=Overflow text=전체 화면
+SettingsHint font=22 auto=False min=18 rect=(600.00, 42.00) pos=(0.00, -105.00) overflow=Overflow text=ESC키를 눌러 닫기
+Label font=35 auto=False min=18 rect=(232.00, 50.00) pos=(0.00, 0.00) overflow=Overflow text=닫기
+FILE Assets/_Project/Prefabs/UI/ShopWindow.prefab
+Title font=40 auto=False min=18 rect=(300.00, 55.00) pos=(0.00, 323.00) overflow=Overflow text=상점
+Currency font=23 auto=False min=18 rect=(280.00, 45.00) pos=(300.00, 324.00) overflow=Overflow text=보유 엽전  0
+Label font=23 auto=False min=18 rect=(190.00, 42.00) pos=(0.00, 0.00) overflow=Overflow text=구매
+Label font=23 auto=False min=18 rect=(190.00, 42.00) pos=(0.00, 0.00) overflow=Overflow text=판매
+Placeholder font=32 auto=False min=18 rect=(58.00, 58.00) pos=(0.00, 25.00) overflow=Overflow text=?
+ItemName font=17 auto=False min=18 rect=(165.00, 28.00) pos=(0.00, -18.00) overflow=Overflow text=
+Price font=15 auto=False min=18 rect=(165.00, 24.00) pos=(0.00, -46.00) overflow=Overflow text=
+Placeholder font=32 auto=False min=18 rect=(58.00, 58.00) pos=(0.00, 25.00) overflow=Overflow text=?
+ItemName font=17 auto=False min=18 rect=(165.00, 28.00) pos=(0.00, -18.00) overflow=Overflow text=
+Price font=15 auto=False min=18 rect=(165.00, 24.00) pos=(0.00, -46.00) overflow=Overflow text=
+Placeholder font=32 auto=False min=18 rect=(58.00, 58.00) pos=(0.00, 25.00) overflow=Overflow text=?
+ItemName font=17 auto=False min=18 rect=(165.00, 28.00) pos=(0.00, -18.00) overflow=Overflow text=
+Price font=15 auto=False min=18 rect=(165.00, 24.00) pos=(0.00, -46.00) overflow=Overflow text=
+Placeholder font=32 auto=False min=18 rect=(58.00, 58.00) pos=(0.00, 25.00) overflow=Overflow text=?
+ItemName font=17 auto=False min=18 rect=(165.00, 28.00) pos=(0.00, -18.00) overflow=Overflow text=
+Price font=15 auto=False min=18 rect=(165.00, 24.00) pos=(0.00, -46.00) overflow=Overflow text=
+Placeholder font=32 auto=False min=18 rect=(58.00, 58.00) pos=(0.00, 25.00) overflow=Overflow text=?
+ItemName font=17 auto=False min=18 rect=(165.00, 28.00) pos=(0.00, -18.00) overflow=Overflow text=
+Price font=15 auto=False min=18 rect=(165.00, 24.00) pos=(0.00, -46.00) overflow=Overflow text=
+Placeholder font=32 auto=False min=18 rect=(58.00, 58.00) pos=(0.00, 25.00) overflow=Overflow text=?
+ItemName font=17 auto=False min=18 rect=(165.00, 28.00) pos=(0.00, -18.00) overflow=Overflow text=
+Price font=15 auto=False min=18 rect=(165.00, 24.00) pos=(0.00, -46.00) overflow=Overflow text=
+Placeholder font=32 auto=False min=18 rect=(58.00, 58.00) pos=(0.00, 25.00) overflow=Overflow text=?
+ItemName font=17 auto=False min=18 rect=(165.00, 28.00) pos=(0.00, -18.00) overflow=Overflow text=
+Price font=15 auto=False min=18 rect=(165.00, 24.00) pos=(0.00, -46.00) overflow=Overflow text=
+Placeholder font=32 auto=False min=18 rect=(58.00, 58.00) pos=(0.00, 25.00) overflow=Overflow text=?
+ItemName font=17 auto=False min=18 rect=(165.00, 28.00) pos=(0.00, -18.00) overflow=Overflow text=
+Price font=15 auto=False min=18 rect=(165.00, 24.00) pos=(0.00, -46.00) overflow=Overflow text=
+Placeholder font=32 auto=False min=18 rect=(58.00, 58.00) pos=(0.00, 25.00) overflow=Overflow text=?
+ItemName font=17 auto=False min=18 rect=(165.00, 28.00) pos=(0.00, -18.00) overflow=Overflow text=
+Price font=15 auto=False min=18 rect=(165.00, 24.00) pos=(0.00, -46.00) overflow=Overflow text=
+Placeholder font=32 auto=False min=18 rect=(58.00, 58.00) pos=(0.00, 25.00) overflow=Overflow text=?
+ItemName font=17 auto=False min=18 rect=(165.00, 28.00) pos=(0.00, -18.00) overflow=Overflow text=
+Price font=15 auto=False min=18 rect=(165.00, 24.00) pos=(0.00, -46.00) overflow=Overflow text=
+Placeholder font=32 auto=False min=18 rect=(58.00, 58.00) pos=(0.00, 25.00) overflow=Overflow text=?
+ItemName font=17 auto=False min=18 rect=(165.00, 28.00) pos=(0.00, -18.00) overflow=Overflow text=
+Price font=15 auto=False min=18 rect=(165.00, 24.00) pos=(0.00, -46.00) overflow=Overflow text=
+Placeholder font=32 auto=False min=18 rect=(58.00, 58.00) pos=(0.00, 25.00) overflow=Overflow text=?
+ItemName font=17 auto=False min=18 rect=(165.00, 28.00) pos=(0.00, -18.00) overflow=Overflow text=
+Price font=15 auto=False min=18 rect=(165.00, 24.00) pos=(0.00, -46.00) overflow=Overflow text=
+Message font=20 auto=False min=18 rect=(700.00, 38.00) pos=(0.00, -272.00) overflow=Overflow text=
+CloseHint font=18 auto=False min=18 rect=(260.00, 30.00) pos=(0.00, -320.00) overflow=Overflow text=[ ESC ]  닫기
+FILE Assets/_Project/Prefabs/UI/SkillWindow.prefab
+Title font=36 auto=False min=18 rect=(350.00, 55.00) pos=(0.00, 250.00) overflow=Overflow text=스킬
+SkillPoints font=25 auto=False min=18 rect=(420.00, 45.00) pos=(410.00, 245.00) overflow=Overflow text=보유 스킬 포인트  0
+BaseHeader font=30 auto=False min=18 rect=(220.00, 45.00) pos=(-240.00, 175.00) overflow=Overflow text=0차
+FirstHeader font=30 auto=False min=18 rect=(220.00, 45.00) pos=(240.00, 175.00) overflow=Overflow text=1차
+Placeholder font=44 auto=False min=18 rect=(72.00, 72.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Placeholder font=44 auto=False min=18 rect=(72.00, 72.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Placeholder font=44 auto=False min=18 rect=(72.00, 72.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Placeholder font=44 auto=False min=18 rect=(72.00, 72.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Placeholder font=44 auto=False min=18 rect=(72.00, 72.00) pos=(0.00, 0.00) overflow=Overflow text=?
+Placeholder font=44 auto=False min=18 rect=(72.00, 72.00) pos=(0.00, 0.00) overflow=Overflow text=?
+TooltipTitle font=24 auto=False min=18 rect=(360.00, 46.00) pos=(0.00, 78.00) overflow=Overflow text=
+TooltipDescription font=17 auto=False min=18 rect=(360.00, 150.00) pos=(0.00, -28.00) overflow=Overflow text=
+CloseHint font=22 auto=False min=18 rect=(350.00, 40.00) pos=(0.00, -310.00) overflow=Overflow text=[ K ]  닫기

@@ -39,18 +39,21 @@ namespace EasternFantasy.Inventory
 
         public bool TrySpend(int amount)
         {
-            if (amount < 0)
-                return false;
-
-            EnsureInitialized();
-            if (yeopjeon < amount)
-                return false;
-
-            yeopjeon -= amount;
-            CurrencyChanged?.Invoke(yeopjeon);
+            if (!TrySpendSilently(amount)) return false;
+            NotifyChanged();
             return true;
         }
 
+        internal bool TrySpendSilently(int amount)
+        {
+            if (amount < 0) return false;
+            EnsureInitialized();
+            if (yeopjeon < amount) return false;
+            yeopjeon -= amount;
+            return true;
+        }
+
+        internal void NotifyChanged() => CurrencyChanged?.Invoke(yeopjeon);
         public bool CanAfford(int amount)
         {
             return amount >= 0 && Yeopjeon >= amount;

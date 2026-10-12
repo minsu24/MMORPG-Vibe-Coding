@@ -94,7 +94,7 @@ namespace EasternFantasy.UI
             hintRect.anchorMin = hintRect.anchorMax = new Vector2(0.5f, 1f);
             hintRect.pivot = new Vector2(1f, 0f);
             hintRect.anchoredPosition = new Vector2(42f, 12f);
-            hintRect.sizeDelta = new Vector2(230f, 55f);
+            hintRect.sizeDelta = new Vector2(300f, 80f);
             Image hintBackground = hint.GetComponent<Image>();
             hintBackground.color = new Color(0.025f, 0.04f, 0.045f, 0.96f);
             hintBackground.raycastTarget = false;
@@ -109,7 +109,7 @@ namespace EasternFantasy.UI
             hintText = label.GetComponent<TextMeshProUGUI>();
             if (placeholderText != null)
                 hintText.font = placeholderText.font;
-            hintText.fontSize = 17f;
+            hintText.fontSize = 20f;
             hintText.color = new Color(1f, 0.86f, 0.62f);
             hintText.alignment = TextAlignmentOptions.Center;
             hintText.raycastTarget = false;
@@ -190,6 +190,7 @@ namespace EasternFantasy.UI
             string reason = GetUnavailableReason();
             hintText.text = reason;
             hintRoot.SetActive(hovered && !string.IsNullOrEmpty(reason));
+            if (hintRoot.activeSelf) UIReadability.ClampToCanvas(hintRoot.GetComponent<RectTransform>());
         }
 
         public string GetUnavailableReason()

@@ -1,3 +1,4 @@
+﻿using DG.Tweening;
 using EasternFantasy.Player;
 using TMPro;
 using UnityEngine;
@@ -10,17 +11,37 @@ namespace EasternFantasy.UI
     {
         [SerializeField] private Slider slider;
         [SerializeField] private TMP_Text valueText;
+        [SerializeField, Min(0f)] private float tweenDuration = 0.25f;
+        private Tween gaugeTween;
+        private float gaugeTarget = float.NaN;
+        private MonkEnergy boundEnergy;
 
         public void Refresh(MonkEnergy energy)
         {
             if (energy == null)
                 return;
 
-            if (slider != null)
-                slider.value = energy.Maximum > 0f
-                    ? Mathf.Clamp01(energy.Current / energy.Maximum) : 0f;
+            if (boundEnergy != energy)
+            {
+                ResetGaugeAnimation();
+                boundEnergy = energy;
+            }
+
+            Utils.UpdateGauge(slider, Utils.Percent(energy.Current, energy.Maximum),
+                tweenDuration, ref gaugeTarget, ref gaugeTween);
             if (valueText != null)
                 valueText.text = $"{energy.Current:F0}/{energy.Maximum:F0}";
         }
+
+        private void ResetGaugeAnimation()
+        {
+            gaugeTween?.Kill();
+            gaugeTween = null;
+            gaugeTarget = float.NaN;
+            boundEnergy = null;
+        }
+
+        private void OnDisable() => ResetGaugeAnimation();
+        private void OnDestroy() => ResetGaugeAnimation();
     }
 }

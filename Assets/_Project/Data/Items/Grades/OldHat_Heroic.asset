@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ada75e50a69424c83357669e06485c, type: 3}
+  m_Name: OldHat_Heroic
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemDefinition
+  itemId: 28dc125f4cdf4d008696a26b35f86ca5
+  displayName: "\uD5CC \uC0BF\uAC13"
+  description: "\uBE44\uBC14\uB78C\uC758 \uD754\uC801\uC774 \uB0A8\uC740 \uB0A1\uC740
+    \uC0BF\uAC13\uC785\uB2C8\uB2E4."
+  icon: {fileID: 583738337, guid: 6431f44c377c65b4da2bce60932800cd, type: 3}
+  category: 0
+  grade: 2
+  gradeFrame: {fileID: 0}
+  gradeAppearance: {fileID: 11400000, guid: 43a999cec72d0414c96fea62582ed788, type: 2}
+  gradeVariants:
+  - {fileID: 11400000, guid: c61f585136d37f24287e8a65fa8a26ba, type: 2}
+  - {fileID: 11400000, guid: dcf7cc0ff1490a2479b462b49c66c4c3, type: 2}
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 28285fe6837a5fe4e9e2b1fb7f0388cd, type: 2}
+  - {fileID: 11400000, guid: f06894bbdc1284a4899faf4e584179ef, type: 2}
+  equipmentSlot: 2
+  allowedClasses: 
+  equipmentSet: {fileID: 11400000, guid: f0bfdc7fe9dfbf24e9f419de62d4dda4, type: 2}
+  attackBonus: 0
+  defenseBonus: 1
+  consumableEffect: 0
+  useAmount: 0
+  maximumStack: 1
+  buyPrice: 100
+  sellPrice: 50

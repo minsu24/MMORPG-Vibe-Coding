@@ -18,12 +18,27 @@ MonoBehaviour:
   - speaker: 1
     text: "\uC694\uAD34\uB97C \uC7A1\uC73C\uC2DC\uB294 \uBAA8\uC2B5\uC744 \uBCF4\uB2C8
       \uB3C4\uB825\uC774 \uB192\uC73C\uC2E0 \uBD84 \uAC19\uC2B5\uB2C8\uB2E4..."
+    classOverrides:
+    - characterClass: 1
+      text: "\uC694\uAD34\uB97C \uC7A1\uC73C\uC2DC\uB294 \uBAA8\uC2B5\uC744 \uBCF4\uB2C8
+        \uC218\uD589\uC744 \uB9CE\uC774 \uD558\uC168\uB098 \uBD05\uB2C8\uB2E4.."
+    - characterClass: 2
+      text: "\uC694\uAD34\uB97C \uC7A1\uC73C\uC2DC\uB294 \uBAA8\uC2B5\uC744 \uBCF4\uB2C8
+        \uC218\uD589\uC744 \uB9CE\uC774 \uD558\uC168\uB098 \uBD05\uB2C8\uB2E4.."
   - speaker: 0
     text: "\uAD1C\uCC2E\uC73C\uC2ED\uB2C8\uAE4C? "
+    classOverrides:
+    - characterClass: 2
+      text: "\uAD1C\uCC2E\uC73C\uC138\uC694?"
   - speaker: 1
     text: "\uC608... \uC55E\uC5D0 \uAC15\uB825\uD55C \uB450\uAEBC\uBE44\uAC00 \uC788\uB294\uB370
       \uC81C \uD798\uC73C\uB860 \uB3C4\uC800\uD788 \uC774\uAE38 \uC218\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4."
+    classOverrides: []
   - speaker: 0
     text: "\uC81C\uAC00 \uCC98\uB9AC\uD558\uACA0\uC2B5\uB2C8\uB2E4. "
+    classOverrides:
+    - characterClass: 2
+      text: "\uC81C\uAC00.. \uD574\uBCFC\uAC8C\uC694!"
   - speaker: 1
     text: "\uBD80\uB514 \uC870\uC2EC\uD558\uC2DC\uAE38..."
+    classOverrides: []

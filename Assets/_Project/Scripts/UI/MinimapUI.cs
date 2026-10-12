@@ -195,7 +195,7 @@ namespace EasternFantasy.UI
                 TMP_Text text = textObject.GetComponent<TMP_Text>();
                 text.font = regionName.font;
                 text.text = label;
-                text.fontSize = 10f;
+                text.fontSize = 16f;
                 text.fontStyle = FontStyles.Bold;
                 text.alignment = TextAlignmentOptions.Center;
                 text.color = new Color(0.05f, 0.07f, 0.08f);

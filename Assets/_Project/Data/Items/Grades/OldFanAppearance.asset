@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3097e989ef17094686b4d2270f3b793, type: 3}
+  m_Name: OldFanAppearance
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemGradeAppearance
+  icons:
+  - {fileID: 1365654750, guid: 1ab9b6f29fbd2ab4b8bb5d21446c8fe8, type: 3}
+  - {fileID: -2067424553, guid: 56648200cc98e294c91b6bb91104fdd6, type: 3}
+  - {fileID: -803952671, guid: 19020b15ce1040543a1e7918e8e8ba10, type: 3}
+  - {fileID: 2024512175, guid: 023679d1d594e3a47bdda36b3ae99456, type: 3}
+  - {fileID: 805091872, guid: 9275473f37724ef4dbf00ee0aa6284f2, type: 3}
+  frames:
+  - {fileID: -277058422, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: 515603880, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: -1085262827, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: -1818338315, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: -1813257316, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}

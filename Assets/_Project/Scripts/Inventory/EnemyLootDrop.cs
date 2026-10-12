@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace EasternFantasy.Inventory
@@ -54,9 +54,8 @@ namespace EasternFantasy.Inventory
                 return;
 
             hasDropped = true;
-            Collider2D floor = floorCollider != null
-                ? floorCollider
-                : DropPlacement2D.FindFloor(gameObject.scene, transform.position);
+            Collider2D floor = DropPlacement2D.FindSupport(gameObject.scene, transform.position);
+            if (floor == null) floor = floorCollider;
             foreach (EnemyDropEntry drop in drops)
             {
                 if (drop == null || drop.Item == null ||

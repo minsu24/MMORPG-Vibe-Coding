@@ -24,6 +24,8 @@ namespace EasternFantasy.CharacterSelection
         [SerializeField] private string combatRole;
         [SerializeField, TextArea(3, 6)] private string description;
         [SerializeField] private Sprite portrait;
+        [Tooltip("Portrait used only in the stats window. Falls back to the dialogue portrait when unset.")]
+        [SerializeField] private Sprite statsPortrait;
         [SerializeField] private bool playable;
 
         [Header("Runtime")]
@@ -46,6 +48,9 @@ namespace EasternFantasy.CharacterSelection
         public string CombatRole => combatRole;
         public string Description => description;
         public Sprite Portrait => portrait;
+        public Sprite StatsPortrait => statsPortrait != null ? statsPortrait
+            : dialogueCharacter != null && dialogueCharacter.Portrait != null
+                ? dialogueCharacter.Portrait : portrait;
         public bool Playable => playable && playerPrefab != null;
         public bool MarkedPlayable => playable;
         public GameObject PlayerPrefab => playerPrefab;

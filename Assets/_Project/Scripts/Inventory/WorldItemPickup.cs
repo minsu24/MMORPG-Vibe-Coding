@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using DG.Tweening;
 using EasternFantasy.Player;
 using UnityEngine;
 
@@ -31,11 +31,12 @@ namespace EasternFantasy.Inventory
         private CircleCollider2D pickupCollider;
         private ItemDefinition item;
         private int quantity;
-        private Vector3 startPosition;
+        private Rigidbody2D dropBody;
         private Vector3 landingPosition;
         private float elapsed;
         private bool initialized;
         private bool collected;
+        private Sequence collectSequence;
 
         public ItemDefinition Item => item;
         public int Quantity => quantity;
@@ -66,12 +67,13 @@ namespace EasternFantasy.Inventory
             iconRenderer.sprite = definition.Icon;
             FitIconToWorldSize();
 
-            startPosition = transform.position;
+
             landingPosition = landingPoint;
             if (iconRenderer.sprite != null)
                 landingPosition.y += iconRenderer.bounds.extents.y;
             elapsed = 0f;
             initialized = true;
+            dropBody = DropPlacement2D.LaunchPhysicalDrop(gameObject, iconRenderer, landingPosition, tossDuration, tossHeight);
 
             if (lifetime > 0f)
                 Destroy(gameObject, lifetime);
@@ -83,18 +85,6 @@ namespace EasternFantasy.Inventory
                 return;
 
             elapsed += Time.deltaTime;
-            if (elapsed < tossDuration)
-            {
-                float progress = Mathf.Clamp01(elapsed / tossDuration);
-                Vector3 position = Vector3.Lerp(startPosition, landingPosition, progress);
-                position.y += Mathf.Sin(progress * Mathf.PI) * tossHeight;
-                transform.position = position;
-            }
-            else
-            {
-                transform.position = landingPosition;
-            }
-
             if (!pickupCollider.enabled && elapsed >= pickupDelay)
                 pickupCollider.enabled = true;
         }
@@ -119,45 +109,59 @@ namespace EasternFantasy.Inventory
                 return;
 
             collected = true;
+            DropPlacement2D.StopPhysicalDrop(dropBody, gameObject);
             pickupCollider.enabled = false;
             if (collectSound != null)
                 AudioSource.PlayClipAtPoint(collectSound, transform.position, collectSoundVolume);
-            StartCoroutine(CollectFeedbackRoutine(inventory.transform));
+            PlayCollectFeedback(inventory.transform);
         }
 
-        private IEnumerator CollectFeedbackRoutine(Transform player)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
+            if (!collected && DropPlacement2D.StopOnLanding(dropBody, collision))
+                landingPosition = transform.position;
+        }
+        private void PlayCollectFeedback(Transform player)
+        {
+            collectSequence?.Kill();
             Vector3 originalScale = transform.localScale;
             Vector3 popStart = transform.position;
-            float progress = 0f;
+            Vector3 lastTarget = player != null
+                ? player.position + (Vector3)playerTargetOffset : popStart;
+            float popHalfDuration = Mathf.Max(0.025f, collectPopDuration * 0.5f);
+            float flyDuration = Mathf.Max(0.05f, collectFlyDuration);
+            SpriteRenderer renderer = GetComponent<SpriteRenderer>();
 
-            while (progress < 1f)
+            collectSequence = DOTween.Sequence();
+            collectSequence.Append(transform.DOMoveY(popStart.y + collectPopHeight, popHalfDuration)
+                .SetEase(Ease.OutQuad));
+            collectSequence.Join(transform.DOScale(originalScale * 1.2f, popHalfDuration)
+                .SetEase(Ease.OutBack));
+            collectSequence.Append(transform.DOMoveY(popStart.y, popHalfDuration)
+                .SetEase(Ease.InQuad));
+            collectSequence.Join(transform.DOScale(originalScale, popHalfDuration)
+                .SetEase(Ease.OutQuad));
+
+            // Follow the player's current position throughout the flight, even while moving.
+            collectSequence.Append(DOTween.To(() => 0f, progress =>
             {
-                progress = Mathf.Min(1f, progress + Time.deltaTime / collectPopDuration);
-                float arc = Mathf.Sin(progress * Mathf.PI);
-                transform.position = popStart + Vector3.up * (arc * collectPopHeight);
-                transform.localScale = originalScale * (1f + arc * 0.2f);
-                yield return null;
-            }
-
-            Vector3 flyStart = transform.position;
-            Vector3 flyStartScale = transform.localScale;
-            progress = 0f;
-            while (progress < 1f)
+                if (player != null)
+                    lastTarget = player.position + (Vector3)playerTargetOffset;
+                transform.position = Vector3.LerpUnclamped(popStart, lastTarget, progress);
+            }, 1f, flyDuration).SetEase(Ease.InCubic));
+            collectSequence.Join(transform.DOScale(originalScale * collectedScale, flyDuration)
+                .SetEase(Ease.InCubic));
+            collectSequence.Join(renderer.DOFade(0f, flyDuration).SetEase(Ease.InQuad));
+            collectSequence.OnComplete(() =>
             {
-                progress = Mathf.Min(1f, progress + Time.deltaTime / collectFlyDuration);
-                float eased = 1f - Mathf.Pow(1f - progress, 3f);
-                Vector3 target = player != null
-                    ? player.position + (Vector3)playerTargetOffset
-                    : flyStart;
-                transform.position = Vector3.LerpUnclamped(flyStart, target, eased);
-                transform.localScale = Vector3.LerpUnclamped(
-                    flyStartScale, originalScale * collectedScale, eased);
-                yield return null;
-            }
-
-            Destroy(gameObject);
+                collectSequence = null;
+                Destroy(gameObject);
+            });
         }
+
+        private void OnEnable() => collectSequence?.Play();
+        private void OnDisable() => collectSequence?.Pause();
+        private void OnDestroy() => collectSequence?.Kill();
 
         private void FitIconToWorldSize()
         {

@@ -1,0 +1,185 @@
+FILE Assets/_Project/Scenes/BrokenSeal.unity
+FILE Assets/_Project/Scenes/Cemetery.unity
+FILE Assets/_Project/Scenes/ChooseCharactor.unity
+Title parent=CharacterSelectionUI font=80 auto=False rect=(900.00, 76.00) pos=(0.00, 463.00) text=직업 선택
+Subtitle parent=CharacterSelectionUI font=22 auto=False rect=(1000.00, 42.00) pos=(0.00, 411.00) text=하나의 직업에는 하나의 캐릭터만 생성할 수 있습니다
+ClassName parent=Footer font=34 auto=False rect=(370.00, 45.00) pos=(0.00, 35.00) text=도사
+Role parent=Footer font=25 auto=False rect=(370.00, 35.00) pos=(0.00, -4.00) text=원거리 · 술법가
+Availability (1) parent=Footer font=18 auto=False rect=(370.00, 30.00) pos=(0.00, -30.00) text=사용 가능
+ClassName parent=Footer font=34 auto=False rect=(370.00, 45.00) pos=(0.00, 35.00) text=수도승
+Role parent=Footer font=25 auto=False rect=(370.00, 35.00) pos=(0.00, -4.00) text=근접 · 전사
+Availability parent=Footer font=18 auto=False rect=(370.00, 30.00) pos=(0.00, -30.00) text=준비 중
+ClassName parent=Footer font=34 auto=False rect=(370.00, 45.00) pos=(0.00, 30.00) text=여검사
+Role parent=Footer font=25 auto=False rect=(370.00, 35.00) pos=(0.00, -4.00) text=근접 · 딜러
+Availability parent=Footer font=18 auto=False rect=(370.00, 30.00) pos=(0.00, -30.00) text=준비 중
+ClassName parent=DetailsPanel font=40 auto=False rect=(250.00, 50.00) pos=(-621.00, 26.00) text=도사
+Role parent=DetailsPanel font=28 auto=False rect=(250.00, 42.00) pos=(-621.00, -18.00) text=원거리 · 술법가
+Description parent=DetailsPanel font=24 auto=False rect=(560.00, 115.00) pos=(-230.00, 17.00) text=
+Stats parent=DetailsPanel font=20 auto=False rect=(740.00, 70.00) pos=(440.00, 35.00) text=
+Status parent=DetailsPanel font=18 auto=False rect=(740.00, 55.00) pos=(440.00, -42.00) text=
+Label parent=BackButton font=22 auto=False rect=(134.00, 42.00) pos=(0.00, 0.00) text=뒤로
+FILE Assets/_Project/Scenes/GapInSpace.unity
+FILE Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity
+FILE Assets/_Project/Scenes/GiantFarm/GiantFarm_02.unity
+FILE Assets/_Project/Scenes/GiantFarm/GiantFarm_03_Boss.unity
+FILE Assets/_Project/Scenes/MainScreen.unity
+Title parent=MainMenuPanel font=100 auto=False rect=(390.00, 90.00) pos=(0.00, 245.00) text=요괴전
+Subtitle parent=MainMenuPanel font=24 auto=False rect=(390.00, 48.00) pos=(0.00, 188.00) text=MMORPG
+Label parent=GameStartButton font=40 auto=False rect=(370.67, 75.82) pos=(0.00, 0.00) text=게임 시작
+Label parent=SettingsButton font=40 auto=False rect=(370.67, 75.82) pos=(0.00, 0.00) text=설정
+Label parent=QuitButton font=40 auto=False rect=(370.67, 75.82) pos=(0.00, 0.00) text=게임 종료
+SettingsTitle parent=SettingsPanel font=100 auto=False rect=(620.00, 70.00) pos=(0.00, 280.00) text=설정
+VolumeLabel parent=SettingsPanel font=40 auto=False rect=(250.00, 50.00) pos=(-190.00, 92.00) text=소리
+FullscreenLabel parent=SettingsPanel font=40 auto=False rect=(250.00, 50.00) pos=(-190.00, 5.00) text=전체 화면
+SettingsHint parent=SettingsPanel font=22 auto=False rect=(600.00, 42.00) pos=(0.00, -105.00) text=ESC키를 눌러 닫기
+Label parent=CloseButton font=35 auto=False rect=(232.00, 50.00) pos=(0.00, 0.00) text=닫기
+FILE Assets/_Project/Scenes/Marshland.unity
+FILE Assets/_Project/Scenes/MovementPrototype.unity
+Header parent=StatsWindow font=28 auto=False rect=(540.00, 55.00) pos=(0.00, 460.00) text=스탯창
+ClassAndLevel parent=StatsWindow font=28 auto=False rect=(341.78, 42.00) pos=(59.00, -44.00) text=
+HPStats parent=StatsWindow font=18 auto=False rect=(190.04, 29.00) pos=(-120.39, -126.43) text=
+MPStats  parent=StatsWindow font=18 auto=False rect=(195.87, 29.00) pos=(120.17, -126.43) text=
+AttackStats parent=StatsWindow font=18 auto=False rect=(190.04, 28.56) pos=(-120.39, -167.21) text=
+DefenseStats parent=StatsWindow font=18 auto=False rect=(192.73, 28.56) pos=(121.74, -167.21) text=
+LifeStealStats  parent=StatsWindow font=18 auto=False rect=(190.04, 29.45) pos=(-120.39, -208.65) text=
+CriticalChanceStats  parent=StatsWindow font=18 auto=False rect=(192.73, 29.45) pos=(121.74, -208.65) text=
+CriticalDamageStats  parent=StatsWindow font=18 auto=False rect=(190.04, 29.45) pos=(-120.39, -249.65) text=
+MoveSpeedStats parent=StatsWindow font=18 auto=False rect=(192.73, 29.45) pos=(121.74, -249.65) text=
+CloseHint parent=StatsWindow font=40 auto=False rect=(530.00, 35.00) pos=(0.00, -473.00) text=[ C ]  CLOSE
+Title parent=Image font=38 auto=False rect=(600.00, 54.00) pos=(0.00, -6.00) text=인벤토리
+Currency parent=InventoryWindow font=23 auto=False rect=(220.00, 42.00) pos=(0.00, -346.20) text=0
+Label parent=장비Tab font=24 auto=False rect=(170.00, 45.00) pos=(0.00, -5.00) text=장비
+Label parent=소비Tab font=24 auto=False rect=(170.00, 45.00) pos=(0.00, -5.00) text=소비
+Label parent=기타Tab font=24 auto=False rect=(170.00, 45.00) pos=(0.00, -5.00) text=기타
+Placeholder parent=InventorySlot_0 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_0 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_0 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_1 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_1 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_1 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_2 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_2 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_2 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_3 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_3 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_3 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_4 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_4 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_4 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_5 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_5 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_5 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_6 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_6 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_6 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_7 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_7 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_7 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_8 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_8 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_8 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_9 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_9 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_9 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_10 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_10 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_10 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_11 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_11 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_11 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_12 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_12 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_12 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_13 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_13 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_13 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_14 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_14 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_14 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_15 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_15 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_15 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_16 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_16 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_16 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_17 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_17 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_17 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_18 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_18 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_18 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+Placeholder parent=InventorySlot_19 font=38 auto=False rect=(74.00, 74.00) pos=(0.00, 0.00) text=?
+Quantity parent=InventorySlot_19 font=18 auto=False rect=(78.00, 25.00) pos=(0.00, -31.00) text=
+Equipped parent=InventorySlot_19 font=14 auto=False rect=(78.00, 24.00) pos=(0.00, 31.00) text=장착
+ItemName parent=ItemTooltip font=27 auto=False rect=(280.00, 45.00) pos=(0.00, 165.00) text=
+Category parent=ItemTooltip font=18 auto=False rect=(280.00, 30.00) pos=(0.00, 125.00) text=
+Description parent=ItemTooltip font=18 auto=False rect=(280.00, 120.00) pos=(0.00, 35.00) text=
+Effect parent=ItemTooltip font=19 auto=False rect=(280.00, 130.00) pos=(0.00, -115.00) text=
+CloseHint parent=InventoryWindow font=20 auto=False rect=(500.00, 36.00) pos=(0.00, -377.00) text=[ I ]  닫기
+Title parent=SkillWindow font=36 auto=False rect=(350.00, 55.00) pos=(0.00, 250.00) text=스킬
+SkillPoints parent=SkillWindow font=25 auto=False rect=(420.00, 45.00) pos=(410.00, 245.00) text=보유 스킬 포인트  0
+BaseHeader parent=SkillWindow font=30 auto=False rect=(220.00, 45.00) pos=(-658.00, 175.00) text=0차
+FirstHeader parent=SkillWindow font=30 auto=False rect=(220.00, 45.00) pos=(-178.00, 175.00) text=1차
+Placeholder parent=SkillSlot font=44 auto=False rect=(72.00, 72.00) pos=(0.00, 0.00) text=?
+Placeholder parent=SkillSlot font=44 auto=False rect=(72.00, 72.00) pos=(0.00, 0.00) text=?
+Placeholder parent=SkillSlot font=44 auto=False rect=(72.00, 72.00) pos=(0.00, 0.00) text=?
+Placeholder parent=SkillSlot font=44 auto=False rect=(72.00, 72.00) pos=(0.00, 0.00) text=?
+Placeholder parent=SkillSlot font=44 auto=False rect=(72.00, 72.00) pos=(0.00, 0.00) text=?
+Placeholder parent=SkillSlot font=44 auto=False rect=(72.00, 72.00) pos=(0.00, 0.00) text=?
+TooltipTitle parent=SkillTooltip font=24 auto=False rect=(360.00, 46.00) pos=(0.00, 78.00) text=
+TooltipDescription parent=SkillTooltip font=17 auto=False rect=(360.00, 150.00) pos=(0.00, -28.00) text=
+CloseHint parent=SkillWindow font=22 auto=False rect=(350.00, 40.00) pos=(0.00, -310.00) text=[ K ]  닫기
+SkillName parent=QuickSlot1 font=13 auto=True rect=(68.00, 58.00) pos=(0.00, 0.00) text=
+Cooldown parent=QuickSlot1 font=34 auto=False rect=(76.00, 76.00) pos=(0.00, 0.00) text=
+Hotkey parent=QuickSlot1 font=18 auto=False rect=(70.00, 70.00) pos=(0.00, 0.00) text=Q
+SkillName parent=QuickSlot2 font=13 auto=True rect=(68.00, 58.00) pos=(0.00, 0.00) text=
+Cooldown parent=QuickSlot2 font=34 auto=False rect=(76.00, 76.00) pos=(0.00, 0.00) text=
+Hotkey parent=QuickSlot2 font=18 auto=False rect=(70.00, 70.00) pos=(0.00, 0.00) text=W
+SkillName parent=QuickSlot3 font=13 auto=True rect=(68.00, 58.00) pos=(0.00, 0.00) text=
+Cooldown parent=QuickSlot3 font=34 auto=False rect=(76.00, 76.00) pos=(0.00, 0.00) text=
+Hotkey parent=QuickSlot3 font=18 auto=False rect=(70.00, 70.00) pos=(0.00, 0.00) text=E
+SkillName parent=QuickSlot4 font=13 auto=True rect=(68.00, 58.00) pos=(0.00, 0.00) text=
+Cooldown parent=QuickSlot4 font=34 auto=False rect=(76.00, 76.00) pos=(0.00, 0.00) text=
+Hotkey parent=QuickSlot4 font=18 auto=False rect=(70.00, 70.00) pos=(0.00, 0.00) text=R
+SkillName parent=QuickSlot5 font=13 auto=True rect=(68.00, 58.00) pos=(0.00, 0.00) text=
+Cooldown parent=QuickSlot5 font=34 auto=False rect=(76.00, 76.00) pos=(0.00, 0.00) text=
+Hotkey parent=QuickSlot5 font=18 auto=False rect=(70.00, 70.00) pos=(0.00, 0.00) text=A
+SkillName parent=QuickSlot6 font=13 auto=True rect=(68.00, 58.00) pos=(0.00, 0.00) text=
+Cooldown parent=QuickSlot6 font=34 auto=False rect=(76.00, 76.00) pos=(0.00, 0.00) text=
+Hotkey parent=QuickSlot6 font=18 auto=False rect=(70.00, 70.00) pos=(0.00, 0.00) text=S
+SkillName parent=QuickSlot7 font=13 auto=True rect=(68.00, 58.00) pos=(0.00, 0.00) text=
+Cooldown parent=QuickSlot7 font=34 auto=False rect=(76.00, 76.00) pos=(0.00, 0.00) text=
+Hotkey parent=QuickSlot7 font=18 auto=False rect=(70.00, 70.00) pos=(0.00, 0.00) text=D
+SkillName parent=QuickSlot8 font=13 auto=True rect=(68.00, 58.00) pos=(0.00, 0.00) text=
+Cooldown parent=QuickSlot8 font=34 auto=False rect=(76.00, 76.00) pos=(0.00, 0.00) text=
+Hotkey parent=QuickSlot8 font=18 auto=False rect=(70.00, 70.00) pos=(0.00, 0.00) text=F
+Skill Group Label parent=SkillPanel font=20 auto=False rect=(300.00, 28.00) pos=(0.00, 90.00) text=스킬
+SkillName parent=ConsumableSlot1 font=13 auto=True rect=(68.00, 58.00) pos=(0.00, 0.00) text=
+Cooldown parent=ConsumableSlot1 font=20 auto=False rect=(76.00, 76.00) pos=(0.00, 0.00) text=
+Hotkey parent=ConsumableSlot1 font=18 auto=False rect=(70.00, 70.00) pos=(0.00, 0.00) text=1
+SkillName parent=ConsumableSlot2 font=13 auto=True rect=(68.00, 58.00) pos=(0.00, 0.00) text=
+Cooldown parent=ConsumableSlot2 font=20 auto=False rect=(76.00, 76.00) pos=(0.00, 0.00) text=
+Hotkey parent=ConsumableSlot2 font=18 auto=False rect=(70.00, 70.00) pos=(0.00, 0.00) text=2
+SkillName parent=ConsumableSlot3 font=13 auto=True rect=(68.00, 58.00) pos=(0.00, 0.00) text=
+Cooldown parent=ConsumableSlot3 font=20 auto=False rect=(76.00, 76.00) pos=(0.00, 0.00) text=
+Hotkey parent=ConsumableSlot3 font=18 auto=False rect=(70.00, 70.00) pos=(0.00, 0.00) text=3
+SkillName parent=ConsumableSlot4 font=13 auto=True rect=(68.00, 58.00) pos=(0.00, 0.00) text=
+Cooldown parent=ConsumableSlot4 font=20 auto=False rect=(76.00, 76.00) pos=(0.00, 0.00) text=
+Hotkey parent=ConsumableSlot4 font=18 auto=False rect=(70.00, 70.00) pos=(0.00, 0.00) text=4
+Consumable Group Label parent=ConsumablePanel font=20 auto=False rect=(300.00, 28.00) pos=(0.00, 43.00) text=소모품
+Currency parent=Image font=40 auto=False rect=(159.44, 54.00) pos=(0.00, 0.00) text= 0
+Text_HP  parent=Slider_HP font=20 auto=False rect=(275.12, 68.78) pos=(-6.46, 0.59) text=New Text
+Text_MP parent=Slider_MP font=20 auto=False rect=(275.12, 68.78) pos=(-6.46, 2.00) text=New Text
+Text_EXP parent=Slider_EXP font=20 auto=False rect=(275.12, 68.78) pos=(-6.46, -2.00) text=New Text
+QuestTrackerHeader (1) parent=QuestTrackerPanel font=28 auto=False rect=(350.00, 45.00) pos=(23.00, 132.40) text=퀘스트
+QuestTrackerHeader parent=QuestTrackerPanel font=28 auto=False rect=(350.00, 45.00) pos=(0.00, 60.00) text=현재 퀘스트
+QuestList parent=QuestTrackerPanel font=22 auto=False rect=(350.00, 245.00) pos=(0.00, -108.00) text=
+PlayerName parent=DialoguePanel font=40 auto=False rect=(200.00, 50.00) pos=(300.00, 195.00) text=New Text
+DialougueText parent=DialoguePanel font=36 auto=False rect=(800.00, 50.00) pos=(0.00, 25.00) text=New Text
+PartnerName parent=DialoguePanel font=40 auto=False rect=(200.00, 50.00) pos=(-300.00, 195.00) text=New Text
+QuestChoicePrompt parent=QuestChoicePanel font=30 auto=False rect=(600.00, 34.00) pos=(0.00, 70.00) text=퀘스트를 수락하시겠습니까?
+QuestChoiceTitle parent=QuestChoicePanel font=40 auto=False rect=(600.00, 42.00) pos=(0.00, 13.50) text=퀘스트  / 
+Label parent=AcceptQuestButton font=23 auto=False rect=(214.00, 48.00) pos=(0.00, 0.00) text=수락
+Label parent=DeclineQuestButton font=23 auto=False rect=(214.00, 48.00) pos=(0.00, 0.00) text=거절
+FILE Assets/_Project/Scenes/PrologueVilage.unity
+FILE Assets/_Project/Scenes/SpiderCave.unity

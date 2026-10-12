@@ -11,7 +11,6 @@ namespace EasternFantasy.Player
     {
         [SerializeField, Min(1f)] private float baseMaximum = 100f;
         [SerializeField, Min(0f)] private float energyOnHit = 20f;
-        [SerializeField, Min(0f)] private float energyOnParry = 50f;
         [SerializeField, Min(0f)] private float combatTimeout = 10f;
         [SerializeField, Min(0f)] private float decayPerSecond = 10f;
         [SerializeField] private string villageSceneName = "PrologueVilage";
@@ -61,6 +60,11 @@ namespace EasternFantasy.Player
 
         public void RegisterCombat() { lastCombatTime = Time.time; }
 
+        public void GainFromAttackHit(float dealtDamage)
+        {
+            if (dealtDamage > 0f) Gain(energyOnHit);
+        }
+
         public void Gain(float amount)
         {
             if (amount <= 0f || entity.IsDead) return;
@@ -93,7 +97,7 @@ namespace EasternFantasy.Player
         {
             if (!IsParrying || entity.IsDead) return false;
             parryEndTime = 0f;
-            Gain(energyOnParry);
+            RegisterCombat();
             return true;
         }
 
@@ -103,7 +107,7 @@ namespace EasternFantasy.Player
             SetEnergy(0f);
         }
 
-        private void OnDamaged(float damage) { Gain(energyOnHit); }
+        private void OnDamaged(float damage) { if (damage > 0f) RegisterCombat(); }
         private void OnSkillsChanged() { SetEnergy(Mathf.Min(energy, Maximum)); Changed?.Invoke(); }
 
         private void SetEnergy(float value)

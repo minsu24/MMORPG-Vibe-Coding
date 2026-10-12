@@ -114,11 +114,12 @@ namespace EasternFantasy.UI
                     if (iconIndex >= rewardIcons.Length) continue;
                     rewardIcons[iconIndex].sprite = reward.item.Icon;
                     rewardIcons[iconIndex].enabled = reward.item.Icon != null;
+                    ItemGradeVisual.Apply(rewardIcons[iconIndex], reward.item);
                     rewardAmounts[iconIndex].text = $"×{reward.quantity}";
                     iconIndex++;
                 }
             for (int i = iconIndex; i < rewardIcons.Length; i++)
-            { rewardIcons[i].enabled = false; rewardAmounts[i].text = string.Empty; }
+            { rewardIcons[i].enabled = false; ItemGradeVisual.Apply(rewardIcons[i], null); rewardAmounts[i].text = string.Empty; }
             rewardText.text = names.Count > 0 ? "클리어 보상  " + string.Join(" · ", names) : "클리어 보상  미설정";
             for (int i = 0; i < entries.Count; i++) entries[i].SetSelected(boundDungeons[i] == dungeon);
             enterButton.interactable = !loading && CanEnter(dungeon);

@@ -91,6 +91,7 @@ namespace EasternFantasy.Player
                 hitBuffer);
 
             damagedEnemies.Clear();
+            float totalDealtDamage = 0f;
             float damage = entity.RollAttackDamage(out bool isCritical) * damageMultiplier;
             for (int i = 0; i < hitCount; i++)
             {
@@ -107,9 +108,9 @@ namespace EasternFantasy.Player
 
                 float dealtDamage = Mathf.Max(0f, healthBeforeHit - enemy.HP);
                 entity.ApplyLifeSteal(dealtDamage);
-                if (dealtDamage > 0f)
-                    GetComponent<MonkEnergy>()?.RegisterCombat();
+                totalDealtDamage += dealtDamage;
             }
+            GetComponent<MonkEnergy>()?.GainFromAttackHit(totalDealtDamage);
         }
 
         private void OnDisable()

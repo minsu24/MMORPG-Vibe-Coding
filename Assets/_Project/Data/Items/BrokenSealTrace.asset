@@ -18,6 +18,10 @@ MonoBehaviour:
     \uAD73\uC5B4 \uB0A8\uC740 \uD754\uC801\uC785\uB2C8\uB2E4."
   icon: {fileID: -32757473329504256, guid: 194a4ecc25a329f4cafaedef72310dea, type: 3}
   category: 2
+  grade: 0
+  gradeFrame: {fileID: 0}
+  gradeAppearance: {fileID: 11400000, guid: 1106704c8189a254eb1c84a5ba70de1c, type: 2}
+  gradeVariants: []
   equipmentSlot: 0
   attackBonus: 0
   defenseBonus: 0

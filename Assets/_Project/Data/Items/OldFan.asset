@@ -16,9 +16,20 @@ MonoBehaviour:
   displayName: "\uD5CC \uBD80\uCC44"
   description: "\uC624\uB798 \uC0AC\uC6A9\uD574 \uAC00\uC7A5\uC790\uB9AC\uAC00 \uB2F3\uC740
     \uBD80\uCC44\uC785\uB2C8\uB2E4."
-  icon: {fileID: -2768467324346786774, guid: 47291779247afed47a9cd6df0da9749f, type: 3}
+  icon: {fileID: 1365654750, guid: 1ab9b6f29fbd2ab4b8bb5d21446c8fe8, type: 3}
   category: 0
+  grade: 0
+  gradeFrame: {fileID: 0}
+  gradeAppearance: {fileID: 11400000, guid: c0bf7b62a902eb24795b7395b835dcab, type: 2}
+  gradeVariants:
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: c6be111b327f3ef4cbf99fc51f4acd62, type: 2}
+  - {fileID: 11400000, guid: 00b43bdd76a079c41829a01cf117f3b9, type: 2}
+  - {fileID: 11400000, guid: af44519a7f03d19439c1f605765587a7, type: 2}
+  - {fileID: 11400000, guid: 328d6c08f3d16974eb13725f3eb4ffe8, type: 2}
   equipmentSlot: 1
+  allowedClasses: 00000000
+  equipmentSet: {fileID: 11400000, guid: f0bfdc7fe9dfbf24e9f419de62d4dda4, type: 2}
   attackBonus: 3
   defenseBonus: 0
   consumableEffect: 0

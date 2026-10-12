@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3097e989ef17094686b4d2270f3b793, type: 3}
+  m_Name: ClothShoesAppearance
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemGradeAppearance
+  icons:
+  - {fileID: -620928915, guid: 07522ffb9b06ae74a9a17bb2321e6102, type: 3}
+  - {fileID: -1514267458, guid: 59e12c1743c8b534ead56291b29b8184, type: 3}
+  - {fileID: -221045386, guid: 4f21636acb2dcad42a1d550b4f8b66ed, type: 3}
+  - {fileID: -758947499, guid: f9f3f90cbc8420445996bfc4d7157bb2, type: 3}
+  - {fileID: -307443976, guid: b9bb976f8bba42a4c9f6e902980e684a, type: 3}
+  frames:
+  - {fileID: -277058422, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: 515603880, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: -1085262827, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: -1818338315, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: -1813257316, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}

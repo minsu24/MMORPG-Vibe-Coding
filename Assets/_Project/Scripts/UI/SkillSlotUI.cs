@@ -46,7 +46,17 @@ namespace EasternFantasy.UI
 
         public void Refresh()
         {
-            if (skillSystem == null || definition == null)
+            if (definition == null)
+            {
+                iconImage.sprite = null;
+                iconImage.enabled = false;
+                placeholderText.text = "준비 중";
+                placeholderText.gameObject.SetActive(true);
+                learnButton.interactable = false;
+                if (lockOverlay != null) lockOverlay.SetActive(false);
+                return;
+            }
+            if (skillSystem == null)
                 return;
 
             bool hasIcon = definition.Icon != null;
@@ -126,7 +136,7 @@ namespace EasternFantasy.UI
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            tooltip?.Hide();
+            tooltip?.HideAfterPointerExit();
         }
 
         public void OnBeginDrag(PointerEventData eventData)

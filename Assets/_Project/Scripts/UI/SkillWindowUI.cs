@@ -59,8 +59,34 @@ namespace EasternFantasy.UI
                     skillSlots[i].Initialize(skillSystem,
                         i < skillSystem.AvailableSkills.Count
                             ? skillSystem.AvailableSkills[i] : null, tooltip);
+            PositionTierHeaders();
             skillSlotsInitialized = true;
             skillSystem.SkillsChanged += Refresh;
+        }
+
+        private void PositionTierHeaders()
+        {
+            PositionTierHeader("BaseHeader", SkillTier.Base);
+            PositionTierHeader("FirstHeader", SkillTier.FirstAdvancement);
+        }
+
+        private void PositionTierHeader(string headerName, SkillTier tier)
+        {
+            if (windowRoot == null) return;
+            Transform header = windowRoot.transform.Find(headerName);
+            if (header == null) return;
+            RectTransform topSlot = null;
+            foreach (SkillSlotUI slot in skillSlots)
+            {
+                if (slot == null || slot.Definition == null || slot.Definition.Tier != tier) continue;
+                RectTransform rect = slot.transform as RectTransform;
+                if (topSlot == null || rect.anchoredPosition.y > topSlot.anchoredPosition.y)
+                    topSlot = rect;
+            }
+            if (topSlot == null) return;
+            RectTransform headerRect = header as RectTransform;
+            headerRect.anchoredPosition = new Vector2(topSlot.anchoredPosition.x,
+                topSlot.anchoredPosition.y + topSlot.rect.height * 0.5f + headerRect.rect.height * 0.5f + 12f);
         }
 
         private static PlayerSkillSystem FindCurrentSkillSystem()
@@ -101,6 +127,7 @@ namespace EasternFantasy.UI
 
         public void SetOpen(bool open)
         {
+            if (open && EquipmentUpgradeWindowUI.Instance != null && EquipmentUpgradeWindowUI.Instance.IsOpen) return;
             if (windowRoot == null)
                 return;
 

@@ -46,6 +46,8 @@ namespace EasternFantasy.Player
         private float healthSkillBonus;
         private float manaSkillBonus;
         private float speedSkillBonus;
+        private float healthSetBonus;
+        private float manaSetBonus;
         private float activeDamageReduction;
         private Coroutine damageReductionRoutine;
 
@@ -58,12 +60,12 @@ namespace EasternFantasy.Player
         public event Action StatsChanged;
         private int playerLayer, EnemyLayer;
 
-        public override float maxHP => maximumHealth + healthLevelBonus + healthSkillBonus;
-        public override float maxMP => maximumMana + manaLevelBonus + manaSkillBonus;
+        public override float maxHP => maximumHealth + healthLevelBonus + healthSkillBonus + healthSetBonus;
+        public override float maxMP => maximumMana + manaLevelBonus + manaSkillBonus + manaSetBonus;
         public override float maxMental => maximumMental;
-        public float Defense => baseDefensePower + defenseLevelBonus +
+        public float Defense => ApplySetStat(EquipmentSetStat.Defense, baseDefensePower + defenseLevelBonus +
             (playerInventory != null ? playerInventory.EquippedDefenseBonus : 0f) +
-            (advancementSystem != null ? advancementSystem.DefenseBonus : 0f);
+            (advancementSystem != null ? advancementSystem.DefenseBonus : 0f));
         public float LifeStealRate => lifeStealRate;
         public float CriticalChance => criticalChance;
         public float CriticalDamageMultiplier => criticalDamageMultiplier;
@@ -149,15 +151,22 @@ namespace EasternFantasy.Player
             float advancementAttackBonus = advancementSystem != null
                 ? advancementSystem.AttackBonus
                 : 0f;
-            Attack_Power = baseAttackPower + attackLevelBonus + equipmentAttackBonus
-                + advancementAttackBonus;
-            Speed = baseSpeed + speedSkillBonus;
+            Attack_Power = ApplySetStat(EquipmentSetStat.Attack, baseAttackPower + attackLevelBonus + equipmentAttackBonus
+                + advancementAttackBonus);
+            Speed = ApplySetStat(EquipmentSetStat.MoveSpeed, baseSpeed + speedSkillBonus);
+            float healthWithoutSet = maximumHealth + healthLevelBonus + healthSkillBonus;
+            float manaWithoutSet = maximumMana + manaLevelBonus + manaSkillBonus;
+            healthSetBonus = ApplySetStat(EquipmentSetStat.MaximumHealth, healthWithoutSet) - healthWithoutSet;
+            manaSetBonus = ApplySetStat(EquipmentSetStat.MaximumMana, manaWithoutSet) - manaWithoutSet;
 
             // Keep the current resource and grant only the newly gained capacity.
             HP += Mathf.Max(0f, maxHP - previousMaxHealth);
             MP += Mathf.Max(0f, maxMP - previousMaxMana);
             StatsChanged?.Invoke();
         }
+
+        private float ApplySetStat(EquipmentSetStat stat, float value) =>
+            playerInventory != null ? playerInventory.ApplySetBonuses(stat, value) : value;
 
         public float RollAttackDamage(out bool isCritical)
         {

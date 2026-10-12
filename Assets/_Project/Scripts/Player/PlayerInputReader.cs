@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using EasternFantasy.Quest;
 
@@ -67,6 +67,11 @@ namespace EasternFantasy.Player
 
         private void Update()
         {
+            if (EasternFantasy.UI.ScrollCodexWindowUI.Instance != null && EasternFantasy.UI.ScrollCodexWindowUI.Instance.IsOpen)
+            {
+                movement.ClearInput();
+                return;
+            }
             if (EasternFantasy.Dungeon.DungeonRunController.Instance != null
                 && EasternFantasy.Dungeon.DungeonRunController.Instance.IsExitPromptOpen)
             {
@@ -78,13 +83,19 @@ namespace EasternFantasy.Player
                 movement.ClearInput();
                 return;
             }
+            if (EasternFantasy.UI.EquipmentUpgradeWindowUI.Instance != null && EasternFantasy.UI.EquipmentUpgradeWindowUI.Instance.IsOpen)
+            {
+                movement.ClearInput();
+                return;
+            }
             if (entity != null && entity.IsDead)
             {
                 movement.ClearInput();
                 return;
             }
-            movement.SetMoveInput(move.ReadValue<Vector2>().x);
-            if (jump.WasPressedThisFrame()) movement.RequestJump();
+            Vector2 moveValue = move.ReadValue<Vector2>();
+            movement.SetMoveInput(moveValue.x);
+            if (jump.WasPressedThisFrame()) movement.RequestJump(moveValue.y < -0.5f);
             if (attack.WasPressedThisFrame() && basicAttack != null)
                 basicAttack.TryAttack();
             if (interact.WasPressedThisFrame() && questInteraction != null)

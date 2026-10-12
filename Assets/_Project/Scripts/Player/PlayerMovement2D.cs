@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace EasternFantasy.Player
@@ -16,6 +17,10 @@ namespace EasternFantasy.Player
         private ContactFilter2D groundFilter;
         private float moveInput;
         private bool jumpRequested;
+        private bool dropThroughRequested;
+        private readonly List<Collider2D> ignoredPlatforms = new List<Collider2D>();
+        private int groundHitCount;
+        private float supportDistance;
 
         private RigidbodyConstraints2D constraintsBeforeLock;
         public bool IsMovementLocked { get; private set; }
@@ -54,9 +59,67 @@ namespace EasternFantasy.Player
         }
 
         public void SetMoveInput(float value) => moveInput = Mathf.Clamp(value, -1f, 1f);
-        public void RequestJump()
+        public void RequestJump(bool dropThrough = false)
         {
-            if (!IsMovementLocked && !IsDashing) jumpRequested = true;
+            if (IsMovementLocked || IsDashing) return;
+            jumpRequested = true;
+            dropThroughRequested = dropThrough;
+        }
+
+        private static bool IsOneWayPlatform(Collider2D collider)
+        {
+            if (collider == null || !collider.usedByEffector) return false;
+            PlatformEffector2D effector = collider.GetComponent<PlatformEffector2D>();
+            return effector != null && effector.isActiveAndEnabled && effector.useOneWay;
+        }
+
+        private bool IsGroundHit(RaycastHit2D hit)
+        {
+            if (hit.collider == null || hit.normal.y < 0.65f
+                || ignoredPlatforms.Contains(hit.collider)
+                || Physics2D.GetIgnoreCollision(bodyCollider, hit.collider)) return false;
+            // Casts can still report a one-way platform while passing it from below.
+            return !IsOneWayPlatform(hit.collider)
+                || bodyCollider.bounds.min.y >= hit.collider.bounds.max.y - settings.GroundCheckDistance;
+        }
+
+        private bool TryDropThrough()
+        {
+            // Every surface actually supporting the player must allow dropping.
+            // This also handles the seam between adjacent platform colliders.
+            for (int i = 0; i < groundHitCount; i++)
+            {
+                RaycastHit2D hit = groundHits[i];
+                if (!IsGroundHit(hit) || hit.distance > supportDistance + 0.01f) continue;
+                if (!IsOneWayPlatform(hit.collider)) return false;
+            }
+            bool dropped = false;
+            for (int i = 0; i < groundHitCount; i++)
+            {
+                RaycastHit2D hit = groundHits[i];
+                if (!IsGroundHit(hit) || hit.distance > supportDistance + 0.01f) continue;
+                ignoredPlatforms.Add(hit.collider);
+                Physics2D.IgnoreCollision(bodyCollider, hit.collider, true);
+                dropped = true;
+            }
+            return dropped;
+        }
+
+        private void RestorePlatformCollisions(bool restoreAll = false)
+        {
+            for (int i = ignoredPlatforms.Count - 1; i >= 0; i--)
+            {
+                Collider2D platform = ignoredPlatforms[i];
+                // Restore after the whole player is below the top surface, or has
+                // moved sideways off the platform. A timer can expire inside it.
+                if (!restoreAll && platform != null && bodyCollider != null
+                    && bodyCollider.bounds.max.y >= platform.bounds.max.y - 0.02f
+                    && bodyCollider.bounds.max.x >= platform.bounds.min.x
+                    && bodyCollider.bounds.min.x <= platform.bounds.max.x) continue;
+                if (platform != null && bodyCollider != null)
+                    Physics2D.IgnoreCollision(bodyCollider, platform, false);
+                ignoredPlatforms.RemoveAt(i);
+            }
         }
 
         public bool CanDash => isActiveAndEnabled && body != null && bodyCollider != null
@@ -80,6 +143,7 @@ namespace EasternFantasy.Player
             body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             body.linearVelocity = Vector2.zero;
             jumpRequested = false;
+            dropThroughRequested = false;
             IsDashing = true;
             return true;
         }
@@ -131,6 +195,7 @@ namespace EasternFantasy.Player
             IsMovementLocked = locked;
             if (locked) EndDash();
             jumpRequested = false;
+            dropThroughRequested = false;
             if (body == null) return;
             body.linearVelocity = Vector2.zero;
             body.angularVelocity = 0f;
@@ -146,12 +211,14 @@ namespace EasternFantasy.Player
         {
             moveInput = 0f;
             jumpRequested = false;
+            dropThroughRequested = false;
         }
 
         public void TeleportTo(Vector3 position, Quaternion rotation)
         {
             EndDash();
             ClearInput();
+            RestorePlatformCollisions(true);
             body.linearVelocity = Vector2.zero;
             body.angularVelocity = 0f;
             body.position = position;
@@ -161,6 +228,7 @@ namespace EasternFantasy.Player
 
         private void FixedUpdate()
         {
+            RestorePlatformCollisions();
             if (IsDashing)
             {
                 UpdateDash();
@@ -173,18 +241,20 @@ namespace EasternFantasy.Player
                 return;
             }
             IsGrounded = false;
+            groundHitCount = 0;
+            supportDistance = float.PositiveInfinity;
             // A wall contact must not grant a jump; only upward-facing surfaces count.
             if (body.linearVelocity.y <= 0.1f)
             {
-                int count = bodyCollider.Cast(Vector2.down, groundFilter, groundHits,
+                groundHitCount = bodyCollider.Cast(Vector2.down, groundFilter, groundHits,
                     settings.GroundCheckDistance);
-                for (int i = 0; i < count; i++)
-                    if (groundHits[i].normal.y >= 0.65f)
+                for (int i = 0; i < groundHitCount; i++)
+                    if (IsGroundHit(groundHits[i]))
                     {
                         IsGrounded = true;
+                        supportDistance = Mathf.Min(supportDistance, groundHits[i].distance);
                         if (playerIdleAnimation != null)
                             playerIdleAnimation.SetJumping(false);
-                        break;
                     }
             }
 
@@ -193,19 +263,22 @@ namespace EasternFantasy.Player
             if(playerEntity.isKnockback == false) velocity.x = moveInput * moveSpeed;
             if (jumpRequested && IsGrounded)
             {
-                velocity.y = settings.JumpSpeed;
+                bool dropping = dropThroughRequested && TryDropThrough();
+                velocity.y = dropping ? -settings.DropThroughSpeed : settings.JumpSpeed;
                 if (playerIdleAnimation != null)
                     playerIdleAnimation.SetJumping(true);
                 IsGrounded = false;
             }
             // Consume airborne presses too, preventing an unintended jump on landing.
             jumpRequested = false;
+            dropThroughRequested = false;
             body.linearVelocity = velocity;
         }
 
         private void OnDisable()
         {
             EndDash();
+            RestorePlatformCollisions(true);
             SetMovementLocked(false);
             ClearInput();
             if (body != null) body.linearVelocity = new Vector2(0f, body.linearVelocity.y);

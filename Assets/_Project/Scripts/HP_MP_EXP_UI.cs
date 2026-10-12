@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using TMPro;
 using EasternFantasy.Player;
@@ -29,9 +30,19 @@ public class HP_MP_EXP_UI : MonoBehaviour
     private MonkEnergyBarUI energyBar;
     private bool? showingEnergy;
 
+    [Header("DOTween gauge timing")]
+    [SerializeField, Min(0f)] private float hpTweenDuration = 0.3f;
+    [SerializeField, Min(0f)] private float mpTweenDuration = 0.25f;
+    [SerializeField, Min(0f)] private float expTweenDuration = 0.45f;
+    private Tween hpTween, mpTween, expTween;
+    private float hpTarget = float.NaN, mpTarget = float.NaN, expTarget = float.NaN;
+    private int displayedLevel = -1;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (playerController != null)
+            playerProgression = playerController.GetComponent<PlayerProgression>();
         if (sliderMP != null)
         {
             manaBarRoot = sliderMP.transform.parent.gameObject;
@@ -46,6 +57,7 @@ public class HP_MP_EXP_UI : MonoBehaviour
         playerController = player.GetComponent<PlayerEntity>();
         playerProgression = player.GetComponent<PlayerProgression>();
         showingEnergy = null;
+        ResetGaugeAnimations();
         return playerController != null;
     }
     // Update is called once per frame
@@ -54,7 +66,8 @@ public class HP_MP_EXP_UI : MonoBehaviour
         if ((playerController == null || !playerController.gameObject.activeInHierarchy)
             && !TryBindPlayer()) return;
 
-        if(sliderHP != null) sliderHP.value = Utils.Percent(playerController.HP, playerController.maxHP); // 슬라이드를 이용한 HP 표시
+        Utils.UpdateGauge(sliderHP, Utils.Percent(playerController.HP, playerController.maxHP),
+            hpTweenDuration, ref hpTarget, ref hpTween);
         if(textHP != null) textHP.text = $"{playerController.HP:F0}/{playerController.maxHP:F0}"; // 수치에 따른 텍스트 변경
 
         MonkEnergy energy = playerController.Energy;
@@ -83,16 +96,22 @@ public class HP_MP_EXP_UI : MonoBehaviour
             energyBar?.Refresh(energy);
         else
         {
-            if (sliderMP != null)
-                sliderMP.value = Utils.Percent(playerController.MP, playerController.maxMP);
+            Utils.UpdateGauge(sliderMP, Utils.Percent(playerController.MP, playerController.maxMP),
+                mpTweenDuration, ref mpTarget, ref mpTween);
             if (textMP != null)
                 textMP.text = $"{playerController.MP:F0}/{playerController.maxMP:F0}";
         }
 
         if (playerProgression != null)
         {
-            if (sliderEXP != null)
-                sliderEXP.value = playerProgression.ExperienceNormalized;
+            // A new level starts a new EXP range; do not animate backwards through the old one.
+            if (displayedLevel != playerProgression.CurrentLevel)
+            {
+                displayedLevel = playerProgression.CurrentLevel;
+                expTarget = float.NaN;
+            }
+            Utils.UpdateGauge(sliderEXP, playerProgression.ExperienceNormalized,
+                expTweenDuration, ref expTarget, ref expTween);
 
             if (textEXP != null)
             {
@@ -103,6 +122,18 @@ public class HP_MP_EXP_UI : MonoBehaviour
             }
         }
 
-        
     }
+
+    private void ResetGaugeAnimations()
+    {
+        hpTween?.Kill();
+        mpTween?.Kill();
+        expTween?.Kill();
+        hpTween = mpTween = expTween = null;
+        hpTarget = mpTarget = expTarget = float.NaN;
+        displayedLevel = -1;
+    }
+
+    private void OnDisable() => ResetGaugeAnimations();
+    private void OnDestroy() => ResetGaugeAnimations();
 }

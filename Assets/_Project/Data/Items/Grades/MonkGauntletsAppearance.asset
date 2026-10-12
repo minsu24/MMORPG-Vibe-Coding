@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3097e989ef17094686b4d2270f3b793, type: 3}
+  m_Name: MonkGauntletsAppearance
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemGradeAppearance
+  icons:
+  - {fileID: 704872976, guid: c9127913fcf566b43961fb59577cd0f2, type: 3}
+  - {fileID: -31569208, guid: 2aa9efc15b3de1140a2490ef4b0c3fac, type: 3}
+  - {fileID: 954823430, guid: d7049b7e7e35b2749a3de47654790e0b, type: 3}
+  - {fileID: 1524833777, guid: 5f0b459825d86cd41994088d0fc260a8, type: 3}
+  - {fileID: 106535251, guid: 410ac12e01b4fee4d8a558a6ac640e4b, type: 3}
+  frames:
+  - {fileID: -277058422, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: 515603880, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: -1085262827, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: -1818338315, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: -1813257316, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}

@@ -91,6 +91,7 @@ namespace EasternFantasy.UI
 
         public void SetOpen(bool open)
         {
+            if (open && EquipmentUpgradeWindowUI.Instance != null && EquipmentUpgradeWindowUI.Instance.IsOpen) return;
             if (windowRoot == null)
                 return;
 

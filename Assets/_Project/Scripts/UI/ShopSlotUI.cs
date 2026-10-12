@@ -31,8 +31,23 @@ namespace EasternFantasy.UI
             bool hasIcon = item != null && item.Icon != null;
             iconImage.sprite = hasIcon ? item.Icon : null;
             iconImage.enabled = hasIcon;
+            ItemGradeVisual.Apply(iconImage, item);
             placeholderText.gameObject.SetActive(item != null && !hasIcon);
-            nameText.text = item != null ? item.DisplayName : string.Empty;
+            nameText.text = item != null ? item.GradedDisplayName +
+                (item.HasClassRestriction ? "\n" + item.AllowedClassesLabel + " 전용" : "") : string.Empty;
+            nameText.enableAutoSizing = true;
+            nameText.overflowMode = TextOverflowModes.Ellipsis;
+            priceText.fontSize = 19f;
+            priceText.enableAutoSizing = true;
+            priceText.fontSizeMin = 18f;
+            priceText.fontSizeMax = 19f;
+            priceText.overflowMode = TextOverflowModes.Ellipsis;
+            nameText.fontSizeMin = 18f;
+            nameText.fontSizeMax = 20f;
+            nameText.rectTransform.anchoredPosition = new Vector2(0f, -17f);
+            nameText.rectTransform.sizeDelta = new Vector2(165f, 68f);
+            priceText.rectTransform.anchoredPosition = new Vector2(0f, -68f);
+            priceText.rectTransform.sizeDelta = new Vector2(165f, 34f);
             int price = item == null ? 0 : (selling ? item.SellPrice : item.BuyPrice);
             priceText.text = item == null
                 ? string.Empty
@@ -45,6 +60,7 @@ namespace EasternFantasy.UI
             item = null;
             iconImage.sprite = null;
             iconImage.enabled = false;
+            ItemGradeVisual.Apply(iconImage, null);
             placeholderText.gameObject.SetActive(false);
             nameText.text = string.Empty;
             priceText.text = string.Empty;

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using EasternFantasy.Player;
+using EasternFantasy.EquipmentUpgrade;
+using EasternFantasy.CharacterSelection;
 using UnityEngine;
 
 namespace EasternFantasy.Inventory
@@ -49,6 +51,17 @@ namespace EasternFantasy.Inventory
         private bool initialized;
 
         public const int SlotsPerCategory = 20;
+        public CharacterClassId CurrentClass
+        {
+            get
+            {
+                var runtime = GetComponent<PlayerClassRuntime>();
+                return runtime != null ? runtime.RepresentedClass : CharacterClassId.Dosa;
+            }
+        }
+        public bool CanEquip(ItemDefinition item) => item != null &&
+            item.Category == ItemCategory.Equipment && item.EquipmentSlot != EquipmentSlot.None &&
+            item.CanBeEquippedBy(CurrentClass);
 
         public IReadOnlyList<InventoryStack> Items
         {
@@ -85,6 +98,41 @@ namespace EasternFantasy.Inventory
             }
         }
 
+        public int GetEquippedSetCount(EquipmentSetDefinition set)
+        {
+            EnsureInitialized();
+            if (set == null) return 0;
+            int count = 0;
+            foreach (var pair in equippedItems)
+                if (pair.Value != null && pair.Value.EquipmentSet == set && set.IncludesSlot(pair.Key))
+                    count++;
+            return count;
+        }
+
+        // Sum flat bonuses and percentage points across all active thresholds and sets.
+        public float ApplySetBonuses(EquipmentSetStat stat, float baseValue)
+        {
+            EnsureInitialized();
+            float flat = 0f, percent = 0f;
+            var visited = new HashSet<EquipmentSetDefinition>();
+            foreach (ItemDefinition item in equippedItems.Values)
+            {
+                EquipmentSetDefinition set = item != null ? item.EquipmentSet : null;
+                if (set == null || !visited.Add(set)) continue;
+                int count = GetEquippedSetCount(set);
+                foreach (EquipmentSetBonus bonus in set.Bonuses)
+                {
+                    if (bonus == null || count < bonus.RequiredPieces) continue;
+                    foreach (EquipmentSetEffect effect in bonus.Effects)
+                    {
+                        if (effect == null || effect.Stat != stat) continue;
+                        if (effect.Modifier == EquipmentSetModifier.Percent) percent += effect.Value;
+                        else flat += effect.Value;
+                    }
+                }
+            }
+            return Mathf.Max(0f, (baseValue + flat) * (1f + percent / 100f));
+        }
         private void Awake()
         {
             playerEntity = GetComponent<PlayerEntity>();
@@ -166,6 +214,84 @@ namespace EasternFantasy.Inventory
             return true;
         }
 
+        // Replace one owned item; never mutate the shared item definition.
+        public bool TryChangeGrade(ItemDefinition item, ItemGrade targetGrade) =>
+            ChangeGrade(item, targetGrade, true);
+
+        private bool ChangeGrade(ItemDefinition item, ItemGrade targetGrade, bool notify)
+        {
+            EnsureInitialized();
+            if (item == null) return false;
+            InventoryStack source = FindStack(item);
+            ItemDefinition replacement = item.GetGradeVariant(targetGrade);
+            if (source == null || replacement == null || replacement == item) return false;
+            InventoryStack target = FindStack(replacement);
+            if (target != null && target.Quantity >= replacement.MaximumStack) return false;
+            if (target == null && source.Quantity > 1 && FindFirstEmptySlot(item.Category) < 0) return false;
+            int index = source.SlotIndex;
+            bool equipped = IsEquipped(item);
+            if (equipped && !CanEquip(replacement)) return false;
+            source.SetQuantity(source.Quantity - 1);
+            if (source.Quantity == 0) items.Remove(source);
+            if (target != null) target.SetQuantity(target.Quantity + 1);
+            else items.Add(new InventoryStack(replacement, 1,
+                source.Quantity == 0 ? index : FindFirstEmptySlot(item.Category)));
+            if (equipped) equippedItems[item.EquipmentSlot] = replacement;
+            if (notify) InventoryChanged?.Invoke();
+            return true;
+        }
+
+        public bool CanUpgradeEquipment(ItemDefinition item, EquipmentUpgradeRecipe recipe,
+            PlayerCurrency currency, out string error)
+        {
+            EnsureInitialized();
+            error = "승급할 장비를 선택해 주세요.";
+            if (item == null || GetQuantity(item) == 0) return false;
+            error = item.Grade == ItemGrade.Mythic ? "최고 등급 장비입니다." : "이 장비의 승급 조건이 없습니다.";
+            if (recipe == null || !recipe.Matches(item)) return false;
+            if (!recipe.TryGetRequirements(out var requirements, out error)) return false;
+            ItemDefinition replacement = item.GetGradeVariant(recipe.TargetGrade);
+            error = "다음 등급의 아이템 데이터가 없습니다.";
+            if (replacement == null || replacement == item) return false;
+            error = "다음 등급 장비를 현재 직업이 장착할 수 없습니다.";
+            if (IsEquipped(item) && !CanEquip(replacement)) return false;
+            InventoryStack source = FindStack(item), target = FindStack(replacement);
+            error = "인벤토리 공간이나 다음 등급의 최대 수량을 확인해 주세요.";
+            if (target != null && target.Quantity >= replacement.MaximumStack) return false;
+            if (target == null && source.Quantity > 1 && FindFirstEmptySlot(item.Category) < 0) return false;
+            error = "엽전이 부족합니다.";
+            if (currency == null || !currency.CanAfford(recipe.CostYeopjeon)) return false;
+            foreach (var pair in requirements)
+            {
+                if (GetQuantity(pair.Key) >= pair.Value) continue;
+                error = pair.Key.DisplayName + " 재료가 부족합니다.";
+                return false;
+            }
+            error = null;
+            return true;
+        }
+
+        public bool TryUpgradeEquipment(ItemDefinition item, EquipmentUpgradeRecipe recipe,
+            PlayerCurrency currency, out ItemDefinition result, out string error)
+        {
+            result = null;
+            if (!CanUpgradeEquipment(item, recipe, currency, out error)) return false;
+            recipe.TryGetRequirements(out var requirements, out error);
+            // No callbacks occur between validation and commit. Observers see the complete transaction.
+            if (!ChangeGrade(item, recipe.TargetGrade, false)) return false;
+            currency.TrySpendSilently(recipe.CostYeopjeon);
+            foreach (var pair in requirements)
+            {
+                var stack = FindStack(pair.Key);
+                stack.SetQuantity(stack.Quantity - pair.Value);
+                if (stack.Quantity == 0) items.Remove(stack);
+            }
+            result = item.GetGradeVariant(recipe.TargetGrade);
+            error = null;
+            InventoryChanged?.Invoke();
+            currency.NotifyChanged();
+            return true;
+        }
         public bool MoveItem(ItemDefinition item, int targetSlotIndex)
         {
             EnsureInitialized();
@@ -203,6 +329,7 @@ namespace EasternFantasy.Inventory
         public bool TryEquip(ItemDefinition item)
         {
             EnsureInitialized();
+            if (!CanEquip(item)) return false;
             if (item == null || item.Category != ItemCategory.Equipment
                 || item.EquipmentSlot == EquipmentSlot.None || GetQuantity(item) <= 0)
                 return false;

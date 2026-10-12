@@ -204,12 +204,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 46
-        y: 716
+        y: 747
         width: 250
-        height: 248
+        height: 251
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 24, y: 24, z: 24, w: 24}
+      border: {x: 24, y: 25, z: 24, w: 24}
       customData: 
       outline: []
       physicsShape: []
@@ -226,12 +226,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 321
-        y: 710
+        y: 747
         width: 252
-        height: 253
+        height: 251
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 24, y: 24, z: 24, w: 24}
+      border: {x: 24, y: 27, z: 24, w: 24}
       customData: 
       outline: []
       physicsShape: []
@@ -247,13 +247,13 @@ TextureImporter:
       name: InventorySlot_Selected
       rect:
         serializedVersion: 2
-        x: 581
-        y: 686
-        width: 290
-        height: 300
+        x: 599
+        y: 748
+        width: 251
+        height: 251
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 24, y: 24, z: 24, w: 24}
+      border: {x: 24, y: 25, z: 24, w: 25}
       customData: 
       outline: []
       physicsShape: []
@@ -270,12 +270,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 881
-        y: 713
+        y: 714
         width: 248
-        height: 252
+        height: 297
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 24, y: 24, z: 24, w: 24}
+      border: {x: 24, y: 44, z: 24, w: 24}
       customData: 
       outline: []
       physicsShape: []
@@ -294,10 +294,10 @@ TextureImporter:
         x: 1151
         y: 713
         width: 248
-        height: 252
+        height: 296
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 24, y: 24, z: 24, w: 24}
+      border: {x: 10, y: 24, z: 2, w: 24}
       customData: 
       outline: []
       physicsShape: []
@@ -313,13 +313,13 @@ TextureImporter:
       name: InventoryTab_Normal
       rect:
         serializedVersion: 2
-        x: 74
-        y: 516
-        width: 642
-        height: 140
+        x: 54
+        y: 536
+        width: 675
+        height: 171
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 24, y: 24, z: 24, w: 24}
+      border: {x: 41, y: 34, z: 42, w: 28}
       customData: 
       outline: []
       physicsShape: []
@@ -335,10 +335,10 @@ TextureImporter:
       name: InventoryTab_Pressed
       rect:
         serializedVersion: 2
-        x: 736
-        y: 516
-        width: 642
-        height: 140
+        x: 725
+        y: 538
+        width: 667
+        height: 168
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 24, y: 24, z: 24, w: 24}
@@ -357,10 +357,10 @@ TextureImporter:
       name: InventoryTab_Hover
       rect:
         serializedVersion: 2
-        x: 74
-        y: 354
-        width: 642
-        height: 140
+        x: 56
+        y: 379
+        width: 672
+        height: 164
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 24, y: 24, z: 24, w: 24}
@@ -379,10 +379,10 @@ TextureImporter:
       name: InventoryTab_Disabled
       rect:
         serializedVersion: 2
-        x: 736
-        y: 354
-        width: 642
-        height: 140
+        x: 722
+        y: 376
+        width: 656
+        height: 167
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 24, y: 24, z: 24, w: 24}
@@ -401,7 +401,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 3ee426fb45df77743ba60b92360e5de4
     internalID: 0
     vertices: []
     indices: 

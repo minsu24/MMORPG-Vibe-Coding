@@ -1,6 +1,7 @@
 using EasternFantasy.Skill;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace EasternFantasy.UI
 {
@@ -11,8 +12,26 @@ namespace EasternFantasy.UI
         [SerializeField] private TMP_Text titleText;
         [SerializeField] private TMP_Text descriptionText;
 
+        private bool pendingPointerHide;
+        private float hideAfter;
+        public void HideAfterPointerExit()
+        {
+            pendingPointerHide = true;
+            hideAfter = Time.unscaledTime + .15f;
+        }
+        private void Update()
+        {
+            if (!pendingPointerHide || Time.unscaledTime < hideAfter) return;
+            Canvas canvas = tooltipRoot != null ? tooltipRoot.GetComponentInParent<Canvas>() : null;
+            Camera camera = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
+            if (tooltipRoot != null && Mouse.current != null &&
+                RectTransformUtility.RectangleContainsScreenPoint(tooltipRoot.transform as RectTransform,
+                    Mouse.current.position.ReadValue(), camera)) return;
+            Hide();
+        }
         public void Hide()
         {
+            pendingPointerHide = false;
             if (tooltipRoot != null)
                 tooltipRoot.SetActive(false);
         }
@@ -59,11 +78,23 @@ namespace EasternFantasy.UI
                 descriptionText.text += "\n\n" + requirement;
 
             RectTransform tooltipRect = tooltipRoot.GetComponent<RectTransform>();
-            float side = hoveredSlot.anchoredPosition.x < 0f ? -1f : 1f;
-            tooltipRect.anchoredPosition = new Vector2(
-                510f * side,
-                Mathf.Clamp(hoveredSlot.anchoredPosition.y, -120f, 120f));
+            pendingPointerHide = false;
             tooltipRoot.SetActive(true);
+            UIReadability.LayoutTooltip(tooltipRoot, titleText, descriptionText);
+            // Place the scrollable tooltip beside the icon so it cannot intercept learning clicks.
+            Canvas canvas = tooltipRoot.GetComponentInParent<Canvas>();
+            RectTransform canvasRect = canvas.rootCanvas.transform as RectTransform;
+            Vector3[] corners = new Vector3[4];
+            hoveredSlot.GetWorldCorners(corners);
+            Vector3 left = canvasRect.InverseTransformPoint(corners[0]);
+            Vector3 right = canvasRect.InverseTransformPoint(corners[2]);
+            float width = tooltipRect.rect.width * tooltipRect.lossyScale.x / canvasRect.lossyScale.x;
+            float centerX = right.x + 16f + width * 0.5f;
+            if (centerX + width * 0.5f > canvasRect.rect.xMax - 18f)
+                centerX = left.x - 16f - width * 0.5f;
+            tooltipRect.position = canvasRect.TransformPoint(new Vector3(
+                centerX, (left.y + right.y) * 0.5f, 0f));
+            UIReadability.ClampToCanvas(tooltipRect);
         }
     }
 }

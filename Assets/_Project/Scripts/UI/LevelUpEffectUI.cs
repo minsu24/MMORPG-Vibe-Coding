@@ -1,4 +1,5 @@
-using System.Collections;
+﻿using System.Collections;
+using DG.Tweening;
 using EasternFantasy.CharacterSelection;
 using EasternFantasy.Dialogue;
 using EasternFantasy.Player;
@@ -25,6 +26,9 @@ namespace EasternFantasy.UI
         [SerializeField, Min(0.01f)] private float startScale = 1.12f;
         [SerializeField, Min(0.01f)] private float settledScale = 1f;
 
+        [SerializeField, Min(0.01f)] private float settleDuration = 0.22f;
+
+        private Sequence effectSequence;
         private RectTransform effectRect;
         private Coroutine effectQueueRoutine;
         private int pendingEffects;
@@ -86,7 +90,7 @@ namespace EasternFantasy.UI
         private void QueueLevelUpEffect(int newLevel)
         {
             pendingEffects++;
-            if (effectQueueRoutine == null)
+            if (isActiveAndEnabled && effectQueueRoutine == null)
                 effectQueueRoutine = StartCoroutine(ProcessEffectQueue());
         }
 
@@ -120,38 +124,38 @@ namespace EasternFantasy.UI
             if (effectGroup == null || effectRect == null)
                 yield break;
 
-            effectGroup.alpha = 0f;
+            effectSequence?.Kill();
+            SetHidden();
             effectRect.localScale = Vector3.one * startScale;
 
-            float elapsed = 0f;
-            while (elapsed < flashInDuration)
-            {
-                elapsed += Time.unscaledDeltaTime;
-                float t = Mathf.Clamp01(elapsed / flashInDuration);
-                effectGroup.alpha = t;
-                effectRect.localScale = Vector3.one * Mathf.Lerp(startScale, settledScale, t);
-                yield return null;
-            }
+            effectSequence = DOTween.Sequence().SetUpdate(true);
+            effectSequence.Append(effectGroup.DOFade(1f, Mathf.Max(0.01f, flashInDuration))
+                .SetEase(Ease.OutQuad));
+            effectSequence.Join(effectRect.DOScale(Vector3.one * settledScale,
+                Mathf.Max(0.01f, settleDuration)).SetEase(Ease.OutBack));
+            effectSequence.AppendInterval(Mathf.Max(0f, holdDuration));
+            effectSequence.Append(effectGroup.DOFade(0f, Mathf.Max(0.01f, fadeOutDuration))
+                .SetEase(Ease.InQuad));
 
-            effectGroup.alpha = 1f;
-            effectRect.localScale = Vector3.one * settledScale;
+            // Keep the queue waiting until this complete animation has finished.
+            yield return effectSequence.WaitForCompletion(true);
+            effectSequence = null;
+            SetHidden();
+        }
 
-            elapsed = 0f;
-            while (elapsed < holdDuration)
-            {
-                elapsed += Time.unscaledDeltaTime;
-                yield return null;
-            }
+        private void OnEnable()
+        {
+            if (pendingEffects > 0 && effectQueueRoutine == null)
+                effectQueueRoutine = StartCoroutine(ProcessEffectQueue());
+        }
 
-            elapsed = 0f;
-            while (elapsed < fadeOutDuration)
-            {
-                elapsed += Time.unscaledDeltaTime;
-                float t = Mathf.Clamp01(elapsed / fadeOutDuration);
-                effectGroup.alpha = 1f - t;
-                yield return null;
-            }
-
+        private void OnDisable()
+        {
+            if (effectQueueRoutine != null)
+                StopCoroutine(effectQueueRoutine);
+            effectQueueRoutine = null;
+            effectSequence?.Kill();
+            effectSequence = null;
             SetHidden();
         }
 
@@ -170,6 +174,7 @@ namespace EasternFantasy.UI
 
         private void OnDestroy()
         {
+            effectSequence?.Kill();
             SceneManager.sceneLoaded -= HandleSceneLoaded;
             if (playerProgression != null)
                 playerProgression.LevelChanged -= QueueLevelUpEffect;

@@ -778,6 +778,7 @@ MonoBehaviour:
   idleStateName: PlayerIdle
   deathStateName: PlayerDead
   spriteFacesRight: 0
+  movingSpritesFaceOppositeDirection: 0
 --- !u!114 &7523527918182716407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -824,7 +825,7 @@ MonoBehaviour:
   maximumHealth: 100
   maximumMana: 100
   maximumMental: 100
-  baseAttackPower: 10
+  baseAttackPower: 25
   baseDefensePower: 5
   lifeStealRate: 0
   criticalChance: 0.05
@@ -887,12 +888,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d22b223f85f814a8efbb67caff581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Quest.PlayerQuestInteraction
-  interactionPromptPrefab: {fileID: 2815858192085291982, guid: 597139e0b0543644d888ad63bea64b75, type: 3}
-  promptOffset: 0.35
   interactionRadius: 2
   interactionLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  interactionPromptPrefab: {fileID: 2815858192085291982, guid: 597139e0b0543644d888ad63bea64b75, type: 3}
+  promptOffset: 0.35
 --- !u!114 &4536540480486117035
 MonoBehaviour:
   m_ObjectHideFlags: 0

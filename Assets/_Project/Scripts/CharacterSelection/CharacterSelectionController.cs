@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -42,7 +42,7 @@ namespace EasternFantasy.CharacterSelection
 
             bool created = CharacterSelectionState.HasCharacter(definition.ClassId);
             statusText.text = definition.Playable
-                ? created ? "생성된 캐릭터 · 선택하면 바로 입장" : "새 캐릭터 · 선택하면 바로 생성 및 입장"
+                ? created ? "사용 가능 · 생성된 캐릭터 · 선택하면 바로 입장" : "사용 가능 · 새 캐릭터 · 선택하면 바로 생성 및 입장"
                 : "준비 중 · 캐릭터 전투 프리팹이 아직 구현되지 않았습니다";
         }
 
@@ -56,6 +56,7 @@ namespace EasternFantasy.CharacterSelection
                 return;
 
             CharacterSelectionState.CreateOrSelect(definition.ClassId);
+            Time.timeScale = 1f;
             SceneManager.LoadScene(gameplaySceneName);
         }
 

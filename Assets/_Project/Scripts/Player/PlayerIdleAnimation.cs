@@ -18,6 +18,8 @@ namespace EasternFantasy.Player
         [SerializeField] private string deathStateName = "PlayerDead";
         [Tooltip("Enable when the source sprites face right at positive X scale.")]
         [SerializeField] private bool spriteFacesRight;
+        [Tooltip("Enable when walking sprites face the opposite direction to idle sprites.")]
+        [SerializeField] private bool movingSpritesFaceOppositeDirection;
 
         private PlayerMovement2D movement;
         private PlayerEntity playerEntity;
@@ -68,7 +70,8 @@ namespace EasternFantasy.Player
             float horizontalInput = movement != null && !movement.IsMovementLocked && !movement.IsDashing
                 ? movement.MoveInput : 0f;
             bool isMoving = Mathf.Abs(horizontalInput) > movementThreshold;
-            if (isMoving && !lockAttackFacing) ApplyFacingDirection(horizontalInput);
+            if (!lockAttackFacing)
+                ApplyFacingDirection(isMoving ? horizontalInput : FacingDirectionX, isMoving);
             if (isMoving == wasMoving) return;
 
             wasMoving = isMoving;
@@ -76,12 +79,18 @@ namespace EasternFantasy.Player
                 animator.SetBool(IsMovingParameter, isMoving);
         }
 
-        public bool TryRequestAttack()
+        public bool TryRequestAttack(bool lockFacing = false)
         {
             if (!isActiveAndEnabled || IsAttacking || !hasAttackParameter)
                 return false;
 
             IsAttacking = true;
+            lockAttackFacing = lockFacing;
+            if (lockFacing)
+            {
+                float input = movement != null ? movement.MoveInput : 0f;
+                ApplyFacingDirection(Mathf.Abs(input) > movementThreshold ? input : FacingDirectionX, false);
+            }
             animator.ResetTrigger(AttackParameter);
             animator.SetTrigger(AttackParameter);
             attackLockRoutine = StartCoroutine(WaitForAttackAnimation(attackStateHash));
@@ -213,6 +222,11 @@ namespace EasternFantasy.Player
                     continue;
                 }
 
+                // A non-looping attack can finish without an Animator exit transition.
+                // Release gameplay locks even when the controller holds its final pose.
+                if (currentIsAttack && !current.loop && current.normalizedTime >= 1f)
+                    break;
+
                 if (!currentIsAttack && !nextIsAttack)
                     break;
             }
@@ -263,13 +277,14 @@ namespace EasternFantasy.Player
                 deathStateName = "PlayerDead";
         }
 
-        private void ApplyFacingDirection(float horizontalInput)
+        private void ApplyFacingDirection(float horizontalInput, bool isMoving)
         {
             Transform visual = animator.transform;
             Vector3 scale = visual.localScale;
             float magnitude = Mathf.Abs(scale.x);
             bool faceRight = horizontalInput > 0f;
-            bool usePositiveScale = faceRight == spriteFacesRight;
+            bool sourceFacesRight = spriteFacesRight ^ (isMoving && movingSpritesFaceOppositeDirection);
+            bool usePositiveScale = faceRight == sourceFacesRight;
             scale.x = usePositiveScale ? magnitude : -magnitude;
             visual.localScale = scale;
             FacingDirectionX = faceRight ? 1f :- 1f;

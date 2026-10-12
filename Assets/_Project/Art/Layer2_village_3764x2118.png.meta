@@ -1,0 +1,227 @@
+fileFormatVersion: 2
+guid: f3779a5a58db40343ad718b93e6599a9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 701789998013134217
+    second: Layer2_village_3764x2118_0
+  - first:
+      213: -7054631663436590438
+    second: Layer2_village_3764x2118_1
+  - first:
+      213: -4689998825501733146
+    second: Layer2_village_3764x2118_2
+  - first:
+      213: 7392247675392885814
+    second: Layer2_village_3764x2118_3
+  - first:
+      213: 8015226765673343567
+    second: Layer2_village_3764x2118_4
+  - first:
+      213: -6956436469970777209
+    second: Layer2_village_3764x2118_5
+  - first:
+      213: -82957318755943072
+    second: Layer2_village_3764x2118_6
+  - first:
+      213: -1911894973458625451
+    second: Layer2_village_3764x2118_7
+  - first:
+      213: 58278505943253890
+    second: Layer2_village_3764x2118_8
+  - first:
+      213: 2382272505346847065
+    second: Layer2_village_3764x2118_9
+  - first:
+      213: -3523965839728195736
+    second: Layer2_village_3764x2118_10
+  - first:
+      213: 2336253506630185541
+    second: Layer2_village_3764x2118_11
+  - first:
+      213: 6559077960040262060
+    second: Layer2_village_3764x2118_12
+  - first:
+      213: 7117474672724852346
+    second: Layer2_village_3764x2118_13
+  - first:
+      213: -5604651564584070451
+    second: Layer2_village_3764x2118_14
+  - first:
+      213: -4254710277370781397
+    second: Layer2_village_3764x2118_15
+  - first:
+      213: -4193295903442076870
+    second: Layer2_village_3764x2118_16
+  - first:
+      213: -6495320420743597515
+    second: Layer2_village_3764x2118_17
+  - first:
+      213: 936027651009437552
+    second: Layer2_village_3764x2118_18
+  - first:
+      213: -2673399673000997094
+    second: Layer2_village_3764x2118_19
+  - first:
+      213: -5005090116525623572
+    second: Layer2_village_3764x2118_20
+  - first:
+      213: -6151072266069442643
+    second: Layer2_village_3764x2118_21
+  - first:
+      213: -9004048502847432450
+    second: Layer2_village_3764x2118_22
+  - first:
+      213: -9110744957061910866
+    second: Layer2_village_3764x2118_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Layer2_village_3764x2118_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 3763
+        height: 2117
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 985be72f8424db900800000000000000
+      internalID: 701789998013134217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 32af664dcc4f61d4aa3635a3e3623c51
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":3763.0,"y":2117.0},"gridSpriteOffset":{"x":1.0,"y":1.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Layer2_village_3764x2118_0: 701789998013134217
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

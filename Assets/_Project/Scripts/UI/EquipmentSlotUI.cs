@@ -41,6 +41,7 @@ namespace EasternFantasy.UI
             ItemDefinition item = inventory != null ? inventory.GetEquipped(slot) : null;
             icon.sprite = item != null ? item.Icon : null;
             icon.enabled = item != null && item.Icon != null;
+            ItemGradeVisual.Apply(icon, item);
             emptyLabel.gameObject.SetActive(item == null || item.Icon == null);
             emptyLabel.text = item != null ? item.DisplayName : SlotName(slot);
         }
@@ -75,6 +76,7 @@ namespace EasternFantasy.UI
             image.sprite = item.Icon;
             image.color = item.Icon != null ? Color.white : new Color(0.8f, 0.7f, 0.4f, 0.9f);
             image.raycastTarget = false;
+            ItemGradeVisual.ApplyDrag(image, item);
             Canvas dragCanvas = dragVisual.AddComponent<Canvas>();
             dragCanvas.overrideSorting = true;
             dragCanvas.sortingOrder = 500;
@@ -101,7 +103,7 @@ namespace EasternFantasy.UI
                 tooltip?.Show(item, inventory);
         }
 
-        public void OnPointerExit(PointerEventData eventData) => tooltip?.Hide();
+        public void OnPointerExit(PointerEventData eventData) => tooltip?.HideAfterPointerExit();
 
         private static string SlotName(EquipmentSlot value)
         {

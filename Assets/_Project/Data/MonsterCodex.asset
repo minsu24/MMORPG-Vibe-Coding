@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b163394644e6c4787fb9619bb66535, type: 3}
+  m_Name: MonsterCodex
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.UI.MonsterCodexCatalog
+  regions:
+  - id: tutorial
+    name: "\uD29C\uD1A0\uB9AC\uC5BC \uB9F5"
+    hiddenUntilVisited: 0
+    monsters:
+    - id: goblin
+      name: "\uB3C4\uAE68\uBE44"
+      portrait: {fileID: 21300000, guid: 6803b4a5ef679ef419853b3ceffc6fa8, type: 3}
+      description: "\uBD89\uC740 \uD53C\uBD80\uC640 \uD770 \uAC08\uAE30\uB97C \uC9C0\uB2CC
+        \uB3C4\uAE68\uBE44.\n\uAC00\uC2DC\uAC00 \uBC15\uD78C \uACE4\uBD09\uC744 \uB4E4\uACE0
+        \uB9C8\uC744 \uC678\uACFD\uC744 \uB5A0\uB3C8\uB2E4.\n\uC7A5\uB09C\uC2A4\uB7EC\uC6B4
+        \uBAA8\uC2B5 \uB4A4\uC5D0 \uAC70\uCE5C \uD798\uC744 \uAC10\uCD94\uACE0 \uC788\uB2E4."
+      discovered: 0
+    - id: ghost
+      name: "\uC720\uB839"
+      portrait: {fileID: 1994098458963216267, guid: 137ef9ab415aef647b1cec0f2d6cca83, type: 3}
+      description: "\uC8FD\uC740 \uC790\uB4E4\uC758 \uC6D0\uD63C.\n\uAC00\uB054 \uC0AC\uB78C\uB4E4\uC744
+        \uB180\uB798\uD0A8\uB2E4."
+      discovered: 0
+    - id: spider
+      name: "\uAC70\uBBF8 \uC694\uAD34"
+      portrait: {fileID: -5199035725373739485, guid: b80924bd95beb3a44b9d123ce2219a6a, type: 3}
+      description: "\uBCF4\uB77C\uC0C9\uC758 \uD138\uC744 \uC9C0\uB2CC \uAC70\uBBF8\n\uB3D9\uAD74\uC5D0\uC11C
+        \uC0B4\uBA70 \uB4E4\uC5B4\uC624\uB294 \uAC83\uC744 \uACF5\uACA9\uD55C\uB2E4."
+      discovered: 0
+    - id: frog
+      name: "\uAC70\uB300 \uB450\uAEBC\uBE44"
+      portrait: {fileID: 2214074101722377964, guid: aa1a3a3f0c736bc48ba995795659e3e9, type: 3}
+      description: "\uC8FC\uD669\uC0C9\uC758 \uD53C\uBD80\uB97C \uAC00\uC9C4 \uAC70\uB300
+        \uB450\uAEBC\uBE44.\n\uD600\uB294 \uB098\uBB34\uB97C \uD30C\uAD34\uD560 \uB9CC\uD07C
+        \uAC15\uB825\uD558\uB2E4. \n\uB2E4\uAC00\uC624\uB294 \uBAA8\uB4E0 \uAC83\uC744
+        \uC7A1\uC544\uBA39\uB294\uB2E4."
+      discovered: 0
+  - id: giant-farm
+    name: "\uAC70\uC778\uC758 \uB18D\uC7A5"
+    hiddenUntilVisited: 1
+    monsters:
+    - id: farm-cart
+      name: "\uB18D\uC7A5 \uC218\uB808"
+      portrait: {fileID: -5214239971041523244, guid: 79e0399a2ef360040b79d22b733dbdf0, type: 3}
+      description: "\uAC70\uC778\uC774 \uB9CC\uB4E0 \uC218\uB808.\n\uCE68\uC785\uC790\uAC00
+        \uBCF4\uC774\uBA74 \uC218\uB808\uC5D0\uC11C \uC57C\uCC44\uB97C \uB0A0\uB9B0\uB2E4."
+      discovered: 0
+    - id: boar
+      name: "\uBA67\uB3FC\uC9C0"
+      portrait: {fileID: -7023287095066413465, guid: 97e2416f668d03949b0a4c7f2e0e93a4, type: 3}
+      description: "\uAC70\uC778\uC774 \uD0A4\uC6B0\uB294 \uC560\uC644 \uBA67\uB3FC\uC9C0\n\uB300\uBD80\uBD84\uC758
+        \uC2DC\uAC04\uC744 \uC7A0\uC73C\uB85C \uBCF4\uB0B8\uB2E4"
+      discovered: 0
+    - id: giant
+      name: "\uAC70\uC778"
+      portrait: {fileID: -4803369465237511153, guid: a11b69478492e2c4ea9796cd24532187, type: 3}
+      description: "\uB18D\uC7A5\uC758 \uC8FC\uC778\uC778 \uAC70\uC778\n\uBD09\uC778\uC774
+        \uD480\uB9B0 \uD6C4 \uADF8 \uACBD\uACC4\uC5D0 \uB18D\uC7A5\uC744 \uC9C0\uC5C8\uB2E4."
+      discovered: 0

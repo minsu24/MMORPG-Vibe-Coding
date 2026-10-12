@@ -421,8 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.MonkEnergy
   baseMaximum: 100
-  energyOnHit: 20
-  energyOnParry: 50
+  energyOnHit: 10
   combatTimeout: 10
   decayPerSecond: 10
   villageSceneName: PrologueVilage
@@ -598,3 +597,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d519e54a02bb4404ca7d70d0ccf9abdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.MonkBlastAnimationEvents
+  releaseFrame: 7

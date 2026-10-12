@@ -50,6 +50,7 @@ namespace EasternFantasy.UI
             bool hasIcon = hasItem && item.Icon != null;
             iconImage.sprite = hasIcon ? item.Icon : null;
             iconImage.enabled = hasIcon;
+            ItemGradeVisual.Apply(iconImage, item);
             placeholderText.gameObject.SetActive(hasItem && !hasIcon);
             quantityText.text = hasItem && (item.Category != ItemCategory.Equipment || quantity > 1)
                 ? quantity.ToString()
@@ -66,6 +67,7 @@ namespace EasternFantasy.UI
             slotIndex = index;
             iconImage.sprite = null;
             iconImage.enabled = false;
+            ItemGradeVisual.Apply(iconImage, null);
             placeholderText.gameObject.SetActive(false);
             quantityText.text = string.Empty;
             equippedText.gameObject.SetActive(false);
@@ -95,7 +97,7 @@ namespace EasternFantasy.UI
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            tooltip?.Hide();
+            tooltip?.HideAfterPointerExit();
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -114,6 +116,7 @@ namespace EasternFantasy.UI
             image.sprite = item.Icon;
             image.color = item.Icon != null ? Color.white : new Color(0.8f, 0.7f, 0.4f, 0.9f);
             image.raycastTarget = false;
+            ItemGradeVisual.ApplyDrag(image, item);
             Canvas dragCanvas = dragVisual.AddComponent<Canvas>();
             dragCanvas.overrideSorting = true;
             dragCanvas.sortingOrder = 500;

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using TMPro;
 using EasternFantasy.Player;
@@ -321,6 +321,8 @@ public abstract class EnemyController : Entity
         if(HP<=0)
         {
             isDefeated = true;
+            EasternFantasy.UI.MonsterCodexDiscovery.RecordDefeat(this);
+            CommonMonsterLoot.DropFor(this);
             OnDefeated();
             return;
         }
@@ -346,7 +348,7 @@ public abstract class EnemyController : Entity
         if (_rewardYeopjeon > 0)
         {
             WorldCurrencyPickup prefab = currencyPickupPrefab;
-            Collider2D floor = DropPlacement2D.FindFloor(gameObject.scene, transform.position);
+            Collider2D floor = DropPlacement2D.FindSupport(gameObject.scene, transform.position);
             if (prefab != null && DropPlacement2D.TryFindLanding(floor, transform.position,
                 transform.position.x, prefab.VisualWidth * 0.5f, out Vector3 landing))
             {

@@ -1,0 +1,12 @@
+﻿검증 결과: PASS
+- Unity C# 컴파일 오류 없음; 마지막 콘솔 오류 조회 0건.
+- 장비 6종 × 5등급의 이미지 및 프레임 연결.
+- 등급 변경 시 이미지/프레임 동시 선택.
+- 기존 장비 일반 등급 유지, 상위 등급 고유 itemId, 능력치/가격 보존.
+- 체력/마나 포션의 등급/프레임/등급 변경 제외.
+- 장착 중 등급 상승/하향 교체와 공유 ItemDefinition 격리.
+- 실제 InventoryWindow 프리팹에서 5등급 순차 Bind, 프레임 뒷면 배치, 포션/빈 슬롯 프레임 숨김 확인.
+- 보정 시트 4종 PNG 알파 확인, 아이템별 경계 검토. 갓 끈 때문에 등간격 절단 대신 열별 분리 경계 사용.
+- git diff --check 통과.
+
+PASS: 41 sprites centered; mixed-grade 6-piece +10% movement; no double count; upgrade/unequip/removal; cumulative flat/percent effects across 5 stats; actual inventory prefab tooltip activation and no clipping; Unity console compilation errors = 0.
