@@ -21,7 +21,7 @@ namespace EasternFantasy.UI
         public string name;
         public Sprite portrait;
         [TextArea(3,10)] public string description;
-        [Tooltip("Initially revealed. Runtime discoveries are saved separately.")]
+        [Tooltip("Legacy preset. Runtime discoveries begin empty each play session.")]
         public bool discovered;
     }
 }

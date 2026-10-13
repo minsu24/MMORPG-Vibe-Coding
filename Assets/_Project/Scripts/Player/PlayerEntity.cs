@@ -35,6 +35,7 @@ namespace EasternFantasy.Player
         private SpriteRenderer[] spriteRenderers;
 
         private PlayerMovement2D playerController;
+        private SwordswomanDrawingAttack drawingAttack;
         private PlayerProgression playerProgression;
         private PlayerSkillSystem playerSkillSystem;
         private PlayerInventory playerInventory;
@@ -91,6 +92,7 @@ namespace EasternFantasy.Player
             EnemyLayer = LayerMask.NameToLayer("Enemy");
             playerLayer = LayerMask.NameToLayer("Player");
             playerController =   GetComponent<PlayerMovement2D>();
+            drawingAttack = GetComponent<SwordswomanDrawingAttack>();
             spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
         }
 
@@ -304,6 +306,12 @@ namespace EasternFantasy.Player
         public void ApplyKnockback(float direction)
         {
             if (IsDead || IsCrowdControlImmune) return;
+            // Drawing has super armor, while damage and post-hit invincibility still apply.
+            if (drawingAttack != null && drawingAttack.IsActive)
+            {
+                StartCoroutine(InvincibleCoroutine());
+                return;
+            }
             StartCoroutine(KnockBackTRoutine()); // 이동 제어권 강탈
             playerController.body.linearVelocity = Vector2.zero;
             Vector2 knockbackForce = new Vector2(direction * horizontalKnockbackPower, verticalKnockbackPower);

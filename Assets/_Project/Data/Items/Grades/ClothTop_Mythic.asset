@@ -31,7 +31,7 @@ MonoBehaviour:
   allowedClasses: 
   equipmentSet: {fileID: 11400000, guid: f0bfdc7fe9dfbf24e9f419de62d4dda4, type: 2}
   attackBonus: 0
-  defenseBonus: 1
+  defenseBonus: 15
   consumableEffect: 0
   useAmount: 0
   maximumStack: 1

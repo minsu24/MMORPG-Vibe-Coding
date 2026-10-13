@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,13 +7,14 @@ namespace EasternFantasy.UI
 {
     public static class MonsterCodexDiscovery
     {
-        public const string SavePrefix = "EasternFantasy.Codex.v1.";
+        private static readonly HashSet<string> discoveriesThisSession = new HashSet<string>();
         public const string GiantFarmRegionId = "giant-farm";
         public static event Action Changed;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetSession()
         {
+            discoveriesThisSession.Clear();
             Changed = null;
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
@@ -34,10 +36,10 @@ namespace EasternFantasy.UI
         }
 
         public static bool IsRegionDiscovered(CodexRegion region) =>
-            !region.hiddenUntilVisited || (!string.IsNullOrEmpty(region.id) && PlayerPrefs.GetInt(SavePrefix + "Region." + region.id, 0) == 1);
+            !region.hiddenUntilVisited || (!string.IsNullOrEmpty(region.id) && discoveriesThisSession.Contains("Region." + region.id));
 
         public static bool IsMonsterDiscovered(CodexMonster monster) =>
-            monster.discovered || (!string.IsNullOrEmpty(monster.id) && PlayerPrefs.GetInt(SavePrefix + "Monster." + monster.id, 0) == 1);
+            !string.IsNullOrEmpty(monster.id) && discoveriesThisSession.Contains("Monster." + monster.id);
 
         public static string IdForEnemy(EnemyController enemy)
         {
@@ -59,10 +61,7 @@ namespace EasternFantasy.UI
 
         private static void Unlock(string suffix)
         {
-            string key = SavePrefix + suffix;
-            if (PlayerPrefs.GetInt(key, 0) == 1) return;
-            PlayerPrefs.SetInt(key, 1);
-            PlayerPrefs.Save();
+            if (!discoveriesThisSession.Add(suffix)) return;
             Changed?.Invoke();
         }
     }

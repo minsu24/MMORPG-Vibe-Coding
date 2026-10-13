@@ -8,6 +8,9 @@ namespace EasternFantasy.Player
     [RequireComponent(typeof(PlayerEntity), typeof(PlayerIdleAnimation), typeof(PlayerMovement2D))]
     public sealed class SwordswomanBasicAttack : MonoBehaviour, IPlayerBasicAttack
     {
+        // Keep in sync with the SwordNormalAttack state's playback speed.
+        private const float AttackSpeedMultiplier = 1.25f;
+
         [Header("Timing")]
         [SerializeField, Min(0f)] private float hitDelay = 0.375f;
         [SerializeField, Min(0f)] private float recoveryDuration = 0.375f;
@@ -55,7 +58,7 @@ namespace EasternFantasy.Player
 
         private IEnumerator AttackRoutine()
         {
-            if (hitDelay > 0f) yield return new WaitForSeconds(hitDelay);
+            if (hitDelay > 0f) yield return new WaitForSeconds(hitDelay / AttackSpeedMultiplier);
             if (CanHit)
             {
                 // Resolve facing at the hit frame, allowing turns during the wind-up.
@@ -63,7 +66,7 @@ namespace EasternFantasy.Player
                 SpawnSlash();
                 ApplyHit();
             }
-            if (recoveryDuration > 0f) yield return new WaitForSeconds(recoveryDuration);
+            if (recoveryDuration > 0f) yield return new WaitForSeconds(recoveryDuration / AttackSpeedMultiplier);
             attackRoutine = null;
         }
 

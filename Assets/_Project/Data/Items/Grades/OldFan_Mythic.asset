@@ -30,7 +30,7 @@ MonoBehaviour:
   equipmentSlot: 1
   allowedClasses: 00000000
   equipmentSet: {fileID: 11400000, guid: f0bfdc7fe9dfbf24e9f419de62d4dda4, type: 2}
-  attackBonus: 3
+  attackBonus: 25
   defenseBonus: 0
   consumableEffect: 0
   useAmount: 0

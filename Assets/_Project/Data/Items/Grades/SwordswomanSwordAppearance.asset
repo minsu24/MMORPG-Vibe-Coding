@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3097e989ef17094686b4d2270f3b793, type: 3}
+  m_Name: SwordswomanSwordAppearance
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemGradeAppearance
+  icons:
+  - {fileID: -1849053218, guid: 25cbdf963f7345b49af6534599b53bd3, type: 3}
+  - {fileID: 1732608966, guid: a9e27488981a7314788bbb17122963ff, type: 3}
+  - {fileID: -2084000494, guid: d968205b7db50924984a40a01922a5e4, type: 3}
+  - {fileID: 441414805, guid: 6991f893e1cb0114392d401461cb2fe3, type: 3}
+  - {fileID: 1019231773, guid: 58b79aed0ba357c4db4fc2e9a8ccbfaf, type: 3}
+  frames:
+  - {fileID: -277058422, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: 515603880, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: -1085262827, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: -1818338315, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}
+  - {fileID: -1813257316, guid: 3f551874769f69a4abe6c1a25b5d056d, type: 3}

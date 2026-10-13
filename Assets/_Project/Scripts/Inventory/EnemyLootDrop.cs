@@ -70,14 +70,21 @@ namespace EasternFantasy.Inventory
                     transform.position.x + scatter, pickupPrefab.VisualWidth * 0.5f,
                     out Vector3 landing))
                 {
-                    Debug.LogWarning($"No free Floor landing spot for {drop.Item.DisplayName}.", this);
-                    continue;
+                    if (drop.DropChance < 1f)
+                    {
+                        Debug.LogWarning($"No free Floor landing spot for {drop.Item.DisplayName}.", this);
+                        continue;
+                    }
+                    // Guaranteed loot must still spawn if the landing area is full.
+                    // Its physical drop body will settle on the supporting surface.
+                    landing = transform.position;
                 }
 
                 WorldItemPickup pickup = Instantiate(
                     pickupPrefab,
                     transform.position + Vector3.up * spawnHeight,
                     Quaternion.identity);
+                UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(pickup.gameObject, gameObject.scene);
                 pickup.Initialize(drop.Item, quantity, landing);
             }
         }

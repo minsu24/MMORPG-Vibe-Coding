@@ -67,6 +67,11 @@ namespace EasternFantasy.Player
 
         private void Update()
         {
+            if (EasternFantasy.UI.PetCompanionWindowUI.Instance != null && EasternFantasy.UI.PetCompanionWindowUI.Instance.IsOpen)
+            {
+                movement.ClearInput();
+                return;
+            }
             if (EasternFantasy.UI.ScrollCodexWindowUI.Instance != null && EasternFantasy.UI.ScrollCodexWindowUI.Instance.IsOpen)
             {
                 movement.ClearInput();

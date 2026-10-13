@@ -3528,6 +3528,7 @@ GameObject:
   - component: {fileID: 188694896}
   - component: {fileID: 188694900}
   - component: {fileID: 188694901}
+  - component: {fileID: 188694902}
   m_Layer: 7
   m_Name: Goblin
   m_TagString: Monster
@@ -3683,7 +3684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MON_Goblin
   target: {fileID: 0}
   _maxHP: 100
-  _attackPower: 500
+  _attackPower: 5
   _moveSpeed: 3
   detectionShape: 0
   _detectRange: 6
@@ -3733,6 +3734,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &188694902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188694895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fafb4a9592654409b21c10f4575cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.EnemyLootDrop
+  pickupPrefab: {fileID: 1989097639827239875, guid: 554de1e741f28c1438da42f16684da6a, type: 3}
+  floorCollider: {fileID: 0}
+  drops:
+  - item: {fileID: 11400000, guid: 8505a826236759f4b98289a33a536951, type: 2}
+    dropChance: 1
+    minimumQuantity: 1
+    maximumQuantity: 1
+  spawnHeight: 0.35
+  horizontalScatter: 0.65
 --- !u!1 &205924993
 GameObject:
   m_ObjectHideFlags: 0
@@ -16285,6 +16307,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777323618}
   m_CullTransparentMesh: 1
+--- !u!1 &777800082 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6253001548875009346, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
+  m_PrefabInstance: {fileID: 8688935739514688348}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &777800088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777800082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e56dcfaacb352b4d9b9271ed927e56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDefeatPortalUnlock
+  requiredEnemy: {fileID: 188694900}
+  sealAnimator: {fileID: 0}
+  sealRenderer: {fileID: 0}
+  unlockAnimation: {fileID: 0}
 --- !u!1 &777935874
 GameObject:
   m_ObjectHideFlags: 0
@@ -38477,13 +38520,20 @@ PrefabInstance:
       value: PrologueVilage
       objectReference: {fileID: 0}
     - target: {fileID: 7851668189856598021, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
+      propertyPath: startsLocked
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7851668189856598021, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
       propertyPath: targetPointName
       value: In_Vilage_Portal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6253001548875009346, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 777800088}
   m_SourcePrefab: {fileID: 100100000, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

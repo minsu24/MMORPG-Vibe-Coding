@@ -7,7 +7,7 @@ namespace EasternFantasy.EditorTools
 {
     public sealed class ItemGradePreview : EditorWindow
     {
-        private readonly string[] items = {"OldFan","MonkGauntlets","OldHat","ClothTop","ClothBottom","ClothGloves","ClothShoes"};
+        private readonly string[] items = {"OldFan","MonkGauntlets","SwordswomanSword","OldHat","ClothTop","ClothBottom","ClothGloves","ClothShoes"};
         private Vector2 scroll;
         [MenuItem("Eastern Fantasy/Inventory/Preview Item Grades")]
         public static void Open() => GetWindow<ItemGradePreview>("아이템 등급");
