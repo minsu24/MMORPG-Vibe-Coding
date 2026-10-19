@@ -57,6 +57,15 @@ namespace EasternFantasy.Inventory
         [SerializeField, Min(0)] private int buyPrice;
         [SerializeField, Min(0)] private int sellPrice;
 
+        [SerializeField] private bool cannotSell;
+        [Tooltip("The ordinary version of this material. Tutorial and ordinary stacks stay separate, but both can be consumed.")]
+        [SerializeField] private ItemDefinition materialSource;
+
+        public bool CanSell => !cannotSell;
+        public ItemDefinition MaterialIdentity => materialSource != null ? materialSource : this;
+        public bool MatchesMaterial(ItemDefinition other) => other != null
+            && Category == ItemCategory.Miscellaneous && other.Category == ItemCategory.Miscellaneous
+            && MaterialIdentity == other.MaterialIdentity;
         public string ItemId => itemId;
         public string DisplayName => displayName;
         public string Description => description;

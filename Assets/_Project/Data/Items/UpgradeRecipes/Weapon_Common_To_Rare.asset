@@ -15,7 +15,9 @@ MonoBehaviour:
   configured: 1
   equipmentKind: 0
   sourceGrade: 0
-  costYeopjeon: 10
+  costYeopjeon: 0
   materials:
+  - item: {fileID: 11400000, guid: 8331d0cdd778fd64bb030719501f3598, type: 2}
+    quantity: 1
   - item: {fileID: 11400000, guid: a8187da46ff350145b329f1397a40e7e, type: 2}
     quantity: 1

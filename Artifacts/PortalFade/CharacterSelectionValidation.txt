@@ -1,0 +1,5 @@
+PASS - CharacterSelectionController.SelectClass uses the existing persistent PortalSceneTransition.
+PASS - Selection scene remains visible during fade-out; overlay blocks input and pauses gameplay.
+PASS - Duplicate class selection and return-to-menu cannot interrupt the transition.
+PASS - MovementPrototype loads with the selected player class; fade-in completes and overlay/input blocking release.
+PASS - No Unity console errors. Original character selection preferences preserved during verification.

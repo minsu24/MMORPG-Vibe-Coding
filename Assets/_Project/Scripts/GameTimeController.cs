@@ -15,6 +15,9 @@ public sealed class GameTimeController : MonoBehaviour
         {
             if (instance != null)
                 return instance;
+            instance = FindFirstObjectByType<GameTimeController>();
+            if (instance != null)
+                return instance;
             GameObject controller = new GameObject("Game Time Controller");
             instance = controller.AddComponent<GameTimeController>();
             DontDestroyOnLoad(controller);
@@ -30,6 +33,7 @@ public sealed class GameTimeController : MonoBehaviour
             return;
         }
         instance = this;
+        DontDestroyOnLoad(gameObject);
         normalTimeScale = Time.timeScale > 0f ? Time.timeScale : 1f;
     }
 

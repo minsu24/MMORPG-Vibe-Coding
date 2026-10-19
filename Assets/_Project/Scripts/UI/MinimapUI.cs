@@ -139,8 +139,7 @@ namespace EasternFantasy.UI
             float scale = Mathf.Min(viewportSize.x / worldBounds.width, viewportSize.y / worldBounds.height);
             contentSize = worldBounds.size * scale;
             mapContent.sizeDelta = contentSize;
-            regionName.text = scene.name == "MovementPrototype" ? "마을 외곽"
-                : scene.name == "PrologueVilage" ? "서막 마을" : scene.name;
+            regionName.text = MapLocationNames.GetDisplayName(scene.name);
 
             foreach (Bounds item in terrain)
             {

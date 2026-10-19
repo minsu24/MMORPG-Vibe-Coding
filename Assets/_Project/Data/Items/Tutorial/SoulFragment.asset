@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ada75e50a69424c83357669e06485c, type: 3}
+  m_Name: SoulFragment
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemDefinition
+  itemId: de7ef657f5d54aee910a7f91396eb80a
+  displayName: "\uC601\uD63C \uC870\uAC01"
+  description: "\uBAAC\uC2A4\uD130\uC758 \uC601\uD63C\uC774 \uC751\uCD95\uB41C \uC870\uAC01.
+    \uC7A5\uBE44 \uC2B9\uAE09\uACFC \uB3D9\uD589\uC694\uAD34 \uC131\uC7A5\uC5D0 \uC0AC\uC6A9\uD558\uB294
+    \uC7AC\uB8CC\uC785\uB2C8\uB2E4."
+  icon: {fileID: 715230307, guid: 91758b540003ccf42bdf038daa057cff, type: 3}
+  category: 2
+  grade: 0
+  gradeFrame: {fileID: 0}
+  gradeAppearance: {fileID: 11400000, guid: 1106704c8189a254eb1c84a5ba70de1c, type: 2}
+  gradeVariants: []
+  equipmentSlot: 0
+  allowedClasses: 
+  equipmentSet: {fileID: 0}
+  attackBonus: 0
+  defenseBonus: 0
+  consumableEffect: 0
+  useAmount: 0
+  maximumStack: 99
+  buyPrice: 2
+  sellPrice: 1
+  cannotSell: 1
+  materialSource: {fileID: 11400000, guid: a8187da46ff350145b329f1397a40e7e, type: 2}

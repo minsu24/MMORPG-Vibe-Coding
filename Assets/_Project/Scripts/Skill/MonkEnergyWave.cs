@@ -110,6 +110,7 @@ namespace EasternFantasy.Skill
                     ? hitBuffer[i].GetComponentInParent<EnemyController>() : null;
                 if (enemy == null || enemy.HP <= 0f || !hitEnemies.Add(enemy)) continue;
                 float before = enemy.HP;
+                owner.NotifyAttackTarget(enemy);
                 enemy.TakeDamage(damage, critical);
                 float dealt = Mathf.Max(0f, before - enemy.HP);
                 if (dealt <= 0f) continue;

@@ -48,7 +48,7 @@ namespace EasternFantasy.EditorTools
                 AssetDatabase.CreateAsset(item,ItemPath);
                 var data=new SerializedObject(item);
                 data.FindProperty("displayName").stringValue="영혼 조각";
-                data.FindProperty("description").stringValue="몬스터의 영혼이 응축된 조각. 장비 승급에 사용하는 재료입니다.";
+                data.FindProperty("description").stringValue="몬스터의 영혼이 응축된 조각. 장비 승급과 동행요괴 성장에 사용하는 재료입니다.";
                 data.FindProperty("category").enumValueIndex=(int)ItemCategory.Miscellaneous;
                 data.FindProperty("equipmentSlot").enumValueIndex=(int)EquipmentSlot.None;
                 data.FindProperty("grade").intValue=(int)ItemGrade.Common;

@@ -1,4 +1,6 @@
 using System.Collections;
+using EasternFantasy.CharacterSelection;
+using EasternFantasy.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +15,7 @@ namespace EasternFantasy.Player
         private const string TutorialScene = "MovementPrototype";
         private const string VillageScene = "PrologueVilage";
         private const string VillageSpawn = "In_Vilage_Portal";
+        private const string FirstDeathGuideKeyPrefix = "Tutorial.FirstDeath.Completed.";
 
         [SerializeField, Min(0f)] private float deathAnimationSeconds = 1f;
         [SerializeField, Range(0f, 0.2f)] private float deathHitStopSeconds = 0.08f;
@@ -31,6 +34,8 @@ namespace EasternFantasy.Player
         private bool wasMovementEnabled;
         private bool previousEnemyCollisionIgnored;
         private bool isRespawning;
+        private bool isFirstDeath;
+        private string firstDeathGuideKey;
 
         private void Awake()
         {
@@ -41,6 +46,9 @@ namespace EasternFantasy.Player
             body = GetComponent<Rigidbody2D>();
             tutorialSpawnPosition = transform.position;
             tutorialSpawnRotation = transform.rotation;
+            PlayerClassRuntime playerClass = GetComponent<PlayerClassRuntime>();
+            firstDeathGuideKey = FirstDeathGuideKeyPrefix + (playerClass != null
+                ? playerClass.RepresentedClass : CharacterSelectionState.SelectedClass);
         }
 
         private void OnEnable()
@@ -84,9 +92,13 @@ namespace EasternFantasy.Player
         private IEnumerator ShowDeathUiAfterAnimation(float hitStopDelay)
         {
             yield return new WaitForSecondsRealtime(deathAnimationSeconds + hitStopDelay);
+            isFirstDeath = PlayerPrefs.GetInt(firstDeathGuideKey, 0) == 0;
             deathUi = deathUiPrefab != null
                 ? Instantiate(deathUiPrefab, transform)
                 : CreateTemporaryDeathUi();
+            DeathScreenUI screen = deathUi.GetComponent<DeathScreenUI>();
+            if (screen != null)
+                screen.Configure(isFirstDeath, SceneManager.GetActiveScene().name == TutorialScene);
             Button respawnButton = deathUi.GetComponentInChildren<Button>(true);
             if (respawnButton != null)
                 respawnButton.onClick.AddListener(Respawn);
@@ -135,6 +147,12 @@ namespace EasternFantasy.Player
             }
 
             entity.Revive();
+            // Complete the guide only after a successful revival, so failed transfers can be retried.
+            if (isFirstDeath)
+            {
+                PlayerPrefs.SetInt(firstDeathGuideKey, 1);
+                PlayerPrefs.Save();
+            }
             if (animationController != null)
                 animationController.PlayIdle();
 
@@ -173,7 +191,11 @@ namespace EasternFantasy.Player
             shadeRect.offsetMax = Vector2.zero;
             shade.GetComponent<Image>().color = new Color(0f, 0f, 0f, 0.85f);
 
-            CreateText(shade.transform, "You Died", 64f, new Vector2(0f, 65f));
+            CreateText(shade.transform, "가사상태", 64f, new Vector2(0f, 200f));
+            if (isFirstDeath)
+                CreateText(shade.transform,
+                    "생명력이 모두 소진되어 가사상태에 빠졌습니다.\n가사상태에서는 이동하거나 전투할 수 없습니다.",
+                    26f, new Vector2(0f, 65f));
             GameObject buttonObject = new GameObject("Respawn Button", typeof(RectTransform),
                 typeof(Image), typeof(Button));
             buttonObject.transform.SetParent(shade.transform, false);
@@ -182,7 +204,10 @@ namespace EasternFantasy.Player
             buttonRect.sizeDelta = new Vector2(300f, 90f);
             buttonRect.anchoredPosition = new Vector2(0f, -65f);
             buttonObject.GetComponent<Image>().color = new Color(0.35f, 0.35f, 0.35f, 1f);
-            CreateText(buttonObject.transform, "Respawn", 38f, Vector2.zero);
+            CreateText(buttonObject.transform, "부활", 38f, Vector2.zero);
+            CreateText(shade.transform, SceneManager.GetActiveScene().name == TutorialScene
+                ? "이 수련장에서는 시작 지점에서 부활합니다."
+                : "부활 버튼을 누르면 가까운 마을에서 부활합니다.", 26f, new Vector2(0f, -180f));
             return canvasObject;
         }
 
@@ -193,7 +218,7 @@ namespace EasternFantasy.Player
             textObject.transform.SetParent(parent, false);
             RectTransform rect = textObject.GetComponent<RectTransform>();
             rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
-            rect.sizeDelta = new Vector2(420f, 100f);
+            rect.sizeDelta = new Vector2(950f, 100f);
             rect.anchoredPosition = position;
             TextMeshProUGUI label = textObject.GetComponent<TextMeshProUGUI>();
             label.text = content;

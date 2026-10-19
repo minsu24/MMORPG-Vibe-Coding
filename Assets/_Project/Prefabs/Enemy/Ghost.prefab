@@ -141,7 +141,7 @@ MonoBehaviour:
   patrolMinWait: 0.3
   patrolMaxWait: 1.5
   patrolMinSpeedFactor: 0.7
-  _reward_EXP: 100
+  _reward_EXP: 75
   _rewardYeopjeon: 40
   currencyPickupPrefab: {fileID: 2418306721129126886, guid: 829c1feb6fac8ac4797d80cee72e4053, type: 3}
   _playerLayer:

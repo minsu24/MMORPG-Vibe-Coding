@@ -1,0 +1,14 @@
+﻿Inventory/equipment tutorial validation (Unity Play Mode, 2026-10-20)
+PASS: Actual WorldItemPickup.Collect before stats/skills completion does not queue tutorial.
+PASS: Goblin defeat -> level 2 -> original dialogue -> stats/skills guide completes first.
+PASS: Completion of stats/skills alone does not start inventory tutorial.
+PASS: Collecting the goblin weapon afterwards starts page 1/9 with inventory open and equipment closed.
+PASS: Pages select Equipment, Consumable, Miscellaneous, and collected item category correctly.
+PASS: Equipment pages display both windows, with the character portrait visible.
+PASS: Overlay blocks equipment interactions during the read-only guide.
+PASS: Guide does not change item quantities or equipped weapon.
+PASS: All nine pages complete; original transforms/category restored, both windows close, time/input restored.
+PASS: Subsequent pickups do not repeat tutorial in the same class/session.
+PASS: Pet companion window cannot open over either tutorial.
+PASS: Final code compilation and runtime console have no errors.
+Visual review: Inventory.png and Equipment.png.

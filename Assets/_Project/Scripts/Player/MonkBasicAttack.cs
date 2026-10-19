@@ -102,6 +102,7 @@ namespace EasternFantasy.Player
                     continue;
 
                 float healthBeforeHit = enemy.HP;
+                entity.NotifyAttackTarget(enemy);
                 enemy.TakeDamage(damage, isCritical);
                 if (enemy.HP > 0f)
                     enemy.ApplyKnockback(direction);

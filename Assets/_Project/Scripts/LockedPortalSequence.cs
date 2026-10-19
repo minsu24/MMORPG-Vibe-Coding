@@ -12,11 +12,16 @@ public sealed class LockedPortalSequence : MonoBehaviour
     [SerializeField] private Animator sealAnimator;
     [SerializeField] private SpriteRenderer sealRenderer;
     [SerializeField] private AnimationClip unlockAnimation;
-    [SerializeField] private SpriteRenderer cameraBounds;
+    [SerializeField] private Collider2D cameraBounds;
     [SerializeField, Min(0.1f)] private float zoomInDuration = 0.9f;
     [SerializeField, Min(0.1f)] private float zoomOutDuration = 0.75f;
     [SerializeField, Min(0.5f)] private float zoomSize = 2.2f;
     [SerializeField, Min(0f)] private float anticipation = 0.25f;
+
+    private static readonly HashSet<DialogueSequence> unlockedDialogues = new HashSet<DialogueSequence>();
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetSession() => unlockedDialogues.Clear();
 
     private PortalManager portal;
     private DialogueManager dialogueManager;
@@ -31,8 +36,8 @@ public sealed class LockedPortalSequence : MonoBehaviour
     private readonly List<bool> inputStates = new List<bool>();
     public bool IsUnlocking { get; private set; }
 
-    public void Configure(DialogueSequence dialogue, Animator animator, SpriteRenderer renderer, AnimationClip clip, SpriteRenderer background)
-    { unlockDialogue = dialogue; sealAnimator = animator; sealRenderer = renderer; unlockAnimation = clip; cameraBounds = background; }
+    public void Configure(DialogueSequence dialogue, Animator animator, SpriteRenderer renderer, AnimationClip clip, Collider2D bounds)
+    { unlockDialogue = dialogue; sealAnimator = animator; sealRenderer = renderer; unlockAnimation = clip; cameraBounds = bounds; }
 
     private void Awake()
     {
@@ -41,7 +46,16 @@ public sealed class LockedPortalSequence : MonoBehaviour
         if (sealRenderer != null) sealRenderer.enabled = true;
     }
     private void OnEnable() => BindDialogue();
-    private void Start() => BindDialogue();
+    private void Start()
+    {
+        // Restore after all Awake calls, including PortalManager's initial lock state.
+        if (unlockDialogue != null && unlockedDialogues.Contains(unlockDialogue))
+        {
+            portal.SetLocked(false);
+            if (sealRenderer != null) sealRenderer.enabled = false;
+        }
+        BindDialogue();
+    }
     private void Update()
     {
         if (dialogueManager != DialogueManager.Instance) BindDialogue();
@@ -56,6 +70,8 @@ public sealed class LockedPortalSequence : MonoBehaviour
     {
         if (portal == null) portal = GetComponent<PortalManager>();
         if (!isActiveAndEnabled || completed != unlockDialogue || !portal.IsLocked || IsUnlocking) return;
+        // The completed conversation remains consumed even if the scene unloads mid-animation.
+        unlockedDialogues.Add(completed);
         sequenceRoutine = StartCoroutine(UnlockSequence());
     }
     private IEnumerator UnlockSequence()
@@ -83,15 +99,7 @@ public sealed class LockedPortalSequence : MonoBehaviour
             Vector3 focus = sealRenderer != null ? sealRenderer.bounds.center : transform.position;
             focus.z = savedPosition.z;
             float targetSize = Mathf.Min(savedSize, zoomSize);
-            if (cameraBounds != null)
-            {
-                Bounds bounds = cameraBounds.bounds;
-                float halfWidth = targetSize * cinematicCamera.aspect;
-                focus.x = bounds.size.x > halfWidth * 2f
-                    ? Mathf.Clamp(focus.x, bounds.min.x + halfWidth, bounds.max.x - halfWidth) : bounds.center.x;
-                focus.y = bounds.size.y > targetSize * 2f
-                    ? Mathf.Clamp(focus.y, bounds.min.y + targetSize, bounds.max.y - targetSize) : bounds.center.y;
-            }
+            ConstrainCamera(ref focus, ref targetSize);
             yield return MoveCamera(savedPosition, focus, savedSize, targetSize, zoomInDuration);
         }
         yield return new WaitForSecondsRealtime(anticipation);
@@ -119,10 +127,26 @@ public sealed class LockedPortalSequence : MonoBehaviour
         {
             elapsed += Time.unscaledDeltaTime;
             float t = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / seconds));
-            cinematicCamera.transform.position = Vector3.Lerp(from, to, t);
-            cinematicCamera.orthographicSize = Mathf.Lerp(fromSize, toSize, t);
+            Vector3 position = Vector3.Lerp(from, to, t);
+            float size = Mathf.Lerp(fromSize, toSize, t);
+            ConstrainCamera(ref position, ref size);
+            cinematicCamera.transform.position = position;
+            cinematicCamera.orthographicSize = size;
             yield return null;
         }
+    }
+    private void ConstrainCamera(ref Vector3 position, ref float size)
+    {
+        if (cameraBounds == null || cinematicCamera == null) return;
+
+        // BrokenSeal uses an axis-aligned BoxCollider2D shared with the confiner.
+        // Constrain the entire viewport, including during the zoom transitions.
+        Bounds bounds = cameraBounds.bounds;
+        float aspect = cinematicCamera.aspect;
+        size = Mathf.Min(size, bounds.extents.y, bounds.extents.x / aspect);
+        float halfWidth = size * aspect;
+        position.x = Mathf.Clamp(position.x, bounds.min.x + halfWidth, bounds.max.x - halfWidth);
+        position.y = Mathf.Clamp(position.y, bounds.min.y + size, bounds.max.y - size);
     }
     private void RestoreControl()
     {
@@ -130,8 +154,11 @@ public sealed class LockedPortalSequence : MonoBehaviour
         {
             if (cinematicCamera != null)
             {
-                cinematicCamera.transform.SetPositionAndRotation(savedPosition, savedRotation);
-                cinematicCamera.orthographicSize = savedSize;
+                Vector3 position = savedPosition;
+                float size = savedSize;
+                ConstrainCamera(ref position, ref size);
+                cinematicCamera.transform.SetPositionAndRotation(position, savedRotation);
+                cinematicCamera.orthographicSize = size;
             }
             if (brain != null) brain.enabled = brainWasEnabled;
             cameraCaptured = false;

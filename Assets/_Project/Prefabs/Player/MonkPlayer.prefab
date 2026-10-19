@@ -30,6 +30,8 @@ GameObject:
   - component: {fileID: 6300000000000000001}
   - component: {fileID: 7220271197586835813}
   - component: {fileID: 5067031856414450684}
+  - component: {fileID: 6300000000000000060}
+  - component: {fileID: 1365151697640657564}
   m_Layer: 6
   m_Name: MonkPlayer
   m_TagString: Player
@@ -166,6 +168,7 @@ MonoBehaviour:
   idleStateName: MonkIdle
   deathStateName: MonkDead
   spriteFacesRight: 1
+  movingSpritesFaceOppositeDirection: 0
 --- !u!114 &7523527918182716407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerEntity
   target: {fileID: 0}
+  combatTimeout: 10
   statGrowth: {fileID: 11400000, guid: 9168a96f8252cce4398bf4f6020a04b3, type: 2}
   maximumHealth: 100
   maximumMana: 100
@@ -457,6 +461,43 @@ MonoBehaviour:
     m_Bits: 0
   punchImpactPrefab: {fileID: 7626212061485368255, guid: 01b2516f76863234d9db5b14c4f89cc3, type: 3}
   wavePrefab: {fileID: 502484610862425850, guid: 2dfb21521eacca9448d6993efb33e0e6, type: 3}
+--- !u!114 &6300000000000000060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c6a77d3c634ff2b50ef1f4a21e5df2, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerFootstepDust
+  walkStateName: MonkMove
+  stepPhaseOffset: 0
+  minimumTravelPerStep: 0.12
+  dustMaterial: {fileID: 2100000, guid: 3ebfe20b94d84cd4ad3758a7e6e6b528, type: 2}
+  dustColor: {r: 0.85, g: 0.78, b: 0.65, a: 0.85}
+  particlesPerStep: 8
+  dustSize: 0.32
+  dustLifetime: 0.45
+  footSpread: 0.12
+--- !u!114 &1365151697640657564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e5a702a91d49414baf6dffd94997bfb, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.MonkJumpAnimation
+  animator: {fileID: 8836460492422581657}
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &7998046781919826993
 GameObject:
   m_ObjectHideFlags: 0

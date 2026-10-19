@@ -1,0 +1,206 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using EasternFantasy.EditorTools;
+using EasternFantasy.Inventory;
+using EasternFantasy.Player;
+using EasternFantasy.Skill;
+using EasternFantasy.UI;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+[InitializeOnLoad]
+public static class PetSkillRegressionRunner
+{
+    const string Report = "D:/UnityWork/MMORPG-Vibe-Coding/Artifacts/PetCompanion/SkillRegression.txt";
+    static PlayerEntity player; static PlayerSkillSystem system; static PetCompanionActor actor;
+    static EnemyController enemy; static PetCompanionProgress progress; static SkillDefinition skill;
+    static int lastFrame=-1, stage; static bool begun; static float started, hitAt, damage;
+    static string hitSprite; static SpriteRenderer renderer;
+    static bool paused; static double pauseStarted; static Vector3 pausePosition;
+    static PetSkillRegressionRunner()
+    {
+        EditorApplication.playModeStateChanged += s=> { if(s==PlayModeStateChange.EnteredPlayMode && SessionState.GetBool("PetSkillValidation",false)) Begin(); };
+        EditorApplication.delayCall += ()=> {if(EditorApplication.isPlaying && SessionState.GetBool("PetSkillValidation",false)) Begin();};
+    }
+    public static void Run()
+    {
+        try
+        {
+            PetCompanionPrefabSetup.Run();
+            var grow=Keys("Companion_Grow"); var shrink=Keys("Companion_Shrink"); var strike=Keys("Companion_SkillStrike");
+            for(int i=0;i<6;i++)
+            {
+                Check(((Sprite)grow[i].value).name.Contains(i%2==0?"135":"246"),"Growth frame interleave wrong");
+                Check(((Sprite)strike[i].value).name.Contains(i%2==0?"135":"246"),"Strike frame interleave wrong");
+                Check(shrink[i].value==grow[5-i].value,"Shrink not exact reverse");
+            }
+            Capture();
+            CaptureSkillSlot();
+            SessionState.SetBool("PetSkillValidation",true);EditorApplication.EnterPlaymode();
+        }
+        catch(Exception e){Fail(e);}
+    }
+    static ObjectReferenceKeyframe[] Keys(string name)
+    {
+        var clip=AssetDatabase.LoadAssetAtPath<AnimationClip>(PetCompanionPrefabSetup.AnimationFolder+name+".anim");
+        return AnimationUtility.GetObjectReferenceCurve(clip,EditorCurveBinding.PPtrCurve("",typeof(SpriteRenderer),"m_Sprite"));
+    }
+    static void Capture()
+    {
+        var clones=new List<GameObject>();var cameraRoot=new GameObject("SkillPreviewCamera");
+        var rt=new RenderTexture(1800,1100,24);var pixels=new Texture2D(1800,1100,TextureFormat.RGB24,false);
+        var mat=new Material(Shader.Find("Sprites/Default"));var previous=RenderTexture.active;
+        try
+        {
+            var cam=cameraRoot.AddComponent<Camera>();cam.transform.position=new Vector3(0,0,-10);cam.orthographic=true;cam.orthographicSize=3.7f;
+            cam.clearFlags=CameraClearFlags.SolidColor;cam.backgroundColor=new Color(.09f,.075f,.12f);cam.targetTexture=rt;
+            var names=new[]{"Companion_Grow","Companion_SkillStrike","Companion_Shrink"};
+            for(int row=0;row<3;row++)for(int i=0;i<6;i++)
+            {
+                var clone=UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(PetCompanionPrefabSetup.PrefabPath));clones.Add(clone);
+                clone.transform.position=new Vector3(-4.85f+i*1.94f,2.15f-row*2.25f,0);
+                var v=clone.transform.Find("Visual");v.GetComponent<SpriteRenderer>().sharedMaterial=mat;v.GetComponent<Animator>().enabled=false;
+                AssetDatabase.LoadAssetAtPath<AnimationClip>(PetCompanionPrefabSetup.AnimationFolder+names[row]+".anim").SampleAnimation(v.gameObject,i*.12f+.001f);
+            }
+            cam.Render();RenderTexture.active=rt;pixels.ReadPixels(new Rect(0,0,1800,1100),0,0);pixels.Apply();
+            File.WriteAllBytes("D:/UnityWork/MMORPG-Vibe-Coding/Artifacts/PetCompanion/GoblinSkillFrames.png",pixels.EncodeToPNG());
+        }
+        finally {RenderTexture.active=previous;foreach(var c in clones)UnityEngine.Object.DestroyImmediate(c);UnityEngine.Object.DestroyImmediate(cameraRoot);UnityEngine.Object.DestroyImmediate(rt);UnityEngine.Object.DestroyImmediate(pixels);UnityEngine.Object.DestroyImmediate(mat);}
+    }
+    static void CaptureSkillSlot()
+    {
+        var slot = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Validation/PetWindow.prefab").GetComponentsInChildren<PetCompanionSkillSlotUI>(true).Single();
+        var cameraRoot=new GameObject("SkillIconCamera"); var canvasRoot=new GameObject("SkillCanvas", typeof(RectTransform),typeof(Canvas));
+        var rt=new RenderTexture(320,320,24); var pixels=new Texture2D(320,320,TextureFormat.RGB24,false); var previous=RenderTexture.active;
+        GameObject clone=null;
+        try
+        {
+            var cam=cameraRoot.AddComponent<Camera>();cam.transform.position=new Vector3(0,0,-10);cam.orthographic=true;cam.orthographicSize=1;
+            cam.clearFlags=CameraClearFlags.SolidColor;cam.backgroundColor=new Color(.9f,.84f,.71f);cam.targetTexture=rt;
+            var canvas=canvasRoot.GetComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.worldCamera=cam;canvas.planeDistance=1;
+            clone=UnityEngine.Object.Instantiate(slot.gameObject);clone.transform.SetParent(canvasRoot.transform,false);
+            var rect=(RectTransform)clone.transform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.anchoredPosition=Vector2.zero;rect.sizeDelta=new Vector2(250,250);
+            Canvas.ForceUpdateCanvases();cam.Render();RenderTexture.active=rt;pixels.ReadPixels(new Rect(0,0,320,320),0,0);pixels.Apply();
+            File.WriteAllBytes("D:/UnityWork/MMORPG-Vibe-Coding/Artifacts/PetCompanion/SkillSlotPreview.png",pixels.EncodeToPNG());
+        }
+        finally{RenderTexture.active=previous;if(clone!=null)UnityEngine.Object.DestroyImmediate(clone);UnityEngine.Object.DestroyImmediate(canvasRoot);UnityEngine.Object.DestroyImmediate(cameraRoot);UnityEngine.Object.DestroyImmediate(rt);UnityEngine.Object.DestroyImmediate(pixels);}
+    }
+    static void Begin()
+    {
+        if(begun)return;begun=true;
+        try
+        {
+            Time.captureDeltaTime=1f/60;Time.timeScale=1;
+            var root=new GameObject("Player");root.transform.position=new Vector3(0,.5f,0);root.AddComponent<CapsuleCollider2D>().size=new Vector2(.5f,1f);
+            player=root.AddComponent<PlayerEntity>();system=root.AddComponent<PlayerSkillSystem>();
+            skill=AssetDatabase.LoadAssetAtPath<SkillDefinition>(PetCompanionPrefabSetup.SkillPath);
+            Check(skill.Icon.name.EndsWith("_1"),"Incorrect skill icon");Check(!system.AssignQuickSlot(0,skill),"Unowned pet skill can be assigned");
+            var inventory=root.AddComponent<PlayerInventory>();var soul=ScriptableObject.CreateInstance<ItemDefinition>();inventory.AddItem(soul,10);
+            progress=new PetCompanionProgress();progress.TrySummon(inventory,soul);progress.TryGrow(inventory,soul);progress.TryGrow(inventory,soul);progress.TryEquip();
+            actor=UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(PetCompanionPrefabSetup.PrefabPath)).GetComponent<PetCompanionActor>();actor.Initialize(player,progress);
+            renderer=actor.GetComponentInChildren<SpriteRenderer>();
+            Check(system.GetSkillLevel(skill)==1 && system.SkillPoints==0,"Pet skill requires class points");TestDrop();
+            Check(!system.TryUseQuickSlot(0) && system.GetCooldownRemaining(skill)==0,"No target spends cooldown");
+            var target=new GameObject("Enemy");target.transform.position=new Vector3(4,.5f,0);target.AddComponent<CapsuleCollider2D>().size=new Vector2(.6f,1);
+            enemy=target.AddComponent<EnemyController>();enemy.Hit+=()=> {hitAt=Time.time-started;damage=1000-enemy.HP;hitSprite=renderer.sprite.name;};
+            player.NotifyAttackTarget(enemy);started=Time.time;
+            Check(system.TryUseQuickSlot(0),"Quickslot did not cast pet skill");Check(!system.TryUseQuickSlot(0),"Skill double casts");
+            EditorApplication.update+=Tick;
+        }
+        catch(Exception e){Fail(e);}
+    }
+    static void TestDrop()
+    {
+        var fake = player.gameObject.AddComponent<PetRegressionClassCaster>();
+        var classSkill = ScriptableObject.CreateInstance<SkillDefinition>();
+        Check(system.ResolveSkillCaster().TryCast(classSkill) && fake.Casts == 1, "Class skill dispatch broken");
+        Check(system.ResolveSkillCaster().GetCooldownRemaining(classSkill) == 3f, "Class cooldown dispatch broken");
+        var canvas=new GameObject("Canvas",typeof(RectTransform),typeof(Canvas),typeof(GraphicRaycaster));canvas.GetComponent<Canvas>().renderMode=RenderMode.ScreenSpaceOverlay;
+        var window=canvas.AddComponent<PetCompanionWindowUI>();
+        var eventSystem=new GameObject("Events").AddComponent<EventSystem>();
+        var savedSlot = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Validation/PetWindow.prefab").GetComponentsInChildren<PetCompanionSkillSlotUI>(true).Single();
+        Check(savedSlot.GetComponent<Image>().sprite == skill.Icon, "Saved UI prefab still shows lock image");
+        Check(new SerializedObject(savedSlot).FindProperty("icon").objectReferenceValue == savedSlot.GetComponent<Image>(), "Saved icon binding missing");
+        var source = UnityEngine.Object.Instantiate(savedSlot.gameObject);
+        source.transform.SetParent(canvas.transform, false);
+        source.GetComponent<Image>().raycastTarget = false;
+        var sourceUI=source.GetComponent<PetCompanionSkillSlotUI>();sourceUI.Configure(window,system,skill,true);
+        Check(source.GetComponent<Image>().raycastTarget, "Pet skill remains decorative/non-interactive");
+        var destination=new GameObject("QuickSkill",typeof(RectTransform),typeof(Image),typeof(QuickSkillSlotUI));destination.transform.SetParent(canvas.transform,false);
+        var quick=destination.GetComponent<QuickSkillSlotUI>();quick.Initialize(system,system.ResolveSkillCaster(),0);
+        var data=new PointerEventData(eventSystem){pointerDrag=source,position=new Vector2(200,200)};
+        sourceUI.OnBeginDrag(data);Check(sourceUI.IsDragging && window.DragActive,"Drag not started");quick.OnDrop(data);
+        Check(system.QuickSlots[0]==skill,"Pet drag/drop rejected");sourceUI.OnEndDrag(data);Check(!window.DragActive,"Drag not restored");
+        Check(system.AssignQuickSlot(2,skill)&&system.QuickSlots[0]==null,"Pet slot duplicated");Check(system.AssignQuickSlot(0,skill),"Pet slot reassign fails");
+        UnityEngine.Object.Destroy(canvas);UnityEngine.Object.Destroy(eventSystem.gameObject);
+    }
+    static void ClearCooldown() => ((Dictionary<SkillDefinition,float>)typeof(PlayerSkillSystem).GetField("companionCooldownEnds",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).GetValue(system)).Clear();
+    static void Tick()
+    {
+        if(lastFrame==Time.frameCount)return;lastFrame=Time.frameCount;
+        try
+        {
+            float elapsed=Time.time-started;
+            if(stage==0)
+            {
+                var currentAnimator = actor.GetComponentInChildren<Animator>();
+                if (!paused && currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("Companion_Grow"))
+                { paused = true; Time.timeScale = 0f; pauseStarted = EditorApplication.timeSinceStartup; pausePosition = actor.transform.position; return; }
+                if (Time.timeScale == 0f)
+                {
+                    Check(enemy.Hits == 0 && actor.transform.position == pausePosition, "Paused skill moves or hits");
+                    if (EditorApplication.timeSinceStartup-pauseStarted < .15) return;
+                    Time.timeScale = 1f;
+                }
+                if(enemy.Hits>0)
+                {
+                    Check(enemy.Hits==1 && Mathf.Abs(damage-progress.Attack*5f)<.001f,"Skill damage not 500% once: "+damage);
+                    Check(hitSprite==((Sprite)Keys("Companion_SkillStrike")[4].value).name,"Hit not synchronized with swing frame: "+hitSprite);
+                    player.EndCombat();stage=1;started=Time.time;
+                }
+                Check(elapsed<4,"Skill never hits");
+            }
+            else if(stage==1 && !actor.IsUsingActiveSkill)
+            {
+                Check(enemy.Hits==1,"Extra skill hit");Check(system.GetCooldownRemaining(skill)>10,"Cooldown missing");
+                progress.Unequip();actor.gameObject.SetActive(false);Check(!system.TryUseQuickSlot(0),"Unequipped casts");
+                UnityEngine.Object.Destroy(actor.gameObject);progress.TryEquip();
+                actor=UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(PetCompanionPrefabSetup.PrefabPath)).GetComponent<PetCompanionActor>();actor.Initialize(player,progress);
+                Check(system.GetCooldownRemaining(skill)>10,"Reequip resets cooldown");ClearCooldown();
+                enemy.Hits=0;enemy.HP=1000;player.NotifyAttackTarget(enemy);Check(system.TryUseQuickSlot(0),"Second cast failed");stage=2;started=Time.time;
+            }
+            else if(stage==2)
+            {
+                if(actor.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Companion_Grow") && elapsed>.8f)
+                {player.EndCombat();stage=3;started=Time.time;}
+                Check(elapsed<4,"Cancel stage never grows");
+            }
+            else if(stage==3 && !actor.IsUsingActiveSkill)
+            {
+                Check(enemy.Hits==0,"Cancelled skill damaged enemy");ClearCooldown();enemy.HP=1000;player.NotifyAttackTarget(enemy);
+                Check(system.TryUseQuickSlot(0),"Third cast failed");stage=4;started=Time.time;
+            }
+            else if(stage==4)
+            {
+                if(actor.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Companion_SkillStrike")) {enemy.HP=0;stage=5;started=Time.time;}
+                Check(elapsed<4,"Death stage never strikes");
+            }
+            else if(stage==5 && !actor.IsUsingActiveSkill)
+            {
+                Check(enemy.Hits==0,"Dead target damaged");
+                File.WriteAllText(Report,"PASS isolated Unity: saved UI prefab has visible icon and serialized drag/icon bindings; actual pet drag/drop into existing quickslot; automatic unlock without class points; reassign without duplicates; no-target cast rejects without cooldown; 500% damage="+damage+" once on swing frame="+hitSprite+" at "+hitAt+"s; odd/even frame order; exact reverse shrink; cooldown 15s persists after reequip; pause freezes skill; class skill/cooldown routing preserved; combat exit and dead target cancel damage and shrink.\n");
+                SessionState.SetBool("PetSkillValidation",false);EditorApplication.update-=Tick;EditorApplication.Exit(0);
+            }
+        }
+        catch(Exception e){Fail(e);}
+    }
+    static void Check(bool value,string message){if(!value)throw new Exception(message);}
+    static void Fail(Exception e){File.WriteAllText(Report,"FAIL: "+e);Debug.LogException(e);SessionState.SetBool("PetSkillValidation",false);EditorApplication.update-=Tick;EditorApplication.Exit(1);}
+}
+
+public sealed class PetRegressionClassCaster : MonoBehaviour, IPlayerSkillCaster
+{ public int Casts; public bool TryCast(SkillDefinition skill) { Casts++; return true; } public float GetCooldownRemaining(SkillDefinition skill)=>3f; }

@@ -101,8 +101,10 @@ namespace EasternFantasy.EditorTools
                 Check(!window.CanConfirm,"Button enabled with insufficient funds");
                 eventRoot=new GameObject("UpgradeEventValidation",typeof(EventSystem));
                 var confirm=(Button)uiData.FindProperty("confirmButton").objectReferenceValue;
-                ExecuteEvents.Execute(confirm.gameObject,new PointerEventData(eventRoot.GetComponent<EventSystem>())
-                    {button=PointerEventData.InputButton.Left},ExecuteEvents.pointerClickHandler);
+                typeof(UpgradeConfirmFeedback).GetMethod("Awake",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(confirm.GetComponent<UpgradeConfirmFeedback>(),null);
+                // Prefab contents live in a preview scene, where ExecuteEvents skips inactive handlers.
+                confirm.GetComponent<UpgradeConfirmFeedback>().OnPointerClick(new PointerEventData(eventRoot.GetComponent<EventSystem>())
+                    {button=PointerEventData.InputButton.Left});
                 Check(text.text.Contains("엽전이 부족"),"Disabled button did not explain insufficient currency");
                 Check(inv.GetQuantity(fan)==1&&money.Yeopjeon==0,"Disabled click upgraded");
                 money.Add(100);

@@ -107,9 +107,9 @@ namespace EasternFantasy.Editor
             seal.localScale = Vector3.one * lockedScale;
             var sequence = portal.GetComponent<LockedPortalSequence>();
             if (sequence == null) sequence = portal.gameObject.AddComponent<LockedPortalSequence>();
-            var background = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<SpriteRenderer>())
-                .OrderByDescending(r => r.bounds.size.x * r.bounds.size.y).First();
-            sequence.Configure(dialogue, seal.GetComponent<Animator>(), seal.GetComponent<SpriteRenderer>(), unlock, background);
+            var cameraBounds = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<Unity.Cinemachine.CinemachineConfiner2D>())
+                .Select(confiner => confiner.BoundingShape2D).First(bounds => bounds != null);
+            sequence.Configure(dialogue, seal.GetComponent<Animator>(), seal.GetComponent<SpriteRenderer>(), unlock, cameraBounds);
             var data = new SerializedObject(portal);
             data.FindProperty("startsLocked").boolValue = true;
             data.ApplyModifiedPropertiesWithoutUndo();

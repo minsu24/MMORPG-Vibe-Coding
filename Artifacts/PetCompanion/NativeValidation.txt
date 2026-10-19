@@ -1,0 +1,3 @@
+PASS: actual Unity sprite imports and clip sampling; neutral visible height=0.8137304; root scale=2/3; Companion_Idle: 7 keys, loop=True; Companion_Walk: 9 keys, loop=True; Companion_Attack: 8 keys, loop=False
+PASS: isolated Unity Play Mode; owner target only; attack and return; repeated hit times=1.966667, 6.316667; retarget; dead target; unequip/re-equip; pause; owner death; target at 65 units attacked and returned (max separation=62.35007); combat exit cancels approach and wind-up; owner jitter keeps idle stable; crossing enemy does not flip attack facing.
+Preview: original size / pet idle / pet walk / impact.

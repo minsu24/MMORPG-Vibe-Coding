@@ -1,0 +1,7 @@
+﻿Wide dialogue artwork validation (2026-10-20)
+Created a new wider transparent dialogue panel preserving the historical fantasy design.
+Applied five artwork regions so only blank parchment/straight rails expand horizontally; lanterns, corner decorations and center emblem scale uniformly.
+PASS: Rendered width 1920; rendered height 430.74155, equal to previous reduced panel height.
+PASS: Decorative region x/y scale matches; middle emblem stays centered.
+PASS: Text/name fit; game-view screenshot visually reviewed (InGame.png).
+PASS: Unity console contains no errors.

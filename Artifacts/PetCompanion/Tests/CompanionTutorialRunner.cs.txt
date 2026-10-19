@@ -1,0 +1,86 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Collections.Generic;
+using EasternFantasy.UI;
+using EasternFantasy.Inventory;
+using EasternFantasy.Player;
+using TMPro;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+[InitializeOnLoad]
+public static class CompanionTutorialRunner
+{
+    const string Out="D:/UnityWork/MMORPG-Vibe-Coding/Artifacts/PetCompanion/";
+    static bool begun;
+    static CompanionTutorialRunner()
+    {
+        EditorApplication.playModeStateChanged += state => { if (state == PlayModeStateChange.EnteredPlayMode && SessionState.GetBool("CompanionGuideChecks",false)) EditorApplication.delayCall += RunChecks; };
+        EditorApplication.delayCall += () => { if (EditorApplication.isPlaying && SessionState.GetBool("CompanionGuideChecks",false)) RunChecks(); };
+    }
+    public static void Run() { SessionState.SetBool("CompanionGuideChecks",true); EditorApplication.EnterPlaymode(); }
+    public static void RunChecks()
+    {
+        if(begun)return;begun=true;SessionState.SetBool("CompanionGuideChecks",false);
+        try
+        {
+            var inventory=new GameObject("Inventory").AddComponent<PlayerInventory>();
+            var soul=ScriptableObject.CreateInstance<ItemDefinition>();var fragment=ScriptableObject.CreateInstance<ItemDefinition>();
+            var progress=new PetCompanionProgress();inventory.AddItem(fragment,10);
+            Check(!progress.TryUnlock(inventory,soul),"Common fragments unlock a species");
+            inventory.AddItem(soul,1);Check(progress.TryUnlock(inventory,soul)&&inventory.GetQuantity(soul)==1,"Unlock consumes soul");
+            Check(!progress.IsSummoned&&!progress.IsEquipped,"Unlock summons/equips automatically");
+            var camera=new GameObject("Camera").AddComponent<Camera>();camera.transform.position=new Vector3(0,0,-10);camera.orthographic=true;camera.orthographicSize=5;
+            camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Color.black;
+            var rt=new RenderTexture(1920,1080,24);camera.targetTexture=rt;
+            var root=UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Resources/PetCompanionWindow.prefab"));
+            var canvas=root.GetComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.worldCamera=camera;canvas.planeDistance=1;
+            var window=Find(root,"WindowRoot");window.gameObject.SetActive(true);
+            var overlay=new GameObject("CompanionTutorial",typeof(RectTransform),typeof(PetCompanionTutorialUI));overlay.transform.SetParent(window,false);
+            var guide=overlay.GetComponent<PetCompanionTutorialUI>();
+            var targets=new[]{(RectTransform)null,Find(root,"CompanionRow0"),Find(root,"Confirm"),Find(root,"Equip"),Find(root,"Confirm"),Find(root,"LockedSkill0")};
+            var font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/_Project/Fonts/GowunBatang-Regular SDF.asset");
+            int completions=0;Time.timeScale=0f;
+            Canvas.ForceUpdateCanvases();guide.Show(font,targets,()=>completions++);
+            var events=new GameObject("Events").AddComponent<EventSystem>();
+            for(int step=0;step<guide.StepCount;step++)
+            {
+                Check(guide.IsShowing&&guide.CurrentStep==step,"Step progression wrong");
+                Check(guide.transform.Find("GuideDialogue/Parchment").GetComponent<Image>().sprite.name=="Panel","Supplied panel art is missing");
+                Check(guide.transform.Find("GuideDialogue/TutorialHeading").GetComponent<TMP_Text>().text=="동행요괴 튜토리얼","Tutorial plaque title wrong");
+                Check(guide.transform.Find("GuideDialogue/Counter").GetComponent<TMP_Text>().text==(step==0?"도움말":step+" / 5"),"Step display not 1/5 through 5/5");
+                Canvas.ForceUpdateCanvases();
+                var body=guide.transform.Find("GuideDialogue/Explanation").GetComponent<TMP_Text>();body.ForceMeshUpdate();
+                Check(body.preferredHeight<=body.rectTransform.rect.height+1,"Text overflows step "+step+": "+body.preferredHeight);
+                foreach(var label in guide.GetComponentsInChildren<TMP_Text>())
+                { label.ForceMeshUpdate(); Check(label.preferredHeight<=label.rectTransform.rect.height+1,"Label overflows: "+label.name); }
+                if(step>0)
+                {
+                    var point=RectTransformUtility.WorldToScreenPoint(camera,targets[step].TransformPoint(targets[step].rect.center));
+                    var hits=new List<RaycastResult>();events.RaycastAll(new PointerEventData(events){position=point},hits);
+                    Check(hits.Count>0&&hits[0].gameObject==guide.gameObject,"Highlighted action is clickable during explanation at step "+step);
+                }
+                camera.Render();var previous=RenderTexture.active;RenderTexture.active=rt;
+                var pixels=new Texture2D(1920,1080,TextureFormat.RGB24,false);pixels.ReadPixels(new Rect(0,0,1920,1080),0,0);pixels.Apply();
+                File.WriteAllBytes(Out+"TutorialStep"+step+".png",pixels.EncodeToPNG());RenderTexture.active=previous;UnityEngine.Object.DestroyImmediate(pixels);
+                guide.Advance();
+            }
+            Check(!guide.IsShowing&&completions==1&&Time.timeScale==0f,"Completion duplicates or resumes gameplay");
+            Check(inventory.GetQuantity(soul)==1&&inventory.GetQuantity(fragment)==10&&!progress.IsSummoned,"Tutorial spends items or changes pet");
+            guide.Show(font,targets,()=>completions++);guide.Advance();guide.Hide();Check(completions==1,"Close marks interrupted guide complete");
+            guide.Show(font,targets,()=>completions++);Check(guide.CurrentStep==0,"Reopened incomplete guide doesn't restart");guide.Complete();guide.Complete();Check(completions==2,"Skip callback duplicated");
+            Check(progress.TrySummon(inventory,soul)&&inventory.GetQuantity(soul)==0&&progress.IsUnlocked,"Summon loses unlock");
+            Check(progress.TryEquip(),"Equip fails");progress.Unequip();Check(progress.IsSummoned&&progress.IsUnlocked&&!progress.IsEquipped,"Unequip loses ownership");
+            Check(progress.TryGrow(inventory,fragment)&&progress.Level==2&&progress.Attack==6,"Growth behavior changed");
+            Check(JsonUtility.FromJson<PetCompanionProgress>("{\"level\":4,\"equipped\":true}").IsUnlocked,"Previously summoned progress appears locked");
+            File.WriteAllText(Out+"TutorialValidation.txt","PASS isolated native Unity: 6 explanation steps render without text overflow; highlights track list/summon/equip/growth/skill; highlighted actions blocked from accidental spending; advance/skip works at timeScale 0; completion called once; interruption restarts; no tutorial inventory/progress changes; species soul unlocks without consumption; common fragments cannot unlock species; summon/equip/unequip/growth and old summoned progress preserved.\n");
+            Time.timeScale=1;EditorApplication.Exit(0);
+        }
+        catch(Exception e){File.WriteAllText(Out+"TutorialValidation.txt","FAIL "+e);Debug.LogException(e);EditorApplication.Exit(1);}
+    }
+    static RectTransform Find(GameObject root,string name)=>root.GetComponentsInChildren<RectTransform>(true).First(x=>x.name==name);
+    static void Check(bool value,string message){if(!value)throw new Exception(message);}
+}

@@ -34,7 +34,12 @@ namespace EasternFantasy.UI
         private Vector2 normalPortraitSize;
 
         public static PlayerStatsWindowUI Instance { get; private set; }
+        public bool IsUnlocked => StatsSkillTutorialUI.HasFinishedForCurrentClass;
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
+        public RectTransform TutorialTarget => windowRoot != null ? windowRoot.transform as RectTransform : null;
+        public RectTransform TutorialPortrait => Profile != null ? Profile.transform as RectTransform : null;
+        public RectTransform TutorialPortraitBackground => portraitBackground != null ? portraitBackground.rectTransform : null;
+        public TMP_FontAsset TutorialFont => classAndLevelText != null ? classAndLevelText.font : TMP_Settings.defaultFontAsset;
 
         private void Awake()
         {
@@ -80,6 +85,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
+            if (StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning) return;
             Keyboard keyboard = Keyboard.current;
             if (keyboard == null)
                 return;
@@ -104,8 +110,11 @@ namespace EasternFantasy.UI
                 Refresh();
         }
 
-        public void SetOpen(bool open)
+        public void SetOpen(bool open) { SetOpenInternal(open, false); }
+        internal void SetOpenForTutorial(bool open) { SetOpenInternal(open, true); }
+        private void SetOpenInternal(bool open, bool forTutorial)
         {
+            if (open && !forTutorial && !IsUnlocked) return;
             if (open && EquipmentUpgradeWindowUI.Instance != null && EquipmentUpgradeWindowUI.Instance.IsOpen) return;
             if (windowRoot == null)
                 return;

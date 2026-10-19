@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EasternFantasy.Dialogue;
 using EasternFantasy.Inventory;
+using EasternFantasy.Player;
 using EasternFantasy.UI;
 using TMPro;
 using UnityEditor;
@@ -124,7 +125,12 @@ namespace EasternFantasy.EditorTools
             var content=Rect("ListContent",viewport.transform,new Rect(0,0,349,648));
             var cr=(RectTransform)content.transform;cr.anchorMin=cr.anchorMax=new Vector2(.5f,1);cr.pivot=new Vector2(.5f,1);
             cr.anchoredPosition=Vector2.zero;cr.sizeDelta=new Vector2(349,648);
-            string[] names={"도깨비","처녀귀신","거미 요괴","두꺼비","돌거인","구미호","???"};
+            var catalog=AssetDatabase.LoadAssetAtPath<PetCompanionCatalog>(PetCompanionPrefabSetup.CatalogPath);
+            if(catalog==null) throw new InvalidOperationException("Create the companion prefab catalog first.");
+            var companions=catalog.CompanionPrefabs.Where(p=>p!=null).GroupBy(p=>p.CompanionId).Select(g=>g.First()).ToArray();
+            if(companions.Length==0) throw new InvalidOperationException("Register at least one companion prefab.");
+            string[] names={companions[0].DisplayName,"???"};
+            cr.sizeDelta=new Vector2(349,Mathf.Max(602,names.Length*92));
             for(int i=0;i<names.Length;i++)
             {
                 var row=new GameObject("CompanionRow"+i,typeof(RectTransform),typeof(Image),typeof(Button));row.transform.SetParent(content.transform,false);
@@ -139,7 +145,7 @@ namespace EasternFantasy.EditorTools
                 if(i==0) { var icon=Picture("Goblin",row.transform,null,new Rect(0,0,54,66));icon.sprite=idle[0];icon.preserveAspect=true;PlaceLocal(icon.rectTransform,new Vector2(-133,0),new Vector2(54,66)); }
                 var name=Text("Name",row.transform,names[i],new Rect(0,0,148,28),24,Ink,false,TextAlignmentOptions.Left);
                 PlaceLocal(name.rectTransform,new Vector2(-7,13),new Vector2(148,28));
-                var status=Text("Status",row.transform,i==0?"Lv. 1   선택됨":"미해금",new Rect(0,0,175,25),17,Ink,false,TextAlignmentOptions.Left);
+                var status=Text("Status",row.transform,i==0?"미소환":"미해금",new Rect(0,0,175,25),17,Ink,false,TextAlignmentOptions.Left);
                 PlaceLocal(status.rectTransform,new Vector2(7,-17),new Vector2(175,25));
             }
             var scroll=viewport.AddComponent<ScrollRect>();scroll.viewport=(RectTransform)viewport.transform;scroll.content=cr;
@@ -155,39 +161,38 @@ namespace EasternFantasy.EditorTools
             Picture("NameScroll",board.transform,"NameScroll",new Rect(508,199,71,278));
             Text("VerticalName",board.transform,"도\n깨\n비",new Rect(519,263,47,125),34,Ink,true);
             var goblin=Picture("GoblinPreview",board.transform,null,new Rect(591,377,277,350));goblin.sprite=idle[0];goblin.preserveAspect=true;
-            var replay=Button("Replay",board.transform,"ReplayButton","대기 모션 재생",new Rect(559,744,274,49),19,Cream);
-            var poses=new Button[4];var poseFrames=new Image[4];
-            for(int i=0;i<4;i++)
-            {
-                poseFrames[i]=Picture("PoseFrame"+i,board.transform,i==0?"PoseSelected":"PoseNormal",new Rect(490+i*108,821,102,102));
-                poses[i]=poseFrames[i].gameObject.AddComponent<Button>();
-                var pose=Picture("GoblinPose"+i,poseFrames[i].transform,null,new Rect(0,0,76,82));
-                pose.sprite=idle[Mathf.Min(i*idle.Length/4,idle.Length-1)];pose.preserveAspect=true;
-                PlaceLocal(pose.rectTransform,Vector2.zero,new Vector2(76,82));
-            }
-
             Text("PetName",board.transform,"도깨비",new Rect(995,178,260,62),48,Ink,true,TextAlignmentOptions.Left);
             Text("Grade",board.transform,"일반",new Rect(1280,195,91,35),22,Ink);
-            Text("Level",board.transform,"Lv. 1",new Rect(994,253,160,35),27,Ink,false,TextAlignmentOptions.Left);
+            Text("Level",board.transform,"미소환",new Rect(994,253,160,35),27,Ink,false,TextAlignmentOptions.Left);
             Picture("AffinityBar",board.transform,"GoldBar",new Rect(989,293,385,33));
-            Text("BarLabel",board.transform,"새로운 인연",new Rect(989,297,385,23),15,Cream);
+            Text("BarLabel",board.transform,"도깨비의 영혼 1개로 소환",new Rect(989,297,385,23),15,Cream);
             Picture("DescriptionPanel",board.transform,"Description",new Rect(971,341,421,137));
             Text("Description",board.transform,"장난을 좋아하지만 의리가 깊은\n작은 도깨비. 인연을 맺은 자를\n스스로의 친구로 여긴다.",new Rect(998,375,358,76),17.5f,Ink,false,TextAlignmentOptions.TopLeft);
             Text("StatsHeader",board.transform,"능력치",new Rect(995,495,181,39),31,Ink,true,TextAlignmentOptions.Left);
             Text("SkillsHeader",board.transform,"혼령 기술",new Rect(1227,495,150,39),28,Ink,true,TextAlignmentOptions.Left);
             var divider=Picture("StatsDivider",board.transform,null,new Rect(1194,542,1,180));divider.color=new Color(.35f,.22f,.12f,.3f);
-            Text("StatNames",board.transform,"공격력\n\n생명력\n\n혼령 등급",new Rect(998,547,129,165),22,Ink,false,TextAlignmentOptions.TopLeft);
-            Text("StatValues",board.transform,"5\n\n100\n\n일반",new Rect(1136,547,45,165),22,Ink,false,TextAlignmentOptions.TopRight);
-            for(int i=0;i<3;i++) Picture("LockedSkill"+i,board.transform,"LockedSlot",new Rect(1221+i%2*76,548+i/2*80,66,66));
-            Text("SkillsStatus",board.transform,"미해금",new Rect(1224,706,143,27),18,Ink);
+            Text("StatNames",board.transform,"공격력\n\n혼령 등급",new Rect(998,547,129,165),22,Ink,false,TextAlignmentOptions.TopLeft);
+            Text("StatValues",board.transform,"5\n\n일반",new Rect(1136,547,45,165),22,Ink,false,TextAlignmentOptions.TopRight);
+            var skillImage = Picture("LockedSkill0",board.transform,"LockedSlot",new Rect(1262,562,66,66));
+            skillImage.raycastTarget = true;
+            skillImage.preserveAspect = true;
+            var skillDefinition = AssetDatabase.LoadAssetAtPath<EasternFantasy.Skill.SkillDefinition>(PetCompanionPrefabSetup.SkillPath);
+            if (skillDefinition != null) skillImage.sprite = skillDefinition.Icon;
+            var skillSlot = skillImage.gameObject.AddComponent<PetCompanionSkillSlotUI>();
+            var skillSlotData = new SerializedObject(skillSlot);
+            skillSlotData.FindProperty("icon").objectReferenceValue = skillImage;
+            skillSlotData.ApplyModifiedPropertiesWithoutUndo();
+            Text("SkillsStatus",board.transform,"미해금",new Rect(1224,645,143,27),18,Ink);
 
             Picture("SoulPlate",board.transform,"SoulPlate",new Rect(985,760,392,76));
             var soul=AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/_Project/Data/Items/SoulOfGoblin.asset");
             var soulIcon=Picture("SoulIcon",board.transform,null,new Rect(998,776,45,45));soulIcon.sprite=soul.Icon;soulIcon.preserveAspect=true;
-            Text("SoulLabel",board.transform,"도깨비의 영혼",new Rect(1067,772,265,27),20,Ink,false,TextAlignmentOptions.Left);
-            var soulCount=Text("SoulCount",board.transform,"0 개",new Rect(1067,800,265,25),18,Ink,false,TextAlignmentOptions.Left);
-            var confirm=Button("Confirm",board.transform,"DarkButton","선택 확인",new Rect(984,860,228,68),25,Cream);
-            var closeBottom=Button("CloseBottom",board.transform,"LightButton","닫기",new Rect(1216,860,160,68),24,Ink);
+            Text("SoulLabel",board.transform,"도깨비의 영혼 · 소환 재료",new Rect(1067,772,265,27),20,Ink,false,TextAlignmentOptions.Left);
+            var soulCount=Text("SoulCount",board.transform,"0 / 1 개",new Rect(1067,800,265,25),18,Ink,false,TextAlignmentOptions.Left);
+            var confirm=Button("Confirm",board.transform,"DarkButton","소환",new Rect(984,860,112,68),24,Cream);
+            var equip=Button("Equip",board.transform,"DarkButton","장착",new Rect(1100,860,158,68),21,Cream);
+            equip.interactable=false;
+            var closeBottom=Button("CloseBottom",board.transform,"LightButton","닫기",new Rect(1262,860,116,68),23,Ink);
             UnityEventTools.AddPersistentListener(closeBottom.onClick,controller.Close);
             var close=Button("Close",board.transform,"RoundButton","×",new Rect(1354,33,76,73),47,Cream);
             var hint=Text("Hint",board.transform,"P 키로 열기 · ESC 키로 닫기",new Rect(479,950,452,26),17,Cream);
@@ -195,10 +200,24 @@ namespace EasternFantasy.EditorTools
             var data=new SerializedObject(controller);
             Set(data,"tutorialDialogue",AssetDatabase.LoadAssetAtPath<DialogueSequence>("Assets/_Project/Data/Tutorial_DIalogue/GoldFrogPetOpenDialogue.asset"));
             Set(data,"windowRoot",window);Set(data,"panel",board.transform);Set(data,"goblinPreview",goblin);
-            Set(data,"closeButton",close);Set(data,"confirmButton",confirm);Set(data,"replayButton",replay);
-            Set(data,"soulCountText",soulCount);Set(data,"hintText",hint);Set(data,"goblinSoul",soul);
-            Set(data,"selectedPoseFrame",sprites["PoseSelected"]);Set(data,"normalPoseFrame",sprites["PoseNormal"]);
-            SetArray(data,"idleFrames",idle);SetArray(data,"poseButtons",poses);SetArray(data,"poseFrames",poseFrames);
+            Set(data,"closeButton",close);Set(data,"confirmButton",confirm);Set(data,"equipButton",equip);
+            Set(data,"soulCountText",soulCount);Set(data,"hintText",hint);
+            SetArray(data,"idleFrames",idle);
+            Set(data,"soulFragment",AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/_Project/Data/Items/SoulFragment.asset"));
+            Set(data,"companionCatalog",catalog);Set(data,"listContent",cr);
+            Set(data,"companionRowTemplate",content.transform.Find("CompanionRow0").gameObject);
+            Set(data,"placeholderRow",content.transform.Find("CompanionRow1").gameObject);
+            content.transform.Find("CompanionRow1").gameObject.SetActive(catalog.ShowPlaceholder);
+            Set(data,"selectedListFrame",sprites["ListSelected"]);Set(data,"normalListFrame",sprites["ListNormal"]);
+            Set(data,"petNameText",board.transform.Find("PetName").GetComponent<TMP_Text>());
+            Set(data,"verticalNameText",board.transform.Find("VerticalName").GetComponent<TMP_Text>());
+            Set(data,"descriptionText",board.transform.Find("Description").GetComponent<TMP_Text>());
+            Set(data,"soulIcon",soulIcon);
+            Set(data,"skillSlot",skillSlot);
+            foreach (var field in new[] { ("soulLabelText", "SoulLabel"), ("levelText", "Level"),
+                ("statValuesText", "StatValues"), ("skillsStatusText", "SkillsStatus"), ("barLabelText", "BarLabel") })
+                Set(data,field.Item1,board.transform.Find(field.Item2).GetComponent<TMP_Text>());
+            Set(data,"companionStatusText",content.transform.Find("CompanionRow0/Status").GetComponent<TMP_Text>());
             data.FindProperty("idleFrameRate").floatValue=rate;
             data.ApplyModifiedPropertiesWithoutUndo();
             window.SetActive(false);

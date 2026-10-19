@@ -46,7 +46,7 @@ namespace EasternFantasy.UI
 
             titleText.text = item.GradedDisplayName;
             titleText.color = item.GradeColor;
-            categoryText.text = GetCategoryName(item.Category);
+            categoryText.text = GetCategoryName(item.Category) + (item.CanSell ? "" : " · 판매불가");
             descriptionText.text = item.Description;
             effectText.text = BuildEffectText(item, inventory);
             pendingPointerHide = false;
@@ -61,7 +61,7 @@ namespace EasternFantasy.UI
                 string value = item.AttackBonus > 0f
                     ? $"공격력 +{item.AttackBonus:F0}"
                     : $"방어력 +{item.DefenseBonus:F0}";
-                string state = inventory.IsEquipped(item) ? "장착 중 · 클릭하여 해제" : "클릭하여 장착";
+                string state = inventory.IsEquipped(item) ? "장착 중 · 더블클릭하여 해제" : "더블클릭하여 장착";
                 if (!inventory.CanEquip(item) && !inventory.IsEquipped(item))
                     state = "<color=#EF8888>현재 직업은 장착할 수 없습니다.</color>";
                 return value + "\n장착 가능: " + item.AllowedClassesLabel + "\n" + state + BuildSetText(item, inventory);

@@ -22,6 +22,10 @@ namespace EasternFantasy.Quest
         [SerializeField, Min(1)] private int requiredAmount = 1;
         [SerializeField, Min(0)] private int rewardYeopjeon = 20;
         [SerializeField, Min(0)] private int rewardEXP = 100;
+        [SerializeField] private QuestDefinition prerequisiteQuest;
+        [SerializeField, TextArea(1, 3)] private string turnInDescription;
+        public QuestDefinition PrerequisiteQuest => prerequisiteQuest;
+        public string TurnInDescription => turnInDescription;
         public string QuestId => questId;
         public QuestType Type => questType;
         public string Title => title;

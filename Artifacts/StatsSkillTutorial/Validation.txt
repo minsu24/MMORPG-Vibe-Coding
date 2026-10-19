@@ -1,0 +1,12 @@
+﻿Stats and skill tutorial validation (Unity Play Mode, 2026-10-20)
+PASS: Goblin kill reaches level 2; original defeated dialogue runs before the new guide.
+PASS: Guide starts only after natural dialogue completion; first page remains the stats page.
+PASS: Eight pages transition stats -> skills and highlight points, base skills, prerequisites, passive, active, quick slots.
+PASS: Guide blocks learning clicks; skill points remain 1 and all skill levels remain 0.
+PASS: Completing all pages restores input, time scale, closed windows, window positions and scales.
+PASS: Repeated dialogue completion does not replay guide for the same class in the session.
+PASS: Stats portrait and background move and restore together with the stats panel.
+PASS: Existing six-page pet guide still completes and invokes its callback once.
+PASS: Closing guide restores gameplay state; Unity console has no errors.
+Visual review: Step0.png and QuickSlots.png.
+Keyboard ESC event injection from editor tools did not produce wasPressedThisFrame; direct keyboard interaction was not automated. Close buttons and Finish restoration were tested.

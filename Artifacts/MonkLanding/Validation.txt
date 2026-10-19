@@ -1,0 +1,6 @@
+PASS - Latest sheet: 수도승 점프 수정 최종.png.
+PASS - Frames 1-4 while rising; frame 5 immediately when vertical velocity turns negative, held until contact.
+PASS - Frame 6 only on actual upward-facing floor contact.
+PASS - Return to idle/walk; ledge falls; immediate re-jump.
+PASS - PPU normalized against idle world height, including platform texture downscaling.
+Validation uses an isolated PhysicsScene2D and the real animation controller.

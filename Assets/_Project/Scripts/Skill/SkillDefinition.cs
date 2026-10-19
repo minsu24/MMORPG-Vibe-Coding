@@ -59,6 +59,7 @@ namespace EasternFantasy.Skill
         [SerializeField, Min(0f), Tooltip("Amount spent when Resource Cost is Energy.")] private float energyCost;
 
         [SerializeField] private Sprite icon;
+        [SerializeField, Tooltip("Empty for class skills; companion identifier for pet active skills.")] private string companionId;
         [SerializeField] private SkillEffectType effectType;
         [SerializeField, Min(0f)] private float effectPerLevel;
         [SerializeField] private SkillRequirement[] requirements = Array.Empty<SkillRequirement>();
@@ -76,6 +77,8 @@ namespace EasternFantasy.Skill
         public float EnergyCost => energyCost;
 
         public Sprite Icon => icon;
+        public string CompanionId => companionId;
+        public bool IsCompanionSkill => !string.IsNullOrEmpty(companionId);
         public SkillEffectType EffectType => effectType;
         public float EffectPerLevel => effectPerLevel;
         public SkillRequirement[] Requirements => requirements;

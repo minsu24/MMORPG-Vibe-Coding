@@ -103,6 +103,7 @@ namespace EasternFantasy.Player
                     ? hitBuffer[i].GetComponentInParent<EnemyController>() : null;
                 if (enemy == null || enemy.HP <= 0f || !damagedEnemies.Add(enemy)) continue;
                 float before = enemy.HP;
+                entity.NotifyAttackTarget(enemy);
                 enemy.TakeDamage(damage, critical);
                 if (enemy.HP > 0f) enemy.ApplyKnockback(attackDirection);
                 entity.ApplyLifeSteal(Mathf.Max(0f, before - enemy.HP));

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using EasternFantasy.Player;
@@ -132,6 +132,7 @@ namespace EasternFantasy.Skill
                 var enemy = hitBuffer[i] != null ? hitBuffer[i].GetComponentInParent<EnemyController>() : null;
                 if (enemy == null || enemy.HP <= 0f || !hitEnemies.Add(enemy)) continue;
                 float before = enemy.HP;
+                entity.NotifyAttackTarget(enemy);
                 enemy.TakeDamage(damage, critical);
                 entity.ApplyLifeSteal(Mathf.Max(0f, before - enemy.HP));
                 if (enemy.HP > 0f) enemy.ApplyKnockback(direction);

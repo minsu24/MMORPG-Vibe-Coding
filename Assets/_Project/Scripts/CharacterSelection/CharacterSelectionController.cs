@@ -1,4 +1,4 @@
-﻿using TMPro;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -48,7 +48,7 @@ namespace EasternFantasy.CharacterSelection
 
         public void SelectClass(CharacterClassDefinition definition)
         {
-            if (definition == null)
+            if (definition == null || PortalSceneTransition.IsTransitioning)
                 return;
 
             ShowDetails(definition);
@@ -57,11 +57,12 @@ namespace EasternFantasy.CharacterSelection
 
             CharacterSelectionState.CreateOrSelect(definition.ClassId);
             Time.timeScale = 1f;
-            SceneManager.LoadScene(gameplaySceneName);
+            PortalSceneTransition.TryLoad(gameplaySceneName, null);
         }
 
         public void ReturnToMainMenu()
         {
+            if (PortalSceneTransition.IsTransitioning) return;
             SceneManager.LoadScene(mainMenuSceneName);
         }
 

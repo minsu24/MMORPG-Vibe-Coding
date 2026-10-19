@@ -1,6 +1,8 @@
-﻿using System;
+using System;
 using DG.Tweening;
 using System.Collections.Generic;
+using EasternFantasy.CharacterSelection;
+using EasternFantasy.Player;
 using EasternFantasy.Dialogue;
 using EasternFantasy.EquipmentUpgrade;
 using EasternFantasy.Inventory;
@@ -55,6 +57,15 @@ namespace EasternFantasy.UI
         private readonly HashSet<ItemDefinition> insertedMaterials = new HashSet<ItemDefinition>();
         private readonly List<KeyValuePair<ItemDefinition, int>> requirements = new List<KeyValuePair<ItemDefinition, int>>();
         private EquipmentUpgradeRecipe currentRecipe;
+        private static readonly HashSet<CharacterClassId> tutorialCompletedClasses = new HashSet<CharacterClassId>();
+        private PetCompanionTutorialUI tutorial;
+        private GameObject tutorialCanvas;
+        private PlayerInputReader tutorialInput;
+        private bool tutorialInputWasEnabled;
+        private Vector3[] tutorialPositions, tutorialScales;
+        public static bool IsTutorialRunning => Instance != null && Instance.tutorial != null && Instance.tutorial.IsShowing;
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetTutorials() { tutorialCompletedClasses.Clear(); }
         public static EquipmentUpgradeWindowUI Instance { get; private set; }
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
         public bool CanConfirm => confirmButton != null && confirmButton.interactable;
@@ -90,6 +101,7 @@ namespace EasternFantasy.UI
         }
         public void Open()
         {
+            if (StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning || IsTutorialRunning) return;
             Initialize();
             BindPlayer(FindFirstObjectByType<PlayerInventory>(), FindFirstObjectByType<PlayerCurrency>());
             if (inventory == null || currency == null) return;
@@ -134,10 +146,11 @@ namespace EasternFantasy.UI
             popupSequence.Append(windowGroup.DOFade(1f, Mathf.Max(0.01f, openDuration)).SetEase(Ease.OutQuad));
             for (int i = 0; i < popupPanels.Length; i++)
                 popupSequence.Join(popupPanels[i].DOScale(panelScales[i], Mathf.Max(0.01f, openDuration)).SetEase(Ease.OutBack));
-            popupSequence.OnComplete(() => { popupSequence = null; windowGroup.interactable = true; });
+            popupSequence.OnComplete(() => { popupSequence = null; windowGroup.interactable = true; BeginTutorial(); });
         }
         public void Close()
         {
+            EndTutorial();
             if (closing) return;
             if (!IsOpen || !isActiveAndEnabled) { CloseInstant(); return; }
             PreparePopup();
@@ -154,6 +167,7 @@ namespace EasternFantasy.UI
         }
         private void CloseInstant()
         {
+            EndTutorial();
             popupSequence?.Kill();
             popupSequence = null;
             closing = false;
@@ -172,23 +186,87 @@ namespace EasternFantasy.UI
         private void Update()
         {
             if (!IsOpen) return;
+            if (IsTutorialRunning) { if (Keyboard.current?.spaceKey.wasPressedThisFrame == true) tutorial.Advance(); return; }
             if (inventory == null || currency == null) { Close(); return; }
             if (Keyboard.current?.escapeKey.wasPressedThisFrame == true) Close();
         }
+        private void BeginTutorial()
+        {
+            if (tutorialCompletedClasses.Contains(CharacterSelectionState.SelectedClass) || IsTutorialRunning) return;
+            tutorialInput = inventory != null ? inventory.GetComponent<PlayerInputReader>() : null;
+            if (tutorialInput != null) { tutorialInputWasEnabled = tutorialInput.enabled; tutorialInput.enabled = false; }
+            inventory?.GetComponent<PlayerMovement2D>()?.ClearInput();
+            tutorialCanvas = new GameObject("EquipmentUpgradeTutorialCanvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            var canvas = tutorialCanvas.GetComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay; canvas.sortingOrder = 5000;
+            var scaler = tutorialCanvas.GetComponent<CanvasScaler>(); scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920, 1080); scaler.matchWidthOrHeight = .5f;
+            Canvas.ForceUpdateCanvases();
+            var canvasRect = (RectTransform)tutorialCanvas.transform;
+            tutorialPositions = new Vector3[popupPanels.Length]; tutorialScales = new Vector3[popupPanels.Length];
+            Vector2 min = new Vector2(float.MaxValue, float.MaxValue), max = new Vector2(float.MinValue, float.MinValue);
+            for (int i = 0; i < popupPanels.Length; i++) {
+                tutorialPositions[i] = popupPanels[i].position; tutorialScales[i] = popupPanels[i].localScale;
+                var corners = new Vector3[4]; popupPanels[i].GetWorldCorners(corners);
+                foreach (var corner in corners) { Vector2 point = canvasRect.InverseTransformPoint(corner); min = Vector2.Min(min, point); max = Vector2.Max(max, point); }
+            }
+            float fit = Mathf.Min(1f, canvasRect.rect.width * .46f / Mathf.Max(1f, max.x-min.x), canvasRect.rect.height * .82f / Mathf.Max(1f, max.y-min.y));
+            var oldCenter = canvasRect.TransformPoint((min+max)*.5f);
+            var center = canvasRect.TransformPoint(canvasRect.rect.min + new Vector2(canvasRect.rect.width*.25f, canvasRect.rect.height*.53f));
+            for (int i = 0; i < popupPanels.Length; i++) { popupPanels[i].position = center + (tutorialPositions[i]-oldCenter)*fit; popupPanels[i].localScale = tutorialScales[i]*fit; }
+            // Preview owned equipment without moving or consuming any inventory item.
+            foreach (var stack in inventory.Items) {
+                if (stack.Item == null || stack.Item.Category != ItemCategory.Equipment) continue;
+                foreach (var recipe in recipes) if (recipe != null && recipe.Matches(stack.Item)) { target = stack.Item; break; }
+                if (target != null) break;
+            }
+            Refresh();
+            var overlay = new GameObject("EquipmentUpgradeGuide", typeof(RectTransform), typeof(PetCompanionTutorialUI));
+            overlay.transform.SetParent(tutorialCanvas.transform, false); tutorial = overlay.GetComponent<PetCompanionTutorialUI>();
+            tutorial.ShowCustom(targetText.font, "장비 승급 튜토리얼",
+                new[] { "1. 승급할 장비 넣기", "2. 장비마다 다른 승급 조건", "3. 요구 재료 넣기", "4. 엽전을 지불하고 승급", "5. 승급 결과와 재료 소비" },
+                new[] {
+                    "옆 인벤토리의 장비 탭에서 승급하고 싶은 장비를 찾아보세요.\n장비를 드래그 앤 드롭해 큰 장비 칸에 놓으면 됩니다.\n이 안내에서는 보유 장비를 예시로 보여 주며 실제 승급은 하지 않습니다.",
+                    "장비의 등급과 종류에 따라 필요한 승급 재료가 달라집니다.\n장비를 넣으면 다음 등급과 요구 재료·수량이 표시됩니다.\n새 장비를 넣을 때마다 조건을 다시 확인하세요.",
+                    "옆 인벤토리의 재료 탭을 선택하세요.\n요구되는 재료를 드래그 앤 드롭해 알맞은 재료 칸에 놓습니다.\n각 재료의 수량을 확인하고 필요한 재료를 모두 넣어 주세요.",
+                    "필요 엽전과 보유 엽전을 확인한 뒤 승급 확인 버튼을 누르세요.\n재료를 모두 넣고 엽전이 충분해야 승급할 수 있습니다.\n표시된 비용이 0엽전이면 엽전을 사용하지 않습니다.",
+                    "승급하면 기존 장비가 다음 등급 장비로 바뀌고,\n필요한 수량의 재료와 표시된 엽전 비용이 소모됩니다.\n칸에 넣는 것만으로는 소모되지 않으며, 칸을 클릭해 뺄 수 있어요.\n안내를 마치면 직접 승급할 장비를 골라 보세요." },
+                new[] { (RectTransform)targetIcon.transform.parent, nextGradeText.rectTransform,
+                    (RectTransform)materialTab.transform, (RectTransform)confirmButton.transform, (RectTransform)targetIcon.transform.parent },
+                step => SetPicker(step == 0 || step == 4), CompleteTutorial, true, false);
+        }
+        private void CompleteTutorial()
+        {
+            tutorialCompletedClasses.Add(CharacterSelectionState.SelectedClass);
+            EndTutorial();
+        }
+        private void EndTutorial()
+        {
+            if (tutorialCanvas == null) return;
+            if (tutorial != null) tutorial.Hide();
+            for (int i = 0; i < popupPanels.Length; i++) if (popupPanels[i] != null) { popupPanels[i].position = tutorialPositions[i]; popupPanels[i].localScale = tutorialScales[i]; }
+            target = null; insertedMaterials.Clear(); SetPicker(true);
+            messageText.text = "장비를 선택한 후 필요한 재료를 넣어 주세요.";
+            if (tutorialInput != null) tutorialInput.enabled = tutorialInputWasEnabled;
+            inventory?.GetComponent<PlayerMovement2D>()?.ClearInput();
+            Destroy(tutorialCanvas); tutorialCanvas = null; tutorial = null;
+        }
+
         private void SetPicker(bool equipment) { pickingEquipment = equipment; Refresh(); }
         public void SelectFromInventory(ItemDefinition item)
         {
+            if (IsTutorialRunning) return;
             if (item == null) return;
             if (item.Category == ItemCategory.Equipment && item.EquipmentSlot != EquipmentSlot.None) DropItem(item, -1);
             else
             {
-                int index = requirements.FindIndex(pair => pair.Key == item);
+                int index = requirements.FindIndex(pair => (pair.Key == item || pair.Key.MatchesMaterial(item)));
                 if (index < 0) messageText.text = "이 승급에 사용하는 재료가 아닙니다.";
                 else DropItem(item, index);
             }
         }
         public void DropItem(ItemDefinition item, int materialIndex)
         {
+            if (IsTutorialRunning) return;
             if (inventory == null || item == null || inventory.GetQuantity(item) <= 0) return;
             if (materialIndex < 0)
             {
@@ -198,22 +276,24 @@ namespace EasternFantasy.UI
                 Refresh();
                 return;
             }
-            if (materialIndex >= requirements.Count || requirements[materialIndex].Key != item)
+            if (materialIndex >= requirements.Count || !(requirements[materialIndex].Key == item || requirements[materialIndex].Key.MatchesMaterial(item)))
             {
                 messageText.text = "해당 칸에 맞는 재료를 넣어 주세요."; return;
             }
-            insertedMaterials.Add(item);
+            insertedMaterials.Add(requirements[materialIndex].Key);
             messageText.text = "";
             Refresh();
         }
         public void ClearSlot(int index)
         {
+            if (IsTutorialRunning) return;
             if (index < 0) { target = null; insertedMaterials.Clear(); }
             else if (index < requirements.Count) insertedMaterials.Remove(requirements[index].Key);
             messageText.text = ""; Refresh();
         }
         public void Confirm()
         {
+            if (IsTutorialRunning) return;
             if (committing || !IsOpen || closing || (windowGroup != null && !windowGroup.interactable)) return;
             confirmButton.GetComponent<UpgradeConfirmFeedback>()?.PlayFeedback(CanConfirm);
             committing = true;
@@ -239,7 +319,7 @@ namespace EasternFantasy.UI
         {
             if (requirements.Count == 0) return false;
             foreach (var pair in requirements)
-                if (!insertedMaterials.Contains(pair.Key) || inventory.GetQuantity(pair.Key) < pair.Value) return false;
+                if (!insertedMaterials.Contains(pair.Key) || inventory.GetMaterialQuantity(pair.Key) < pair.Value) return false;
             return true;
         }
         public void Refresh()
@@ -265,15 +345,15 @@ namespace EasternFantasy.UI
             for (int i = 0; i < materialFrames.Length; i++)
             {
                 bool used = i < requirements.Count;
-                bool filled = used && insertedMaterials.Contains(requirements[i].Key) && inventory.GetQuantity(requirements[i].Key) > 0;
-                bool enough = filled && inventory.GetQuantity(requirements[i].Key) >= requirements[i].Value;
+                bool filled = used && insertedMaterials.Contains(requirements[i].Key) && inventory.GetMaterialQuantity(requirements[i].Key) > 0;
+                bool enough = filled && inventory.GetMaterialQuantity(requirements[i].Key) >= requirements[i].Value;
                 materialFrames[i].sprite = enough ? readyMaterialFrame : filled ? filledMaterialFrame : emptyMaterialFrame;
                 ItemGradeVisual.CenterInUpgradeFrame(materialIcons[i], materialFrames[i]);
                 materialIcons[i].enabled = used;
                 materialIcons[i].sprite = used ? requirements[i].Key.Icon : null;
                 materialIcons[i].color = new Color(1, 1, 1, filled ? 1f : .2f);
                 materialTexts[i].text = used ? requirements[i].Key.DisplayName + "\n" +
-                    (filled ? inventory.GetQuantity(requirements[i].Key) : 0) + " / " + requirements[i].Value : "재료 없음";
+                    (filled ? inventory.GetMaterialQuantity(requirements[i].Key) : 0) + " / " + requirements[i].Value : "재료 없음";
                 materialTexts[i].color = enough ? new Color(.7f, .95f, .7f) : Color.white;
             }
             bool configured = currentRecipe != null && currentRecipe.TryGetRequirements(out _, out _);
@@ -287,7 +367,7 @@ namespace EasternFantasy.UI
             foreach (var stack in inventory.Items)
             {
                 if ((stack.Item.Category == ItemCategory.Equipment && stack.Item.EquipmentSlot != EquipmentSlot.None) != pickingEquipment) continue;
-                if (!pickingEquipment && requirements.Count > 0 && !requirements.Exists(pair => pair.Key == stack.Item)) continue;
+                if (!pickingEquipment && requirements.Count > 0 && !requirements.Exists(pair => (pair.Key == stack.Item || pair.Key.MatchesMaterial(stack.Item)))) continue;
                 if (index < inventorySlots.Length) inventorySlots[index++].Bind(stack.Item, stack.Quantity);
             }
             while (index < inventorySlots.Length) inventorySlots[index++].Bind(null, 0);

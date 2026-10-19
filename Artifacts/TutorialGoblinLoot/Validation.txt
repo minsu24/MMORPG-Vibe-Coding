@@ -1,0 +1,22 @@
+Latest change: PASS - Each of Dosa, Monk and Swordswoman receives exactly one matching common weapon plus Goblin Club, Soul Fragment and Goblin Soul. Other-class weapons are filtered before spawning. All upgrade, sale and companion checks passed.
+
+Earlier validation history:
+Tutorial goblin loot validation
+
+PASS - Actual Play Mode TakeDamage/defeat generated 6 guaranteed pickups, all unsellable.
+PASS - First goblin defeat still reaches player level 2.
+PASS - All three common weapons are in the tutorial drop table. No armor drops.
+PASS - Goblin Club: supplied PNG copied unchanged, transparent sprite, Rare / Miscellaneous.
+PASS - All three classes: ordinary and tutorial common weapons upgrade to Rare using one club and one soul fragment, no currency cost.
+PASS - Tutorial equipment remains unsellable at all upgrade grades.
+PASS - Tutorial and ordinary material stacks remain separate; tutorial materials are consumed first.
+PASS - Missing materials reject upgrades without consuming owned items.
+PASS - Shop rejects tutorial equipment/club/fragments; ordinary fragment sale leaves tutorial fragment untouched.
+PASS - Bound goblin soul can unlock/summon companion; bound fragment supports companion growth.
+PASS - Upgrade UI accepts tutorial material selection.
+PASS - Existing EquipmentUpgradeValidation: atomic events, material/currency failures, equipment preservation, recipe filters, disabled-button feedback, successful confirmation, village NPC/UI.
+
+The existing prefab test now initializes the feedback component's Awake explicitly and calls its pointer handler directly because prefab preview scenes do not provide Play Mode lifecycle/event dispatch.
+
+PASS - Physical simulation after actual goblin defeat: all six item bottoms rest at y=-3.174, separated horizontally with no overlap or vertical stacking.
+PASS - Item/coin physical collision pairs are ignored, preventing loot from supporting other loot.

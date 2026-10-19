@@ -61,6 +61,10 @@ namespace EasternFantasy.Dialogue
         [Header("Lines are played from top to bottom")]
         [SerializeField] private DialogueLine[] lines = Array.Empty<DialogueLine>();
 
+        [Tooltip("Experience granted once per game session, after the final line is completed.")]
+        [SerializeField, Min(0)] private int completionExperience;
+
+        public int CompletionExperience => completionExperience;
         public DialogueCharacter PlayerCharacter => playerCharacter;
         public DialogueCharacter PartnerCharacter => partnerCharacter;
         public DialogueLine[] Lines => lines;

@@ -138,6 +138,7 @@ namespace EasternFantasy.Skill
                     ? enemy.textSpawnPoint.position : enemy.transform.position;
                 GameObject textPrefab = enemy.damageTextPrefab;
                 float before = enemy.HP;
+                entity.NotifyAttackTarget(enemy);
                 enemy.TakeDamage(damage, critical, false);
                 float dealt = Mathf.Max(0f, before - enemy.HP);
                 if (dealt <= 0f) continue;

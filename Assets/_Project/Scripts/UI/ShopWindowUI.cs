@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using EasternFantasy.CharacterSelection;
+using EasternFantasy.Player;
+using DG.Tweening;
 using EasternFantasy.Inventory;
 using EasternFantasy.Shop;
 using TMPro;
@@ -17,12 +21,31 @@ namespace EasternFantasy.UI
         [SerializeField] private TMP_Text messageText;
         [SerializeField] private ShopSlotUI[] slots;
 
+        [Header("DOTween popup")]
+        [SerializeField, Min(0.01f)] private float openDuration = 0.25f;
+        [SerializeField, Min(0.01f)] private float closeDuration = 0.18f;
+        [SerializeField, Range(0.5f, 1f)] private float popupStartScale = 0.9f;
+        private CanvasGroup windowGroup;
+        private RectTransform popupPanel;
+        private Vector3 panelScale;
+        private Sequence popupSequence;
+        private bool closing;
+
         private PlayerInventory inventory;
         private PlayerCurrency currency;
         private Shopkeeper shopkeeper;
         private bool selling;
         private bool inventorySubscribed;
         private bool currencySubscribed;
+        private static readonly HashSet<CharacterClassId> tutorialCompletedClasses = new HashSet<CharacterClassId>();
+        private PetCompanionTutorialUI tutorial;
+        private GameObject tutorialCanvas;
+        private PlayerInputReader tutorialInput;
+        private bool inputWasEnabled;
+        private Vector3 tutorialPanelPosition, tutorialPanelScale;
+        public static bool IsTutorialRunning => Instance != null && Instance.tutorial != null && Instance.tutorial.IsShowing;
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetTutorials() { tutorialCompletedClasses.Clear(); }
 
         public static ShopWindowUI Instance { get; private set; }
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
@@ -31,8 +54,8 @@ namespace EasternFantasy.UI
         private void Awake()
         {
             Instance = this;
-            if (windowRoot != null)
-                windowRoot.SetActive(false);
+            PreparePopup();
+            CloseInstant();
         }
 
         private void Start()
@@ -49,13 +72,19 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
+            if (IsTutorialRunning)
+            {
+                if (Keyboard.current?.spaceKey.wasPressedThisFrame == true) tutorial.Advance();
+                return;
+            }
             if (IsOpen && Keyboard.current?.escapeKey.wasPressedThisFrame == true)
                 Close();
         }
 
         public void Open(Shopkeeper target)
         {
-            if (target == null || !ResolvePlayerReferences())
+            if (StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || IsTutorialRunning) return;
+            if (target == null || windowRoot == null || !isActiveAndEnabled || !ResolvePlayerReferences())
                 return;
 
             shopkeeper = target;
@@ -64,24 +93,80 @@ namespace EasternFantasy.UI
             InventoryWindowUI.Instance?.SetOpen(false);
             PlayerStatsWindowUI.Instance?.SetOpen(false);
             SkillWindowUI.Instance?.SetOpen(false);
-            windowRoot.SetActive(true);
             Refresh();
+            AnimateOpen();
+        }
+
+        private void PreparePopup()
+        {
+            if (windowGroup != null || windowRoot == null) return;
+            windowGroup = windowRoot.GetComponent<CanvasGroup>();
+            if (windowGroup == null) windowGroup = windowRoot.AddComponent<CanvasGroup>();
+            // The shop root is the complete visual panel, including its background.
+            popupPanel = windowRoot.GetComponent<RectTransform>();
+            panelScale = popupPanel.localScale;
+        }
+
+        private void AnimateOpen()
+        {
+            PreparePopup();
+            popupSequence?.Kill();
+            closing = false;
+            if (!windowRoot.activeSelf)
+            {
+                windowGroup.alpha = 0f;
+                popupPanel.localScale = panelScale * popupStartScale;
+            }
+            windowRoot.SetActive(true);
+            windowGroup.interactable = false;
+            windowGroup.blocksRaycasts = true;
+            popupSequence = DOTween.Sequence().SetUpdate(true);
+            popupSequence.Append(windowGroup.DOFade(1f, Mathf.Max(0.01f, openDuration)).SetEase(Ease.OutQuad));
+            popupSequence.Join(popupPanel.DOScale(panelScale, Mathf.Max(0.01f, openDuration)).SetEase(Ease.OutBack));
+            popupSequence.OnComplete(() => { popupSequence = null; windowGroup.interactable = true; BeginTutorial(); });
         }
 
         public void Close()
         {
-            if (windowRoot != null)
-                windowRoot.SetActive(false);
+            EndTutorial();
+            if (closing) return;
+            if (!IsOpen || !isActiveAndEnabled) { CloseInstant(); return; }
+            PreparePopup();
+            popupSequence?.Kill();
+            closing = true;
+            windowGroup.interactable = false;
+            windowGroup.blocksRaycasts = true;
+            popupSequence = DOTween.Sequence().SetUpdate(true);
+            popupSequence.Append(windowGroup.DOFade(0f, Mathf.Max(0.01f, closeDuration)).SetEase(Ease.InQuad));
+            popupSequence.Join(popupPanel.DOScale(panelScale * popupStartScale,
+                Mathf.Max(0.01f, closeDuration)).SetEase(Ease.InQuad));
+            popupSequence.OnComplete(() => { popupSequence = null; CloseInstant(); });
         }
 
+        private void CloseInstant()
+        {
+            EndTutorial();
+            popupSequence?.Kill();
+            popupSequence = null;
+            closing = false;
+            if (windowGroup != null)
+            {
+                windowGroup.alpha = 0f;
+                windowGroup.interactable = false;
+                windowGroup.blocksRaycasts = false;
+            }
+            if (popupPanel != null) popupPanel.localScale = panelScale;
+            if (windowRoot != null) windowRoot.SetActive(false);
+        }
         public void ProcessItem(ItemDefinition item)
         {
-            if (item == null || !ResolvePlayerReferences())
+            if (IsTutorialRunning) return;
+            if (item == null || !IsOpen || closing || windowGroup == null || !windowGroup.interactable || !ResolvePlayerReferences())
                 return;
 
             if (selling)
             {
-                if (!inventory.RemoveItem(item))
+                if (!item.CanSell || !inventory.RemoveItem(item))
                 {
                     messageText.text = "판매할 수 없습니다.";
                     return;
@@ -106,6 +191,51 @@ namespace EasternFantasy.UI
             }
 
             Refresh();
+        }
+
+        private void BeginTutorial()
+        {
+            if (tutorialCompletedClasses.Contains(CharacterSelectionState.SelectedClass) || IsTutorialRunning) return;
+            tutorialPanelPosition = popupPanel.position; tutorialPanelScale = popupPanel.localScale;
+            tutorialInput = inventory != null ? inventory.GetComponent<PlayerInputReader>() : null;
+            if (tutorialInput != null) { inputWasEnabled = tutorialInput.enabled; tutorialInput.enabled = false; }
+            inventory?.GetComponent<PlayerMovement2D>()?.ClearInput();
+            GameTimeController.SetPaused(this, true);
+            tutorialCanvas = new GameObject("ShopTutorialCanvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            var canvas = tutorialCanvas.GetComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay; canvas.sortingOrder = 5000;
+            var scaler = tutorialCanvas.GetComponent<CanvasScaler>(); scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920, 1080); scaler.matchWidthOrHeight = .5f;
+            Canvas.ForceUpdateCanvases();
+            var canvasRect = (RectTransform)tutorialCanvas.transform;
+            var corners = new Vector3[4]; popupPanel.GetWorldCorners(corners);
+            Vector2 min = canvasRect.InverseTransformPoint(corners[0]), max = canvasRect.InverseTransformPoint(corners[2]);
+            float fit = Mathf.Min(1f, canvasRect.rect.width * .45f / Mathf.Max(1f, max.x-min.x), canvasRect.rect.height * .8f / Mathf.Max(1f, max.y-min.y));
+            popupPanel.localScale *= fit;
+            var center = canvasRect.TransformPoint(canvasRect.rect.min + new Vector2(canvasRect.rect.width * .25f, canvasRect.rect.height * .53f));
+            popupPanel.position += center - popupPanel.TransformPoint(popupPanel.rect.center);
+            var overlay = new GameObject("ShopGuide", typeof(RectTransform), typeof(PetCompanionTutorialUI));
+            overlay.transform.SetParent(tutorialCanvas.transform, false); tutorial = overlay.GetComponent<PetCompanionTutorialUI>();
+            tutorial.ShowCustom(currencyText.font, "상점 튜토리얼", new[] { "1. 엽전으로 아이템 구매", "2. 아이템 판매" },
+                new[] { "구매 탭에서 아이템에 표시된 가격만큼 엽전을 지불하면 구매할 수 있습니다.\n원하는 아이템을 더블클릭해 구매하세요.\n보유 엽전과 인벤토리 공간을 확인해 주세요.",
+                    "판매 탭에서 보유 아이템을 클릭하면 판매하고 엽전을 받을 수 있습니다.\n판매불가로 표시된 아이템은 팔 수 없어요.\n안내를 마치면 구매와 판매를 이용해 보세요." },
+                new[] { (RectTransform)buyTab.transform, (RectTransform)sellTab.transform },
+                step => SetSelling(step == 1), CompleteTutorial, true, false);
+        }
+        private void CompleteTutorial()
+        {
+            tutorialCompletedClasses.Add(CharacterSelectionState.SelectedClass);
+            EndTutorial();
+        }
+        private void EndTutorial()
+        {
+            if (tutorialCanvas == null) return;
+            if (tutorial != null) tutorial.Hide();
+            popupPanel.position = tutorialPanelPosition; popupPanel.localScale = tutorialPanelScale;
+            SetSelling(false);
+            if (tutorialInput != null) tutorialInput.enabled = inputWasEnabled;
+            inventory?.GetComponent<PlayerMovement2D>()?.ClearInput();
+            GameTimeController.SetPaused(this, false);
+            Destroy(tutorialCanvas); tutorialCanvas = null; tutorial = null;
         }
 
         private void SetSelling(bool value)
@@ -175,8 +305,11 @@ namespace EasternFantasy.UI
             }
         }
 
+        private void OnDisable() => CloseInstant();
+
         private void OnDestroy()
         {
+            popupSequence?.Kill();
             if (inventory != null && inventorySubscribed)
                 inventory.InventoryChanged -= Refresh;
             if (currency != null && currencySubscribed)

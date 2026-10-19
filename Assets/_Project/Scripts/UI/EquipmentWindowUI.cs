@@ -20,6 +20,9 @@ namespace EasternFantasy.UI
         private SpriteRenderer characterRenderer;
 
         public static EquipmentWindowUI Instance { get; private set; }
+        public RectTransform TutorialTarget => windowRoot != null ? windowRoot.transform as RectTransform : null;
+        public RectTransform TutorialWeaponTarget { get { foreach (var slot in slots) if (slot != null && slot.Slot == EquipmentSlot.Weapon) return slot.transform as RectTransform; return TutorialTarget; } }
+        public bool IsUnlocked => InventoryEquipmentTutorialUI.HasFinishedForCurrentClass;
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
 
         private void Awake()
@@ -60,6 +63,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
+            if (StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning) { if (IsOpen) RefreshCharacter(); return; }
             Keyboard keyboard = Keyboard.current;
             if (keyboard != null && keyboard.jKey.wasPressedThisFrame)
             {
@@ -73,8 +77,11 @@ namespace EasternFantasy.UI
                 RefreshCharacter();
         }
 
-        public void SetOpen(bool open)
+        public void SetOpen(bool open) { SetOpenInternal(open, false); }
+        internal void SetOpenForTutorial(bool open) { SetOpenInternal(open, true); }
+        private void SetOpenInternal(bool open, bool forTutorial)
         {
+            if (open && !forTutorial && !IsUnlocked) return;
             if (open && EquipmentUpgradeWindowUI.Instance != null && EquipmentUpgradeWindowUI.Instance.IsOpen) return;
             if (windowRoot == null)
                 return;
@@ -85,7 +92,8 @@ namespace EasternFantasy.UI
 
             if (open)
             {
-                inventoryWindow.SetOpen(true);
+                if (forTutorial) inventoryWindow.SetOpenForTutorial(true);
+                else inventoryWindow.SetOpen(true);
                 SetInventory(inventoryWindow.Inventory);
                 inventoryWindow.SetEquipmentLayout(true);
                 Refresh();

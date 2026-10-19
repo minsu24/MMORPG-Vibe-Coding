@@ -1,6 +1,4 @@
 using EasternFantasy.Dialogue;
-using EasternFantasy.Inventory;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace EasternFantasy.Quest
@@ -15,91 +13,80 @@ namespace EasternFantasy.Quest
         [SerializeField] private DialogueSequence progressDialogue;
         [SerializeField] private DialogueSequence completionDialogue;
         [SerializeField] private DialogueSequence RegularDialogue;
-        private PlayerCurrency playerCurrency;
+        [SerializeField] private DialogueSequence unavailableDialogue;
+        [SerializeField] private bool allowQuestOffer = true;
+        [SerializeField] private bool allowQuestTurnIn = true;
 
-        public QuestDefinition Quest => quest;
-        public bool CanOfferQuest => quest != null
-            && offerDialogue != null
-            && QuestManager.Instance != null
-            && QuestManager.Instance.CanAccept(quest);
+        [Header("Optional next quest, offered after this NPC's first quest is completed")]
+        [SerializeField] private QuestDefinition nextQuest;
+        [SerializeField] private DialogueSequence nextOfferDialogue;
+        [SerializeField] private DialogueSequence nextAcceptedDialogue;
+        [SerializeField] private DialogueSequence nextDeclinedDialogue;
+        [SerializeField] private DialogueSequence nextProgressDialogue;
+        [SerializeField] private DialogueSequence nextCompletionDialogue;
+        [SerializeField] private DialogueSequence nextRegularDialogue;
+        [SerializeField] private bool allowNextQuestTurnIn = true;
 
-        // Call this from the NPC interaction script or a UnityEvent.
+        private bool IsNextQuest => nextQuest != null && QuestManager.Instance != null
+            && QuestManager.Instance.FindProgress(quest)?.Status == QuestStatus.Completed;
+        public QuestDefinition Quest => IsNextQuest ? nextQuest : quest;
+        public bool CanTurnInCurrentQuest => IsNextQuest ? allowNextQuestTurnIn : allowQuestTurnIn;
+        private DialogueSequence OfferDialogue => IsNextQuest ? nextOfferDialogue : offerDialogue;
+        public bool CanOfferQuest => allowQuestOffer && Quest != null && OfferDialogue != null
+            && QuestManager.Instance != null && QuestManager.Instance.CanAccept(Quest);
+
         public void OfferQuest()
         {
-            if (quest == null || offerDialogue == null)
+            var manager = DialogueManager.Instance;
+            if (!CanOfferQuest || manager == null || manager.IsDialogueActive)
+                return;
+
+            // Capture the offered quest and its responses before opening the choice UI.
+            QuestDefinition offeredQuest = Quest;
+            DialogueSequence accepted = IsNextQuest ? nextAcceptedDialogue : acceptedDialogue;
+            DialogueSequence declined = IsNextQuest ? nextDeclinedDialogue : declinedDialogue;
+            manager.StartQuestOffer(OfferDialogue, offeredQuest.Title, accept =>
             {
-                Debug.LogWarning("QuestGiver needs a Quest and Offer Dialogue.", this);
-                return;
-            }
-
-            if (QuestManager.Instance == null || DialogueManager.Instance == null)
-            {
-                Debug.LogError("QuestGiver needs both QuestManager and DialogueManager.", this);
-                return;
-            }
-
-            if (!CanOfferQuest)
-                return;
-
-            DialogueManager.Instance.StartQuestOffer(
-                offerDialogue,
-                quest.Title,
-                ResolveOffer);
-        }
-
-        private void ResolveOffer(bool accepted)
-        {
-            if (accepted)
-                QuestManager.Instance.AcceptQuest(quest);
-
-            DialogueSequence followUp = accepted ? acceptedDialogue : declinedDialogue;
-            if (followUp != null)
-                DialogueManager.Instance.StartDialogue(followUp);
+                if (accept && !QuestManager.Instance.AcceptQuest(offeredQuest)) return;
+                DialogueSequence response = accept ? accepted : declined;
+                if (response != null) manager.StartDialogue(response);
+            });
         }
 
         public void Interact()
         {
-            if (QuestManager.Instance == null)
+            var manager = QuestManager.Instance;
+            var dialogue = DialogueManager.Instance;
+            if (manager == null || dialogue == null || dialogue.IsDialogueActive)
                 return;
 
-            QuestProgress progress =
-                QuestManager.Instance.FindProgress(quest);
-
-            // 아직 퀘스트를 받지 않음
+            QuestProgress progress = manager.FindProgress(Quest);
             if (progress == null)
             {
-                OfferQuest();
+                if (CanOfferQuest) OfferQuest();
+                else Play(unavailableDialogue != null ? unavailableDialogue : RegularDialogue);
                 return;
             }
-
-            // 퀘스트 진행 중
-            if (progress.Status == QuestStatus.Active)
+            if (progress.Status == QuestStatus.Active
+                || (progress.Status == QuestStatus.ReadyToTurnIn && !CanTurnInCurrentQuest))
             {
-                if (progressDialogue != null)
-                    DialogueManager.Instance.StartDialogue(progressDialogue);
-
+                Play(IsNextQuest ? nextProgressDialogue : progressDialogue);
                 return;
             }
-
-            // 목표를 모두 달성하여 완료 보고 가능
             if (progress.Status == QuestStatus.ReadyToTurnIn)
             {
-                QuestManager.Instance.CompleteQuest(quest);
-
-                if (completionDialogue != null)
-                    DialogueManager.Instance.StartDialogue(completionDialogue);
-                
+                DialogueSequence completion = IsNextQuest ? nextCompletionDialogue : completionDialogue;
+                QuestDefinition completedQuest = Quest;
+                if (manager.CompleteQuest(completedQuest))
+                    dialogue.StartQuestCompletion(completion, completedQuest);
                 return;
             }
+            Play(IsNextQuest ? nextRegularDialogue : RegularDialogue);
+        }
 
-            if(progress.Status == QuestStatus.Completed)
-            {
-                if(RegularDialogue != null)
-                    DialogueManager.Instance.StartDialogue(RegularDialogue);
-                
-                return;
-            }
-            // 이미 완료한 일반 퀘스트는 아무 작업도 하지 않습니다.
+        private static void Play(DialogueSequence sequence)
+        {
+            if (sequence != null) DialogueManager.Instance.StartDialogue(sequence);
         }
     }
 }

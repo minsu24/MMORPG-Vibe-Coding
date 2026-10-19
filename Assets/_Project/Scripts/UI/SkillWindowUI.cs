@@ -20,7 +20,11 @@ namespace EasternFantasy.UI
         private bool skillSlotsInitialized;
 
         public static SkillWindowUI Instance { get; private set; }
+        public bool IsUnlocked => StatsSkillTutorialUI.HasFinishedForCurrentClass;
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
+        public RectTransform TutorialTarget => windowRoot != null ? windowRoot.transform as RectTransform : null;
+        public RectTransform TutorialPointsTarget => skillPointText != null ? skillPointText.rectTransform : null;
+        public System.Collections.Generic.IReadOnlyList<SkillSlotUI> TutorialSlots => skillSlots;
 
         private void Awake()
         {
@@ -105,6 +109,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
+            if (StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning) return;
             Keyboard keyboard = Keyboard.current;
             if (keyboard == null)
                 return;
@@ -125,8 +130,11 @@ namespace EasternFantasy.UI
                 SetOpen(!IsOpen);
         }
 
-        public void SetOpen(bool open)
+        public void SetOpen(bool open) { SetOpenInternal(open, false); }
+        internal void SetOpenForTutorial(bool open) { SetOpenInternal(open, true); }
+        private void SetOpenInternal(bool open, bool forTutorial)
         {
+            if (open && !forTutorial && !IsUnlocked) return;
             if (open && EquipmentUpgradeWindowUI.Instance != null && EquipmentUpgradeWindowUI.Instance.IsOpen) return;
             if (windowRoot == null)
                 return;

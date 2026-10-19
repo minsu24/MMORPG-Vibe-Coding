@@ -15,6 +15,9 @@ namespace EasternFantasy.Inventory
         private static CommonMonsterLoot cached;
         public static void DropFor(EnemyController enemy)
         {
+            if (enemy == null) return;
+            var customLoot = enemy.GetComponent<EnemyLootDrop>();
+            if (customLoot != null && customLoot.enabled && customLoot.OverridesCommonLoot) return;
             if (cached == null) cached = Resources.Load<CommonMonsterLoot>("CommonMonsterLoot");
             if (cached != null) cached.Spawn(enemy, Random.value);
         }

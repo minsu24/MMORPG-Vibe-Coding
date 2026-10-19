@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ada75e50a69424c83357669e06485c, type: 3}
+  m_Name: SwordswomanSword_Legendary
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemDefinition
+  itemId: b81f8580a89a4daa9c904f5178a3a9bd
+  displayName: "\uAC80"
+  description: "\uC5EC\uAC80\uC0AC \uC804\uC6A9 \uAC80. \uC218\uB828\uC790 \uC138\uD2B8\uC758
+    \uC774\uB3D9\uC18D\uB3C4 \uC99D\uAC00 \uD6A8\uACFC\uB97C \uBC1B\uC2B5\uB2C8\uB2E4."
+  icon: {fileID: 441414805, guid: 6991f893e1cb0114392d401461cb2fe3, type: 3}
+  category: 0
+  grade: 3
+  gradeFrame: {fileID: 0}
+  gradeAppearance: {fileID: 11400000, guid: 642cf35f4f1ff584ebc051c3f1a7a95f, type: 2}
+  gradeVariants:
+  - {fileID: 11400000, guid: ec72ff264ebc1a44fbaf461fe416082e, type: 2}
+  - {fileID: 11400000, guid: a74667e9959e7a44285c6eeeece75f5c, type: 2}
+  - {fileID: 11400000, guid: 2dc45619e8187ad439d7a216a85f7452, type: 2}
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: cfab2214159f6de49a816b59ba093f3d, type: 2}
+  equipmentSlot: 1
+  allowedClasses: 02000000
+  equipmentSet: {fileID: 11400000, guid: f0bfdc7fe9dfbf24e9f419de62d4dda4, type: 2}
+  attackBonus: 15
+  defenseBonus: 0
+  consumableEffect: 0
+  useAmount: 0
+  maximumStack: 1
+  buyPrice: 120
+  sellPrice: 60
+  cannotSell: 1
+  materialSource: {fileID: 0}

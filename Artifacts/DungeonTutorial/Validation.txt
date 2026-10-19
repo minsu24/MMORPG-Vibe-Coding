@@ -1,0 +1,9 @@
+﻿Dungeon tutorial validation (Unity Play Mode, 2026-10-20)
+PASS: Actual dungeon portal interaction in GapInSpace starts five-page guide on first opening.
+PASS: Selected dungeon preview/details remain visible; guide highlights list, preview, conditions, rewards and entry.
+PASS: Previous navigation works; EnterSelected refuses entry during tutorial.
+PASS: Completion restores panel position/scale and player input, retaining normal dungeon-window pause.
+PASS: Normal selection and CanEnter/enter-button state work after guide.
+PASS: Closing returns time scale to 1; reopening does not repeat completed guide for this class/session.
+PASS: Normal EnterSelected after completion transitions to GiantFarm_01.
+PASS: Unity console contains no errors; Guide.png visually reviewed.

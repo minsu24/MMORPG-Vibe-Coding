@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using EasternFantasy.Quest;
 
@@ -67,6 +67,11 @@ namespace EasternFantasy.Player
 
         private void Update()
         {
+            if (PortalSceneTransition.IsTransitioning)
+            {
+                movement.ClearInput();
+                return;
+            }
             if (EasternFantasy.UI.PetCompanionWindowUI.Instance != null && EasternFantasy.UI.PetCompanionWindowUI.Instance.IsOpen)
             {
                 movement.ClearInput();

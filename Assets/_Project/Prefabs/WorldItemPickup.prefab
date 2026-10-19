@@ -60,7 +60,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: fe20d68ee96a54449b31e8c686389ca3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -141,7 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befd3ebcbc855704093c2c9306d376d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.WorldItemPickup
-  worldIconSize: 0.8
+  worldIconSize: 0.95
+  slenderWeaponScale: 1.3
   pickupRadius: 0.45
   tossDuration: 0.4
   tossHeight: 0.55

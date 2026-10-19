@@ -24,6 +24,7 @@ namespace EasternFantasy.UI
         private IPlayerSkillCaster caster;
 
         public static QuickSlotBarUI Instance { get; private set; }
+        public RectTransform TutorialTarget => slots != null && slots.Length > 0 && slots[0] != null ? slots[0].transform.parent as RectTransform : null;
         private bool subscribed;
         private PlayerSkillSystem subscribedSkillSystem;
         private PlayerCurrency subscribedCurrency;

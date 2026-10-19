@@ -15,7 +15,8 @@ MonoBehaviour:
   itemId: f25c3f4ec77c4a6aa9dbe25dce639eed
   displayName: "\uC601\uD63C \uC870\uAC01"
   description: "\uBAAC\uC2A4\uD130\uC758 \uC601\uD63C\uC774 \uC751\uCD95\uB41C \uC870\uAC01.
-    \uC7A5\uBE44 \uC2B9\uAE09\uC5D0 \uC0AC\uC6A9\uD558\uB294 \uC7AC\uB8CC\uC785\uB2C8\uB2E4."
+    \uC7A5\uBE44 \uC2B9\uAE09\uACFC \uB3D9\uD589\uC694\uAD34 \uC131\uC7A5\uC5D0 \uC0AC\uC6A9\uD558\uB294
+    \uC7AC\uB8CC\uC785\uB2C8\uB2E4."
   icon: {fileID: 715230307, guid: 91758b540003ccf42bdf038daa057cff, type: 3}
   category: 2
   grade: 0
@@ -23,11 +24,14 @@ MonoBehaviour:
   gradeAppearance: {fileID: 11400000, guid: 1106704c8189a254eb1c84a5ba70de1c, type: 2}
   gradeVariants: []
   equipmentSlot: 0
+  allowedClasses: 
   equipmentSet: {fileID: 0}
   attackBonus: 0
   defenseBonus: 0
   consumableEffect: 0
   useAmount: 0
   maximumStack: 99
-  buyPrice: 0
-  sellPrice: 0
+  buyPrice: 2
+  sellPrice: 1
+  cannotSell: 0
+  materialSource: {fileID: 0}

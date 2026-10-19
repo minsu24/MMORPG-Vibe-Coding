@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ada75e50a69424c83357669e06485c, type: 3}
+  m_Name: ClothShoes_Heroic
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemDefinition
+  itemId: 4ed36f2154974561b0ed2aa8ef906801
+  displayName: "\uCC9C \uC2E0\uBC1C"
+  description: "\uBC1C\uC18C\uB9AC\uB97C \uC904\uC5EC \uC8FC\uB294 \uAC00\uBCBC\uC6B4
+    \uCC9C \uC2E0\uBC1C\uC785\uB2C8\uB2E4."
+  icon: {fileID: -221045386, guid: 4f21636acb2dcad42a1d550b4f8b66ed, type: 3}
+  category: 0
+  grade: 2
+  gradeFrame: {fileID: 0}
+  gradeAppearance: {fileID: 11400000, guid: 9e29b44c58e45d548ac4de20082ee54d, type: 2}
+  gradeVariants:
+  - {fileID: 11400000, guid: a6cf1e456d1fd504f83df53684edc303, type: 2}
+  - {fileID: 11400000, guid: 9682d6d98753723478cd28c9bea2c807, type: 2}
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 9302ed8fa00bf4048b8183e9cd32e725, type: 2}
+  - {fileID: 11400000, guid: 0ed3b8ea970564747b74b8535d306829, type: 2}
+  equipmentSlot: 6
+  allowedClasses: 
+  equipmentSet: {fileID: 11400000, guid: f0bfdc7fe9dfbf24e9f419de62d4dda4, type: 2}
+  attackBonus: 0
+  defenseBonus: 4
+  consumableEffect: 0
+  useAmount: 0
+  maximumStack: 1
+  buyPrice: 60
+  sellPrice: 30
+  cannotSell: 1
+  materialSource: {fileID: 0}

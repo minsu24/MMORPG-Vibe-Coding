@@ -1,0 +1,149 @@
+using System;
+using System.IO;
+using EasternFantasy.Inventory;
+using EasternFantasy.Player;
+using UnityEditor;
+using UnityEngine;
+
+[InitializeOnLoad]
+public static class PetAttackRegressionRunner
+{
+    private const string Report = "D:/UnityWork/MMORPG-Vibe-Coding/Artifacts/PetCompanion/AttackRegression.txt";
+    private static PlayerEntity player;
+    private static EnemyController enemy;
+    private static PetCompanionActor actor;
+    private static int lastFrame = -1, stage;
+    private static float started;
+    private static bool begun, attacked;
+    static PetAttackRegressionRunner()
+    {
+        EditorApplication.playModeStateChanged += s => { if (s == PlayModeStateChange.EnteredPlayMode && SessionState.GetBool("PetAttackRegression", false)) Begin(); };
+        EditorApplication.delayCall += () => { if (EditorApplication.isPlaying && SessionState.GetBool("PetAttackRegression", false)) Begin(); };
+    }
+    public static void BeforeFix() { SessionState.SetBool("PetPersistentRegression", false); Run(false); }
+    public static void BeforePersistentFix() { SessionState.SetBool("PetPersistentRegression", true); Run(false); }
+    public static void AfterFix() { SessionState.SetBool("PetPersistentRegression", true); Run(true); }
+    private static void Run(bool after)
+    {
+        SessionState.SetBool("PetAttackRegression", true);
+        SessionState.SetBool("PetAttackAfterFix", after);
+        EditorApplication.EnterPlaymode();
+    }
+    private static void Begin()
+    {
+        if (begun) return;
+        begun = true;
+        var arena = UnityEngine.SceneManagement.SceneManager.CreateScene("CompanionRegressionArena");
+        UnityEngine.SceneManagement.SceneManager.SetActiveScene(arena);
+        Time.captureDeltaTime = 1f / 60f;
+        Time.timeScale = 1f;
+        var root = new GameObject("RunningPlayer");
+        root.transform.position = new Vector3(0f, .5f, 0f);
+        root.AddComponent<CapsuleCollider2D>().size = new Vector2(.5f, 1f);
+        player = root.AddComponent<PlayerEntity>();
+        if (SessionState.GetBool("PetPersistentRegression", false)) UnityEngine.Object.DontDestroyOnLoad(root);
+        var inventory = root.AddComponent<PlayerInventory>();
+        var soul = ScriptableObject.CreateInstance<ItemDefinition>();
+        inventory.AddItem(soul, 1);
+        var progress = new PetCompanionProgress();
+        progress.TrySummon(inventory, soul); progress.TryEquip();
+        var target = new GameObject("MovingEnemy");
+        target.transform.position = new Vector3(4f, .5f, 0f);
+        target.AddComponent<CapsuleCollider2D>().size = new Vector2(.6f, 1f);
+        enemy = target.AddComponent<EnemyController>();
+        actor = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Companions/GoblinCompanion.prefab")).GetComponent<PetCompanionActor>();
+        actor.Initialize(player, progress);
+        started = Time.time;
+        EditorApplication.update += Tick;
+    }
+    private static void Tick()
+    {
+        if (lastFrame == Time.frameCount) return;
+        lastFrame = Time.frameCount;
+        try
+        {
+            bool after = SessionState.GetBool("PetAttackAfterFix", false);
+            float elapsed = Time.time - started;
+            if (stage == 0)
+            {
+                player.transform.position += Vector3.right * (6.6f * Time.deltaTime);
+                if (elapsed >= .6f)
+                {
+                    player.NotifyAttackTarget(enemy);
+                    stage = 1; started = Time.time;
+                }
+            }
+            else if (stage == 1)
+            {
+                player.transform.position += Vector3.right * (6.6f * Time.deltaTime);
+                player.RegisterCombat();
+                if (elapsed >= 3f)
+                {
+                    if (!after)
+                    {
+                        if (SessionState.GetBool("PetPersistentRegression", false))
+                        {
+                            Check(enemy.Hits == 0 && actor.SelectedTarget == null && player.IsInCombat && player.LastAttackTarget == enemy,
+                                "Expected persistent-player scene mismatch was not reproduced");
+                            File.AppendAllText(Report, "REPRODUCED before scene fix: ownerScene=" + player.gameObject.scene.name
+                                + ", enemyScene=" + enemy.gameObject.scene.name + "; owner combat/last target valid; companion rejected target; hits=0.\n");
+                        }
+                        else
+                        {
+                            Check(enemy.Hits == 0 && actor.CombatState == PetCompanionCombatState.Returning,
+                                "Expected moving-player starvation was not reproduced");
+                            File.WriteAllText(Report, "REPRODUCED before fix: player runs at 6.6 units/s; companion remains Returning, enemy hits=0, target assigned=" + (actor.SelectedTarget == enemy) + ".\n");
+                        }
+                        Finish(); return;
+                    }
+                    Check(enemy.Hits > 0, "Still fails to attack while player runs");
+                    File.AppendAllText(Report, "PASS after fix: running player, enemy hits=" + enemy.Hits + ".\n");
+                    player.EndCombat();
+                    stage = 2; started = Time.time;
+                }
+            }
+            else if (stage == 2 && actor.CombatState == PetCompanionCombatState.Waiting)
+            {
+                enemy.transform.position = player.transform.position + Vector3.right * 4f;
+                enemy.Hits = 0;
+                player.NotifyAttackTarget(enemy);
+                stage = 3; started = Time.time;
+            }
+            else if (stage == 3)
+            {
+                enemy.transform.position += Vector3.right * (8f * Time.deltaTime);
+                player.RegisterCombat();
+                if (enemy.Hits > 0)
+                {
+                    attacked = true;
+                    File.AppendAllText(Report, "PASS after fix: fleeing enemy at 8 units/s was reached and damaged, hits=" + enemy.Hits + ".\n");
+                    player.EndCombat();
+                    stage = 4; started = Time.time;
+                }
+                Check(elapsed < 12f, "Still fails to damage a moving enemy: state=" + actor.CombatState + ", actor=" + actor.transform.position
+                    + ", enemy=" + enemy.transform.position + ", collider=" + enemy.GetComponent<Collider2D>().bounds.center
+                    + ", target=" + (actor.SelectedTarget == enemy) + ", combat=" + player.IsInCombat);
+            }
+            else if (stage == 4 && elapsed > 1f)
+            {
+                Check(attacked && enemy.Hits == 1 && actor.SelectedTarget == null, "Combat exit did not cancel target");
+                File.AppendAllText(Report, "PASS: combat exit stops further attacks. Actual actor tested in isolated Unity Play Mode with owner/enemy adapters.\n");
+                Finish();
+            }
+            if (stage == 2) Check(elapsed < 6f, "Return setup timed out");
+        }
+        catch (Exception error)
+        {
+            File.AppendAllText(Report, "FAIL: " + error + "\n");
+            Debug.LogException(error);
+            EditorApplication.Exit(1);
+        }
+    }
+    private static void Check(bool value, string message) { if (!value) throw new Exception(message); }
+    private static void Finish()
+    {
+        SessionState.SetBool("PetAttackRegression", false);
+        EditorApplication.update -= Tick;
+        EditorApplication.Exit(0);
+    }
+}

@@ -205,6 +205,7 @@ namespace EasternFantasy.UI
                 : caster == null ? "사용할 수 없는 캐릭터입니다"
                 : caster.GetCooldownRemaining(skill) > 0.05f
                     ? $"재사용 대기 중 ({Mathf.CeilToInt(caster.GetCooldownRemaining(skill))}초)"
+                : skill.IsCompanionSkill ? skillSystem.GetCompanionSkillUnavailableReason(skill)
                 : SkillResourcePayment.GetUnavailableReason(player, skill);
         }
 
@@ -230,6 +231,11 @@ namespace EasternFantasy.UI
                 : null;
             if (source != null && skillSystem != null)
                 skillSystem.AssignQuickSlot(slotIndex, source.Definition);
+            else if (skillSystem != null && eventData.pointerDrag != null)
+            {
+                var petSource = eventData.pointerDrag.GetComponent<PetCompanionSkillSlotUI>();
+                if (petSource != null && petSource.IsDragging) skillSystem.AssignQuickSlot(slotIndex, petSource.Definition);
+            }
         }
 
         public void OnPointerClick(PointerEventData eventData)

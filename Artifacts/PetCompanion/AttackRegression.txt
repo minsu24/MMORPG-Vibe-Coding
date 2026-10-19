@@ -1,0 +1,8 @@
+REPRODUCED before fix: player runs at 6.6 units/s; companion remains Returning, enemy hits=0, target assigned=True.
+REPRODUCED before scene fix: ownerScene=DontDestroyOnLoad, enemyScene=; owner combat/last target valid; companion rejected target; hits=0.
+PASS after fix: running player, enemy hits=1.
+PASS after fix: fleeing enemy at 8 units/s was reached and damaged, hits=1.
+PASS: combat exit stops further attacks. Actual actor tested in isolated Unity Play Mode with owner/enemy adapters.
+PASS after fix: running player, enemy hits=1.
+PASS after fix: fleeing enemy at 8 units/s was reached and damaged, hits=1.
+PASS: combat exit stops further attacks. Actual actor tested in isolated Unity Play Mode with owner/enemy adapters.

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ada75e50a69424c83357669e06485c, type: 3}
+  m_Name: OldFan_Rare
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemDefinition
+  itemId: a539edb1ede0456ca7dcd522bbb8e377
+  displayName: "\uD5CC \uBD80\uCC44"
+  description: "\uC624\uB798 \uC0AC\uC6A9\uD574 \uAC00\uC7A5\uC790\uB9AC\uAC00 \uB2F3\uC740
+    \uBD80\uCC44\uC785\uB2C8\uB2E4."
+  icon: {fileID: -2067424553, guid: 56648200cc98e294c91b6bb91104fdd6, type: 3}
+  category: 0
+  grade: 1
+  gradeFrame: {fileID: 0}
+  gradeAppearance: {fileID: 11400000, guid: c0bf7b62a902eb24795b7395b835dcab, type: 2}
+  gradeVariants:
+  - {fileID: 11400000, guid: 8fd421282a14bb446aeb877c15c23f19, type: 2}
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: d87ceb4b4ecf29e4aa793da7eb91ff3a, type: 2}
+  - {fileID: 11400000, guid: 96fee33b90a77d144bf7711ea6fdb9f7, type: 2}
+  - {fileID: 11400000, guid: b1a11d5996f4e264a8c52a5283be6d15, type: 2}
+  equipmentSlot: 1
+  allowedClasses: 00000000
+  equipmentSet: {fileID: 11400000, guid: f0bfdc7fe9dfbf24e9f419de62d4dda4, type: 2}
+  attackBonus: 6
+  defenseBonus: 0
+  consumableEffect: 0
+  useAmount: 0
+  maximumStack: 1
+  buyPrice: 120
+  sellPrice: 60
+  cannotSell: 1
+  materialSource: {fileID: 0}

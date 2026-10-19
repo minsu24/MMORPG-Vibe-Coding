@@ -25,6 +25,10 @@ namespace EasternFantasy.UI
         private ItemCategory selectedCategory = ItemCategory.Equipment;
 
         public static InventoryWindowUI Instance { get; private set; }
+        public RectTransform TutorialTarget => windowRoot != null ? windowRoot.transform as RectTransform : null;
+        public RectTransform TutorialCategoryTarget(ItemCategory category) => (category == ItemCategory.Equipment ? equipmentTab : category == ItemCategory.Consumable ? consumableTab : miscellaneousTab).transform as RectTransform;
+        public RectTransform TutorialItemTarget { get { foreach (var slot in slots) if (slot != null && slot.Definition != null) return slot.transform as RectTransform; return TutorialTarget; } }
+        public bool IsUnlocked => InventoryEquipmentTutorialUI.HasFinishedForCurrentClass;
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
         public ItemCategory SelectedCategory => selectedCategory;
         public ItemTooltipUI Tooltip => tooltip;
@@ -67,6 +71,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
+            if (StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning) return;
             if (IsOpen && (inventory == null || inventory.gameObject == null))
                 BindCurrentInventory();
             Keyboard keyboard = Keyboard.current;
@@ -89,8 +94,11 @@ namespace EasternFantasy.UI
                 SetOpen(!IsOpen);
         }
 
-        public void SetOpen(bool open)
+        public void SetOpen(bool open) { SetOpenInternal(open, false); }
+        internal void SetOpenForTutorial(bool open) { SetOpenInternal(open, true); }
+        private void SetOpenInternal(bool open, bool forTutorial)
         {
+            if (open && !forTutorial && !IsUnlocked) return;
             if (open && EquipmentUpgradeWindowUI.Instance != null && EquipmentUpgradeWindowUI.Instance.IsOpen) return;
             if (windowRoot == null)
                 return;

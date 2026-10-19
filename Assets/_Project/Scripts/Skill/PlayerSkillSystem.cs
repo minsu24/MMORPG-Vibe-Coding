@@ -14,7 +14,7 @@ namespace EasternFantasy.Skill
 
     [DisallowMultipleComponent]
     [RequireComponent(typeof(PlayerProgression))]
-    public sealed class PlayerSkillSystem : MonoBehaviour
+    public sealed class PlayerSkillSystem : MonoBehaviour, IPlayerSkillCaster
     {
         [SerializeField, Min(0)] private int skillPoints;
         [SerializeField] private SkillDefinition[] availableSkills = Array.Empty<SkillDefinition>();
@@ -23,7 +23,49 @@ namespace EasternFantasy.Skill
 
         private readonly Dictionary<SkillDefinition, int> skillLevels =
             new Dictionary<SkillDefinition, int>();
+        private readonly HashSet<SkillDefinition> companionSkills = new HashSet<SkillDefinition>();
+        private readonly Dictionary<SkillDefinition, float> companionCooldownEnds = new Dictionary<SkillDefinition, float>();
+        private PetCompanionActor companion;
         private PlayerProgression progression;
+
+        public void SetCompanionSkillUnlocked(SkillDefinition skill, bool unlocked)
+        {
+            if (skill == null || !skill.IsCompanionSkill) return;
+            bool changed = unlocked ? companionSkills.Add(skill) : companionSkills.Remove(skill);
+            if (changed) SkillsChanged?.Invoke();
+        }
+        public void BindCompanion(PetCompanionActor actor) => companion = actor;
+        public void UnbindCompanion(PetCompanionActor actor) { if (companion == actor) companion = null; }
+
+        public string GetCompanionSkillUnavailableReason(SkillDefinition skill)
+        {
+            if (skill == null || !skill.IsCompanionSkill) return string.Empty;
+            if (!companionSkills.Contains(skill)) return "동행요괴를 먼저 소환해 주세요";
+            if (companion == null || companion.CompanionId != skill.CompanionId) return "도깨비를 장착해 주세요";
+            return companion.GetActiveSkillUnavailableReason();
+        }
+
+        public bool TryCast(SkillDefinition skill)
+        {
+            if (skill == null) return false;
+            if (!skill.IsCompanionSkill)
+            {
+                var caster = ResolveClassSkillCaster();
+                return caster != null && caster.TryCast(skill);
+            }
+            if (GetSkillLevel(skill) <= 0 || GetCooldownRemaining(skill) > 0f
+                || !string.IsNullOrEmpty(GetCompanionSkillUnavailableReason(skill))) return false;
+            if (!companion.TryUseActiveSkill(skill)) return false;
+            companionCooldownEnds[skill] = Time.time + skill.CooldownSeconds;
+            return true;
+        }
+
+        public float GetCooldownRemaining(SkillDefinition skill)
+        {
+            if (skill == null) return 0f;
+            if (!skill.IsCompanionSkill) return ResolveClassSkillCaster()?.GetCooldownRemaining(skill) ?? 0f;
+            return companionCooldownEnds.TryGetValue(skill, out float end) ? Mathf.Max(0f, end - Time.time) : 0f;
+        }
         private PlayerAdvancementSystem advancementSystem;
 
         public int SkillPoints => skillPoints;
@@ -74,6 +116,7 @@ namespace EasternFantasy.Skill
         public int GetSkillLevel(SkillDefinition skill)
         {
             EnsureSkillState();
+            if (skill != null && skill.IsCompanionSkill) return companionSkills.Contains(skill) ? 1 : 0;
             return skill != null && skillLevels.TryGetValue(skill, out int level)
                 ? level
                 : 0;
@@ -160,10 +203,12 @@ namespace EasternFantasy.Skill
             return caster != null && caster.TryCast(quickSlots[index]);
         }
 
-        public IPlayerSkillCaster ResolveSkillCaster()
+        public IPlayerSkillCaster ResolveSkillCaster() => this;
+
+        private IPlayerSkillCaster ResolveClassSkillCaster()
         {
             foreach (MonoBehaviour component in GetComponents<MonoBehaviour>())
-                if (component is IPlayerSkillCaster caster
+                if (component != this && component is IPlayerSkillCaster caster
                     && component.isActiveAndEnabled)
                     return caster;
 

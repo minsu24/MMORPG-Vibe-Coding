@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1556faa70b3ce43862d54865c7f42e, type: 3}
+  m_Name: SpiderHuntResidentProgressDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dialogue.DialogueSequence
+  playerCharacter: {fileID: 11400000, guid: 2758d9b9772cd2441bb27040af28cb98, type: 2}
+  partnerCharacter: {fileID: 11400000, guid: db9a8e346e2893b4b90324c792016227, type: 2}
+  lines:
+  - speaker: 1
+    text: "\uC544\uC9C1 \uAC70\uBBF8\uB4E4\uC774 \uB3D9\uAD74\uC5D0 \uB0A8\uC544
+      \uC788\uC2B5\uB2C8\uB2E4. \uCD0C\uC7A5\uB2D8\uC758 \uC758\uB8B0\uB300\uB85C
+      \uAC70\uBBF8 10\uB9C8\uB9AC\uB97C \uCC98\uCE58\uD574 \uC8FC\uC138\uC694."
+    classOverrides: []

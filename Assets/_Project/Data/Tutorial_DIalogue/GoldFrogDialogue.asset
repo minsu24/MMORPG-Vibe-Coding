@@ -11,6 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec1556faa70b3ce43862d54865c7f42e, type: 3}
   m_Name: GoldFrogDialogue
+  completionExperience: 1350
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dialogue.DialogueSequence
   playerCharacter: {fileID: 11400000, guid: 2758d9b9772cd2441bb27040af28cb98, type: 2}
   partnerCharacter: {fileID: 11400000, guid: dd5dd9ecf476ebe48818042269cd8b60, type: 2}

@@ -347,7 +347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3928847235147732673, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.66
+      value: -2.03
       objectReference: {fileID: 0}
     - target: {fileID: 3928847235147732673, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -513,7 +513,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 5
+    OrthographicSize: 4
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -766,7 +766,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 12.258395, y: 1.6176937}
+  m_Offset: {x: 12.136229, y: 1.9143852}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -776,7 +776,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 18.462801, y: 1.2252727}
+  m_Size: {x: 18.707134, y: 1.8186557}
   m_EdgeRadius: 0
 --- !u!4 &1133800804
 Transform:
@@ -844,7 +844,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.12294483, y: 0.02235365}
+  m_Offset: {x: 0.07058668, y: -0.047456264}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -854,7 +854,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 17.793982, y: 10.077554}
+  m_Size: {x: 19.015656, y: 10.670938}
   m_EdgeRadius: 0
 --- !u!4 &1276695292
 Transform:
@@ -1037,7 +1037,7 @@ Transform:
   m_GameObject: {fileID: 1666615300}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.92, y: -1.83, z: 0}
+  m_LocalPosition: {x: 6.92, y: -1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1165,7 +1165,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1190,7 +1190,7 @@ Transform:
   m_GameObject: {fileID: 1846470891}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00483799, y: -0.056426525, z: -22.159399}
+  m_LocalPosition: {x: -2.4361248, y: -1.4229262, z: -22.159399}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

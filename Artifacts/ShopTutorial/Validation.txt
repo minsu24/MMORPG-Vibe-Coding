@@ -1,0 +1,8 @@
+﻿Shop tutorial validation (Unity Play Mode, 2026-10-20)
+PASS: Village shop first opening automatically shows two-page purchase/sale tutorial after popup completes.
+PASS: Purchase/sale tab and focus follow the current page; Previous returns to purchase.
+PASS: ProcessItem is blocked during tutorial; no items/currency consumed.
+PASS: Completion restores original panel position/scale, player input, time scale and purchase mode; shop stays open.
+PASS: Normal purchase and sale correctly change item count and currency after tutorial.
+PASS: Reopening shop does not repeat completed tutorial for current class/session.
+PASS: Unity console contains no errors; screenshot visually reviewed (ShopGuide.png).

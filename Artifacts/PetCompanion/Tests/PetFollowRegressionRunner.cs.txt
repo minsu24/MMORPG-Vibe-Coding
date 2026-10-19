@@ -1,0 +1,129 @@
+﻿using System;
+using System.IO;
+using EasternFantasy.Inventory;
+using EasternFantasy.Player;
+using UnityEditor;
+using UnityEngine;
+
+[InitializeOnLoad]
+public static class PetFollowRegressionRunner
+{
+    const string Report = "D:/UnityWork/MMORPG-Vibe-Coding/Artifacts/PetCompanion/FollowRegression.txt";
+    static PetCompanionActor actor;
+    static PlayerEntity player;
+    static CapsuleCollider2D collider;
+    static Animator animator;
+    static int lastFrame = -1, stage, samples, switches;
+    static bool begun;
+    static float started, previousX, minSpeed = float.MaxValue, maxSpeed, minY = float.MaxValue, maxY = float.MinValue;
+    static int animationHash;
+    static float stopX;
+    static PetFollowRegressionRunner()
+    {
+        EditorApplication.playModeStateChanged += s => { if (s == PlayModeStateChange.EnteredPlayMode && SessionState.GetBool("PetFollowRegression", false)) Begin(); };
+        EditorApplication.delayCall += () => { if (EditorApplication.isPlaying && SessionState.GetBool("PetFollowRegression", false)) Begin(); };
+    }
+    public static void Run()
+    {
+        foreach (string name in new[] { "Companion_Idle", "Companion_Walk" })
+        {
+            var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>("Assets/_Project/Animations/Companions/Goblin/" + name + ".anim");
+            var curve = AnimationUtility.GetEditorCurve(clip, EditorCurveBinding.FloatCurve("", typeof(Transform), "m_LocalPosition.y"));
+            foreach (var key in curve.keys) Check(Mathf.Abs(key.value - curve.keys[0].value) < .00001f, name + " still shifts height each frame");
+        }
+        SessionState.SetBool("PetFollowRegression", true);
+        EditorApplication.EnterPlaymode();
+    }
+    static void Begin()
+    {
+        if (begun) return;
+        begun = true;
+        Time.captureDeltaTime = 1f / 60f;
+        var root = new GameObject("FollowPlayer");
+        root.transform.position = new Vector3(0f, .5f, 0f);
+        collider = root.AddComponent<CapsuleCollider2D>(); collider.size = new Vector2(.5f, 1f);
+        player = root.AddComponent<PlayerEntity>();
+        root.AddComponent<PlayerIdleAnimation>();
+        root.AddComponent<PlayerMovement2D>().MoveInput = 1f;
+        var inventory = root.AddComponent<PlayerInventory>();
+        var soul = ScriptableObject.CreateInstance<ItemDefinition>(); inventory.AddItem(soul, 1);
+        var progress = new PetCompanionProgress(); progress.TrySummon(inventory, soul); progress.TryEquip();
+        actor = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Companions/GoblinCompanion.prefab")).GetComponent<PetCompanionActor>();
+        actor.Initialize(player, progress);
+        animator = actor.GetComponentInChildren<Animator>();
+        started = Time.time; previousX = actor.transform.position.x;
+        EditorApplication.update += Tick;
+    }
+    static void Tick()
+    {
+        if (lastFrame == Time.frameCount) return;
+        lastFrame = Time.frameCount;
+        try
+        {
+            float elapsed = Time.time - started;
+            if (stage == 0)
+            {
+                if (elapsed > 2f)
+                {
+                    float speed = (actor.transform.position.x - previousX) / Time.deltaTime;
+                    minSpeed = Mathf.Min(minSpeed, speed); maxSpeed = Mathf.Max(maxSpeed, speed);
+                    float y = animator.transform.position.y;
+                    minY = Mathf.Min(minY, y); maxY = Mathf.Max(maxY, y);
+                    int hash = animator.GetCurrentAnimatorStateInfo(0).fullPathHash;
+                    if (samples > 0 && animationHash != hash) switches++;
+                    animationHash = hash; samples++;
+                    Check(actor.CombatState == PetCompanionCombatState.Waiting, "Follow still alternates stop/return");
+                    Check(animator.GetCurrentAnimatorStateInfo(0).IsName("Companion_Walk"), "Walking player causes idle animation");
+                    Check(!actor.GetComponentInChildren<SpriteRenderer>().flipX, "Follow facing flipped during straight movement");
+                }
+                previousX = actor.transform.position.x;
+                if (elapsed > 7f)
+                {
+                    Check(minSpeed > 6.4f && maxSpeed < 6.8f, "Follow velocity pulses: " + minSpeed + ".." + maxSpeed);
+                    Check(maxY - minY < .0001f, "Flat-ground follow bobs: " + (maxY-minY));
+                    Check(switches == 0, "Follow restarts animations");
+                    stopX = player.transform.position.x - 1.1f;
+                    player.GetComponent<PlayerMovement2D>().MoveInput = 0f;
+                    stage = 1; started = Time.time;
+                }
+                else
+                {
+                    player.transform.position += Vector3.right * (6.6f * Time.deltaTime);
+                    // Physics/contact bounds fluctuate independently of the interpolated render position.
+                    collider.offset = new Vector2(0f, .015f * Mathf.Sin(Time.time * 40f));
+                }
+            }
+            else if (stage == 1)
+            {
+                Check(actor.transform.position.x <= stopX + .001f, "Follow overshoots when owner stops");
+                if (elapsed > 1f)
+                {
+                    Check(Mathf.Abs(actor.transform.position.x-stopX) < .001f, "Follow fails to settle");
+                    Check(animator.GetCurrentAnimatorStateInfo(0).IsName("Companion_Idle"), "Follow never becomes idle");
+                    player.GetComponent<PlayerIdleAnimation>().FacingDirectionX = -1f;
+                    player.GetComponent<PlayerMovement2D>().MoveInput = -1f;
+                    stage = 2; started = Time.time;
+                }
+            }
+            else if (stage == 2)
+            {
+                player.transform.position -= Vector3.right * (6.6f * Time.deltaTime);
+                if (elapsed > 2f)
+                {
+                    Check(actor.GetComponentInChildren<SpriteRenderer>().flipX, "Follow does not face left after reversal");
+                    Check(animator.GetCurrentAnimatorStateInfo(0).IsName("Companion_Walk"), "Reverse follow not walking");
+                    File.WriteAllText(Report, "PASS isolated Unity Play Mode: continuous follow at 6.6 units/s; sampled velocity=" + minSpeed + ".." + maxSpeed
+                        + "; animation switches during steady walking=" + switches + "; vertical displacement=" + (maxY-minY)
+                        + "; samples=" + samples + "; idle/walk height curves constant; stop settles without overshoot; direction reversal follows correctly.\n");
+                    SessionState.SetBool("PetFollowRegression", false); EditorApplication.update -= Tick; EditorApplication.Exit(0);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            File.WriteAllText(Report, "FAIL " + e); Debug.LogException(e);
+            SessionState.SetBool("PetFollowRegression", false); EditorApplication.update -= Tick; EditorApplication.Exit(1);
+        }
+    }
+    static void Check(bool value, string message) { if (!value) throw new Exception(message); }
+}

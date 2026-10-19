@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace EasternFantasy.Inventory
@@ -70,18 +70,35 @@ namespace EasternFantasy.Inventory
             if (dropMaterial == null)
                 dropMaterial = new PhysicsMaterial2D("Dropped Loot") { friction = 0.8f, bounciness = 0f };
             collisionBody.sharedMaterial = dropMaterial;
+            // Loot must land on the world, never on top of another item or coin.
+            foreach (WorldItemPickup other in Object.FindObjectsByType<WorldItemPickup>(FindObjectsSortMode.None))
+                IgnorePickupCollision(collisionBody, other.gameObject);
+            foreach (WorldCurrencyPickup other in Object.FindObjectsByType<WorldCurrencyPickup>(FindObjectsSortMode.None))
+                IgnorePickupCollision(collisionBody, other.gameObject);
             body.bodyType = RigidbodyType2D.Dynamic;
             body.constraints = RigidbodyConstraints2D.FreezeRotation;
             body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             body.interpolation = RigidbodyInterpolation2D.Interpolate;
-            body.linearDamping = 0.5f;
+            body.linearDamping = 0f;
             body.simulated = true;
             float flightTime = Mathf.Max(0.05f, duration);
             float gravity = Mathf.Max(0.01f, Mathf.Abs(Physics2D.gravity.y));
             body.gravityScale = Mathf.Max(1f, 8f * Mathf.Max(0f, height) / (flightTime * flightTime * gravity));
-            body.linearVelocity = new Vector2((landingPoint.x - pickup.transform.position.x) / flightTime,
-                Mathf.Sqrt(2f * gravity * body.gravityScale * Mathf.Max(0f, height)));
+            float acceleration = gravity * body.gravityScale;
+            float verticalSpeed = Mathf.Sqrt(2f * acceleration * Mathf.Max(0f, height));
+            float fallDistance = pickup.transform.position.y - landingPoint.y;
+            // Include the fall from the enemy's height so horizontal motion reaches the reserved slot.
+            float actualFlightTime = Mathf.Max(0.05f, (verticalSpeed + Mathf.Sqrt(
+                Mathf.Max(0f, verticalSpeed * verticalSpeed + 2f * acceleration * fallDistance))) / acceleration);
+            body.linearVelocity = new Vector2((landingPoint.x - pickup.transform.position.x) / actualFlightTime, verticalSpeed);
             return body;
+        }
+
+        private static void IgnorePickupCollision(Collider2D collisionBody, GameObject other)
+        {
+            if (other == collisionBody.gameObject) return;
+            var otherBody = other.GetComponent<BoxCollider2D>();
+            if (otherBody != null) Physics2D.IgnoreCollision(collisionBody, otherBody);
         }
 
         public static void StopPhysicalDrop(Rigidbody2D body, GameObject pickup)
@@ -117,7 +134,9 @@ namespace EasternFantasy.Inventory
 
             float center = Mathf.Clamp(desiredX, left, right);
             const float spacing = 0.12f;
-            for (int step = 0; step < 24; step++)
+            float stride = halfWidth * 2f + spacing;
+            int maximumSteps = Mathf.CeilToInt((right - left) / stride) * 2 + 1;
+            for (int step = 0; step < maximumSteps; step++)
             {
                 float offset = step == 0 ? 0f : ((step + 1) / 2) * (step % 2 == 1 ? 1f : -1f);
                 float x = center + offset * (halfWidth * 2f + spacing);

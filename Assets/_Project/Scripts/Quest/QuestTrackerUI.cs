@@ -110,7 +110,7 @@ namespace EasternFantasy.Quest
                 if (progress.Status != QuestStatus.ReadyToTurnIn)
                     continue;
                 foreach (QuestGiver giver in givers)
-                    if (giver.Quest == progress.Definition && giver.isActiveAndEnabled)
+                    if (giver.Quest == progress.Definition && giver.isActiveAndEnabled && giver.CanTurnInCurrentQuest)
                         return giver.transform;
             }
 
@@ -134,7 +134,16 @@ namespace EasternFantasy.Quest
                         nearestDistance = distance;
                     }
                 }
-                return nearest != null ? nearest.transform : null;
+                Transform nearestTarget = nearest != null ? nearest.transform : null;
+                foreach (MON_Spider spider in FindObjectsByType<MON_Spider>(FindObjectsSortMode.None))
+                {
+                    if (spider.Quest != progress.Definition || spider.HP <= 0f) continue;
+                    float distance = (spider.transform.position - origin).sqrMagnitude;
+                    if (distance >= nearestDistance) continue;
+                    nearestDistance = distance;
+                    nearestTarget = spider.transform;
+                }
+                return nearestTarget;
             }
             foreach (QuestGiver giver in givers)
                 if (giver.isActiveAndEnabled && giver.CanOfferQuest)
@@ -158,7 +167,9 @@ namespace EasternFantasy.Quest
 
                 QuestDefinition quest = progress.Definition;
                 builder.Append('[').Append(quest.TypeLabel).Append("] ").AppendLine(quest.Title);
-                builder.Append(quest.ObjectiveDescription);
+                builder.Append(progress.Status == QuestStatus.ReadyToTurnIn
+                    && !string.IsNullOrWhiteSpace(quest.TurnInDescription)
+                    ? quest.TurnInDescription : quest.ObjectiveDescription);
                 builder.Append("  ").Append(progress.CurrentAmount).Append('/').Append(quest.RequiredAmount);
 
                 if (progress.Status == QuestStatus.ReadyToTurnIn)

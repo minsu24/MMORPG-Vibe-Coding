@@ -1,7 +1,6 @@
 using EasternFantasy.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Collider2D))]
 public sealed class PortalManager : MonoBehaviour
@@ -59,9 +58,8 @@ public sealed class PortalManager : MonoBehaviour
         if (!playerInPortal.TryGetComponent<PlayerLocationSetter>(out _))
             playerInPortal.gameObject.AddComponent<PlayerLocationSetter>();
 
-        MapTransferData.SetTarget(targetPointName);
-        isLoadingScene = true;
-        SceneManager.LoadScene(sceneName);
+        isLoadingScene = PortalSceneTransition.TryLoad(sceneName, targetPointName,
+            success => { if (this != null) isLoadingScene = false; });
     }
 
     private void OnTriggerEnter2D(Collider2D other)

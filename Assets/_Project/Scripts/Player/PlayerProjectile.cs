@@ -74,7 +74,10 @@ namespace EasternFantasy.Player
 
             float healthBeforeHit = hitEntity.HP;
             if (hitEntity is EnemyController targetEnemy)
+            {
+                if (owner is PlayerEntity attackingPlayer) attackingPlayer.NotifyAttackTarget(targetEnemy);
                 targetEnemy.TakeDamage(damage, isCritical);
+            }
             else
                 hitEntity.TakeDamage(damage);
             if (hitEntity is EnemyController enemy && enemy.HP > 0f)

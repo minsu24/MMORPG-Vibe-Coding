@@ -1,0 +1,7 @@
+﻿Dialogue panel aspect validation (2026-10-20)
+PASS: Width remains 1920; height increased from 350 to 538.42694, matching sprite rect 2136:599.
+PASS: Bottom margin preserved; direct child vertical positions adjusted to match taller artwork.
+PASS: Image preserveAspect enabled.
+PASS: Runtime ratio check passes; screenshot visually reviewed (InGame.png).
+PASS: Dialogue text/name and first-line Space hint remain legible.
+PASS: Unity console contains no errors.

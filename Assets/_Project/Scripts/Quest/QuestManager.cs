@@ -47,13 +47,17 @@ namespace EasternFantasy.Quest
 
             Instance = this;
             player = GameObject.FindGameObjectWithTag("Player");
-            playerProgression = player.GetComponent<PlayerProgression>();
+            playerProgression = player != null ? player.GetComponent<PlayerProgression>() : null;
             DontDestroyOnLoad(gameObject);
         }
 
         public bool CanAccept(QuestDefinition definition)
         {
             if (definition == null)
+                return false;
+
+            if (definition.PrerequisiteQuest != null
+                && FindProgress(definition.PrerequisiteQuest)?.Status != QuestStatus.Completed)
                 return false;
 
             QuestProgress existing = FindProgress(definition);
@@ -106,9 +110,12 @@ namespace EasternFantasy.Quest
             {
                 PlayerCurrency currency = FindFirstObjectByType<PlayerCurrency>(FindObjectsInactive.Include);
                 currency?.Add(definition.RewardYeopjeon);
-                playerProgression.AddExperience(definition.RewardEXP);
-
-                
+            }
+            if (definition.RewardEXP > 0)
+            {
+                if (playerProgression == null)
+                    playerProgression = FindFirstObjectByType<PlayerProgression>();
+                playerProgression?.AddExperience(definition.RewardEXP);
             }
             QuestsChanged?.Invoke();
             return true;

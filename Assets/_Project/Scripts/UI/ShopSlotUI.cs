@@ -52,7 +52,8 @@ namespace EasternFantasy.UI
             priceText.text = item == null
                 ? string.Empty
                 : $"{price} 엽전" + (selling ? $"  ×{quantity}" : string.Empty);
-            button.interactable = item != null;
+            if (selling && item != null && !item.CanSell) priceText.text = "판매불가";
+            button.interactable = item != null && (!selling || item.CanSell);
         }
 
         public void Clear()

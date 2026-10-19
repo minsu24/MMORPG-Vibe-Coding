@@ -120,7 +120,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 265
+  spritePixelsToUnits: 275
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -251,12 +251,12 @@ TextureImporter:
       name: "\uC5EC\uAC80\uC0AC \uAC77\uAE30 14_3"
       rect:
         serializedVersion: 2
-        x: 1086
-        y: 67
-        width: 362
-        height: 545
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1113
+        y: 70
+        width: 322
+        height: 534
+      alignment: 9
+      pivot: {x: 0.5080966601, y: 0.5070224719}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -273,12 +273,12 @@ TextureImporter:
       name: "\uC5EC\uAC80\uC0AC \uAC77\uAE30 14_4"
       rect:
         serializedVersion: 2
-        x: 1448
-        y: 67
-        width: 362
-        height: 537
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1454
+        y: 70
+        width: 323
+        height: 534
+      alignment: 9
+      pivot: {x: 0.4797637633, y: 0.5070224719}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -297,10 +297,10 @@ TextureImporter:
         serializedVersion: 2
         x: 1810
         y: 70
-        width: 362
-        height: 534
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 352
+        height: 533
+      alignment: 9
+      pivot: {x: 0.4412542614, y: 0.5079737336}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

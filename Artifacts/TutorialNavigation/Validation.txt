@@ -1,0 +1,10 @@
+﻿Tutorial previous button validation (Unity Play Mode, 2026-10-20)
+PASS: Previous is disabled on the first page; direct Previous call cannot underflow.
+PASS: Actual Previous button click returns from skill page to stats page with the correct window visible.
+PASS: Going backward from final step preserves the completion lock; subsequent completion still unlocks windows.
+PASS: Returning from equipment page to inventory closes equipment and restores the collected-item category.
+PASS: Returning across category pages selects the correct tabs.
+PASS: Pet tutorial also supports Previous and still completes exactly once.
+PASS: Pet Previous / Next / Close buttons do not overlap; mandatory guides show Previous / Next.
+PASS: Unity console contains no errors.
+Visual review: PreviousButton.png.

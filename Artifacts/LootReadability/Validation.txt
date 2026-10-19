@@ -1,0 +1,7 @@
+PASS - Unity compilation and shader compilation: no console errors/warnings.
+PASS - Rendered fan, gauntlets, sword, Rare Goblin Club and Soul Fragment with individual textures and proportional artwork.
+PASS - Dark backplates and grade-colored borders; unlit bright contour remains legible without scene lighting.
+PASS - Actual Input System mouse hover reveals Korean grade/name; leaving hides it.
+PASS - Collection hides name/backplate/border before collection animation.
+PASS - Physics simulation: five square framed pickups rest directly on floor at separate horizontal positions.
+Preview: Preview.png

@@ -73,6 +73,9 @@ namespace EasternFantasy.Inventory
         }
         public IReadOnlyList<ItemDefinition> ConsumableSlots => consumableSlots;
         public event Action InventoryChanged;
+        public static event Action<PlayerInventory, ItemDefinition> ItemAcquired;
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetAcquisitionEvents() { ItemAcquired = null; }
 
         public float EquippedAttackBonus
         {
@@ -192,6 +195,7 @@ namespace EasternFantasy.Inventory
                 items.Add(new InventoryStack(item, amount, FindFirstEmptySlot(item.Category)));
 
             InventoryChanged?.Invoke();
+            ItemAcquired?.Invoke(this, item);
             return true;
         }
 
@@ -263,7 +267,7 @@ namespace EasternFantasy.Inventory
             if (currency == null || !currency.CanAfford(recipe.CostYeopjeon)) return false;
             foreach (var pair in requirements)
             {
-                if (GetQuantity(pair.Key) >= pair.Value) continue;
+                if (GetMaterialQuantity(pair.Key) >= pair.Value) continue;
                 error = pair.Key.DisplayName + " 재료가 부족합니다.";
                 return false;
             }
@@ -282,9 +286,7 @@ namespace EasternFantasy.Inventory
             currency.TrySpendSilently(recipe.CostYeopjeon);
             foreach (var pair in requirements)
             {
-                var stack = FindStack(pair.Key);
-                stack.SetQuantity(stack.Quantity - pair.Value);
-                if (stack.Quantity == 0) items.Remove(stack);
+                ConsumeMaterial(pair.Key, pair.Value);
             }
             result = item.GetGradeVariant(recipe.TargetGrade);
             error = null;
@@ -395,6 +397,42 @@ namespace EasternFantasy.Inventory
             return index >= 0 && index < ConsumableSlotCount
                 && consumableSlots[index] != null
                 && TryUseOrEquip(consumableSlots[index]);
+        }
+
+        public int GetMaterialQuantity(ItemDefinition material)
+        {
+            EnsureInitialized();
+            int total = 0;
+            if (material == null) return total;
+            foreach (var stack in items)
+                if (material.MatchesMaterial(stack.Item) || stack.Item == material) total += stack.Quantity;
+            return total;
+        }
+
+        // Consume tutorial materials first so ordinary, sellable materials are preserved.
+        private void ConsumeMaterial(ItemDefinition material, int amount)
+        {
+            for (int pass = 0; pass < 2 && amount > 0; pass++)
+            {
+                for (int i = items.Count - 1; i >= 0 && amount > 0; i--)
+                {
+                    var stack = items[i];
+                    if (stack.Item.CanSell != (pass == 1)
+                        || !(material.MatchesMaterial(stack.Item) || stack.Item == material)) continue;
+                    int consumed = Mathf.Min(amount, stack.Quantity);
+                    stack.SetQuantity(stack.Quantity - consumed);
+                    amount -= consumed;
+                    if (stack.Quantity == 0) items.RemoveAt(i);
+                }
+            }
+        }
+
+        public bool RemoveMaterial(ItemDefinition material, int amount = 1)
+        {
+            if (material == null || amount <= 0 || GetMaterialQuantity(material) < amount) return false;
+            ConsumeMaterial(material, amount);
+            InventoryChanged?.Invoke();
+            return true;
         }
 
         public int GetQuantity(ItemDefinition item)

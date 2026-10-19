@@ -18,9 +18,9 @@ namespace EasternFantasy.Player
         private PlayerEntity entity;
         private PlayerSkillSystem skills;
         private float energy;
-        private float lastCombatTime;
         private float parryEndTime;
 
+        public float CombatTimeout => combatTimeout;
         public float Current => energy;
         public float Maximum => baseMaximum + (skills != null
             ? skills.GetEffectTotal(SkillEffectType.MaximumMana) : 0f);
@@ -32,7 +32,6 @@ namespace EasternFantasy.Player
         {
             entity = GetComponent<PlayerEntity>();
             skills = GetComponent<PlayerSkillSystem>();
-            lastCombatTime = Time.time;
         }
 
         private void OnEnable()
@@ -54,11 +53,11 @@ namespace EasternFantasy.Player
         {
             if (entity.IsDead) return;
             bool inVillage = SceneManager.GetActiveScene().name == villageSceneName;
-            if (!inVillage && Time.time - lastCombatTime < combatTimeout) return;
+            if (!inVillage && entity.IsInCombat) return;
             SetEnergy(energy - decayPerSecond * Time.deltaTime);
         }
 
-        public void RegisterCombat() { lastCombatTime = Time.time; }
+        public void RegisterCombat() { if (entity != null) entity.RegisterCombat(); }
 
         public void GainFromAttackHit(float dealtDamage)
         {

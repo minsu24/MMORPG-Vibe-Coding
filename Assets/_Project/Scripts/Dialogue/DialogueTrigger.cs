@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using EasternFantasy.Player;
 using UnityEngine;
 
@@ -9,15 +10,23 @@ namespace EasternFantasy.Dialogue
     {
         [SerializeField] private DialogueSequence sequence;
         [SerializeField] private bool startOnPlayerEnter;
+        [Tooltip("Play this sequence only once per game session, including scene revisits.")]
         [SerializeField] private bool playOnlyOnce;
 
-        private bool hasPlayed;
+        private static readonly HashSet<DialogueSequence> playedSequences = new HashSet<DialogueSequence>();
         private Coroutine pendingEntryDialogue;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetPlayedSequences()
+        {
+            // Also reset when entering Play Mode with domain reload disabled.
+            playedSequences.Clear();
+        }
 
         // Call this from an NPC interaction script, UnityEvent, button, or cutscene.
         public void PlayDialogue()
         {
-            if (playOnlyOnce && hasPlayed)
+            if (playOnlyOnce && sequence != null && playedSequences.Contains(sequence))
                 return;
 
             if (DialogueManager.Instance == null)
@@ -32,7 +41,9 @@ namespace EasternFantasy.Dialogue
                 return;
             }
 
-            hasPlayed = DialogueManager.Instance.StartDialogue(sequence);
+            // A busy dialogue manager must not consume this sequence's first playback.
+            if (DialogueManager.Instance.StartDialogue(sequence) && playOnlyOnce)
+                playedSequences.Add(sequence);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

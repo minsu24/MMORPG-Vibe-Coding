@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using EasternFantasy.Player;
 using UnityEngine;
 
@@ -9,7 +9,8 @@ namespace EasternFantasy.Inventory
     public sealed class WorldItemPickup : MonoBehaviour
     {
         [Header("Appearance")]
-        [SerializeField, Min(0.1f)] private float worldIconSize = 0.8f;
+        [SerializeField, Min(0.1f)] private float worldIconSize = 0.95f;
+        [SerializeField, Min(1f)] private float slenderWeaponScale = 1.3f;
         [SerializeField, Min(0.05f)] private float pickupRadius = 0.45f;
 
         [Header("Drop Motion")]
@@ -41,7 +42,11 @@ namespace EasternFantasy.Inventory
         public ItemDefinition Item => item;
         public int Quantity => quantity;
         public Vector3 LandingPosition => landingPosition;
-        public float VisualWidth => worldIconSize;
+        // Before initialization, reserve enough room for the largest possible weapon.
+        public float VisualWidth => item == null ? worldIconSize * slenderWeaponScale : DisplaySize;
+        private float DisplaySize => worldIconSize * (item != null && item.Category == ItemCategory.Equipment
+            && item.EquipmentSlot == EquipmentSlot.Weapon && item.Icon != null
+            && item.Icon.bounds.size.y >= item.Icon.bounds.size.x * 2f ? slenderWeaponScale : 1f);
 
         private void Awake()
         {
@@ -65,12 +70,17 @@ namespace EasternFantasy.Inventory
             quantity = amount;
             name = $"{definition.DisplayName} x{amount}";
             iconRenderer.sprite = definition.Icon;
+            if (definition.Icon != null) {
+                var properties = new MaterialPropertyBlock();
+                iconRenderer.GetPropertyBlock(properties);
+                properties.SetTexture("_MainTex", definition.Icon.texture);
+                iconRenderer.SetPropertyBlock(properties);
+            }
             FitIconToWorldSize();
 
 
             landingPosition = landingPoint;
-            if (iconRenderer.sprite != null)
-                landingPosition.y += iconRenderer.bounds.extents.y;
+            landingPosition.y += iconRenderer.bounds.extents.y - (iconRenderer.bounds.center.y - transform.position.y);
             elapsed = 0f;
             initialized = true;
             dropBody = DropPlacement2D.LaunchPhysicalDrop(gameObject, iconRenderer, landingPosition, tossDuration, tossHeight);
@@ -173,7 +183,7 @@ namespace EasternFantasy.Inventory
             if (largestSide <= 0f)
                 return;
 
-            float scale = worldIconSize / largestSide;
+            float scale = DisplaySize / largestSide;
             transform.localScale = Vector3.one * scale;
             pickupCollider.radius = pickupRadius / scale;
         }
@@ -181,6 +191,7 @@ namespace EasternFantasy.Inventory
         private void OnValidate()
         {
             worldIconSize = Mathf.Max(0.1f, worldIconSize);
+            slenderWeaponScale = Mathf.Max(1f, slenderWeaponScale);
             pickupRadius = Mathf.Max(0.05f, pickupRadius);
             tossDuration = Mathf.Max(0.05f, tossDuration);
             tossHeight = Mathf.Max(0f, tossHeight);

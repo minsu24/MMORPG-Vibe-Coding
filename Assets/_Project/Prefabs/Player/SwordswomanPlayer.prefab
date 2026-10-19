@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 2581142312985791117}
   - component: {fileID: 3608967761465947910}
   - component: {fileID: 7879775847313012779}
+  - component: {fileID: 6300000000000000060}
   m_Layer: 6
   m_Name: SwordswomanPlayer
   m_TagString: Player
@@ -447,6 +448,7 @@ GameObject:
   - component: {fileID: 6749449187529274334}
   - component: {fileID: 8836460492422581657}
   - component: {fileID: 816156658992481673}
+  - component: {fileID: 6300000000000000017}
   m_Layer: 6
   m_Name: CharacterVisual
   m_TagString: Untagged
@@ -562,3 +564,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7759f945025dd5d4986906474da9e2de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.SwordswomanSlashAnimationEvents
+--- !u!114 &6300000000000000017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7998046781919826993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df7fee7b8df471e92066e261552baf2, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.SwordswomanWalkSmoothing
+  walkStateName: SwordWalk
+  blendDuration: 0.045
+--- !u!114 &6300000000000000060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c6a77d3c634ff2b50ef1f4a21e5df2, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerFootstepDust
+  walkStateName: SwordWalk
+  stepPhaseOffset: 0
+  minimumTravelPerStep: 0.12
+  dustMaterial: {fileID: 2100000, guid: 3ebfe20b94d84cd4ad3758a7e6e6b528, type: 2}
+  dustColor: {r: 0.85, g: 0.78, b: 0.65, a: 0.85}
+  particlesPerStep: 8
+  dustSize: 0.32
+  dustLifetime: 0.45
+  footSpread: 0.12

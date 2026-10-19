@@ -79,7 +79,7 @@ namespace EasternFantasy.Quest
                     {
                         if (progress.Status == QuestStatus.Active)
                             sprite = activeSprite;
-                        else if (progress.Status == QuestStatus.ReadyToTurnIn)
+                        else if (progress.Status == QuestStatus.ReadyToTurnIn && questGiver.CanTurnInCurrentQuest)
                             sprite = readyToTurnInSprite;
                     }
                 }

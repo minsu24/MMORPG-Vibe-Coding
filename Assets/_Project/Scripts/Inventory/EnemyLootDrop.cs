@@ -1,4 +1,6 @@
-﻿using System;
+using System;
+using EasternFantasy.CharacterSelection;
+using EasternFantasy.Player;
 using UnityEngine;
 
 namespace EasternFantasy.Inventory
@@ -26,6 +28,17 @@ namespace EasternFantasy.Inventory
         [SerializeField] private EnemyDropEntry[] drops = Array.Empty<EnemyDropEntry>();
         [SerializeField, Min(0f)] private float spawnHeight = 0.35f;
         [SerializeField, Min(0f)] private float horizontalScatter = 0.65f;
+
+        [Tooltip("Use only this drop table, skipping the global common material roll.")]
+        [SerializeField] private bool overridesCommonLoot;
+        public bool OverridesCommonLoot => overridesCommonLoot;
+
+        [Tooltip("Only drop weapons that the active player class can equip.")]
+        [SerializeField] private bool filterWeaponsByPlayerClass;
+
+        public bool CanDropForClass(ItemDefinition item, CharacterClassId playerClass) => item != null
+            && (!filterWeaponsByPlayerClass || item.Category != ItemCategory.Equipment
+                || item.EquipmentSlot != EquipmentSlot.Weapon || item.CanBeEquippedBy(playerClass));
 
         private EnemyController enemy;
         private bool hasDropped;
@@ -56,16 +69,22 @@ namespace EasternFantasy.Inventory
             hasDropped = true;
             Collider2D floor = DropPlacement2D.FindSupport(gameObject.scene, transform.position);
             if (floor == null) floor = floorCollider;
+            CharacterClassId playerClass = PlayerClassRuntime.ActiveDefinition != null
+                ? PlayerClassRuntime.ActiveDefinition.ClassId : CharacterSelectionState.SelectedClass;
+            int dropIndex = 0;
             foreach (EnemyDropEntry drop in drops)
             {
-                if (drop == null || drop.Item == null ||
+                if (drop == null || !CanDropForClass(drop.Item, playerClass) ||
                     UnityEngine.Random.value > drop.DropChance)
                     continue;
 
                 int minimum = Mathf.Max(1, drop.MinimumQuantity);
                 int maximum = Mathf.Max(minimum, drop.MaximumQuantity);
                 int quantity = UnityEngine.Random.Range(minimum, maximum + 1);
-                float scatter = UnityEngine.Random.Range(-horizontalScatter, horizontalScatter);
+                // Alternate right/left with a fixed gap, reserving one floor slot per drop.
+                float spacing = Mathf.Max(pickupPrefab.VisualWidth + 0.12f, horizontalScatter);
+                float scatter = dropIndex == 0 ? 0f : ((dropIndex + 1) / 2) * (dropIndex % 2 == 1 ? spacing : -spacing);
+                dropIndex++;
                 if (!DropPlacement2D.TryFindLanding(floor, transform.position,
                     transform.position.x + scatter, pickupPrefab.VisualWidth * 0.5f,
                     out Vector3 landing))

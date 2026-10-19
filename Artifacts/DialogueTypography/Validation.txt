@@ -1,0 +1,7 @@
+﻿Dialogue typography validation (2026-10-20)
+Body: 40 local units (~32 screen pixels at current scale), auto-size floor 36; larger text area 1424x210 with more line spacing.
+Names: up to 40 local units, taller labels.
+Quest choice prompt/title/buttons enlarged to match.
+PASS: 213 configured dialogue/class variants checked with TMP mesh layout; no text overflow.
+PASS: InGame.png visually reviewed; names and dialogue fit the parchment.
+PASS: Unity console contains no errors.

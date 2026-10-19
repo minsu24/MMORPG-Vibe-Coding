@@ -1,0 +1,13 @@
+﻿Tutorial acquisition triggers and window locks (Unity Play Mode, 2026-10-20)
+PASS: Before tutorials, all four public SetOpen(true) methods refuse to open locked windows.
+PASS: Successful PlayerInventory.AddItem before stats/skills completion queues inventory tutorial.
+PASS: Inventory guide opens normally through the dedicated internal tutorial path while public access remains locked.
+PASS: Mandatory inventory guide hides the skip button; completing all nine pages unlocks inventory/equipment only.
+PASS: Both unlocked inventory/equipment windows open through their normal public entry points.
+PASS: Stats/skill windows remain locked until their own guide completes.
+PASS: Original goblin dialogue and stats/skills guide still play in sequence.
+PASS: Completing stats/skills guide unlocks stats and skills; normal opening/closing works afterwards.
+PASS: Gameplay time returns to 1 after the normal goblin hit stop expires.
+Acquisition events now come from successful inventory additions (world loot and other item rewards); the old world-pickup-only event was removed.
+Dialogues and existing guides defer a queued acquisition guide until they finish.
+Tutorial progress/unlocks are scoped per class and reset with a new play session, matching the existing tutorial session state.

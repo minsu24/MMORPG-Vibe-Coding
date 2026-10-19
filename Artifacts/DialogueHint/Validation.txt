@@ -1,0 +1,7 @@
+﻿First-line dialogue hint validation (Unity Play Mode, 2026-10-20)
+PASS: First entry shows 34-point centered gold hint above dialogue panel.
+PASS: Unscaled 1.4-second pulse varies scale from 1.0 to 1.1 while dialogue pauses game time.
+PASS: Hint hides on advancing to the second line.
+PASS: Hint does not return on subsequent conversations for the same class/session.
+PASS: Unity console contains no errors.
+Visual review: FirstDialogue.png.

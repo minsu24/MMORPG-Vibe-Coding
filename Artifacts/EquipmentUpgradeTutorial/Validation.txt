@@ -1,0 +1,9 @@
+﻿Equipment upgrade tutorial validation (Unity Play Mode, 2026-10-20)
+PASS: Actual first blacksmith interaction plays existing greeting, then opens tutorial after popup completes.
+PASS: Five-page guide previews owned eligible equipment without consuming items/currency.
+PASS: ClearSlot/DropItem/Confirm refuse gameplay mutations during guide.
+PASS: Previous navigation and picker tabs work.
+PASS: Completion restores both panel layouts, clears preview, restores player input, and retains the normal upgrade-window game pause.
+PASS: Adding required materials and using normal DropItem/Confirm after tutorial upgrades the common weapon to its recipe target grade.
+PASS: Later blacksmith interaction does not repeat completed tutorial for the same class/session.
+PASS: Unity console contains no errors; Guide.png visually reviewed.

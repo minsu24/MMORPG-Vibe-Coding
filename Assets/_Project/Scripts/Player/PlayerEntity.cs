@@ -13,6 +13,10 @@ namespace EasternFantasy.Player
     [RequireComponent(typeof(PlayerMovement2D))]
     public sealed class PlayerEntity : Entity
     {
+        [Header("Combat State")]
+        [SerializeField, Min(.01f)] private float combatTimeout = 10f;
+        private readonly PlayerCombatState combatState = new PlayerCombatState();
+
         [Header("Class Growth")]
         [SerializeField] private PlayerStatGrowthTable statGrowth;
 
@@ -59,6 +63,38 @@ namespace EasternFantasy.Player
         public event Action<float> DamageReduced;
         public event Action Died;
         public event Action StatsChanged;
+        public event Action<EnemyController> AttackTargetHit;
+        public EnemyController LastAttackTarget { get; private set; }
+
+        public void NotifyAttackTarget(EnemyController enemy)
+        {
+            if (IsDead || enemy == null || !enemy.isActiveAndEnabled || enemy.HP <= 0f) return;
+            RegisterCombat();
+            LastAttackTarget = enemy;
+            AttackTargetHit?.Invoke(enemy);
+        }
+        public bool IsInCombat
+        {
+            get
+            {
+                var energy = Energy;
+                return !IsDead && combatState.IsActive(Time.time, energy != null ? energy.CombatTimeout : combatTimeout);
+            }
+        }
+
+        public void RegisterCombat()
+        {
+            if (IsDead) return;
+            if (!IsInCombat) LastAttackTarget = null;
+            combatState.Register(Time.time);
+        }
+
+        public void EndCombat()
+        {
+            combatState.Clear();
+            LastAttackTarget = null;
+        }
+
         private int playerLayer, EnemyLayer;
 
         public override float maxHP => maximumHealth + healthLevelBonus + healthSkillBonus + healthSetBonus;
@@ -228,10 +264,14 @@ namespace EasternFantasy.Player
             HP -= appliedDamage;
             if (shieldReduction > 0f)
                 DamageReduced?.Invoke(defendedDamage * shieldReduction);
+            RegisterCombat();
             Damaged?.Invoke(appliedDamage);
 
             if (IsDead)
+            {
+                EndCombat();
                 Died?.Invoke();
+            }
         }
 
         public void Revive()

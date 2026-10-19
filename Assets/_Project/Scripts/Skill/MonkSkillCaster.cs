@@ -220,6 +220,7 @@ namespace EasternFantasy.Skill
                     ImpactOffset = (Vector3)collider.ClosestPoint(center) - enemy.transform.position
                 };
                 float before = enemy.HP;
+                entity.NotifyAttackTarget(enemy);
                 enemy.TakeDamage(punchDamage, punchCritical, false);
                 float dealt = Mathf.Max(0f, before - enemy.HP);
                 if (dealt <= 0f) continue;

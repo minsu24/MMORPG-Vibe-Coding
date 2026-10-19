@@ -1,0 +1,10 @@
+﻿Dialogue panel cleanup (2026-10-20)
+Created transparent isolated DialoguePanelClean.png from the original atlas using imagegen.
+Original atlas preserved; unrelated UI sprites remain referenced as before.
+Imported cropped alpha bounds (2136 x 599) as a dedicated sprite.
+MovementPrototype dialogue panel references the clean sprite.
+PASS: Runtime Image.sprite points to DialoguePanelClean.
+PASS: Game-view screenshot visually confirms no detached atlas fragments above the panel.
+PASS: Attached cherry blossoms, lanterns, lower cloud ornaments and ribbons remain visible.
+PASS: Unity console has no errors.
+Visual review: InGame.png.

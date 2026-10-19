@@ -119,7 +119,7 @@ MonoBehaviour:
   patrolMinWait: 0.3
   patrolMaxWait: 1.5
   patrolMinSpeedFactor: 0.7
-  _reward_EXP: 200
+  _reward_EXP: 125
   _rewardYeopjeon: 100
   currencyPickupPrefab: {fileID: 2418306721129126886, guid: 829c1feb6fac8ac4797d80cee72e4053, type: 3}
   _playerLayer:
@@ -132,6 +132,8 @@ MonoBehaviour:
   damageTextPrefab: {fileID: 3890553193077931215, guid: ffe84f00c64695a48b630feb8433f6f6, type: 3}
   textSpawnPoint: {fileID: 4856002280838881238}
   isKnockback: 0
+  questDefinition: {fileID: 11400000, guid: 676382dbbc00ac04fb36ce9ed427182d, type: 2}
+  questSceneName: SpiderCave
 --- !u!50 &6244438462432620799
 Rigidbody2D:
   serializedVersion: 5

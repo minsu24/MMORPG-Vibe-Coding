@@ -80,7 +80,7 @@ namespace EasternFantasy.Dungeon
 
         public void ExitToVillage()
         {
-            if (leaving) return;
+            if (leaving || PortalSceneTransition.IsTransitioning) return;
             const string village = "PrologueVilage";
             if (!Application.CanStreamedLevelBeLoaded(village))
             { Debug.LogError("PrologueVilage must be enabled in Build Settings."); return; }
@@ -96,8 +96,8 @@ namespace EasternFantasy.Dungeon
                 { death.Respawn(); return; }
                 if (!player.TryGetComponent<PlayerLocationSetter>(out _)) player.gameObject.AddComponent<PlayerLocationSetter>();
             }
-            MapTransferData.SetTarget("In_Vilage_Portal");
-            SceneManager.LoadSceneAsync(village);
+            if (!PortalSceneTransition.TryLoad(village, "In_Vilage_Portal",
+                success => { if (this != null) leaving = false; })) leaving = false;
         }
 
         private void OnDestroy()

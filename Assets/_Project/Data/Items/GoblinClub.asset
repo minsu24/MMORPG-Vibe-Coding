@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ada75e50a69424c83357669e06485c, type: 3}
+  m_Name: GoblinClub
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemDefinition
+  itemId: 99e9bd7e33a6416aa87b941c02d9a7ad
+  displayName: "\uB3C4\uAE68\uBE44 \uBC29\uB9DD\uC774"
+  description: "\uB3C4\uAE68\uBE44\uAC00 \uC0AC\uC6A9\uD558\uB358 \uAC00\uC2DC \uBC29\uB9DD\uC774.
+    \uBAA8\uB4E0 \uC9C1\uC5C5\uC758 \uC77C\uBC18 \uBB34\uAE30\uB97C \uB808\uC5B4\uB85C
+    \uC2B9\uAE09\uD560 \uB54C \uC601\uD63C \uC870\uAC01 1\uAC1C\uC640 \uD568\uAED8
+    \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
+  icon: {fileID: -5237898757868338408, guid: ca6b801587454474c8d69d6bfb73439a, type: 3}
+  category: 2
+  grade: 1
+  gradeFrame: {fileID: 0}
+  gradeAppearance: {fileID: 11400000, guid: 1106704c8189a254eb1c84a5ba70de1c, type: 2}
+  gradeVariants: []
+  equipmentSlot: 0
+  allowedClasses: 
+  equipmentSet: {fileID: 0}
+  attackBonus: 0
+  defenseBonus: 0
+  consumableEffect: 0
+  useAmount: 0
+  maximumStack: 99
+  buyPrice: 0
+  sellPrice: 0
+  cannotSell: 1
+  materialSource: {fileID: 0}

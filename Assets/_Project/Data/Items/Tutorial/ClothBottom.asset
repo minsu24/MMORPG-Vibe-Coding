@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ada75e50a69424c83357669e06485c, type: 3}
+  m_Name: ClothBottom
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemDefinition
+  itemId: 6eef1541450f4d018f8ea4ff33017095
+  displayName: "\uCC9C \uD558\uC758"
+  description: "\uC9C8\uAE34 \uCC9C\uC73C\uB85C \uB9CC\uB4E0 \uAE30\uBCF8 \uD558\uC758\uC785\uB2C8\uB2E4."
+  icon: {fileID: 161049249, guid: 3087e74be0832744784735cabd894ead, type: 3}
+  category: 0
+  grade: 0
+  gradeFrame: {fileID: 0}
+  gradeAppearance: {fileID: 11400000, guid: f988f45cd0db9034384421c55e36012e, type: 2}
+  gradeVariants:
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 110a1a74e412f724f9bd4d81c31eb6b5, type: 2}
+  - {fileID: 11400000, guid: 40fcb78a662024e45bc849ac94ac0e27, type: 2}
+  - {fileID: 11400000, guid: b60b1c3d8db3b4440b12faf874a62b67, type: 2}
+  - {fileID: 11400000, guid: f52738aa7ed75c24882668fc3020e28b, type: 2}
+  equipmentSlot: 4
+  allowedClasses: 
+  equipmentSet: {fileID: 11400000, guid: f0bfdc7fe9dfbf24e9f419de62d4dda4, type: 2}
+  attackBonus: 0
+  defenseBonus: 1
+  consumableEffect: 0
+  useAmount: 0
+  maximumStack: 1
+  buyPrice: 80
+  sellPrice: 40
+  cannotSell: 1
+  materialSource: {fileID: 0}
