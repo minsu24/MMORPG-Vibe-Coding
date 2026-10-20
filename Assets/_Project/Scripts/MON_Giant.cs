@@ -6,7 +6,7 @@ using System.Collections.Generic;
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(CapsuleCollider2D), typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer), typeof(CinemachineImpulseSource))]
-public class MON_Giant : EnemyController
+public class MON_Giant : PersistentBossController
 {
     private const int FootstepChannel = 2;
 
@@ -48,8 +48,12 @@ public class MON_Giant : EnemyController
     private GiantAttackVisual warning;
     private readonly List<Collider2D> ignoredPlayerColliders = new List<Collider2D>();
 
-    private void Start()
+    protected override bool ResetsOnDungeonEntry => true;
+
+    protected override void Start()
     {
+        base.Start();
+        if (!gameObject.activeInHierarchy) return;
         footstepImpulse = GetComponent<CinemachineImpulseSource>();
         footstepImpulse.ImpulseDefinition.ImpulseChannel = FootstepChannel;
         footstepImpulse.ImpulseDefinition.ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Uniform;

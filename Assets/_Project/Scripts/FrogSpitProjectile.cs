@@ -22,6 +22,8 @@ public sealed class FrogSpitProjectile : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         body = GetComponent<Rigidbody2D>();
+        // Hit detection uses OnTriggerEnter2D, including prefab instances with overrides.
+        GetComponent<Collider2D>().isTrigger = true;
     }
 
     public void Launch(Vector2 launchDirection, float launchSpeed,

@@ -1,4 +1,5 @@
 using System;
+using EasternFantasy.Advancement;
 using EasternFantasy.CharacterSelection;
 using UnityEngine;
 
@@ -29,12 +30,19 @@ namespace EasternFantasy.Dialogue
         [Tooltip("Optional dialogue text used only for the matching player class.")]
         [SerializeField] private ClassDialogueText[] classOverrides =
             Array.Empty<ClassDialogueText>();
+        [Tooltip("Optional text that takes priority over class overrides after first advancement.")]
+        [SerializeField, TextArea(2, 6)] private string firstAdvancementText;
 
         public DialogueSpeakerSide Speaker => speaker;
         public string Text => text;
 
-        public string GetText(CharacterClassId characterClass)
+        public string GetText(CharacterClassId? characterClass,
+            AdvancementRank advancementRank = AdvancementRank.Base)
         {
+            if (advancementRank >= AdvancementRank.First
+                && !string.IsNullOrEmpty(firstAdvancementText))
+                return firstAdvancementText;
+
             if (classOverrides == null)
                 return text;
 

@@ -130,11 +130,15 @@ namespace EasternFantasy.Advancement
             if (completed == null || currentRank >= completed.ResultingRank)
                 return;
 
+            bool completedFirstAdvancement = currentRank < AdvancementRank.First
+                && completed.ResultingRank >= AdvancementRank.First;
             currentRank = completed.ResultingRank;
             if (completed.UnlockedSkillTier > highestUnlockedSkillTier)
                 highestUnlockedSkillTier = completed.UnlockedSkillTier;
             attackBonus += completed.AttackBonus;
             defenseBonus += completed.DefenseBonus;
+            if (completedFirstAdvancement)
+                skillSystem.GrantSkillPoints(4);
             skillSystem.NotifyAdvancementChanged();
             Advanced?.Invoke();
         }

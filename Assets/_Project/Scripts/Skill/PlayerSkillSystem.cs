@@ -237,6 +237,13 @@ namespace EasternFantasy.Skill
             SkillsChanged?.Invoke();
         }
 
+        public void GrantSkillPoints(int amount)
+        {
+            if (amount <= 0) return;
+            skillPoints += amount;
+            SkillsChanged?.Invoke();
+        }
+
         private void GrantLevelUpPoint(int newLevel)
         {
             skillPoints++;

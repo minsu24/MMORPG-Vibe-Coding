@@ -26,3 +26,13 @@ MonoBehaviour:
   timeLimitSeconds: 600
   monsterCount: 0
   clearRewards: []
+  obtainableRewards:
+  - item: {fileID: 0}
+    displayName: "\uC5FD\uC804"
+    icon: {fileID: -4739976751741492329, guid: 87a7117b4436abe4d92ca930b715e04e, type: 3}
+  - item: {fileID: 11400000, guid: b418c28d75b4c9642b5316996de41d74, type: 2}
+    displayName: 
+    icon: {fileID: 0}
+  - item: {fileID: 11400000, guid: 01aeae1147d10d044beb90de90c60a2c, type: 2}
+    displayName: 
+    icon: {fileID: 0}

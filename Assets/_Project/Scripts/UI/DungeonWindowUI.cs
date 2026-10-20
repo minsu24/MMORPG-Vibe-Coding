@@ -114,7 +114,7 @@ namespace EasternFantasy.UI
             Selected = dungeon;
             preview.sprite = dungeon != null ? dungeon.preview : null;
             preview.enabled = preview.sprite != null;
-            if (dungeonEmblem != null) { dungeonEmblem.sprite = preview.sprite; dungeonEmblem.enabled = preview.enabled; }
+            if (dungeonEmblem != null) { dungeonEmblem.sprite = null; dungeonEmblem.enabled = false; }
             var fitter = preview.GetComponent<AspectRatioFitter>();
             if (fitter != null && preview.sprite != null) fitter.aspectRatio = preview.sprite.rect.width / preview.sprite.rect.height;
             dungeonName.text = dungeon != null ? dungeon.displayName : "등록된 던전 없음";
@@ -125,7 +125,21 @@ namespace EasternFantasy.UI
             monsterText.text = dungeon != null && dungeon.monsterCount > 0 ? $"몬스터  {dungeon.monsterCount}마리" : "몬스터  미설정";
             var names = new List<string>();
             int iconIndex = 0;
-            if (dungeon != null && dungeon.clearRewards != null)
+            bool hasPreviewRewards = dungeon != null && dungeon.obtainableRewards != null && dungeon.obtainableRewards.Length > 0;
+            if (hasPreviewRewards)
+                foreach (var reward in dungeon.obtainableRewards)
+                {
+                    if (reward == null || string.IsNullOrWhiteSpace(reward.DisplayName)) continue;
+                    names.Add(reward.DisplayName);
+                    if (iconIndex >= rewardIcons.Length) continue;
+                    rewardIcons[iconIndex].sprite = reward.Icon;
+                    rewardIcons[iconIndex].enabled = reward.Icon != null;
+                    rewardIcons[iconIndex].preserveAspect = true;
+                    ItemGradeVisual.Apply(rewardIcons[iconIndex], null);
+                    rewardAmounts[iconIndex].text = string.Empty;
+                    iconIndex++;
+                }
+            if (!hasPreviewRewards && dungeon != null && dungeon.clearRewards != null)
                 foreach (var reward in dungeon.clearRewards)
                 {
                     if (reward == null || reward.item == null) continue;
@@ -133,13 +147,13 @@ namespace EasternFantasy.UI
                     if (iconIndex >= rewardIcons.Length) continue;
                     rewardIcons[iconIndex].sprite = reward.item.Icon;
                     rewardIcons[iconIndex].enabled = reward.item.Icon != null;
-                    ItemGradeVisual.Apply(rewardIcons[iconIndex], reward.item);
-                    rewardAmounts[iconIndex].text = $"×{reward.quantity}";
+                    ItemGradeVisual.Apply(rewardIcons[iconIndex], null);
+                    rewardAmounts[iconIndex].text = string.Empty;
                     iconIndex++;
                 }
             for (int i = iconIndex; i < rewardIcons.Length; i++)
             { rewardIcons[i].enabled = false; ItemGradeVisual.Apply(rewardIcons[i], null); rewardAmounts[i].text = string.Empty; }
-            rewardText.text = names.Count > 0 ? "클리어 보상  " + string.Join(" · ", names) : "클리어 보상  미설정";
+            rewardText.text = names.Count > 0 ? "클리어 보상" : "클리어 보상  미설정";
             for (int i = 0; i < entries.Count; i++) entries[i].SetSelected(boundDungeons[i] == dungeon);
             enterButton.interactable = !loading && CanEnter(dungeon);
             message.text = dungeon != null && !CanEnter(dungeon) ? "입장 조건 또는 연결된 씬을 확인해 주세요." : string.Empty;

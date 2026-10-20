@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EasternFantasy.Advancement;
 using EasternFantasy.CharacterSelection;
 using EasternFantasy.Player;
 using EasternFantasy.Quest;
@@ -46,7 +47,6 @@ namespace EasternFantasy.Dialogue
         private Coroutine typingRoutine;
         private int lineIndex;
         private bool isTyping;
-        private bool playerInputWasEnabled;
         private Action<bool> pendingQuestDecision;
         private string pendingQuestTitle;
         private bool isWaitingForQuestDecision;
@@ -300,9 +300,11 @@ namespace EasternFantasy.Dialogue
 
             CharacterClassDefinition activeClass =
                 PlayerClassRuntime.ActiveDefinition;
-            string text = activeClass != null
-                ? line.GetText(activeClass.ClassId)
-                : line.Text;
+            PlayerAdvancementSystem advancement = playerInput != null
+                ? playerInput.GetComponent<PlayerAdvancementSystem>()
+                : FindFirstObjectByType<PlayerAdvancementSystem>();
+            string text = line.GetText(activeClass?.ClassId,
+                advancement != null ? advancement.CurrentRank : AdvancementRank.Base);
             typingRoutine = StartCoroutine(TypeLine(text ?? string.Empty));
         }
 
@@ -437,14 +439,13 @@ namespace EasternFantasy.Dialogue
             if (playerInput == null)
                 return;
 
-            playerInputWasEnabled = playerInput.enabled;
-            playerInput.enabled = false;
+            playerInput.SetInputBlocked(this, true);
         }
 
         private void RestorePlayerInput()
         {
             if (playerInput != null)
-                playerInput.enabled = playerInputWasEnabled;
+                playerInput.SetInputBlocked(this, false);
         }
 
         private void OnDisable()

@@ -41,6 +41,7 @@ MonoBehaviour:
   - speaker: 1
     text: "\uC5C5\uC774 \uC313\uC778 \uD0D3\uC774\uACA0\uC9C0.. \uC5EC\uD558\uD2BC
       \uC790\uB124\uB3C4 \uD798\uC744 \uD0A4\uC6CC\uC57C \uD560\uAC78\uC138 "
+    firstAdvancementText: "이 정도면 살 수는 있겠구먼 허허허"
     classOverrides:
     - characterClass: 2
       text: "\uADF8\uB7F0\uAC8C \uC788\uB124.. \uC790\uB124\uB3C4 \uC9C0\uAE08\uC758

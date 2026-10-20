@@ -15,16 +15,13 @@ namespace EasternFantasy.Skill
         [SerializeField] private SkillDefinition dashSkill;
         [SerializeField] private SkillDefinition energyWaveSkill;
         [SerializeField, Min(0f)] private float punchEnergyOnHit = 20f;
-        [SerializeField, Min(0.01f)] private float dashDistance = 3f;
         [SerializeField, Min(0.01f)] private float dashDuration = 0.18f;
         [SerializeField, Min(0f)] private float parryWindow = 0.35f;
         [SerializeField] private Vector2 punchOffset = new Vector2(1f, 0.2f);
         [SerializeField] private Vector2 punchSize = new Vector2(2.1f, 1.5f);
         [Tooltip("Seconds to keep checking for new targets after each punch frame.")]
         [SerializeField, Min(0f)] private float punchHitWindow = 0.12f;
-        [SerializeField, Min(0f)] private float punchDamageMultiplier = 1.25f;
         [SerializeField, Min(0.1f)] private float waveRange = 8f;
-        [SerializeField, Min(0f)] private float waveDamageMultiplier = 3.5f;
         [SerializeField] private bool invertFacingDirection = true;
         [SerializeField] private LayerMask enemyLayers;
         [SerializeField] private GameObject punchImpactPrefab;
@@ -35,6 +32,7 @@ namespace EasternFantasy.Skill
         private readonly Dictionary<SkillDefinition, float> cooldownEnds = new Dictionary<SkillDefinition, float>();
         private PlayerEntity entity;
         private MonkEnergy energy;
+        private PlayerSkillSystem skillSystem;
         private PlayerIdleAnimation animationController;
 
         private Coroutine punchRoutine;
@@ -44,6 +42,7 @@ namespace EasternFantasy.Skill
         private PlayerMovement2D movement;
         private bool wavePending;
         private float waveDirection;
+        private float waveDamageMultiplier;
         private bool punchActive;
         private bool punchEnergyGranted;
         private int lastStrike;
@@ -51,7 +50,6 @@ namespace EasternFantasy.Skill
         private float punchHitWindowEnd;
         private float punchDamage;
         private bool punchCritical;
-        private readonly List<PunchHit> punchHits = new List<PunchHit>();
 
         private struct PunchHit
         {
@@ -67,6 +65,7 @@ namespace EasternFantasy.Skill
             entity = GetComponent<PlayerEntity>();
             movement = GetComponent<PlayerMovement2D>();
             energy = GetComponent<MonkEnergy>();
+            skillSystem = GetComponent<PlayerSkillSystem>();
             animationController = GetComponent<PlayerIdleAnimation>();
             if (enemyLayers.value == 0)
             {
@@ -78,6 +77,7 @@ namespace EasternFantasy.Skill
         public bool TryCast(SkillDefinition skill)
         {
             if (!isActiveAndEnabled || skill == null || entity.IsDead || entity.isKnockback || Time.timeScale <= 0f
+                || skillSystem == null || skillSystem.GetSkillLevel(skill) <= 0
                 || dashRoutine != null
                 || GetCooldownRemaining(skill) > 0f || !SkillResourcePayment.CanAfford(entity, skill)) return false;
 
@@ -91,9 +91,9 @@ namespace EasternFantasy.Skill
                 lastStrike = 0;
                 punchHitWindowEnd = 0f;
                 punchDirection = GetDirection();
-                punchDamage = entity.RollAttackDamage(out punchCritical) * punchDamageMultiplier;
+                punchDamage = entity.RollAttackDamage(out punchCritical)
+                    * skill.GetDamageMultiplier(skillSystem.GetSkillLevel(skill));
                 hitEnemies.Clear();
-                punchHits.Clear();
                 punchRoutine = StartCoroutine(WaitForPunch());
             }
             else if (skill == dashSkill)
@@ -102,7 +102,8 @@ namespace EasternFantasy.Skill
                     || !animationController.TryRequestSkillAnimation("MonkDash", dashDuration))
                     return false;
                 // Movement direction is independent of the punch sprite's inversion.
-                movement.BeginDash(animationController.FacingDirectionX, dashDistance, dashDuration);
+                movement.BeginDash(animationController.FacingDirectionX,
+                    skill.GetDashDistance(skillSystem.GetSkillLevel(skill)), dashDuration);
                 dashRoutine = StartCoroutine(WaitForDash());
             }
             else if (skill == parrySkill)
@@ -118,14 +119,16 @@ namespace EasternFantasy.Skill
 
                 if (movement != null) movement.SetMovementLocked(true);
                 waveDirection = GetDirection();
+                waveDamageMultiplier = skill.GetDamageMultiplier(skillSystem.GetSkillLevel(skill));
                 wavePending = true;
                 waveRoutine = StartCoroutine(WaitForWave());
             }
             else return false;
 
             if (!SkillResourcePayment.TrySpend(entity, skill)) return false;
-            if (skill.CooldownSeconds > 0f)
-                cooldownEnds[skill] = Time.time + skill.CooldownSeconds;
+            float cooldown = skill.GetCooldownSeconds(skillSystem.GetSkillLevel(skill));
+            if (cooldown > 0f)
+                cooldownEnds[skill] = Time.time + cooldown;
             return true;
         }
 
@@ -158,7 +161,7 @@ namespace EasternFantasy.Skill
             while (animationController.IsAttacking && !entity.IsDead)
             {
                 // Keep the thrust active briefly so moving targets do not need to
-                // overlap on one exact animation frame. Each enemy is damaged once.
+                // overlap on one exact animation frame. Each enemy is damaged once per strike.
                 if (lastStrike > 0 && Time.time <= punchHitWindowEnd
                     && !entity.isKnockback && Time.timeScale > 0f)
                     ApplyPunchHits(lastStrike);
@@ -171,14 +174,12 @@ namespace EasternFantasy.Skill
         public void OnStraightPunchHit(int strike)
         {
             if (!punchActive || entity.IsDead || entity.isKnockback
-                || strike != lastStrike + 1 || strike > 2)
+                || strike != lastStrike + 1 || strike > straightPunchSkill.DamageHitCount)
                 return;
             lastStrike = strike;
 
-            // The second motion repeats feedback, never the damage or hit reaction.
-            if (strike == 2)
-                foreach (PunchHit hit in punchHits)
-                    ShowPunchHit(hit, 2);
+            // Each thrust has its own hit set, so both strikes deal their full damage.
+            hitEnemies.Clear();
 
             punchHitWindowEnd = Time.time + punchHitWindow;
             ApplyPunchHits(strike);
@@ -232,10 +233,7 @@ namespace EasternFantasy.Skill
                     punchEnergyGranted = true;
                 }
                 if (enemy.HP > 0f) enemy.ApplyKnockback(punchDirection);
-                punchHits.Add(hit);
-                ShowPunchHit(hit, 1, strike == 1);
-                // An enemy first reached by the second thrust still gets both numbers.
-                if (strike == 2) ShowPunchHit(hit, 2);
+                ShowPunchHit(hit, strike);
             }
         }
 
@@ -248,9 +246,7 @@ namespace EasternFantasy.Skill
                 Vector3 offset = new Vector3(strike == 1 ? -0.18f : 0.18f,
                     strike == 1 ? 0f : 0.2f, 0f);
                 GameObject text = Instantiate(hit.TextPrefab, origin + offset, Quaternion.identity);
-                float first = Mathf.Round(punchDamage * 0.5f);
-                text.GetComponent<DamageText>()?.Setup(
-                    strike == 1 ? first : punchDamage - first, punchCritical);
+                text.GetComponent<DamageText>()?.Setup(punchDamage, punchCritical);
             }
             if (showImpact && punchImpactPrefab != null)
             {
@@ -267,7 +263,6 @@ namespace EasternFantasy.Skill
         {
             punchActive = false;
             punchHitWindowEnd = 0f;
-            punchHits.Clear();
             hitEnemies.Clear();
             System.Array.Clear(hitBuffer, 0, hitBuffer.Length);
         }

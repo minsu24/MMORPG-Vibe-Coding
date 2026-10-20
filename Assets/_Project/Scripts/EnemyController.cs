@@ -81,7 +81,7 @@ public abstract class EnemyController : Entity
     public override float maxMental => 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    protected virtual void Awake()
     {
         base.Setup();
         rb = GetComponent<Rigidbody2D>();

@@ -17,11 +17,13 @@ MonoBehaviour:
   shortDescription: "\uBC14\uB77C\uBCF4\uB294 \uBC29\uD5A5\uC73C\uB85C \uC9E7\uACE0
     \uBB35\uC9C1\uD558\uAC8C \uB3CC\uC9C4\uD569\uB2C8\uB2E4. \uB3CC\uC9C4 \uC911\uC5D0\uB294
     \uD53C\uD574\uC640 \uAD70\uC911 \uC81C\uC5B4 \uD6A8\uACFC\uC5D0 \uBA74\uC5ED\uC785\uB2C8\uB2E4."
-  detailedDescription: " \uC7AC\uC0AC\uC6A9 \uB300\uAE30\uC2DC\uAC04 5\uCD08 \xB7
-    \uB3CC\uC9C4 \uAC70\uB9AC 3 \xB7 \uB3CC\uC9C4 \uC2DC\uAC04 0.18\uCD08"
+  detailedDescription: "1레벨 재사용 대기시간 5초, 돌진 거리 3. 레벨당 쿨타임이 0.5초 감소하고 돌진 거리가 0.25 증가합니다. 돌진 시간 0.18초."
   tier: 1
   activationType: 1
-  maximumLevel: 1
+  maximumLevel: 5
+  cooldownReductionPerLevel: 0.5
+  dashDistance: 3
+  dashDistancePerLevel: 0.25
   cooldownSeconds: 5
   manaCost: 0
   resourceCost: 1

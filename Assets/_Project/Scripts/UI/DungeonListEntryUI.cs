@@ -15,8 +15,8 @@ namespace EasternFantasy.UI
         public void Bind(DungeonWindowUI window, DungeonDefinition dungeon)
         {
             title.text = dungeon.displayName;
-            thumbnail.sprite = dungeon.preview;
-            thumbnail.enabled = dungeon.preview != null;
+            thumbnail.sprite = null;
+            thumbnail.enabled = false;
             state.text = window.CanEnter(dungeon) ? "입장" : "잠김";
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => window.Select(dungeon));

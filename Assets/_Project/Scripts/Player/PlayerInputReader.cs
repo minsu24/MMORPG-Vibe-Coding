@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using EasternFantasy.Quest;
@@ -24,6 +25,21 @@ namespace EasternFantasy.Player
         private PlayerEntity entity;
         private IPlayerBasicAttack basicAttack;
         private PlayerQuestInteraction questInteraction;
+        private readonly HashSet<object> inputBlockers = new HashSet<object>();
+        public bool IsInputBlocked => inputBlockers.Count > 0;
+
+        // Independent dialogue/cinematic owners release only their own lock. Do not
+        // snapshot enabled: another owner may already be blocking the same player.
+        public void SetInputBlocked(object owner, bool blocked)
+        {
+            if (owner == null) return;
+            if (blocked) inputBlockers.Add(owner);
+            else inputBlockers.Remove(owner);
+            if (movement != null) movement.ClearInput();
+            if (runtimeActions == null) return;
+            if (IsInputBlocked || !isActiveAndEnabled) runtimeActions.Disable();
+            else EnableGameplayActions();
+        }
 
         private void Awake()
         {
@@ -58,7 +74,12 @@ namespace EasternFantasy.Player
 
         private void OnEnable()
         {
-            if (runtimeActions == null) return;
+            if (runtimeActions == null || IsInputBlocked) return;
+            EnableGameplayActions();
+        }
+
+        private void EnableGameplayActions()
+        {
             move.Enable();
             jump.Enable();
             attack.Enable();
@@ -67,6 +88,11 @@ namespace EasternFantasy.Player
 
         private void Update()
         {
+            if (IsInputBlocked)
+            {
+                movement.ClearInput();
+                return;
+            }
             if (PortalSceneTransition.IsTransitioning)
             {
                 movement.ClearInput();

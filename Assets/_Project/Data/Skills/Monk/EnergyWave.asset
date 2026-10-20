@@ -17,11 +17,13 @@ MonoBehaviour:
   shortDescription: "\uAE30\uB825\uC774 \uC644\uC804\uD788 \uCC3C\uC744 \uB54C \uC804\uBC29
     \uBA3C \uAC70\uB9AC\uC758 \uC801\uC5D0\uAC8C \uAC15\uB825\uD55C \uD53C\uD574\uB97C
     \uC90D\uB2C8\uB2E4."
-  detailedDescription: "\uAE30\uB825 \uC2A4\uD0AC \xB7 \uAE30\uB825 \uC644\uCDA9
-    \uC2DC \uC0AC\uC6A9 \xB7 \uD604\uC7AC \uAE30\uB825 \uC804\uB7C9 \uC18C\uBAA8"
+  detailedDescription: "1레벨: 공격력의 400% 피해. 레벨당 피해량이 20%p 증가합니다. 기력 완충 시 사용하며 현재 기력을 전량 소모합니다."
   tier: 1
   activationType: 1
-  maximumLevel: 1
+  maximumLevel: 9
+  damageMultiplier: 4
+  damageMultiplierPerLevel: 0.2
+  damageHitCount: 1
   cooldownSeconds: 4
   manaCost: 0
   resourceCost: 3

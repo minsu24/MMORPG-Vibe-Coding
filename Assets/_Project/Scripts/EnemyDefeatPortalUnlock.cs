@@ -26,7 +26,8 @@ public sealed class EnemyDefeatPortalUnlock : MonoBehaviour
     private void Start()
     {
         // A defeated session encounter must not seal the portal again on a map revisit.
-        if (requiredEnemy is MON_Goblin goblin && goblin.WasDefeatedThisSession)
+        if ((requiredEnemy is MON_Goblin goblin && goblin.WasDefeatedThisSession)
+            || (requiredEnemy is PersistentBossController boss && boss.WasDefeatedThisSession))
         {
             enemyDefeated = unlocked = true;
             ApplyUnlockedState();

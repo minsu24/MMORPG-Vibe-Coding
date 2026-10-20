@@ -255,6 +255,7 @@ namespace EasternFantasy.Editor
                 UnityEditor.Events.UnityEventTools.AddPersistentListener(ui.closeButton.onClick, ui.Close);
                 Label("CloseLabel", close.transform, "×", 0, 0, 39, 35, 30, Gold).alignment = TextAlignmentOptions.Center;
                 overlay.gameObject.SetActive(false);
+                DungeonWindowLayoutSetup.Configure(root);
                 return PrefabUtility.SaveAsPrefabAsset(root, PrefabPath);
             }
             finally { UnityEngine.Object.DestroyImmediate(root); }

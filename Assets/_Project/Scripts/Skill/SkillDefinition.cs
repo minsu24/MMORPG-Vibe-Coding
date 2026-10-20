@@ -54,6 +54,12 @@ namespace EasternFantasy.Skill
         [SerializeField] private SkillActivationType activationType;
         [SerializeField, Min(1)] private int maximumLevel = 1;
         [SerializeField, Min(0f)] private float cooldownSeconds;
+        [SerializeField, Min(0f)] private float cooldownReductionPerLevel;
+        [SerializeField, Min(0f)] private float dashDistance;
+        [SerializeField, Min(0f)] private float dashDistancePerLevel;
+        [SerializeField, Min(0f)] private float damageMultiplier;
+        [SerializeField, Min(0f)] private float damageMultiplierPerLevel;
+        [SerializeField, Min(1)] private int damageHitCount = 1;
         [SerializeField, Min(0f)] private float manaCost;
         [SerializeField] private SkillResourceCost resourceCost;
         [SerializeField, Min(0f), Tooltip("Amount spent when Resource Cost is Energy.")] private float energyCost;
@@ -72,6 +78,37 @@ namespace EasternFantasy.Skill
         public SkillActivationType ActivationType => activationType;
         public int MaximumLevel => maximumLevel;
         public float CooldownSeconds => cooldownSeconds;
+        public int DamageHitCount => Mathf.Max(1, damageHitCount);
+
+        public float GetDamageMultiplier(int level)
+        {
+            return damageMultiplier + damageMultiplierPerLevel * (Mathf.Clamp(level, 1, maximumLevel) - 1);
+        }
+
+        public float GetCooldownSeconds(int level)
+        {
+            return Mathf.Max(0f, cooldownSeconds
+                - cooldownReductionPerLevel * (Mathf.Clamp(level, 1, maximumLevel) - 1));
+        }
+
+        public float GetDashDistance(int level)
+        {
+            return dashDistance + dashDistancePerLevel * (Mathf.Clamp(level, 1, maximumLevel) - 1);
+        }
+
+        public string GetLevelEffectDescription(int level)
+        {
+            string result = damageMultiplier > 0f
+                ? $"공격력의 {GetDamageMultiplier(level) * 100f:0.#}% × {DamageHitCount}회"
+                : string.Empty;
+            if (cooldownReductionPerLevel > 0f)
+                result += (result.Length > 0 ? " · " : string.Empty)
+                    + $"재사용 대기시간 {GetCooldownSeconds(level):0.#}초";
+            if (dashDistance > 0f)
+                result += (result.Length > 0 ? " · " : string.Empty)
+                    + $"돌진 거리 {GetDashDistance(level):0.##}";
+            return result;
+        }
         public float ManaCost => manaCost;
         public SkillResourceCost ResourceCost => resourceCost;
         public float EnergyCost => energyCost;

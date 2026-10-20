@@ -5,7 +5,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(CapsuleCollider2D), typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
-public sealed class MON_Boar : EnemyController
+public sealed class MON_Boar : PersistentBossController
 {
     public enum ChargePhase { None, Warning, Charging }
 
@@ -26,7 +26,14 @@ public sealed class MON_Boar : EnemyController
     private GiantAttackVisual warning;
     private readonly List<Collider2D> ignoredPlayerColliders = new List<Collider2D>();
 
-    private void Start() => nextAttackTime = Time.time + attackCooldown;
+    protected override bool ResetsOnDungeonEntry => true;
+
+    protected override void Start()
+    {
+        base.Start();
+        if (!gameObject.activeInHierarchy) return;
+        nextAttackTime = Time.time + attackCooldown;
+    }
 
     protected override bool CanUseAbility() => CurrentPhase != ChargePhase.None || base.CanUseAbility();
 

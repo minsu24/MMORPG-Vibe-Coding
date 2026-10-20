@@ -33,7 +33,6 @@ public sealed class LockedPortalSequence : MonoBehaviour
     private float savedSize;
     private bool brainWasEnabled, cameraCaptured;
     private readonly List<PlayerInputReader> inputs = new List<PlayerInputReader>();
-    private readonly List<bool> inputStates = new List<bool>();
     public bool IsUnlocking { get; private set; }
 
     public void Configure(DialogueSequence dialogue, Animator animator, SpriteRenderer renderer, AnimationClip clip, Collider2D bounds)
@@ -79,12 +78,10 @@ public sealed class LockedPortalSequence : MonoBehaviour
         IsUnlocking = true;
         GameTimeController.SetPaused(this, true);
         inputs.Clear();
-        inputStates.Clear();
         foreach (var input in FindObjectsByType<PlayerInputReader>(FindObjectsSortMode.None))
         {
             inputs.Add(input);
-            inputStates.Add(input.enabled);
-            input.enabled = false;
+            input.SetInputBlocked(this, true);
         }
         cinematicCamera = Camera.main;
         if (cinematicCamera != null)
@@ -164,9 +161,8 @@ public sealed class LockedPortalSequence : MonoBehaviour
             cameraCaptured = false;
         }
         for (int i = 0; i < inputs.Count; i++)
-            if (inputs[i] != null) inputs[i].enabled = inputStates[i];
+            if (inputs[i] != null) inputs[i].SetInputBlocked(this, false);
         inputs.Clear();
-        inputStates.Clear();
         GameTimeController.SetPaused(this, false);
     }
     private void OnDisable()

@@ -48,10 +48,11 @@ namespace EasternFantasy.UI
             titleText.text = $"{skill.DisplayName}   Lv. {level} / {skill.MaximumLevel}";
 
             string requirement = skillSystem.GetRequirementText(skill);
+            float cooldown = skill.GetCooldownSeconds(level);
             string typeText = skill.ActivationType == SkillActivationType.Passive
                 ? "패시브"
-                : skill.CooldownSeconds > 0f
-                    ? $"액티브 · 재사용 대기시간 {skill.CooldownSeconds:0.#}초"
+                : cooldown > 0f
+                    ? $"액티브 · 재사용 대기시간 {cooldown:0.#}초"
                     : "액티브 · 재사용 대기시간 없음";
             if (skill.ActivationType == SkillActivationType.Active)
             {
@@ -74,6 +75,13 @@ namespace EasternFantasy.UI
             descriptionText.text = typeText + "\n\n" + skill.ShortDescription;
             if (!string.IsNullOrWhiteSpace(skill.DetailedDescription))
                 descriptionText.text += "\n\n" + skill.DetailedDescription;
+            string levelEffect = skill.GetLevelEffectDescription(Mathf.Max(1, level));
+            if (!string.IsNullOrEmpty(levelEffect))
+            {
+                descriptionText.text += $"\n\n{(level > 0 ? "현재 효과" : "습득 시 효과")}: {levelEffect}";
+                if (level > 0 && level < skill.MaximumLevel)
+                    descriptionText.text += "\n다음 레벨: " + skill.GetLevelEffectDescription(level + 1);
+            }
             if (!string.IsNullOrWhiteSpace(requirement))
                 descriptionText.text += "\n\n" + requirement;
 

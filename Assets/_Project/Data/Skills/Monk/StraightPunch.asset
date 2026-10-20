@@ -16,11 +16,13 @@ MonoBehaviour:
   displayName: "\uC815\uAD8C\uCC0C\uB974\uAE30"
   shortDescription: "\uC804\uBC29\uC758 \uC801\uC744 \uBE60\uB974\uAC8C \uB450 \uBC88
     \uCC0C\uB985\uB2C8\uB2E4. \uC801\uC911\uD558\uBA74 \uAE30\uB825\uC744 20 \uC5BB\uC2B5\uB2C8\uB2E4."
-  detailedDescription: "\uC77C\uBC18 \uC2A4\uD0AC \xB7 \uAE30\uB825 \uC18C\uBAA8
-    \uC5C6\uC74C \xB7 \uC7AC\uC0AC\uC6A9 \uB300\uAE30\uC2DC\uAC04 \uC5C6\uC74C"
+  detailedDescription: "1레벨: 공격력의 105%로 2회 타격. 레벨당 각 타격 피해량이 5%p 증가합니다. 적중 시 기력 20 회복(시전당 1회). 자원 소모 및 재사용 대기시간 없음."
   tier: 1
   activationType: 1
-  maximumLevel: 1
+  maximumLevel: 10
+  damageMultiplier: 1.05
+  damageMultiplierPerLevel: 0.05
+  damageHitCount: 2
   cooldownSeconds: 0
   manaCost: 0
   resourceCost: 1

@@ -27,6 +27,7 @@ namespace EasternFantasy.Dungeon
             if (Instance != null) Destroy(Instance.gameObject);
             var prefab = Resources.Load<GameObject>("DungeonRunUI");
             if (prefab == null) { Debug.LogError("DungeonRunUI resource prefab is missing."); return; }
+            PersistentBossController.BeginDungeonRun();
             var controller = Instantiate(prefab).GetComponent<DungeonRunController>();
             Instance = controller;
             controller.definition = dungeon;

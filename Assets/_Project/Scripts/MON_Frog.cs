@@ -3,7 +3,7 @@ using EasternFantasy.Inventory;
 using EasternFantasy.Player;
 using UnityEngine;
 
-public sealed class MON_Frog : EnemyController
+public sealed class MON_Frog : PersistentBossController
 {
     private static readonly int AttackTrigger = Animator.StringToHash("Attack");
     private static readonly int JumpState = Animator.StringToHash("Base Layer.Jump");
@@ -120,6 +120,11 @@ public sealed class MON_Frog : EnemyController
         if (BossMapPortal != null)
             BossMapPortal.SetActive(true);
         base.OnDefeated();
+    }
+
+    protected override void RestoreDefeatedWorldState()
+    {
+        if (BossMapPortal != null) BossMapPortal.SetActive(true);
     }
 
     private IEnumerator TongueAttackRoutine()

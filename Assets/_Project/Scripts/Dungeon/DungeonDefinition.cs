@@ -18,6 +18,18 @@ namespace EasternFantasy.Dungeon
         [Tooltip("0 means not configured.")] [Min(0)] public int timeLimitSeconds;
         [Tooltip("0 means not configured.")] [Min(0)] public int monsterCount;
         public DungeonReward[] clearRewards = Array.Empty<DungeonReward>();
+        [Tooltip("Items and currency obtainable during the dungeon; display only.")]
+        public DungeonRewardPreview[] obtainableRewards = Array.Empty<DungeonRewardPreview>();
+    }
+
+    [Serializable]
+    public sealed class DungeonRewardPreview
+    {
+        public ItemDefinition item;
+        public string displayName;
+        public Sprite icon;
+        public string DisplayName => item != null ? item.DisplayName : displayName;
+        public Sprite Icon => item != null ? item.Icon : icon;
     }
 
     [Serializable]

@@ -170,7 +170,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -3.9633198, y: 0.4697523}
+  m_Offset: {x: -3.9633198, y: -0.13067389}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -180,7 +180,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 59.840313, y: 29.29466}
+  m_Size: {x: 59.840313, y: 30.495514}
   m_EdgeRadius: 0
 --- !u!4 &49883249
 Transform:
@@ -673,7 +673,7 @@ Transform:
   m_GameObject: {fileID: 1220630854}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.95, y: -6.17, z: 0}
+  m_LocalPosition: {x: 16.95, y: -5.84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -720,7 +720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MON_Giant
   target: {fileID: 0}
-  _maxHP: 1000
+  _maxHP: 200
   _attackPower: 10
   _moveSpeed: 1.5
   detectionShape: 1
@@ -743,6 +743,7 @@ MonoBehaviour:
   damageTextPrefab: {fileID: 3890553193077931215, guid: ffe84f00c64695a48b630feb8433f6f6, type: 3}
   textSpawnPoint: {fileID: 1457867230}
   isKnockback: 0
+  encounterId: 
   footstepShakeStrength: 0.06
   footstepShakeDuration: 0.18
   footstepShakeRange: 35
@@ -847,6 +848,8 @@ MonoBehaviour:
     maximumQuantity: 1
   spawnHeight: 0.35
   horizontalScatter: 0.65
+  overridesCommonLoot: 0
+  filterWeaponsByPlayerClass: 0
 --- !u!1 &1457867229
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,7 +1275,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 8.397068, y: -9.960514}
+  m_Offset: {x: 8.397068, y: -9.765507}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1282,7 +1285,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 60.89353, y: 10.333766}
+  m_Size: {x: 60.89353, y: 10.723783}
   m_EdgeRadius: 0
 --- !u!4 &1752920259
 Transform:
