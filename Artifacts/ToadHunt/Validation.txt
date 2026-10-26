@@ -1,0 +1,63 @@
+PASS: All runtime flow assets are connected
+PASS: Reward belongs to the accessory category and necklace slot
+PASS: Supplied necklace artwork is assigned and unique reward is protected from sale
+PASS: Requested accessory explanation is preserved verbatim
+PASS: Wounded resident continues the existing spider quest
+PASS: Existing completion dialogue and class-specific lines remain connected
+PASS: Toad quest cannot be turned in to the resident instead of the relic
+PASS: Resident can offer and re-offer the follow-up quest
+PASS: Player: owning the necklace does not apply an unequipped effect
+PASS: Player: necklace cannot be dragged onto the ring slot
+PASS: Player: real inventory-to-necklace-slot drop equips the accessory
+PASS: Player: equipped necklace grants its 20% height bonus
+PASS: Player: repeated equip does not stack the same item
+PASS: Player: isolated physics measures about 20% higher jumps (ratio 1.205)
+PASS: Player: unequip removes the special ability immediately
+PASS: Player: accessory model also supports Bracelet
+PASS: Player: accessory model also supports Ring
+PASS: Player: accessory tab displays the reward in its own inventory category
+PASS: MonkPlayer: owning the necklace does not apply an unequipped effect
+PASS: MonkPlayer: necklace cannot be dragged onto the ring slot
+PASS: MonkPlayer: real inventory-to-necklace-slot drop equips the accessory
+PASS: MonkPlayer: equipped necklace grants its 20% height bonus
+PASS: MonkPlayer: repeated equip does not stack the same item
+PASS: MonkPlayer: isolated physics measures about 20% higher jumps (ratio 1.205)
+PASS: MonkPlayer: unequip removes the special ability immediately
+PASS: MonkPlayer: accessory model also supports Bracelet
+PASS: MonkPlayer: accessory model also supports Ring
+PASS: MonkPlayer: accessory tab displays the reward in its own inventory category
+PASS: SwordswomanPlayer: owning the necklace does not apply an unequipped effect
+PASS: SwordswomanPlayer: necklace cannot be dragged onto the ring slot
+PASS: SwordswomanPlayer: real inventory-to-necklace-slot drop equips the accessory
+PASS: SwordswomanPlayer: equipped necklace grants its 20% height bonus
+PASS: SwordswomanPlayer: repeated equip does not stack the same item
+PASS: SwordswomanPlayer: isolated physics measures about 20% higher jumps (ratio 1.205)
+PASS: SwordswomanPlayer: unequip removes the special ability immediately
+PASS: SwordswomanPlayer: accessory model also supports Bracelet
+PASS: SwordswomanPlayer: accessory model also supports Ring
+PASS: SwordswomanPlayer: accessory tab displays the reward in its own inventory category
+PASS: Flow False: toad quest stays locked before spider completion
+PASS: Flow False: resident can offer next quest while initial quest offers are disabled
+PASS: Flow False: completing the existing dialogue queues the follow-up offer
+PASS: Flow False: toad death advances the quest, including pre-acceptance defeats
+PASS: Flow False: death leaves an uncollectable necklace relic without granting the reward
+PASS: Flow False: completion marker is placed at the toad's death position
+PASS: Flow False: unclaimed discovery relic can be restored after a scene revisit
+PASS: Flow False: a non-inspected or interrupted monologue cannot grant the reward
+PASS: Flow False: full accessory inventory preserves both quest and relic for retry
+PASS: Flow False: finishing inspection grants exactly one necklace and completes the quest
+PASS: Flow False: accessory explanation is queued after acquisition
+PASS: Flow False: repeated callbacks or defeats cannot duplicate the unique reward
+PASS: Flow True: toad quest stays locked before spider completion
+PASS: Flow True: resident can offer next quest while initial quest offers are disabled
+PASS: Flow True: completing the existing dialogue queues the follow-up offer
+PASS: Flow True: toad death advances the quest, including pre-acceptance defeats
+PASS: Flow True: death leaves an uncollectable necklace relic without granting the reward
+PASS: Flow True: completion marker is placed at the toad's death position
+PASS: Flow True: unclaimed discovery relic can be restored after a scene revisit
+PASS: Flow True: a non-inspected or interrupted monologue cannot grant the reward
+PASS: Flow True: full accessory inventory preserves both quest and relic for retry
+PASS: Flow True: finishing inspection grants exactly one necklace and completes the quest
+PASS: Flow True: accessory explanation is queued after acquisition
+PASS: Flow True: repeated callbacks or defeats cannot duplicate the unique reward
+All 62 checks passed.

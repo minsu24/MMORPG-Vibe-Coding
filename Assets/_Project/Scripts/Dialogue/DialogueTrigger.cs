@@ -12,6 +12,8 @@ namespace EasternFantasy.Dialogue
         [SerializeField] private bool startOnPlayerEnter;
         [Tooltip("Play this sequence only once per game session, including scene revisits.")]
         [SerializeField] private bool playOnlyOnce;
+        [Tooltip("Keep a detected entry queued after leaving the trigger, until dialogue is available.")]
+        [SerializeField] private bool finishEntryAfterExit;
 
         private static readonly HashSet<DialogueSequence> playedSequences = new HashSet<DialogueSequence>();
         private Coroutine pendingEntryDialogue;
@@ -48,25 +50,39 @@ namespace EasternFantasy.Dialogue
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!startOnPlayerEnter || !other.CompareTag("Player") || pendingEntryDialogue != null)
+            if (!startOnPlayerEnter || !other.CompareTag("Player") || pendingEntryDialogue != null
+                || (playOnlyOnce && sequence != null && playedSequences.Contains(sequence)))
                 return;
             PlayerMovement2D movement = other.GetComponentInParent<PlayerMovement2D>();
-            pendingEntryDialogue = StartCoroutine(PlayAfterLanding(movement));
+            if (movement == null || !movement.isActiveAndEnabled) return;
+            // Start in the trigger callback, including while jumping. Physics resumes after dialogue.
+            if (TryStartEntryDialogue()) return;
+            pendingEntryDialogue = StartCoroutine(WaitForDialogue(movement));
         }
-        private IEnumerator PlayAfterLanding(PlayerMovement2D movement)
+        private bool TryStartEntryDialogue()
         {
-            // Automatic dialogue pauses physics; let the entering player land first.
+            var manager = DialogueManager.Instance;
+            if (EasternFantasy.UI.MapTutorialUI.IsRunning || manager == null || manager.IsDialogueActive)
+                return false;
+            PlayDialogue();
+            return true;
+        }
+        private IEnumerator WaitForDialogue(PlayerMovement2D movement)
+        {
+            // Only busy dialogue/guide ownership is deferred. Yield before assigning a queue handle.
             yield return null;
-            while (movement != null && movement.isActiveAndEnabled && !movement.IsGrounded)
+            while (movement != null && movement.isActiveAndEnabled)
+            {
+                if (playOnlyOnce && sequence != null && playedSequences.Contains(sequence)) break;
+                if (TryStartEntryDialogue()) break;
                 yield return null;
+            }
             pendingEntryDialogue = null;
-            if (movement != null && movement.isActiveAndEnabled)
-                PlayDialogue();
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (!other.CompareTag("Player") || pendingEntryDialogue == null) return;
+            if (finishEntryAfterExit || !other.CompareTag("Player") || pendingEntryDialogue == null) return;
             StopCoroutine(pendingEntryDialogue);
             pendingEntryDialogue = null;
         }

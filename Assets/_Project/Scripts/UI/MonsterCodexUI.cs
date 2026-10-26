@@ -12,7 +12,7 @@ namespace EasternFantasy.UI
         private readonly HashSet<int> expanded = new HashSet<int>();
         private readonly List<GameObject> rows = new List<GameObject>();
         private RectTransform listContent;
-        private ScrollRect listScroll;
+        private ScrollRect listScroll, descriptionScroll;
         private Image portrait;
         private TMP_Text monsterName, description;
         private int selectedRegion, selectedMonster;
@@ -37,15 +37,40 @@ namespace EasternFantasy.UI
             var divider=Picture("Divider",transform,null,new Vector2(95,-10),new Vector2(2,455));
             divider.color=new Color(.39f,.28f,.16f,.28f);
             // Portrait keeps its original aspect ratio and fills the available height.
-            portrait=Picture("MonsterPortrait",transform,null,new Vector2(-265,65),new Vector2(660,285));
+            portrait=Picture("MonsterPortrait",transform,null,new Vector2(-365,95),new Vector2(440,320));
             portrait.preserveAspect=true;
-            var plate=Picture("MonsterNameplate",transform,nameFrame,new Vector2(-265,-99),new Vector2(630,66));
-            monsterName=Text("MonsterName",plate.transform,"",Vector2.zero,new Vector2(470,40),25,TextAlignmentOptions.Center);
-            var frame=Picture("DescriptionFrame",transform,descriptionFrame,new Vector2(-265,-195),new Vector2(650,132));
-            description=Text("Description",frame.transform,"",Vector2.zero,new Vector2(535,76),20,TextAlignmentOptions.TopLeft);
-            description.textWrappingMode=TextWrappingModes.Normal;
-            frame.type=Image.Type.Sliced; frame.pixelsPerUnitMultiplier=4f;
+            var plate=Picture("MonsterNameplate",transform,nameFrame,new Vector2(-30,75),new Vector2(210,52));
             plate.type=Image.Type.Sliced; plate.pixelsPerUnitMultiplier=5f;
+            monsterName=Text("MonsterName",plate.transform,"",Vector2.zero,new Vector2(170,34),22,TextAlignmentOptions.Center);
+            var frame=Picture("DescriptionFrame",transform,descriptionFrame,new Vector2(-265,-144),new Vector2(620,148));
+            descriptionScroll=frame.gameObject.AddComponent<ScrollRect>();
+            descriptionScroll.horizontal=false;
+            descriptionScroll.movementType=ScrollRect.MovementType.Clamped;
+            descriptionScroll.scrollSensitivity=26;
+            var descriptionView=Rect("DescriptionViewport",frame.transform,new Vector2(-8,0),new Vector2(500,98));
+            descriptionView.gameObject.AddComponent<RectMask2D>();
+            var descriptionHit=descriptionView.gameObject.AddComponent<Image>();
+            descriptionHit.color=Color.clear;
+            description=Text("Description",descriptionView,"",Vector2.zero,new Vector2(500,98),20,TextAlignmentOptions.TopLeft);
+            description.textWrappingMode=TextWrappingModes.Normal;
+            var descriptionRect=description.rectTransform;
+            descriptionRect.anchorMin=new Vector2(0,1); descriptionRect.anchorMax=new Vector2(1,1);
+            descriptionRect.pivot=new Vector2(.5f,1); descriptionRect.sizeDelta=new Vector2(0,98);
+            descriptionRect.anchoredPosition=Vector2.zero;
+            var descriptionFit=description.gameObject.AddComponent<ContentSizeFitter>();
+            descriptionFit.verticalFit=ContentSizeFitter.FitMode.PreferredSize;
+            descriptionScroll.viewport=descriptionView; descriptionScroll.content=descriptionRect;
+            var descriptionTrack=Picture("DescriptionScrollTrack",frame.transform,null,new Vector2(268,0),new Vector2(8,98));
+            descriptionTrack.color=new Color(.23f,.15f,.095f,.13f);
+            descriptionTrack.raycastTarget=true;
+            var descriptionBar=descriptionTrack.gameObject.AddComponent<Scrollbar>();
+            descriptionBar.direction=Scrollbar.Direction.BottomToTop;
+            var descriptionHandle=Picture("Handle",descriptionTrack.transform,null,Vector2.zero,Vector2.zero);
+            descriptionHandle.color=new Color(.46f,.32f,.15f,.8f); descriptionHandle.raycastTarget=true;
+            descriptionBar.handleRect=descriptionHandle.rectTransform; descriptionBar.targetGraphic=descriptionHandle;
+            descriptionScroll.verticalScrollbar=descriptionBar;
+            descriptionScroll.verticalScrollbarVisibility=ScrollRect.ScrollbarVisibility.AutoHide;
+            frame.type=Image.Type.Sliced; frame.pixelsPerUnitMultiplier=4f;
             Text("ListTitle",transform,"지역 · 몬스터 목록",new Vector2(354,192),new Vector2(450,40),25,TextAlignmentOptions.Center);
             var list=Rect("RegionScroll",transform,new Vector2(335,-48),new Vector2(438,425));
             listScroll=list.gameObject.AddComponent<ScrollRect>(); listScroll.horizontal=false;
@@ -99,6 +124,9 @@ namespace EasternFantasy.UI
             portrait.sprite=discovered ? entry.portrait : null;
             portrait.enabled=discovered && entry.portrait;
             description.text=discovered ? entry.description : "아직 발견하지 못한 요괴입니다.\n이름과 모습, 기록이 밝혀지지 않았습니다.";
+            LayoutRebuilder.ForceRebuildLayoutImmediate(description.rectTransform);
+            descriptionScroll.StopMovement();
+            descriptionScroll.verticalNormalizedPosition=1;
             RebuildRows();
         }
         private void RebuildRows()

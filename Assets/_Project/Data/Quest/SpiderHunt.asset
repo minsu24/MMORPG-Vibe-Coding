@@ -23,3 +23,8 @@ MonoBehaviour:
   prerequisiteQuest: {fileID: 11400000, guid: 60c83731829d76749a21f2aef8916d29, type: 2}
   turnInDescription: "\uAC70\uBBF8\uB3D9\uAD74\uC758 \uB2E4\uCE5C \uC8FC\uBBFC\uC5D0\uAC8C
     T\uD0A4\uB85C \uC644\uB8CC \uBCF4\uACE0"
+  revealedMapScenes:
+  - SpiderCave
+  mapOfferScene: PrologueVilage
+  mapObjectiveScene: SpiderCave
+  mapTurnInScene: SpiderCave

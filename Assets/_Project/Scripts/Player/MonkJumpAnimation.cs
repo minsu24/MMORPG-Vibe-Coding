@@ -43,6 +43,12 @@ namespace EasternFantasy.Player
                 for (int i = 0; i < count; i++)
                     if (contacts[i].normal.y >= .65f) { grounded = true; break; }
             }
+            if (entity.isKnockback)
+            {
+                wasAirborne |= !grounded;
+                animator.SetBool(Jumping, false);
+                return;
+            }
             // Movement uses a short ground cast for jumping; animation waits for real contact.
             animator.SetBool(Jumping, !grounded);
             if (!grounded) {
@@ -83,10 +89,10 @@ namespace EasternFantasy.Player
         private void CompleteLanding()
         {
             if (!wasAirborne) return;
-            wasAirborne = false;
             if (animator == null || entity == null || entity.IsDead) return;
             animator.SetBool(Jumping, false);
             if (!CanDrivePose) return;
+            wasAirborne = false;
             animator.Play(Landing, 0, 0f);
         }
 

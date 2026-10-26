@@ -139,7 +139,7 @@ namespace EasternFantasy.EditorTools
                     rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,480);
                     rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,440);
                     rect.anchorMin=rect.anchorMax=new Vector2(1,.70f);rect.pivot=Vector2.one;
-                    rect.anchoredPosition=new Vector2(-28,0);
+                    // Keep the position chosen in the Inspector.
                 }
             }
             return changed;

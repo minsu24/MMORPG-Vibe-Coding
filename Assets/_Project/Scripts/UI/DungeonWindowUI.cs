@@ -64,7 +64,7 @@ namespace EasternFantasy.UI
         public void Open(DungeonPortal source, PlayerMovement2D actor)
         {
             Initialize();
-            if (IsTutorialRunning || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || ShopWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning) return;
+            if (IsTutorialRunning || MapTutorialUI.IsRunning || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || ShopWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning) return;
             if (loading || source == null || actor == null) return;
             if (actor.GetComponent<PlayerEntity>() is PlayerEntity entity && entity.IsDead) return;
             portal = source;

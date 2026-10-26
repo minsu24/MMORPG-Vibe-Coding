@@ -73,6 +73,11 @@ public abstract class EnemyController : Entity
     private bool wasChasing;
     protected bool HasLivingPlayer => playerEntity != null && !playerEntity.IsDead;
     public virtual float ContactDamage => Attack_Power;
+    private float contactDamageBlockedUntil = float.NegativeInfinity;
+    public bool IsSpawnContactProtected => Time.time < contactDamageBlockedUntil;
+    public bool CanDealContactDamage => !isDefeated && HP > 0f && !IsSpawnContactProtected;
+    public void BeginSpawnContactGrace(float duration) =>
+        contactDamageBlockedUntil = Time.time + Mathf.Max(0f, duration);
     protected virtual bool ControlsAttackMovement => false;
     protected virtual void AttackFixedUpdate() { }
     protected virtual string DeathAnimationState => null;

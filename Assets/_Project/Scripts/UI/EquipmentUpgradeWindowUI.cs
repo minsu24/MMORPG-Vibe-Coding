@@ -101,7 +101,7 @@ namespace EasternFantasy.UI
         }
         public void Open()
         {
-            if (StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning || IsTutorialRunning) return;
+            if (MapTutorialUI.IsRunning || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning || IsTutorialRunning) return;
             Initialize();
             BindPlayer(FindFirstObjectByType<PlayerInventory>(), FindFirstObjectByType<PlayerCurrency>());
             if (inventory == null || currency == null) return;

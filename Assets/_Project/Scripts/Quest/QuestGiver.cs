@@ -26,13 +26,14 @@ namespace EasternFantasy.Quest
         [SerializeField] private DialogueSequence nextCompletionDialogue;
         [SerializeField] private DialogueSequence nextRegularDialogue;
         [SerializeField] private bool allowNextQuestTurnIn = true;
+        [SerializeField] private bool allowNextQuestOffer = true;
 
         private bool IsNextQuest => nextQuest != null && QuestManager.Instance != null
             && QuestManager.Instance.FindProgress(quest)?.Status == QuestStatus.Completed;
         public QuestDefinition Quest => IsNextQuest ? nextQuest : quest;
         public bool CanTurnInCurrentQuest => IsNextQuest ? allowNextQuestTurnIn : allowQuestTurnIn;
         private DialogueSequence OfferDialogue => IsNextQuest ? nextOfferDialogue : offerDialogue;
-        public bool CanOfferQuest => allowQuestOffer && Quest != null && OfferDialogue != null
+        public bool CanOfferQuest => (IsNextQuest ? allowNextQuestOffer : allowQuestOffer) && Quest != null && OfferDialogue != null
             && QuestManager.Instance != null && QuestManager.Instance.CanAccept(Quest);
 
         public void OfferQuest()

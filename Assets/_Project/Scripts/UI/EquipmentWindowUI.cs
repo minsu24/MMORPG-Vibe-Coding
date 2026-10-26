@@ -63,7 +63,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
-            if (StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning) { if (IsOpen) RefreshCharacter(); return; }
+            if (MapTutorialUI.IsRunning || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning) { if (IsOpen) RefreshCharacter(); return; }
             Keyboard keyboard = Keyboard.current;
             if (keyboard != null && keyboard.jKey.wasPressedThisFrame)
             {

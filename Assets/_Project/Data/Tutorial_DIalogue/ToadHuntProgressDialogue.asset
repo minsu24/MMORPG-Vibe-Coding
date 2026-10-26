@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1556faa70b3ce43862d54865c7f42e, type: 3}
+  m_Name: ToadHuntProgressDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dialogue.DialogueSequence
+  playerCharacter: {fileID: 11400000, guid: 2758d9b9772cd2441bb27040af28cb98, type: 2}
+  partnerCharacter: {fileID: 11400000, guid: db9a8e346e2893b4b90324c792016227, type: 2}
+  lines:
+  - speaker: 1
+    text: "\uB2AA\uC9C0\uB300\uC758 \uB450\uAEBC\uBE44\uB294 \uC544\uC9C1 \uADF8\uB300\uB85C\uC778\uAC00\uC694?
+      \uBD80\uB514 \uC870\uC2EC\uD574 \uC8FC\uC138\uC694."
+    classOverrides: []
+    firstAdvancementText: 
+  completionExperience: 0

@@ -52,7 +52,7 @@ namespace EasternFantasy.UI
             iconImage.enabled = hasIcon;
             ItemGradeVisual.Apply(iconImage, item);
             placeholderText.gameObject.SetActive(hasItem && !hasIcon);
-            quantityText.text = hasItem && (item.Category != ItemCategory.Equipment || quantity > 1)
+            quantityText.text = hasItem && (!item.IsEquippable || quantity > 1)
                 ? quantity.ToString()
                 : string.Empty;
             equippedText.gameObject.SetActive(hasItem && inventory.IsEquipped(item));
@@ -84,7 +84,7 @@ namespace EasternFantasy.UI
         {
             if (eventData.button != PointerEventData.InputButton.Left || item == null)
                 return;
-            if (item.Category == ItemCategory.Equipment && eventData.clickCount < 2)
+            if (item.IsEquippable && eventData.clickCount < 2)
                 return;
             UseOrEquip();
         }
@@ -107,7 +107,12 @@ namespace EasternFantasy.UI
 
             canvasGroup.blocksRaycasts = false;
             tooltip?.Hide();
-            Canvas canvas = GetComponentInParent<Canvas>();
+            Canvas canvas = GetComponentInParent<Canvas>()?.rootCanvas;
+            if (canvas == null)
+            {
+                canvasGroup.blocksRaycasts = true;
+                return;
+            }
             dragVisual = new GameObject("InventoryDragIcon", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
             dragVisual.transform.SetParent(canvas.transform, false);
             RectTransform rect = dragVisual.GetComponent<RectTransform>();
@@ -119,21 +124,21 @@ namespace EasternFantasy.UI
             ItemGradeVisual.ApplyDrag(image, item);
             Canvas dragCanvas = dragVisual.AddComponent<Canvas>();
             dragCanvas.overrideSorting = true;
-            dragCanvas.sortingOrder = 500;
-            dragVisual.transform.position = eventData.position;
+            dragCanvas.sortingLayerID = canvas.sortingLayerID;
+            dragCanvas.sortingOrder = canvas.sortingOrder + 1;
+            dragVisual.transform.SetAsLastSibling();
+            UpdateDragPosition(eventData);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
             if (dragVisual != null)
-                dragVisual.transform.position = eventData.position;
+                UpdateDragPosition(eventData);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            canvasGroup.blocksRaycasts = true;
-            if (dragVisual != null)
-                Destroy(dragVisual);
+            EndDrag();
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -154,6 +159,25 @@ namespace EasternFantasy.UI
 
             inventory.MoveItem(source.item, slotIndex);
         }
+
+        private void UpdateDragPosition(PointerEventData eventData)
+        {
+            if (dragVisual == null) return;
+            var canvas = dragVisual.GetComponentInParent<Canvas>().rootCanvas;
+            var parent = (RectTransform)dragVisual.transform.parent;
+            Camera camera = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+            if (RectTransformUtility.ScreenPointToWorldPointInRectangle(parent, eventData.position, camera, out Vector3 position))
+                dragVisual.transform.position = position;
+        }
+
+        private void EndDrag()
+        {
+            if (canvasGroup != null) canvasGroup.blocksRaycasts = true;
+            if (dragVisual != null) Destroy(dragVisual);
+            dragVisual = null;
+        }
+
+        private void OnDisable() => EndDrag();
 
         private ItemCategory GetCurrentCategory()
         {

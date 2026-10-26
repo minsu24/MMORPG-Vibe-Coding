@@ -128,15 +128,26 @@ TextureImporter:
       name: "\uC870\uC120 MMORPG UI 1_0"
       rect:
         serializedVersion: 2
-        x: 24
-        y: 871
-        width: 880
-        height: 207
+        x: 20
+        y: 820
+        width: 895
+        height: 266
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: -447.5, y: -133}
+        - {x: -386.5, y: -133}
+        - {x: -386.5, y: -69}
+        - {x: -371.5, y: -69}
+        - {x: -337.5, y: -82}
+        - {x: -317.5, y: -102}
+        - {x: -255.5, y: -102}
+        - {x: -236.5, y: -77}
+        - {x: 447.5, y: -77}
+        - {x: 447.5, y: 133}
+        - {x: -447.5, y: 133}
       physicsShape: []
       tessellationDetail: -1
       bones: []
@@ -150,15 +161,31 @@ TextureImporter:
       name: "\uC870\uC120 MMORPG UI 1_1"
       rect:
         serializedVersion: 2
-        x: 27
-        y: 661
-        width: 892
-        height: 163
+        x: 20
+        y: 615
+        width: 901
+        height: 258
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: -450.5, y: -129}
+        - {x: -379.5, y: -129}
+        - {x: -369.5, y: -92}
+        - {x: 450.5, y: -92}
+        - {x: 450.5, y: 97}
+        - {x: 267.5, y: 97}
+        - {x: 267.5, y: 50}
+        - {x: -170.5, y: 50}
+        - {x: -200.5, y: 68}
+        - {x: -264.5, y: 98}
+        - {x: -320.5, y: 104}
+        - {x: -345.5, y: 129}
+        - {x: -364.5, y: 124}
+        - {x: -387.5, y: 98}
+        - {x: -387.5, y: 71}
+        - {x: -450.5, y: 71}
       physicsShape: []
       tessellationDetail: -1
       bones: []
@@ -216,15 +243,33 @@ TextureImporter:
       name: "\uC870\uC120 MMORPG UI 1_4"
       rect:
         serializedVersion: 2
-        x: 24
-        y: 472
-        width: 906
-        height: 146
+        x: 40
+        y: 432
+        width: 896
+        height: 220
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: -448, y: -36}
+        - {x: -393, y: -36}
+        - {x: -393, y: -50}
+        - {x: -384, y: -62}
+        - {x: 382, y: -62}
+        - {x: 382, y: -30}
+        - {x: 393, y: -22}
+        - {x: 399, y: -4}
+        - {x: 412, y: -4}
+        - {x: 422, y: 2}
+        - {x: 448, y: 2}
+        - {x: 448, y: 75}
+        - {x: -236, y: 75}
+        - {x: -236, y: 110}
+        - {x: -382, y: 110}
+        - {x: -404, y: 82}
+        - {x: -404, y: 73}
+        - {x: -448, y: 73}
       physicsShape: []
       tessellationDetail: -1
       bones: []

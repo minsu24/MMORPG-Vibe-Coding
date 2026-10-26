@@ -10,9 +10,9 @@ namespace EasternFantasy.Player
     public sealed class MonkBasicAttack : MonoBehaviour, IPlayerBasicAttack
     {
         [Header("Timing")]
-        [Tooltip("Time from attack input to the damage frame.")]
+        [Tooltip("Damage frame time in the source animation clip; follows Animator playback speed.")]
         [SerializeField, Min(0f)] private float hitDelay = 0.18f;
-        [Tooltip("Time after the hit before another basic attack can start.")]
+        [Tooltip("Follow-through tuning for skill chaining. Basic attack recovery follows the animation.")]
         [SerializeField, Min(0f)] private float recoveryDuration = 0.28f;
 
         [Header("Hit Box")]
@@ -22,13 +22,14 @@ namespace EasternFantasy.Player
         [SerializeField] private LayerMask enemyLayers;
         [SerializeField, Min(0f)] private float damageMultiplier = 1f;
 
-        private readonly Collider2D[] hitBuffer = new Collider2D[12];
+        private Collider2D[] hitBuffer = new Collider2D[16];
         private readonly HashSet<EnemyController> damagedEnemies =
             new HashSet<EnemyController>();
 
         private PlayerEntity entity;
         private PlayerIdleAnimation animationController;
         private Coroutine attackRoutine;
+        private int attackSequence;
 
         private void Awake()
         {
@@ -45,25 +46,33 @@ namespace EasternFantasy.Player
 
         public bool TryAttack()
         {
-            if (!isActiveAndEnabled || attackRoutine != null || entity.IsDead)
+            if (!isActiveAndEnabled || attackRoutine != null || !animationController.CanPerformCombatAction)
                 return false;
             if (!animationController.TryRequestAttack())
                 return false;
 
+            attackSequence = animationController.BasicAttackSequence;
             attackRoutine = StartCoroutine(AttackRoutine());
             return true;
         }
 
         private IEnumerator AttackRoutine()
         {
-            if (hitDelay > 0f)
-                yield return new WaitForSeconds(hitDelay);
+            while (attackSequence == animationController.BasicAttackSequence
+                && animationController.IsBasicAttackActive
+                && !animationController.HasReachedBasicAttackHit(hitDelay))
+                yield return null;
 
-            if (!entity.IsDead)
+            if (animationController.CanPerformCombatAction && animationController.IsBasicAttackActive
+                && attackSequence == animationController.BasicAttackSequence)
+            {
+                animationController.RefreshAttackFacing();
                 ApplyHit();
+                animationController.MarkBasicAttackHit(recoveryDuration);
+            }
 
-            if (recoveryDuration > 0f)
-                yield return new WaitForSeconds(recoveryDuration);
+            while (animationController.IsBasicAttackActive
+                && attackSequence == animationController.BasicAttackSequence) yield return null;
 
             attackRoutine = null;
         }
@@ -83,12 +92,14 @@ namespace EasternFantasy.Player
                 useTriggers = true
             };
 
-            int hitCount = Physics2D.OverlapBox(
-                center,
-                attackSize,
-                0f,
-                filter,
-                hitBuffer);
+            PhysicsScene2D physics = gameObject.scene.GetPhysicsScene2D();
+            int hitCount;
+            while (true)
+            {
+                hitCount = physics.OverlapBox(center, attackSize, 0f, filter, hitBuffer);
+                if (hitCount < hitBuffer.Length) break;
+                System.Array.Resize(ref hitBuffer, hitBuffer.Length * 2);
+            }
 
             damagedEnemies.Clear();
             float totalDealtDamage = 0f;
@@ -98,7 +109,7 @@ namespace EasternFantasy.Player
                 EnemyController enemy = hitBuffer[i] != null
                     ? hitBuffer[i].GetComponentInParent<EnemyController>()
                     : null;
-                if (enemy == null || !damagedEnemies.Add(enemy))
+                if (enemy == null || enemy.HP <= 0f || !damagedEnemies.Add(enemy))
                     continue;
 
                 float healthBeforeHit = enemy.HP;
@@ -120,6 +131,13 @@ namespace EasternFantasy.Player
                 StopCoroutine(attackRoutine);
             attackRoutine = null;
             damagedEnemies.Clear();
+        }
+
+        private void Update()
+        {
+            if (attackRoutine == null) return;
+            if (!animationController.CanPerformCombatAction) animationController.CancelBasicAttack();
+            if (attackSequence != animationController.BasicAttackSequence) OnDisable();
         }
 
         private float GetAttackDirection()

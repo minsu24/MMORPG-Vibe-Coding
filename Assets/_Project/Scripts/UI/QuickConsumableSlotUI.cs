@@ -64,7 +64,10 @@ namespace EasternFantasy.UI
             if (eventData.button == PointerEventData.InputButton.Right)
                 inventory.ClearConsumableSlot(slotIndex);
             else if (eventData.button == PointerEventData.InputButton.Left)
-                inventory.TryUseConsumableSlot(slotIndex);
+            {
+                if (QuickSlotBarUI.Instance != null) QuickSlotBarUI.Instance.TryUseConsumableSlot(slotIndex);
+                else inventory.TryUseConsumableSlot(slotIndex);
+            }
         }
     }
 }

@@ -301,7 +301,7 @@ namespace EasternFantasy.UI
 
         public bool Open()
         {
-            if (!IsUnlocked || windowRoot == null || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning) return false;
+            if (!IsUnlocked || windowRoot == null || MapTutorialUI.IsRunning || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning) return false;
             if (IsOpen) return true;
             string scene = SceneManager.GetActiveScene().name;
             if (scene == "MainScreen" || scene == "ChooseCharactor") return false;

@@ -13,6 +13,7 @@ namespace EasternFantasy.UI
         [SerializeField] private Button equipmentTab;
         [SerializeField] private Button consumableTab;
         [SerializeField] private Button miscellaneousTab;
+        [SerializeField] private Button accessoryTab;
         [SerializeField] private InventorySlotUI[] slots;
         [SerializeField] private ItemTooltipUI tooltip;
         [SerializeField] private PlayerInventory inventory;
@@ -26,7 +27,8 @@ namespace EasternFantasy.UI
 
         public static InventoryWindowUI Instance { get; private set; }
         public RectTransform TutorialTarget => windowRoot != null ? windowRoot.transform as RectTransform : null;
-        public RectTransform TutorialCategoryTarget(ItemCategory category) => (category == ItemCategory.Equipment ? equipmentTab : category == ItemCategory.Consumable ? consumableTab : miscellaneousTab).transform as RectTransform;
+        public RectTransform TutorialCategoryTarget(ItemCategory category) => (category == ItemCategory.Accessory && accessoryTab != null
+            ? accessoryTab : category == ItemCategory.Equipment ? equipmentTab : category == ItemCategory.Consumable ? consumableTab : miscellaneousTab).transform as RectTransform;
         public RectTransform TutorialItemTarget { get { foreach (var slot in slots) if (slot != null && slot.Definition != null) return slot.transform as RectTransform; return TutorialTarget; } }
         public bool IsUnlocked => InventoryEquipmentTutorialUI.HasFinishedForCurrentClass;
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
@@ -64,6 +66,7 @@ namespace EasternFantasy.UI
             equipmentTab.onClick.AddListener(() => SelectCategory(ItemCategory.Equipment));
             consumableTab.onClick.AddListener(() => SelectCategory(ItemCategory.Consumable));
             miscellaneousTab.onClick.AddListener(() => SelectCategory(ItemCategory.Miscellaneous));
+            if (accessoryTab != null) accessoryTab.onClick.AddListener(() => SelectCategory(ItemCategory.Accessory));
             if (currency != null)
                 currency.CurrencyChanged += OnCurrencyChanged;
             Refresh();
@@ -71,7 +74,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
-            if (StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning) return;
+            if (MapTutorialUI.IsRunning || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning) return;
             if (IsOpen && (inventory == null || inventory.gameObject == null))
                 BindCurrentInventory();
             Keyboard keyboard = Keyboard.current;
@@ -161,6 +164,7 @@ namespace EasternFantasy.UI
             equipmentTab.interactable = selectedCategory != ItemCategory.Equipment;
             consumableTab.interactable = selectedCategory != ItemCategory.Consumable;
             miscellaneousTab.interactable = selectedCategory != ItemCategory.Miscellaneous;
+            if (accessoryTab != null) accessoryTab.interactable = selectedCategory != ItemCategory.Accessory;
 
             for (int i = 0; i < slots.Length; i++)
                 slots[i].Clear(i);

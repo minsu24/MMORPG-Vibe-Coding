@@ -1,4 +1,3 @@
-using System.Collections;
 using EasternFantasy.Inventory;
 using EasternFantasy.Skill;
 using EasternFantasy.Player;
@@ -29,9 +28,6 @@ namespace EasternFantasy.UI
         private PlayerSkillSystem subscribedSkillSystem;
         private PlayerCurrency subscribedCurrency;
         private PlayerInventory subscribedInventory;
-        private CanvasGroup failurePopup;
-        private TMP_Text failureText;
-        private Coroutine failureRoutine;
 
         private void Awake()
         {
@@ -78,10 +74,10 @@ namespace EasternFantasy.UI
                 if (keyboard.fKey.wasPressedThisFrame) TryUseSlot(7);
                 if (inventory != null)
                 {
-                    if (keyboard.digit1Key.wasPressedThisFrame) inventory.TryUseConsumableSlot(0);
-                    if (keyboard.digit2Key.wasPressedThisFrame) inventory.TryUseConsumableSlot(1);
-                    if (keyboard.digit3Key.wasPressedThisFrame) inventory.TryUseConsumableSlot(2);
-                    if (keyboard.digit4Key.wasPressedThisFrame) inventory.TryUseConsumableSlot(3);
+                    if (keyboard.digit1Key.wasPressedThisFrame) TryUseConsumableSlot(0);
+                    if (keyboard.digit2Key.wasPressedThisFrame) TryUseConsumableSlot(1);
+                    if (keyboard.digit3Key.wasPressedThisFrame) TryUseConsumableSlot(2);
+                    if (keyboard.digit4Key.wasPressedThisFrame) TryUseConsumableSlot(3);
                 }
             }
 
@@ -99,75 +95,18 @@ namespace EasternFantasy.UI
             ShowFailure(string.IsNullOrEmpty(reason) ? "지금 사용할 수 없습니다" : reason);
         }
 
-        private void ShowFailure(string message)
+        private void ShowFailure(string message) => SystemNoticeUI.Show(message, this);
+
+        public void TryUseConsumableSlot(int index)
         {
-            if (failurePopup == null)
-                CreateFailurePopup();
-            if (failurePopup == null)
-                return;
-
-            if (failureRoutine != null)
-                StopCoroutine(failureRoutine);
-            failureText.text = message;
-            failurePopup.alpha = 1f;
-            failurePopup.gameObject.SetActive(true);
-            failureRoutine = StartCoroutine(FadeFailure());
-        }
-
-        private void CreateFailurePopup()
-        {
-            Canvas canvas = GetComponentInParent<Canvas>();
-            if (canvas == null)
-                return;
-            GameObject popup = new GameObject("Skill Failure Popup", typeof(RectTransform),
-                typeof(CanvasRenderer), typeof(Image), typeof(Outline), typeof(CanvasGroup));
-            popup.transform.SetParent(canvas.rootCanvas.transform, false);
-            popup.transform.SetAsLastSibling();
-            RectTransform rect = popup.GetComponent<RectTransform>();
-            rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
-            rect.anchoredPosition = new Vector2(0f, 30f);
-            rect.sizeDelta = new Vector2(520f, 72f);
-            Image background = popup.GetComponent<Image>();
-            background.color = new Color(0.055f, 0.065f, 0.075f, 0.92f);
-            background.raycastTarget = false;
-            Outline border = popup.GetComponent<Outline>();
-            border.effectColor = new Color(0.93f, 0.65f, 0.31f, 0.85f);
-            border.effectDistance = new Vector2(2f, -2f);
-            failurePopup = popup.GetComponent<CanvasGroup>();
-            failurePopup.interactable = false;
-            failurePopup.blocksRaycasts = false;
-
-            GameObject label = new GameObject("Reason", typeof(RectTransform),
-                typeof(CanvasRenderer), typeof(TextMeshProUGUI));
-            label.transform.SetParent(popup.transform, false);
-            RectTransform labelRect = label.GetComponent<RectTransform>();
-            labelRect.anchorMin = Vector2.zero;
-            labelRect.anchorMax = Vector2.one;
-            labelRect.offsetMin = new Vector2(16f, 6f);
-            labelRect.offsetMax = new Vector2(-16f, -6f);
-            failureText = label.GetComponent<TextMeshProUGUI>();
-            failureText.font = currencyText != null ? currencyText.font
-                : TMP_Settings.defaultFontAsset;
-            failureText.fontSize = 28f;
-            failureText.color = new Color(1f, 0.88f, 0.68f);
-            failureText.alignment = TextAlignmentOptions.Center;
-            failureText.raycastTarget = false;
-            popup.SetActive(false);
-        }
-
-        private IEnumerator FadeFailure()
-        {
-            yield return new WaitForSecondsRealtime(0.85f);
-            float elapsed = 0f;
-            while (elapsed < 0.35f && failurePopup != null)
-            {
-                elapsed += Time.unscaledDeltaTime;
-                failurePopup.alpha = 1f - Mathf.Clamp01(elapsed / 0.35f);
-                yield return null;
-            }
-            if (failurePopup != null)
-                failurePopup.gameObject.SetActive(false);
-            failureRoutine = null;
+            if (inventory == null) return;
+            if (inventory.TryUseConsumableSlot(index)) return;
+            ItemDefinition item = index >= 0 && index < inventory.ConsumableSlots.Count
+                ? inventory.ConsumableSlots[index] : null;
+            string reason = item == null ? "퀵슬롯에 소모품을 등록해 주세요."
+                : inventory.GetQuantity(item) <= 0 ? "등록된 소모품이 없습니다."
+                : "지금은 이 소모품을 사용할 수 없습니다.";
+            ShowFailure(reason);
         }
 
         private void ResolveReferences()
@@ -255,8 +194,7 @@ namespace EasternFantasy.UI
         private void OnDestroy()
         {
             Unsubscribe();
-            if (failurePopup != null)
-                Destroy(failurePopup.gameObject);
+            SystemNoticeUI.Hide(this);
             if (Instance == this)
                 Instance = null;
         }

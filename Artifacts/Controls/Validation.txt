@@ -1,0 +1,109 @@
+PASS: Idle does not invent an attack
+PASS: Attack press is accepted immediately
+PASS: Released tap survives inside the reservation window
+PASS: Expired tap does not cause a late attack
+PASS: Successful attack consumes the reservation exactly once
+PASS: Held attack repeats when enabled
+PASS: Held attack respects the repeat setting
+PASS: Menu or hit stun discards the queue and blocks a held key
+PASS: Releasing the blocked key does not attack
+PASS: A fresh press works after releasing the blocked key
+PASS: Frozen gameplay time preserves input during hit stop
+PASS: Player: isolated physics fixture
+PASS: Player: enabled basic attack handler exists
+PASS: Player: real floor contact grants grounding
+PASS: Player: grounded jump launches immediately
+PASS: Player: consumed coyote allowance cannot grant a double jump
+PASS: Player: airborne press is reserved briefly
+PASS: Player: landing consumes a valid buffered jump
+PASS: Player: expired jump does not fire on landing
+PASS: Player: recent ledge departure accepts a coyote jump
+PASS: Player: coyote jump expires away from ground
+PASS: Player: down-jump cannot use coyote time to jump upward
+PASS: Player: solid floors remain solid on down-jump
+PASS: Player: one-way platform supports the player
+PASS: Player: down-jump drops through a one-way platform
+PASS: Player: platform collision is restored after clearing the platform
+PASS: Player: hit stun rejects basic attack
+PASS: Player: movement lock rejects basic attack
+PASS: Player: overlapping dialogue locks remain owned independently
+PASS: Player: final owner releases gameplay
+PASS: Player: same-frame left input updates attack facing
+PASS: Player: same-frame right input updates attack facing
+PASS: Player: wind-up does not hit early
+PASS: Player: hit threshold follows animator progress
+PASS: Player: immediate follow-through cannot be cancelled
+PASS: Player: late recovery permits skill chaining
+PASS: Player: a real skill animation can replace late basic recovery
+PASS: Player: chained skill owns the animation and invalidates the old swing
+PASS: Player: menu cancels the active swing and invalidates pending damage
+PASS: Player: death rejects basic attack
+PASS: MonkPlayer: isolated physics fixture
+PASS: MonkPlayer: enabled basic attack handler exists
+PASS: MonkPlayer: real floor contact grants grounding
+PASS: MonkPlayer: grounded jump launches immediately
+PASS: MonkPlayer: consumed coyote allowance cannot grant a double jump
+PASS: MonkPlayer: airborne press is reserved briefly
+PASS: MonkPlayer: landing consumes a valid buffered jump
+PASS: MonkPlayer: expired jump does not fire on landing
+PASS: MonkPlayer: recent ledge departure accepts a coyote jump
+PASS: MonkPlayer: coyote jump expires away from ground
+PASS: MonkPlayer: down-jump cannot use coyote time to jump upward
+PASS: MonkPlayer: solid floors remain solid on down-jump
+PASS: MonkPlayer: one-way platform supports the player
+PASS: MonkPlayer: down-jump drops through a one-way platform
+PASS: MonkPlayer: platform collision is restored after clearing the platform
+PASS: MonkPlayer: hit stun rejects basic attack
+PASS: MonkPlayer: movement lock rejects basic attack
+PASS: MonkPlayer: overlapping dialogue locks remain owned independently
+PASS: MonkPlayer: final owner releases gameplay
+PASS: MonkPlayer: same-frame left input updates attack facing
+PASS: MonkPlayer: same-frame right input updates attack facing
+PASS: MonkPlayer: wind-up does not hit early
+PASS: MonkPlayer: hit threshold follows animator progress
+PASS: MonkPlayer: immediate follow-through cannot be cancelled
+PASS: MonkPlayer: late recovery permits skill chaining
+PASS: MonkPlayer: a real skill animation can replace late basic recovery
+PASS: MonkPlayer: chained skill owns the animation and invalidates the old swing
+PASS: MonkPlayer: menu cancels the active swing and invalidates pending damage
+PASS: MonkPlayer: cancelled melee coroutine exits without delayed damage
+PASS: MonkPlayer: death rejects basic attack
+PASS: MonkPlayer: twenty crowded enemies each take one hit despite duplicate hurtboxes
+PASS: MonkPlayer: forward melee attack does not damage targets behind the player
+PASS: MonkPlayer: recovery cannot repeat melee damage
+PASS: MonkPlayer: the damage coroutine releases recovery after cancellation
+PASS: SwordswomanPlayer: isolated physics fixture
+PASS: SwordswomanPlayer: enabled basic attack handler exists
+PASS: SwordswomanPlayer: real floor contact grants grounding
+PASS: SwordswomanPlayer: grounded jump launches immediately
+PASS: SwordswomanPlayer: consumed coyote allowance cannot grant a double jump
+PASS: SwordswomanPlayer: airborne press is reserved briefly
+PASS: SwordswomanPlayer: landing consumes a valid buffered jump
+PASS: SwordswomanPlayer: expired jump does not fire on landing
+PASS: SwordswomanPlayer: recent ledge departure accepts a coyote jump
+PASS: SwordswomanPlayer: coyote jump expires away from ground
+PASS: SwordswomanPlayer: down-jump cannot use coyote time to jump upward
+PASS: SwordswomanPlayer: solid floors remain solid on down-jump
+PASS: SwordswomanPlayer: one-way platform supports the player
+PASS: SwordswomanPlayer: down-jump drops through a one-way platform
+PASS: SwordswomanPlayer: platform collision is restored after clearing the platform
+PASS: SwordswomanPlayer: hit stun rejects basic attack
+PASS: SwordswomanPlayer: movement lock rejects basic attack
+PASS: SwordswomanPlayer: overlapping dialogue locks remain owned independently
+PASS: SwordswomanPlayer: final owner releases gameplay
+PASS: SwordswomanPlayer: same-frame left input updates attack facing
+PASS: SwordswomanPlayer: same-frame right input updates attack facing
+PASS: SwordswomanPlayer: wind-up does not hit early
+PASS: SwordswomanPlayer: hit threshold follows animator progress
+PASS: SwordswomanPlayer: immediate follow-through cannot be cancelled
+PASS: SwordswomanPlayer: late recovery permits skill chaining
+PASS: SwordswomanPlayer: a real skill animation can replace late basic recovery
+PASS: SwordswomanPlayer: chained skill owns the animation and invalidates the old swing
+PASS: SwordswomanPlayer: menu cancels the active swing and invalidates pending damage
+PASS: SwordswomanPlayer: cancelled melee coroutine exits without delayed damage
+PASS: SwordswomanPlayer: death rejects basic attack
+PASS: SwordswomanPlayer: twenty crowded enemies each take one hit despite duplicate hurtboxes
+PASS: SwordswomanPlayer: forward melee attack does not damage targets behind the player
+PASS: SwordswomanPlayer: recovery cannot repeat melee damage
+PASS: SwordswomanPlayer: the damage coroutine releases recovery after cancellation
+All 108 checks passed. Fixtures used isolated preview scenes; no scene or prefab saved.

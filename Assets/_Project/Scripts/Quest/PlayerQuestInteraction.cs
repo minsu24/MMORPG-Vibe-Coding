@@ -55,11 +55,19 @@ namespace EasternFantasy.Quest
                 return;
             }
 
-            DungeonPortal dungeon = FindNearestDungeonPortal();
+            QuestRewardRelic relic = QuestRewardRelic.FindNear(transform, interactionRadius);
+            if (relic != null)
+            {
+                // The relic's larger completion panel already includes the T-key action.
+                currentPromptTarget = null;
+                if (interactionPrompt != null) interactionPrompt.SetActive(false);
+                return;
+            }
+            DungeonPortal dungeon = relic == null ? FindNearestDungeonPortal() : null;
             EquipmentUpgradeBlacksmith blacksmith = dungeon == null ? FindNearestBlacksmith() : null;
             Shopkeeper shopkeeper = dungeon == null && blacksmith == null ? FindNearestShopkeeper() : null;
             QuestGiver questGiver = dungeon == null && blacksmith == null && shopkeeper == null ? FindNearestQuestGiver() : null;
-            Transform target = dungeon != null ? dungeon.transform : blacksmith != null ? blacksmith.transform : shopkeeper != null ? shopkeeper.transform
+            Transform target = relic != null ? relic.transform : dungeon != null ? dungeon.transform : blacksmith != null ? blacksmith.transform : shopkeeper != null ? shopkeeper.transform
                 : questGiver != null ? questGiver.transform : null;
             if (target == null)
             {
@@ -102,6 +110,9 @@ namespace EasternFantasy.Quest
             if (DungeonWindowUI.Instance != null && DungeonWindowUI.Instance.IsOpen) return false;
             if (DialogueManager.Instance != null && DialogueManager.Instance.IsDialogueActive)
                 return false;
+
+            QuestRewardRelic relic = QuestRewardRelic.FindNear(transform, interactionRadius);
+            if (relic != null) return relic.TryInteract();
 
             DungeonPortal dungeon = FindNearestDungeonPortal();
             if (dungeon != null) return dungeon.Interact(GetComponent<PlayerMovement2D>());

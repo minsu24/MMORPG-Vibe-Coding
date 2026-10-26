@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fa0098bc354604abb4620c124b6f4f, type: 3}
+  m_Name: ToadHunt
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Quest.ToadHuntDefinition
+  prerequisite: {fileID: 11400000, guid: 676382dbbc00ac04fb36ce9ed427182d, type: 2}
+  prerequisiteCompletion: {fileID: 11400000, guid: 1b6559b2397f80c448c705bb4adfd066, type: 2}
+  quest: {fileID: 11400000, guid: 1e8f52c2dabbec24085f8da748ce1f7b, type: 2}
+  necklace: {fileID: 11400000, guid: 95030f8d227f9764787d3ddc05ff9fba, type: 2}
+  discoveryMonologue: {fileID: 11400000, guid: 190bef8836d638c4b91ba7a8ba778f78, type: 2}
+  accessoryExplanation: {fileID: 11400000, guid: a52a24e10a9587b4d9f3c10db723bf0f, type: 2}
+  relicPrefab: {fileID: 1372593608107733503, guid: b4005a1e8fcabb54db50ef9d60e5830b, type: 3}
+  bossScene: Marshland

@@ -20,6 +20,8 @@ namespace EasternFantasy.UI
         [SerializeField] private TMP_Text currencyText;
         [SerializeField] private TMP_Text messageText;
         [SerializeField] private ShopSlotUI[] slots;
+        [SerializeField] private ItemTooltipUI tooltip;
+        private ShopSlotUI tooltipSlot;
 
         [Header("DOTween popup")]
         [SerializeField, Min(0.01f)] private float openDuration = 0.25f;
@@ -50,6 +52,20 @@ namespace EasternFantasy.UI
         public static ShopWindowUI Instance { get; private set; }
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
         public bool IsSelling => selling;
+
+        public void ShowItemTooltip(ShopSlotUI slot, ItemDefinition item)
+        {
+            if (slot == null || item == null || !IsOpen || closing || IsTutorialRunning || tooltip == null || !ResolvePlayerReferences()) return;
+            tooltipSlot = slot;
+            tooltip.ShowShop(item, inventory, slot.transform as RectTransform, selling);
+        }
+
+        public void HideItemTooltip(ShopSlotUI slot = null, bool delayed = false)
+        {
+            if (slot != null && tooltipSlot != slot) return;
+            if (delayed) tooltip?.HideAfterPointerExit();
+            else { tooltip?.Hide(); tooltipSlot = null; }
+        }
 
         private void Awake()
         {
@@ -83,7 +99,7 @@ namespace EasternFantasy.UI
 
         public void Open(Shopkeeper target)
         {
-            if (StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || IsTutorialRunning) return;
+            if (MapTutorialUI.IsRunning || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || IsTutorialRunning) return;
             if (target == null || windowRoot == null || !isActiveAndEnabled || !ResolvePlayerReferences())
                 return;
 
@@ -128,6 +144,7 @@ namespace EasternFantasy.UI
 
         public void Close()
         {
+            HideItemTooltip();
             EndTutorial();
             if (closing) return;
             if (!IsOpen || !isActiveAndEnabled) { CloseInstant(); return; }
@@ -145,6 +162,7 @@ namespace EasternFantasy.UI
 
         private void CloseInstant()
         {
+            HideItemTooltip();
             EndTutorial();
             popupSequence?.Kill();
             popupSequence = null;
@@ -247,6 +265,7 @@ namespace EasternFantasy.UI
 
         private void Refresh()
         {
+            HideItemTooltip();
             if (!ResolvePlayerReferences())
                 return;
 

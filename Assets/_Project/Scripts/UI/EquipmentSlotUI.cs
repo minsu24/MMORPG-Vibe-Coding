@@ -68,7 +68,12 @@ namespace EasternFantasy.UI
                 return;
             canvasGroup.blocksRaycasts = false;
             tooltip?.Hide();
-            Canvas canvas = GetComponentInParent<Canvas>();
+            Canvas canvas = GetComponentInParent<Canvas>()?.rootCanvas;
+            if (canvas == null)
+            {
+                canvasGroup.blocksRaycasts = true;
+                return;
+            }
             dragVisual = new GameObject("EquipmentDragIcon", typeof(RectTransform), typeof(Image));
             dragVisual.transform.SetParent(canvas.transform, false);
             dragVisual.GetComponent<RectTransform>().sizeDelta = new Vector2(64f, 64f);
@@ -79,21 +84,21 @@ namespace EasternFantasy.UI
             ItemGradeVisual.ApplyDrag(image, item);
             Canvas dragCanvas = dragVisual.AddComponent<Canvas>();
             dragCanvas.overrideSorting = true;
-            dragCanvas.sortingOrder = 500;
-            dragVisual.transform.position = eventData.position;
+            dragCanvas.sortingLayerID = canvas.sortingLayerID;
+            dragCanvas.sortingOrder = canvas.sortingOrder + 1;
+            dragVisual.transform.SetAsLastSibling();
+            UpdateDragPosition(eventData);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
             if (dragVisual != null)
-                dragVisual.transform.position = eventData.position;
+                UpdateDragPosition(eventData);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            canvasGroup.blocksRaycasts = true;
-            if (dragVisual != null)
-                Destroy(dragVisual);
+            EndDrag();
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -104,6 +109,25 @@ namespace EasternFantasy.UI
         }
 
         public void OnPointerExit(PointerEventData eventData) => tooltip?.HideAfterPointerExit();
+
+        private void UpdateDragPosition(PointerEventData eventData)
+        {
+            if (dragVisual == null) return;
+            var canvas = dragVisual.GetComponentInParent<Canvas>().rootCanvas;
+            var parent = (RectTransform)dragVisual.transform.parent;
+            Camera camera = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+            if (RectTransformUtility.ScreenPointToWorldPointInRectangle(parent, eventData.position, camera, out Vector3 position))
+                dragVisual.transform.position = position;
+        }
+
+        private void EndDrag()
+        {
+            if (canvasGroup != null) canvasGroup.blocksRaycasts = true;
+            if (dragVisual != null) Destroy(dragVisual);
+            dragVisual = null;
+        }
+
+        private void OnDisable() => EndDrag();
 
         private static string SlotName(EquipmentSlot value)
         {

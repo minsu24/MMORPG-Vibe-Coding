@@ -1,0 +1,289 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5302138720656049124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6141524732847109330}
+  - component: {fileID: 9079971213759051505}
+  - component: {fileID: 285514226324564773}
+  m_Layer: 0
+  m_Name: Butterfly_01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6141524732847109330
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5302138720656049124}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0.07677939, w: 0.99704814}
+  m_LocalPosition: {x: -12.990543, y: -3.9605484, z: 0}
+  m_LocalScale: {x: 0.13, y: 0.13, z: 0.13}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 853859994561109173}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &9079971213759051505
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5302138720656049124}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: bf676e9defa653948977829af0ca972c, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 6
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: -5172725848932738222, guid: b636e35de196f4b48843251ddef4d8e7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 3.6, y: 3.9}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+--- !u!114 &285514226324564773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5302138720656049124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d8b3b154e67a0040a72fbd249f69f7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.World.AmbientButterfly
+  flightFrames:
+  - {fileID: -5172725848932738222, guid: b636e35de196f4b48843251ddef4d8e7, type: 3}
+  - {fileID: -3161287570394540765, guid: b636e35de196f4b48843251ddef4d8e7, type: 3}
+  - {fileID: -1147474666501161606, guid: b636e35de196f4b48843251ddef4d8e7, type: 3}
+  - {fileID: 6775000554737426810, guid: b636e35de196f4b48843251ddef4d8e7, type: 3}
+  - {fileID: -515761123346424758, guid: b636e35de196f4b48843251ddef4d8e7, type: 3}
+  - {fileID: 3967540097198629988, guid: b636e35de196f4b48843251ddef4d8e7, type: 3}
+  route:
+  - {x: -13, y: -4}
+  - {x: -9, y: -2.4}
+  - {x: -4, y: -3.4}
+  - {x: 2, y: -4.4}
+  - {x: 7, y: -3}
+  - {x: 12, y: -4.7}
+  - {x: 8, y: -5.2}
+  - {x: 1, y: -4.8}
+  - {x: -6, y: -5.6}
+  - {x: -12, y: -4.8}
+  travelSpeed: 0.85
+  framesPerSecond: 14
+  startProgress: 0
+  flutterPhase: 0.3
+  flutterAmplitude: 0.08
+--- !u!1 &8905232250561514039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 853859994561109173}
+  m_Layer: 0
+  m_Name: Village_Butterflies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &853859994561109173
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8905232250561514039}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6141524732847109330}
+  - {fileID: 5195391862832679738}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8953190584191006945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5195391862832679738}
+  - component: {fileID: 711377223934751930}
+  - component: {fileID: 7537230401965377583}
+  m_Layer: 0
+  m_Name: Butterfly_02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5195391862832679738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8953190584191006945}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: -0.0151981115, w: 0.99988455}
+  m_LocalPosition: {x: -2.9654715, y: -3.9441843, z: 0}
+  m_LocalScale: {x: 0.115, y: 0.115, z: 0.115}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 853859994561109173}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &711377223934751930
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8953190584191006945}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: bf676e9defa653948977829af0ca972c, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 6
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: -1147474666501161606, guid: b636e35de196f4b48843251ddef4d8e7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 3.6, y: 3.9}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+--- !u!114 &7537230401965377583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8953190584191006945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d8b3b154e67a0040a72fbd249f69f7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.World.AmbientButterfly
+  flightFrames:
+  - {fileID: -5172725848932738222, guid: b636e35de196f4b48843251ddef4d8e7, type: 3}
+  - {fileID: -3161287570394540765, guid: b636e35de196f4b48843251ddef4d8e7, type: 3}
+  - {fileID: -1147474666501161606, guid: b636e35de196f4b48843251ddef4d8e7, type: 3}
+  - {fileID: 6775000554737426810, guid: b636e35de196f4b48843251ddef4d8e7, type: 3}
+  - {fileID: -515761123346424758, guid: b636e35de196f4b48843251ddef4d8e7, type: 3}
+  - {fileID: 3967540097198629988, guid: b636e35de196f4b48843251ddef4d8e7, type: 3}
+  route:
+  - {x: -3, y: -4}
+  - {x: 2, y: -2.4}
+  - {x: 9, y: -2.8}
+  - {x: 14, y: -4.2}
+  - {x: 10, y: -5.3}
+  - {x: 4, y: -4.2}
+  - {x: -2, y: -5.5}
+  - {x: -8, y: -4}
+  - {x: -14, y: -3}
+  - {x: -9, y: -2.3}
+  travelSpeed: 1.05
+  framesPerSecond: 16
+  startProgress: 0
+  flutterPhase: 2.1
+  flutterAmplitude: 0.1

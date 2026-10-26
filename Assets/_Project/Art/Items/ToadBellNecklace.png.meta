@@ -1,0 +1,754 @@
+fileFormatVersion: 2
+guid: 7135b0807d8f2ba4caa03dea3ebf651f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3040823358314219343
+    second: ToadBellNecklace_0
+  - first:
+      213: 7367757824375707961
+    second: ToadBellNecklace_1
+  - first:
+      213: 8064498599396605958
+    second: ToadBellNecklace_2
+  - first:
+      213: 3190432138316898918
+    second: ToadBellNecklace_3
+  - first:
+      213: 3299366150614242524
+    second: ToadBellNecklace_4
+  - first:
+      213: -4881148731589671092
+    second: ToadBellNecklace_5
+  - first:
+      213: 3238044007731806845
+    second: ToadBellNecklace_6
+  - first:
+      213: -6446409780893851288
+    second: ToadBellNecklace_7
+  - first:
+      213: -8109982946410379235
+    second: ToadBellNecklace_8
+  - first:
+      213: -5158304826722427994
+    second: ToadBellNecklace_9
+  - first:
+      213: -6504463130317996003
+    second: ToadBellNecklace_10
+  - first:
+      213: -2209472117999705335
+    second: ToadBellNecklace_11
+  - first:
+      213: 834685693564817262
+    second: ToadBellNecklace_12
+  - first:
+      213: -4456729848570312272
+    second: ToadBellNecklace_13
+  - first:
+      213: -3052618903055449344
+    second: ToadBellNecklace_14
+  - first:
+      213: -7093928171942986411
+    second: ToadBellNecklace_15
+  - first:
+      213: -1345238612027718396
+    second: ToadBellNecklace_16
+  - first:
+      213: -920510080003630917
+    second: ToadBellNecklace_17
+  - first:
+      213: -1362544221062790359
+    second: ToadBellNecklace_18
+  - first:
+      213: 84549043201087660
+    second: ToadBellNecklace_19
+  - first:
+      213: 4348710676982305613
+    second: ToadBellNecklace_20
+  - first:
+      213: 8615503848246654302
+    second: ToadBellNecklace_21
+  - first:
+      213: 8625868743004799223
+    second: ToadBellNecklace_22
+  - first:
+      213: 7420995911087482213
+    second: ToadBellNecklace_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ToadBellNecklace_0
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 1209
+        height: 1222
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f478701cbbc233a20800000000000000
+      internalID: 3040823358314219343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_1
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 1088
+        width: 47
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 939d40984b88f3660800000000000000
+      internalID: 7367757824375707961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_2
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 1124
+        width: 27
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6008ba4afbadaef60800000000000000
+      internalID: 8064498599396605958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_3
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 1138
+        width: 64
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6626e5c4021b64c20800000000000000
+      internalID: 3190432138316898918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_4
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 1092
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd45f4f7804b9cd20800000000000000
+      internalID: 3299366150614242524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_5
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 1094
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c47cfbd071da24cb0800000000000000
+      internalID: -4881148731589671092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_6
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 1092
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d72cfef7ed7dfec20800000000000000
+      internalID: 3238044007731806845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_7
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 1100
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 861e7357570c986a0800000000000000
+      internalID: -6446409780893851288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_8
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 1100
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d18cbb09a7d837f80800000000000000
+      internalID: -8109982946410379235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_9
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 1084
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6abd60807150a68b0800000000000000
+      internalID: -5158304826722427994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_10
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 899
+        width: 35
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1045cebe318bb5a0800000000000000
+      internalID: -6504463130317996003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_11
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 616
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9036f71a0d06651e0800000000000000
+      internalID: -2209472117999705335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_12
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 481
+        width: 16
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6f08084736659b00800000000000000
+      internalID: 834685693564817262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_13
+      rect:
+        serializedVersion: 2
+        x: 1197
+        y: 386
+        width: 22
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b90614c0d38622c0800000000000000
+      internalID: -4456729848570312272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_14
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 276
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 003ccb8f74be2a5d0800000000000000
+      internalID: -3052618903055449344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_15
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 278
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55db331b9ed4d8d90800000000000000
+      internalID: -7093928171942986411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_16
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 174
+        width: 37
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 405c2f71c90c45de0800000000000000
+      internalID: -1345238612027718396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_17
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 197
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb8973595f0b933f0800000000000000
+      internalID: -920510080003630917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_18
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 170
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9238ac00045471de0800000000000000
+      internalID: -1362544221062790359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_19
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 160
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca8991628e06c2100800000000000000
+      internalID: 84549043201087660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_20
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 144
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d439a7cf159b95c30800000000000000
+      internalID: 4348710676982305613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_21
+      rect:
+        serializedVersion: 2
+        x: 697
+        y: 128
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e55b0c36a1b609770800000000000000
+      internalID: 8615503848246654302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_22
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 119
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f042f18bed35b770800000000000000
+      internalID: 8625868743004799223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ToadBellNecklace_23
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 58
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 565eef7867cacf660800000000000000
+      internalID: 7420995911087482213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ToadBellNecklace_0: 3040823358314219343
+      ToadBellNecklace_1: 7367757824375707961
+      ToadBellNecklace_10: -6504463130317996003
+      ToadBellNecklace_11: -2209472117999705335
+      ToadBellNecklace_12: 834685693564817262
+      ToadBellNecklace_13: -4456729848570312272
+      ToadBellNecklace_14: -3052618903055449344
+      ToadBellNecklace_15: -7093928171942986411
+      ToadBellNecklace_16: -1345238612027718396
+      ToadBellNecklace_17: -920510080003630917
+      ToadBellNecklace_18: -1362544221062790359
+      ToadBellNecklace_19: 84549043201087660
+      ToadBellNecklace_2: 8064498599396605958
+      ToadBellNecklace_20: 4348710676982305613
+      ToadBellNecklace_21: 8615503848246654302
+      ToadBellNecklace_22: 8625868743004799223
+      ToadBellNecklace_23: 7420995911087482213
+      ToadBellNecklace_3: 3190432138316898918
+      ToadBellNecklace_4: 3299366150614242524
+      ToadBellNecklace_5: -4881148731589671092
+      ToadBellNecklace_6: 3238044007731806845
+      ToadBellNecklace_7: -6446409780893851288
+      ToadBellNecklace_8: -8109982946410379235
+      ToadBellNecklace_9: -5158304826722427994
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

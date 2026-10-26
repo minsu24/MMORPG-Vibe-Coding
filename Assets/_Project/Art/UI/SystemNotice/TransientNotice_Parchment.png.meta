@@ -1,0 +1,219 @@
+fileFormatVersion: 2
+guid: de9b24574eecbea428e3671f26d3fbac
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8719257570464499700
+    second: TransientNotice_Parchment_0
+  - first:
+      213: 725494904297446801
+    second: TransientNotice_Parchment_1
+  - first:
+      213: 2063201020371168739
+    second: TransientNotice_Parchment_2
+  - first:
+      213: -6127369942952808073
+    second: TransientNotice_Parchment_3
+  - first:
+      213: 6960899493204730453
+    second: TransientNotice_Parchment_4
+  - first:
+      213: -5650892080756340029
+    second: TransientNotice_Parchment_5
+  - first:
+      213: 10142189327789717
+    second: TransientNotice_Parchment_6
+  - first:
+      213: -6353470910555349492
+    second: TransientNotice_Parchment_7
+  - first:
+      213: -6927628951876049813
+    second: TransientNotice_Parchment_8
+  - first:
+      213: 7486424244870145687
+    second: TransientNotice_Parchment_9
+  - first:
+      213: -2617416658450498684
+    second: TransientNotice_Parchment_10
+  - first:
+      213: -2719401332795820747
+    second: TransientNotice_Parchment_11
+  - first:
+      213: 8766911588772805763
+    second: TransientNotice_Parchment_12
+  - first:
+      213: -8079429474004185791
+    second: TransientNotice_Parchment_13
+  - first:
+      213: 3706106768466657798
+    second: TransientNotice_Parchment_14
+  - first:
+      213: -8825797022596439735
+    second: TransientNotice_Parchment_15
+  - first:
+      213: -7629868051037065233
+    second: TransientNotice_Parchment_16
+  - first:
+      213: -6646764477924044338
+    second: TransientNotice_Parchment_17
+  - first:
+      213: 862190653357085245
+    second: TransientNotice_Parchment_18
+  - first:
+      213: -317235529903663911
+    second: TransientNotice_Parchment_19
+  - first:
+      213: 8226137446512447488
+    second: TransientNotice_Parchment_20
+  - first:
+      213: 7627999242846952146
+    second: TransientNotice_Parchment_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TransientNotice_Parchment
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 182
+        width: 2018
+        height: 412
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ba28f1a59f19f340b35a953e10f18fb
+      internalID: 902579998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f82ea9d71e0d4dd48a79673b13d514a3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TransientNotice_Parchment: 902579998
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

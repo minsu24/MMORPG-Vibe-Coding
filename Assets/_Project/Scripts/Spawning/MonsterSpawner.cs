@@ -14,6 +14,7 @@ public sealed class MonsterSpawner : MonoBehaviour
     [SerializeField, Min(1)] private int maximumAlive = 6;
     [SerializeField, Min(0f)] private float initialSpawnDelay;
     [SerializeField, Min(0.1f)] private float refillInterval = 10f;
+    [SerializeField, Min(0f)] private float spawnContactGraceSeconds = 1f;
 
     private readonly List<EnemyController> aliveMonsters = new List<EnemyController>();
 
@@ -73,6 +74,7 @@ public sealed class MonsterSpawner : MonoBehaviour
                 spawnedMonsterRoot);
 
             monster.name = $"{monsterPrefab.name}_{aliveMonsters.Count + 1}";
+            monster.BeginSpawnContactGrace(spawnContactGraceSeconds);
             aliveMonsters.Add(monster);
         }
     }

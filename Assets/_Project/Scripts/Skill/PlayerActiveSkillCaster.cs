@@ -46,7 +46,8 @@ namespace EasternFantasy.Skill
 
         public bool TryCast(SkillDefinition skill)
         {
-            if (skill == null || skill.ActivationType != SkillActivationType.Active
+            if (!isActiveAndEnabled || !animationController.CanPerformCombatAction || Time.timeScale <= 0f
+                || skill == null || skill.ActivationType != SkillActivationType.Active
                 || GetCooldownRemaining(skill) > 0f)
                 return false;
             if (!SkillResourcePayment.CanAfford(entity, skill))
@@ -58,6 +59,9 @@ namespace EasternFantasy.Skill
             }
             else if (skill == teleportSkill)
             {
+                if (animationController.IsAttacking && !animationController.CanChainBasicAttack) return false;
+                animationController.CancelBasicAttack();
+                animationController.RefreshAttackFacing();
                 float direction = animationController != null
                     ? animationController.FacingDirectionX
                     : 1f;

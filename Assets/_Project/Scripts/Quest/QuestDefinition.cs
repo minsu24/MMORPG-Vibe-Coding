@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace EasternFantasy.Quest
@@ -24,6 +25,16 @@ namespace EasternFantasy.Quest
         [SerializeField, Min(0)] private int rewardEXP = 100;
         [SerializeField] private QuestDefinition prerequisiteQuest;
         [SerializeField, TextArea(1, 3)] private string turnInDescription;
+        [Tooltip("Scene names whose place names become known when this quest is accepted. This does not reveal their scenery.")]
+        [SerializeField] private string[] revealedMapScenes = Array.Empty<string>();
+        [Header("Detail map destinations")]
+        [SerializeField] private string mapOfferScene;
+        [SerializeField] private string mapObjectiveScene;
+        [SerializeField] private string mapTurnInScene;
+        public string MapOfferScene => mapOfferScene;
+        public string MapObjectiveScene => mapObjectiveScene;
+        public string MapTurnInScene => mapTurnInScene;
+        public IReadOnlyList<string> RevealedMapScenes => revealedMapScenes ?? Array.Empty<string>();
         public QuestDefinition PrerequisiteQuest => prerequisiteQuest;
         public string TurnInDescription => turnInDescription;
         public string QuestId => questId;

@@ -1,0 +1,22 @@
+PASS: Quest flow survives scene transition
+PASS: Quest flow observes the current dialogue manager
+PASS: Real resident interaction starts the existing spider completion dialogue
+PASS: The spider completion dialogue finishes normally
+PASS: The completed dialogue reaches the persistent quest flow
+PASS: Follow-up offer appears after the existing dialogue, before acceptance
+PASS: The real accept/decline choice is shown
+PASS: Accepting the resident's request starts the toad quest
+PASS: Marshland contains the living toad boss
+PASS: An actual boss death leaves the marked relic and does not auto-grant the necklace
+PASS: The player's real T interaction can investigate the nearby relic
+PASS: Investigation opens the monologue before granting any item
+PASS: Completing the real monologue grants one necklace and completes the quest
+PASS: The relic disappears before the accessory explanation
+PASS: Finishing the accessory explanation automatically opens the equipment window and accessory inventory tab
+PASS: The real accessory tab and necklace-slot drag apply the jump ability
+PASS: The equipped necklace artwork is visible in the equipment window
+PASS: Actual spawner gives the new monster contact protection immediately
+PASS: Overlapping the respawned monster during its first second causes no damage or knockback
+PASS: Respawn contact protection expires after one gameplay second
+PASS: Continuing contact damages the player after the grace period without requiring re-entry
+All play-mode checks passed.

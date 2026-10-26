@@ -8,9 +8,6 @@ namespace EasternFantasy.Player
     [RequireComponent(typeof(PlayerEntity), typeof(PlayerIdleAnimation), typeof(PlayerMovement2D))]
     public sealed class SwordswomanBasicAttack : MonoBehaviour, IPlayerBasicAttack
     {
-        // Keep in sync with the SwordNormalAttack state's playback speed.
-        private const float AttackSpeedMultiplier = 1.25f;
-
         [Header("Timing")]
         [SerializeField, Min(0f)] private float hitDelay = 0.375f;
         [SerializeField, Min(0f)] private float recoveryDuration = 0.375f;
@@ -25,16 +22,15 @@ namespace EasternFantasy.Player
         private Collider2D[] hitBuffer = new Collider2D[16];
         private readonly HashSet<EnemyController> damagedEnemies = new HashSet<EnemyController>();
         private PlayerEntity entity;
-        private PlayerMovement2D movement;
         private PlayerIdleAnimation animationController;
         private SpriteRenderer characterRenderer;
         private Coroutine attackRoutine;
         private float attackDirection;
+        private int attackSequence;
 
         private void Awake()
         {
             entity = GetComponent<PlayerEntity>();
-            movement = GetComponent<PlayerMovement2D>();
             animationController = GetComponent<PlayerIdleAnimation>();
             Animator animator = GetComponentInChildren<Animator>();
             characterRenderer = animator != null ? animator.GetComponent<SpriteRenderer>() : null;
@@ -45,28 +41,35 @@ namespace EasternFantasy.Player
             }
         }
 
-        private bool CanHit => !entity.IsDead && !entity.isKnockback
-            && !movement.IsMovementLocked && !movement.IsDashing;
+        private bool CanHit => animationController.CanPerformCombatAction;
 
         public bool TryAttack()
         {
             if (!isActiveAndEnabled || attackRoutine != null || !CanHit) return false;
             if (!animationController.TryRequestAttack()) return false;
+            attackSequence = animationController.BasicAttackSequence;
             attackRoutine = StartCoroutine(AttackRoutine());
             return true;
         }
 
         private IEnumerator AttackRoutine()
         {
-            if (hitDelay > 0f) yield return new WaitForSeconds(hitDelay / AttackSpeedMultiplier);
-            if (CanHit)
+            while (attackSequence == animationController.BasicAttackSequence
+                && animationController.IsBasicAttackActive
+                && !animationController.HasReachedBasicAttackHit(hitDelay))
+                yield return null;
+            if (CanHit && animationController.IsBasicAttackActive
+                && attackSequence == animationController.BasicAttackSequence)
             {
                 // Resolve facing at the hit frame, allowing turns during the wind-up.
+                animationController.RefreshAttackFacing();
                 attackDirection = animationController.FacingDirectionX < 0f ? -1f : 1f;
                 SpawnSlash();
                 ApplyHit();
+                animationController.MarkBasicAttackHit(recoveryDuration);
             }
-            if (recoveryDuration > 0f) yield return new WaitForSeconds(recoveryDuration / AttackSpeedMultiplier);
+            while (animationController.IsBasicAttackActive
+                && attackSequence == animationController.BasicAttackSequence) yield return null;
             attackRoutine = null;
         }
 
@@ -115,6 +118,13 @@ namespace EasternFantasy.Player
             if (attackRoutine != null) StopCoroutine(attackRoutine);
             attackRoutine = null;
             damagedEnemies.Clear();
+        }
+
+        private void Update()
+        {
+            if (attackRoutine == null) return;
+            if (!CanHit) animationController.CancelBasicAttack();
+            if (attackSequence != animationController.BasicAttackSequence) OnDisable();
         }
 
         private void OnDrawGizmosSelected()

@@ -70,7 +70,7 @@ namespace EasternFantasy.Editor
             panelRect.anchorMin = new Vector2(1f, 0.72f);
             panelRect.anchorMax = new Vector2(1f, 0.72f);
             panelRect.pivot = new Vector2(1f, 1f);
-            panelRect.anchoredPosition = new Vector2(-35f, 0f);
+            panelRect.anchoredPosition = Vector2.zero;
             panelRect.sizeDelta = new Vector2(410f, 330f);
 
             TMP_Text header = CreateText("QuestTrackerHeader", panel.transform, "ACTIVE QUESTS", font, 28f, GoldColor);

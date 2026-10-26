@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace EasternFantasy.UI
 {
     [DisallowMultipleComponent]
-    public sealed class ShopSlotUI : MonoBehaviour, IPointerClickHandler
+    public sealed class ShopSlotUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Button button;
         [SerializeField] private Image iconImage;
@@ -17,11 +17,13 @@ namespace EasternFantasy.UI
 
         private ShopWindowUI owner;
         private ItemDefinition item;
+        private bool pointerInside;
 
         public void Initialize(ShopWindowUI shopWindow)
         {
             owner = shopWindow;
             button.onClick.RemoveAllListeners();
+            ConfigureLayout();
             Clear();
         }
 
@@ -33,31 +35,19 @@ namespace EasternFantasy.UI
             iconImage.enabled = hasIcon;
             ItemGradeVisual.Apply(iconImage, item);
             placeholderText.gameObject.SetActive(item != null && !hasIcon);
-            nameText.text = item != null ? item.GradedDisplayName +
-                (item.HasClassRestriction ? "\n" + item.AllowedClassesLabel + " 전용" : "") : string.Empty;
-            nameText.enableAutoSizing = true;
-            nameText.overflowMode = TextOverflowModes.Ellipsis;
-            priceText.fontSize = 19f;
-            priceText.enableAutoSizing = true;
-            priceText.fontSizeMin = 18f;
-            priceText.fontSizeMax = 19f;
-            priceText.overflowMode = TextOverflowModes.Ellipsis;
-            nameText.fontSizeMin = 18f;
-            nameText.fontSizeMax = 20f;
-            nameText.rectTransform.anchoredPosition = new Vector2(0f, -17f);
-            nameText.rectTransform.sizeDelta = new Vector2(165f, 68f);
-            priceText.rectTransform.anchoredPosition = new Vector2(0f, -68f);
-            priceText.rectTransform.sizeDelta = new Vector2(165f, 34f);
+            nameText.text = item != null ? item.GradedDisplayName : string.Empty;
             int price = item == null ? 0 : (selling ? item.SellPrice : item.BuyPrice);
             priceText.text = item == null
                 ? string.Empty
                 : $"{price} 엽전" + (selling ? $"  ×{quantity}" : string.Empty);
             if (selling && item != null && !item.CanSell) priceText.text = "판매불가";
             button.interactable = item != null && (!selling || item.CanSell);
+            if (pointerInside) owner?.ShowItemTooltip(this, item);
         }
 
         public void Clear()
         {
+            owner?.HideItemTooltip(this);
             item = null;
             iconImage.sprite = null;
             iconImage.enabled = false;
@@ -66,6 +56,52 @@ namespace EasternFantasy.UI
             nameText.text = string.Empty;
             priceText.text = string.Empty;
             button.interactable = false;
+        }
+
+        private void ConfigureLayout()
+        {
+            iconImage.rectTransform.anchoredPosition = new Vector2(0f, 35f);
+            iconImage.rectTransform.sizeDelta = new Vector2(100f, 100f);
+            iconImage.rectTransform.localScale = Vector3.one;
+            iconImage.type = Image.Type.Simple;
+            iconImage.preserveAspect = true;
+            iconImage.raycastTarget = false;
+            placeholderText.rectTransform.anchoredPosition = iconImage.rectTransform.anchoredPosition;
+            placeholderText.rectTransform.sizeDelta = iconImage.rectTransform.sizeDelta;
+            nameText.rectTransform.anchoredPosition = new Vector2(0f, -40f);
+            nameText.rectTransform.sizeDelta = new Vector2(156f, 32f);
+            nameText.enableAutoSizing = true;
+            nameText.fontSizeMin = 18f;
+            nameText.fontSizeMax = 20f;
+            nameText.alignment = TextAlignmentOptions.Center;
+            nameText.overflowMode = TextOverflowModes.Ellipsis;
+            nameText.raycastTarget = false;
+            priceText.rectTransform.anchoredPosition = new Vector2(0f, -112f);
+            priceText.rectTransform.sizeDelta = new Vector2(156f, 28f);
+            priceText.enableAutoSizing = true;
+            priceText.fontSizeMin = 16f;
+            priceText.fontSizeMax = 18f;
+            priceText.alignment = TextAlignmentOptions.Center;
+            priceText.overflowMode = TextOverflowModes.Ellipsis;
+            priceText.raycastTarget = false;
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            pointerInside = true;
+            if (item != null) owner?.ShowItemTooltip(this, item);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            pointerInside = false;
+            owner?.HideItemTooltip(this, true);
+        }
+
+        private void OnDisable()
+        {
+            pointerInside = false;
+            owner?.HideItemTooltip(this);
         }
 
         public void OnPointerClick(PointerEventData eventData)

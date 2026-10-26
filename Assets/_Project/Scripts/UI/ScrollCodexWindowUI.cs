@@ -24,6 +24,7 @@ namespace EasternFantasy.UI
         private void Update()
         {
             if (IsOpen) Fit();
+            if (MapTutorialUI.IsRunning) return;
             var keyboard = Keyboard.current;
             if (keyboard == null) return;
             if (IsOpen && keyboard.escapeKey.wasPressedThisFrame) { Close(); return; }
@@ -34,6 +35,7 @@ namespace EasternFantasy.UI
         public void Toggle() { if (IsOpen && animator.IsOpen) Close(); else Open(); }
         public void Open()
         {
+            if (MapTutorialUI.IsRunning) return;
             if (DialogueManager.Instance != null && DialogueManager.Instance.IsDialogueActive) return;
             if (EquipmentUpgradeWindowUI.Instance != null && EquipmentUpgradeWindowUI.Instance.IsOpen) return;
             string scene = SceneManager.GetActiveScene().name;

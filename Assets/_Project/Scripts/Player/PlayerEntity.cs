@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using EasternFantasy.Player;
@@ -37,6 +38,7 @@ namespace EasternFantasy.Player
         [SerializeField, Min(0f)] private float horizontalKnockbackPower = 8f;
         [SerializeField, Min(0f)] private float verticalKnockbackPower = 4f;
         private SpriteRenderer[] spriteRenderers;
+        private readonly HashSet<EnemyController> pendingSpawnContacts = new HashSet<EnemyController>();
 
         private PlayerMovement2D playerController;
         private SwordswomanDrawingAttack drawingAttack;
@@ -320,26 +322,36 @@ namespace EasternFantasy.Player
             StatsChanged?.Invoke();
         }
 
-        void OnCollisionEnter2D(Collision2D collision)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (IsDead)
-                return;
-            if (collision.collider.CompareTag("Monster"))
+            var enemy = collision.collider.GetComponentInParent<EnemyController>();
+            if (enemy != null && enemy.IsSpawnContactProtected) pendingSpawnContacts.Add(enemy);
+            HandleMonsterContact(collision.collider);
+        }
+        private void OnCollisionStay2D(Collision2D collision)
+        {
+            var enemy = collision.collider.GetComponentInParent<EnemyController>();
+            if (enemy == null || !pendingSpawnContacts.Contains(enemy) || enemy.IsSpawnContactProtected) return;
+            pendingSpawnContacts.Remove(enemy);
+            HandleMonsterContact(collision.collider);
+        }
+        private void OnCollisionExit2D(Collision2D collision)
+        {
+            var enemy = collision.collider.GetComponentInParent<EnemyController>();
+            if (enemy != null) pendingSpawnContacts.Remove(enemy);
+        }
+
+        private void HandleMonsterContact(Collider2D collider)
+        {
+            if (IsDead || IsDamageImmune || collider == null) return;
+            EnemyController enemy = collider.GetComponentInParent<EnemyController>();
+            if (enemy == null || !enemy.CanDealContactDamage || enemy.ContactDamage <= 0f) return;
+            float previousHealth = HP;
+            TakeDamage(enemy.ContactDamage);
+            if (!IsDead && HP < previousHealth)
             {
-                EnemyController enemyController = collision.collider.GetComponent<EnemyController>();
-                if(enemyController != null)
-                {
-                    Debug.Log("적이랑 충돌");
-                    float previousHealth = HP;
-                    TakeDamage(enemyController.ContactDamage);
-                    if (!IsDead && HP < previousHealth)
-                    {
-                        float direction = transform.position.x > collision.transform.position.x ? 1f : -1f;
-                        ApplyKnockback(direction);
-                    }
-                    Debug.Log(enemyController.Attack_Power);
-                    //StartCoroutine(InvincibleCoroutine());    
-                }
+                float direction = transform.position.x > enemy.transform.position.x ? 1f : -1f;
+                ApplyKnockback(direction);
             }
         }
 

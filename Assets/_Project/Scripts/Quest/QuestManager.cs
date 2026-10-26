@@ -78,6 +78,7 @@ namespace EasternFantasy.Quest
                 quests.Remove(existing);
 
             quests.Add(new QuestProgress(definition));
+            EasternFantasy.UI.MapRegionDiscovery.RevealQuestDestinations(definition);
             QuestsChanged?.Invoke();
             return true;
         }

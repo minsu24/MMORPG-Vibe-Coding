@@ -1,0 +1,4 @@
+PASS: Rendered EventSystem raycast hits NecklaceSlot.
+PASS: Real drop event equips the necklace.
+PASS: Equipment slot displays the supplied necklace icon.
+PASS: Equipped jump-height bonus = 0.2

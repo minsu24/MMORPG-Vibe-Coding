@@ -19,3 +19,10 @@ MonoBehaviour:
   requiredAmount: 5
   rewardYeopjeon: 20
   rewardEXP: 325
+  prerequisiteQuest: {fileID: 0}
+  turnInDescription: 
+  revealedMapScenes:
+  - Cemetery
+  mapOfferScene: PrologueVilage
+  mapObjectiveScene: Cemetery
+  mapTurnInScene: PrologueVilage

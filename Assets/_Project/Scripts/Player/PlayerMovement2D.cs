@@ -14,10 +14,13 @@ namespace EasternFantasy.Player
         public Rigidbody2D body;
         private CapsuleCollider2D bodyCollider;
         private PlayerEntity playerEntity;
+        private EasternFantasy.Inventory.PlayerInventory inventory;
         private ContactFilter2D groundFilter;
         private float moveInput;
         private bool jumpRequested;
         private bool dropThroughRequested;
+        private float jumpExpiresAt = float.NegativeInfinity;
+        private float lastGroundedAt = float.NegativeInfinity;
         private readonly List<Collider2D> ignoredPlatforms = new List<Collider2D>();
         private int groundHitCount;
         private float supportDistance;
@@ -43,6 +46,7 @@ namespace EasternFantasy.Player
             body = GetComponent<Rigidbody2D>();
             bodyCollider = GetComponent<CapsuleCollider2D>();
             playerEntity = GetComponent<PlayerEntity>();
+            inventory = GetComponent<EasternFantasy.Inventory.PlayerInventory>();
             playerIdleAnimation = GetComponent<PlayerIdleAnimation>();
             int enemyLayer = LayerMask.NameToLayer("Enemy");
             dashEnemyMask = enemyLayer >= 0 ? 1 << enemyLayer : 0;
@@ -61,9 +65,11 @@ namespace EasternFantasy.Player
         public void SetMoveInput(float value) => moveInput = Mathf.Clamp(value, -1f, 1f);
         public void RequestJump(bool dropThrough = false)
         {
-            if (IsMovementLocked || IsDashing) return;
+            if (IsMovementLocked || IsDashing || (playerEntity != null
+                && (playerEntity.IsDead || playerEntity.isKnockback))) return;
             jumpRequested = true;
             dropThroughRequested = dropThrough;
+            jumpExpiresAt = Time.time + settings.JumpBufferDuration;
         }
 
         private static bool IsOneWayPlatform(Collider2D collider)
@@ -145,6 +151,7 @@ namespace EasternFantasy.Player
             jumpRequested = false;
             dropThroughRequested = false;
             IsDashing = true;
+            lastGroundedAt = float.NegativeInfinity;
             return true;
         }
 
@@ -196,6 +203,7 @@ namespace EasternFantasy.Player
             if (locked) EndDash();
             jumpRequested = false;
             dropThroughRequested = false;
+            lastGroundedAt = float.NegativeInfinity;
             if (body == null) return;
             body.linearVelocity = Vector2.zero;
             body.angularVelocity = 0f;
@@ -212,6 +220,8 @@ namespace EasternFantasy.Player
             moveInput = 0f;
             jumpRequested = false;
             dropThroughRequested = false;
+            jumpExpiresAt = float.NegativeInfinity;
+            lastGroundedAt = float.NegativeInfinity;
         }
 
         public void TeleportTo(Vector3 position, Quaternion rotation)
@@ -260,18 +270,35 @@ namespace EasternFantasy.Player
 
             Vector2 velocity = body.linearVelocity;
             float moveSpeed = playerEntity != null ? playerEntity.Speed : settings.MoveSpeed;
-            if(playerEntity.isKnockback == false) velocity.x = moveInput * moveSpeed;
-            if (jumpRequested && IsGrounded)
+            bool canMove = playerEntity == null || (!playerEntity.IsDead && !playerEntity.isKnockback);
+            if (canMove) velocity.x = moveInput * moveSpeed;
+            else
+            {
+                ClearInput();
+                body.linearVelocity = velocity;
+                return;
+            }
+            if (IsGrounded) lastGroundedAt = Time.time;
+            if (jumpRequested && Time.time > jumpExpiresAt)
+            {
+                jumpRequested = false;
+                dropThroughRequested = false;
+            }
+            bool canJump = IsGrounded || (!dropThroughRequested
+                && Time.time - lastGroundedAt <= settings.CoyoteDuration);
+            if (jumpRequested && canJump)
             {
                 bool dropping = dropThroughRequested && TryDropThrough();
-                velocity.y = dropping ? -settings.DropThroughSpeed : settings.JumpSpeed;
+                float heightBonus = inventory != null ? inventory.EquippedJumpHeightBonus : 0f;
+                velocity.y = dropping ? -settings.DropThroughSpeed
+                    : settings.JumpSpeed * Mathf.Sqrt(1f + heightBonus);
                 if (playerIdleAnimation != null)
                     playerIdleAnimation.SetJumping(true);
                 IsGrounded = false;
+                lastGroundedAt = float.NegativeInfinity;
+                jumpRequested = false;
+                dropThroughRequested = false;
             }
-            // Consume airborne presses too, preventing an unintended jump on landing.
-            jumpRequested = false;
-            dropThroughRequested = false;
             body.linearVelocity = velocity;
         }
 

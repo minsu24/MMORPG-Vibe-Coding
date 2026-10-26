@@ -23,7 +23,7 @@ namespace EasternFantasy.Player
 
         public bool TryFire()
         {
-            if (playerEntity.IsDead)
+            if (!isActiveAndEnabled || !playerAnimation.CanPerformCombatAction)
                 return false;
             if (projectilePrefab == null)
             {
@@ -50,6 +50,7 @@ namespace EasternFantasy.Player
                 playerEntity,
                 isCritical);
 
+            playerAnimation.MarkBasicAttackHit(0.28f);
             return true;
         }
 
@@ -60,7 +61,7 @@ namespace EasternFantasy.Player
 
         public bool TryFireBurst(int projectileCount, float verticalSpacing, float damageMultiplier)
         {
-            if (playerEntity.IsDead)
+            if (!isActiveAndEnabled || !playerAnimation.CanPerformCombatAction)
                 return false;
             PlayerProjectile burstPrefab = burstProjectilePrefab != null
                 ? burstProjectilePrefab : projectilePrefab;

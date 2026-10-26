@@ -37,8 +37,8 @@ namespace EasternFantasy.UI
             "1. 인벤토리 열고 닫기", "2. 장비 아이템", "3. 소비 아이템", "4. 기타 아이템", "5. 아이템 정보 확인",
             "6. 장비창 열고 닫기", "7. 장비 장착하기", "8. 장비 해제하기", "9. 장착한 아이템 정보 확인" };
         private static readonly string[] Messages = {
-            "아이템을 습득하면 인벤토리에 보관됩니다.\nI키로 인벤토리를 열고 닫을 수 있어요.\n장비·소비·기타 탭으로 아이템을 나누어 확인할 수 있습니다.",
-            "장비 탭에는 캐릭터가 장착하는 아이템이 들어갑니다.\n직업별 무기, 모자·상의·하의·장갑·신발 같은 방어구,\n반지·목걸이·팔찌 같은 장신구를 이곳에서 확인하세요.",
+            "아이템을 습득하면 인벤토리에 보관됩니다.\nI키로 인벤토리를 열고 닫을 수 있어요.\n장비·장신구·소비·기타 탭으로 나누어 확인할 수 있습니다.",
+            "장비 탭에는 직업별 무기와 방어구가 들어갑니다.\n목걸이·팔찌·반지는 장신구 탭에서 확인하세요.\n장신구마다 고유한 특수능력이 있습니다.",
             "소비 탭에는 사용하면 수량이 줄어드는 아이템이 들어갑니다.\n체력이나 자원을 회복하는 물약이 대표적인 소비 아이템이에요.",
             "기타 탭에는 성장이나 제작에 사용하는 재료 등이 들어갑니다.\n도깨비 방망이, 영혼 조각, 도깨비의 영혼 같은 아이템을\n이곳에서 확인할 수 있어요.",
             "인벤토리의 아이템에 마우스를 올리면 정보가 표시됩니다.\n이름·등급·설명·효과와 장착 가능한 직업 등을 확인하세요.\n판매 가능 여부도 아이템 정보에서 확인할 수 있습니다.",
@@ -57,7 +57,7 @@ namespace EasternFantasy.UI
         }
         private void Update()
         {
-            if (pending && !running && !StatsSkillTutorialUI.IsRunning
+            if (pending && !running && !MapTutorialUI.IsRunning && !StatsSkillTutorialUI.IsRunning
                 && (DungeonWindowUI.Instance == null || !DungeonWindowUI.Instance.IsOpen)
                 && (ShopWindowUI.Instance == null || !ShopWindowUI.Instance.IsOpen)
                 && (DialogueManager.Instance == null || !DialogueManager.Instance.IsDialogueActive)

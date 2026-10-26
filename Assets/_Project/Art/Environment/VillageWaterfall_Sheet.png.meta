@@ -1,0 +1,534 @@
+fileFormatVersion: 2
+guid: 56784c3bbcd034b459572f1b84ba6458
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4521979560188086762
+    second: VillageWaterfall_Sheet_0
+  - first:
+      213: -8270776574348160239
+    second: VillageWaterfall_Sheet_1
+  - first:
+      213: 4366001838072911908
+    second: VillageWaterfall_Sheet_2
+  - first:
+      213: 1940495437978359180
+    second: VillageWaterfall_Sheet_3
+  - first:
+      213: 2982088656977111748
+    second: VillageWaterfall_Sheet_4
+  - first:
+      213: -7909732696679650912
+    second: VillageWaterfall_Sheet_5
+  - first:
+      213: 5025121412476860085
+    second: VillageWaterfall_Sheet_6
+  - first:
+      213: -7958360884894736291
+    second: VillageWaterfall_Sheet_7
+  - first:
+      213: -6779483733849883996
+    second: VillageWaterfall_Sheet_8
+  - first:
+      213: -9193845889364939951
+    second: VillageWaterfall_Sheet_9
+  - first:
+      213: 1414980917960935290
+    second: VillageWaterfall_Sheet_10
+  - first:
+      213: 6923535639912686653
+    second: VillageWaterfall_Sheet_11
+  - first:
+      213: 1441726854723528946
+    second: VillageWaterfall_Sheet_12
+  - first:
+      213: -3516930576940450466
+    second: VillageWaterfall_Sheet_13
+  - first:
+      213: 5917407289833640645
+    second: VillageWaterfall_Sheet_14
+  - first:
+      213: 5765900704166421354
+    second: VillageWaterfall_Sheet_15
+  - first:
+      213: -4930892383003345656
+    second: VillageWaterfall_Sheet_16
+  - first:
+      213: 4247944870686831394
+    second: VillageWaterfall_Sheet_17
+  - first:
+      213: 7126376959636888097
+    second: VillageWaterfall_Sheet_18
+  - first:
+      213: 4658778913847604429
+    second: VillageWaterfall_Sheet_19
+  - first:
+      213: 1729259267050618597
+    second: VillageWaterfall_Sheet_20
+  - first:
+      213: -3882827582595111543
+    second: VillageWaterfall_Sheet_21
+  - first:
+      213: -6573915766007595444
+    second: VillageWaterfall_Sheet_22
+  - first:
+      213: 8328788885994781914
+    second: VillageWaterfall_Sheet_23
+  - first:
+      213: -5841735454769726068
+    second: VillageWaterfall_Sheet_24
+  - first:
+      213: 9009914448889896721
+    second: VillageWaterfall_Sheet_25
+  - first:
+      213: 2233032914854207792
+    second: VillageWaterfall_Sheet_26
+  - first:
+      213: -2817105977953296714
+    second: VillageWaterfall_Sheet_27
+  - first:
+      213: 8380702166114990456
+    second: VillageWaterfall_Sheet_28
+  - first:
+      213: -599059339937130230
+    second: VillageWaterfall_Sheet_29
+  - first:
+      213: -2069211525372961903
+    second: VillageWaterfall_Sheet_30
+  - first:
+      213: 8043337843861343075
+    second: VillageWaterfall_Sheet_31
+  - first:
+      213: 1264161250797282005
+    second: VillageWaterfall_Sheet_32
+  - first:
+      213: -8019021186567809809
+    second: VillageWaterfall_Sheet_33
+  - first:
+      213: -8847889628823966991
+    second: VillageWaterfall_Sheet_34
+  - first:
+      213: 7690472148842183641
+    second: VillageWaterfall_Sheet_35
+  - first:
+      213: 1592381891061037226
+    second: VillageWaterfall_Sheet_36
+  - first:
+      213: 7508199322112710851
+    second: VillageWaterfall_Sheet_37
+  - first:
+      213: 9214556463329098169
+    second: VillageWaterfall_Sheet_38
+  - first:
+      213: -6390590511382623276
+    second: VillageWaterfall_Sheet_39
+  - first:
+      213: -6739920540086911545
+    second: VillageWaterfall_Sheet_40
+  - first:
+      213: -7019566612615614536
+    second: VillageWaterfall_Sheet_41
+  - first:
+      213: -7372560026936956426
+    second: VillageWaterfall_Sheet_42
+  - first:
+      213: 2969722364042146090
+    second: VillageWaterfall_Sheet_43
+  - first:
+      213: 2518826576785084812
+    second: VillageWaterfall_Sheet_44
+  - first:
+      213: -6092203373136044278
+    second: VillageWaterfall_Sheet_45
+  - first:
+      213: 4153362372630219047
+    second: VillageWaterfall_Sheet_46
+  - first:
+      213: 4836239519390289327
+    second: VillageWaterfall_Sheet_47
+  - first:
+      213: -406978939242846096
+    second: VillageWaterfall_Sheet_48
+  - first:
+      213: 4237304491654649635
+    second: VillageWaterfall_Sheet_49
+  - first:
+      213: 2856379083924078160
+    second: VillageWaterfall_Sheet_50
+  - first:
+      213: -6332410034730850980
+    second: VillageWaterfall_Sheet_51
+  - first:
+      213: 781073750431602782
+    second: VillageWaterfall_Sheet_52
+  - first:
+      213: 199383762202678161
+    second: VillageWaterfall_Sheet_53
+  - first:
+      213: -1862144938088110370
+    second: VillageWaterfall_Sheet_54
+  - first:
+      213: 8576092002721229993
+    second: VillageWaterfall_Sheet_55
+  - first:
+      213: -3271548945673211639
+    second: VillageWaterfall_Sheet_56
+  - first:
+      213: -5378626106046082532
+    second: VillageWaterfall_Sheet_57
+  - first:
+      213: 2221660346483628650
+    second: VillageWaterfall_Sheet_58
+  - first:
+      213: -6455093792500517809
+    second: VillageWaterfall_Sheet_59
+  - first:
+      213: -7536936248631342057
+    second: VillageWaterfall_Sheet_60
+  - first:
+      213: -3755817505213215238
+    second: VillageWaterfall_Sheet_61
+  - first:
+      213: -23691905137058148
+    second: VillageWaterfall_0
+  - first:
+      213: -484796569535404417
+    second: VillageWaterfall_1
+  - first:
+      213: -6701148000927562768
+    second: VillageWaterfall_2
+  - first:
+      213: -8070739047376595246
+    second: VillageWaterfall_3
+  - first:
+      213: 844136812643029853
+    second: VillageWaterfall_4
+  - first:
+      213: -1623272754127517481
+    second: VillageWaterfall_5
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: VillageWaterfall_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 170
+        width: 344
+        height: 394
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9ed04a7654dbaff0800000000000000
+      internalID: -23691905137058148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VillageWaterfall_1
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 170
+        width: 344
+        height: 394
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f76a38ca618a549f0800000000000000
+      internalID: -484796569535404417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VillageWaterfall_2
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 170
+        width: 344
+        height: 394
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f3c469b56db003a0800000000000000
+      internalID: -6701148000927562768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VillageWaterfall_3
+      rect:
+        serializedVersion: 2
+        x: 1092
+        y: 170
+        width: 344
+        height: 394
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d65e36d899feff80800000000000000
+      internalID: -8070739047376595246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VillageWaterfall_4
+      rect:
+        serializedVersion: 2
+        x: 1450
+        y: 170
+        width: 344
+        height: 394
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d531b6b65f9f6bb00800000000000000
+      internalID: 844136812643029853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VillageWaterfall_5
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 170
+        width: 344
+        height: 394
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d8c8a4d70af879e0800000000000000
+      internalID: -1623272754127517481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      VillageWaterfall_0: -23691905137058148
+      VillageWaterfall_1: -484796569535404417
+      VillageWaterfall_2: -6701148000927562768
+      VillageWaterfall_3: -8070739047376595246
+      VillageWaterfall_4: 844136812643029853
+      VillageWaterfall_5: -1623272754127517481
+      VillageWaterfall_Sheet_0: -4521979560188086762
+      VillageWaterfall_Sheet_1: -8270776574348160239
+      VillageWaterfall_Sheet_10: 1414980917960935290
+      VillageWaterfall_Sheet_11: 6923535639912686653
+      VillageWaterfall_Sheet_12: 1441726854723528946
+      VillageWaterfall_Sheet_13: -3516930576940450466
+      VillageWaterfall_Sheet_14: 5917407289833640645
+      VillageWaterfall_Sheet_15: 5765900704166421354
+      VillageWaterfall_Sheet_16: -4930892383003345656
+      VillageWaterfall_Sheet_17: 4247944870686831394
+      VillageWaterfall_Sheet_18: 7126376959636888097
+      VillageWaterfall_Sheet_19: 4658778913847604429
+      VillageWaterfall_Sheet_2: 4366001838072911908
+      VillageWaterfall_Sheet_20: 1729259267050618597
+      VillageWaterfall_Sheet_21: -3882827582595111543
+      VillageWaterfall_Sheet_22: -6573915766007595444
+      VillageWaterfall_Sheet_23: 8328788885994781914
+      VillageWaterfall_Sheet_24: -5841735454769726068
+      VillageWaterfall_Sheet_25: 9009914448889896721
+      VillageWaterfall_Sheet_26: 2233032914854207792
+      VillageWaterfall_Sheet_27: -2817105977953296714
+      VillageWaterfall_Sheet_28: 8380702166114990456
+      VillageWaterfall_Sheet_29: -599059339937130230
+      VillageWaterfall_Sheet_3: 1940495437978359180
+      VillageWaterfall_Sheet_30: -2069211525372961903
+      VillageWaterfall_Sheet_31: 8043337843861343075
+      VillageWaterfall_Sheet_32: 1264161250797282005
+      VillageWaterfall_Sheet_33: -8019021186567809809
+      VillageWaterfall_Sheet_34: -8847889628823966991
+      VillageWaterfall_Sheet_35: 7690472148842183641
+      VillageWaterfall_Sheet_36: 1592381891061037226
+      VillageWaterfall_Sheet_37: 7508199322112710851
+      VillageWaterfall_Sheet_38: 9214556463329098169
+      VillageWaterfall_Sheet_39: -6390590511382623276
+      VillageWaterfall_Sheet_4: 2982088656977111748
+      VillageWaterfall_Sheet_40: -6739920540086911545
+      VillageWaterfall_Sheet_41: -7019566612615614536
+      VillageWaterfall_Sheet_42: -7372560026936956426
+      VillageWaterfall_Sheet_43: 2969722364042146090
+      VillageWaterfall_Sheet_44: 2518826576785084812
+      VillageWaterfall_Sheet_45: -6092203373136044278
+      VillageWaterfall_Sheet_46: 4153362372630219047
+      VillageWaterfall_Sheet_47: 4836239519390289327
+      VillageWaterfall_Sheet_48: -406978939242846096
+      VillageWaterfall_Sheet_49: 4237304491654649635
+      VillageWaterfall_Sheet_5: -7909732696679650912
+      VillageWaterfall_Sheet_50: 2856379083924078160
+      VillageWaterfall_Sheet_51: -6332410034730850980
+      VillageWaterfall_Sheet_52: 781073750431602782
+      VillageWaterfall_Sheet_53: 199383762202678161
+      VillageWaterfall_Sheet_54: -1862144938088110370
+      VillageWaterfall_Sheet_55: 8576092002721229993
+      VillageWaterfall_Sheet_56: -3271548945673211639
+      VillageWaterfall_Sheet_57: -5378626106046082532
+      VillageWaterfall_Sheet_58: 2221660346483628650
+      VillageWaterfall_Sheet_59: -6455093792500517809
+      VillageWaterfall_Sheet_6: 5025121412476860085
+      VillageWaterfall_Sheet_60: -7536936248631342057
+      VillageWaterfall_Sheet_61: -3755817505213215238
+      VillageWaterfall_Sheet_7: -7958360884894736291
+      VillageWaterfall_Sheet_8: -6779483733849883996
+      VillageWaterfall_Sheet_9: -9193845889364939951
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

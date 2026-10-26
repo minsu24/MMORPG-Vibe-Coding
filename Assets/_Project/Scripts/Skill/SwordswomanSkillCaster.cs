@@ -54,7 +54,8 @@ namespace EasternFantasy.Skill
 
         public bool TryCast(SkillDefinition skill)
         {
-            if (!isActiveAndEnabled || skill == null || (skill != dashSkill && skill != doubleSlashSkill && skill != drawingSkill)
+            if (!isActiveAndEnabled || !animationController.CanPerformCombatAction
+                || skill == null || (skill != dashSkill && skill != doubleSlashSkill && skill != drawingSkill)
                 || skill.ActivationType != SkillActivationType.Active
                 || entity.IsDead || entity.isKnockback || Time.timeScale <= 0f
                 || dashRoutine != null || slashActive || (drawingAttack != null && drawingAttack.IsActive)

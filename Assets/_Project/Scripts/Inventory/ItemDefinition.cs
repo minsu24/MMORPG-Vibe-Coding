@@ -8,7 +8,8 @@ namespace EasternFantasy.Inventory
     {
         Equipment,
         Consumable,
-        Miscellaneous
+        Miscellaneous,
+        Accessory
     }
 
     public enum EquipmentSlot
@@ -23,6 +24,12 @@ namespace EasternFantasy.Inventory
         Ring,
         Necklace,
         Bracelet
+    }
+
+    public enum AccessoryAbility
+    {
+        None,
+        JumpHeight
     }
 
     public enum ConsumableEffect
@@ -51,6 +58,10 @@ namespace EasternFantasy.Inventory
         [SerializeField] private EquipmentSetDefinition equipmentSet;
         [SerializeField, Min(0f)] private float attackBonus;
         [SerializeField, Min(0f)] private float defenseBonus;
+        [Header("Accessory special ability")]
+        [SerializeField] private AccessoryAbility specialAbility;
+        [SerializeField, Min(0f), Tooltip("Fractional jump-height bonus: 0.2 means 20% higher.")]
+        private float specialAbilityValue;
         [SerializeField] private ConsumableEffect consumableEffect;
         [SerializeField, Min(0f)] private float useAmount;
         [SerializeField, Min(1)] private int maximumStack = 99;
@@ -88,6 +99,15 @@ namespace EasternFantasy.Inventory
             return null;
         }
         public ItemCategory Category => category;
+        public bool IsAccessory => category == ItemCategory.Accessory
+            || equipmentSlot == EquipmentSlot.Necklace || equipmentSlot == EquipmentSlot.Bracelet || equipmentSlot == EquipmentSlot.Ring;
+        public bool IsEquippable => equipmentSlot != EquipmentSlot.None &&
+            (category == ItemCategory.Equipment || (category == ItemCategory.Accessory &&
+                (equipmentSlot == EquipmentSlot.Necklace || equipmentSlot == EquipmentSlot.Bracelet || equipmentSlot == EquipmentSlot.Ring)));
+        public AccessoryAbility SpecialAbility => specialAbility;
+        public float SpecialAbilityValue => Mathf.Max(0f, specialAbilityValue);
+        public string SpecialAbilityDescription => specialAbility == AccessoryAbility.JumpHeight
+            ? $"점프 높이 +{SpecialAbilityValue * 100f:0.#}%" : string.Empty;
         public EquipmentSlot EquipmentSlot => equipmentSlot;
         public EquipmentSetDefinition EquipmentSet => category == ItemCategory.Equipment ? equipmentSet : null;
         public bool HasClassRestriction => allowedClasses != null && allowedClasses.Length > 0;

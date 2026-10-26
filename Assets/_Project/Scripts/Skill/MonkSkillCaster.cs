@@ -76,7 +76,8 @@ namespace EasternFantasy.Skill
 
         public bool TryCast(SkillDefinition skill)
         {
-            if (!isActiveAndEnabled || skill == null || entity.IsDead || entity.isKnockback || Time.timeScale <= 0f
+            if (!isActiveAndEnabled || !animationController.CanPerformCombatAction
+                || skill == null || entity.IsDead || entity.isKnockback || Time.timeScale <= 0f
                 || skillSystem == null || skillSystem.GetSkillLevel(skill) <= 0
                 || dashRoutine != null
                 || GetCooldownRemaining(skill) > 0f || !SkillResourcePayment.CanAfford(entity, skill)) return false;

@@ -60,7 +60,7 @@ namespace EasternFantasy.Inventory
             }
         }
         public bool CanEquip(ItemDefinition item) => item != null &&
-            item.Category == ItemCategory.Equipment && item.EquipmentSlot != EquipmentSlot.None &&
+            item.IsEquippable &&
             item.CanBeEquippedBy(CurrentClass);
 
         public IReadOnlyList<InventoryStack> Items
@@ -76,6 +76,19 @@ namespace EasternFantasy.Inventory
         public static event Action<PlayerInventory, ItemDefinition> ItemAcquired;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetAcquisitionEvents() { ItemAcquired = null; }
+
+        public float EquippedJumpHeightBonus
+        {
+            get
+            {
+                EnsureInitialized();
+                float total = 0f;
+                foreach (ItemDefinition item in equippedItems.Values)
+                    if (item != null && item.IsAccessory && item.SpecialAbility == AccessoryAbility.JumpHeight)
+                        total += item.SpecialAbilityValue;
+                return total;
+            }
+        }
 
         public float EquippedAttackBonus
         {
@@ -332,7 +345,7 @@ namespace EasternFantasy.Inventory
         {
             EnsureInitialized();
             if (!CanEquip(item)) return false;
-            if (item == null || item.Category != ItemCategory.Equipment
+            if (item == null || !item.IsEquippable
                 || item.EquipmentSlot == EquipmentSlot.None || GetQuantity(item) <= 0)
                 return false;
 
@@ -360,7 +373,7 @@ namespace EasternFantasy.Inventory
             if (item == null || GetQuantity(item) <= 0)
                 return false;
 
-            if (item.Category == ItemCategory.Equipment)
+            if (item.IsEquippable)
                 return ToggleEquipment(item);
             if (item.Category == ItemCategory.Consumable)
                 return UseConsumable(item);

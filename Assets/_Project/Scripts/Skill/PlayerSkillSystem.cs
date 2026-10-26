@@ -48,6 +48,8 @@ namespace EasternFantasy.Skill
         public bool TryCast(SkillDefinition skill)
         {
             if (skill == null) return false;
+            var input = GetComponent<PlayerInputReader>();
+            if (Time.timeScale <= 0f || (input != null && !input.CanPerformCombatAction)) return false;
             if (!skill.IsCompanionSkill)
             {
                 var caster = ResolveClassSkillCaster();

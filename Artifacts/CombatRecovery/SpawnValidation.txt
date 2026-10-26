@@ -1,0 +1,5 @@
+PASS: Actual spawner gives the new monster contact protection immediately
+PASS: Overlapping the respawned monster during its first second causes no damage or knockback
+PASS: Respawn contact protection expires after one gameplay second
+PASS: Continuing contact damages the player after the grace period without requiring re-entry
+All spawn contact checks passed.

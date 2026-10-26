@@ -23,6 +23,7 @@ namespace EasternFantasy.Player
 
         private PlayerMovement2D movement;
         private PlayerEntity playerEntity;
+        private PlayerInputReader inputReader;
         private bool wasMoving;
         private Coroutine attackLockRoutine;
         private int attackStateHash;
@@ -33,14 +34,25 @@ namespace EasternFantasy.Player
         private bool lockAttackFacing;
         private bool skillSpeedOverridden;
         private float speedBeforeSkill;
+        private float basicAttackClipLength;
+        private float basicAttackChainAt = float.PositiveInfinity;
+        private bool wasKnockedBack;
 
         public float FacingDirectionX { get; private set; }
         public bool IsAttacking { get; private set; }
+        public bool IsBasicAttackActive { get; private set; }
+        public int BasicAttackSequence { get; private set; }
+        public bool CanChainBasicAttack => IsBasicAttackActive && Time.time >= basicAttackChainAt;
+        public bool CanPerformCombatAction => isActiveAndEnabled
+            && (playerEntity == null || (!playerEntity.IsDead && !playerEntity.isKnockback))
+            && (movement == null || (!movement.IsMovementLocked && !movement.IsDashing))
+            && (inputReader == null || inputReader.CanPerformCombatAction);
 
         private void Awake()
         {
             movement = GetComponent<PlayerMovement2D>();
             playerEntity = GetComponent<PlayerEntity>();
+            inputReader = GetComponent<PlayerInputReader>();
             if (animator == null)
             {
                 Debug.LogError("PlayerIdleAnimation requires an Animator.", this);
@@ -51,6 +63,8 @@ namespace EasternFantasy.Player
             attackStateHash = Animator.StringToHash(attackStateName);
             throwStateHash = Animator.StringToHash(throwStateName);
             CacheAnimatorParameters();
+            foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
+                if (clip.name == attackStateName) basicAttackClipLength = clip.length;
 
             wasMoving = movement != null
                 && Mathf.Abs(movement.MoveInput) > movementThreshold;
@@ -62,16 +76,26 @@ namespace EasternFantasy.Player
 
         private void LateUpdate()
         {
+            if (IsBasicAttackActive && !CanPerformCombatAction) CancelBasicAttack();
             if (playerEntity != null && playerEntity.IsDead)
                 return;
             if (playerEntity != null && playerEntity.isKnockback)
+            {
+                if (!wasKnockedBack) FinishSkillAnimation();
+                wasKnockedBack = true;
                 return;
+            }
+            if (wasKnockedBack)
+            {
+                wasKnockedBack = false;
+                if (!IsAttacking && movement != null && movement.IsGrounded) PlayIdle();
+            }
 
             float horizontalInput = movement != null && !movement.IsMovementLocked && !movement.IsDashing
                 ? movement.MoveInput : 0f;
             bool isMoving = Mathf.Abs(horizontalInput) > movementThreshold;
             if (!lockAttackFacing)
-                ApplyFacingDirection(isMoving ? horizontalInput : FacingDirectionX, isMoving);
+                ApplyFacingDirection(isMoving ? horizontalInput : FacingDirectionX, isMoving && !IsAttacking);
             if (isMoving == wasMoving) return;
 
             wasMoving = isMoving;
@@ -81,25 +105,53 @@ namespace EasternFantasy.Player
 
         public bool TryRequestAttack(bool lockFacing = false)
         {
-            if (!isActiveAndEnabled || IsAttacking || !hasAttackParameter)
+            if (!CanPerformCombatAction || Time.timeScale <= 0f || IsAttacking || !hasAttackParameter)
                 return false;
 
             IsAttacking = true;
+            IsBasicAttackActive = true;
+            BasicAttackSequence++;
+            basicAttackChainAt = float.PositiveInfinity;
             lockAttackFacing = lockFacing;
-            if (lockFacing)
-            {
-                float input = movement != null ? movement.MoveInput : 0f;
-                ApplyFacingDirection(Mathf.Abs(input) > movementThreshold ? input : FacingDirectionX, false);
-            }
+            RefreshAttackFacing();
             animator.ResetTrigger(AttackParameter);
             animator.SetTrigger(AttackParameter);
             attackLockRoutine = StartCoroutine(WaitForAttackAnimation(attackStateHash));
             return true;
         }
 
+        public void RefreshAttackFacing()
+        {
+            if (lockAttackFacing && !IsBasicAttackActive) return;
+            float input = movement != null ? movement.MoveInput : 0f;
+            ApplyFacingDirection(Mathf.Abs(input) > movementThreshold ? input : FacingDirectionX, false);
+        }
+
+        public void CancelBasicAttack()
+        {
+            if (!IsBasicAttackActive) return;
+            BasicAttackSequence++;
+            FinishSkillAnimation();
+        }
+
+        public bool HasReachedBasicAttackHit(float clipTime)
+        {
+            if (!IsBasicAttackActive || basicAttackClipLength <= 0f) return false;
+            AnimatorStateInfo current = animator.GetCurrentAnimatorStateInfo(0);
+            return current.shortNameHash == attackStateHash
+                && current.normalizedTime >= clipTime / basicAttackClipLength;
+        }
+
+        public void MarkBasicAttackHit(float recoveryDuration)
+        {
+            lockAttackFacing = true;
+            // Preserve a short follow-through before a skill can replace the basic attack.
+            basicAttackChainAt = Time.time + Mathf.Min(0.1f, recoveryDuration * 0.35f);
+        }
+
         public bool TryRequestThrow()
         {
-            if (!isActiveAndEnabled || IsAttacking)
+            if (!CanPerformCombatAction || Time.timeScale <= 0f || (IsAttacking && !CanChainBasicAttack))
                 return false;
 
             string statePath = "Base Layer." + throwStateName;
@@ -109,6 +161,8 @@ namespace EasternFantasy.Player
                 return false;
             }
 
+            CancelBasicAttack();
+            RefreshAttackFacing();
             IsAttacking = true;
             if (hasAttackParameter)
                 animator.ResetTrigger(AttackParameter);
@@ -119,12 +173,15 @@ namespace EasternFantasy.Player
 
         public bool TryRequestSkillAnimation(string stateName, float playbackDuration = 0f)
         {
-            if (!isActiveAndEnabled || IsAttacking || animator == null)
+            if (!CanPerformCombatAction || Time.timeScale <= 0f
+                || (IsAttacking && !CanChainBasicAttack) || animator == null)
                 return false;
             string statePath = "Base Layer." + stateName;
             if (!animator.HasState(0, Animator.StringToHash(statePath)))
                 return false;
 
+            CancelBasicAttack();
+            RefreshAttackFacing();
             IsAttacking = true;
             lockAttackFacing = true;
             if (hasAttackParameter) animator.ResetTrigger(AttackParameter);
@@ -146,9 +203,11 @@ namespace EasternFantasy.Player
 
         public void FinishSkillAnimation()
         {
+            if (animator != null && hasAttackParameter) animator.ResetTrigger(AttackParameter);
             if (attackLockRoutine != null) StopCoroutine(attackLockRoutine);
             attackLockRoutine = null;
             IsAttacking = false;
+            IsBasicAttackActive = false;
             lockAttackFacing = false;
             RestoreSkillAnimationSpeed();
             if (playerEntity == null || !playerEntity.IsDead) PlayIdle();
@@ -174,6 +233,7 @@ namespace EasternFantasy.Player
                 StopCoroutine(attackLockRoutine);
             attackLockRoutine = null;
             IsAttacking = false;
+            IsBasicAttackActive = false;
             lockAttackFacing = false;
             if (hasAttackParameter)
                 animator.ResetTrigger(AttackParameter);
@@ -202,6 +262,7 @@ namespace EasternFantasy.Player
         private IEnumerator WaitForAttackAnimation(int stateHash)
         {
             bool enteredAttackState = false;
+            float entryDeadline = Time.time + 0.5f;
 
             while (isActiveAndEnabled)
             {
@@ -219,6 +280,12 @@ namespace EasternFantasy.Player
                 if (!enteredAttackState)
                 {
                     enteredAttackState = currentIsAttack || nextIsAttack;
+                    if (!enteredAttackState && Time.time >= entryDeadline)
+                    {
+                        if (hasAttackParameter) animator.ResetTrigger(AttackParameter);
+                        BasicAttackSequence++;
+                        break;
+                    }
                     continue;
                 }
 
@@ -232,6 +299,7 @@ namespace EasternFantasy.Player
             }
 
             IsAttacking = false;
+            IsBasicAttackActive = false;
             lockAttackFacing = false;
             attackLockRoutine = null;
             RestoreSkillAnimationSpeed();
@@ -248,6 +316,7 @@ namespace EasternFantasy.Player
 
             attackLockRoutine = null;
             IsAttacking = false;
+            IsBasicAttackActive = false;
             lockAttackFacing = false;
         }
 

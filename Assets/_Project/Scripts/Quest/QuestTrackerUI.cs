@@ -104,6 +104,8 @@ namespace EasternFantasy.Quest
         {
             if (manager == null)
                 return null;
+            var toad = ToadHuntQuestController.Instance;
+            if (toad != null && toad.Relic != null) return toad.Relic.transform;
             QuestGiver[] givers = FindObjectsByType<QuestGiver>(FindObjectsSortMode.None);
             foreach (QuestProgress progress in manager.Quests)
             {
@@ -118,6 +120,11 @@ namespace EasternFantasy.Quest
             {
                 if (progress.Status != QuestStatus.Active)
                     continue;
+                if (toad != null && toad.Definition != null && progress.Definition == toad.Definition.quest)
+                {
+                    foreach (var frog in FindObjectsByType<MON_Frog>(FindObjectsSortMode.None))
+                        if (frog.HP > 0f) return frog.transform;
+                }
                 MON_Ghost[] ghosts = FindObjectsByType<MON_Ghost>(FindObjectsSortMode.None);
                 MON_Ghost nearest = null;
                 float nearestDistance = float.PositiveInfinity;

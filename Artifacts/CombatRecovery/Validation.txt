@@ -1,0 +1,11 @@
+PASS: Player: hit interrupts the jump pose immediately
+PASS: Player: jump parameter stays clear during hit stun
+PASS: Player: landing during knockback returns to idle after recovery
+PASS: MonkPlayer: hit interrupts the jump pose immediately
+PASS: MonkPlayer: jump parameter stays clear during hit stun
+PASS: Monk: landing during hit stun remains pending until animation control returns
+PASS: MonkPlayer: landing during knockback returns to idle after recovery
+PASS: SwordswomanPlayer: hit interrupts the jump pose immediately
+PASS: SwordswomanPlayer: jump parameter stays clear during hit stun
+PASS: SwordswomanPlayer: landing during knockback returns to idle after recovery
+All 10 checks passed.

@@ -26,6 +26,8 @@ namespace EasternFantasy.UI
         private string[] activeTitles = Titles, activeMessages = Messages;
         private Action<int> stepChanged;
         private bool dockRight;
+        private bool allowFocusInteraction;
+        private Image inputBlock;
         private GameObject skipButton;
         private Button previousButton;
         private Sprite[] skin;
@@ -57,6 +59,11 @@ namespace EasternFantasy.UI
             controlsHint.text = !allowSkip ? "Space 또는 다음 버튼으로 진행" : placeOnRight ? "Space로 다음 · ESC로 안내 닫기" : "Space로 다음 · ESC로 창 닫기";
             gameObject.SetActive(true);
             Display();
+        }
+        public void SetFocusInteraction(bool allowed)
+        {
+            allowFocusInteraction = allowed;
+            if (card != null) RefreshLayout();
         }
         public void Hide()
         {
@@ -91,7 +98,7 @@ namespace EasternFantasy.UI
             canvasRect = root;
             var canvas = gameObject.AddComponent<Canvas>(); canvas.overrideSorting = true; canvas.sortingOrder = 5500;
             gameObject.AddComponent<GraphicRaycaster>();
-            var block = gameObject.AddComponent<Image>(); block.color = new Color(0f, 0f, 0f, .001f); block.raycastTarget = true;
+            inputBlock = gameObject.AddComponent<Image>(); inputBlock.color = new Color(0f, 0f, 0f, .001f); inputBlock.raycastTarget = true;
             for (int i = 0; i < 4; i++)
             {
                 shades[i] = Box("Dim" + i, root, new Color(.025f, .015f, .02f, .66f));
@@ -185,6 +192,8 @@ namespace EasternFantasy.UI
                 Place(shades[0], new Rect(0, 0, width, height));
                 for (int i = 1; i < 4; i++) Place(shades[i], new Rect());
             }
+            inputBlock.raycastTarget = !allowFocusInteraction || !hasFocus;
+            foreach (var shade in shades) shade.GetComponent<Image>().raycastTarget = allowFocusInteraction && hasFocus;
             foreach (var border in borders) border.gameObject.SetActive(hasFocus);
             if (dockRight)
             {

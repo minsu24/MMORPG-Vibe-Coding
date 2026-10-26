@@ -1,4 +1,4 @@
-using EasternFantasy.Skill;
+﻿using EasternFantasy.Skill;
 using EasternFantasy.Player;
 using TMPro;
 using UnityEngine;
@@ -51,18 +51,15 @@ namespace EasternFantasy.UI
             if (placeholderText != null)
                 placeholderBasePosition = placeholderText.rectTransform.anchoredPosition;
 
-            emptyLock = new GameObject("Empty Lock", typeof(RectTransform));
+            emptyLock = new GameObject("Empty Slot Mark", typeof(RectTransform));
             emptyLock.transform.SetParent(transform, false);
             RectTransform lockRect = emptyLock.GetComponent<RectTransform>();
             lockRect.anchorMin = lockRect.anchorMax = new Vector2(0.5f, 0.5f);
-            lockRect.anchoredPosition = new Vector2(0f, 10f);
-            lockRect.sizeDelta = new Vector2(20f, 23f);
-            CreateLockPart("Shackle", lockRect, new Vector2(14f, 13f),
-                new Vector2(0f, 5f), new Color(0.82f, 0.67f, 0.37f));
-            CreateLockPart("Shackle Opening", lockRect, new Vector2(8f, 9f),
-                new Vector2(0f, 4f), new Color(0.035f, 0.075f, 0.09f));
-            CreateLockPart("Body", lockRect, new Vector2(20f, 13f),
-                new Vector2(0f, -5f), new Color(0.82f, 0.67f, 0.37f));
+            lockRect.anchoredPosition = new Vector2(0f, 4f);
+            lockRect.sizeDelta = new Vector2(10f, 10f);
+            CreateLockPart("Diamond", lockRect, new Vector2(7f, 7f),
+                Vector2.zero, new Color(.76f, .63f, .37f, .3f));
+            lockRect.GetChild(0).localRotation = Quaternion.Euler(0, 0, 45);
             emptyLock.transform.SetSiblingIndex(placeholderText != null
                 ? placeholderText.transform.GetSiblingIndex() : transform.childCount - 1);
 

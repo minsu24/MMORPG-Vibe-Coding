@@ -93,7 +93,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -141,8 +141,8 @@ TextureImporter:
         y: 88
         width: 248
         height: 454
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5284677, y: 0.5245815}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -163,8 +163,8 @@ TextureImporter:
         y: 88
         width: 261
         height: 454
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5308812, y: 0.52017623}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -185,8 +185,8 @@ TextureImporter:
         y: 88
         width: 257
         height: 454
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.539144, y: 0.5245815}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -207,8 +207,8 @@ TextureImporter:
         y: 88
         width: 245
         height: 454
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5390204, y: 0.5245815}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -229,8 +229,8 @@ TextureImporter:
         y: 88
         width: 251
         height: 454
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.54007965, y: 0.5245815}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -251,8 +251,8 @@ TextureImporter:
         y: 88
         width: 253
         height: 454
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.52790517, y: 0.5245815}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

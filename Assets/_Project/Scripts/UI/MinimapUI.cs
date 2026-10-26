@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using EasternFantasy.Player;
+using EasternFantasy.EquipmentUpgrade;
 using EasternFantasy.Quest;
 using EasternFantasy.Shop;
 using TMPro;
@@ -22,6 +23,7 @@ namespace EasternFantasy.UI
         [SerializeField] private Sprite activeQuestSprite;
         [SerializeField] private Sprite readyQuestSprite;
         [SerializeField, Min(0.1f)] private float mapPadding = 1.5f;
+        [SerializeField, Range(1f, 1.5f)] private float mapZoom = 1.2f;
         [SerializeField] private Color terrainColor = new Color(0.32f, 0.43f, 0.41f, 1f);
 
         private sealed class Marker
@@ -102,6 +104,7 @@ namespace EasternFantasy.UI
             var terrain = new List<Bounds>();
             var portals = new List<PortalManager>();
             var shops = new List<Shopkeeper>();
+            var blacksmiths = new List<EquipmentUpgradeBlacksmith>();
             var quests = new List<QuestGiver>();
             foreach (GameObject root in scene.GetRootGameObjects())
             {
@@ -111,6 +114,7 @@ namespace EasternFantasy.UI
                         || collider.GetComponentInParent<PlayerEntity>() != null
                         || collider.GetComponentInParent<QuestGiver>() != null
                         || collider.GetComponentInParent<Shopkeeper>() != null
+                        || collider.GetComponentInParent<EquipmentUpgradeBlacksmith>() != null
                         || collider.GetComponentInParent<PortalManager>() != null)
                         continue;
                     if (collider.bounds.size.x > 0f && collider.bounds.size.y > 0f)
@@ -118,6 +122,7 @@ namespace EasternFantasy.UI
                 }
                 portals.AddRange(root.GetComponentsInChildren<PortalManager>());
                 shops.AddRange(root.GetComponentsInChildren<Shopkeeper>());
+                blacksmiths.AddRange(root.GetComponentsInChildren<EquipmentUpgradeBlacksmith>());
                 quests.AddRange(root.GetComponentsInChildren<QuestGiver>());
             }
             if (terrain.Count == 0 || player == null)
@@ -130,34 +135,48 @@ namespace EasternFantasy.UI
             foreach (Bounds item in terrain) bounds.Encapsulate(item);
             foreach (PortalManager item in portals) bounds.Encapsulate(item.transform.position);
             foreach (Shopkeeper item in shops) bounds.Encapsulate(item.transform.position);
+            foreach (EquipmentUpgradeBlacksmith item in blacksmiths) bounds.Encapsulate(item.transform.position);
             foreach (QuestGiver item in quests) bounds.Encapsulate(item.transform.position);
             worldBounds = Rect.MinMaxRect(bounds.min.x - mapPadding, bounds.min.y - mapPadding,
                 bounds.max.x + mapPadding, bounds.max.y + mapPadding);
             panelRoot.SetActive(true);
             Canvas.ForceUpdateCanvases();
             Vector2 viewportSize = mapViewport.rect.size;
+            // Expand the captured world instead of leaving plain letterbox strips.
+            float aspect = viewportSize.x / viewportSize.y;
+            Vector2 center = worldBounds.center;
+            Vector2 size = worldBounds.size;
+            if (size.x / size.y < aspect) size.x = size.y * aspect;
+            else size.y = size.x / aspect;
+            // Use the same zoomed bounds for scenery, paths and live markers.
+            size /= Mathf.Max(1f, mapZoom);
+            worldBounds = new Rect(center - size * .5f, size);
             float scale = Mathf.Min(viewportSize.x / worldBounds.width, viewportSize.y / worldBounds.height);
             contentSize = worldBounds.size * scale;
             mapContent.sizeDelta = contentSize;
             regionName.text = MapLocationNames.GetDisplayName(scene.name);
 
-            foreach (Bounds item in terrain)
-            {
-                Image image = CreateImage("Terrain", terrainColor, null, mapContent);
-                RectTransform rect = image.rectTransform;
-                rect.anchoredPosition = WorldToMapPosition(item.center, worldBounds, contentSize);
-                rect.sizeDelta = new Vector2(Mathf.Max(2f, item.size.x * scale), Mathf.Max(2f, item.size.y * scale));
-            }
+            var scenery = GetComponent<MinimapSceneMap>();
+            if (scenery != null) scenery.Rebuild(mapContent, worldBounds);
+            var paths = new GameObject("Ink Terrain Paths", typeof(RectTransform), typeof(MinimapInkTerrainGraphic));
+            paths.layer = gameObject.layer; paths.transform.SetParent(mapContent, false);
+            var pathsRect = paths.GetComponent<RectTransform>();
+            pathsRect.anchorMin = Vector2.zero; pathsRect.anchorMax = Vector2.one;
+            pathsRect.offsetMin = pathsRect.offsetMax = Vector2.zero;
+            paths.GetComponent<MinimapInkTerrainGraphic>().Configure(terrain, worldBounds, contentSize);
+            generatedObjects.Add(paths);
             foreach (PortalManager item in portals)
-                CreateMarker(item.transform, new Color(0.66f, 0.48f, 1f), 14f, "P", null);
+                CreateMarker(item.transform, new Color(0.66f, 0.48f, 1f), 19f, "P", null);
             foreach (Shopkeeper item in shops)
-                CreateMarker(item.transform, new Color(1f, 0.76f, 0.3f), 14f, "S", null);
+                CreateMarker(item.transform, new Color(1f, 0.76f, 0.3f), 19f, "S", null);
+            foreach (EquipmentUpgradeBlacksmith item in blacksmiths)
+                CreateMarker(item.transform, new Color(1f, 0.48f, 0.22f), 19f, "B", null);
             foreach (QuestGiver item in quests)
             {
                 if (item.Quest != null)
                     CreateMarker(item.transform, Color.white, 20f, null, item);
             }
-            playerMarker = CreateMarker(player.transform, new Color(0.25f, 0.92f, 1f), 11f, null, null).Rect;
+            playerMarker = CreateMarker(player.transform, new Color(0.51f, 0.88f, 0.80f), 15f, null, null).Rect;
             nextQuestRefresh = 0f;
             UpdateMarkers();
         }
@@ -182,30 +201,29 @@ namespace EasternFantasy.UI
             image.rectTransform.sizeDelta = Vector2.one * size;
             var marker = new Marker { Target = target, Rect = image.rectTransform, Image = image, QuestGiver = giver };
             markers.Add(marker);
-            if (!string.IsNullOrEmpty(label))
+            if (giver == null)
             {
-                var textObject = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
-                textObject.layer = gameObject.layer;
-                textObject.transform.SetParent(image.transform, false);
-                RectTransform rect = textObject.GetComponent<RectTransform>();
-                rect.anchorMin = Vector2.zero;
-                rect.anchorMax = Vector2.one;
+                image.color = Color.clear;
+                var symbol = new GameObject("Map Symbol", typeof(RectTransform), typeof(MinimapSymbolGraphic));
+                symbol.layer = gameObject.layer; symbol.transform.SetParent(image.transform, false);
+                var rect = symbol.GetComponent<RectTransform>();
+                rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one;
                 rect.offsetMin = rect.offsetMax = Vector2.zero;
-                TMP_Text text = textObject.GetComponent<TMP_Text>();
-                text.font = regionName.font;
-                text.text = label;
-                text.fontSize = 16f;
-                text.fontStyle = FontStyles.Bold;
-                text.alignment = TextAlignmentOptions.Center;
-                text.color = new Color(0.05f, 0.07f, 0.08f);
-                text.raycastTarget = false;
+                var kind = label == "P" ? MinimapSymbolGraphic.Kind.Portal
+                    : label == "S" ? MinimapSymbolGraphic.Kind.Shop
+                    : label == "B" ? MinimapSymbolGraphic.Kind.Blacksmith : MinimapSymbolGraphic.Kind.Player;
+                symbol.GetComponent<MinimapSymbolGraphic>().Configure(kind, color);
             }
             return marker;
         }
 
         private void LateUpdate()
         {
-            if (panelRoot.activeSelf) UpdateMarkers();
+            if (panelRoot.activeSelf)
+            {
+                UpdateMarkers();
+                if (playerMarker != null) playerMarker.localScale = Vector3.one * (1f + .06f * Mathf.Sin(Time.unscaledTime * 3f));
+            }
         }
 
         private void UpdateMarkers()
