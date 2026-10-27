@@ -39,6 +39,7 @@ namespace EasternFantasy.UI
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            GameplayHudVisibility.Attach(gameObject);
         }
 
         private void Start()
@@ -48,6 +49,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
+            if (GameplayHudVisibility.IsMenuScene) return;
             if (skillSystem == null || currency == null || inventory == null)
                 ResolveReferences();
 
@@ -105,6 +107,9 @@ namespace EasternFantasy.UI
                 ? inventory.ConsumableSlots[index] : null;
             string reason = item == null ? "퀵슬롯에 소모품을 등록해 주세요."
                 : inventory.GetQuantity(item) <= 0 ? "등록된 소모품이 없습니다."
+                : inventory.CurrentClass == EasternFantasy.CharacterSelection.CharacterClassId.Monk
+                    && item.ConsumableEffect == ConsumableEffect.RestoreMana
+                    ? "해당 직업이 사용할 수 없는 아이템입니다."
                 : "지금은 이 소모품을 사용할 수 없습니다.";
             ShowFailure(reason);
         }

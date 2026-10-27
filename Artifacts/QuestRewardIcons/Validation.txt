@@ -1,0 +1,13 @@
+﻿PASS: Reward icons loaded for currency, experience and both potions.
+PASS: Currency uses Money animation first sprite (_0).
+PASS: Experience uses the supplied medallion asset.
+PASS: Potion sprites match inventory item definitions.
+PASS: Icon size 52; quantity font size 40 (ratio 1.3).
+PASS: Ghost displays x20, x325, x3, x3.
+PASS: Spider displays x20, x800, x5, x5.
+PASS: All reward icons fit within the dialogue text area.
+PASS: Icons do not block pointer input.
+PASS: Advance closes the reward step.
+PASS: Real completion dialogue reaches reward icons after NPC lines.
+PASS: Closing hides icons; ordinary dialogue remains unaffected.
+Visual QA: Ghost.png and Spider.png inspected in Unity Play mode.

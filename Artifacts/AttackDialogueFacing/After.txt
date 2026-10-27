@@ -1,0 +1,31 @@
+PASS Monk: real basic attack starts
+PASS Monk: lethal hit opens actual tutorial dialogue
+PASS Monk: dialogue cancels attack
+PASS Monk: cancelled hit does not relock facing
+PASS Monk: turns left after dialogue
+PASS Monk: moving right flips the actual sprite
+PASS Monk: next basic attack starts after dialogue
+PASS Monk: delayed hit callback cannot relock a cancelled attack
+PASS Monk: uninterrupted attack starts
+PASS Monk: live attack retains intended follow-through lock
+PASS Swordswoman: real basic attack starts
+PASS Swordswoman: lethal hit opens actual tutorial dialogue
+PASS Swordswoman: dialogue cancels attack
+PASS Swordswoman: cancelled hit does not relock facing
+PASS Swordswoman: turns left after dialogue
+PASS Swordswoman: moving right flips the actual sprite
+PASS Swordswoman: next basic attack starts after dialogue
+PASS Swordswoman: delayed hit callback cannot relock a cancelled attack
+PASS Swordswoman: uninterrupted attack starts
+PASS Swordswoman: live attack retains intended follow-through lock
+PASS Dosa: real basic attack starts
+PASS Dosa: lethal hit opens actual tutorial dialogue
+PASS Dosa: dialogue cancels attack
+PASS Dosa: cancelled hit does not relock facing
+PASS Dosa: turns left after dialogue
+PASS Dosa: moving right flips the actual sprite
+PASS Dosa: next basic attack starts after dialogue
+PASS Dosa: delayed hit callback cannot relock a cancelled attack
+PASS Dosa: uninterrupted attack starts
+PASS Dosa: live attack retains intended follow-through lock
+Validation complete.

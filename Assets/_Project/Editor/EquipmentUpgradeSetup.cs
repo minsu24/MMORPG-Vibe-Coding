@@ -20,7 +20,7 @@ namespace EasternFantasy.EditorTools
         public const string PrefabPath = "Assets/_Project/Prefabs/UI/EquipmentUpgradeWindow.prefab";
         public const string RecipeFolder = "Assets/_Project/Data/Items/UpgradeRecipes";
         private const string Art = "Assets/_Project/Art/UI/EquipmentUpgrade/";
-        private const string ScenePath = "Assets/_Project/Scenes/PrologueVilage.unity";
+        private const string ScenePath = "Assets/_Project/Scenes/TutorialMap/PrologueVilage.unity";
         private static TMP_FontAsset font;
         private static readonly Color Gold = new Color(.96f,.84f,.58f);
         private static Dictionary<string, Sprite> sprites;

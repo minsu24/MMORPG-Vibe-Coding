@@ -1,15 +1,15 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using EasternFantasy.Dialogue;
 
-public class MON_Goblin : EnemyController
+public partial class MON_Goblin : EnemyController
 {
     [SerializeField] private DialogueSequence defeatedDialogue;
     [Tooltip("Stable ID for this goblin encounter within its scene. Use a different ID for each encounter.")]
     [SerializeField] private string encounterId = "tutorial-goblin";
 
     private static readonly HashSet<string> defeatedEncounters = new HashSet<string>();
-    private string EncounterKey => gameObject.scene.path + ":" + encounterId;
+    private string EncounterKey => SceneStateIdentity.Key(gameObject.scene) + ":" + encounterId;
     public bool WasDefeatedThisSession => defeatedEncounters.Contains(EncounterKey);
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]

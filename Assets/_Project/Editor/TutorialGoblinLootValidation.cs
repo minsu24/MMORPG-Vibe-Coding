@@ -78,7 +78,7 @@ namespace EasternFantasy.EditorTools
                 if (upgradeUi != null) UnityEngine.Object.DestroyImmediate(upgradeUi);
                 UnityEngine.Object.DestroyImmediate(fixture);
             }
-            var scene = EditorSceneManager.OpenPreviewScene("Assets/_Project/Scenes/MovementPrototype.unity");
+            var scene = EditorSceneManager.OpenPreviewScene("Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity");
             try {
                 var goblin = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<MON_Goblin>(true)).Single();
                 var loot = goblin.GetComponent<EnemyLootDrop>(); Check(loot.OverridesCommonLoot, "Global saleable loot not suppressed");

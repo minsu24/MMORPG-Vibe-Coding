@@ -1,0 +1,13 @@
+PASS: Real map contains two spawned normal enemies for the round-trip test
+PASS: Loot settles after a real floor collision while its pickup trigger stays simulated
+PASS: Landed loot gently floats within the configured small height (range 0.080)
+PASS: Leaving a map suspends the original uncollected pickup
+PASS: Returning preserves the normal enemy's health and position
+PASS: The removed normal enemy does not respawn on map entry
+PASS: Returning restores the same pickup instance and reward without duplication
+PASS: Expired map memory releases its retained pickups
+PASS: After retention expires the normal encounter starts fresh
+PASS: The real Marshland forward portal remains blocked before necklace acquisition
+PASS: Defeating the toad alone cannot bypass the necklace gate
+PASS: Completing the necklace reward step releases the forward portal
+All map-state and floating-loot checks passed.

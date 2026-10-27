@@ -108,15 +108,27 @@ namespace EasternFantasy.EditorTools
                 root.SetActive(true); spawner.RefillMissingMonsters();
                 var enemy = root.GetComponentInChildren<EnemyController>();
                 var enemyBody = enemy.GetComponent<Rigidbody2D>(); enemyBody.constraints = RigidbodyConstraints2D.FreezeAll;
+                var enemyCollider = enemy.GetComponent<CapsuleCollider2D>();
+                var playerCollider = entity.GetComponent<CapsuleCollider2D>();
+                var renderer = enemy.GetComponent<SpriteRenderer>();
+                var originalMask = prefab.GetComponent<CapsuleCollider2D>().excludeLayers;
+                float originalAlpha = prefab.GetComponent<SpriteRenderer>().color.a;
                 enemyBody.sleepMode = RigidbodySleepMode2D.NeverSleep;
                 float started = Time.time;
                 check(enemy != null && !enemy.CanDealContactDamage, "Actual spawner gives the new monster contact protection immediately");
+                check((enemyCollider.excludeLayers.value & (1 << playerLayer)) != 0
+                    && (enemyCollider.excludeLayers.value & ~(1 << playerLayer)) == (originalMask.value & ~(1 << playerLayer)),
+                    "Spawn protection excludes player collision while preserving terrain collision settings");
+                check(Mathf.Approximately(renderer.color.a, originalAlpha * .45f), "The new monster appears translucent during spawn protection");
                 Physics2D.SyncTransforms();
-                while (Time.time - started < .85f) yield return null;
+                while (Time.time - started < .55f) yield return null;
                 check(entity.HP == savedHealth && !enemy.CanDealContactDamage,
-                    "Overlapping the respawned monster during its first second causes no damage or knockback");
-                while (Time.time - started < 1.2f) yield return null;
-                check(enemy.CanDealContactDamage, "Respawn contact protection expires after one gameplay second");
+                    "Overlapping the respawned monster during its first 0.55 seconds causes no damage or knockback");
+                check(!enemyCollider.IsTouching(playerCollider), "Player and monster physically pass through each other during spawn protection");
+                while (Time.time - started < .8f) yield return null;
+                check(enemy.CanDealContactDamage && enemyCollider.excludeLayers == originalMask,
+                    "Contact protection and player collision exclusion expire after 0.7 gameplay seconds");
+                check(Mathf.Approximately(renderer.color.a, originalAlpha), "The monster returns to its original opacity after spawn protection");
                 check(entity.HP < savedHealth, "Continuing contact damages the player after the grace period without requiring re-entry");
                 while (entity.isInvincible || entity.isKnockback) yield return null;
             }

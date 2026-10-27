@@ -52,7 +52,7 @@ namespace EasternFantasy.Editor
                 finally { PrefabUtility.UnloadPrefabContents(root); }
             }
             // Some gameplay scenes own an independent quick bar instead of a prefab instance.
-            foreach (string path in new[] { "Assets/_Project/Scenes/MovementPrototype.unity", "Assets/_Project/Scenes/PrologueVilage.unity" })
+            foreach (string path in new[] { "Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity", "Assets/_Project/Scenes/TutorialMap/PrologueVilage.unity" })
             {
                 var scene = SceneManager.GetSceneByPath(path);
                 bool opened = !scene.IsValid() || !scene.isLoaded;

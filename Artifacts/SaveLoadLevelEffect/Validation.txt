@@ -1,0 +1,12 @@
+Native Unity Play mode: save load and real level-up effects
+PASS level-up effect is present and bound
+PASS actual save load restores scene, level, EXP and unspent points
+PASS entering the saved map never displays or queues a level-up effect
+PASS state restoration refreshes listeners without rewards or effects even outside the load guard
+PASS real EXP level-up still grants exactly one skill point
+PASS real EXP level-up still plays the visible effect
+PASS dialogue starts for deferred-effect regression check
+PASS genuine level-up during dialogue still waits in the effect queue
+PASS deferred effect plays after dialogue and rewards stay correct
+PASS restoring level 1 also remains silent and grants no points
+All checks passed.

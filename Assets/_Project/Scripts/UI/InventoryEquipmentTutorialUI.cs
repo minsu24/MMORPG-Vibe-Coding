@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using EasternFantasy.CharacterSelection;
 using EasternFantasy.Dialogue;
 using EasternFantasy.Inventory;
@@ -10,7 +10,7 @@ using UnityEngine.UI;
 namespace EasternFantasy.UI
 {
     [DisallowMultipleComponent]
-    public sealed class InventoryEquipmentTutorialUI : MonoBehaviour
+    public sealed partial class InventoryEquipmentTutorialUI : MonoBehaviour
     {
         private static readonly HashSet<CharacterClassId> shownClasses = new HashSet<CharacterClassId>();
         private static InventoryEquipmentTutorialUI active;
@@ -57,6 +57,7 @@ namespace EasternFantasy.UI
         }
         private void Update()
         {
+            if (EasternFantasy.Saving.SaveGameService.IsRestoring) return;
             if (pending && !running && !MapTutorialUI.IsRunning && !StatsSkillTutorialUI.IsRunning
                 && (DungeonWindowUI.Instance == null || !DungeonWindowUI.Instance.IsOpen)
                 && (ShopWindowUI.Instance == null || !ShopWindowUI.Instance.IsOpen)

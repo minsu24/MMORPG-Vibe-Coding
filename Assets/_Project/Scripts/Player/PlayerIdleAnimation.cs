@@ -94,7 +94,9 @@ namespace EasternFantasy.Player
             float horizontalInput = movement != null && !movement.IsMovementLocked && !movement.IsDashing
                 ? movement.MoveInput : 0f;
             bool isMoving = Mathf.Abs(horizontalInput) > movementThreshold;
-            if (!lockAttackFacing)
+            // A basic attack's follow-through must not turn an airborne player into a backpedal.
+            bool canTurnInAir = IsBasicAttackActive && movement != null && !movement.IsGrounded;
+            if (!lockAttackFacing || canTurnInAir)
                 ApplyFacingDirection(isMoving ? horizontalInput : FacingDirectionX, isMoving && !IsAttacking);
             if (isMoving == wasMoving) return;
 
@@ -144,6 +146,9 @@ namespace EasternFantasy.Player
 
         public void MarkBasicAttackHit(float recoveryDuration)
         {
+            // A lethal hit can open dialogue and cancel this attack inside ApplyHit.
+            // Its remaining callback must not re-lock facing after that cancellation.
+            if (!IsBasicAttackActive) return;
             lockAttackFacing = true;
             // Preserve a short follow-through before a skill can replace the basic attack.
             basicAttackChainAt = Time.time + Mathf.Min(0.1f, recoveryDuration * 0.35f);

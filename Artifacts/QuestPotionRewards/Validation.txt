@@ -1,0 +1,6 @@
+PASS: Ghost quest grants exactly three health and three mana potions
+PASS: Repeated turn-in cannot duplicate the potion reward
+PASS: Spider quest grants exactly five health and five mana potions
+PASS: A full potion stack blocks the entire reward without partial payment or quest completion
+PASS: Freeing space allows a safe retry and grants both rewards once
+All quest potion reward checks passed.

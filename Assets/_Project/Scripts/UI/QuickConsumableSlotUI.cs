@@ -39,6 +39,7 @@ namespace EasternFantasy.UI
                 iconImage.sprite = item != null ? item.Icon : null;
                 iconImage.enabled = item != null && item.Icon != null;
                 iconImage.color = quantity > 0 ? Color.white : new Color(1f, 1f, 1f, 0.4f);
+                ItemGradeVisual.Apply(iconImage, item);
             }
             if (placeholderText != null)
             {

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using EasternFantasy.Inventory;
@@ -27,7 +27,7 @@ namespace EasternFantasy.Quest
     }
 
     [DisallowMultipleComponent]
-    public sealed class QuestManager : MonoBehaviour
+    public sealed partial class QuestManager : MonoBehaviour
     {
         private readonly List<QuestProgress> quests = new List<QuestProgress>();
         private GameObject player;
@@ -107,6 +107,23 @@ namespace EasternFantasy.Quest
                 return false;
 
             progress.Status = QuestStatus.Completed;
+            var rewards = new Dictionary<ItemDefinition, int>();
+            foreach (var reward in definition.RewardItems)
+            {
+                if (reward == null || reward.Item == null || reward.Quantity <= 0) continue;
+                rewards.TryGetValue(reward.Item, out int amount);
+                rewards[reward.Item] = amount + reward.Quantity;
+            }
+            if (rewards.Count > 0)
+            {
+                var inventory = FindFirstObjectByType<PlayerInventory>();
+                if (inventory == null || !inventory.TryAddItems(rewards))
+                {
+                    progress.Status = QuestStatus.ReadyToTurnIn;
+                    EasternFantasy.UI.SystemNoticeUI.Show("물약 보상을 받을 수 있도록 소비 인벤토리를 정리한 뒤 다시 완료해 주세요.", this);
+                    return false;
+                }
+            }
             if (definition.RewardYeopjeon > 0)
             {
                 PlayerCurrency currency = FindFirstObjectByType<PlayerCurrency>(FindObjectsInactive.Include);

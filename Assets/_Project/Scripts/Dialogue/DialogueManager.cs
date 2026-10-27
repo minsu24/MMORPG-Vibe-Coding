@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using EasternFantasy.Advancement;
@@ -13,7 +13,7 @@ using UnityEngine.UI;
 namespace EasternFantasy.Dialogue
 {
     [DisallowMultipleComponent]
-    public sealed class DialogueManager : MonoBehaviour
+    public sealed partial class DialogueManager : MonoBehaviour
     {
         [Header("Dialogue UI - connect objects from the bottom dialogue panel")]
         [SerializeField] private GameObject dialogueRoot;
@@ -44,6 +44,8 @@ namespace EasternFantasy.Dialogue
         private float advanceHintStartedAt;
         private DialogueSequence currentSequence;
         private string completionRewardText;
+        private QuestDefinition completionQuest;
+        private QuestRewardRowUI rewardRow;
         private Coroutine typingRoutine;
         private int lineIndex;
         private bool isTyping;
@@ -108,15 +110,12 @@ namespace EasternFantasy.Dialogue
         public bool StartQuestCompletion(DialogueSequence sequence, QuestDefinition quest)
         {
             if (quest == null) return false;
-            string rewardText = "보상 획득";
-            if (quest.RewardYeopjeon > 0)
-                rewardText += $"\n엽전 {quest.RewardYeopjeon:N0} 획득";
-            if (quest.RewardEXP > 0)
-                rewardText += $"\n경험치 {quest.RewardEXP:N0} 획득";
-            if (quest.RewardYeopjeon <= 0 && quest.RewardEXP <= 0)
-                rewardText = "퀘스트를 완료했습니다.";
-            // Append a runtime notice without modifying the shared dialogue asset or its identity.
-            return BeginDialogue(sequence, rewardText);
+            if (IsDialogueActive || !HasRequiredUi()) return false;
+            completionQuest = quest;
+            // Retain one final dialogue step, rendered as icons instead of typed reward text.
+            if (BeginDialogue(sequence, "보상 획득")) return true;
+            completionQuest = null;
+            return false;
         }
 
         public bool StartQuestOffer(
@@ -236,6 +235,8 @@ namespace EasternFantasy.Dialogue
             IsDialogueActive = false;
             currentSequence = null;
             completionRewardText = null;
+            completionQuest = null;
+            if (rewardRow != null) rewardRow.gameObject.SetActive(false);
             isWaitingForQuestDecision = false;
             pendingQuestDecision = null;
             pendingQuestTitle = null;
@@ -291,7 +292,15 @@ namespace EasternFantasy.Dialogue
                 if (partnerPortrait != null) partnerPortrait.enabled = false;
                 if (playerNameText != null) playerNameText.text = "퀘스트 완료";
                 if (partnerNameText != null) partnerNameText.text = string.Empty;
-                typingRoutine = StartCoroutine(TypeLine(completionRewardText));
+                if (completionQuest != null)
+                {
+                    dialogueText.text = string.Empty;
+                    dialogueText.maxVisibleCharacters = int.MaxValue;
+                    if (rewardRow == null) rewardRow = QuestRewardRowUI.Create(dialogueText);
+                    rewardRow.Show(completionQuest, dialogueText);
+                    if (continueIndicator != null) continueIndicator.SetActive(true);
+                }
+                else typingRoutine = StartCoroutine(TypeLine(completionRewardText));
                 return;
             }
             DialogueLine line = currentSequence.Lines[lineIndex];

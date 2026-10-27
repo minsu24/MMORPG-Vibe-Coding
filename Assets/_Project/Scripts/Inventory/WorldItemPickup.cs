@@ -38,9 +38,11 @@ namespace EasternFantasy.Inventory
         private bool initialized;
         private bool collected;
         private Sequence collectSequence;
+        private DroppedItemFloat floating;
 
         public ItemDefinition Item => item;
         public int Quantity => quantity;
+        public bool IsCollected => collected;
         public Vector3 LandingPosition => landingPosition;
         // Before initialization, reserve enough room for the largest possible weapon.
         public float VisualWidth => item == null ? worldIconSize * slenderWeaponScale : DisplaySize;
@@ -51,6 +53,8 @@ namespace EasternFantasy.Inventory
         private void Awake()
         {
             iconRenderer = GetComponent<SpriteRenderer>();
+            floating = GetComponent<DroppedItemFloat>();
+            if (floating == null) floating = gameObject.AddComponent<DroppedItemFloat>();
             pickupCollider = GetComponent<CircleCollider2D>();
             pickupCollider.isTrigger = true;
             pickupCollider.enabled = false;
@@ -119,6 +123,7 @@ namespace EasternFantasy.Inventory
                 return;
 
             collected = true;
+            floating.Stop();
             DropPlacement2D.StopPhysicalDrop(dropBody, gameObject);
             pickupCollider.enabled = false;
             if (collectSound != null)
@@ -129,7 +134,11 @@ namespace EasternFantasy.Inventory
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (!collected && DropPlacement2D.StopOnLanding(dropBody, collision))
+            {
                 landingPosition = transform.position;
+                DropPlacement2D.SettlePhysicalDrop(dropBody, gameObject);
+                floating.Begin(landingPosition);
+            }
         }
         private void PlayCollectFeedback(Transform player)
         {

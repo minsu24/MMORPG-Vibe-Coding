@@ -19,6 +19,11 @@ MonoBehaviour:
   requiredAmount: 5
   rewardYeopjeon: 20
   rewardEXP: 325
+  rewardItems:
+  - item: {fileID: 11400000, guid: de62d143e4c66c847afc0b92d47a2e94, type: 2}
+    quantity: 3
+  - item: {fileID: 11400000, guid: dc8baf7bb6c3a2d44a7696683dc7d4d2, type: 2}
+    quantity: 3
   prerequisiteQuest: {fileID: 0}
   turnInDescription: 
   revealedMapScenes:

@@ -1,0 +1,8 @@
+Native Unity Play mode layout verification
+PASS DosaCard: original placement; centered caption; gap before details; stable hover
+PASS MonkCard: original placement; centered caption; gap before details; stable hover
+PASS SwordswomanCard: original placement; centered caption; gap before details; stable hover
+PASS QuickSlotOverlay: hidden and non-interactive in character selection
+PASS GameplayUIRoot: hidden and non-interactive in character selection
+PASS gameplay HUD hidden in main menu
+PASS gameplay HUD visibility and interaction restored after menu round trip

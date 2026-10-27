@@ -1,0 +1,7 @@
+PASS: Left/right reversals while rising update logical facing and sprite scale in the same LateUpdate.
+PASS: Left/right reversals while falling update sprite facing immediately.
+PASS: Airborne basic-attack recovery no longer prevents left/right sprite reversals.
+PASS: Releasing the direction key preserves the last airborne facing.
+PASS: Ground basic-attack follow-through retains its direction lock.
+PASS: Direction-locked skill animations remain locked in the air.
+PASS: Normal airborne facing resumes after combat animation cleanup.

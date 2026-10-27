@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-// Defeats live only in memory: scene reloads preserve them, a new Play session resets them.
-public abstract class PersistentBossController : EnemyController
+// Runtime defeat sets are captured/restored by the per-character save system.
+public abstract partial class PersistentBossController : EnemyController
 {
     [Tooltip("Optional stable encounter ID, unique within the scene. Otherwise the initial hierarchy is used.")]
     [SerializeField] private string encounterId;
@@ -32,7 +32,7 @@ public abstract class PersistentBossController : EnemyController
             for (Transform node = transform; node != null; node = node.parent)
                 identity = node.name + "[" + node.GetSiblingIndex() + "]/" + identity;
         }
-        encounterKey = gameObject.scene.path + ":" + GetType().FullName + ":" + identity;
+        encounterKey = SceneStateIdentity.Key(gameObject.scene) + ":" + GetType().FullName + ":" + identity;
         base.Awake();
     }
 

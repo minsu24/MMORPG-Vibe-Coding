@@ -25,6 +25,7 @@ namespace EasternFantasy.Player
             {
                 if (activeInstance.representedClass == selectedClass)
                 {
+                    EasternFantasy.Saving.SaveGameService.ResumeExistingPlayer(activeInstance.GetComponent<PlayerEntity>());
                     gameObject.SetActive(false);
                     Destroy(gameObject);
                     return;
@@ -105,6 +106,7 @@ namespace EasternFantasy.Player
                 GetComponent<PlayerAdvancementSystem>();
             if (advancementSystem != null)
                 advancementSystem.ConfigureClass(definition.AutomaticAdvancement);
+            EasternFantasy.Saving.SaveGameService.Attach(entity);
         }
 
         private void OnDestroy()

@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace EasternFantasy.Player
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(PlayerEntity))]
-    public sealed class PlayerProgression : MonoBehaviour
+    public sealed partial class PlayerProgression : MonoBehaviour
     {
         [SerializeField] private PlayerLevelTable levelTable;
         [SerializeField, Range(1, PlayerLevelTable.MaximumLevel)] private int currentLevel = 1;
@@ -25,6 +25,9 @@ namespace EasternFantasy.Player
 
         public event Action<int, int> ExperienceChanged;
         public event Action<int> LevelChanged;
+        // State refreshes (including save restoration) use LevelChanged; rewards and effects
+        // listen to LeveledUp, which is emitted only when experience actually raises a level.
+        public event Action<int> LeveledUp;
 
         private void Awake()
         {
@@ -63,6 +66,7 @@ namespace EasternFantasy.Player
                 currentExperience -= required;
                 currentLevel++;
                 LevelChanged?.Invoke(currentLevel);
+                LeveledUp?.Invoke(currentLevel);
             }
 
             if (IsMaximumLevel)

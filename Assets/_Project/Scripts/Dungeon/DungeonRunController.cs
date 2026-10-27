@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using EasternFantasy.Player;
 using EasternFantasy.UI;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace EasternFantasy.Dungeon
 {
-    public sealed class DungeonRunController : MonoBehaviour
+    public sealed partial class DungeonRunController : MonoBehaviour
     {
         public static DungeonRunController Instance { get; private set; }
         public DungeonRunUI ui;
@@ -28,6 +28,9 @@ namespace EasternFantasy.Dungeon
             var prefab = Resources.Load<GameObject>("DungeonRunUI");
             if (prefab == null) { Debug.LogError("DungeonRunUI resource prefab is missing."); return; }
             PersistentBossController.BeginDungeonRun();
+            SceneWorldState.Invalidate(dungeon.sceneName);
+            foreach (string sceneName in dungeon.continuationScenes ?? Array.Empty<string>())
+                SceneWorldState.Invalidate(sceneName);
             var controller = Instantiate(prefab).GetComponent<DungeonRunController>();
             Instance = controller;
             controller.definition = dungeon;
@@ -71,6 +74,7 @@ namespace EasternFantasy.Dungeon
 
         private void Update()
         {
+            if (EasternFantasy.Saving.SaveGameService.IsRestoring) return;
             if (leaving || !ContainsScene(SceneManager.GetActiveScene().name)) return;
             if (!IsCleared && definition.timeLimitSeconds <= 0) return;
             // Real time keeps the automatic exit running even while a menu is open.

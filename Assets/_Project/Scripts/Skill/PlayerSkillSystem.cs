@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using EasternFantasy.Advancement;
 using EasternFantasy.Player;
@@ -14,7 +14,7 @@ namespace EasternFantasy.Skill
 
     [DisallowMultipleComponent]
     [RequireComponent(typeof(PlayerProgression))]
-    public sealed class PlayerSkillSystem : MonoBehaviour, IPlayerSkillCaster
+    public sealed partial class PlayerSkillSystem : MonoBehaviour, IPlayerSkillCaster
     {
         [SerializeField, Min(0)] private int skillPoints;
         [SerializeField] private SkillDefinition[] availableSkills = Array.Empty<SkillDefinition>();
@@ -111,7 +111,7 @@ namespace EasternFantasy.Skill
             progression = GetComponent<PlayerProgression>();
             advancementSystem = GetComponent<PlayerAdvancementSystem>();
             skillPoints += Mathf.Max(0, progression.CurrentLevel - 1);
-            progression.LevelChanged += GrantLevelUpPoint;
+            progression.LeveledUp += GrantLevelUpPoint;
             SkillsChanged?.Invoke();
         }
 
@@ -255,7 +255,7 @@ namespace EasternFantasy.Skill
         private void OnDestroy()
         {
             if (progression != null)
-                progression.LevelChanged -= GrantLevelUpPoint;
+                progression.LeveledUp -= GrantLevelUpPoint;
         }
     }
 }

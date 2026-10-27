@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using EasternFantasy.Skill;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,7 +7,7 @@ namespace EasternFantasy.Player
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(PlayerEntity))]
-    public sealed class MonkEnergy : MonoBehaviour
+    public sealed partial class MonkEnergy : MonoBehaviour
     {
         [SerializeField, Min(1f)] private float baseMaximum = 100f;
         [SerializeField, Min(0f)] private float energyOnHit = 20f;

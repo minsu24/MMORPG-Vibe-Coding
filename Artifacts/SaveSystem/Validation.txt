@@ -1,0 +1,45 @@
+Native Unity Play Mode save validation
+PASS settings Save button writes Monk file
+PASS Monk save does not create Dosa file
+PASS volume is below Save button
+PASS fixture: vitals, level, currency, inventory/equipment, quests, skills/slots, companion, tutorials and unclaimed toad reward
+PASS scene and exact position restored after a new Play session
+PASS HP, MP, mental and Monk energy restored
+PASS level, EXP and currency restored without duplicate rewards
+PASS inventory quantity, slot positions and equipment restored
+PASS skill allocation, unused points and both quick-slot sets restored
+PASS completed, active and ready quests restored without completion replay
+PASS companion growth/equipment and tutorial unlocks restored
+PASS defeated toad stays defeated and unclaimed necklace returns
+PASS periodic autosave captures resource changes
+PASS switching to Dosa starts independent progress
+PASS Dosa manual save succeeds
+PASS Dosa save does not modify Monk save bytes
+PASS switching back to Monk restores its own scene and progression
+PASS admin demo reset starts fresh in the tutorial
+PASS manual save after demo reset preserves original save bytes
+PASS automatic save after demo reset preserves original save bytes
+PASS corrupt primary recovers valid backup
+PASS unreadable saves are protected from overwrite
+PASS scene and exact position restored after a new Play session
+PASS HP, MP, mental and Monk energy restored
+PASS level, EXP and currency restored without duplicate rewards
+PASS inventory quantity, slot positions and equipment restored
+PASS skill allocation, unused points and both quick-slot sets restored
+PASS completed, active and ready quests restored without completion replay
+PASS companion growth/equipment and tutorial unlocks restored
+PASS defeated toad stays defeated and unclaimed necklace returns
+PASS next Play session exits demo mode and loads original record
+PASS scene and exact position restored after a new Play session
+PASS HP, MP, mental and Monk energy restored
+PASS level, EXP and currency restored without duplicate rewards
+PASS inventory quantity, slot positions and equipment restored
+PASS skill allocation, unused points and both quick-slot sets restored
+PASS completed, active and ready quests restored without completion replay
+PASS companion growth/equipment and tutorial unlocks restored
+PASS defeated toad stays defeated and unclaimed necklace returns
+PASS selecting the same class again restores its saved location
+PASS admin demo reset starts fresh in the tutorial
+PASS manual save after demo reset preserves original save bytes
+PASS automatic save after demo reset preserves original save bytes
+PASS final reset and same-class resume run without Unity console errors

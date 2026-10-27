@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using EasternFantasy.CharacterSelection;
 using EasternFantasy.Player;
 using DG.Tweening;
@@ -12,7 +12,7 @@ using UnityEngine.UI;
 namespace EasternFantasy.UI
 {
     [DisallowMultipleComponent]
-    public sealed class ShopWindowUI : MonoBehaviour
+    public sealed partial class ShopWindowUI : MonoBehaviour
     {
         [SerializeField] private GameObject windowRoot;
         [SerializeField] private Button buyTab;

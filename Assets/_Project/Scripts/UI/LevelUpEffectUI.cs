@@ -67,10 +67,10 @@ namespace EasternFantasy.UI
         {
             PlayerProgression current = FindCurrentProgression();
             if (playerProgression != null)
-                playerProgression.LevelChanged -= QueueLevelUpEffect;
+                playerProgression.LeveledUp -= QueueLevelUpEffect;
             playerProgression = current;
             if (playerProgression != null)
-                playerProgression.LevelChanged += QueueLevelUpEffect;
+                playerProgression.LeveledUp += QueueLevelUpEffect;
         }
 
         private static PlayerProgression FindCurrentProgression()
@@ -177,7 +177,7 @@ namespace EasternFantasy.UI
             effectSequence?.Kill();
             SceneManager.sceneLoaded -= HandleSceneLoaded;
             if (playerProgression != null)
-                playerProgression.LevelChanged -= QueueLevelUpEffect;
+                playerProgression.LeveledUp -= QueueLevelUpEffect;
 
             if (Instance == this)
                 Instance = null;

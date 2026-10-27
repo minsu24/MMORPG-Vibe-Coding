@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using EasternFantasy.CharacterSelection;
 using EasternFantasy.Dungeon;
 using EasternFantasy.Player;
@@ -9,7 +9,7 @@ using UnityEngine.UI;
 namespace EasternFantasy.UI
 {
     [DisallowMultipleComponent]
-    public sealed class DungeonWindowUI : MonoBehaviour
+    public sealed partial class DungeonWindowUI : MonoBehaviour
     {
         public DungeonDefinition[] dungeons;
         public GameObject windowRoot;

@@ -15,7 +15,6 @@ namespace EasternFantasy.Player
         private const string TutorialScene = "MovementPrototype";
         private const string VillageScene = "PrologueVilage";
         private const string VillageSpawn = "In_Vilage_Portal";
-        private const string FirstDeathGuideKeyPrefix = "Tutorial.FirstDeath.Completed.";
 
         [SerializeField, Min(0f)] private float deathAnimationSeconds = 1f;
         [SerializeField, Range(0f, 0.2f)] private float deathHitStopSeconds = 0.08f;
@@ -35,7 +34,6 @@ namespace EasternFantasy.Player
         private bool previousEnemyCollisionIgnored;
         private bool isRespawning;
         private bool isFirstDeath;
-        private string firstDeathGuideKey;
 
         private void Awake()
         {
@@ -46,9 +44,6 @@ namespace EasternFantasy.Player
             body = GetComponent<Rigidbody2D>();
             tutorialSpawnPosition = transform.position;
             tutorialSpawnRotation = transform.rotation;
-            PlayerClassRuntime playerClass = GetComponent<PlayerClassRuntime>();
-            firstDeathGuideKey = FirstDeathGuideKeyPrefix + (playerClass != null
-                ? playerClass.RepresentedClass : CharacterSelectionState.SelectedClass);
         }
 
         private void OnEnable()
@@ -92,7 +87,7 @@ namespace EasternFantasy.Player
         private IEnumerator ShowDeathUiAfterAnimation(float hitStopDelay)
         {
             yield return new WaitForSecondsRealtime(deathAnimationSeconds + hitStopDelay);
-            isFirstDeath = PlayerPrefs.GetInt(firstDeathGuideKey, 0) == 0;
+            isFirstDeath = !EasternFantasy.Saving.SaveGameService.FirstDeathGuideCompleted;
             deathUi = deathUiPrefab != null
                 ? Instantiate(deathUiPrefab, transform)
                 : CreateTemporaryDeathUi();
@@ -132,6 +127,7 @@ namespace EasternFantasy.Player
                         yield break;
                     }
                     MapTransferData.SetTarget(VillageSpawn);
+                    SceneWorldState.CaptureActiveScene();
                     SceneManager.LoadScene(VillageScene);
                     yield return null;
                 }
@@ -150,8 +146,7 @@ namespace EasternFantasy.Player
             // Complete the guide only after a successful revival, so failed transfers can be retried.
             if (isFirstDeath)
             {
-                PlayerPrefs.SetInt(firstDeathGuideKey, 1);
-                PlayerPrefs.Save();
+                EasternFantasy.Saving.SaveGameService.FirstDeathGuideCompleted = true;
             }
             if (animationController != null)
                 animationController.PlayIdle();

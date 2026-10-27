@@ -1,4 +1,4 @@
-using EasternFantasy.Dialogue;
+﻿using EasternFantasy.Dialogue;
 using EasternFantasy.Inventory;
 using EasternFantasy.Player;
 using EasternFantasy.UI;
@@ -7,11 +7,13 @@ using UnityEngine.SceneManagement;
 
 namespace EasternFantasy.Quest
 {
-    public sealed class ToadHuntQuestController : MonoBehaviour
+    public sealed partial class ToadHuntQuestController : MonoBehaviour
     {
         public static ToadHuntQuestController Instance { get; private set; }
         public ToadHuntDefinition Definition { get; private set; }
         public QuestRewardRelic Relic { get; private set; }
+        public bool NecklaceClaimed => Definition != null && quests != null
+            && quests.FindProgress(Definition.quest)?.Status == QuestStatus.Completed;
         private QuestManager quests;
         private DialogueManager dialogue;
         private MON_Frog boss;
@@ -95,6 +97,7 @@ namespace EasternFantasy.Quest
         }
         private void Update()
         {
+            if (EasternFantasy.Saving.SaveGameService.IsRestoring) return;
             if (Time.unscaledTime >= nextRefresh)
             {
                 nextRefresh = Time.unscaledTime + .25f;

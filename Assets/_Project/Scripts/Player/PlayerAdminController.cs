@@ -93,6 +93,7 @@ namespace EasternFantasy.Player
 
         private void OnGUI()
         {
+            if (EasternFantasy.UI.GameplayHudVisibility.IsMenuScene) return;
             GUI.Box(new Rect(Mathf.Max(0f, Screen.width - 240f), 12f, 228f, 28f),
                 ghostMode ? "F9 Ghost: ON  |  F10 Admin" : "F9 Ghost: OFF  |  F10 Admin");
 
@@ -147,6 +148,16 @@ namespace EasternFantasy.Player
             }
 
             GUILayout.Space(8f);
+            GUI.enabled = !EasternFantasy.Saving.SaveGameService.IsRestoring;
+            if (GUILayout.Button("초기화 (이번 플레이만 · 기존 저장 유지)"))
+            {
+                if (ghostMode) SetGhostMode(false);
+                panelOpen = false;
+                EasternFantasy.Saving.SaveGameService.ResetForDemo();
+            }
+            if (EasternFantasy.Saving.SaveGameService.IsDemoSession)
+                GUILayout.Label("시연 모드: 저장하지 않으며 다음 실행에 기존 기록을 불러옵니다.");
+            GUI.enabled = !entity.IsDead;
             GUILayout.Label("Move to Scene (entry portal)");
             sceneScroll = GUILayout.BeginScrollView(sceneScroll, GUILayout.Height(220f));
             for (int index = 0; index < SceneManager.sceneCountInBuildSettings; index++)
@@ -219,7 +230,9 @@ namespace EasternFantasy.Player
                 return;
 
             pendingSceneName = sceneName;
+            EasternFantasy.Saving.SaveGameService.SaveNow(out _);
             MapTransferData.Clear();
+            SceneWorldState.CaptureActiveScene();
             SceneManager.LoadScene(sceneName);
         }
 

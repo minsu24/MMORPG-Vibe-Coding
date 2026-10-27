@@ -13,7 +13,7 @@ namespace EasternFantasy.Player
 
         private void Awake()
         {
-            if (instance != null && instance != this)
+            if (instance != null && instance != this && instance.gameObject.activeInHierarchy)
             {
                 Destroy(gameObject);
                 return;

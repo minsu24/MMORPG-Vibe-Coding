@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
@@ -12,7 +12,7 @@ namespace EasternFantasy.Player
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(PlayerMovement2D))]
-    public sealed class PlayerEntity : Entity
+    public sealed partial class PlayerEntity : Entity
     {
         [Header("Combat State")]
         [SerializeField, Min(.01f)] private float combatTimeout = 10f;

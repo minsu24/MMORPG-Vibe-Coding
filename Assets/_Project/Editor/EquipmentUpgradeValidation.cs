@@ -114,7 +114,7 @@ namespace EasternFantasy.EditorTools
                 Check(upgrades==1&&window.Target==rare&&money.Yeopjeon==0,"Confirmation did not upgrade once");
                 Check(inv.GetQuantity(rare)==1&&inv.GetQuantity(fan)==0&&!window.CanConfirm,"UI did not refresh next grade");
 
-                var scene=UnityEditor.SceneManagement.EditorSceneManager.OpenPreviewScene("Assets/_Project/Scenes/PrologueVilage.unity");
+                var scene=UnityEditor.SceneManagement.EditorSceneManager.OpenPreviewScene("Assets/_Project/Scenes/TutorialMap/PrologueVilage.unity");
                 try
                 {
                     bool npc=false,overlay=false;

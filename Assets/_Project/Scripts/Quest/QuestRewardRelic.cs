@@ -12,6 +12,9 @@ namespace EasternFantasy.Quest
         public void Initialize(ToadHuntQuestController owner)
         {
             Owner = owner;
+            var floating = GetComponent<EasternFantasy.Inventory.DroppedItemFloat>();
+            if (floating == null) floating = gameObject.AddComponent<EasternFantasy.Inventory.DroppedItemFloat>();
+            floating.Begin(transform.position);
             if (completionMarker != null) markerRest = completionMarker.localPosition;
         }
         private void Update()

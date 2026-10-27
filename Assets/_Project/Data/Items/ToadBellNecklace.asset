@@ -21,7 +21,7 @@ MonoBehaviour:
   category: 3
   grade: 1
   gradeFrame: {fileID: 0}
-  gradeAppearance: {fileID: 0}
+  gradeAppearance: {fileID: 11400000, guid: 817a93ca2f67b9444a4b9963bab93450, type: 2}
   gradeVariants: []
   equipmentSlot: 8
   allowedClasses: 

@@ -16,7 +16,7 @@ namespace EasternFantasy.Editor
         private const string PickupPrefabPath =
             "Assets/_Project/Prefabs/WorldItemPickup.prefab";
         private const string MarshlandScenePath =
-            "Assets/_Project/Scenes/Marshland.unity";
+            "Assets/_Project/Scenes/TutorialMap/Marshland.unity";
 
         [MenuItem("Eastern Fantasy/Setup Marshland Frog Loot")]
         public static void Apply()

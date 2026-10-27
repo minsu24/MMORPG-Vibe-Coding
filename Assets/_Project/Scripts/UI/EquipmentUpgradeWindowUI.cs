@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using DG.Tweening;
 using System.Collections.Generic;
 using EasternFantasy.CharacterSelection;
@@ -14,7 +14,7 @@ using UnityEngine.UI;
 
 namespace EasternFantasy.UI
 {
-    public sealed class EquipmentUpgradeWindowUI : MonoBehaviour
+    public sealed partial class EquipmentUpgradeWindowUI : MonoBehaviour
     {
         [SerializeField] private GameObject windowRoot;
         [SerializeField] private EquipmentUpgradeRecipe[] recipes;

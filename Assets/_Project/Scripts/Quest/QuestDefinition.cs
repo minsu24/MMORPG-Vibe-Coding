@@ -4,6 +4,15 @@ using UnityEngine;
 
 namespace EasternFantasy.Quest
 {
+    [Serializable]
+    public sealed class QuestItemReward
+    {
+        [SerializeField] private EasternFantasy.Inventory.ItemDefinition item;
+        [SerializeField, Min(1)] private int quantity = 1;
+        public EasternFantasy.Inventory.ItemDefinition Item => item;
+        public int Quantity => quantity;
+    }
+
     public enum QuestType
     {
         Main,
@@ -23,6 +32,7 @@ namespace EasternFantasy.Quest
         [SerializeField, Min(1)] private int requiredAmount = 1;
         [SerializeField, Min(0)] private int rewardYeopjeon = 20;
         [SerializeField, Min(0)] private int rewardEXP = 100;
+        [SerializeField] private QuestItemReward[] rewardItems = Array.Empty<QuestItemReward>();
         [SerializeField] private QuestDefinition prerequisiteQuest;
         [SerializeField, TextArea(1, 3)] private string turnInDescription;
         [Tooltip("Scene names whose place names become known when this quest is accepted. This does not reveal their scenery.")]
@@ -44,6 +54,7 @@ namespace EasternFantasy.Quest
         public int RequiredAmount => requiredAmount;
         public int RewardYeopjeon => rewardYeopjeon;
         public int RewardEXP => rewardEXP;
+        public IReadOnlyList<QuestItemReward> RewardItems => rewardItems ?? Array.Empty<QuestItemReward>();
 
         public string TypeLabel
         {

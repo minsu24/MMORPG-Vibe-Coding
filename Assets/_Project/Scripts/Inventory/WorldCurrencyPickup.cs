@@ -31,14 +31,18 @@ namespace EasternFantasy.Inventory
         private int amount;
         private bool collected;
         private Sequence collectSequence;
+        private DroppedItemFloat floating;
 
         public int Amount => amount;
+        public bool IsCollected => collected;
         public Vector3 LandingPosition => landingPosition;
         public float VisualWidth => visualWidth;
 
         private void Awake()
         {
             SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+            floating = GetComponent<DroppedItemFloat>();
+            if (floating == null) floating = gameObject.AddComponent<DroppedItemFloat>();
             if (renderer.sprite == null)
                 renderer.sprite = GetFallbackSprite();
             renderer.sortingOrder = Mathf.Max(renderer.sortingOrder, 8);
@@ -92,6 +96,7 @@ namespace EasternFantasy.Inventory
                 return;
 
             collected = true;
+            floating.Stop();
             DropPlacement2D.StopPhysicalDrop(dropBody, gameObject);
             currency.Add(amount);
             pickupCollider.enabled = false;
@@ -103,7 +108,11 @@ namespace EasternFantasy.Inventory
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (!collected && DropPlacement2D.StopOnLanding(dropBody, collision))
+            {
                 landingPosition = transform.position;
+                DropPlacement2D.SettlePhysicalDrop(dropBody, gameObject);
+                floating.Begin(landingPosition);
+            }
         }
         private void PlayCollectFeedback(Transform player)
         {

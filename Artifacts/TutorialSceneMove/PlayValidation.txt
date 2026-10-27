@@ -1,0 +1,58 @@
+Native Unity Play mode: moved scenes and legacy save compatibility
+PASS goblin encounter identity no longer depends on its folder
+PASS boss encounter identity no longer depends on its folder
+PASS legacy save restores the scene and exact position after relocation
+PASS legacy save retains progression, currency, points and health
+PASS old path-based toad defeat stays defeated
+PASS unclaimed necklace and quest progress survive relocation
+PASS boss, goblin and dungeon encounter records normalize to folder-independent IDs
+PASS both legacy and moved-folder paths migrate idempotently
+PASS restored character can be saved
+PASS next save writes stable IDs without changing save format
+PASS MovementPrototype remains loadable by its original name
+PASS MovementPrototype portal transfer starts
+PASS MovementPrototype loads from TutorialMap
+PASS MovementPrototype entry spawn remains correct
+PASS MovementPrototype/Out_Tuto_Portal destination stays in the build
+PASS old tutorial goblin defeat remains effective on scene revisit
+PASS PrologueVilage remains loadable by its original name
+PASS PrologueVilage portal transfer starts
+PASS PrologueVilage loads from TutorialMap
+PASS PrologueVilage entry spawn remains correct
+PASS PrologueVilage/In_Vilage_Portal destination stays in the build
+PASS PrologueVilage/Out_Vilage_Portal destination stays in the build
+PASS Cemetery remains loadable by its original name
+PASS Cemetery portal transfer starts
+PASS Cemetery loads from TutorialMap
+PASS Cemetery entry spawn remains correct
+PASS Cemetery/Out_Cemetery_Portal destination stays in the build
+PASS Cemetery/In_Cemetery_Portal destination stays in the build
+PASS SpiderCave remains loadable by its original name
+PASS SpiderCave portal transfer starts
+PASS SpiderCave loads from TutorialMap
+PASS SpiderCave entry spawn remains correct
+PASS SpiderCave/Out_SpiderCave_Portal destination stays in the build
+PASS SpiderCave/In_SpiderCave_Portal destination stays in the build
+PASS Marshland remains loadable by its original name
+PASS Marshland portal transfer starts
+PASS Marshland loads from TutorialMap
+PASS Marshland entry spawn remains correct
+PASS Marshland/Out_Marshland_Portal destination stays in the build
+PASS Marshland/In_Marshland_Portal destination stays in the build
+PASS BrokenSeal remains loadable by its original name
+PASS BrokenSeal portal transfer starts
+PASS BrokenSeal loads from TutorialMap
+PASS BrokenSeal entry spawn remains correct
+PASS BrokenSeal/In_BrokenSeal_Portal destination stays in the build
+PASS BrokenSeal/Out_BrokenSeal_Portal  destination stays in the build
+PASS PrologueVilage/In_Vilage_Portal portal target still exists
+PASS MovementPrototype/Out_Tuto_Portal portal target still exists
+PASS Cemetery/In_Cemetery_Portal portal target still exists
+PASS SpiderCave/In_SpiderCave_Portal portal target still exists
+PASS PrologueVilage/Out_Vilage_Portal portal target still exists
+PASS Marshland/In_Marshland_Portal portal target still exists
+PASS Cemetery/Out_Cemetery_Portal portal target still exists
+PASS BrokenSeal/In_BrokenSeal_Portal portal target still exists
+PASS SpiderCave/Out_SpiderCave_Portal portal target still exists
+PASS Marshland/Out_Marshland_Portal portal target still exists
+All scene relocation checks passed.

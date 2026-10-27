@@ -1,0 +1,12 @@
+RUNNING: Native Unity Play-mode spawn protection test
+PASS: Actual spawner gives the new monster contact protection immediately
+PASS: Spawn protection excludes player collision while preserving terrain collision settings
+PASS: The new monster appears translucent during spawn protection
+PASS: Overlapping the respawned monster during its first 0.55 seconds causes no damage or knockback
+PASS: Player and monster physically pass through each other during spawn protection
+PASS: Contact protection and player collision exclusion expire after 0.7 gameplay seconds
+PASS: The monster returns to its original opacity after spawn protection
+PASS: Continuing contact damages the player after the grace period without requiring re-entry
+PASS: Extending protection does not repeatedly fade the monster.
+PASS: Zero duration and disabling restore the original collision mask and opacity.
+All native Play-mode spawn protection checks passed.

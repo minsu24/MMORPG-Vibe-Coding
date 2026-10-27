@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using EasternFantasy.CharacterSelection;
 using EasternFantasy.Dialogue;
 using EasternFantasy.Player;
@@ -10,7 +10,7 @@ using UnityEngine.UI;
 namespace EasternFantasy.UI
 {
     [DisallowMultipleComponent]
-    public sealed class StatsSkillTutorialUI : MonoBehaviour
+    public sealed partial class StatsSkillTutorialUI : MonoBehaviour
     {
         [SerializeField] private MON_Goblin tutorialGoblin;
         [SerializeField] private DialogueSequence defeatedDialogue;

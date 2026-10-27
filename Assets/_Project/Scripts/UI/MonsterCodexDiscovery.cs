@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace EasternFantasy.UI
 {
-    public static class MonsterCodexDiscovery
+    public static partial class MonsterCodexDiscovery
     {
         private static readonly HashSet<string> discoveriesThisSession = new HashSet<string>();
         public const string GiantFarmRegionId = "giant-farm";

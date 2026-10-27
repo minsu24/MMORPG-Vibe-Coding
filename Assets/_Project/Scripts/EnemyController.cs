@@ -74,10 +74,45 @@ public abstract class EnemyController : Entity
     protected bool HasLivingPlayer => playerEntity != null && !playerEntity.IsDead;
     public virtual float ContactDamage => Attack_Power;
     private float contactDamageBlockedUntil = float.NegativeInfinity;
+    private bool spawnGraceActive;
+    private LayerMask collisionLayersBeforeSpawnGrace;
+    private float alphaBeforeSpawnGrace;
     public bool IsSpawnContactProtected => Time.time < contactDamageBlockedUntil;
     public bool CanDealContactDamage => !isDefeated && HP > 0f && !IsSpawnContactProtected;
-    public void BeginSpawnContactGrace(float duration) =>
-        contactDamageBlockedUntil = Time.time + Mathf.Max(0f, duration);
+    public void BeginSpawnContactGrace(float duration)
+    {
+        if (duration <= 0f) { EndSpawnContactGrace(); return; }
+        contactDamageBlockedUntil = Time.time + duration;
+        if (spawnGraceActive) return;
+        spawnGraceActive = true;
+        if (capsuleCollider2D != null)
+        {
+            collisionLayersBeforeSpawnGrace = capsuleCollider2D.excludeLayers;
+            // Exclude player contact only; floor support and attack overlap queries remain intact.
+            capsuleCollider2D.excludeLayers = collisionLayersBeforeSpawnGrace.value | LayerMask.GetMask("Player");
+        }
+        if (spriteRenderer != null)
+        {
+            Color color = spriteRenderer.color;
+            alphaBeforeSpawnGrace = color.a;
+            color.a *= .45f;
+            spriteRenderer.color = color;
+        }
+    }
+
+    private void EndSpawnContactGrace()
+    {
+        contactDamageBlockedUntil = float.NegativeInfinity;
+        if (!spawnGraceActive) return;
+        spawnGraceActive = false;
+        if (capsuleCollider2D != null) capsuleCollider2D.excludeLayers = collisionLayersBeforeSpawnGrace;
+        if (spriteRenderer != null)
+        {
+            Color color = spriteRenderer.color;
+            color.a = alphaBeforeSpawnGrace;
+            spriteRenderer.color = color;
+        }
+    }
     protected virtual bool ControlsAttackMovement => false;
     protected virtual void AttackFixedUpdate() { }
     protected virtual string DeathAnimationState => null;
@@ -140,6 +175,7 @@ public abstract class EnemyController : Entity
     }
     void FixedUpdate()
     {
+        if (spawnGraceActive && !IsSpawnContactProtected) EndSpawnContactGrace();
         if (player == null)
             ResolvePlayer();
 
@@ -346,6 +382,7 @@ public abstract class EnemyController : Entity
 
     protected virtual void OnDefeated()
     {
+        EndSpawnContactGrace();
         capsuleCollider2D.isTrigger = true;
         rb.simulated = false;
         if (_reward_EXP > 0f && playerProgression != null)
@@ -455,6 +492,7 @@ public abstract class EnemyController : Entity
 
     protected virtual void OnDisable()
     {
+        EndSpawnContactGrace();
         if (hitFlashRoutine != null)
         {
             StopCoroutine(hitFlashRoutine);

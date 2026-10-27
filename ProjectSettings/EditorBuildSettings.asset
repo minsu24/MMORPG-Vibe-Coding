@@ -15,22 +15,22 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/_Project/Scenes/MovementPrototype.unity
+    path: Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity
     guid: 2167c8cd56cecd744b888e2c7b7a0a21
   - enabled: 1
-    path: Assets/_Project/Scenes/PrologueVilage.unity
+    path: Assets/_Project/Scenes/TutorialMap/PrologueVilage.unity
     guid: db5bf7f042d97594c983173cd455571f
   - enabled: 1
-    path: Assets/_Project/Scenes/Cemetery.unity
+    path: Assets/_Project/Scenes/TutorialMap/Cemetery.unity
     guid: ae70e241f5565a84cb96182e939ba77f
   - enabled: 1
-    path: Assets/_Project/Scenes/SpiderCave.unity
+    path: Assets/_Project/Scenes/TutorialMap/SpiderCave.unity
     guid: 32e30f6ec0ec6534f9090d8fdaaca689
   - enabled: 1
-    path: Assets/_Project/Scenes/Marshland.unity
+    path: Assets/_Project/Scenes/TutorialMap/Marshland.unity
     guid: 5de7e82b59cabbc45b273bc138364143
   - enabled: 1
-    path: Assets/_Project/Scenes/BrokenSeal.unity
+    path: Assets/_Project/Scenes/TutorialMap/BrokenSeal.unity
     guid: 7f672664903d9454d9c9e5bea1e7a2d3
   - enabled: 1
     path: Assets/_Project/Scenes/GapInSpace.unity

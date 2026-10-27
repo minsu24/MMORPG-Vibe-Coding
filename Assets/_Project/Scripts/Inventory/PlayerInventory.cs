@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using EasternFantasy.Player;
 using EasternFantasy.EquipmentUpgrade;
@@ -38,7 +38,7 @@ namespace EasternFantasy.Inventory
 
     [DisallowMultipleComponent]
     [RequireComponent(typeof(PlayerEntity))]
-    public sealed class PlayerInventory : MonoBehaviour
+    public sealed partial class PlayerInventory : MonoBehaviour
     {
         public const int ConsumableSlotCount = 4;
         [SerializeField] private InventoryStack[] initialItems = Array.Empty<InventoryStack>();
@@ -209,6 +209,40 @@ namespace EasternFantasy.Inventory
 
             InventoryChanged?.Invoke();
             ItemAcquired?.Invoke(this, item);
+            return true;
+        }
+
+        // Validate the whole reward before changing inventory or raising acquisition events.
+        public bool TryAddItems(IReadOnlyDictionary<ItemDefinition, int> rewards)
+        {
+            EnsureInitialized();
+            if (rewards == null) return false;
+            var newSlots = new Dictionary<ItemCategory, int>();
+            foreach (var reward in rewards)
+            {
+                if (reward.Key == null || reward.Value <= 0) return false;
+                var existing = FindStack(reward.Key);
+                if ((long)(existing != null ? existing.Quantity : 0) + reward.Value > reward.Key.MaximumStack)
+                    return false;
+                if (existing != null) continue;
+                newSlots.TryGetValue(reward.Key.Category, out int needed);
+                newSlots[reward.Key.Category] = needed + 1;
+            }
+            foreach (var category in newSlots)
+            {
+                var occupied = new HashSet<int>();
+                foreach (var stack in items)
+                    if (stack.Item.Category == category.Key) occupied.Add(stack.SlotIndex);
+                if (occupied.Count + category.Value > SlotsPerCategory) return false;
+            }
+            foreach (var reward in rewards)
+            {
+                var existing = FindStack(reward.Key);
+                if (existing != null) existing.SetQuantity(existing.Quantity + reward.Value);
+                else items.Add(new InventoryStack(reward.Key, reward.Value, FindFirstEmptySlot(reward.Key.Category)));
+            }
+            InventoryChanged?.Invoke();
+            foreach (var reward in rewards) ItemAcquired?.Invoke(this, reward.Key);
             return true;
         }
 

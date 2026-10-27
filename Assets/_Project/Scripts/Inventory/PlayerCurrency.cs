@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace EasternFantasy.Inventory
 {
     [DisallowMultipleComponent]
-    public sealed class PlayerCurrency : MonoBehaviour
+    public sealed partial class PlayerCurrency : MonoBehaviour
     {
         [SerializeField, Min(0)] private int startingYeopjeon;
 

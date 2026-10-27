@@ -1,0 +1,139 @@
+{
+    "version": 1,
+    "characterClass": 1,
+    "savedUtc": "2026-10-27T07:36:04.1833413Z",
+    "scene": "MovementPrototype",
+    "position": {
+        "x": 0.0,
+        "y": 0.2657986879348755,
+        "z": 0.0
+    },
+    "health": 37.0,
+    "mana": 12.0,
+    "mental": 0.0,
+    "energy": 0.0,
+    "level": 4,
+    "experience": 13,
+    "currency": 0,
+    "skillPoints": 7,
+    "advancementRank": 0,
+    "unlockedTier": 0,
+    "advancementAttack": 0.0,
+    "advancementDefense": 0.0,
+    "items": [],
+    "skills": [
+        {
+            "id": "390809e0eddc5c049ab519420debe55e",
+            "level": 0
+        },
+        {
+            "id": "4a227fe19548eb04f9538dfa75e00895",
+            "level": 0
+        },
+        {
+            "id": "2c898bc42be3ada4ab1cd4ee7a2c0c0d",
+            "level": 0
+        },
+        {
+            "id": "67ed475d7fa7cf64c974c39901520a4b",
+            "level": 0
+        },
+        {
+            "id": "b3e3a3f9ccdbeb940b4c6cd7979e5b5b",
+            "level": 0
+        },
+        {
+            "id": "a83dc257d7284ed1a05db747366b157a",
+            "level": 0
+        }
+    ],
+    "consumableSlots": [
+        "",
+        "",
+        "",
+        ""
+    ],
+    "quickSlots": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "quests": [],
+    "playedDialogues": [
+        "008e2d9d5f1fb4241b62e7accabf2c0b",
+        "07bbf1e6ec778d4479bcd69389308cd9",
+        "189f7254e50102549bb0d1334594b2f1",
+        "190bef8836d638c4b91ba7a8ba778f78",
+        "1b6559b2397f80c448c705bb4adfd066",
+        "20fdf06ce8e80df4289cb88c9e824478",
+        "2cb76f6018a3abd4dbe0780c353c3f9f",
+        "34ef52295eb0b8a49ac93dbdc30b219a",
+        "4cb095027fbf2ae43acfec7e8aa71a5b",
+        "4efff1ffe35ce87498ac56a7fb7f2552",
+        "5211ccd05e7e8e64f94182aa398b0bc6",
+        "524c2cc7138f3524d9f960a86480122e",
+        "61d2b98609424b138b55bb32c06a1f8e",
+        "66bb2893960c800419336c3ea438cfdd",
+        "6c0c50fc5fed64242ba4830e3657ceed",
+        "74bd4dafd2d3e934da675ffbad30f51a",
+        "7964e121b55a25c4f8295666378747ae",
+        "7a409ef976e36f642b12825da3297812",
+        "7fe22b1a0a983ae478af60e9ba8b3e5a",
+        "8e3d1dff82ae1ad48867ffad04781698",
+        "93c33e06f67a82c489168cc2af58347a",
+        "a3f8002eb42a8c246b203c5d024695db",
+        "a52a24e10a9587b4d9f3c10db723bf0f",
+        "a633cda05656509489efcebb4c194e34",
+        "b12c6a580758caa49aceb24895dd000b",
+        "b85d07db74d058f4db8b34a966b3a4e9",
+        "bcdb4b09efae99e45ba0e6243eade0db",
+        "c2edac7421bee45438bc3fab9b16b5af",
+        "d0470dbc38b53034aac4ac5c1b06d9cb",
+        "d189677d599e1ba4fae4d158d8d8f3af",
+        "dd5d07aa802d7e64f8603365962b495c",
+        "de9815f14f82eb4449f52451e542cd9a",
+        "e028874dc18a0c54790573d0e9eb26a5",
+        "e65a1088aa582b84d8f7dd8678ae0f9f",
+        "fb59857017979114fa03f98db532f51f",
+        "fbf048c245e3aae4899fdd7bc0ee6800"
+    ],
+    "rewardedDialogues": [],
+    "bossDefeats": [],
+    "dungeonDefeats": [],
+    "goblinDefeats": [],
+    "visitedRegions": [
+        "Monk.tutorial"
+    ],
+    "visitedScenes": [
+        "Monk.PrologueVilage",
+        "Monk.MovementPrototype"
+    ],
+    "knownScenes": [],
+    "presentedScenes": [],
+    "codex": [],
+    "inventoryTutorial": true,
+    "statsTutorial": true,
+    "mapTutorial": true,
+    "companionTutorial": false,
+    "companionGuide": false,
+    "firstDeathGuide": false,
+    "companionsJson": "{\"entries\":[{\"characterClass\":1,\"companionId\":\"goblin\",\"progress\":{\"level\":0,\"equipped\":false,\"unlocked\":false}}]}",
+    "shopTutorial": true,
+    "dungeonTutorial": true,
+    "upgradeTutorial": true,
+    "toadDefeated": false,
+    "toadHasPosition": false,
+    "toadPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "dungeon": "",
+    "dungeonSeconds": 0.0,
+    "dungeonCleared": false
+}

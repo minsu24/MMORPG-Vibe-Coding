@@ -31,6 +31,7 @@ public sealed class PortalSceneTransition : MonoBehaviour
             DontDestroyOnLoad(root);
             instance.BuildOverlay();
         }
+        EasternFantasy.Saving.SaveGameService.SaveNow(out _);
         instance.busy = true;
         instance.StartCoroutine(instance.Transfer(sceneName, spawnPointName, completed));
         return true;
@@ -70,7 +71,11 @@ public sealed class PortalSceneTransition : MonoBehaviour
             yield return null;
             MapTransferData.SetTarget(spawnPointName);
             AsyncOperation operation = null;
-            try { operation = SceneManager.LoadSceneAsync(sceneName); }
+            try
+            {
+                SceneWorldState.CaptureActiveScene();
+                operation = SceneManager.LoadSceneAsync(sceneName);
+            }
             catch (Exception exception) { Debug.LogException(exception); }
             if (operation != null)
             {
@@ -80,7 +85,11 @@ public sealed class PortalSceneTransition : MonoBehaviour
                 yield return null;
                 yield return null;
             }
-            else MapTransferData.Clear();
+            else
+            {
+                SceneWorldState.CancelCapture();
+                MapTransferData.Clear();
+            }
             yield return Fade(0f, FadeInSeconds);
         }
         finally

@@ -82,9 +82,21 @@ namespace EasternFantasy.Inventory
         public string Description => description;
         public Sprite Icon => HasGrade && gradeAppearance != null && gradeAppearance.GetIcon(Grade) != null
             ? gradeAppearance.GetIcon(Grade) : icon;
-        public bool HasGrade => category != ItemCategory.Consumable;
+        public bool HasGrade => grade != ItemGrade.None;
         public ItemGrade Grade => HasGrade ? grade : ItemGrade.None;
-        public Sprite GradeFrame => !HasGrade ? null : gradeAppearance != null ? gradeAppearance.GetFrame(Grade) : gradeFrame;
+        private static ItemGradeAppearance sharedGradeFrames;
+        public Sprite GradeFrame
+        {
+            get
+            {
+                if (!HasGrade) return null;
+                Sprite frame = gradeAppearance != null ? gradeAppearance.GetFrame(Grade) : gradeFrame;
+                if (frame != null || (!IsAccessory && category != ItemCategory.Consumable)) return frame;
+                if (sharedGradeFrames == null)
+                    sharedGradeFrames = Resources.Load<ItemGradeAppearance>("UI/ItemGradeFrames");
+                return sharedGradeFrames != null ? sharedGradeFrames.GetFrame(Grade) : null;
+            }
+        }
         public string GradeName => ItemGradeUtility.GetName(Grade);
         public Color GradeColor => ItemGradeUtility.GetColor(Grade);
         public string GradedDisplayName => HasGrade ? $"[{GradeName}] {displayName}" : displayName;

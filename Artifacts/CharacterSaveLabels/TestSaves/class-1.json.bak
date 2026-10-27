@@ -1,0 +1,103 @@
+{
+    "version": 1,
+    "characterClass": 1,
+    "savedUtc": "2026-10-27T06:30:41.4776066Z",
+    "scene": "MovementPrototype",
+    "position": {
+        "x": -8.6899995803833,
+        "y": -2.541720151901245,
+        "z": 0.0
+    },
+    "health": 100.0,
+    "mana": 100.0,
+    "mental": 100.0,
+    "energy": 0.0,
+    "level": 1,
+    "experience": 0,
+    "currency": 0,
+    "skillPoints": 0,
+    "advancementRank": 0,
+    "unlockedTier": 0,
+    "advancementAttack": 0.0,
+    "advancementDefense": 0.0,
+    "items": [],
+    "skills": [
+        {
+            "id": "390809e0eddc5c049ab519420debe55e",
+            "level": 0
+        },
+        {
+            "id": "4a227fe19548eb04f9538dfa75e00895",
+            "level": 0
+        },
+        {
+            "id": "2c898bc42be3ada4ab1cd4ee7a2c0c0d",
+            "level": 0
+        },
+        {
+            "id": "67ed475d7fa7cf64c974c39901520a4b",
+            "level": 0
+        },
+        {
+            "id": "b3e3a3f9ccdbeb940b4c6cd7979e5b5b",
+            "level": 0
+        },
+        {
+            "id": "a83dc257d7284ed1a05db747366b157a",
+            "level": 0
+        }
+    ],
+    "consumableSlots": [
+        "",
+        "",
+        "",
+        ""
+    ],
+    "quickSlots": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "quests": [],
+    "playedDialogues": [
+        "fbf048c245e3aae4899fdd7bc0ee6800"
+    ],
+    "rewardedDialogues": [],
+    "bossDefeats": [],
+    "dungeonDefeats": [],
+    "goblinDefeats": [],
+    "visitedRegions": [
+        "Monk.tutorial"
+    ],
+    "visitedScenes": [
+        "Monk.MovementPrototype"
+    ],
+    "knownScenes": [],
+    "presentedScenes": [],
+    "codex": [],
+    "inventoryTutorial": false,
+    "statsTutorial": false,
+    "mapTutorial": true,
+    "companionTutorial": false,
+    "companionGuide": false,
+    "firstDeathGuide": false,
+    "companionsJson": "{\"entries\":[{\"characterClass\":1,\"companionId\":\"goblin\",\"progress\":{\"level\":0,\"equipped\":false,\"unlocked\":false}}]}",
+    "shopTutorial": false,
+    "dungeonTutorial": false,
+    "upgradeTutorial": false,
+    "toadDefeated": false,
+    "toadHasPosition": false,
+    "toadPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "dungeon": "",
+    "dungeonSeconds": 0.0,
+    "dungeonCleared": false
+}

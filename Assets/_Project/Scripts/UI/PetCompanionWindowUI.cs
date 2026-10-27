@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using EasternFantasy.CharacterSelection;
 using EasternFantasy.Dialogue;
 using EasternFantasy.Inventory;
@@ -14,7 +14,7 @@ using UnityEngine.UI;
 namespace EasternFantasy.UI
 {
     [DisallowMultipleComponent]
-    public sealed class PetCompanionWindowUI : MonoBehaviour
+    public sealed partial class PetCompanionWindowUI : MonoBehaviour
     {
         private static readonly HashSet<CharacterClassId> guideCompletedThisSession = new HashSet<CharacterClassId>();
         private PetCompanionTutorialUI guide;
@@ -270,6 +270,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
+            if (EasternFantasy.Saving.SaveGameService.IsRestoring) return;
             BindDialogue();
             EnsureCompanionActor();
             // Every entry point, including an accidentally enabled root, respects the gate.

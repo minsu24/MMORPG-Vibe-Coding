@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using EasternFantasy.CharacterSelection;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace EasternFantasy.UI
 {
-    public static class MapRegionDiscovery
+    public static partial class MapRegionDiscovery
     {
         public const string Tutorial = "tutorial";
         public const string GiantFarm = "giant-farm";

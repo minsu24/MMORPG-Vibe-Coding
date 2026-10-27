@@ -109,7 +109,7 @@ namespace EasternFantasy.EditorTools
         }
         private static void ConnectShop(ItemDefinition gauntlets,ItemDefinition fan)
         {
-            const string path="Assets/_Project/Scenes/PrologueVilage.unity";
+            const string path="Assets/_Project/Scenes/TutorialMap/PrologueVilage.unity";
             var scene=SceneManager.GetSceneByPath(path);
             bool opened=!scene.isLoaded;
             if(opened)scene=EditorSceneManager.OpenScene(path,OpenSceneMode.Additive);

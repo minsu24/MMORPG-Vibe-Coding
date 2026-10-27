@@ -90,7 +90,7 @@ namespace EasternFantasy.EditorTools
                         Check(template.Matches(common.GetGradeVariant((ItemGrade)g)) ==
                             (template.EquipmentKind == UpgradeEquipmentKind.Weapon && (int)template.SourceGrade == g), "Existing recipe filter mismatch");
                 }
-                var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenPreviewScene("Assets/_Project/Scenes/PrologueVilage.unity");
+                var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenPreviewScene("Assets/_Project/Scenes/TutorialMap/PrologueVilage.unity");
                 try
                 {
                     bool found = false;

@@ -108,6 +108,19 @@ namespace EasternFantasy.Inventory
             if (collisionBody != null) collisionBody.enabled = false;
         }
 
+        public static void SettlePhysicalDrop(Rigidbody2D body, GameObject pickup)
+        {
+            // Keep the trigger simulated so a floating pickup remains collectible.
+            if (body != null)
+            {
+                body.linearVelocity = Vector2.zero;
+                body.bodyType = RigidbodyType2D.Kinematic;
+                body.interpolation = RigidbodyInterpolation2D.None;
+            }
+            var collisionBody = pickup.GetComponent<BoxCollider2D>();
+            if (collisionBody != null) collisionBody.enabled = false;
+        }
+
         public static bool StopOnLanding(Rigidbody2D body, Collision2D collision)
         {
             if (body == null || !body.simulated) return false;

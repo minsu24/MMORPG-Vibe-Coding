@@ -16,13 +16,23 @@ MonoBehaviour:
   displayName: "\uB9C8\uB098 \uBB3C\uC57D"
   description: "\uC18C\uBAA8\uD55C \uB9C8\uB098\uB97C \uD68C\uBCF5\uC2DC\uD0A4\uB294
     \uD478\uB978 \uBB3C\uC57D\uC785\uB2C8\uB2E4."
-  icon: {fileID: 3620759080294560354, guid: 47291779247afed47a9cd6df0da9749f, type: 3}
+  icon: {fileID: -2083769248619739529, guid: a4ec4e6e030ba504ea514f29fde97820, type: 3}
   category: 1
+  grade: 0
+  gradeFrame: {fileID: 0}
+  gradeAppearance: {fileID: 11400000, guid: 817a93ca2f67b9444a4b9963bab93450, type: 2}
+  gradeVariants: []
   equipmentSlot: 0
+  allowedClasses: 
+  equipmentSet: {fileID: 0}
   attackBonus: 0
   defenseBonus: 0
+  specialAbility: 0
+  specialAbilityValue: 0
   consumableEffect: 2
   useAmount: 30
   maximumStack: 99
   buyPrice: 25
   sellPrice: 12
+  cannotSell: 0
+  materialSource: {fileID: 0}

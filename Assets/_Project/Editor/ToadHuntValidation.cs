@@ -63,9 +63,9 @@ namespace EasternFantasy.EditorTools
         private static void TestResident(ToadHuntDefinition definition)
         {
             var previous = SceneManager.GetActiveScene();
-            var scene = SceneManager.GetSceneByPath("Assets/_Project/Scenes/SpiderCave.unity");
+            var scene = SceneManager.GetSceneByPath("Assets/_Project/Scenes/TutorialMap/SpiderCave.unity");
             bool opened = !scene.isLoaded;
-            if (opened) scene = EditorSceneManager.OpenScene("Assets/_Project/Scenes/SpiderCave.unity", OpenSceneMode.Additive);
+            if (opened) scene = EditorSceneManager.OpenScene("Assets/_Project/Scenes/TutorialMap/SpiderCave.unity", OpenSceneMode.Additive);
             try
             {
                 var givers = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<QuestGiver>(true));

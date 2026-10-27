@@ -9,8 +9,12 @@ public sealed class PortalManager : MonoBehaviour
     [SerializeField] private string targetPointName;
 
     [SerializeField] private bool startsLocked;
+    [SerializeField] private bool requiresToadNecklace;
     private bool isLocked;
-    public bool IsLocked => isLocked;
+    private bool NecklaceBlocked => requiresToadNecklace &&
+        (EasternFantasy.Quest.ToadHuntQuestController.Instance == null ||
+         !EasternFantasy.Quest.ToadHuntQuestController.Instance.NecklaceClaimed);
+    public bool IsLocked => isLocked || NecklaceBlocked;
     public void SetLocked(bool locked) => isLocked = locked;
     private void Awake() => isLocked = startsLocked;
 
@@ -21,7 +25,10 @@ public sealed class PortalManager : MonoBehaviour
     {
         if (EasternFantasy.Dungeon.DungeonRunController.Instance != null
             && EasternFantasy.Dungeon.DungeonRunController.Instance.IsExitPromptOpen) return;
-        if (isLocked || Time.timeScale <= 0f || playerInPortal == null || isLoadingScene || (EasternFantasy.UI.DungeonWindowUI.Instance != null && EasternFantasy.UI.DungeonWindowUI.Instance.IsOpen))
+        if (Time.timeScale > 0f && playerInPortal != null && NecklaceBlocked
+            && Keyboard.current?.upArrowKey.wasPressedThisFrame == true)
+            EasternFantasy.UI.SystemNoticeUI.Show("목걸이를 T키로 조사해 획득한 뒤 이동하세요.", this);
+        if (IsLocked || Time.timeScale <= 0f || playerInPortal == null || isLoadingScene || (EasternFantasy.UI.DungeonWindowUI.Instance != null && EasternFantasy.UI.DungeonWindowUI.Instance.IsOpen))
             return;
 
         PlayerEntity entity = playerInPortal.GetComponent<PlayerEntity>();
@@ -34,7 +41,7 @@ public sealed class PortalManager : MonoBehaviour
 
     private void MoveToScene()
     {
-        if (isLocked || Time.timeScale <= 0f || playerInPortal == null || isLoadingScene) return;
+        if (IsLocked || Time.timeScale <= 0f || playerInPortal == null || isLoadingScene) return;
         if (string.IsNullOrWhiteSpace(sceneName))
         {
             Debug.LogError($"Portal '{name}' has no destination scene name.", this);

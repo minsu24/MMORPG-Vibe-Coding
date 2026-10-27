@@ -10,7 +10,7 @@ namespace EasternFantasy.Editor
 {
     public static class MovementPrototypeSetup
     {
-        public const string ScenePath = "Assets/_Project/Scenes/MovementPrototype.unity";
+        public const string ScenePath = "Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity";
 
         [MenuItem("Eastern Fantasy/Create Movement Prototype")]
         public static void Create()

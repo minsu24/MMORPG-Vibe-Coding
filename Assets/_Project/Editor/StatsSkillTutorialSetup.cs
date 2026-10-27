@@ -12,7 +12,7 @@ namespace EasternFantasy.EditorTools
     {
         public static void Apply()
         {
-            const string path = "Assets/_Project/Scenes/MovementPrototype.unity";
+            const string path = "Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity";
             var previousScene = SceneManager.GetActiveScene();
             var scene = SceneManager.GetSceneByPath(path);
             bool opened = !scene.IsValid() || !scene.isLoaded;

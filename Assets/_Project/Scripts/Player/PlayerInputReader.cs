@@ -34,6 +34,7 @@ namespace EasternFantasy.Player
         public bool IsInputBlocked => inputBlockers.Count > 0;
 
         public bool CanControlGameplay => isActiveAndEnabled && hasFocus && !IsInputBlocked
+            && !EasternFantasy.UI.GameplayHudVisibility.IsMenuScene
             && !PortalSceneTransition.IsTransitioning && (entity == null || !entity.IsDead)
             && !IsGameplayWindowOpen;
 

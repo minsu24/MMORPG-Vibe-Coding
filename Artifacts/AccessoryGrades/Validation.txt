@@ -1,0 +1,9 @@
+﻿PASS: Necklace reward is Rare and uses the blue frame from Art/Item/장비 등급 프레임.png.
+PASS: New accessories resolve all five grade frames without a custom appearance.
+PASS: Necklace frame is visible in real inventory and equipped necklace slot.
+PASS: Necklace equip retains the 20% jump-height bonus.
+PASS: Health and mana potions are Common and use the illustrations from Art/Item/튜토리얼 장비 찐.png.
+PASS: Both potion inventory slots and quick slots show Common frames.
+PASS: Quest reward icons retain the illustration-only presentation.
+Visual QA: Necklace.png and Potions.png captured and inspected in Play mode.
+Legacy ItemGradePreview.Validate: stopped at its existing equal-stats assertion for equipment variants; equipment stat assets were not changed by this task.

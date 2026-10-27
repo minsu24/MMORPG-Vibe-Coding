@@ -14,7 +14,7 @@ namespace EasternFantasy.EditorTools
         private void OnGUI()
         {
             scroll = EditorGUILayout.BeginScrollView(scroll);
-            EditorGUILayout.HelpBox("신화 > 설화 > 영웅 > 희귀 > 일반. 포션은 등급 없음. 아이콘과 프레임은 별도 스프라이트입니다.", MessageType.Info);
+            EditorGUILayout.HelpBox("신화 > 설화 > 영웅 > 희귀 > 일반. 포션은 일반 등급입니다. 장신구도 등급별 프레임을 표시합니다.", MessageType.Info);
             for (int g=4; g>=0; g--)
             {
                 EditorGUILayout.LabelField(ItemGradeUtility.GetName((ItemGrade)g), EditorStyles.boldLabel);
@@ -72,8 +72,8 @@ namespace EasternFantasy.EditorTools
             foreach(string name in new[]{"HealthPotion","ManaPotion"})
             {
                 var potion=AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/_Project/Data/Items/"+name+".asset");
-                if(potion.HasGrade || potion.Grade!=ItemGrade.None || potion.GradeFrame!=null || potion.GetGradeVariant(ItemGrade.Rare)!=null)
-                    throw new Exception("Potion received a grade");
+                if(!potion.HasGrade || potion.Grade!=ItemGrade.Common || potion.GradeFrame==null || potion.GetGradeVariant(ItemGrade.Rare)!=null)
+                    throw new Exception("Potion common grade frame is missing");
             }
             var root=new GameObject("GradeValidation"); root.SetActive(false);
             try
@@ -88,7 +88,7 @@ namespace EasternFantasy.EditorTools
                 if(!inv.TryChangeGrade(mythic,ItemGrade.Common) || inv.GetEquipped(EquipmentSlot.Weapon)!=fan) throw new Exception("Downgrade failed");
             }
             finally { UnityEngine.Object.DestroyImmediate(root); }
-            return "PASS: 30 equipment visuals, paired grade changes, potion exclusions, unique IDs, preserved stats, equipped upgrade/downgrade, shared definition isolation.";
+            return "PASS: 30 equipment visuals, paired grade changes, common potion frames, unique IDs, preserved stats, equipped upgrade/downgrade, shared definition isolation.";
         }
     }
 }

@@ -15,7 +15,7 @@ namespace EasternFantasy.EditorTools
     {
         public const string Folder = "Assets/_Project/Data/Items/Tutorial";
         private const string Items = "Assets/_Project/Data/Items/";
-        private const string ScenePath = "Assets/_Project/Scenes/MovementPrototype.unity";
+        private const string ScenePath = "Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity";
         public static readonly string[] EquipmentNames = {
             "OldFan", "MonkGauntlets", "SwordswomanSword"
         };

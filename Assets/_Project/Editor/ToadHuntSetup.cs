@@ -155,23 +155,15 @@ namespace EasternFantasy.EditorTools
             {
                 var renderer = root.GetComponent<SpriteRenderer>(); renderer.sprite = icon; renderer.sortingOrder = 202;
                 renderer.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>(
-                    "Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Unlit-Default.mat");
+                    "Assets/_Project/Material/LootItem.mat");
                 root.GetComponent<CircleCollider2D>().isTrigger = true;
                 root.GetComponent<CircleCollider2D>().radius = .55f;
                 root.transform.localScale = Vector3.one;
-                var itemPlate = new GameObject("Item Contrast Plate", typeof(RectTransform), typeof(Canvas), typeof(Image));
-                itemPlate.transform.SetParent(root.transform, false);
-                itemPlate.transform.localScale = Vector3.one * .01f;
-                ((RectTransform)itemPlate.transform).sizeDelta = new Vector2(120, 110);
-                var plateCanvas = itemPlate.GetComponent<Canvas>(); plateCanvas.renderMode = RenderMode.WorldSpace;
-                plateCanvas.overrideSorting = true; plateCanvas.sortingOrder = 201;
-                itemPlate.GetComponent<Image>().color = new Color(1f, .75f, .25f, .95f);
-                itemPlate.GetComponent<Image>().raycastTarget = false;
-                DarkInset(itemPlate.transform);
                 var marker = new GameObject("Quest Completion Marker", typeof(RectTransform), typeof(Canvas));
                 marker.transform.SetParent(root.transform, false);
-                marker.transform.localPosition = Vector3.up * 1.75f;
-                marker.transform.localScale = Vector3.one * .012f;
+                // Keep the discovery prompt compact without fading its text or completion icon.
+                marker.transform.localPosition = Vector3.up * 1.35f;
+                marker.transform.localScale = Vector3.one * .0075f;
                 var canvas = marker.GetComponent<Canvas>(); canvas.renderMode = RenderMode.WorldSpace;
                 canvas.overrideSorting = true; canvas.sortingOrder = 300;
                 ((RectTransform)marker.transform).sizeDelta = new Vector2(300f, 170f);
@@ -179,9 +171,12 @@ namespace EasternFantasy.EditorTools
                 backing.transform.SetParent(marker.transform, false);
                 ((RectTransform)backing.transform).sizeDelta = new Vector2(300, 150);
                 ((RectTransform)backing.transform).anchoredPosition = new Vector2(0, 8);
-                backing.GetComponent<Image>().color = new Color(.85f, .65f, .25f, .95f);
-                backing.GetComponent<Image>().raycastTarget = false;
-                DarkInset(backing.transform);
+                var panel = backing.GetComponent<Image>();
+                panel.sprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Project/Art/UI/HudTheme/InkGoldPanel.asset");
+                panel.type = Image.Type.Sliced;
+                panel.pixelsPerUnitMultiplier = 2.8f;
+                panel.color = new Color(1f, 1f, 1f, .82f);
+                panel.raycastTarget = false;
                 var map = PrefabUtility.LoadPrefabContents("Assets/_Project/Prefabs/UI/MapWindow.prefab");
                 Sprite ready;
                 try { ready = (Sprite)new SerializedObject(map.GetComponent<MapMainQuestUI>()).FindProperty("readySprite").objectReferenceValue; }
@@ -198,14 +193,6 @@ namespace EasternFantasy.EditorTools
             }
             finally { Object.DestroyImmediate(root); }
         }
-        private static void DarkInset(Transform parent)
-        {
-            var fill = new GameObject("Dark Fill", typeof(RectTransform), typeof(Image)).GetComponent<Image>();
-            fill.transform.SetParent(parent, false); fill.color = new Color(.01f, .02f, .025f, .98f); fill.raycastTarget = false;
-            fill.rectTransform.anchorMin = Vector2.zero; fill.rectTransform.anchorMax = Vector2.one;
-            fill.rectTransform.offsetMin = Vector2.one * 2; fill.rectTransform.offsetMax = Vector2.one * -2;
-        }
-
         private static void Text(Transform parent, string value, Vector2 position, Vector2 size, float pointSize)
         {
             var text = new GameObject(value, typeof(RectTransform), typeof(TextMeshProUGUI)).GetComponent<TMP_Text>();
@@ -271,7 +258,7 @@ namespace EasternFantasy.EditorTools
         private static void UpdateResident(QuestDefinition spider, QuestDefinition quest, DialogueSequence offer,
             DialogueSequence accepted, DialogueSequence declined, DialogueSequence progress, DialogueSequence after)
         {
-            const string path = "Assets/_Project/Scenes/SpiderCave.unity";
+            const string path = "Assets/_Project/Scenes/TutorialMap/SpiderCave.unity";
             Scene scene = SceneManager.GetSceneByPath(path); bool opened = !scene.isLoaded;
             if (!opened && scene.isDirty) throw new InvalidOperationException("Save existing SpiderCave edits before running setup.");
             if (opened) scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);

@@ -20,6 +20,11 @@ MonoBehaviour:
   requiredAmount: 10
   rewardYeopjeon: 20
   rewardEXP: 800
+  rewardItems:
+  - item: {fileID: 11400000, guid: de62d143e4c66c847afc0b92d47a2e94, type: 2}
+    quantity: 5
+  - item: {fileID: 11400000, guid: dc8baf7bb6c3a2d44a7696683dc7d4d2, type: 2}
+    quantity: 5
   prerequisiteQuest: {fileID: 11400000, guid: 60c83731829d76749a21f2aef8916d29, type: 2}
   turnInDescription: "\uAC70\uBBF8\uB3D9\uAD74\uC758 \uB2E4\uCE5C \uC8FC\uBBFC\uC5D0\uAC8C
     T\uD0A4\uB85C \uC644\uB8CC \uBCF4\uACE0"

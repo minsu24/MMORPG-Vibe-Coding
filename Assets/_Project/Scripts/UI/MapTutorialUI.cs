@@ -11,7 +11,7 @@ using UnityEngine.UI;
 namespace EasternFantasy.UI
 {
     [DisallowMultipleComponent]
-    public sealed class MapTutorialUI : MonoBehaviour
+    public sealed partial class MapTutorialUI : MonoBehaviour
     {
         private static readonly HashSet<CharacterClassId> completedClasses = new HashSet<CharacterClassId>();
         private static MapTutorialUI active;
@@ -52,6 +52,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
+            if (EasternFantasy.Saving.SaveGameService.IsRestoring) return;
             if (!running)
             {
                 if (completedClasses.Contains(CharacterSelectionState.SelectedClass)

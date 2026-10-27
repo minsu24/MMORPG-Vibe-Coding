@@ -1,0 +1,101 @@
+{
+    "version": 1,
+    "characterClass": 0,
+    "savedUtc": "2026-10-27T06:06:08.3916475Z",
+    "scene": "MovementPrototype",
+    "position": {
+        "x": -8.6899995803833,
+        "y": -1.9900000095367432,
+        "z": 0.0
+    },
+    "health": 100.0,
+    "mana": 100.0,
+    "mental": 100.0,
+    "energy": 0.0,
+    "level": 1,
+    "experience": 0,
+    "currency": 222,
+    "skillPoints": 0,
+    "advancementRank": 0,
+    "unlockedTier": 0,
+    "advancementAttack": 0.0,
+    "advancementDefense": 0.0,
+    "items": [],
+    "skills": [
+        {
+            "id": "390809e0eddc5c049ab519420debe55e",
+            "level": 0
+        },
+        {
+            "id": "1591e04543bc7e647a835f0c3a19492b",
+            "level": 0
+        },
+        {
+            "id": "2c898bc42be3ada4ab1cd4ee7a2c0c0d",
+            "level": 0
+        },
+        {
+            "id": "424a2df3e5122c94184b2b21e87266ae",
+            "level": 0
+        },
+        {
+            "id": "21fd44cf3ec9aee48a50617a1758ad66",
+            "level": 0
+        },
+        {
+            "id": "e916551652459d9429808841e39b8c81",
+            "level": 0
+        }
+    ],
+    "consumableSlots": [
+        "",
+        "",
+        "",
+        ""
+    ],
+    "quickSlots": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "quests": [],
+    "playedDialogues": [],
+    "rewardedDialogues": [],
+    "bossDefeats": [],
+    "dungeonDefeats": [],
+    "goblinDefeats": [],
+    "visitedRegions": [
+        "Dosa.tutorial"
+    ],
+    "visitedScenes": [
+        "Dosa.MovementPrototype"
+    ],
+    "knownScenes": [],
+    "presentedScenes": [],
+    "codex": [],
+    "inventoryTutorial": false,
+    "statsTutorial": false,
+    "mapTutorial": false,
+    "companionTutorial": false,
+    "companionGuide": false,
+    "firstDeathGuide": false,
+    "companionsJson": "{\"entries\":[{\"characterClass\":0,\"companionId\":\"goblin\",\"progress\":{\"level\":0,\"equipped\":false,\"unlocked\":false}}]}",
+    "shopTutorial": false,
+    "dungeonTutorial": false,
+    "upgradeTutorial": false,
+    "toadDefeated": false,
+    "toadHasPosition": false,
+    "toadPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "dungeon": "",
+    "dungeonSeconds": 0.0,
+    "dungeonCleared": false
+}

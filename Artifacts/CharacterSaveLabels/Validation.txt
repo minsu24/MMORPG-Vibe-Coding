@@ -1,0 +1,8 @@
+Native Unity Play mode save label validation
+PASS no saved data: all class captions hidden
+PASS DosaCard: saved level 03, click-through caption
+PASS DosaCard: hovering preserves caption position and font scale
+PASS MonkCard: saved level 01, click-through caption
+PASS MonkCard: hovering preserves caption position and font scale
+PASS SwordswomanCard: saved level 12, click-through caption
+PASS SwordswomanCard: hovering preserves caption position and font scale

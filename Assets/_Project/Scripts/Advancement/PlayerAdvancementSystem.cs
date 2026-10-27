@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using EasternFantasy.Dialogue;
 using EasternFantasy.Player;
@@ -10,7 +10,7 @@ namespace EasternFantasy.Advancement
     [DisallowMultipleComponent]
     [RequireComponent(typeof(PlayerProgression))]
     [RequireComponent(typeof(PlayerSkillSystem))]
-    public sealed class PlayerAdvancementSystem : MonoBehaviour
+    public sealed partial class PlayerAdvancementSystem : MonoBehaviour
     {
         [Header("Automatic self-advancement")]
         [SerializeField] private AdvancementDefinition automaticAdvancement;
@@ -94,6 +94,7 @@ namespace EasternFantasy.Advancement
 
         private void EvaluateAutomaticAdvancement()
         {
+            if (EasternFantasy.Saving.SaveGameService.IsRestoring) return;
             if (!startAutomatically || !CanAdvance(automaticAdvancement) || automaticRoutine != null)
                 return;
 

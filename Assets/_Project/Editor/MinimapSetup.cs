@@ -18,8 +18,8 @@ namespace EasternFantasy.Editor
         {
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
             if (prefab == null) prefab = CreatePrefab();
-            AddToScene(prefab, "Assets/_Project/Scenes/MovementPrototype.unity");
-            AddToScene(prefab, "Assets/_Project/Scenes/PrologueVilage.unity");
+            AddToScene(prefab, "Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity");
+            AddToScene(prefab, "Assets/_Project/Scenes/TutorialMap/PrologueVilage.unity");
             Debug.Log("Minimap installed in the tutorial and village scenes.");
         }
 

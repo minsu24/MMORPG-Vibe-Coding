@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using EasternFantasy.Player;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine;
 namespace EasternFantasy.Dialogue
 {
     [DisallowMultipleComponent]
-    public sealed class DialogueTrigger : MonoBehaviour
+    public sealed partial class DialogueTrigger : MonoBehaviour
     {
         [SerializeField] private DialogueSequence sequence;
         [SerializeField] private bool startOnPlayerEnter;
@@ -28,6 +28,7 @@ namespace EasternFantasy.Dialogue
         // Call this from an NPC interaction script, UnityEvent, button, or cutscene.
         public void PlayDialogue()
         {
+            if (EasternFantasy.Saving.SaveGameService.IsRestoring) return;
             if (playOnlyOnce && sequence != null && playedSequences.Contains(sequence))
                 return;
 
@@ -61,6 +62,7 @@ namespace EasternFantasy.Dialogue
         }
         private bool TryStartEntryDialogue()
         {
+            if (EasternFantasy.Saving.SaveGameService.IsRestoring) return false;
             var manager = DialogueManager.Instance;
             if (EasternFantasy.UI.MapTutorialUI.IsRunning || manager == null || manager.IsDialogueActive)
                 return false;
