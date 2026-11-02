@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Swordswoman_DoubleSlash_Swing1.wav",
+    "source": "C:\\Users\\jeonghuncomputer\\Downloads\\Sonniss.com - GDC - Game Audio Bundle 3of5\\Mechanical Wave - Hits Whoosh\\Action Swish_HW 02.wav",
+    "source_range": [
+      0.14,
+      0.43
+    ],
+    "duration": 0.29,
+    "guid": "1b502ee32b304385b4c72d4b83ee4b72",
+    "volume": 0.45,
+    "pitch_preserving_time_fit": false
+  },
+  {
+    "name": "Swordswoman_DoubleSlash_Swing2.wav",
+    "source": "C:\\Users\\jeonghuncomputer\\Downloads\\Sonniss.com - GDC - Game Audio Bundle 3of5\\Mechanical Wave - Hits Whoosh\\Action Swish_HW 02.wav",
+    "source_range": [
+      1.04,
+      1.34
+    ],
+    "duration": 0.3,
+    "guid": "ad4126ffe9ce48eebb7787a567b53a27",
+    "volume": 0.45,
+    "pitch_preserving_time_fit": false
+  },
+  {
+    "name": "Swordswoman_HurtVoice.wav",
+    "source": "C:\\Users\\jeonghuncomputer\\Downloads\\Sonniss.com-GDC2026-GameAudioBundle1of5\\344 Audio - Anime Fight Voices Vol. 2\\VOXFem_Anime, Adult Warrior Breaths 40_344 Audio_Anime Fight Voices Vol 2.wav",
+    "source_range": [
+      0,
+      0.913
+    ],
+    "duration": 0.9125625,
+    "guid": "1ce56d23401f48b7a8779a452c462656",
+    "volume": 0.35,
+    "pitch_preserving_time_fit": false
+  },
+  {
+    "name": "Swordswoman_Drawing_Charge.wav",
+    "source": "C:\\Users\\jeonghuncomputer\\Downloads\\alice_soundz-best-sword-sounds-slice-slash-crash-swoosh-etc-224090.mp3",
+    "source_range": [
+      3,
+      5
+    ],
+    "duration": 1.0,
+    "guid": "498de8c4a55f4a49b334c63c863c1586",
+    "volume": 0.4,
+    "pitch_preserving_time_fit": true
+  },
+  {
+    "name": "Swordswoman_Drawing_Release.wav",
+    "source": "C:\\Users\\jeonghuncomputer\\Downloads\\alice_soundz-best-sword-sounds-slice-slash-crash-swoosh-etc-224090.mp3",
+    "source_range": [
+      5,
+      6
+    ],
+    "duration": 1.0,
+    "guid": "84c5dd231b0146bdb7bbc46ab263522a",
+    "volume": 0.5,
+    "pitch_preserving_time_fit": false
+  },
+  {
+    "name": "Swordswoman_Drawing_Hit.wav",
+    "source": "C:\\Users\\jeonghuncomputer\\Downloads\\alice_soundz-best-sword-sounds-slice-slash-crash-swoosh-etc-224090.mp3",
+    "source_range": [
+      26.28,
+      27
+    ],
+    "duration": 0.72,
+    "guid": "e6694d6483104eb9bca57e485c0daa34",
+    "volume": 0.25,
+    "pitch_preserving_time_fit": false
+  },
+  {
+    "name": "Swordswoman_DoubleSlash_Hit.wav",
+    "source": "C:\\Users\\jeonghuncomputer\\Downloads\\alice_soundz-best-sword-sounds-slice-slash-crash-swoosh-etc-224090.mp3",
+    "source_range": [
+      32,
+      34
+    ],
+    "duration": 2.0,
+    "guid": "10e555e5538f412196325f83f7da9fa8",
+    "volume": 0.4,
+    "pitch_preserving_time_fit": false
+  }
+]

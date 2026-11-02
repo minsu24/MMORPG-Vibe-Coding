@@ -1,0 +1,27 @@
+Delayed companion path validation
+PASS 30 fps: jump delayed approximately 0.4 seconds
+PASS 30 fps: same takeoff location, without horizontal sprite offset
+PASS 30 fps: grounded idle spacing after landing
+PASS 30 fps: long idle history stays bounded
+PASS 30 fps: resumes without replaying the long idle wait
+PASS 60 fps: jump delayed approximately 0.4 seconds
+PASS 60 fps: same takeoff location, without horizontal sprite offset
+PASS 60 fps: grounded idle spacing after landing
+PASS 60 fps: long idle history stays bounded
+PASS 60 fps: resumes without replaying the long idle wait
+PASS 120 fps: jump delayed approximately 0.4 seconds
+PASS 120 fps: same takeoff location, without horizontal sprite offset
+PASS 120 fps: grounded idle spacing after landing
+PASS 120 fps: long idle history stays bounded
+PASS 120 fps: resumes without replaying the long idle wait
+PASS short in-place hops replay completely instead of stopping in midair
+PASS native player jump started
+Native jump delay: 0.4066356 seconds; takeoff delta X: 0.1455078
+PASS real prefab jumps after player, not simultaneously
+PASS real prefab reaches the player's takeoff location before rising
+PASS real prefab settles on ground after stopping
+PASS pause freezes path playback
+PASS teleport resets trail near owner
+PASS companion still cannot block or be attacked
+COMPLETE
+PASS original save unchanged and preferences restored

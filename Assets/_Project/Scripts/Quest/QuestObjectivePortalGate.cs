@@ -30,7 +30,8 @@ namespace EasternFantasy.Quest
         {
             var progress = manager != null ? manager.FindProgress(requiredQuest) : null;
             bool unlocked = requiredQuest != null && progress != null
-                && progress.CurrentAmount >= requiredQuest.RequiredAmount;
+                && (progress.Status == QuestStatus.Completed || progress.Status == QuestStatus.ReadyToTurnIn
+                    || progress.CurrentAmount >= requiredQuest.RequiredAmount);
             portal.SetLocked(!unlocked);
             if (blockedHint == null) return;
             blockedHint.gameObject.SetActive(!unlocked);

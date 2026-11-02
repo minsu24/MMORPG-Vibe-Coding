@@ -1,0 +1,13 @@
+PASS: Three provided splash frames are assigned
+PASS: Terrain collision immediately displays first splash frame
+PASS: Impact stops movement and collision damage
+PASS: Splash resets flight rotation
+PASS: Splash frame 1 plays in order
+PASS: Splash frame 2 plays in order
+PASS: Splash frame 3 plays in order
+PASS: FixedUpdate does not move an exploding projectile
+PASS: Player collision keeps one damage event
+PASS: Player collision also displays splash
+PASS: Terrain and player impacts each play sound once
+PASS: Range expiry does not create a false collision splash
+PASS: completed splash and expired projectile clean up after rendering

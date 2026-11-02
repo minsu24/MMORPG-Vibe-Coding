@@ -1,0 +1,20 @@
+60 ms writing sound loads via Resources for all dialogue managers
+Writing sample decodes
+Sample endpoints fade to silence
+Quiet default volume is 0.16
+No stroke before third letter at character 0
+No stroke before third letter at character 1
+No stroke before third letter at character 2
+No stroke before third letter at character 3
+No stroke before third letter at character 4
+Third letter triggers a writing stroke
+Pitch variation stays subtle
+Writing audio is 2D, non-looping, and manually triggered
+Spaces, punctuation and formatting do not increase cadence count
+Stroke cadence resets to 2 or 3 letters
+Instant reveal stops writing and reveals all text silently
+Whitespace and punctuation-only dialogue stay silent
+Batch reveal schedules one stroke
+Cooldown prevents rapid repeated strokes
+Disabling dialogue resets writing state
+One reusable audio source without overlapping one-shots

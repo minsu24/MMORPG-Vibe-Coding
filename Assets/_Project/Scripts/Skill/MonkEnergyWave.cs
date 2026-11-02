@@ -13,6 +13,9 @@ namespace EasternFantasy.Skill
         [SerializeField, Min(0.01f)] private float beamHeight = 1.1f;
         [SerializeField, Min(0.01f)] private float duration = 0.45f;
         [SerializeField, Min(0.01f)] private float fadeDuration = 0.15f;
+        [Header("Wind Impact Audio")]
+        [SerializeField] private AudioClip hitSound;
+        [SerializeField, Range(0f, 1f)] private float hitSoundVolume = 0.6f;
 
         private readonly Collider2D[] hitBuffer = new Collider2D[64];
         private readonly HashSet<EnemyController> hitEnemies = new HashSet<EnemyController>();
@@ -111,7 +114,7 @@ namespace EasternFantasy.Skill
                 if (enemy == null || enemy.HP <= 0f || !hitEnemies.Add(enemy)) continue;
                 float before = enemy.HP;
                 owner.NotifyAttackTarget(enemy);
-                enemy.TakeDamage(damage, critical);
+                enemy.TakeDamage(damage, critical, true, hitSound, hitSoundVolume);
                 float dealt = Mathf.Max(0f, before - enemy.HP);
                 if (dealt <= 0f) continue;
                 owner.ApplyLifeSteal(dealt);

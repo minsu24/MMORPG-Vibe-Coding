@@ -14,7 +14,7 @@ namespace EasternFantasy.Editor
     public static class DungeonSystemSetup
     {
         private const string Art = "Assets/_Project/Art/UI/Dungeon/";
-        private const string PrefabPath = "Assets/_Project/Prefabs/UI/DungeonWindow.prefab";
+        private const string PrefabPath = "Assets/_Project/Resources/DungeonWindow.prefab";
         private static TMP_FontAsset font;
         private static readonly Color Gold = new Color(0.95f, 0.83f, 0.57f);
         private static readonly Color Ink = new Color(0.19f, 0.12f, 0.07f);

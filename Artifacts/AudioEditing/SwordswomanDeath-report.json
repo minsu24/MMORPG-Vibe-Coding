@@ -1,0 +1,65 @@
+{
+  "source": {
+    "median_hz": 405.2051802001514,
+    "quartiles_hz": [
+      297.8980532105955,
+      481.961754068159
+    ],
+    "voiced_frames": 122,
+    "confidence": 0.8615671818483455
+  },
+  "hurt": {
+    "median_hz": null,
+    "voiced_frames": 0
+  },
+  "jump": {
+    "median_hz": null,
+    "voiced_frames": 0
+  },
+  "autocorrelation": {
+    "source": {
+      "median_hz": 299.0915443745632,
+      "periodicity": 0.8716180594730547,
+      "frames": 130,
+      "note": "Approximate pitch proxy for breathy/unvoiced reference"
+    },
+    "hurt": {
+      "median_hz": 283.8468720821662,
+      "periodicity": 0.3848154111558283,
+      "frames": 18,
+      "note": "Approximate pitch proxy for breathy/unvoiced reference"
+    },
+    "jump": {
+      "median_hz": 307.6923076923077,
+      "periodicity": 0.34471926546202447,
+      "frames": 12,
+      "note": "Approximate pitch proxy for breathy/unvoiced reference"
+    }
+  },
+  "processing": {
+    "output": "Assets\\_Project\\Audio\\SoundEffects\\Impacts\\Swordswoman_Death.wav",
+    "source": "C:\\Users\\jeonghuncomputer\\Downloads\\1_dying.ogg",
+    "pitch_shift_semitones": -6.2659708935297065,
+    "target_hz": 307.6923076923077,
+    "duration_preserved_before_silence_trim": true,
+    "trimmed_source_seconds": [
+      0.41252083333333334,
+      2.4052708333333332
+    ],
+    "duration_seconds": 1.99275,
+    "sample_rate": 48000,
+    "gain_db": -1.0213975467477794,
+    "active_rms_db": -21.247293873827097,
+    "peak_dbfs": -9.594983245382968,
+    "output_pitch": {
+      "median_hz": 313.09369161427674,
+      "quartiles_hz": [
+        196.3950018652916,
+        431.685443295742
+      ],
+      "voiced_frames": 122,
+      "confidence": 0.8656585552188842
+    },
+    "limitation": "Breathy existing voices have no reliable YIN fundamental. Jump autocorrelation is an approximate register target, not an exact identity or listening match."
+  }
+}

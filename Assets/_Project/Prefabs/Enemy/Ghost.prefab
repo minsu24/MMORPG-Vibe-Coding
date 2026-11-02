@@ -154,6 +154,15 @@ MonoBehaviour:
   damageTextPrefab: {fileID: 3890553193077931215, guid: ffe84f00c64695a48b630feb8433f6f6, type: 3}
   textSpawnPoint: {fileID: 5172696669081138323}
   isKnockback: 0
+  scareDistance: 1.4
+  maximumFlightSeconds: 3
+  scareCooldown: 1.5
+  scareEffectFrames:
+  - {fileID: 21300000, guid: c03c1146cf709d4439650568b7d6c243, type: 2}
+  - {fileID: 21300000, guid: a5218cb6c6b731e47bfefe453634f0e1, type: 2}
+  - {fileID: 21300000, guid: 7f3988f4b7548c645993943067f24eed, type: 2}
+  - {fileID: 21300000, guid: bffe16cb8c7b813419fff8c042a63e3a, type: 2}
+  scareSize: {x: 2.4, y: 1.8}
   questDefinition: {fileID: 11400000, guid: 60c83731829d76749a21f2aef8916d29, type: 2}
 --- !u!50 &8684673219341745850
 Rigidbody2D:

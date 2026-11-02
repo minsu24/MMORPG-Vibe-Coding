@@ -32,6 +32,12 @@ GameObject:
   - component: {fileID: 5067031856414450684}
   - component: {fileID: 6300000000000000060}
   - component: {fileID: 1365151697640657564}
+  - component: {fileID: 3442664835541600892}
+  - component: {fileID: 3022267405266856121}
+  - component: {fileID: 290197215986305342}
+  - component: {fileID: 3394107898868819378}
+  - component: {fileID: 8248511008143538}
+  - component: {fileID: 1593544007164452548}
   m_Layer: 6
   m_Name: MonkPlayer
   m_TagString: Player
@@ -135,6 +141,9 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 1
+  jumpSound: {fileID: 8300000, guid: ae6fc4623d1d48ca820f48c2d24cc54a, type: 3}
+  jumpVolume: 0.25
+  jumpPitch: 1
   body: {fileID: 0}
 --- !u!114 &4975863889217955417
 MonoBehaviour:
@@ -149,6 +158,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerInputReader
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  attackBufferDuration: 0.15
+  repeatAttackWhileHeld: 1
 --- !u!114 &5523186586099855509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,6 +209,7 @@ MonoBehaviour:
   projectileSpeed: 10
   maximumTravelDistance: 8
   spawnOffset: {x: 0.8, y: 0.25}
+  burstShotInterval: 0.1
 --- !u!114 &2485368207948759539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,13 +372,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.MonkBasicAttack
   hitDelay: 0.18
   recoveryDuration: 0.28
-  attackOffset: {x: 0.85, y: 0.15}
-  attackSize: {x: 1.45, y: 1}
+  attackOffset: {x: 1.05, y: 0.15}
+  attackSize: {x: 1.85, y: 1.2}
   invertFacingDirection: 0
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
   damageMultiplier: 1
+  hitSound: {fileID: 8300000, guid: 93dfc6e0857d4bf78b7d402c770243c2, type: 3}
+  hitSoundVolume: 0.6
 --- !u!114 &5112916743110000123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,6 +396,8 @@ MonoBehaviour:
   deathAnimationSeconds: 1
   deathHitStopSeconds: 0.08
   deathUiPrefab: {fileID: 100, guid: 460b6a5ea3c743efbe40c97c52a7532f, type: 3}
+  reviveSound: {fileID: 8300000, guid: 6fa27962105027348a4fc8edffd645da, type: 3}
+  reviveVolume: 0.13440001
 --- !u!114 &5112916743110000125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,6 +474,12 @@ MonoBehaviour:
     m_Bits: 0
   punchImpactPrefab: {fileID: 7626212061485368255, guid: 01b2516f76863234d9db5b14c4f89cc3, type: 3}
   wavePrefab: {fileID: 502484610862425850, guid: 2dfb21521eacca9448d6993efb33e0e6, type: 3}
+  dashSound: {fileID: 8300000, guid: 6cb88cfd2b7645a18e03d3cab42e6e38, type: 3}
+  dashSoundVolume: 0.299
+  waveChargeSound: {fileID: 8300000, guid: 794c6f0372a14138bab5eefbca4a05a8, type: 3}
+  waveChargeVolume: 0.45
+  punchHitSound: {fileID: 8300000, guid: bfae385a05f04de191ba681d38a612cf, type: 3}
+  punchHitSoundVolume: 0.65
 --- !u!114 &6300000000000000060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,11 +490,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7c6a77d3c634ff2b50ef1f4a21e5df2, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerFootstepDust
   walkStateName: MonkMove
   stepPhaseOffset: 0
   minimumTravelPerStep: 0.12
+  footstepSound: {fileID: 8300000, guid: 194085c6a9c24428aaedd9c21c3f9cff, type: 3}
+  footstepVolume: 0.223
   dustMaterial: {fileID: 2100000, guid: 3ebfe20b94d84cd4ad3758a7e6e6b528, type: 2}
   dustColor: {r: 0.85, g: 0.78, b: 0.65, a: 0.85}
   particlesPerStep: 8
@@ -489,12 +513,187 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e5a702a91d49414baf6dffd94997bfb, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.MonkJumpAnimation
   animator: {fileID: 8836460492422581657}
   groundLayers:
     serializedVersion: 2
     m_Bits: 1
+--- !u!82 &3442664835541600892
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.391
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &3022267405266856121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd2c745038cf1bf45b3846caad88d885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerBasicAttackAudio
+  attackSound: {fileID: 8300000, guid: 59c79a22f492e8342b9556c59820c5b3, type: 3}
+  volume: 1
+--- !u!114 &290197215986305342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972ea328dbc50dd49b15138d3af32ea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerHurtAudio
+  hurtSound: {fileID: 8300000, guid: 33bd6d9fa4de459ebfffdd5851707145, type: 3}
+  volume: 0.35
+  minimumInterval: 0.2
+--- !u!114 &3394107898868819378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4568867e8640e7e46a7abf3336db516c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerDeathAudio
+  deathSound: {fileID: 8300000, guid: 7521d5297160453a94115fbf5c96b4a1, type: 3}
+  volume: 0.45
+--- !u!114 &8248511008143538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7630332c11107a4abffeaf43296472e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerDeathEffectAudio
+  effectSound: {fileID: 8300000, guid: 1e74c91498cf10447afdf60f79b359ae, type: 3}
+  volume: 0.28
+--- !u!114 &1593544007164452548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb203a00b262484eb6411277c58f5fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerItemAudio
+  equipSound: {fileID: 8300000, guid: 827b511cbed549a4b86005cbb7d4641f, type: 3}
+  potionSound: {fileID: 8300000, guid: c6dce5c0023ed1543b5c07995bd19cb6, type: 3}
+  currencySound: {fileID: 8300000, guid: 320155d852ad73a48ae1ac68c2d2a3cb, type: 3}
+  itemSound: {fileID: 8300000, guid: 9d275d7e4d96bc547b3ec63a3494261f, type: 3}
+  equipVolume: 0.35
+  equipPlaybackSpeed: 1.15
+  potionVolume: 0.3
+  currencyVolume: 0.08
+  itemVolume: 0.06
 --- !u!1 &7998046781919826993
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +707,7 @@ GameObject:
   - component: {fileID: 8836460492422581657}
   - component: {fileID: 3805738272136015532}
   - component: {fileID: 429744387780298597}
+  - component: {fileID: 6600735999353940147}
   m_Layer: 6
   m_Name: CharacterVisual
   m_TagString: Untagged
@@ -636,3 +836,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.MonkBlastAnimationEvents
   releaseFrame: 7
+--- !u!114 &6600735999353940147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7998046781919826993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1326cecb3b3644d498f9cb2b9896f766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.DeathAnimationAudioEvents

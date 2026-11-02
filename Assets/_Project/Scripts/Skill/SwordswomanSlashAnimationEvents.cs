@@ -21,5 +21,9 @@ namespace EasternFantasy.Skill
         {
             if (caster != null) caster.OnDoubleSlashHit(strike);
         }
+        public void DoubleSlashSwing(int strike)
+        {
+            if (caster != null) caster.OnDoubleSlashSwing(strike);
+        }
     }
 }

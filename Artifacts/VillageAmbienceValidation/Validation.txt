@@ -1,0 +1,7 @@
+PASS forest loops globally in village at volume 0.2
+PASS waterfall source loops
+PASS waterfall exactly silent ten units away
+PASS waterfall fades up to 0.45 near the water
+PASS midrange volume attenuates to 0.225 at 3.25 units
+PASS waterfall returns to exact silence six units away
+PASS village ambient sources are removed when leaving the map

@@ -1,0 +1,186 @@
+{
+  "source": "C:\\Users\\jeonghuncomputer\\Downloads\\female_hurt_grunts_groans_1.ogg",
+  "source_seconds": 12.953375,
+  "reference_pitch_proxy_hz": 295.769589887237,
+  "segments": [
+    {
+      "start": 0.435,
+      "end": 1.1800000000000002,
+      "duration": 0.7450000000000001,
+      "pitch": {
+        "median_hz": 433.9668724084993,
+        "quartiles_hz": [
+          359.2123881163046,
+          441.0865037965676
+        ],
+        "voiced_frames": 22,
+        "confidence": 0.8664658954428779
+      },
+      "proxy": {
+        "median_hz": 380.95238095238096,
+        "periodicity": 0.656899759529348,
+        "frames": 54,
+        "note": "Approximate pitch proxy for breathy/unvoiced reference"
+      },
+      "timbre_distance": 0.6661896702575393,
+      "score": 0.9587581429977059
+    },
+    {
+      "start": 2.085,
+      "end": 2.75,
+      "duration": 0.665,
+      "pitch": {
+        "median_hz": 385.5478515468054,
+        "quartiles_hz": [
+          375.6609685212552,
+          391.39421396247604
+        ],
+        "voiced_frames": 10,
+        "confidence": 0.8754225813934233
+      },
+      "proxy": {
+        "median_hz": 271.264367816092,
+        "periodicity": 0.41889618749321633,
+        "frames": 52,
+        "note": "Approximate pitch proxy for breathy/unvoiced reference"
+      },
+      "timbre_distance": 0.6804362110615718,
+      "score": 1.0128232976191498
+    },
+    {
+      "start": 3.6950000000000003,
+      "end": 4.18,
+      "duration": 0.48499999999999943,
+      "pitch": {
+        "median_hz": 492.3548482347992,
+        "quartiles_hz": [
+          436.65655534384825,
+          536.7210687139169
+        ],
+        "voiced_frames": 12,
+        "confidence": 0.7749123990628624
+      },
+      "proxy": {
+        "median_hz": 372.09302325581393,
+        "periodicity": 0.6118993926741773,
+        "frames": 31,
+        "note": "Approximate pitch proxy for breathy/unvoiced reference"
+      },
+      "timbre_distance": 0.7862222770284598,
+      "score": 1.581817083806959
+    },
+    {
+      "start": 4.935,
+      "end": 6.14,
+      "duration": 1.205,
+      "pitch": {
+        "median_hz": 344.4878862727998,
+        "quartiles_hz": [
+          328.21852707332124,
+          431.6762283253263
+        ],
+        "voiced_frames": 39,
+        "confidence": 0.8416146494151101
+      },
+      "proxy": {
+        "median_hz": 333.3333333333333,
+        "periodicity": 0.6264914497727947,
+        "frames": 89,
+        "note": "Approximate pitch proxy for breathy/unvoiced reference"
+      },
+      "timbre_distance": 0.46125411008771583,
+      "score": 0.5475000438566845
+    },
+    {
+      "start": 7.324999999999999,
+      "end": 8.14,
+      "duration": 0.8150000000000013,
+      "pitch": {
+        "median_hz": 240.96697573633452,
+        "quartiles_hz": [
+          227.15529173157887,
+          260.748062349028
+        ],
+        "voiced_frames": 41,
+        "confidence": 0.7890414446369688
+      },
+      "proxy": {
+        "median_hz": 244.28904428904428,
+        "periodicity": 0.6640669788602976,
+        "frames": 64,
+        "note": "Approximate pitch proxy for breathy/unvoiced reference"
+      },
+      "timbre_distance": 0.7750242631837433,
+      "score": 0.9129665444789253
+    },
+    {
+      "start": 9.365,
+      "end": 10.34,
+      "duration": 0.9749999999999996,
+      "pitch": {
+        "median_hz": 321.7608867278834,
+        "quartiles_hz": [
+          259.27706421546304,
+          373.0909861748363
+        ],
+        "voiced_frames": 48,
+        "confidence": 0.8183555268624164
+      },
+      "proxy": {
+        "median_hz": 340.4255319148936,
+        "periodicity": 0.7693743690358549,
+        "frames": 73,
+        "note": "Approximate pitch proxy for breathy/unvoiced reference"
+      },
+      "timbre_distance": 0.5114906756285588,
+      "score": 0.6129234339192869
+    },
+    {
+      "start": 11.674999999999999,
+      "end": 12.6,
+      "duration": 0.9250000000000007,
+      "pitch": {
+        "median_hz": 363.96026663268634,
+        "quartiles_hz": [
+          330.8112503910091,
+          410.2063646682753
+        ],
+        "voiced_frames": 42,
+        "confidence": 0.9169711997832499
+      },
+      "proxy": {
+        "median_hz": 304.78955007256894,
+        "periodicity": 0.6428821507292488,
+        "frames": 76,
+        "note": "Approximate pitch proxy for breathy/unvoiced reference"
+      },
+      "timbre_distance": 0.7565096523119839,
+      "score": 0.7781795089224463
+    }
+  ],
+  "selection_basis": "Acoustic similarity and utterance length; no listening/emotion assessment.",
+  "processing": {
+    "selected_range": [
+      4.935,
+      6.22
+    ],
+    "output": "Assets\\_Project\\Audio\\SoundEffects\\Impacts\\Swordswoman_Death.wav",
+    "backup": "Artifacts\\SwordswomanDeathAudio\\Previous_1_dying_Adjusted.wav",
+    "pitch_shift_semitones": 0.0,
+    "preserved_performance_duration": true,
+    "duration_seconds": 1.285,
+    "sample_rate": 48000,
+    "gain_db": -3.2936501669878715,
+    "peak_dbfs": -9.456701007423863,
+    "active_rms_db": -21.247289317389104,
+    "output_pitch": {
+      "median_hz": 344.48792678288027,
+      "quartiles_hz": [
+        328.2181815904625,
+        431.67659840166345
+      ],
+      "voiced_frames": 39,
+      "confidence": 0.8416168806428302
+    }
+  }
+}

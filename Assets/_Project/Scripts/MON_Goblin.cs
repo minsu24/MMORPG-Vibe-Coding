@@ -25,15 +25,22 @@ public partial class MON_Goblin : EnemyController
 
     protected override void MonsterAbility()
     {
-        
+        TryBeginLeapAttack();
     }
 
     protected override void OnDefeated()
     {
+        FinishLeapAttack(false);
         defeatedEncounters.Add(EncounterKey);
         base.OnDefeated();
         if (defeatedDialogue != null && DialogueManager.Instance != null)
             DialogueManager.Instance.StartDialogue(defeatedDialogue);
         
+    }
+
+    protected override void OnDisable()
+    {
+        FinishLeapAttack(false);
+        base.OnDisable();
     }
 }

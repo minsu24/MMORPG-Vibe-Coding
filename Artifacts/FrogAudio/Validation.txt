@@ -1,0 +1,30 @@
+PASS: Simulation advances at positive delta time
+PASS: Imported FrogMove
+PASS: Imported FrogSlamImpact
+PASS: Imported FrogSpitImpact
+PASS: Imported FrogSpitLaunch
+PASS: Imported FrogTongue
+PASS: Imported FrogJump
+PASS: Movement loop starts at 20 percent when walking
+PASS: Walking reuses one source without stacking
+PASS: Movement stops immediately when stationary
+PASS: Tongue windup silences movement before tongue extends
+PASS: Tongue sound starts at tongue strike
+PASS: Ranged windup does not play early
+PASS: Spit launch sound starts when projectile is created
+PASS: Ranged routine emits a single projectile
+PASS: Player collision plays detached impact sound
+PASS: Repeated collision cannot replay impact
+PASS: Terrain collision also plays impact sound
+PASS: Jump sound starts at takeoff without early slam sound
+PASS: Slam sound occurs once when the frog reaches its landing position
+PASS: Death during jump does not play a later landing sound
+PASS: Disabling frog stops movement audio
+PASS: Audio respects loading mute
+PASS: Audio respects loading mute
+PASS: Audio respects loading mute
+PASS: Audio respects loading mute
+PASS: Audio respects loading mute
+PASS: Audio respects loading mute
+PASS: Audio respects loading mute
+PASS: Audio respects loading mute

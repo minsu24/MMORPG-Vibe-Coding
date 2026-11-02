@@ -1,0 +1,16 @@
+{
+  "source": "C:\\Users\\jeonghuncomputer\\Downloads\\Male protagonist\\Grunt Oof 1.wav",
+  "output": "Assets\\_Project\\Audio\\SoundEffects\\Impacts\\Monk_Hurt_Oof1.wav",
+  "source_range_seconds": [
+    0.07,
+    0.285
+  ],
+  "duration": 0.21498866213151926,
+  "rate": 44100,
+  "channels": 1,
+  "gain_db": 1.2313669243110825,
+  "peak_dbfs": -15.013524360973552,
+  "playback_volume": 0.35,
+  "pitch": 1,
+  "notes": "Trimmed silence; 2 ms/12 ms fades; source peak matched to existing Monk jump voice; nonlethal actual damage only."
+}

@@ -7,6 +7,8 @@ namespace EasternFantasy.Player
     {
         [SerializeField] private GameObject explosionPrefab;
         [SerializeField, Min(0f)] private float explosionLifetime = 0.25f;
+        [SerializeField] private AudioClip hitSound;
+        [SerializeField, Range(0f, 1f)] private float hitSoundVolume = .25f;
         private Vector2 direction;
         private Vector2 startPosition;
         private float speed;
@@ -76,7 +78,7 @@ namespace EasternFantasy.Player
             if (hitEntity is EnemyController targetEnemy)
             {
                 if (owner is PlayerEntity attackingPlayer) attackingPlayer.NotifyAttackTarget(targetEnemy);
-                targetEnemy.TakeDamage(damage, isCritical);
+                targetEnemy.TakeDamage(damage, isCritical, true, hitSound, hitSoundVolume);
             }
             else
                 hitEntity.TakeDamage(damage);

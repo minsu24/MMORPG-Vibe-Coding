@@ -11,6 +11,9 @@ namespace EasternFantasy.Player
         [SerializeField] private string walkStateName = "PlayerWalk";
         [SerializeField, Range(0f, 0.5f)] private float stepPhaseOffset;
         [SerializeField, Min(0f)] private float minimumTravelPerStep = 0.12f;
+        [Header("Quiet Footstep Audio")]
+        [SerializeField] private AudioClip footstepSound;
+        [SerializeField, Range(0f, 1f)] private float footstepVolume = 0.25f;
         [Header("Small Ground Dust")]
         [SerializeField] private Material dustMaterial;
         [SerializeField] private Color dustColor = new Color(0.85f, 0.78f, 0.65f, 0.85f);
@@ -26,6 +29,7 @@ namespace EasternFantasy.Player
         private CapsuleCollider2D bodyCollider;
         private Animator animator;
         private ParticleSystem dust;
+        private AudioSource footstepAudio;
         private readonly RaycastHit2D[] groundHits = new RaycastHit2D[16];
         private int walkStateHash;
         private int previousStep = int.MinValue;
@@ -48,6 +52,15 @@ namespace EasternFantasy.Player
                 return;
             }
             CreateDustSystem();
+            if (footstepSound != null)
+            {
+                var child = new GameObject("Footstep Audio");
+                child.transform.SetParent(transform, false);
+                footstepAudio = child.AddComponent<AudioSource>();
+                footstepAudio.playOnAwake = false;
+                footstepAudio.loop = false;
+                footstepAudio.spatialBlend = 0f;
+            }
         }
 
         private void LateUpdate()
@@ -113,6 +126,13 @@ namespace EasternFantasy.Player
 
         private void EmitStep(Vector2 contact, float facing)
         {
+            if (footstepAudio != null && footstepSound != null)
+            {
+                footstepAudio.pitch = Random.Range(0.96f, 1.04f);
+                footstepAudio.PlayOneShot(footstepSound,
+                    footstepVolume * Random.Range(0.9f, 1f));
+            }
+
             for (int i = 0; i < particlesPerStep; i++)
             {
                 var emit = new ParticleSystem.EmitParams
@@ -211,6 +231,7 @@ namespace EasternFantasy.Player
             lastMovementTime = float.NegativeInfinity;
             previousPosition = transform.position;
             if (dust != null) dust.Clear();
+            if (footstepAudio != null) footstepAudio.Stop();
         }
     }
 }

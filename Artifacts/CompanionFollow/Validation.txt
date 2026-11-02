@@ -1,0 +1,20 @@
+Delayed companion path validation
+PASS 30 fps: jump delayed approximately 0.4 seconds
+PASS 30 fps: same takeoff location, without horizontal sprite offset
+PASS 30 fps: grounded idle spacing after landing
+PASS 30 fps: long idle history stays bounded
+PASS 30 fps: resumes without replaying the long idle wait
+PASS 60 fps: jump delayed approximately 0.4 seconds
+PASS 60 fps: same takeoff location, without horizontal sprite offset
+PASS 60 fps: grounded idle spacing after landing
+PASS 60 fps: long idle history stays bounded
+PASS 60 fps: resumes without replaying the long idle wait
+PASS 120 fps: jump delayed approximately 0.4 seconds
+PASS 120 fps: same takeoff location, without horizontal sprite offset
+PASS 120 fps: grounded idle spacing after landing
+PASS 120 fps: long idle history stays bounded
+PASS 120 fps: resumes without replaying the long idle wait
+PASS short in-place hops replay completely instead of stopping in midair
+PASS completed in-place jump remains ready to enter combat
+PASS direction reversal follows recorded path with delay, without swapping sides
+PASS combat approach, hit, return and normal following cycle

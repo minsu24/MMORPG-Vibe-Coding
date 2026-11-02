@@ -16,11 +16,14 @@ namespace EasternFantasy.Player
         [SerializeField, Min(0f)] private float recoveryDuration = 0.28f;
 
         [Header("Hit Box")]
-        [SerializeField] private Vector2 attackOffset = new Vector2(0.85f, 0.15f);
-        [SerializeField] private Vector2 attackSize = new Vector2(1.45f, 1f);
+        [SerializeField] private Vector2 attackOffset = new Vector2(1.05f, 0.15f);
+        [SerializeField] private Vector2 attackSize = new Vector2(1.85f, 1.2f);
         [SerializeField] private bool invertFacingDirection = true;
         [SerializeField] private LayerMask enemyLayers;
         [SerializeField, Min(0f)] private float damageMultiplier = 1f;
+        [Header("Punch Impact Audio")]
+        [SerializeField] private AudioClip hitSound;
+        [SerializeField, Range(0f, 1f)] private float hitSoundVolume = 0.6f;
 
         private Collider2D[] hitBuffer = new Collider2D[16];
         private readonly HashSet<EnemyController> damagedEnemies =
@@ -52,6 +55,7 @@ namespace EasternFantasy.Player
                 return false;
 
             attackSequence = animationController.BasicAttackSequence;
+            GetComponent<PlayerBasicAttackAudio>()?.Play();
             attackRoutine = StartCoroutine(AttackRoutine());
             return true;
         }
@@ -114,7 +118,7 @@ namespace EasternFantasy.Player
 
                 float healthBeforeHit = enemy.HP;
                 entity.NotifyAttackTarget(enemy);
-                enemy.TakeDamage(damage, isCritical);
+                enemy.TakeDamage(damage, isCritical, true, hitSound, hitSoundVolume);
                 if (enemy.HP > 0f)
                     enemy.ApplyKnockback(direction);
 

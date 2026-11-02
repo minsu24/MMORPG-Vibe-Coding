@@ -127,7 +127,7 @@ namespace EasternFantasy.UI
         private void PrepareStep(int step)
         {
             if (step == 0) {
-                skills.SetOpen(false); stats.SetOpenForTutorial(true);
+                skills.SetOpenForTutorial(false); stats.SetOpenForTutorial(true);
                 Capture(stats.TutorialPortrait); Capture(stats.TutorialPortraitBackground);
                 PlacePanel(stats.TutorialTarget);
                 PlaceWithPanel(stats.TutorialPortrait, stats.TutorialTarget);
@@ -171,7 +171,7 @@ namespace EasternFantasy.UI
             running = false;
             if (guide != null) guide.Hide();
             if (stats != null) stats.SetOpen(false);
-            if (skills != null) skills.SetOpen(false);
+            if (skills != null) skills.SetOpenForTutorial(false);
             foreach (var pair in layouts) if (pair.Key != null) { pair.Key.position = pair.Value.Position; pair.Key.localScale = pair.Value.Scale; }
             layouts.Clear();
             if (quickCanvas != null) quickCanvas.enabled = quickCanvasWasEnabled;

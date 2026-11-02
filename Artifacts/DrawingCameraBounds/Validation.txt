@@ -1,0 +1,102 @@
+Drawing camera final viewport confinement
+PASS tracking camera automatically installs final confinement
+PASS initial camera viewport fits boundary
+PASS reproduced boundary escape when shake is added after normal confinement
+PASS final confinement corrects outward shake with the baked polygon
+PASS drawing begins near map edge, case 1
+PASS teleport invalidates previous follow/damping state, case 1
+PASS output remains inside before next camera update, case 1
+PASS drawing reaches wall-side destination, case 1
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 0
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 1
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 2
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 3
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 4
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 5
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 6
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 7
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 8
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 9
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 10
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 11
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 12
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 13
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 14
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 15
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 16
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 17
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 18
+PASS render viewport stays inside after drawing and impact shake, case 1, frame 19
+PASS drawing begins near map edge, case 2
+PASS teleport invalidates previous follow/damping state, case 2
+PASS output remains inside before next camera update, case 2
+PASS drawing reaches wall-side destination, case 2
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 0
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 1
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 2
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 3
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 4
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 5
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 6
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 7
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 8
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 9
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 10
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 11
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 12
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 13
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 14
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 15
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 16
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 17
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 18
+PASS render viewport stays inside after drawing and impact shake, case 2, frame 19
+PASS drawing begins near map edge, case 3
+PASS teleport invalidates previous follow/damping state, case 3
+PASS output remains inside before next camera update, case 3
+PASS drawing reaches wall-side destination, case 3
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 0
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 1
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 2
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 3
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 4
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 5
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 6
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 7
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 8
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 9
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 10
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 11
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 12
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 13
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 14
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 15
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 16
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 17
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 18
+PASS render viewport stays inside after drawing and impact shake, case 3, frame 19
+PASS drawing begins near map edge, case 4
+PASS teleport invalidates previous follow/damping state, case 4
+PASS output remains inside before next camera update, case 4
+PASS drawing reaches wall-side destination, case 4
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 0
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 1
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 2
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 3
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 4
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 5
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 6
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 7
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 8
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 9
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 10
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 11
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 12
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 13
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 14
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 15
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 16
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 17
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 18
+PASS render viewport stays inside after drawing and impact shake, case 4, frame 19
+COMPLETE

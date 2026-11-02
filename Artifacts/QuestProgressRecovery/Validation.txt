@@ -1,0 +1,47 @@
+All-class quest history recovery
+PASS Dosa has all three completed main quests
+PASS Dosa only repairs missing history (before=0)
+PASS Dosa recovery grants no duplicate EXP, currency, items or stats
+PASS Dosa recovery is idempotent
+PASS Dosa actual SpiderCave gate unlocks
+PASS Dosa Unity serialization round-trip preserves quest history
+PASS Dosa singleton rebind after script reload preserves quests
+PASS Dosa original save copied for isolated Play Mode load
+PASS Monk has all three completed main quests
+PASS Monk only repairs missing history (before=3)
+PASS Monk recovery grants no duplicate EXP, currency, items or stats
+PASS Monk recovery is idempotent
+PASS Monk actual SpiderCave gate unlocks
+PASS Monk Unity serialization round-trip preserves quest history
+PASS Monk singleton rebind after script reload preserves quests
+PASS Monk original save copied for isolated Play Mode load
+PASS Swordswoman has all three completed main quests
+PASS Swordswoman only repairs missing history (before=3)
+PASS Swordswoman recovery grants no duplicate EXP, currency, items or stats
+PASS Swordswoman recovery is idempotent
+PASS Swordswoman actual SpiderCave gate unlocks
+PASS Swordswoman Unity serialization round-trip preserves quest history
+PASS Swordswoman singleton rebind after script reload preserves quests
+PASS Swordswoman original save copied for isolated Play Mode load
+PASS fresh character is not granted quests
+PASS fresh character remains blocked at actual gate
+PASS unfinished spider objective remains blocked
+PASS ready-to-turn-in status remains passable despite legacy count
+PASS completed quest remains passable despite legacy count
+PASS boss defeat and map visits alone do not invent completion
+PASS accepted successor restores only its completed prerequisites
+PASS all recovered records reference valid quest assets
+COMPLETE
+PASS Dosa actual save reader restores its own three quest records
+PASS Monk actual save reader restores its own three quest records
+PASS Swordswoman actual save reader restores its own three quest records
+PASS isolated live character load finishes
+PASS Dosa loads its original SpiderCave position
+PASS Dosa recovered quests reach live manager
+PASS live SpiderCave exit is unlocked
+PASS live recovery preserves level, EXP and currency without paying rewards twice
+PASS write recovered history to isolated save: 저장했습니다.
+PASS next save persists all recovered quest records
+PASS isolated live character load finishes
+PASS reselecting and reloading Dosa keeps SpiderCave unlocked
+LIVE COMPLETE

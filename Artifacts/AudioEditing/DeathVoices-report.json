@@ -1,0 +1,30 @@
+[
+  {
+    "character": "Dosa",
+    "source": "C:\\Users\\jeonghuncomputer\\Downloads\\yelling sounds\\yell9.wav",
+    "output": "Assets\\_Project\\Audio\\SoundEffects\\Impacts\\Dosa_Death.wav",
+    "source_range": [
+      0.22498866213151927,
+      1.0
+    ],
+    "duration": 0.7750113378684808,
+    "gain_db": 6.078780956661233,
+    "weighted_rms_db": -28.138089244931656,
+    "peak_dbfs": -12.0,
+    "volume": 0.45
+  },
+  {
+    "character": "Monk",
+    "source": "C:\\Users\\jeonghuncomputer\\Downloads\\yelling sounds\\yell6.wav",
+    "output": "Assets\\_Project\\Audio\\SoundEffects\\Impacts\\Monk_Death.wav",
+    "source_range": [
+      0.3349886621315193,
+      0.9749886621315192
+    ],
+    "duration": 0.64,
+    "gain_db": 1.9483663097719948,
+    "weighted_rms_db": -28.138089244931656,
+    "peak_dbfs": -13.666235556308768,
+    "volume": 0.45
+  }
+]

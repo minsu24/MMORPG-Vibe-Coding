@@ -132,6 +132,10 @@ MonoBehaviour:
   damageTextPrefab: {fileID: 3890553193077931215, guid: ffe84f00c64695a48b630feb8433f6f6, type: 3}
   textSpawnPoint: {fileID: 4856002280838881238}
   isKnockback: 0
+  spitAttackRange: 5
+  spitCooldown: 1.5
+  projectileSpeed: 7
+  spitProjectilePrefab: {fileID: 854469778894951779, guid: ea9bde73be40c8f448d3cff75b20607c, type: 3}
   questDefinition: {fileID: 11400000, guid: 676382dbbc00ac04fb36ce9ed427182d, type: 2}
   questSceneName: SpiderCave
 --- !u!50 &6244438462432620799

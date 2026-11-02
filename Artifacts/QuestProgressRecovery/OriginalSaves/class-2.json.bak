@@ -1,0 +1,193 @@
+{
+    "version": 1,
+    "characterClass": 2,
+    "savedUtc": "2026-10-29T16:35:38.9665421Z",
+    "scene": "BrokenSeal",
+    "position": {
+        "x": -4.059996128082275,
+        "y": -2.5159692764282228,
+        "z": 0.0
+    },
+    "health": 185.82046508789063,
+    "mana": 305.0,
+    "mental": 100.0,
+    "energy": 0.0,
+    "level": 10,
+    "experience": 150,
+    "currency": 1300,
+    "skillPoints": 1,
+    "advancementRank": 1,
+    "unlockedTier": 1,
+    "advancementAttack": 5.0,
+    "advancementDefense": 3.0,
+    "items": [
+        {
+            "id": "a8187da46ff350145b329f1397a40e7e",
+            "quantity": 2,
+            "slot": 3,
+            "equipped": false
+        },
+        {
+            "id": "de62d143e4c66c847afc0b92d47a2e94",
+            "quantity": 7,
+            "slot": 0,
+            "equipped": false
+        },
+        {
+            "id": "dc8baf7bb6c3a2d44a7696683dc7d4d2",
+            "quantity": 8,
+            "slot": 1,
+            "equipped": false
+        },
+        {
+            "id": "a74667e9959e7a44285c6eeeece75f5c",
+            "quantity": 1,
+            "slot": 0,
+            "equipped": true
+        },
+        {
+            "id": "dcbf5479bd032a24a95f5a25fb6574fe",
+            "quantity": 1,
+            "slot": 0,
+            "equipped": false
+        },
+        {
+            "id": "88a440264c3f63443a1a5955641169a4",
+            "quantity": 1,
+            "slot": 2,
+            "equipped": false
+        },
+        {
+            "id": "95030f8d227f9764787d3ddc05ff9fba",
+            "quantity": 1,
+            "slot": 1,
+            "equipped": true
+        }
+    ],
+    "skills": [
+        {
+            "id": "390809e0eddc5c049ab519420debe55e",
+            "level": 3
+        },
+        {
+            "id": "1591e04543bc7e647a835f0c3a19492b",
+            "level": 3
+        },
+        {
+            "id": "2c898bc42be3ada4ab1cd4ee7a2c0c0d",
+            "level": 3
+        },
+        {
+            "id": "14862ec99a4e0504b8a250a141f2f6ac",
+            "level": 1
+        },
+        {
+            "id": "965f397fa1f20924fba0f7ccd2200c57",
+            "level": 1
+        },
+        {
+            "id": "054cdc9ea283ed644a0efceab340d4c5",
+            "level": 1
+        }
+    ],
+    "consumableSlots": [
+        "de62d143e4c66c847afc0b92d47a2e94",
+        "dc8baf7bb6c3a2d44a7696683dc7d4d2",
+        "",
+        ""
+    ],
+    "quickSlots": [
+        "965f397fa1f20924fba0f7ccd2200c57",
+        "14862ec99a4e0504b8a250a141f2f6ac",
+        "054cdc9ea283ed644a0efceab340d4c5",
+        "3647757a24af2cd4c87f564126d39fec",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "quests": [
+        {
+            "id": "60c83731829d76749a21f2aef8916d29",
+            "amount": 5,
+            "status": 2
+        },
+        {
+            "id": "676382dbbc00ac04fb36ce9ed427182d",
+            "amount": 10,
+            "status": 2
+        },
+        {
+            "id": "1e8f52c2dabbec24085f8da748ce1f7b",
+            "amount": 1,
+            "status": 2
+        }
+    ],
+    "playedDialogues": [
+        "fbf048c245e3aae4899fdd7bc0ee6800",
+        "a3f8002eb42a8c246b203c5d024695db",
+        "189f7254e50102549bb0d1334594b2f1",
+        "5211ccd05e7e8e64f94182aa398b0bc6",
+        "93c33e06f67a82c489168cc2af58347a",
+        "d189677d599e1ba4fae4d158d8d8f3af",
+        "b12c6a580758caa49aceb24895dd000b"
+    ],
+    "rewardedDialogues": [
+        "d189677d599e1ba4fae4d158d8d8f3af"
+    ],
+    "bossDefeats": [
+        "Marshland:MON_Frog:Frog[2]/"
+    ],
+    "dungeonDefeats": [],
+    "goblinDefeats": [
+        "MovementPrototype:tutorial-goblin"
+    ],
+    "unlockedPortalDialogues": [
+        "d189677d599e1ba4fae4d158d8d8f3af"
+    ],
+    "visitedRegions": [
+        "Swordswoman.tutorial"
+    ],
+    "visitedScenes": [
+        "Swordswoman.MovementPrototype",
+        "Swordswoman.PrologueVilage",
+        "Swordswoman.Cemetery",
+        "Swordswoman.SpiderCave",
+        "Swordswoman.Marshland",
+        "Swordswoman.BrokenSeal"
+    ],
+    "knownScenes": [
+        "Swordswoman.Cemetery",
+        "Swordswoman.SpiderCave",
+        "Swordswoman.Marshland"
+    ],
+    "presentedScenes": [],
+    "codex": [
+        "Monster.goblin",
+        "Monster.ghost",
+        "Monster.spider",
+        "Monster.frog"
+    ],
+    "inventoryTutorial": true,
+    "statsTutorial": true,
+    "mapTutorial": true,
+    "companionTutorial": true,
+    "companionGuide": true,
+    "firstDeathGuide": false,
+    "companionsJson": "{\"entries\":[{\"characterClass\":2,\"companionId\":\"goblin\",\"progress\":{\"level\":4,\"equipped\":true,\"unlocked\":true}}]}",
+    "shopTutorial": false,
+    "dungeonTutorial": false,
+    "upgradeTutorial": true,
+    "dungeonDiscovered": false,
+    "equipmentInventoryUnified": true,
+    "toadDefeated": true,
+    "toadHasPosition": true,
+    "toadPosition": {
+        "x": 7.249999046325684,
+        "y": -1.6399999856948853,
+        "z": 0.0
+    },
+    "dungeon": "",
+    "dungeonSeconds": 0.0,
+    "dungeonCleared": false
+}

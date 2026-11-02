@@ -1,0 +1,17 @@
+{
+  "source": "C:\\Users\\jeonghuncomputer\\Downloads\\RPG_Essentials_Free\\12_Player_Movement_SFX\\03_Step_grass_03.wav",
+  "reference": "Assets\\_Project\\Audio\\SoundEffects\\Footsteps\\Barefoot_SoftStep.wav",
+  "output": "Assets\\_Project\\Audio\\SoundEffects\\Footsteps\\Grass_SoftStep.wav",
+  "duration_seconds": 0.14,
+  "sample_rate": 44100,
+  "channels": 1,
+  "gain_db": 11.408472415594261,
+  "peak_dbfs": -8.466521314309345,
+  "weighted_energy_difference_db": -1.3095614836525114e-05,
+  "match_method": "Equal K-weighted energy per step; not a listening test or full integrated LUFS measurement.",
+  "playback_volumes_preserved": {
+    "MonkPlayer": 0.236,
+    "Player_Dosa": 0.25
+  },
+  "edit": "First 140 ms; 2 ms fade in, 15 ms fade out; stereo duplicate channels collapsed to mono."
+}

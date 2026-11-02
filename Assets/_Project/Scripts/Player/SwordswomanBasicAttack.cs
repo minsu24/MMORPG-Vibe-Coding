@@ -18,6 +18,9 @@ namespace EasternFantasy.Player
         [SerializeField, Min(0f)] private float damageMultiplier = 1f;
         [Header("Sword Energy")]
         [SerializeField] private SwordSlashEffect slashEffectPrefab;
+        [Header("Impact Audio")]
+        [SerializeField] private AudioClip hitSound;
+        [SerializeField, Range(0f, 1f)] private float hitSoundVolume = .55f;
 
         private Collider2D[] hitBuffer = new Collider2D[16];
         private readonly HashSet<EnemyController> damagedEnemies = new HashSet<EnemyController>();
@@ -64,6 +67,7 @@ namespace EasternFantasy.Player
                 // Resolve facing at the hit frame, allowing turns during the wind-up.
                 animationController.RefreshAttackFacing();
                 attackDirection = animationController.FacingDirectionX < 0f ? -1f : 1f;
+                GetComponent<PlayerBasicAttackAudio>()?.Play();
                 SpawnSlash();
                 ApplyHit();
                 animationController.MarkBasicAttackHit(recoveryDuration);
@@ -107,7 +111,7 @@ namespace EasternFantasy.Player
                 if (enemy == null || enemy.HP <= 0f || !damagedEnemies.Add(enemy)) continue;
                 float before = enemy.HP;
                 entity.NotifyAttackTarget(enemy);
-                enemy.TakeDamage(damage, critical);
+                enemy.TakeDamage(damage, critical, true, hitSound, hitSoundVolume);
                 if (enemy.HP > 0f) enemy.ApplyKnockback(attackDirection);
                 entity.ApplyLifeSteal(Mathf.Max(0f, before - enemy.HP));
             }

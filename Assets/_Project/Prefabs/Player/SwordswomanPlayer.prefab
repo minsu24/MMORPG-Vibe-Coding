@@ -30,6 +30,12 @@ GameObject:
   - component: {fileID: 3608967761465947910}
   - component: {fileID: 7879775847313012779}
   - component: {fileID: 6300000000000000060}
+  - component: {fileID: 1959419286636029712}
+  - component: {fileID: 993769221439933708}
+  - component: {fileID: 6300000000000000091}
+  - component: {fileID: 1592346894391688619}
+  - component: {fileID: 5292888007476855191}
+  - component: {fileID: 6451933742796558308}
   m_Layer: 6
   m_Name: SwordswomanPlayer
   m_TagString: Player
@@ -133,6 +139,9 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 1
+  jumpSound: {fileID: 8300000, guid: 5b90ff3208f946078356d5f11ce5a8bf, type: 3}
+  jumpVolume: 0.35
+  jumpPitch: 1
   body: {fileID: 0}
 --- !u!114 &4975863889217955417
 MonoBehaviour:
@@ -147,6 +156,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerInputReader
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  attackBufferDuration: 0.15
+  repeatAttackWhileHeld: 1
 --- !u!114 &5523186586099855509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerEntity
   target: {fileID: 0}
+  combatTimeout: 10
   statGrowth: {fileID: 11400000, guid: 6f64803a8128a20157e5489cb1a67007, type: 2}
   maximumHealth: 100
   maximumMana: 100
@@ -341,6 +353,8 @@ MonoBehaviour:
   deathAnimationSeconds: 1
   deathHitStopSeconds: 0.08
   deathUiPrefab: {fileID: 100, guid: 460b6a5ea3c743efbe40c97c52a7532f, type: 3}
+  reviveSound: {fileID: 8300000, guid: 6fa27962105027348a4fc8edffd645da, type: 3}
+  reviveVolume: 0.13440001
 --- !u!114 &5112916743110000125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +406,8 @@ MonoBehaviour:
     m_Bits: 128
   damageMultiplier: 1
   slashEffectPrefab: {fileID: 1336696524969861766, guid: ba0ea704318150146b86bfbec43ab4ea, type: 3}
+  hitSound: {fileID: 8300000, guid: 1303f81b08b94615bb5cfbf38f760524, type: 3}
+  hitSoundVolume: 0.55
 --- !u!114 &3608967761465947910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,12 +425,19 @@ MonoBehaviour:
   drawingSkill: {fileID: 11400000, guid: 14862ec99a4e0504b8a250a141f2f6ac, type: 2}
   dashDistance: 4
   dashDuration: 0.25
+  dashSound: {fileID: 8300000, guid: 639f0871441441c2bd1b13edd8648253, type: 3}
+  dashSoundVolume: 0.5
   doubleSlashOffset: {x: 1.6, y: 0.15}
   doubleSlashSize: {x: 3, y: 1.8}
   doubleSlashDamageMultiplier: 1.2
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
+  firstSlashSound: {fileID: 8300000, guid: 1b502ee32b304385b4c72d4b83ee4b72, type: 3}
+  secondSlashSound: {fileID: 8300000, guid: ad4126ffe9ce48eebb7787a567b53a27, type: 3}
+  doubleSlashHitSound: {fileID: 8300000, guid: 10e555e5538f412196325f83f7da9fa8, type: 3}
+  slashSoundVolume: 0.45
+  doubleSlashHitVolume: 0.4
 --- !u!114 &7879775847313012779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,6 +459,210 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   trailPrefab: {fileID: 8446773057214547503, guid: 63e6a8f742620134db907d8c1fd4e492, type: 3}
+  chargeSound: {fileID: 8300000, guid: 498de8c4a55f4a49b334c63c863c1586, type: 3}
+  releaseSound: {fileID: 8300000, guid: 84c5dd231b0146bdb7bbc46ab263522a, type: 3}
+  hitSound: {fileID: 8300000, guid: e6694d6483104eb9bca57e485c0daa34, type: 3}
+  chargeSoundVolume: 0.4
+  releaseSoundVolume: 0.5
+  hitSoundVolume: 0.35
+--- !u!114 &6300000000000000060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c6a77d3c634ff2b50ef1f4a21e5df2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerFootstepDust
+  walkStateName: SwordWalk
+  stepPhaseOffset: 0
+  minimumTravelPerStep: 0.12
+  footstepSound: {fileID: 8300000, guid: 194085c6a9c24428aaedd9c21c3f9cff, type: 3}
+  footstepVolume: 0.18
+  dustMaterial: {fileID: 2100000, guid: 3ebfe20b94d84cd4ad3758a7e6e6b528, type: 2}
+  dustColor: {r: 0.85, g: 0.78, b: 0.65, a: 0.85}
+  particlesPerStep: 8
+  dustSize: 0.32
+  dustLifetime: 0.45
+  footSpread: 0.12
+--- !u!82 &1959419286636029712
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &993769221439933708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd2c745038cf1bf45b3846caad88d885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerBasicAttackAudio
+  attackSound: {fileID: 8300000, guid: 180d20f1533a4a9889ce396193a50e6d, type: 3}
+  volume: 0.35
+--- !u!114 &6300000000000000091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972ea328dbc50dd49b15138d3af32ea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerHurtAudio
+  hurtSound: {fileID: 8300000, guid: 1ce56d23401f48b7a8779a452c462656, type: 3}
+  volume: 0.35
+  minimumInterval: 0.2
+--- !u!114 &1592346894391688619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4568867e8640e7e46a7abf3336db516c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerDeathAudio
+  deathSound: {fileID: 8300000, guid: 9311181dfd2bbcc4887ed0eae092b7fe, type: 3}
+  volume: 0.45
+--- !u!114 &5292888007476855191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7630332c11107a4abffeaf43296472e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerDeathEffectAudio
+  effectSound: {fileID: 8300000, guid: 1e74c91498cf10447afdf60f79b359ae, type: 3}
+  volume: 0.28
+--- !u!114 &6451933742796558308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb203a00b262484eb6411277c58f5fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerItemAudio
+  equipSound: {fileID: 8300000, guid: 827b511cbed549a4b86005cbb7d4641f, type: 3}
+  potionSound: {fileID: 8300000, guid: c6dce5c0023ed1543b5c07995bd19cb6, type: 3}
+  currencySound: {fileID: 8300000, guid: 320155d852ad73a48ae1ac68c2d2a3cb, type: 3}
+  itemSound: {fileID: 8300000, guid: 9d275d7e4d96bc547b3ec63a3494261f, type: 3}
+  equipVolume: 0.35
+  equipPlaybackSpeed: 1.15
+  potionVolume: 0.3
+  currencyVolume: 0.08
+  itemVolume: 0.06
 --- !u!1 &7998046781919826993
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,6 +676,7 @@ GameObject:
   - component: {fileID: 8836460492422581657}
   - component: {fileID: 816156658992481673}
   - component: {fileID: 6300000000000000017}
+  - component: {fileID: 8559519030543019247}
   m_Layer: 6
   m_Name: CharacterVisual
   m_TagString: Untagged
@@ -574,28 +802,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9df7fee7b8df471e92066e261552baf2, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.SwordswomanWalkSmoothing
   walkStateName: SwordWalk
   blendDuration: 0.045
---- !u!114 &6300000000000000060
+--- !u!114 &8559519030543019247
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6769348460131052449}
+  m_GameObject: {fileID: 7998046781919826993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c6a77d3c634ff2b50ef1f4a21e5df2, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerFootstepDust
-  walkStateName: SwordWalk
-  stepPhaseOffset: 0
-  minimumTravelPerStep: 0.12
-  dustMaterial: {fileID: 2100000, guid: 3ebfe20b94d84cd4ad3758a7e6e6b528, type: 2}
-  dustColor: {r: 0.85, g: 0.78, b: 0.65, a: 0.85}
-  particlesPerStep: 8
-  dustSize: 0.32
-  dustLifetime: 0.45
-  footSpread: 0.12
+  m_Script: {fileID: 11500000, guid: 1326cecb3b3644d498f9cb2b9896f766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.DeathAnimationAudioEvents

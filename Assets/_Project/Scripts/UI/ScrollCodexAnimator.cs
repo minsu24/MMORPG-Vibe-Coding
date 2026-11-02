@@ -26,6 +26,8 @@ namespace EasternFantasy.UI
         private void Animate(bool open)
         {
             if (!viewport || (IsOpen == open && IsAnimating)) return;
+            if (open && !IsOpen) ScrollOpeningAudio.PlayFor(this);
+            if (!open && IsOpen) ScrollOpeningAudio.PlayClosingFor(this);
             sequence?.Kill(); IsOpen = open;
             sequence = DOTween.Sequence().SetUpdate(true);
             if (open) {

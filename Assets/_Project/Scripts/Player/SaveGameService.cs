@@ -22,6 +22,7 @@ namespace EasternFantasy.Saving
         public static SaveGameService Instance { get; private set; }
         public static bool IsRestoring { get; private set; }
         public static bool IsDemoSession { get; private set; }
+        public static bool IsAdminSession { get; private set; }
         public static bool FirstDeathGuideCompleted { get; set; }
         private PlayerEntity player;
         private CharacterClassId characterClass;
@@ -52,7 +53,7 @@ namespace EasternFantasy.Saving
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetStatics()
         {
-            Instance = null; IsRestoring = false; IsDemoSession = false; FirstDeathGuideCompleted = false; selectionPending = false;
+            Instance = null; IsRestoring = false; IsDemoSession = false; IsAdminSession = false; FirstDeathGuideCompleted = false; selectionPending = false;
         }
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Install()
@@ -75,12 +76,16 @@ namespace EasternFantasy.Saving
             selectionPending = false;
             Instance.characterClass = entity.GetComponent<PlayerClassRuntime>().RepresentedClass;
             Instance.ready = false; IsRestoring = true;
+            // A fresh character load discards test changes before normal saving resumes.
+            IsAdminSession = false;
             Instance.protectedSave = false;
             Instance.loading = IsDemoSession ? null : Read(Instance.characterClass, out Instance.protectedSave);
+            LockedPortalSequence.RestoreSave(Instance.loading ?? new SaveGameData());
             SceneWorldState.ClearForNewCharacter();
             PersistentBossController.RestoreSave(Instance.loading ?? new SaveGameData());
             MON_Goblin.RestoreSave(Instance.loading?.goblinDefeats);
             GameTimeController.SetPaused(Instance, true);
+            SceneLoadingScreen.Begin(immediately: !PortalSceneTransition.IsTransitioning, showArtwork: !IsDemoSession);
             Instance.StartCoroutine(Instance.RestoreCharacter());
         }
         public static void PrepareSelection()
@@ -96,8 +101,10 @@ namespace EasternFantasy.Saving
         }
         private IEnumerator RestoreCharacter()
         {
+            yield return SceneLoadingScreen.WaitUntilCovered();
             // Player Start methods establish stat/event bindings before restoration.
             yield return null;
+            SceneLoadingScreen.Report(0.15f);
             bool inputEnabled = player.GetComponent<PlayerInputReader>().enabled;
             player.GetComponent<PlayerInputReader>().enabled = false;
             var body = player.GetComponent<Rigidbody2D>();
@@ -110,7 +117,12 @@ namespace EasternFantasy.Saving
                     && Application.CanStreamedLevelBeLoaded(loading.scene))
                 {
                     MapTransferData.Clear();
-                    yield return SceneManager.LoadSceneAsync(loading.scene);
+                    var operation = SceneManager.LoadSceneAsync(loading.scene);
+                    while (!operation.isDone)
+                    {
+                        SceneLoadingScreen.Report(0.2f + Mathf.Clamp01(operation.progress / 0.9f) * 0.5f);
+                        yield return null;
+                    }
                     yield return null;
                 }
                 RestorePlayer(loading);
@@ -125,9 +137,12 @@ namespace EasternFantasy.Saving
             player.GetComponent<PlayerInputReader>().enabled = inputEnabled;
             Physics2D.SyncTransforms();
             loading = null; ready = true; IsRestoring = false;
+            SceneLoadingScreen.Report(0.8f);
             MapRegionDiscovery.RecordSceneEntry(SceneManager.GetActiveScene().name);
             MonsterCodexDiscovery.RecordSceneEntry(SceneManager.GetActiveScene().name);
             GameTimeController.SetPaused(this, false);
+            if (!PortalSceneTransition.IsTransitioning)
+                yield return SceneLoadingScreen.Finish();
             player.GetComponent<PlayerAdvancementSystem>()?.ResumeAfterSaveLoad();
             Bind();
             nextSave = Time.unscaledTime + AutosaveSeconds;
@@ -153,6 +168,7 @@ namespace EasternFantasy.Saving
             FirstDeathGuideCompleted = data.firstDeathGuide;
             PersistentBossController.RestoreSave(data); MON_Goblin.RestoreSave(data.goblinDefeats);
             DialogueTrigger.RestoreSave(data.playedDialogues); DialogueManager.RestoreSave(data.rewardedDialogues);
+            LockedPortalSequence.RestoreSave(data);
             ShopWindowUI.RestoreSave(data); DungeonWindowUI.RestoreSave(data); EquipmentUpgradeWindowUI.RestoreSave(data);
             MapRegionDiscovery.RestoreSave(data); MonsterCodexDiscovery.RestoreSave(data.codex);
             InventoryEquipmentTutorialUI.RestoreSave(data); StatsSkillTutorialUI.RestoreSave(data); MapTutorialUI.RestoreSave(data);
@@ -182,18 +198,28 @@ namespace EasternFantasy.Saving
             if (QuestManager.Instance != null) QuestManager.Instance.QuestsChanged -= RequestSave;
         }
         private void RequestSave() => requestedSave = Time.unscaledTime + 1f;
+        public static void BeginAdminSession()
+        {
+            if (IsAdminSession || IsDemoSession) return;
+            // Preserve legitimate progress once, before any administrator action mutates it.
+            SaveNow(out _);
+            IsAdminSession = true;
+            if (Instance != null) Instance.requestedSave = float.PositiveInfinity;
+        }
+
         private void Update()
         {
-            if (!ready || IsRestoring || IsDemoSession || protectedSave) return;
+            if (!ready || IsRestoring || IsDemoSession || IsAdminSession || protectedSave) return;
             if (Time.unscaledTime < Mathf.Min(nextSave, requestedSave)) return;
             SaveNow(out _);
             nextSave = Time.unscaledTime + AutosaveSeconds; requestedSave = float.PositiveInfinity;
         }
         public static bool SaveNow(out string message)
         {
+            if (IsAdminSession) { message = "관리자 테스트 중에는 저장하지 않습니다. 캐릭터를 다시 불러오면 정상 저장이 재개됩니다."; return false; }
             if (IsDemoSession) { message = "시연 중에는 기존 기록을 보호하기 위해 저장하지 않습니다."; return false; }
             var service = Instance;
-            if (service == null || !service.ready || IsRestoring || PortalSceneTransition.IsTransitioning
+            if (service == null || !service.ready || IsRestoring || PortalSceneTransition.IsTransitioning || SceneLoadingScreen.IsVisible
                 || service.player == null || service.player.IsDead || !IsGameplayScene(SceneManager.GetActiveScene().name))
             { message = "지금은 저장할 수 없습니다."; return false; }
             if (service.protectedSave)
@@ -219,6 +245,10 @@ namespace EasternFantasy.Saving
         }
         internal SaveGameData Capture()
         {
+            var questManager = QuestManager.Instance;
+            if (questManager == null) questManager = FindFirstObjectByType<QuestManager>();
+            if (questManager == null)
+                throw new InvalidOperationException("Quest state is unavailable; preserving the existing save instead of writing empty quest history.");
             var progression = player.GetComponent<PlayerProgression>();
             var data = new SaveGameData
             {
@@ -230,16 +260,18 @@ namespace EasternFantasy.Saving
                 currency = player.GetComponent<PlayerCurrency>()?.Yeopjeon ?? 0,
                 firstDeathGuide = FirstDeathGuideCompleted,
                 playedDialogues = DialogueTrigger.CaptureSave(), rewardedDialogues = DialogueManager.CaptureSave(),
+                unlockedPortalDialogues = LockedPortalSequence.CaptureSave(),
                 goblinDefeats = MON_Goblin.CaptureSave(), codex = MonsterCodexDiscovery.CaptureSave()
             };
             player.GetComponent<PlayerInventory>().CaptureSave(data);
             player.GetComponent<PlayerSkillSystem>().CaptureSave(data);
             player.GetComponent<PlayerAdvancementSystem>()?.CaptureSave(data);
-            QuestManager.Instance?.CaptureSave(data); ToadHuntQuestController.Instance?.CaptureSave(data);
+            questManager.CaptureSave(data); ToadHuntQuestController.Instance?.CaptureSave(data);
             PersistentBossController.CaptureSave(data); MapRegionDiscovery.CaptureSave(data);
             InventoryEquipmentTutorialUI.CaptureSave(data); StatsSkillTutorialUI.CaptureSave(data); MapTutorialUI.CaptureSave(data);
             PetCompanionWindowUI.Instance?.CaptureSave(data); DungeonRunController.Instance?.CaptureSave(data);
             ShopWindowUI.CaptureSave(data); DungeonWindowUI.CaptureSave(data); EquipmentUpgradeWindowUI.CaptureSave(data);
+            QuestSaveRecovery.RecoverMissingProgress(data);
             return data;
         }
         internal static SaveGameData Read(CharacterClassId id, out bool protectedFile)
@@ -258,6 +290,7 @@ namespace EasternFantasy.Saving
                         || !Finite(data.health) || !Finite(data.mana) || !Finite(data.mental) || !Finite(data.energy)
                         || data.items == null || data.skills == null || data.quests == null)
                         throw new InvalidDataException("Invalid character save.");
+                    QuestSaveRecovery.RecoverMissingProgress(data);
                     protectedFile = false;
                     return data;
                 }
@@ -274,6 +307,8 @@ namespace EasternFantasy.Saving
         }
         private IEnumerator ResetDemo()
         {
+            SceneLoadingScreen.Begin(showArtwork: false);
+            yield return SceneLoadingScreen.WaitUntilCovered();
             IsDemoSession = true; ready = false; IsRestoring = true; Unbind();
             GameTimeController.SetPaused(this, true);
             foreach (var settings in FindObjectsByType<SettingsMenuController>(FindObjectsInactive.Include, FindObjectsSortMode.None)) settings.Close();

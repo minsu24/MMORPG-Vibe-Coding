@@ -64,7 +64,7 @@ namespace EasternFantasy.UI
         {
             // Start the readable duration after the portal's black overlay disappears.
             yield return null;
-            while (PortalSceneTransition.IsTransitioning) yield return null;
+            while (PortalSceneTransition.IsTransitioning || SceneLoadingScreen.IsVisible) yield return null;
             bannerCanvas.enabled = true;
             yield return Fade(0f, 1f, fadeInSeconds);
             yield return new WaitForSecondsRealtime(holdSeconds);

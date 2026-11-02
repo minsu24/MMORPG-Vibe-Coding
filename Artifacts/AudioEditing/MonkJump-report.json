@@ -1,0 +1,15 @@
+{
+  "source": "jumppp11.ogg",
+  "output": "Assets\\_Project\\Audio\\SoundEffects\\Movement\\Monk_Jump_Short.wav",
+  "duration_seconds": 0.1680045351473923,
+  "high_pass_hz": 180,
+  "source_range_seconds": [
+    0.047,
+    0.215
+  ],
+  "fade_in_ms": 4,
+  "fade_out_ms": 25,
+  "volume": 0.25,
+  "pitch": 1.0,
+  "peak_matched_to_original": true
+}

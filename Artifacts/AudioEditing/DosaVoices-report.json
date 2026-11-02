@@ -1,0 +1,32 @@
+[
+  {
+    "source": "C:\\Users\\jeonghuncomputer\\Downloads\\Male protagonist\\Grunt Oof 2.wav",
+    "output": "Assets\\_Project\\Audio\\SoundEffects\\Impacts\\Dosa_Hurt_Voice.wav",
+    "guid": "48f0166f89234624821d0d036df3a0d2",
+    "semitones": 4,
+    "source_range": [
+      0.055,
+      0.285
+    ],
+    "duration": 0.18253968253968253,
+    "peak": 0.24560546875,
+    "rms": 0.05499995174087288,
+    "playback_volume": 0.35,
+    "playback_pitch": 1
+  },
+  {
+    "source": "C:\\Users\\jeonghuncomputer\\Downloads\\Male protagonist\\Jump 12.wav",
+    "output": "Assets\\_Project\\Audio\\SoundEffects\\Movement\\Dosa_Jump_Voice.wav",
+    "guid": "afe3c1abd2964010adc2ac60596f39c0",
+    "semitones": 2,
+    "source_range": [
+      0.065,
+      0.27
+    ],
+    "duration": 0.1826530612244898,
+    "peak": 0.3499755859375,
+    "rms": 0.04735213849887129,
+    "playback_volume": 0.35,
+    "playback_pitch": 1
+  }
+]

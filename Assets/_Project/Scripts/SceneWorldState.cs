@@ -100,7 +100,10 @@ public sealed partial class SceneWorldState : MonoBehaviour
         foreach (var enemy in Components<EnemyController>(scene))
         {
             string key = HierarchyKey(enemy.transform);
-            if (saved != null && saved.Enemies.TryGetValue(key, out var state)) state.Apply(enemy);
+            // The map cache can disable a defeated boss before Start ever runs.
+            // Restore its opened portals first, without replaying defeat rewards.
+            bool restoredBoss = enemy is PersistentBossController boss && boss.RestoreDefeatedState();
+            if (!restoredBoss && saved != null && saved.Enemies.TryGetValue(key, out var state)) state.Apply(enemy);
             sceneEnemies[key] = enemy;
         }
         foreach (var spawner in Components<MonsterSpawner>(scene))

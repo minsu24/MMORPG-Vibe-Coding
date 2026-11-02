@@ -17,12 +17,18 @@ namespace EasternFantasy.Skill
         [SerializeField, Min(0.01f), Tooltip("Distance travelled in world units, unless blocked by terrain.")]
         private float dashDistance = 4f;
         [SerializeField, Min(0.01f)] private float dashDuration = 0.25f;
+        [SerializeField] private AudioClip dashSound;
+        [SerializeField, Range(0f, 1f)] private float dashSoundVolume = .5f;
         [Header("Double Slash - Forward Rectangle")]
         [SerializeField] private Vector2 doubleSlashOffset = new Vector2(1.6f, 0.15f);
         [SerializeField] private Vector2 doubleSlashSize = new Vector2(3f, 1.8f);
         [SerializeField, Min(0f), Tooltip("Attack damage multiplier for each of the two strikes.")]
         private float doubleSlashDamageMultiplier = 1.2f;
         [SerializeField] private LayerMask enemyLayers;
+        [Header("Double Slash Audio")]
+        [SerializeField] private AudioClip firstSlashSound, secondSlashSound, doubleSlashHitSound;
+        [SerializeField, Range(0f, 1f)] private float slashSoundVolume = .45f;
+        [SerializeField, Range(0f, 1f)] private float doubleSlashHitVolume = .4f;
 
         private PlayerEntity entity;
         private PlayerMovement2D movement;
@@ -30,10 +36,13 @@ namespace EasternFantasy.Skill
         private PlayerSkillSystem skills;
         private SwordswomanDrawingAttack drawingAttack;
         private Coroutine dashRoutine;
+        private AudioSource dashAudio;
+        private AudioSource slashAudio;
         private Coroutine slashRoutine;
         private bool slashActive;
         private float slashDirection;
         private int lastStrike;
+        private int lastSwing;
         private Collider2D[] hitBuffer = new Collider2D[16];
         private readonly HashSet<EnemyController> hitEnemies = new HashSet<EnemyController>();
         private readonly Dictionary<SkillDefinition, float> cooldownEnds = new Dictionary<SkillDefinition, float>();
@@ -79,6 +88,7 @@ namespace EasternFantasy.Skill
                     animationController.FinishSkillAnimation();
                     return false;
                 }
+                PlayDashSound();
                 dashRoutine = StartCoroutine(WaitForDash());
             }
             else if (skill == doubleSlashSkill)
@@ -91,6 +101,7 @@ namespace EasternFantasy.Skill
                 }
                 slashActive = true;
                 lastStrike = 0;
+                lastSwing = 0;
                 slashDirection = animationController.FacingDirectionX < 0f ? -1f : 1f;
                 movement.SetMovementLocked(true);
                 slashRoutine = StartCoroutine(WaitForDoubleSlash());
@@ -107,6 +118,29 @@ namespace EasternFantasy.Skill
         {
             return skill != null && cooldownEnds.TryGetValue(skill, out float end)
                 ? Mathf.Max(0f, end - Time.time) : 0f;
+        }
+
+        private void PlayDashSound()
+        {
+            if (dashSound == null) return;
+            if (dashAudio == null)
+            {
+                var audioObject = new GameObject("Swordswoman Dash Audio");
+                audioObject.transform.SetParent(transform, false);
+                dashAudio = audioObject.AddComponent<AudioSource>();
+                dashAudio.playOnAwake = false;
+                dashAudio.loop = false;
+                dashAudio.spatialBlend = 0f;
+            }
+            dashAudio.PlayOneShot(dashSound, dashSoundVolume);
+        }
+
+        public void OnDoubleSlashSwing(int strike)
+        {
+            if (!slashActive || entity.IsDead || entity.isKnockback || strike < 1 || strike > 2
+                || strike != lastSwing + 1 || strike != lastStrike + 1) return;
+            lastSwing = strike;
+            PlaySlashSound(strike == 1 ? firstSlashSound : secondSlashSound);
         }
 
         public void OnDoubleSlashHit(int strike)
@@ -140,7 +174,7 @@ namespace EasternFantasy.Skill
                 GameObject textPrefab = enemy.damageTextPrefab;
                 float before = enemy.HP;
                 entity.NotifyAttackTarget(enemy);
-                enemy.TakeDamage(damage, critical, false);
+                enemy.TakeDamage(damage, critical, false, doubleSlashHitSound, doubleSlashHitVolume);
                 float dealt = Mathf.Max(0f, before - enemy.HP);
                 if (dealt <= 0f) continue;
                 entity.ApplyLifeSteal(dealt);
@@ -163,6 +197,21 @@ namespace EasternFantasy.Skill
             dashRoutine = null;
         }
 
+        private void PlaySlashSound(AudioClip clip)
+        {
+            if (clip == null) return;
+            if (slashAudio == null)
+            {
+                var root = new GameObject("Double Slash Cast Audio");
+                root.transform.SetParent(transform, false);
+                slashAudio = root.AddComponent<AudioSource>();
+                slashAudio.playOnAwake = false;
+                slashAudio.loop = false;
+                slashAudio.spatialBlend = 0f;
+            }
+            slashAudio.PlayOneShot(clip, slashSoundVolume);
+        }
+
         private IEnumerator WaitForDoubleSlash()
         {
             yield return null;
@@ -182,6 +231,8 @@ namespace EasternFantasy.Skill
 
         private void OnDisable()
         {
+            if (dashAudio != null) dashAudio.Stop();
+            if (slashAudio != null) slashAudio.Stop();
             if (dashRoutine != null)
             {
                 StopCoroutine(dashRoutine);

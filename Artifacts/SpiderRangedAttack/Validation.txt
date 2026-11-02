@@ -1,0 +1,19 @@
+PASS: Detected target outside attack range is chased
+PASS: Entering separate attack range starts attack
+PASS: No projectile before the open-mouth frame
+PASS: Projectile is released on open-mouth frame 5
+PASS: Release sound plays at projectile launch
+PASS: Repeated event cannot emit duplicate projectile
+PASS: Projectile travels to player and hits exactly once
+PASS: Ranged damage matches original 10 damage and defense handling
+PASS: Player collision plays impact sound once
+PASS: Spider waits stationary during attack cooldown
+PASS: Leaving attack range resumes chasing
+PASS: Left attack faces and fires left
+PASS: Projectile has committed aim and can be dodged
+PASS: Thin wall intercepts projectile and plays impact sound
+PASS: Knockback cancels attack before release
+PASS: Dead spider cannot release projectile
+PASS: Disable clears attack state
+PASS: Outside detection range does not attack
+PASS: Spawn protection prevents attacks

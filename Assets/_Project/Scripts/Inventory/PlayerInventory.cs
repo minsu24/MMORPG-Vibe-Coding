@@ -51,6 +51,7 @@ namespace EasternFantasy.Inventory
         private bool initialized;
 
         public const int SlotsPerCategory = 20;
+        public static int GetSlotCapacity(ItemCategory category) => SlotsPerCategory;
         public CharacterClassId CurrentClass
         {
             get
@@ -73,6 +74,8 @@ namespace EasternFantasy.Inventory
         }
         public IReadOnlyList<ItemDefinition> ConsumableSlots => consumableSlots;
         public event Action InventoryChanged;
+        public event Action<ItemDefinition> EquipmentEquipped;
+        public event Action<ItemDefinition> ConsumableUsed;
         public static event Action<PlayerInventory, ItemDefinition> ItemAcquired;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetAcquisitionEvents() { ItemAcquired = null; }
@@ -176,9 +179,9 @@ namespace EasternFantasy.Inventory
             {
                 if (stack?.Item != null && stack.Quantity > 0)
                 {
-                    int slot = nextSlots.TryGetValue(stack.Item.Category, out int next) ? next : 0;
+                    int slot = nextSlots.TryGetValue(stack.Item.InventoryCategory, out int next) ? next : 0;
                     items.Add(new InventoryStack(stack.Item, stack.Quantity, slot));
-                    nextSlots[stack.Item.Category] = slot + 1;
+                    nextSlots[stack.Item.InventoryCategory] = slot + 1;
                 }
             }
         }
@@ -193,7 +196,7 @@ namespace EasternFantasy.Inventory
             if (existing != null)
                 return existing.Quantity + amount <= item.MaximumStack;
 
-            return FindFirstEmptySlot(item.Category) >= 0;
+            return FindFirstEmptySlot(item.InventoryCategory) >= 0;
         }
 
         public bool AddItem(ItemDefinition item, int amount = 1)
@@ -205,7 +208,7 @@ namespace EasternFantasy.Inventory
             if (existing != null)
                 existing.SetQuantity(existing.Quantity + amount);
             else
-                items.Add(new InventoryStack(item, amount, FindFirstEmptySlot(item.Category)));
+                items.Add(new InventoryStack(item, amount, FindFirstEmptySlot(item.InventoryCategory)));
 
             InventoryChanged?.Invoke();
             ItemAcquired?.Invoke(this, item);
@@ -225,21 +228,21 @@ namespace EasternFantasy.Inventory
                 if ((long)(existing != null ? existing.Quantity : 0) + reward.Value > reward.Key.MaximumStack)
                     return false;
                 if (existing != null) continue;
-                newSlots.TryGetValue(reward.Key.Category, out int needed);
-                newSlots[reward.Key.Category] = needed + 1;
+                newSlots.TryGetValue(reward.Key.InventoryCategory, out int needed);
+                newSlots[reward.Key.InventoryCategory] = needed + 1;
             }
             foreach (var category in newSlots)
             {
                 var occupied = new HashSet<int>();
                 foreach (var stack in items)
-                    if (stack.Item.Category == category.Key) occupied.Add(stack.SlotIndex);
-                if (occupied.Count + category.Value > SlotsPerCategory) return false;
+                    if (stack.Item.InventoryCategory == category.Key) occupied.Add(stack.SlotIndex);
+                if (occupied.Count + category.Value > GetSlotCapacity(category.Key)) return false;
             }
             foreach (var reward in rewards)
             {
                 var existing = FindStack(reward.Key);
                 if (existing != null) existing.SetQuantity(existing.Quantity + reward.Value);
-                else items.Add(new InventoryStack(reward.Key, reward.Value, FindFirstEmptySlot(reward.Key.Category)));
+                else items.Add(new InventoryStack(reward.Key, reward.Value, FindFirstEmptySlot(reward.Key.InventoryCategory)));
             }
             InventoryChanged?.Invoke();
             foreach (var reward in rewards) ItemAcquired?.Invoke(this, reward.Key);
@@ -278,7 +281,7 @@ namespace EasternFantasy.Inventory
             if (source == null || replacement == null || replacement == item) return false;
             InventoryStack target = FindStack(replacement);
             if (target != null && target.Quantity >= replacement.MaximumStack) return false;
-            if (target == null && source.Quantity > 1 && FindFirstEmptySlot(item.Category) < 0) return false;
+            if (target == null && source.Quantity > 1 && FindFirstEmptySlot(item.InventoryCategory) < 0) return false;
             int index = source.SlotIndex;
             bool equipped = IsEquipped(item);
             if (equipped && !CanEquip(replacement)) return false;
@@ -286,7 +289,7 @@ namespace EasternFantasy.Inventory
             if (source.Quantity == 0) items.Remove(source);
             if (target != null) target.SetQuantity(target.Quantity + 1);
             else items.Add(new InventoryStack(replacement, 1,
-                source.Quantity == 0 ? index : FindFirstEmptySlot(item.Category)));
+                source.Quantity == 0 ? index : FindFirstEmptySlot(item.InventoryCategory)));
             if (equipped) equippedItems[item.EquipmentSlot] = replacement;
             if (notify) InventoryChanged?.Invoke();
             return true;
@@ -309,7 +312,7 @@ namespace EasternFantasy.Inventory
             InventoryStack source = FindStack(item), target = FindStack(replacement);
             error = "인벤토리 공간이나 다음 등급의 최대 수량을 확인해 주세요.";
             if (target != null && target.Quantity >= replacement.MaximumStack) return false;
-            if (target == null && source.Quantity > 1 && FindFirstEmptySlot(item.Category) < 0) return false;
+            if (target == null && source.Quantity > 1 && FindFirstEmptySlot(item.InventoryCategory) < 0) return false;
             error = "엽전이 부족합니다.";
             if (currency == null || !currency.CanAfford(recipe.CostYeopjeon)) return false;
             foreach (var pair in requirements)
@@ -344,7 +347,7 @@ namespace EasternFantasy.Inventory
         public bool MoveItem(ItemDefinition item, int targetSlotIndex)
         {
             EnsureInitialized();
-            if (item == null || targetSlotIndex < 0 || targetSlotIndex >= SlotsPerCategory)
+            if (item == null || targetSlotIndex < 0 || targetSlotIndex >= GetSlotCapacity(item.InventoryCategory))
                 return false;
 
             InventoryStack source = FindStack(item);
@@ -352,7 +355,7 @@ namespace EasternFantasy.Inventory
                 return false;
 
             InventoryStack target = items.Find(stack =>
-                stack.Item.Category == item.Category && stack.SlotIndex == targetSlotIndex);
+                stack.Item.InventoryCategory == item.InventoryCategory && stack.SlotIndex == targetSlotIndex);
             int previousIndex = source.SlotIndex;
             source.SetSlotIndex(targetSlotIndex);
             target?.SetSlotIndex(previousIndex);
@@ -388,6 +391,7 @@ namespace EasternFantasy.Inventory
 
             equippedItems[item.EquipmentSlot] = item;
             InventoryChanged?.Invoke();
+            EquipmentEquipped?.Invoke(item);
             return true;
         }
 
@@ -409,7 +413,7 @@ namespace EasternFantasy.Inventory
 
             if (item.IsEquippable)
                 return ToggleEquipment(item);
-            if (item.Category == ItemCategory.Consumable)
+            if (item.InventoryCategory == ItemCategory.Consumable)
                 return UseConsumable(item);
             return false;
         }
@@ -418,7 +422,7 @@ namespace EasternFantasy.Inventory
         {
             EnsureInitialized();
             if (index < 0 || index >= ConsumableSlotCount || item == null
-                || item.Category != ItemCategory.Consumable || GetQuantity(item) <= 0)
+                || item.InventoryCategory != ItemCategory.Consumable || GetQuantity(item) <= 0)
                 return false;
 
             for (int i = 0; i < consumableSlots.Length; i++)
@@ -517,7 +521,9 @@ namespace EasternFantasy.Inventory
             if (!used)
                 return false;
 
-            return RemoveItem(item);
+            if (!RemoveItem(item)) return false;
+            ConsumableUsed?.Invoke(item);
+            return true;
         }
 
         private InventoryStack FindStack(ItemDefinition item)
@@ -527,10 +533,10 @@ namespace EasternFantasy.Inventory
 
         private int FindFirstEmptySlot(ItemCategory category)
         {
-            for (int slot = 0; slot < SlotsPerCategory; slot++)
+            for (int slot = 0; slot < GetSlotCapacity(category); slot++)
             {
                 bool occupied = items.Exists(stack =>
-                    stack.Item.Category == category && stack.SlotIndex == slot);
+                    stack.Item.InventoryCategory == category && stack.SlotIndex == slot);
                 if (!occupied)
                     return slot;
             }

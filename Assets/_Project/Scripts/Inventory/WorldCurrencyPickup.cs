@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+using EasternFantasy.Player;
 
 namespace EasternFantasy.Inventory
 {
@@ -100,7 +101,10 @@ namespace EasternFantasy.Inventory
             DropPlacement2D.StopPhysicalDrop(dropBody, gameObject);
             currency.Add(amount);
             pickupCollider.enabled = false;
-            if (collectSound != null)
+            PlayerItemAudio audio = currency.GetComponent<PlayerItemAudio>();
+            if (audio != null)
+                audio.PlayCurrencyPickup();
+            else if (collectSound != null)
                 AudioSource.PlayClipAtPoint(collectSound, transform.position, collectSoundVolume);
             PlayCollectFeedback(currency.transform);
         }

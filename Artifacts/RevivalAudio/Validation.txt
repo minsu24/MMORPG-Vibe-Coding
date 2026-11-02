@@ -1,0 +1,17 @@
+Revival starts with loading audio blocked
+No revival sound during initial fade
+Routine yields covered restoration before sound
+No revival sound during covered restoration
+Routine waits for loading Finish before sound
+No sound until loading actually finishes
+Routine completes after successful restoration and loading
+Revival sound plays after loading releases audio
+Revival playback audible at 35 percent, 2D, once
+Alive player cannot retrigger revival sound
+Disabling player stops revival tail
+Revival sound assigned for Player
+Revival sound assigned for MonkPlayer
+Revival sound assigned for SwordswomanPlayer
+PASS: early cue starts at reveal fade, after restoration and camera settling.
+PASS: only revival cue bypasses listener pause during reveal; regular loading mute restored afterwards.
+PASS: subsequent loading suppresses revival tail.

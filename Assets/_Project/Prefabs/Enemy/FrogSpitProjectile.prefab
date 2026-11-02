@@ -175,3 +175,8 @@ MonoBehaviour:
   - {fileID: -6607924577637554156, guid: 14c72222b4802554aa287932efc47930, type: 3}
   - {fileID: -1572092555189039312, guid: 14c72222b4802554aa287932efc47930, type: 3}
   framesPerSecond: 10
+  impactFrames:
+  - {fileID: 21300000, guid: cc7ca1a729e481741aef96ca2006509f, type: 2}
+  - {fileID: 21300000, guid: 9efb56e650d937f4d98ea6f0fb37d11f, type: 2}
+  - {fileID: 21300000, guid: d0d39e5714cd18545ad4bfd0652d7e94, type: 2}
+  impactFramesPerSecond: 10

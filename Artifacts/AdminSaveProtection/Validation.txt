@@ -1,0 +1,19 @@
+Compiled IL save protection checks; Unity gameplay was not executed.
+PASS SaveNow checks administrator protection first and returns false before capturing or writing state
+PASS SaveGameService.Update: get_IsAdminSession precedes get_unscaledTime
+PASS SaveGameService.BeginAdminSession: get_IsAdminSession precedes SaveNow
+PASS SaveGameService.BeginAdminSession: SaveNow precedes set_IsAdminSession
+PASS SaveGameService.Attach: set_IsAdminSession precedes Read
+PASS new play sessions reset the protection flag
+PASS OnApplicationPause uses the guarded SaveNow entry point
+PASS OnApplicationFocus uses the guarded SaveNow entry point
+PASS OnApplicationQuit uses the guarded SaveNow entry point
+PASS PrepareSelection uses the guarded SaveNow entry point
+PASS PlayerAdminController.DrawWindow: BeginAdminSession precedes AddExperience
+PASS PlayerAdminController.DrawWindow: BeginAdminSession precedes RestoreHealth
+PASS PlayerAdminController.DrawWindow: BeginAdminSession precedes KillForTesting
+PASS PlayerAdminController.ChangeScene: BeginAdminSession precedes TryLoad
+PASS PlayerAdminController.TeleportToSavedPosition: BeginAdminSession precedes TeleportToAndRetarget
+PASS enabling ghost movement protects the save
+PASS displaying the administrator panel alone does not disable saving
+PASS turning ghost mode off cannot clear administrator protection

@@ -1,0 +1,17 @@
+Loading UI visibility native validation
+PASS existing UI and raycasts suppressed immediately
+PASS world-space TMP text hidden immediately
+PASS new, nested, and newly activated UI hidden before rendering
+PASS UI re-enabled by another controller is suppressed again
+PASS loading Canvas still renders
+PASS all scene and persistent game Canvases hidden
+PASS loading artwork remains visible across scene load
+PASS UI restored after loading fade completes
+PASS original disabled state retained; text and raycasts restored
+PASS ordinary black-fade transitions hide UI immediately
+PASS loading Canvas still renders
+PASS all scene and persistent game Canvases hidden
+PASS cancel restores UI correctly
+PASS destroyed UI references safely ignored on subsequent loads
+COMPLETE
+PASS original save unchanged and preferences restored

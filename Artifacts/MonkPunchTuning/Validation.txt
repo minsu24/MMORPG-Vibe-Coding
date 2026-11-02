@@ -1,0 +1,6 @@
+Native punch tuning validation
+PASS actual punch cast uses shared cloth1 clip
+PASS strike 1 at 0.293s; speed=1.2; shared audio playing
+PASS strike 2 at 0.572s; speed=1.2; shared audio playing
+PASS combat recovered at 0.990s
+COMPLETE

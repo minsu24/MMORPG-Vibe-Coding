@@ -1,0 +1,53 @@
+Native three-class basic attack movement validation
+PASS Dosa: real class prefab loaded
+PASS Dosa: grounded on test platform
+PASS Dosa: normal movement works before attacking
+PASS Dosa: grounded basic attack accepted
+PASS Dosa: attack immediately stops existing horizontal motion
+PASS Dosa: grounded attack completes normally while movement stays blocked
+PASS Dosa: held movement resumes automatically after recovery
+PASS Dosa: normal jump remains available
+PASS Dosa: basic attack can start during a real jump
+PASS Dosa: airborne attack preserves horizontal and vertical velocity
+PASS Dosa: can steer both left and right during the same jump attack
+PASS Dosa: gravity and vertical movement continue during the airborne attack
+PASS Dosa: airborne movement resumes after the attack
+PASS Dosa: next attack accepted for cancellation test
+PASS Dosa: cancellation releases movement immediately
+PASS Dosa: existing full movement locks still block combat
+PASS Monk: real class prefab loaded
+PASS Monk: grounded on test platform
+PASS Monk: normal movement works before attacking
+PASS Monk: grounded basic attack accepted
+PASS Monk: attack immediately stops existing horizontal motion
+PASS Monk: grounded attack completes normally while movement stays blocked
+PASS Monk: held movement resumes automatically after recovery
+PASS Monk: normal jump remains available
+PASS Monk: basic attack can start during a real jump
+PASS Monk: airborne attack preserves horizontal and vertical velocity
+PASS Monk: can steer both left and right during the same jump attack
+PASS Monk: gravity and vertical movement continue during the airborne attack
+PASS Monk: airborne movement resumes after the attack
+PASS Monk: next attack accepted for cancellation test
+PASS Monk: cancellation releases movement immediately
+PASS Monk: existing full movement locks still block combat
+PASS Swordswoman: real class prefab loaded
+PASS Swordswoman: grounded on test platform
+PASS Swordswoman: normal movement works before attacking
+PASS Swordswoman: grounded basic attack accepted
+PASS Swordswoman: attack immediately stops existing horizontal motion
+PASS Swordswoman: grounded attack completes normally while movement stays blocked
+PASS Swordswoman: held movement resumes automatically after recovery
+PASS Swordswoman: normal jump remains available
+PASS Swordswoman: basic attack can start during a real jump
+PASS Swordswoman: airborne attack preserves horizontal and vertical velocity
+PASS Swordswoman: can steer both left and right during the same jump attack
+PASS Swordswoman: gravity and vertical movement continue during the airborne attack
+PASS Swordswoman: airborne movement resumes after the attack
+PASS Swordswoman: next attack accepted for cancellation test
+PASS Swordswoman: cancellation releases movement immediately
+PASS Swordswoman: existing full movement locks still block combat
+COMPLETE
+PASS Dosa: original save unchanged
+PASS Monk: original save unchanged
+PASS Swordswoman: original save unchanged

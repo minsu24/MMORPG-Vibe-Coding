@@ -1,0 +1,14 @@
+{
+  "source": "C:\\Users\\jeonghuncomputer\\Downloads\\150gameeffectsounds\\03_explosions_destruction\\ElectricExplosion_s01.wav",
+  "output": "Assets\\_Project\\Audio\\SoundEffects\\Skills\\Dosa_ElectricExplosion_Hit.wav",
+  "guid": "d051c4ad041342a9b89872699d785afe",
+  "duration": 0.2,
+  "peak_dbfs": -8.198113784262897,
+  "rms_difference_db": -6.700301073790085e-06,
+  "edit": "First 200 ms; 1.5 ms attack, 45 ms release; RMS matched to previous impact with -6 dBFS peak ceiling.",
+  "playback_volume": 0.15,
+  "prefabs": [
+    "Projectile",
+    "TalismanProjectile"
+  ]
+}

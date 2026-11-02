@@ -11,7 +11,7 @@ namespace EasternFantasy.Editor
     // Shared by the original builder and the repair command so rebuilding preserves the layout.
     public static class DungeonWindowLayoutSetup
     {
-        private const string PrefabPath = "Assets/_Project/Prefabs/UI/DungeonWindow.prefab";
+        private const string PrefabPath = "Assets/_Project/Resources/DungeonWindow.prefab";
 
         public static void Apply()
         {

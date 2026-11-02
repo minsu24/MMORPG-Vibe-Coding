@@ -1,0 +1,22 @@
+Native sealed portal save validation
+PASS new character starts with sealed door
+PASS actual unlock dialogue starts
+PASS dialogue completion starts original unlock cinematic
+PASS unlock saved to disk immediately, before cinematic finishes
+PASS original cinematic completes with open portal
+PASS unlocked seal graphic hidden
+PASS fresh character reset clears another character's unlock
+PASS JSON round trip restores door and seal appearance
+PASS unknown save IDs safely ignored
+PASS started but unrewarded conversation does not falsely unlock door
+PASS legacy save with completed GoldFrog dialogue recovers unlocked door
+PASS legacy recovery is promoted into explicit saved unlock
+PASS map revisit retains unlock without replaying cinematic
+PASS normal save succeeds after revisit
+PASS administrator unlock cannot write to save file
+FIRST_SESSION_COMPLETE
+PASS new Play session loads saved BrokenSeal map
+PASS cold session restores open portal and hidden seal from disk
+PASS restart clears test mode and does not replay unlock cinematic
+COMPLETE
+PASS original save unchanged and editor preferences restored

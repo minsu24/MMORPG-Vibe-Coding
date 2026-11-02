@@ -11,6 +11,7 @@ namespace EasternFantasy.Inventory
     {
         internal void CaptureSave(SaveGameData data)
         {
+            data.equipmentInventoryUnified = true;
             foreach (var stack in Items) data.items.Add(new SavedItem { id = SaveAssetCatalog.Id(stack.Item), quantity = stack.Quantity, slot = stack.SlotIndex, equipped = IsEquipped(stack.Item) });
             data.consumableSlots = consumableSlots.Select(SaveAssetCatalog.Id).ToArray();
         }
@@ -21,7 +22,24 @@ namespace EasternFantasy.Inventory
             {
                 var item = SaveAssetCatalog.Resolve<ItemDefinition>(entry.id);
                 if (item == null || entry.quantity <= 0) continue;
-                items.Add(new InventoryStack(item, entry.quantity, Mathf.Clamp(entry.slot, 0, SlotsPerCategory - 1)));
+                int slot = entry.slot;
+                if (!data.equipmentInventoryUnified && item.Category == ItemCategory.Accessory)
+                    slot += SlotsPerCategory;
+                int capacity = GetSlotCapacity(item.InventoryCategory);
+                if (slot < 0 || slot >= capacity || items.Exists(stack =>
+                    stack.Item.InventoryCategory == item.InventoryCategory && stack.SlotIndex == slot))
+                {
+                    slot = FindFirstEmptySlot(item.InventoryCategory);
+                    // Retain legacy overflow items instead of deleting them or
+                    // assigning multiple stacks to the same visible slot.
+                    if (slot < 0)
+                    {
+                        slot = capacity;
+                        while (items.Exists(stack => stack.Item.InventoryCategory == item.InventoryCategory
+                            && stack.SlotIndex == slot)) slot++;
+                    }
+                }
+                items.Add(new InventoryStack(item, entry.quantity, slot));
                 if (entry.equipped && CanEquip(item)) equippedItems[item.EquipmentSlot] = item;
             }
             consumableSlots = new ItemDefinition[ConsumableSlotCount];
@@ -118,6 +136,7 @@ namespace EasternFantasy.Quest
         }
         internal void RestoreSave(SaveGameData data)
         {
+            QuestSaveRecovery.RecoverMissingProgress(data);
             quests.Clear(); playerProgression = null; player = null;
             foreach (var entry in data.quests)
             {

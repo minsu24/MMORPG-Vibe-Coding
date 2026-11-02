@@ -126,7 +126,10 @@ namespace EasternFantasy.Inventory
             floating.Stop();
             DropPlacement2D.StopPhysicalDrop(dropBody, gameObject);
             pickupCollider.enabled = false;
-            if (collectSound != null)
+            PlayerItemAudio audio = inventory.GetComponent<PlayerItemAudio>();
+            if (audio != null)
+                audio.PlayItemPickup();
+            else if (collectSound != null)
                 AudioSource.PlayClipAtPoint(collectSound, transform.position, collectSoundVolume);
             PlayCollectFeedback(inventory.transform);
         }

@@ -1,0 +1,26 @@
+PASS: Original contact damage remains 5 outside an attack
+PASS: Player in range starts approach
+PASS: Swing sound starts on airborne swing frame 6
+PASS: Impact sound starts on ground impact frame 7
+PASS: Goblin approaches then travels toward player
+PASS: Windup, leap and recovery phases all execute
+PASS: Physical body leaves the ground during leap
+PASS: One attack causes exactly one damage event
+PASS: Each goblin attack sound plays exactly once
+PASS: Leap damage matches existing contact damage and defenses
+PASS: Player collision restored after attack
+PASS: Gravity restored after landing
+PASS: Cooldown prevents immediate repeat attack
+PASS: Close target enters windup
+PASS: Dodging behind committed jump avoids damage
+PASS: Jump does not home toward a dodging player
+PASS: Interruption fixture starts in flight
+PASS: Player knockback interrupts leap attack
+PASS: Interrupt restores gravity
+PASS: Interrupt restores collision pairs
+PASS: Defeat cancels in-flight attack
+PASS: Defeat retains existing corpse handling
+PASS: Death clears ignored collision pairs
+PASS: Out-of-range player does not start leap attack
+PASS: Dead player cannot trigger attack
+PASS: Spawn contact grace also prevents leap attack

@@ -24,6 +24,7 @@ public sealed class CameraFollowDetail : MonoBehaviour
     private CinemachineCamera virtualCamera;
     private CinemachinePositionComposer positionComposer;
     private CinemachineConfiner2D confiner;
+    private CameraBoundaryFinalizer boundaryFinalizer;
     private Rigidbody2D followedBody;
 
     private void Awake()
@@ -31,6 +32,11 @@ public sealed class CameraFollowDetail : MonoBehaviour
         virtualCamera = GetComponent<CinemachineCamera>();
         positionComposer = GetComponent<CinemachinePositionComposer>();
         confiner = GetComponent<CinemachineConfiner2D>();
+        if (confiner != null)
+        {
+            boundaryFinalizer = GetComponent<CameraBoundaryFinalizer>();
+            if (boundaryFinalizer == null) boundaryFinalizer = gameObject.AddComponent<CameraBoundaryFinalizer>();
+        }
         ApplyBoundarySettings();
     }
 
@@ -58,7 +64,8 @@ public sealed class CameraFollowDetail : MonoBehaviour
 
         // Once the confiner has stopped the camera, remove the speed lag. This
         // makes reversing away from a map edge feel immediate instead of sticky.
-        if (confiner != null && confiner.CameraWasDisplaced(virtualCamera))
+        if (confiner != null && (confiner.CameraWasDisplaced(virtualCamera)
+            || (boundaryFinalizer != null && boundaryFinalizer.WasConstrained)))
             targetDamping = responsiveDamping;
 
         Vector3 damping = positionComposer.Damping;
@@ -73,6 +80,19 @@ public sealed class CameraFollowDetail : MonoBehaviour
     {
         Transform follow = virtualCamera != null ? virtualCamera.Follow : null;
         followedBody = follow != null ? follow.GetComponentInParent<Rigidbody2D>() : null;
+    }
+
+    public static void ResetAfterTeleport(Transform target)
+    {
+        foreach (var camera in FindObjectsByType<CinemachineCamera>(FindObjectsSortMode.None))
+        {
+            var follow = camera.Follow;
+            if (follow == null || (follow != target && !follow.IsChildOf(target))) continue;
+            // Do not translate the camera by the warp delta: that position could be
+            // outside the confiner before the next camera update. Discard damping
+            // and lookahead history and let the complete pipeline place it safely.
+            camera.PreviousStateIsValid = false;
+        }
     }
 
     private void ApplyBoundarySettings()

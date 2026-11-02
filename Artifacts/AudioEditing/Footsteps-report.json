@@ -1,0 +1,14 @@
+{
+  "source": "C:\\Users\\jeonghuncomputer\\Downloads\\Sonniss.com - GDC - Game Audio Bundle 5of5\\Timothy McHugh -  Barefoot on Metal\\FOOTSTEP - Metal Grill Jump Barefoot Male - 3.wav",
+  "output": "Assets\\_Project\\Audio\\SoundEffects\\Footsteps\\Barefoot_SoftStep.wav",
+  "duration_seconds": 0.12,
+  "format": "48 kHz mono 16-bit",
+  "peak_dbfs": -9,
+  "high_pass_hz": 150,
+  "high_pass_stages": 2,
+  "low_pass_hz": 2800,
+  "fade_in_ms": 3,
+  "fade_out_ms": 25,
+  "playback_volume": 0.25,
+  "edit": "Short landing transient, exponential tail damping instead of sliding source"
+}

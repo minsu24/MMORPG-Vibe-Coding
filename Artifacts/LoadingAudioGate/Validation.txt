@@ -1,0 +1,10 @@
+Subsystem initialization blocks audio before scene Awake
+Startup remains silent through first frame
+Startup release cannot unmute active save/loading screen
+Restoring saved master volume cannot bypass loading silence
+Finishing loading restores audio at unchanged user volume
+Later scene transitions acquire audio silence immediately
+Session teardown cannot leave editor audio stuck paused
+Runtime: startup release, immediate loading mute, volume changes, newly created source, repeated Begin, cancel and black transition passed.
+Runtime: completed loading fade releases audio and preserves master volume.
+COMPLETE

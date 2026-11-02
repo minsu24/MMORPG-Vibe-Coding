@@ -1,0 +1,22 @@
+[
+  {
+    "source": "C:\\Users\\jeonghuncomputer\\Downloads\\freesound_community-wind-through-trees-ambience-56038.mp3",
+    "output": "Assets\\_Project\\Audio\\Ambience\\Village_WindThroughTrees_Loop.wav",
+    "duration": 87.64,
+    "sample_rate": 24000,
+    "channels": 2,
+    "loop_wrap": 0.001190185546875,
+    "rms": 0.05430688726492209,
+    "guid": "9c2c6f6022ab4b6fa22b0eca308a39d2"
+  },
+  {
+    "source": "C:\\Users\\jeonghuncomputer\\Downloads\\soundsforyou-waterfall-ambient-sounds-116395.mp3",
+    "output": "Assets\\_Project\\Audio\\Ambience\\Village_Waterfall_Loop.wav",
+    "duration": 59.2,
+    "sample_rate": 44100,
+    "channels": 1,
+    "loop_wrap": 0.071319580078125,
+    "rms": 0.09999999967456077,
+    "guid": "c9c96192ba6a46ddbf58cdb02dd88e7e"
+  }
+]

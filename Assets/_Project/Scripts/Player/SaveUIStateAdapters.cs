@@ -19,12 +19,19 @@ namespace EasternFantasy.UI
     }
     public sealed partial class DungeonWindowUI
     {
-        internal static void CaptureSave(SaveGameData data) => data.dungeonTutorial = tutorialCompletedClasses.Contains(CharacterSelectionState.SelectedClass);
+        internal static void CaptureSave(SaveGameData data)
+        {
+            data.dungeonTutorial = tutorialCompletedClasses.Contains(CharacterSelectionState.SelectedClass);
+            data.dungeonDiscovered = IsUnlocked;
+        }
         internal static void RestoreSave(SaveGameData data)
         {
             Instance?.Close();
             tutorialCompletedClasses.Remove(CharacterSelectionState.SelectedClass);
             if (data.dungeonTutorial) tutorialCompletedClasses.Add(CharacterSelectionState.SelectedClass);
+            discoveredClasses.Remove(CharacterSelectionState.SelectedClass);
+            if (data.dungeonDiscovered || data.dungeonTutorial || !string.IsNullOrEmpty(data.dungeon))
+                discoveredClasses.Add(CharacterSelectionState.SelectedClass);
         }
     }
     public sealed partial class EquipmentUpgradeWindowUI

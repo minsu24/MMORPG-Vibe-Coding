@@ -111,6 +111,7 @@ namespace EasternFantasy.Inventory
             return null;
         }
         public ItemCategory Category => category;
+        public ItemCategory InventoryCategory => category == ItemCategory.Accessory ? ItemCategory.Equipment : category;
         public bool IsAccessory => category == ItemCategory.Accessory
             || equipmentSlot == EquipmentSlot.Necklace || equipmentSlot == EquipmentSlot.Bracelet || equipmentSlot == EquipmentSlot.Ring;
         public bool IsEquippable => equipmentSlot != EquipmentSlot.None &&

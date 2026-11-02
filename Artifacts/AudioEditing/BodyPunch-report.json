@@ -1,0 +1,31 @@
+{
+  "source": "C:\\Users\\jeonghuncomputer\\Downloads\\Sonniss.com-GDC2026-GameAudioBundle1of5\\344 Audio - Cinematic Fight Vol. 1\\FGHTImpt_4 x Punch, Body 02_344 Audio_Cinematic Fight Vol 1.wav",
+  "format": "48 kHz / 16-bit / mono",
+  "peak_target_dbfs": -3,
+  "clips": [
+    {
+      "file": "Assets\\_Project\\Audio\\SoundEffects\\Impacts\\BodyPunch_Hit_01.wav",
+      "source_start_seconds": 0.186,
+      "duration_seconds": 0.345,
+      "peak_dbfs": -3
+    },
+    {
+      "file": "Assets\\_Project\\Audio\\SoundEffects\\Impacts\\BodyPunch_Hit_02.wav",
+      "source_start_seconds": 1.143,
+      "duration_seconds": 0.43,
+      "peak_dbfs": -3
+    },
+    {
+      "file": "Assets\\_Project\\Audio\\SoundEffects\\Impacts\\BodyPunch_Hit_03.wav",
+      "source_start_seconds": 2.186,
+      "duration_seconds": 0.377,
+      "peak_dbfs": -3
+    },
+    {
+      "file": "Assets\\_Project\\Audio\\SoundEffects\\Impacts\\BodyPunch_Hit_04.wav",
+      "source_start_seconds": 3.191,
+      "duration_seconds": 0.43,
+      "peak_dbfs": -3
+    }
+  ]
+}

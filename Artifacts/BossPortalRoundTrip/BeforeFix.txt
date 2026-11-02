@@ -1,0 +1,8 @@
+Native Marshland -> BrokenSeal -> Marshland boss portal round trip
+PASS living boss starts with hidden portal
+PASS real boss defeat opens portal and records encounter
+PASS outgoing portal reaches BrokenSeal
+PASS return transfer reaches named exit location
+PASS defeated boss remains absent on revisit
+PASS REPRODUCED: restored defeated boss is inactive but its portal disappears
+REPRODUCED

@@ -1,0 +1,134 @@
+[
+  {
+    "file": "hit10.mp3.flac",
+    "sr": 44100,
+    "channels": 2,
+    "duration": 1.046,
+    "peak_db": -2.5,
+    "energy_times_1_5_50_95_99": [
+      0.059,
+      0.061,
+      0.082,
+      0.207,
+      0.254
+    ],
+    "peak_time": 0.065,
+    "peak_bands_percent": {
+      "low": 63.2,
+      "body": 16.4,
+      "high": 20.5
+    },
+    "centroid": 1058,
+    "strongest_spectral_bin_percent": 12.6
+  },
+  {
+    "file": "hit12.mp3.flac",
+    "sr": 44100,
+    "channels": 2,
+    "duration": 0.785,
+    "peak_db": -2.2,
+    "energy_times_1_5_50_95_99": [
+      0.16,
+      0.168,
+      0.2,
+      0.333,
+      0.365
+    ],
+    "peak_time": 0.189,
+    "peak_bands_percent": {
+      "low": 47.1,
+      "body": 17.1,
+      "high": 35.8
+    },
+    "centroid": 1925,
+    "strongest_spectral_bin_percent": 10.1
+  },
+  {
+    "file": "hit16.mp3.flac",
+    "sr": 44100,
+    "channels": 2,
+    "duration": 1.15,
+    "peak_db": -3.5,
+    "energy_times_1_5_50_95_99": [
+      0.249,
+      0.26,
+      0.296,
+      0.412,
+      0.447
+    ],
+    "peak_time": 0.292,
+    "peak_bands_percent": {
+      "low": 25.4,
+      "body": 47.7,
+      "high": 26.9
+    },
+    "centroid": 1647,
+    "strongest_spectral_bin_percent": 4.5
+  },
+  {
+    "file": "hit19.mp3.flac",
+    "sr": 44100,
+    "channels": 2,
+    "duration": 1.098,
+    "peak_db": 0.0,
+    "energy_times_1_5_50_95_99": [
+      0.083,
+      0.092,
+      0.184,
+      0.366,
+      0.452
+    ],
+    "peak_time": 0.081,
+    "peak_bands_percent": {
+      "low": 29.1,
+      "body": 39.7,
+      "high": 31.2
+    },
+    "centroid": 1600,
+    "strongest_spectral_bin_percent": 6.9
+  },
+  {
+    "file": "hit26.mp3.flac",
+    "sr": 44100,
+    "channels": 2,
+    "duration": 0.837,
+    "peak_db": -1.9,
+    "energy_times_1_5_50_95_99": [
+      0.172,
+      0.177,
+      0.232,
+      0.351,
+      0.374
+    ],
+    "peak_time": 0.2,
+    "peak_bands_percent": {
+      "low": 74.6,
+      "body": 19.1,
+      "high": 6.3
+    },
+    "centroid": 391,
+    "strongest_spectral_bin_percent": 17.3
+  },
+  {
+    "file": "hit35.mp3.flac",
+    "sr": 44100,
+    "channels": 2,
+    "duration": 0.968,
+    "peak_db": 0.0,
+    "energy_times_1_5_50_95_99": [
+      0.166,
+      0.193,
+      0.257,
+      0.347,
+      0.4
+    ],
+    "peak_time": 0.195,
+    "peak_bands_percent": {
+      "low": 77.6,
+      "body": 14.3,
+      "high": 8.1
+    },
+    "centroid": 573,
+    "strongest_spectral_bin_percent": 29.3
+  }
+]

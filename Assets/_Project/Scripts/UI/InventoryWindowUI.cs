@@ -22,13 +22,16 @@ namespace EasternFantasy.UI
         private PlayerCurrency currency;
         private Vector2 defaultWindowPosition;
         private bool slotsInitialized;
+        private ScrollRect slotScroll;
+        private GridLayoutGroup slotGrid;
 
         private ItemCategory selectedCategory = ItemCategory.Equipment;
 
         public static InventoryWindowUI Instance { get; private set; }
         public RectTransform TutorialTarget => windowRoot != null ? windowRoot.transform as RectTransform : null;
-        public RectTransform TutorialCategoryTarget(ItemCategory category) => (category == ItemCategory.Accessory && accessoryTab != null
-            ? accessoryTab : category == ItemCategory.Equipment ? equipmentTab : category == ItemCategory.Consumable ? consumableTab : miscellaneousTab).transform as RectTransform;
+        public RectTransform TutorialCategoryTarget(ItemCategory category) =>
+            (category == ItemCategory.Equipment || category == ItemCategory.Accessory ? equipmentTab
+                : category == ItemCategory.Consumable ? consumableTab : miscellaneousTab).transform as RectTransform;
         public RectTransform TutorialItemTarget { get { foreach (var slot in slots) if (slot != null && slot.Definition != null) return slot.transform as RectTransform; return TutorialTarget; } }
         public bool IsUnlocked => InventoryEquipmentTutorialUI.HasFinishedForCurrentClass;
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
@@ -46,6 +49,8 @@ namespace EasternFantasy.UI
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            PrepareEquipmentSlots();
+            if (accessoryTab != null) accessoryTab.gameObject.SetActive(false);
             if (windowRoot != null)
                 defaultWindowPosition = ((RectTransform)windowRoot.transform).anchoredPosition;
             if (windowRoot != null)
@@ -148,9 +153,40 @@ namespace EasternFantasy.UI
 
         public void SelectCategory(ItemCategory category)
         {
-            selectedCategory = category;
+            selectedCategory = category == ItemCategory.Accessory ? ItemCategory.Equipment : category;
             tooltip?.Hide();
             Refresh();
+            if (slotScroll != null) { slotScroll.StopMovement(); slotScroll.verticalNormalizedPosition = 1f; }
+        }
+
+        private void PrepareEquipmentSlots()
+        {
+            if (slots == null || slots.Length == 0) return;
+            var content = slots[0].transform.parent as RectTransform;
+            slotGrid = content != null ? content.GetComponent<GridLayoutGroup>() : null;
+            if (slotGrid == null) return;
+            var viewport = new GameObject("Inventory Slot Scroll", typeof(RectTransform), typeof(Image), typeof(RectMask2D), typeof(ScrollRect));
+            var rect = (RectTransform)viewport.transform;
+            rect.SetParent(content.parent, false);
+            rect.SetSiblingIndex(content.GetSiblingIndex());
+            rect.anchorMin = content.anchorMin; rect.anchorMax = content.anchorMax;
+            rect.pivot = content.pivot; rect.sizeDelta = content.sizeDelta;
+            rect.anchoredPosition = content.anchoredPosition;
+            viewport.GetComponent<Image>().color = Color.clear;
+            content.SetParent(rect, false);
+            content.anchorMin = new Vector2(0f, 1f); content.anchorMax = Vector2.one;
+            content.pivot = new Vector2(.5f, 1f); content.anchoredPosition = Vector2.zero;
+            content.sizeDelta = Vector2.zero;
+            slotScroll = viewport.GetComponent<ScrollRect>();
+            slotScroll.viewport = rect; slotScroll.content = content;
+            slotScroll.horizontal = false; slotScroll.vertical = true;
+            slotScroll.movementType = ScrollRect.MovementType.Clamped;
+            slotScroll.scrollSensitivity = 35f;
+            int originalCount = slots.Length;
+            int capacity = PlayerInventory.GetSlotCapacity(ItemCategory.Equipment);
+            System.Array.Resize(ref slots, Mathf.Max(originalCount, capacity));
+            for (int i = originalCount; i < slots.Length; i++)
+                slots[i] = Instantiate(slots[0], content);
         }
 
         public void Refresh()
@@ -166,12 +202,22 @@ namespace EasternFantasy.UI
             miscellaneousTab.interactable = selectedCategory != ItemCategory.Miscellaneous;
             if (accessoryTab != null) accessoryTab.interactable = selectedCategory != ItemCategory.Accessory;
 
+            int capacity = PlayerInventory.GetSlotCapacity(selectedCategory);
             for (int i = 0; i < slots.Length; i++)
+            {
+                slots[i].gameObject.SetActive(i < capacity);
                 slots[i].Clear(i);
+            }
+            if (slotGrid != null)
+            {
+                int rows = Mathf.CeilToInt((float)capacity / Mathf.Max(1, slotGrid.constraintCount));
+                ((RectTransform)slotGrid.transform).sizeDelta = new Vector2(0f,
+                    slotGrid.padding.vertical + rows * slotGrid.cellSize.y + Mathf.Max(0, rows - 1) * slotGrid.spacing.y);
+            }
 
             foreach (InventoryStack stack in inventory.Items)
             {
-                if (stack.Item == null || stack.Item.Category != selectedCategory)
+                if (stack.Item == null || stack.Item.InventoryCategory != selectedCategory)
                     continue;
                 if (stack.SlotIndex >= 0 && stack.SlotIndex < slots.Length)
                     slots[stack.SlotIndex].Bind(stack.Item, stack.Quantity, stack.SlotIndex);

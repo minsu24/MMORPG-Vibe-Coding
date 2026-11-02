@@ -16,6 +16,8 @@ namespace EasternFantasy.UI
         [SerializeField] private PlayerProgression playerProgression;
         [SerializeField] private CanvasGroup effectGroup;
         [SerializeField] private Image effectImage;
+        [SerializeField] private AudioClip levelUpSound;
+        [SerializeField, Range(0f, 1f)] private float soundVolume = 0.65f;
 
         [Header("Timing (uses unscaled time)")]
         [SerializeField, Min(0.01f)] private float flashInDuration = 0.08f;
@@ -32,6 +34,7 @@ namespace EasternFantasy.UI
         private RectTransform effectRect;
         private Coroutine effectQueueRoutine;
         private int pendingEffects;
+        private AudioSource effectAudio;
 
         public static LevelUpEffectUI Instance { get; private set; }
 
@@ -127,6 +130,7 @@ namespace EasternFantasy.UI
             effectSequence?.Kill();
             SetHidden();
             effectRect.localScale = Vector3.one * startScale;
+            PlayLevelUpSound();
 
             effectSequence = DOTween.Sequence().SetUpdate(true);
             effectSequence.Append(effectGroup.DOFade(1f, Mathf.Max(0.01f, flashInDuration))
@@ -143,6 +147,21 @@ namespace EasternFantasy.UI
             SetHidden();
         }
 
+        private void PlayLevelUpSound()
+        {
+            if (levelUpSound == null) return;
+            if (effectAudio == null)
+            {
+                var audioObject = new GameObject("Level Up Audio");
+                audioObject.transform.SetParent(transform, false);
+                effectAudio = audioObject.AddComponent<AudioSource>();
+                effectAudio.playOnAwake = false;
+                effectAudio.loop = false;
+                effectAudio.spatialBlend = 0f;
+            }
+            effectAudio.PlayOneShot(levelUpSound, soundVolume);
+        }
+
         private void OnEnable()
         {
             if (pendingEffects > 0 && effectQueueRoutine == null)
@@ -151,6 +170,7 @@ namespace EasternFantasy.UI
 
         private void OnDisable()
         {
+            if (effectAudio != null) effectAudio.Stop();
             if (effectQueueRoutine != null)
                 StopCoroutine(effectQueueRoutine);
             effectQueueRoutine = null;

@@ -154,7 +154,7 @@ namespace EasternFantasy.UI
             InventorySlotUI source = eventData.pointerDrag != null
                 ? eventData.pointerDrag.GetComponent<InventorySlotUI>()
                 : null;
-            if (source == null || source.item == null || source.item.Category != GetCurrentCategory())
+            if (source == null || source.item == null || source.item.InventoryCategory != GetCurrentCategory())
                 return;
 
             inventory.MoveItem(source.item, slotIndex);
@@ -181,7 +181,7 @@ namespace EasternFantasy.UI
 
         private ItemCategory GetCurrentCategory()
         {
-            return item != null ? item.Category : GetComponentInParent<InventoryWindowUI>().SelectedCategory;
+            return item != null ? item.InventoryCategory : GetComponentInParent<InventoryWindowUI>().SelectedCategory;
         }
     }
 }

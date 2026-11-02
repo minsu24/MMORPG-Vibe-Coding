@@ -642,6 +642,12 @@ GameObject:
   - component: {fileID: 5112916743110000125}
   - component: {fileID: 6300000000000000001}
   - component: {fileID: 6300000000000000060}
+  - component: {fileID: 5820126325294095838}
+  - component: {fileID: 2320090881202825203}
+  - component: {fileID: 1838387735471987871}
+  - component: {fileID: 1131388980964639355}
+  - component: {fileID: 2632259794976353428}
+  - component: {fileID: 1746542827209009511}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -746,6 +752,9 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 1
+  jumpSound: {fileID: 8300000, guid: afe3c1abd2964010adc2ac60596f39c0, type: 3}
+  jumpVolume: 0.3
+  jumpPitch: 1
   body: {fileID: 0}
 --- !u!114 &4975863889217955417
 MonoBehaviour:
@@ -760,6 +769,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerInputReader
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  attackBufferDuration: 0.15
+  repeatAttackWhileHeld: 1
 --- !u!114 &5523186586099855509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -809,6 +820,7 @@ MonoBehaviour:
   projectileSpeed: 10
   maximumTravelDistance: 8
   spawnOffset: {x: 0.8, y: 0.25}
+  burstShotInterval: 0.1
 --- !u!114 &2485368207948759539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -822,6 +834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerEntity
   target: {fileID: 0}
+  combatTimeout: 10
   statGrowth: {fileID: 11400000, guid: 9168a96f8252cce4398bf4f6020a04b3, type: 2}
   maximumHealth: 100
   maximumMana: 100
@@ -943,12 +956,18 @@ MonoBehaviour:
   talismanShieldSkill: {fileID: 11400000, guid: 424a2df3e5122c94184b2b21e87266ae, type: 2}
   projectileVerticalSpacing: 0.28
   damageMultiplier: 0.8
+  talismanBurstSound: {fileID: 8300000, guid: 2f4cf50e3aaf4952982a9faeb335f752, type: 3}
+  talismanSoundVolume: 0.7
   teleportDistance: 4
   teleportEffectPrefab: {fileID: 8145390253291139497, guid: e1fe3dcb83812984fbba76320fd67801, type: 3}
   teleportEffectLifetime: 0.4
+  teleportSound: {fileID: 8300000, guid: 52d152f55fae481fa6156c75dbf37b34, type: 3}
+  teleportSoundVolume: 0.75
   shieldDamageReduction: 0.3
   shieldDuration: 5
   shieldEffect: {fileID: 6200000000000000002}
+  shieldSound: {fileID: 8300000, guid: 68985f649e1d402ba49025669df68cd3, type: 3}
+  shieldSoundVolume: 0.5
 --- !u!114 &7262487866732165270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -994,6 +1013,8 @@ MonoBehaviour:
   deathAnimationSeconds: 1
   deathHitStopSeconds: 0.08
   deathUiPrefab: {fileID: 100, guid: 460b6a5ea3c743efbe40c97c52a7532f, type: 3}
+  reviveSound: {fileID: 8300000, guid: 6fa27962105027348a4fc8edffd645da, type: 3}
+  reviveVolume: 0.13440001
 --- !u!114 &5112916743110000125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1024,6 +1045,204 @@ MonoBehaviour:
   rayDistance: 5
   maximumOpacity: 0.42
   addCharacterEdge: 0
+--- !u!114 &6300000000000000060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c6a77d3c634ff2b50ef1f4a21e5df2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerFootstepDust
+  walkStateName: PlayerWalk
+  stepPhaseOffset: 0
+  minimumTravelPerStep: 0.12
+  footstepSound: {fileID: 8300000, guid: 194085c6a9c24428aaedd9c21c3f9cff, type: 3}
+  footstepVolume: 0.19
+  dustMaterial: {fileID: 2100000, guid: 3ebfe20b94d84cd4ad3758a7e6e6b528, type: 2}
+  dustColor: {r: 0.85, g: 0.78, b: 0.65, a: 0.85}
+  particlesPerStep: 8
+  dustSize: 0.32
+  dustLifetime: 0.45
+  footSpread: 0.12
+--- !u!82 &5820126325294095838
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &2320090881202825203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd2c745038cf1bf45b3846caad88d885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerBasicAttackAudio
+  attackSound: {fileID: 8300000, guid: 4eb6c2cab0cd5d84c9a8b4b2ff561943, type: 3}
+  volume: 0.803
+--- !u!114 &1838387735471987871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4568867e8640e7e46a7abf3336db516c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerDeathAudio
+  deathSound: {fileID: 8300000, guid: 029369c6b8b64da791efb3ee4a43b349, type: 3}
+  volume: 0.45
+--- !u!114 &1131388980964639355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972ea328dbc50dd49b15138d3af32ea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerHurtAudio
+  hurtSound: {fileID: 8300000, guid: 48f0166f89234624821d0d036df3a0d2, type: 3}
+  volume: 0.35
+  minimumInterval: 0.2
+--- !u!114 &2632259794976353428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7630332c11107a4abffeaf43296472e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerDeathEffectAudio
+  effectSound: {fileID: 8300000, guid: 38b66a988a7dc0145945e4de7efc47a1, type: 3}
+  volume: 0.24499999
+--- !u!114 &1746542827209009511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb203a00b262484eb6411277c58f5fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerItemAudio
+  equipSound: {fileID: 8300000, guid: 827b511cbed549a4b86005cbb7d4641f, type: 3}
+  potionSound: {fileID: 8300000, guid: c6dce5c0023ed1543b5c07995bd19cb6, type: 3}
+  currencySound: {fileID: 8300000, guid: 320155d852ad73a48ae1ac68c2d2a3cb, type: 3}
+  itemSound: {fileID: 8300000, guid: 9d275d7e4d96bc547b3ec63a3494261f, type: 3}
+  equipVolume: 0.35
+  equipPlaybackSpeed: 1.15
+  potionVolume: 0.3
+  currencyVolume: 0.08
+  itemVolume: 0.06
 --- !u!1 &7998046781919826993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,6 +1254,7 @@ GameObject:
   - component: {fileID: 1047660655586686563}
   - component: {fileID: 6749449187529274334}
   - component: {fileID: 8836460492422581657}
+  - component: {fileID: 7722734646788871499}
   m_Layer: 6
   m_Name: CharacterVisual
   m_TagString: Untagged
@@ -1138,24 +1358,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6300000000000000060
+--- !u!114 &7722734646788871499
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6769348460131052449}
+  m_GameObject: {fileID: 7998046781919826993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c6a77d3c634ff2b50ef1f4a21e5df2, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerFootstepDust
-  walkStateName: PlayerWalk
-  stepPhaseOffset: 0
-  minimumTravelPerStep: 0.12
-  dustMaterial: {fileID: 2100000, guid: 3ebfe20b94d84cd4ad3758a7e6e6b528, type: 2}
-  dustColor: {r: 0.85, g: 0.78, b: 0.65, a: 0.85}
-  particlesPerStep: 8
-  dustSize: 0.32
-  dustLifetime: 0.45
-  footSpread: 0.12
+  m_Script: {fileID: 11500000, guid: 1326cecb3b3644d498f9cb2b9896f766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.DeathAnimationAudioEvents

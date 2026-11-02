@@ -20,6 +20,9 @@ namespace EasternFantasy.Player
         [SerializeField, Range(0f, 0.2f)] private float deathHitStopSeconds = 0.08f;
         [Tooltip("Optional replacement for the temporary death UI. It must contain a Canvas and a Button.")]
         [SerializeField] private GameObject deathUiPrefab;
+        [Header("Sound when the revival screen starts to reveal")]
+        [SerializeField] private AudioClip reviveSound;
+        [SerializeField, Range(0f, 1f)] private float reviveVolume = .35f;
 
         private PlayerEntity entity;
         private PlayerMovement2D movement;
@@ -34,6 +37,7 @@ namespace EasternFantasy.Player
         private bool previousEnemyCollisionIgnored;
         private bool isRespawning;
         private bool isFirstDeath;
+        private AudioSource reviveAudio;
 
         private void Awake()
         {
@@ -54,12 +58,15 @@ namespace EasternFantasy.Player
         private void OnDisable()
         {
             entity.Died -= HandleDeath;
+            if (reviveAudio != null) reviveAudio.Stop();
         }
 
         private void HandleDeath()
         {
             if (isRespawning || deathUi != null)
                 return;
+
+            if (reviveAudio != null) reviveAudio.Stop();
 
             wasInputEnabled = input != null && input.enabled;
             wasMovementEnabled = movement.enabled;
@@ -111,6 +118,49 @@ namespace EasternFantasy.Player
         private IEnumerator RespawnRoutine()
         {
             isRespawning = true;
+            SceneLoadingScreen.Begin(showArtwork: false);
+            try
+            {
+                yield return SceneLoadingScreen.WaitUntilCovered();
+                yield return RespawnCovered();
+                yield return SceneLoadingScreen.Finish(() =>
+                {
+                    if (!entity.IsDead) PlayReviveSound();
+                });
+            }
+            finally
+            {
+                SceneLoadingScreen.Cancel();
+                if (reviveAudio != null) reviveAudio.ignoreListenerPause = false;
+                isRespawning = false;
+            }
+        }
+
+        private void PlayReviveSound()
+        {
+            if (reviveSound == null) return;
+            if (reviveAudio == null)
+            {
+                var child = new GameObject("Revival Audio");
+                child.transform.SetParent(transform, false);
+                reviveAudio = child.AddComponent<AudioSource>();
+                reviveAudio.playOnAwake = false;
+                reviveAudio.loop = false;
+                reviveAudio.spatialBlend = 0f;
+            }
+            reviveAudio.clip = reviveSound;
+            reviveAudio.volume = reviveVolume;
+            // Skip 0.1 seconds of this clip's quiet lead-in for an earlier cue.
+            reviveAudio.time = Mathf.Min(.1f, Mathf.Max(0f, reviveSound.length - .01f));
+            // Only this cue is audible during the 0.4-second reveal fade.
+            // The routine restores normal loading muting as soon as it finishes.
+            reviveAudio.ignoreListenerPause = true;
+            reviveAudio.Play();
+        }
+
+        private IEnumerator RespawnCovered()
+        {
+            isRespawning = true;
             string currentScene = SceneManager.GetActiveScene().name;
             if (currentScene == TutorialScene)
             {
@@ -128,7 +178,12 @@ namespace EasternFantasy.Player
                     }
                     MapTransferData.SetTarget(VillageSpawn);
                     SceneWorldState.CaptureActiveScene();
-                    SceneManager.LoadScene(VillageScene);
+                    var operation = SceneManager.LoadSceneAsync(VillageScene);
+                    while (!operation.isDone)
+                    {
+                        SceneLoadingScreen.Report(0.1f + Mathf.Clamp01(operation.progress / 0.9f) * 0.6f);
+                        yield return null;
+                    }
                     yield return null;
                 }
 

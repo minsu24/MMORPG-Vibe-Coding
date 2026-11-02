@@ -6,6 +6,8 @@ public sealed class FrogSpitProjectile : MonoBehaviour
 {
     [SerializeField] private Sprite[] animationFrames;
     [SerializeField, Min(1f)] private float framesPerSecond = 10f;
+    [SerializeField] private Sprite[] impactFrames;
+    [SerializeField, Min(1f)] private float impactFramesPerSecond = 10f;
 
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D body;
@@ -17,6 +19,7 @@ public sealed class FrogSpitProjectile : MonoBehaviour
     private float damage;
     private float animationTime;
     private bool launched;
+    private bool impacted;
 
     private void Awake()
     {
@@ -43,6 +46,14 @@ public sealed class FrogSpitProjectile : MonoBehaviour
 
     private void Update()
     {
+        if (impacted)
+        {
+            animationTime += Time.deltaTime * impactFramesPerSecond;
+            int index = Mathf.FloorToInt(animationTime);
+            if (impactFrames == null || index >= impactFrames.Length) { Destroy(gameObject); return; }
+            spriteRenderer.sprite = impactFrames[index];
+            return;
+        }
         if (animationFrames == null || animationFrames.Length == 0)
             return;
 
@@ -71,7 +82,7 @@ public sealed class FrogSpitProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!launched || other.GetComponentInParent<EnemyController>() == owner)
+        if (!launched || (owner != null && other.GetComponentInParent<EnemyController>() == owner))
             return;
 
         PlayerEntity hitPlayer = other.GetComponentInParent<PlayerEntity>();
@@ -84,15 +95,27 @@ public sealed class FrogSpitProjectile : MonoBehaviour
                     hitPlayer.ApplyKnockback(Mathf.Sign(direction.x));
             }
 
-            launched = false;
-            Destroy(gameObject);
+            BeginImpact();
             return;
         }
 
         if (!other.isTrigger && other.GetComponentInParent<EnemyController>() == null)
         {
-            launched = false;
-            Destroy(gameObject);
+            BeginImpact();
         }
+    }
+
+    private void BeginImpact()
+    {
+        if (impacted) return;
+        launched = false;
+        impacted = true;
+        animationTime = 0f;
+        body.linearVelocity = Vector2.zero;
+        GetComponent<Collider2D>().enabled = false;
+        transform.rotation = Quaternion.identity;
+        EnemyAttackAudio.PlayAt(gameObject, "Audio/FrogSpitImpact");
+        if (impactFrames == null || impactFrames.Length == 0) { Destroy(gameObject); return; }
+        spriteRenderer.sprite = impactFrames[0];
     }
 }

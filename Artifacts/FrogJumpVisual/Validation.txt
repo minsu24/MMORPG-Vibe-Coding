@@ -1,0 +1,5 @@
+PASS: all 7 corrected sprites sampled at original frame times
+PASS: Z remains 5 throughout jump
+PASS: root scale magnitude remains 1
+PASS: actual jump reaches 3.2 units
+PASS: idle height and foot-baseline metadata verified

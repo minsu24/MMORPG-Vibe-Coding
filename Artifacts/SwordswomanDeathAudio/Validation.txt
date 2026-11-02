@@ -1,0 +1,5 @@
+PASS: prefab has one death component with processed voice.
+PASS: death playback uses 2D, no loop, volume .45, normal pitch.
+PASS: repeated death calls reuse one guarded audio source.
+PASS: disable cleanup and audio decode.
+PASS: finite samples, headroom and silent faded endpoints.

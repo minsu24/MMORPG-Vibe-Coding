@@ -3,7 +3,7 @@ using EasternFantasy.Inventory;
 using EasternFantasy.Player;
 using UnityEngine;
 
-public sealed class MON_Frog : PersistentBossController
+public sealed partial class MON_Frog : PersistentBossController
 {
     private static readonly int AttackTrigger = Animator.StringToHash("Attack");
     private static readonly int JumpState = Animator.StringToHash("Base Layer.Jump");
@@ -11,9 +11,9 @@ public sealed class MON_Frog : PersistentBossController
     private static readonly int RangedAttackState = Animator.StringToHash("Base Layer.RangedAttack");
 
     [Header("Tongue Attack")]
-    [SerializeField, Min(0.1f)] private float attackRange = 4f;
+    [SerializeField, Min(0.1f)] private float attackRange = 4.4f;
     [SerializeField, Min(0.1f)] private float verticalTolerance = 1.5f;
-    [SerializeField, Min(0f)] private float hitDelay = 0.375f;
+    [SerializeField, Min(0f)] private float hitDelay = 0.5f;
     [SerializeField, Min(0.1f)] private float attackAnimationDuration = 0.75f;
     [SerializeField, Min(0f)] private float attackCooldown = 1.5f;
 
@@ -53,6 +53,7 @@ public sealed class MON_Frog : PersistentBossController
     private float nextJumpTime;
     private bool jumpCooldownStarted;
     private bool inTongueAttackRange;
+    private float tongueDirection = 1f;
     private LineRenderer attackWarning;
     private Material attackWarningMaterial;
     private SpriteRenderer jumpWarning;
@@ -115,6 +116,8 @@ public sealed class MON_Frog : PersistentBossController
 
     protected override void OnDefeated()
     {
+        StopMovementAudio();
+        EnemyDeathAudio.PlayFor(this, "Audio/FrogDeath");
         HideWarnings();
         RestoreAnimatorSpeed();
         if (BossMapPortal != null)
@@ -130,7 +133,9 @@ public sealed class MON_Frog : PersistentBossController
     private IEnumerator TongueAttackRoutine()
     {
         isAttacking = true;
+        StopMovementAudio();
         FacePlayer();
+        tongueDirection = transform.localScale.x < 0f ? 1f : -1f;
         if (rb != null)
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
 
@@ -148,6 +153,7 @@ public sealed class MON_Frog : PersistentBossController
         if (HP <= 0f)
             yield break;
 
+        EnemyAttackAudio.PlayFor(this, "Audio/FrogTongue");
         TryHitPlayer();
         float remainingAnimationTime = Mathf.Max(0f, attackAnimationDuration - hitDelay);
         if (remainingAnimationTime > 0f)
@@ -160,6 +166,7 @@ public sealed class MON_Frog : PersistentBossController
     private IEnumerator RangedAttackRoutine()
     {
         isAttacking = true;
+        StopMovementAudio();
         FacePlayer();
         if (rb != null)
             rb.linearVelocity = Vector2.zero;
@@ -199,11 +206,13 @@ public sealed class MON_Frog : PersistentBossController
             spitProjectilePrefab, spawnPosition, Quaternion.identity);
         projectile.Launch(direction, rangedProjectileSpeed,
             rangedTravelDistance, rangedDamage, this);
+        EnemyAttackAudio.PlayFor(this, "Audio/FrogSpitLaunchShort");
     }
 
     private IEnumerator JumpSlamRoutine()
     {
         isAttacking = true;
+        StopMovementAudio();
         FacePlayer();
 
         Vector2 start = rb != null ? rb.position : (Vector2)transform.position;
@@ -222,6 +231,7 @@ public sealed class MON_Frog : PersistentBossController
             animator.Play(JumpState, 0, 0f);
         }
 
+        EnemyAttackAudio.PlayFor(this, "Audio/FrogJump");
         float riseElapsed = 0f;
         while (riseElapsed < jumpApexTime && HP > 0f)
         {
@@ -283,6 +293,7 @@ public sealed class MON_Frog : PersistentBossController
         SetJumpPosition(jumpLandingPosition);
         if (jumpWarning != null)
             jumpWarning.enabled = false;
+        EnemyAttackAudio.PlayFor(this, "Audio/FrogSlamImpact");
         TrySlamPlayer();
 
         if (capsuleCollider2D != null)
@@ -349,7 +360,8 @@ public sealed class MON_Frog : PersistentBossController
             return;
 
         Vector2 offset = playerEntity.transform.position - transform.position;
-        if (Mathf.Abs(offset.x) > attackRange || Mathf.Abs(offset.y) > verticalTolerance)
+        float forwardDistance = offset.x * tongueDirection;
+        if (forwardDistance < 0f || forwardDistance > attackRange || Mathf.Abs(offset.y) > verticalTolerance)
             return;
 
         playerEntity.TakeDamage(Attack_Power);
@@ -432,10 +444,11 @@ public sealed class MON_Frog : PersistentBossController
         }
 
         Vector3 center = transform.position;
-        attackWarning.SetPosition(0, center + new Vector3(-attackRange, -verticalTolerance));
-        attackWarning.SetPosition(1, center + new Vector3(attackRange, -verticalTolerance));
-        attackWarning.SetPosition(2, center + new Vector3(attackRange, verticalTolerance));
-        attackWarning.SetPosition(3, center + new Vector3(-attackRange, verticalTolerance));
+        float tip = attackRange * tongueDirection;
+        attackWarning.SetPosition(0, center + new Vector3(0f, -verticalTolerance));
+        attackWarning.SetPosition(1, center + new Vector3(tip, -verticalTolerance));
+        attackWarning.SetPosition(2, center + new Vector3(tip, verticalTolerance));
+        attackWarning.SetPosition(3, center + new Vector3(0f, verticalTolerance));
         attackWarning.enabled = true;
     }
 

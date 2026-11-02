@@ -6,8 +6,17 @@ public sealed class CombatImpactFeedback : MonoBehaviour
 {
     private static CombatImpactFeedback instance;
     private CinemachineImpulseSource impulseSource;
+    private AudioSource impactAudio;
+    private CombatImpactSounds impactSounds;
+    private int lastSoundIndex = -1;
+    private float nextSoundTime;
 
     public static void Play(Vector3 hitPosition, bool critical)
+    {
+        Play(hitPosition, critical, null, 1f);
+    }
+
+    public static void Play(Vector3 hitPosition, bool critical, AudioClip soundOverride, float soundVolume)
     {
         if (Time.timeScale <= 0f)
             return;
@@ -19,11 +28,18 @@ public sealed class CombatImpactFeedback : MonoBehaviour
             instance = controller.AddComponent<CombatImpactFeedback>();
             DontDestroyOnLoad(controller);
         }
+        instance.PlayImpactSound(critical, soundOverride, soundVolume);
         instance.Shake(hitPosition, critical);
     }
 
     private void Awake()
     {
+        impactSounds = Resources.Load<CombatImpactSounds>("CombatImpactSounds");
+        impactAudio = gameObject.AddComponent<AudioSource>();
+        impactAudio.playOnAwake = false;
+        impactAudio.spatialBlend = 0f;
+        impactAudio.loop = false;
+
         impulseSource = gameObject.AddComponent<CinemachineImpulseSource>();
         impulseSource.ImpulseDefinition.ImpulseType =
             CinemachineImpulseDefinition.ImpulseTypes.Uniform;
@@ -31,6 +47,50 @@ public sealed class CombatImpactFeedback : MonoBehaviour
             CinemachineImpulseDefinition.ImpulseShapes.Bump;
         impulseSource.ImpulseDefinition.ImpulseDuration = 0.12f;
         impulseSource.ImpulseDefinition.ImpulseChannel = 1;
+    }
+
+    // A detached source per target preserves simultaneous skill hits, including lethal ones.
+    public static void PlayIndividualImpactSound(Vector3 position, AudioClip clip, float volume, bool critical = false)
+    {
+        if (clip == null || volume <= 0f) return;
+        var root = new GameObject("Individual Skill Impact Audio");
+        root.transform.position = position;
+        var source = root.AddComponent<AudioSource>();
+        source.playOnAwake = false;
+        source.loop = false;
+        source.spatialBlend = 0f;
+        source.pitch = Random.Range(.98f, 1.02f);
+        source.volume = Mathf.Clamp01(volume * (critical ? 1.15f : 1f));
+        source.clip = clip;
+        source.Play();
+        Destroy(root, clip.length / source.pitch + .1f);
+    }
+
+    private void PlayImpactSound(bool critical, AudioClip soundOverride, float soundVolume)
+    {
+        if (Time.unscaledTime < nextSoundTime || soundVolume <= 0f) return;
+        if (soundOverride != null)
+        {
+            nextSoundTime = Time.unscaledTime + 0.045f;
+            impactAudio.enabled = true;
+            impactAudio.pitch = Random.Range(0.98f, 1.02f);
+            impactAudio.PlayOneShot(soundOverride, Mathf.Clamp01(soundVolume * (critical ? 1.15f : 1f)));
+            return;
+        }
+        if (impactSounds == null || impactSounds.Clips == null
+            || impactSounds.Clips.Length == 0 || Time.unscaledTime < nextSoundTime)
+            return;
+
+        // Simultaneous hits share one sound so area attacks do not overload the mix.
+        nextSoundTime = Time.unscaledTime + 0.045f;
+        int count = impactSounds.Clips.Length;
+        int index = Random.Range(0, count);
+        if (count > 1 && index == lastSoundIndex)
+            index = (index + Random.Range(1, count)) % count;
+        lastSoundIndex = index;
+        impactAudio.pitch = Random.Range(0.96f, 1.04f);
+        impactAudio.PlayOneShot(impactSounds.Clips[index],
+            Mathf.Clamp01(impactSounds.Volume * (critical ? 1.15f : 1f)));
     }
 
     private void Shake(Vector3 hitPosition, bool critical)

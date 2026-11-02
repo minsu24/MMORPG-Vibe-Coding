@@ -26,6 +26,15 @@ namespace EasternFantasy.Skill
         [SerializeField] private LayerMask enemyLayers;
         [SerializeField] private GameObject punchImpactPrefab;
         [SerializeField] private MonkEnergyWave wavePrefab;
+        [Header("Geumgangbo Audio")]
+        [SerializeField] private AudioClip dashSound;
+        [SerializeField, Range(0f, 1f)] private float dashSoundVolume = 0.55f;
+        [Header("Energy Wave Charging Audio")]
+        [SerializeField] private AudioClip waveChargeSound;
+        [SerializeField, Range(0f, 1f)] private float waveChargeVolume = 0.45f;
+        [Header("Straight Punch Impact Audio")]
+        [SerializeField] private AudioClip punchHitSound;
+        [SerializeField, Range(0f, 1f)] private float punchHitSoundVolume = 0.65f;
 
         private readonly Collider2D[] hitBuffer = new Collider2D[32];
         private readonly HashSet<EnemyController> hitEnemies = new HashSet<EnemyController>();
@@ -34,6 +43,11 @@ namespace EasternFantasy.Skill
         private MonkEnergy energy;
         private PlayerSkillSystem skillSystem;
         private PlayerIdleAnimation animationController;
+        private AudioSource dashAudio;
+        private AudioSource waveChargeAudio;
+        private Animator characterAnimator;
+        private Coroutine waveChargeFade;
+        private bool waveChargePaused;
 
         private Coroutine punchRoutine;
         private Coroutine dashRoutine;
@@ -46,6 +60,7 @@ namespace EasternFantasy.Skill
         private bool punchActive;
         private bool punchEnergyGranted;
         private int lastStrike;
+        private int lastSwing;
         private float punchDirection;
         private float punchHitWindowEnd;
         private float punchDamage;
@@ -67,6 +82,7 @@ namespace EasternFantasy.Skill
             energy = GetComponent<MonkEnergy>();
             skillSystem = GetComponent<PlayerSkillSystem>();
             animationController = GetComponent<PlayerIdleAnimation>();
+            characterAnimator = GetComponentInChildren<Animator>();
             if (enemyLayers.value == 0)
             {
                 int layer = LayerMask.NameToLayer("Enemy");
@@ -85,11 +101,12 @@ namespace EasternFantasy.Skill
             if (skill == straightPunchSkill)
             {
                 if (animationController == null || punchActive
-                    || !animationController.TryRequestSkillAnimation("MonkStab"))
+                    || !animationController.TryRequestSkillAnimation("MonkStab", stopGroundedMovement: true))
                     return false;
                 punchActive = true;
                 punchEnergyGranted = false;
                 lastStrike = 0;
+                lastSwing = 0;
                 punchHitWindowEnd = 0f;
                 punchDirection = GetDirection();
                 punchDamage = entity.RollAttackDamage(out punchCritical)
@@ -103,8 +120,12 @@ namespace EasternFantasy.Skill
                     || !animationController.TryRequestSkillAnimation("MonkDash", dashDuration))
                     return false;
                 // Movement direction is independent of the punch sprite's inversion.
-                movement.BeginDash(animationController.FacingDirectionX,
-                    skill.GetDashDistance(skillSystem.GetSkillLevel(skill)), dashDuration);
+                if (!movement.BeginDash(animationController.FacingDirectionX,
+                    skill.GetDashDistance(skillSystem.GetSkillLevel(skill)), dashDuration))
+                {
+                    animationController.FinishSkillAnimation();
+                    return false;
+                }
                 dashRoutine = StartCoroutine(WaitForDash());
             }
             else if (skill == parrySkill)
@@ -127,6 +148,8 @@ namespace EasternFantasy.Skill
             else return false;
 
             if (!SkillResourcePayment.TrySpend(entity, skill)) return false;
+            if (skill == dashSkill) PlayDashSound();
+            if (skill == energyWaveSkill) PlayWaveChargeSound();
             float cooldown = skill.GetCooldownSeconds(skillSystem.GetSkillLevel(skill));
             if (cooldown > 0f)
                 cooldownEnds[skill] = Time.time + cooldown;
@@ -139,6 +162,90 @@ namespace EasternFantasy.Skill
                 ? Mathf.Max(0f, end - Time.time) : 0f;
         }
 
+        private void PlayDashSound()
+        {
+            if (dashSound == null) return;
+            if (dashAudio == null)
+            {
+                var audioObject = new GameObject("Geumgangbo Audio");
+                audioObject.transform.SetParent(transform, false);
+                dashAudio = audioObject.AddComponent<AudioSource>();
+                dashAudio.playOnAwake = false;
+                dashAudio.loop = false;
+                dashAudio.spatialBlend = 0f;
+            }
+            dashAudio.enabled = true;
+            dashAudio.PlayOneShot(dashSound, dashSoundVolume);
+        }
+
+        private void PlayWaveChargeSound()
+        {
+            if (waveChargeSound == null) return;
+            StopWaveChargeSound(true);
+            if (waveChargeAudio == null)
+            {
+                var audioObject = new GameObject("Energy Wave Charge Audio");
+                audioObject.transform.SetParent(transform, false);
+                waveChargeAudio = audioObject.AddComponent<AudioSource>();
+                waveChargeAudio.playOnAwake = false;
+                waveChargeAudio.loop = false;
+                waveChargeAudio.spatialBlend = 0f;
+            }
+            waveChargeAudio.enabled = true;
+            waveChargeAudio.clip = waveChargeSound;
+            waveChargeAudio.volume = waveChargeVolume;
+            waveChargeAudio.pitch = Mathf.Clamp((characterAnimator != null ? characterAnimator.speed : 1f) * Time.timeScale, 0.1f, 3f);
+            waveChargePaused = false;
+            waveChargeAudio.Play();
+        }
+
+        private void Update()
+        {
+            if (!wavePending || waveChargeAudio == null) return;
+            if (entity.IsDead || entity.isKnockback || !animationController.IsAttacking)
+            {
+                wavePending = false;
+                StopWaveChargeSound(false);
+                return;
+            }
+            if (Time.timeScale <= 0f)
+            {
+                if (!waveChargePaused) { waveChargeAudio.Pause(); waveChargePaused = true; }
+            }
+            else
+            {
+                waveChargeAudio.pitch = Mathf.Clamp((characterAnimator != null ? characterAnimator.speed : 1f) * Time.timeScale, 0.1f, 3f);
+                if (waveChargePaused) { waveChargeAudio.UnPause(); waveChargePaused = false; }
+            }
+        }
+
+        private void StopWaveChargeSound(bool immediately)
+        {
+            if (waveChargeAudio == null) return;
+            if (!immediately && waveChargeFade != null) return;
+            if (waveChargeFade != null) StopCoroutine(waveChargeFade);
+            waveChargeFade = null;
+            if (immediately || waveChargePaused || !isActiveAndEnabled)
+            {
+                waveChargeAudio.Stop();
+                waveChargePaused = false;
+            }
+            else if (waveChargeAudio.isPlaying)
+                waveChargeFade = StartCoroutine(FadeWaveChargeSound());
+        }
+
+        private IEnumerator FadeWaveChargeSound()
+        {
+            float initialVolume = waveChargeAudio.volume;
+            for (float elapsed = 0f; elapsed < 0.05f; elapsed += Time.unscaledDeltaTime)
+            {
+                waveChargeAudio.volume = initialVolume * (1f - Mathf.Clamp01(elapsed / 0.05f));
+                yield return null;
+            }
+            waveChargeAudio.Stop();
+            waveChargeFade = null;
+        }
+
         private IEnumerator WaitForWave()
         {
             yield return null;
@@ -146,6 +253,7 @@ namespace EasternFantasy.Skill
                 yield return null;
             if (movement != null) movement.SetMovementLocked(false);
             wavePending = false;
+            StopWaveChargeSound(false);
             waveRoutine = null;
         }
 
@@ -153,6 +261,7 @@ namespace EasternFantasy.Skill
         {
             if (!wavePending || entity.IsDead || entity.isKnockback) return;
             wavePending = false;
+            StopWaveChargeSound(false);
             activeWave = MonkEnergyWave.Launch(wavePrefab, entity, energy, waveDirection,
                 waveRange, waveDamageMultiplier, enemyLayers);
         }
@@ -170,6 +279,15 @@ namespace EasternFantasy.Skill
             }
             ClearPunch();
             punchRoutine = null;
+        }
+
+        public void OnStraightPunchSwing(int strike)
+        {
+            if (!punchActive || entity.IsDead || entity.isKnockback || !animationController.IsAttacking
+                || strike != lastSwing + 1 || strike > straightPunchSkill.DamageHitCount)
+                return;
+            lastSwing = strike;
+            GetComponent<PlayerBasicAttackAudio>()?.Play();
         }
 
         public void OnStraightPunchHit(int strike)
@@ -223,7 +341,7 @@ namespace EasternFantasy.Skill
                 };
                 float before = enemy.HP;
                 entity.NotifyAttackTarget(enemy);
-                enemy.TakeDamage(punchDamage, punchCritical, false);
+                enemy.TakeDamage(punchDamage, punchCritical, false, punchHitSound, punchHitSoundVolume);
                 float dealt = Mathf.Max(0f, before - enemy.HP);
                 if (dealt <= 0f) continue;
                 entity.ApplyLifeSteal(dealt);
@@ -270,6 +388,8 @@ namespace EasternFantasy.Skill
 
         private void OnDisable()
         {
+            StopWaveChargeSound(true);
+            if (dashAudio != null) dashAudio.Stop();
             if (dashRoutine != null)
             {
                 StopCoroutine(dashRoutine);

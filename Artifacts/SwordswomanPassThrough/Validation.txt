@@ -1,0 +1,32 @@
+Sword rhythm and pass-through regression checks
+PASS test player is in isolated physics scene
+PASS normal player collision matrix excludes EnemyWall
+INFO legacy cast obstacles: Invisible monster boundary, Enemy body on Default layer
+PASS dash starts
+PASS dash travels four units through enemy, default-layer child, and EnemyWall
+PASS enemy child collision restores once clear
+PASS dash with wall starts
+PASS dash passes enemy but stops before real terrain
+PASS dash ending inside enemy starts
+PASS ending inside enemy does not push player back
+PASS temporary overlap collision restores after leaving enemy
+PASS pre-existing ignored pair is preserved
+PASS drawing path ignores enemy bodies and invisible monster boundary
+PASS drawing starts
+PASS drawing passes through both enemies for full distance
+PASS drawing still damages every passed enemy
+PASS drawing starts
+PASS drawing stops at real terrain after passing nearer enemy
+PASS drawing does not hit enemy behind solid terrain
+PASS disabling movement restores temporary collision pairs
+PASS animation order is swish, hit, swish, hit
+PASS firstSlashSound is sixty milliseconds
+PASS secondSlashSound is sixty milliseconds
+PASS impact is ninety milliseconds
+PASS each short swish and hit completes before the next sound
+COMPLETE
+INFO animation at 0.129s: swing=1, hit=0
+INFO animation at 0.201s: swing=1, hit=1
+INFO animation at 0.295s: swing=2, hit=1
+INFO animation at 0.361s: swing=2, hit=2
+PASS real animator invokes both swishes and both hits without basic-attack audio

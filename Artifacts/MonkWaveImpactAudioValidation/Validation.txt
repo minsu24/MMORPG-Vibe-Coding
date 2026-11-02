@@ -1,0 +1,11 @@
+Native wind-impact audio validation
+PASS energy-wave prefab references the edited wind impact
+PASS a wave that misses all enemies does not play an impact sound
+PASS actual wave overlap damages both targets
+PASS wind impact plays without selecting or layering the generic punch sound
+PASS simultaneous hits share the persistent impact source
+PASS wind audio tail survives destruction of the short-lived wave visual
+PASS wind impact ends on its own without looping
+PASS ordinary attacks retain their existing generic impact sound
+PASS a zero-damage wave never plays the hit sound
+COMPLETE

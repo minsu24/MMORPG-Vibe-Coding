@@ -328,13 +328,16 @@ namespace EasternFantasy.Dialogue
             dialogueText.ForceMeshUpdate();
 
             int totalCharacters = dialogueText.textInfo.characterCount;
+            ResetTypingSound();
             float visibleCharacters = 0f;
             while (dialogueText.maxVisibleCharacters < totalCharacters)
             {
+                int previouslyVisible = dialogueText.maxVisibleCharacters;
                 visibleCharacters += charactersPerSecond * Time.unscaledDeltaTime;
                 dialogueText.maxVisibleCharacters = Mathf.Min(
                     totalCharacters,
                     Mathf.FloorToInt(visibleCharacters));
+                PlayTypingSound(previouslyVisible, dialogueText.maxVisibleCharacters);
                 yield return null;
             }
 
@@ -354,6 +357,7 @@ namespace EasternFantasy.Dialogue
 
         private void StopTyping()
         {
+            StopTypingSound();
             if (typingRoutine != null)
                 StopCoroutine(typingRoutine);
 
@@ -459,6 +463,7 @@ namespace EasternFantasy.Dialogue
 
         private void OnDisable()
         {
+            StopTyping();
             if (IsDialogueActive)
                 EndDialogue();
         }

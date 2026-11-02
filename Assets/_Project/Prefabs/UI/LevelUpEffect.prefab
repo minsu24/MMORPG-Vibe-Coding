@@ -188,6 +188,8 @@ MonoBehaviour:
   playerProgression: {fileID: 0}
   effectGroup: {fileID: 9058691974283056574}
   effectImage: {fileID: 1269512858675633157}
+  levelUpSound: {fileID: 8300000, guid: 5eeedfcb7e7d46d984b4086d148491b5, type: 3}
+  soundVolume: 0.65
   flashInDuration: 0.08
   holdDuration: 0.35
   fadeOutDuration: 1.25

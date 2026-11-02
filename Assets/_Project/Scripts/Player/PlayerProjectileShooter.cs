@@ -1,4 +1,7 @@
+using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace EasternFantasy.Player
 {
@@ -11,9 +14,11 @@ namespace EasternFantasy.Player
         [SerializeField, Min(0f)] private float projectileSpeed = 10f;
         [SerializeField, Min(0f)] private float maximumTravelDistance = 8f;
         [SerializeField] private Vector2 spawnOffset = new Vector2(0.4f, 0.25f);
+        [SerializeField, Min(0.01f)] private float burstShotInterval = 0.1f;
 
         private PlayerIdleAnimation playerAnimation;
         private PlayerEntity playerEntity;
+        private Coroutine burstRoutine;
 
         private void Awake()
         {
@@ -50,6 +55,7 @@ namespace EasternFantasy.Player
                 playerEntity,
                 isCritical);
 
+            GetComponent<PlayerBasicAttackAudio>()?.Play();
             playerAnimation.MarkBasicAttackHit(0.28f);
             return true;
         }
@@ -59,9 +65,9 @@ namespace EasternFantasy.Player
             return TryFire();
         }
 
-        public bool TryFireBurst(int projectileCount, float verticalSpacing, float damageMultiplier)
+        public bool TryFireBurst(int projectileCount, float verticalSpacing, float damageMultiplier, Action onProjectileFired = null)
         {
-            if (!isActiveAndEnabled || !playerAnimation.CanPerformCombatAction)
+            if (!isActiveAndEnabled || burstRoutine != null || !playerAnimation.CanPerformCombatAction)
                 return false;
             PlayerProjectile burstPrefab = burstProjectilePrefab != null
                 ? burstProjectilePrefab : projectilePrefab;
@@ -74,8 +80,21 @@ namespace EasternFantasy.Player
             float center = (projectileCount - 1) * 0.5f;
             float damage = playerEntity.RollAttackDamage(out bool isCritical)
                 * Mathf.Max(0f, damageMultiplier);
+            burstRoutine = StartCoroutine(FireBurst(burstPrefab, projectileCount, verticalSpacing,
+                directionX, center, damage, isCritical, onProjectileFired));
+            return true;
+        }
+
+        private IEnumerator FireBurst(PlayerProjectile burstPrefab, int projectileCount, float verticalSpacing,
+            float directionX, float center, float damage, bool isCritical, Action onProjectileFired)
+        {
+            int scene = SceneManager.GetActiveScene().handle;
             for (int i = 0; i < projectileCount; i++)
             {
+                if (i > 0)
+                    yield return new WaitForSeconds(Mathf.Max(0.01f, burstShotInterval));
+                if (playerEntity == null || playerEntity.IsDead || scene != SceneManager.GetActiveScene().handle)
+                    break;
                 float yOffset = (i - center) * verticalSpacing;
                 Vector3 position = transform.position + new Vector3(
                     spawnOffset.x * directionX,
@@ -89,9 +108,17 @@ namespace EasternFantasy.Player
                     damage,
                     playerEntity,
                     isCritical);
+                onProjectileFired?.Invoke();
             }
+            // Yield once for single-shot calls so StartCoroutine's handle is cleared reliably.
+            yield return null;
+            burstRoutine = null;
+        }
 
-            return true;
+        private void OnDisable()
+        {
+            if (burstRoutine != null) StopCoroutine(burstRoutine);
+            burstRoutine = null;
         }
     }
 }

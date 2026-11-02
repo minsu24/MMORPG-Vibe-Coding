@@ -1,0 +1,13 @@
+Native portal arrival validation
+PASS return portal targets Marshland exit anchor
+PASS real portal MoveToScene accepts transfer
+PASS portal reaches Marshland
+PASS player arrives at Out_Marshland_Portal instead of map entry
+PASS inactive boss portal is a valid arrival anchor without activating it
+PASS arrival consumes transfer target
+PASS arrival at sealed-door anchor requested
+PASS destination name with trailing scene whitespace is resolved
+PASS nested inactive and locked arrival anchor resolves without activating or unlocking it
+PASS missing target never falls back to another portal
+COMPLETE
+PASS original save unchanged and preferences restored

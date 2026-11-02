@@ -1,0 +1,16 @@
+PASS first slash uses first swish and miss has no hit sound
+PASS duplicate first-strike event is ignored
+PASS second slash plays second swish plus custom hit sound
+PASS duplicate second-strike event is ignored
+PASS actual damage plays female hurt voice
+PASS immune damage does not play voice
+PASS drawing charge begins with cast
+PASS charge pauses and resumes with gameplay
+PASS cancellation stops charge without release sound
+PASS release stops charge and plays casting sound
+PASS three simultaneously hit enemies each emit an independent impact
+PASS multi-collider target emits only one impact
+PASS lethal target still emits its impact
+PASS shared generic hit audio is suppressed
+PASS duplicate release has no second hit
+PASS disabling skill stops its casting audio

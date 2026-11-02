@@ -334,6 +334,11 @@ public abstract class EnemyController : Entity
 
     public void TakeDamage(float damage, bool isCritical, bool showDamageText)
     {
+        TakeDamage(damage, isCritical, showDamageText, null, 1f);
+    }
+
+    public void TakeDamage(float damage, bool isCritical, bool showDamageText, AudioClip impactSound, float impactVolume)
+    {
         if (isDefeated || damage <= 0f)
         {
             return;
@@ -341,7 +346,7 @@ public abstract class EnemyController : Entity
         if (HP > 0)
         {
             HP -= damage;
-            CombatImpactFeedback.Play(transform.position, isCritical);
+            CombatImpactFeedback.Play(transform.position, isCritical, impactSound, impactVolume);
             // 1. 데미지 텍스트 생성
             // 몬스터 머리 위 위치 기준, 약간의 랜덤성을 주면 글자가 겹치지 않아 더 자연스럽습니다.
             if (showDamageText && damageTextPrefab != null)

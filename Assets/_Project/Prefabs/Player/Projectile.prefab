@@ -194,3 +194,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Player.PlayerProjectile
   explosionPrefab: {fileID: 7338162945797066078, guid: 2110b81cda96f6b4fa553ea1b5b57ff8, type: 3}
   explosionLifetime: 0.25
+  hitSound: {fileID: 8300000, guid: 21114dab25164be082a87c61582410ec, type: 3}
+  hitSoundVolume: 0.25

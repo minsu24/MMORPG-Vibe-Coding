@@ -1,0 +1,16 @@
+Native straight punch movement validation
+PASS grounded on test platform
+PASS movement available before cast
+PASS real grounded straight punch accepted
+PASS cast stops horizontal movement immediately
+PASS movement resumes after full animation recovery
+PASS jump remains available after cast
+PASS real airborne straight punch accepted
+PASS air cast preserves jump velocity
+PASS airborne cast allows both steering directions and gravity
+PASS airborne cast recovers normally
+Landing observed: True
+PASS cast accepted for cancellation test
+PASS cancellation releases movement
+COMPLETE
+PASS original save unchanged and preferences restored

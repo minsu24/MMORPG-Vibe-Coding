@@ -13,10 +13,13 @@ namespace EasternFantasy.UI
         [SerializeField] private EquipmentSlot slot;
         [SerializeField] private Image icon;
         [SerializeField] private TMP_Text emptyLabel;
+        [SerializeField] private Sprite dropHoverSprite;
         private PlayerInventory inventory;
         private ItemTooltipUI tooltip;
         private CanvasGroup canvasGroup;
         private GameObject dragVisual;
+        private Image slotImage;
+        private PointerEventData hoverPointer;
 
         public EquipmentSlot Slot => slot;
 
@@ -24,6 +27,7 @@ namespace EasternFantasy.UI
         {
             inventory = playerInventory;
             tooltip = itemTooltip;
+            slotImage = GetComponent<Image>();
             canvasGroup = GetComponent<CanvasGroup>();
             if (canvasGroup == null)
                 canvasGroup = gameObject.AddComponent<CanvasGroup>();
@@ -54,6 +58,7 @@ namespace EasternFantasy.UI
 
         public void OnDrop(PointerEventData eventData)
         {
+            ClearDropHighlight();
             InventorySlotUI source = eventData.pointerDrag != null
                 ? eventData.pointerDrag.GetComponent<InventorySlotUI>() : null;
             if (source != null && source.Definition != null
@@ -103,12 +108,48 @@ namespace EasternFantasy.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            hoverPointer = eventData;
+            UpdateDropHighlight();
+            if (eventData.dragging)
+                return;
             ItemDefinition item = inventory != null ? inventory.GetEquipped(slot) : null;
             if (item != null)
                 tooltip?.Show(item, inventory);
         }
 
-        public void OnPointerExit(PointerEventData eventData) => tooltip?.HideAfterPointerExit();
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            ClearDropHighlight();
+            tooltip?.HideAfterPointerExit();
+        }
+
+        private void LateUpdate()
+        {
+            if (hoverPointer != null)
+                UpdateDropHighlight();
+        }
+
+        private void UpdateDropHighlight()
+        {
+            if (slotImage == null)
+                slotImage = GetComponent<Image>();
+            InventorySlotUI source = hoverPointer != null && hoverPointer.dragging
+                && hoverPointer.pointerDrag != null
+                ? hoverPointer.pointerDrag.GetComponent<InventorySlotUI>() : null;
+            ItemDefinition candidate = source != null ? source.Definition : null;
+            bool acceptsDrop = candidate != null && candidate.EquipmentSlot == slot
+                && inventory != null && inventory.CanEquip(candidate)
+                && inventory.GetQuantity(candidate) > 0;
+            if (slotImage != null)
+                slotImage.overrideSprite = acceptsDrop ? dropHoverSprite : null;
+        }
+
+        private void ClearDropHighlight()
+        {
+            hoverPointer = null;
+            if (slotImage != null)
+                slotImage.overrideSprite = null;
+        }
 
         private void UpdateDragPosition(PointerEventData eventData)
         {
@@ -127,7 +168,11 @@ namespace EasternFantasy.UI
             dragVisual = null;
         }
 
-        private void OnDisable() => EndDrag();
+        private void OnDisable()
+        {
+            ClearDropHighlight();
+            EndDrag();
+        }
 
         private static string SlotName(EquipmentSlot value)
         {

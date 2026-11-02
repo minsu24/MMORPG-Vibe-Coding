@@ -48,7 +48,9 @@ namespace EasternFantasy.Player
             if (string.IsNullOrWhiteSpace(targetName))
                 return;
 
-            GameObject spawnPoint = GameObject.Find(targetName);
+            // Consume only this scene transfer, even when its destination is missing.
+            MapTransferData.Clear();
+            GameObject spawnPoint = FindSpawnPoint(scene, targetName);
             if (spawnPoint == null)
             {
                 Debug.LogError(
@@ -58,9 +60,30 @@ namespace EasternFantasy.Player
             }
 
             TeleportToAndRetarget(spawnPoint.transform);
-            MapTransferData.Clear();
 
             Debug.Log($"Moved player to portal '{targetName}' in scene '{scene.name}'.", this);
+        }
+
+        private static GameObject FindSpawnPoint(Scene scene, string targetName)
+        {
+            // A quest/boss may hide the destination portal. Its position is still a
+            // valid arrival anchor; finding it must not activate or unlock it.
+            string normalizedName = targetName.Trim();
+            GameObject result = null;
+            foreach (GameObject root in scene.GetRootGameObjects())
+            {
+                foreach (Transform candidate in root.GetComponentsInChildren<Transform>(true))
+                {
+                    if (!string.Equals(candidate.name.Trim(), normalizedName, System.StringComparison.Ordinal)) continue;
+                    if (result != null)
+                    {
+                        Debug.LogError($"Scene '{scene.name}' has multiple spawn points named '{normalizedName}'.");
+                        return null;
+                    }
+                    result = candidate.gameObject;
+                }
+            }
+            return result;
         }
 
         public void TeleportToAndRetarget(Transform destination)

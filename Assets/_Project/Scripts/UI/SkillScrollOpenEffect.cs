@@ -19,6 +19,7 @@ namespace EasternFantasy.UI
         private bool captured;
         private Sprite sourceSprite, paperSprite, leftSprite, rightSprite;
         public bool IsAnimating => sequence != null && sequence.IsActive();
+        public bool IsClosing { get; private set; }
 
         public void Configure(RectTransform mask, RectTransform left, RectTransform right,
             CanvasGroup art, CanvasGroup[] content, Image existingBackground)
@@ -27,11 +28,17 @@ namespace EasternFantasy.UI
             overlay=art; contentGroups=content; background=existingBackground;
         }
 
-        private void OnEnable()
+        private void OnEnable() => Open();
+
+        public void Open()
         {
             if(!viewport || !overlay || contentGroups==null || !background || !background.sprite) return;
+            bool continuing = IsAnimating;
+            sequence?.Kill();
+            IsClosing = false;
+            ScrollOpeningAudio.PlayFor(this);
             Canvas.ForceUpdateCanvases();
-            Capture();
+            if (!captured) Capture();
             PrepareArtwork();
             overlay.gameObject.SetActive(true);
             overlay.alpha=1;
@@ -40,9 +47,10 @@ namespace EasternFantasy.UI
                 group.alpha=0; group.interactable=false; group.blocksRaycasts=false;
             }
             var color=backgroundColor; color.a=0; background.color=color;
-            ApplyProgress(0);
+            if (!continuing) ApplyProgress(0);
             sequence=DOTween.Sequence().SetUpdate(true);
-            sequence.Append(DOTween.To(()=>progress,ApplyProgress,1,duration).SetEase(Ease.OutCubic));
+            sequence.Append(DOTween.To(()=>progress,ApplyProgress,1,
+                Mathf.Max(.01f, duration * (1f-progress))).SetEase(Ease.OutCubic));
             // Both representations use exactly the same pixels and geometry.
             // Swap at full extension instead of crossfading mismatched scroll art.
             sequence.AppendCallback(()=> {
@@ -52,6 +60,47 @@ namespace EasternFantasy.UI
             sequence.AppendInterval(.16f);
             for(int i=0;i<contentGroups.Length;i++) sequence.Join(contentGroups[i].DOFade(alphas[i],.16f));
             sequence.OnComplete(()=>{ sequence=null; Restore(); });
+        }
+
+        public void Close(System.Action completed)
+        {
+            if (IsClosing) return;
+            if (!viewport || !overlay || contentGroups == null || !background || !background.sprite)
+            {
+                completed?.Invoke();
+                return;
+            }
+            bool continuing = IsAnimating;
+            sequence?.Kill();
+            sequence = null;
+            IsClosing = true;
+            Canvas.ForceUpdateCanvases();
+            if (!captured) Capture();
+            PrepareArtwork();
+            overlay.gameObject.SetActive(true);
+            overlay.alpha = 1;
+            overlay.blocksRaycasts = true;
+            foreach (var group in contentGroups)
+            {
+                group.alpha = 0;
+                group.interactable = false;
+                group.blocksRaycasts = false;
+            }
+            var color = backgroundColor; color.a = 0; background.color = color;
+            if (!continuing) ApplyProgress(1);
+            ScrollOpeningAudio.PlayClosingFor(this);
+            sequence = DOTween.Sequence().SetUpdate(true);
+            sequence.Append(DOTween.To(() => progress, ApplyProgress, 0,
+                Mathf.Max(.01f, duration * progress)).SetEase(Ease.InCubic));
+            sequence.OnComplete(() =>
+            {
+                sequence = null;
+                // Hide before restoring the content, so the fully opened artwork
+                // cannot flash for a frame at the end of the closing animation.
+                completed?.Invoke();
+                Restore();
+                IsClosing = false;
+            });
         }
 
         private void PrepareArtwork()
@@ -145,7 +194,7 @@ namespace EasternFantasy.UI
             sourceSprite=null;
         }
 
-        private void OnDisable() { sequence?.Kill(); sequence=null; Restore(); }
+        private void OnDisable() { sequence?.Kill(); sequence=null; IsClosing=false; Restore(); }
         private void OnDestroy() { sequence?.Kill(); sequence=null; ReleaseSprites(); }
     }
 }

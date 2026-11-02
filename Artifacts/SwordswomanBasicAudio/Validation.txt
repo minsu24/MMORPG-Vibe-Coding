@@ -1,0 +1,4 @@
+PASS swing clip plays on swing source
+PASS empty hitbox does not play impact
+PASS hit plays custom impact with default sound bank disabled
+PASS multiple colliders resolve to one enemy

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using EasternFantasy.Dialogue;
 using EasternFantasy.Player;
+using EasternFantasy.Saving;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -19,9 +21,40 @@ public sealed class LockedPortalSequence : MonoBehaviour
     [SerializeField, Min(0f)] private float anticipation = 0.25f;
 
     private static readonly HashSet<DialogueSequence> unlockedDialogues = new HashSet<DialogueSequence>();
+    private static readonly HashSet<DialogueSequence> savedCompletedDialogues = new HashSet<DialogueSequence>();
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    private static void ResetSession() => unlockedDialogues.Clear();
+    private static void ResetSession()
+    {
+        unlockedDialogues.Clear();
+        savedCompletedDialogues.Clear();
+    }
+
+    internal static string[] CaptureSave() => unlockedDialogues.Select(SaveAssetCatalog.Id).ToArray();
+
+    internal static void RestoreSave(SaveGameData data)
+    {
+        ResetSession();
+        foreach (string id in data.unlockedPortalDialogues ?? System.Array.Empty<string>())
+        {
+            var dialogue = SaveAssetCatalog.Resolve<DialogueSequence>(id);
+            if (dialogue != null) unlockedDialogues.Add(dialogue);
+        }
+        // Older saves have no portal field. Reward records prove that the unlock
+        // conversation completed, even when its one-shot trigger can no longer run.
+        foreach (string id in data.rewardedDialogues ?? System.Array.Empty<string>())
+        {
+            var dialogue = SaveAssetCatalog.Resolve<DialogueSequence>(id);
+            if (dialogue != null) savedCompletedDialogues.Add(dialogue);
+        }
+        foreach (string id in data.playedDialogues ?? System.Array.Empty<string>())
+        {
+            var dialogue = SaveAssetCatalog.Resolve<DialogueSequence>(id);
+            if (dialogue != null && dialogue.CompletionExperience <= 0) savedCompletedDialogues.Add(dialogue);
+        }
+        foreach (var sequence in FindObjectsByType<LockedPortalSequence>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            sequence.ApplySavedState();
+    }
 
     private PortalManager portal;
     private DialogueManager dialogueManager;
@@ -44,16 +77,36 @@ public sealed class LockedPortalSequence : MonoBehaviour
         portal.SetLocked(true);
         if (sealRenderer != null) sealRenderer.enabled = true;
     }
-    private void OnEnable() => BindDialogue();
+    private void OnEnable()
+    {
+        ApplySavedState();
+        BindDialogue();
+    }
     private void Start()
     {
         // Restore after all Awake calls, including PortalManager's initial lock state.
-        if (unlockDialogue != null && unlockedDialogues.Contains(unlockDialogue))
-        {
-            portal.SetLocked(false);
-            if (sealRenderer != null) sealRenderer.enabled = false;
-        }
+        ApplySavedState();
         BindDialogue();
+    }
+
+    private void ApplySavedState()
+    {
+        if (sequenceRoutine != null) StopCoroutine(sequenceRoutine);
+        sequenceRoutine = null;
+        IsUnlocking = false;
+        RestoreControl();
+        if (portal == null) portal = GetComponent<PortalManager>();
+        if (unlockDialogue != null && savedCompletedDialogues.Contains(unlockDialogue))
+            unlockedDialogues.Add(unlockDialogue);
+        bool open = unlockDialogue != null && unlockedDialogues.Contains(unlockDialogue);
+        portal.SetLocked(!open);
+        if (sealRenderer != null) sealRenderer.enabled = !open;
+        if (!open && sealAnimator != null && sealAnimator.isActiveAndEnabled
+            && sealAnimator.HasState(0, Animator.StringToHash("Locked")))
+        {
+            sealAnimator.Play("Locked", 0, 0f);
+            sealAnimator.Update(0f);
+        }
     }
     private void Update()
     {
@@ -71,6 +124,7 @@ public sealed class LockedPortalSequence : MonoBehaviour
         if (!isActiveAndEnabled || completed != unlockDialogue || !portal.IsLocked || IsUnlocking) return;
         // The completed conversation remains consumed even if the scene unloads mid-animation.
         unlockedDialogues.Add(completed);
+        SaveGameService.SaveNow(out _);
         sequenceRoutine = StartCoroutine(UnlockSequence());
     }
     private IEnumerator UnlockSequence()

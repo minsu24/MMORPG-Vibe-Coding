@@ -18,3 +18,10 @@
 *.VC.db
 *.log
 /TestResults/
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Installed Python packages
+/Artifacts/AudioTools/python/Lib/site-packages/

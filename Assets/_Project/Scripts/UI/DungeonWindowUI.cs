@@ -5,6 +5,8 @@ using EasternFantasy.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 namespace EasternFantasy.UI
 {
@@ -23,8 +25,9 @@ namespace EasternFantasy.UI
         private readonly List<DungeonListEntryUI> entries = new List<DungeonListEntryUI>();
         private readonly List<DungeonDefinition> boundDungeons = new List<DungeonDefinition>();
         private PlayerMovement2D player;
-        private DungeonPortal portal;
         private bool loading;
+        private static readonly HashSet<CharacterClassId> discoveredClasses = new HashSet<CharacterClassId>();
+        public static bool IsUnlocked => discoveredClasses.Contains(CharacterSelectionState.SelectedClass);
         private static readonly HashSet<CharacterClassId> tutorialCompletedClasses = new HashSet<CharacterClassId>();
         private PetCompanionTutorialUI tutorial;
         private GameObject tutorialCanvas;
@@ -34,13 +37,29 @@ namespace EasternFantasy.UI
         private bool tutorialInputWasEnabled;
         public static bool IsTutorialRunning => Instance != null && Instance.tutorial != null && Instance.tutorial.IsShowing;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void ResetTutorials() { tutorialCompletedClasses.Clear(); }
+        private static void ResetTutorials() { tutorialCompletedClasses.Clear(); discoveredClasses.Clear(); Instance = null; }
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void Bootstrap()
+        {
+            SceneManager.sceneLoaded -= EnsureWindow;
+            SceneManager.sceneLoaded += EnsureWindow;
+            EnsureWindow(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+        }
+        private static void EnsureWindow(Scene scene, LoadSceneMode mode)
+        {
+            if (Instance != null || GameplayHudVisibility.IsMenuScene) return;
+            var prefab = Resources.Load<GameObject>("DungeonWindow");
+            if (prefab != null) Instantiate(prefab);
+        }
         public static DungeonWindowUI Instance { get; private set; }
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
         public DungeonDefinition Selected { get; private set; }
         private void Awake()
         {
+            if (Instance != null && Instance != this) { Destroy(gameObject); return; }
             Initialize();
+            DontDestroyOnLoad(gameObject);
+            SceneManager.activeSceneChanged += SceneChanged;
             windowRoot.SetActive(false);
             entryTemplate.gameObject.SetActive(false);
         }
@@ -51,29 +70,52 @@ namespace EasternFantasy.UI
         }
         private void Update()
         {
+            var keyboard = Keyboard.current;
+            if (!IsTutorialRunning && keyboard != null && keyboard.oKey.wasPressedThisFrame && !IsTyping())
+            {
+                if (IsOpen) Close();
+                else if (IsUnlocked) OpenWindow(FindFirstObjectByType<PlayerMovement2D>());
+            }
             if (!IsOpen) return;
             if (IsTutorialRunning)
             {
-                if (player == null || portal == null || (player.GetComponent<PlayerEntity>() is PlayerEntity actor && actor.IsDead)) { Close(); return; }
+                if (player == null || (player.GetComponent<PlayerEntity>() is PlayerEntity actor && actor.IsDead)) { Close(); return; }
                 if (Keyboard.current?.spaceKey.wasPressedThisFrame == true) tutorial.Advance();
                 return;
             }
-            if (Keyboard.current?.escapeKey.wasPressedThisFrame == true || player == null || portal == null
+            if (Keyboard.current?.escapeKey.wasPressedThisFrame == true || player == null
                 || (player.GetComponent<PlayerEntity>() is PlayerEntity entity && entity.IsDead)) Close();
         }
         public void Open(DungeonPortal source, PlayerMovement2D actor)
         {
-            Initialize();
-            if (IsTutorialRunning || MapTutorialUI.IsRunning || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || ShopWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning) return;
-            if (loading || source == null || actor == null) return;
-            if (actor.GetComponent<PlayerEntity>() is PlayerEntity entity && entity.IsDead) return;
-            portal = source;
+            if (source == null) return;
+            if (OpenWindow(actor)) discoveredClasses.Add(CharacterSelectionState.SelectedClass);
+        }
+        private static bool IsTyping()
+        {
+            var selected = EventSystem.current != null ? EventSystem.current.currentSelectedGameObject : null;
+            return selected != null && (selected.GetComponent<TMP_InputField>() != null || selected.GetComponent<InputField>() != null);
+        }
+        private bool OpenWindow(PlayerMovement2D actor)
+        {
+            if (GameplayHudVisibility.IsMenuScene || PortalSceneTransition.IsTransitioning || EasternFantasy.Saving.SaveGameService.IsRestoring
+                || DungeonRunController.Instance != null) return false;
+            if (EasternFantasy.Dialogue.DialogueManager.Instance != null && EasternFantasy.Dialogue.DialogueManager.Instance.IsDialogueActive) return false;
+            if (EquipmentUpgradeWindowUI.Instance != null && EquipmentUpgradeWindowUI.Instance.IsOpen) return false;
+            if (IsTutorialRunning || MapTutorialUI.IsRunning || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || ShopWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning) return false;
+            if (loading || actor == null) return false;
+            if (actor.GetComponent<PlayerEntity>() is PlayerEntity entity && entity.IsDead) return false;
+            var input = actor.GetComponent<PlayerInputReader>();
+            if (input != null && (!input.isActiveAndEnabled || input.IsInputBlocked)) return false;
             player = actor;
             InventoryWindowUI.Instance?.SetOpen(false);
             EquipmentWindowUI.Instance?.SetOpen(false);
             SkillWindowUI.Instance?.SetOpen(false);
             PlayerStatsWindowUI.Instance?.SetOpen(false);
             ShopWindowUI.Instance?.Close();
+            PetCompanionWindowUI.Instance?.Close();
+            MapWindowUI.Instance?.Close();
+            ScrollCodexWindowUI.Instance?.Close();
             player.ClearInput();
             windowRoot.SetActive(true);
             GameTimeController.SetPaused(this, true);
@@ -81,6 +123,7 @@ namespace EasternFantasy.UI
             Select(boundDungeons.Contains(Selected) ? Selected : boundDungeons.Count > 0 ? boundDungeons[0] : null);
             list.verticalNormalizedPosition = 1f;
             BeginTutorial();
+            return true;
         }
         private void RebuildList()
         {
@@ -161,7 +204,7 @@ namespace EasternFantasy.UI
         public void EnterSelected()
         {
             if (IsTutorialRunning) return;
-            if (!IsOpen || loading || player == null || !CanEnter(Selected)) return;
+            if (!IsOpen || loading || player == null || DungeonRunController.Instance != null || PortalSceneTransition.IsTransitioning || !CanEnter(Selected)) return;
             if (player.GetComponent<PlayerEntity>() is PlayerEntity entity && entity.IsDead) return;
             string destination = Selected.sceneName;
             if (!player.TryGetComponent<PlayerLocationSetter>(out _)) player.gameObject.AddComponent<PlayerLocationSetter>();
@@ -207,7 +250,7 @@ namespace EasternFantasy.UI
                     "던전을 선택하면 해당 던전의 정보가 표시됩니다.\n이름과 설명, 미리보기 이미지, 입장 레벨, 제한시간,\n몬스터와 보상 정보를 확인하고 도전을 준비하세요.",
                     "던전마다 입장에 필요한 레벨과 조건이 있습니다.\n조건을 충족해야 입장 버튼을 사용할 수 있어요.\n제한시간이 있는 던전은 시간 안에 목표를 달성해야 합니다.\n던전 안에서는 메뉴를 열어도 제한시간이 흐르니 주의하세요.",
                     "던전을 클리어하면 특별한 보상을 얻을 수 있습니다.\n보상은 던전마다 다르므로 도전할 던전의 보상 정보를 살펴보세요.\n던전의 목표를 달성하고 클리어에 도전해 보세요!",
-                    "도전할 던전을 고르고 준비가 끝나면 던전 입장 버튼을 누르세요.\n장비와 회복 아이템을 미리 점검하면 도움이 됩니다.\n창의 닫기 버튼이나 ESC키로 돌아갈 수도 있어요.\n이 안내 중에는 실제 던전으로 이동하지 않습니다." },
+                    "도전할 던전을 고르고 준비가 끝나면 던전 입장 버튼을 누르세요.\n최초 발견 후에는 어디서든 O키로 던전 창을 열 수 있어요.\nO키, 닫기 버튼이나 ESC키로 창을 닫을 수 있습니다.\n던전 진행 중에는 다시 입장할 수 없습니다." },
                 new[] { list.viewport != null ? list.viewport : (RectTransform)list.transform,
                     preview.rectTransform.parent as RectTransform, levelText.rectTransform, rewardText.rectTransform, (RectTransform)enterButton.transform },
                 null, CompleteTutorial, true, false);
@@ -227,6 +270,7 @@ namespace EasternFantasy.UI
             Destroy(tutorialCanvas); tutorialCanvas = null; tutorial = null;
         }
         private void OnDisable() => Close();
-        private void OnDestroy() { EndTutorial(); GameTimeController.SetPaused(this, false); if (Instance == this) Instance = null; }
+        private void SceneChanged(Scene previous, Scene next) => Close();
+        private void OnDestroy() { SceneManager.activeSceneChanged -= SceneChanged; EndTutorial(); GameTimeController.SetPaused(this, false); if (Instance == this) Instance = null; }
     }
 }

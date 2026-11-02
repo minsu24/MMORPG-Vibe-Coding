@@ -39,9 +39,9 @@ namespace EasternFantasy.Player
         [SerializeField, Min(.01f)] private float returnSpeed = 12f;
         [SerializeField, Min(.01f)] private float attackRange = 1.1f;
         [SerializeField, Min(0f)] private float attackStandOff = .65f;
-        [SerializeField, Min(.01f)] private float followStartDistance = .5f;
         [SerializeField, Min(.01f)] private float arrivalDistance = .1f;
-        [SerializeField, Min(.01f)] private float followSmoothTime = .06f;
+        [SerializeField, Min(.05f)] private float followDelay = .4f;
+        [SerializeField, Min(1f)] private float teleportResetDistance = 12f;
         [SerializeField] private Vector2 followOffset = new Vector2(1.1f, 0f);
         [SerializeField, Min(.01f)] private float referenceVisualHeight = 1.2514286f;
         [SerializeField] private SpriteRenderer visual;
@@ -52,7 +52,9 @@ namespace EasternFantasy.Player
         private PlayerIdleAnimation ownerAnimation;
         private PlayerMovement2D movement;
         private float ownerGroundOffset = -.5f;
-        private Vector3 followVelocity;
+        private readonly CompanionFollowTrail followTrail = new CompanionFollowTrail();
+        private Vector3 previousOwnerPosition;
+        private bool resetFollowTrail;
         private bool walking;
         private EnemyController target, attackTarget, approachTarget;
         private float approachSide = -1f, attackFacing = 1f;
@@ -92,7 +94,6 @@ namespace EasternFantasy.Player
             ownerAnimation = player.GetComponent<PlayerIdleAnimation>();
             movement = player.GetComponent<PlayerMovement2D>();
             CacheOwnerGroundOffset();
-            followVelocity = Vector3.zero;
             cycle = new PetCompanionCombatCycle(attackInterval, attackDuration, attackHitTime);
             target = attackTarget = null;
             var playerSprite = player.GetComponentInChildren<SpriteRenderer>();
@@ -102,6 +103,7 @@ namespace EasternFantasy.Player
                 visual.sortingOrder = playerSprite.sortingOrder + 1;
             }
             transform.position = OwnerPosition();
+            ResetFollowTrail();
             Subscribe();
             SelectTarget(player.LastAttackTarget);
             PlayAnimation("Companion_Idle");
@@ -159,7 +161,6 @@ namespace EasternFantasy.Player
             skillDamage = progress.Attack * skillDamageMultiplier;
             skillHitApplied = false;
             skillElapsed = 0f;
-            followVelocity = Vector3.zero;
             cycle.CancelAttack();
             skillPhase = SkillPhase.Approaching;
             return true;
@@ -240,6 +241,38 @@ namespace EasternFantasy.Player
                 ground + WorldHeight * .5f + followOffset.y, owner.transform.position.z);
         }
 
+        private Vector3 OwnerTrailPosition()
+        {
+            return new Vector3(owner.transform.position.x,
+                owner.transform.position.y + ownerGroundOffset + WorldHeight * .5f + followOffset.y,
+                owner.transform.position.z);
+        }
+
+        private void ResetFollowTrail()
+        {
+            previousOwnerPosition = OwnerTrailPosition();
+            followTrail.Reset(transform.position, previousOwnerPosition,
+                movement == null || movement.IsGrounded, Time.time, followDelay);
+            resetFollowTrail = false;
+        }
+
+        private void UpdateFollowTrail()
+        {
+            Vector3 position = OwnerTrailPosition();
+            if (Vector3.Distance(position, previousOwnerPosition) > teleportResetDistance
+                || Vector3.Distance(transform.position, position) > teleportResetDistance * 2f)
+            {
+                // Warps, respawns and long separations start a fresh path near the owner.
+                transform.position = OwnerPosition();
+                skillPhase = SkillPhase.None;
+                skillTarget = target = attackTarget = approachTarget = null;
+                returningAfterSkill = false;
+                cycle = new PetCompanionCombatCycle(attackInterval, attackDuration, attackHitTime);
+                ResetFollowTrail();
+            }
+            previousOwnerPosition = position;
+        }
+
         private Vector3 TargetPosition(EnemyController enemy)
         {
             var collider = enemy.GetComponent<Collider2D>();
@@ -281,13 +314,15 @@ namespace EasternFantasy.Player
                 ownerAnimation = owner.GetComponent<PlayerIdleAnimation>();
                 movement = owner.GetComponent<PlayerMovement2D>();
                 CacheOwnerGroundOffset();
-                followVelocity = Vector3.zero;
                 cycle = new PetCompanionCombatCycle(attackInterval, attackDuration, attackHitTime);
+                resetFollowTrail = true;
                 Subscribe();
             }
-            if (IsUsingActiveSkill) { AdvanceActiveSkill(); return; }
+            UpdateFollowTrail();
+            if (IsUsingActiveSkill) { resetFollowTrail = true; AdvanceActiveSkill(); return; }
             if (returningAfterSkill)
             {
+                resetFollowTrail = true;
                 var homePosition = OwnerPosition();
                 MoveTo(homePosition, returnSpeed);
                 PlayAnimation("Companion_Walk");
@@ -316,11 +351,12 @@ namespace EasternFantasy.Player
             bool movedBeforeTransition = false;
             if (previousState == PetCompanionCombatState.Waiting)
             {
-                transform.position = Vector3.SmoothDamp(transform.position, home, ref followVelocity,
-                    followSmoothTime, returnSpeed, Time.deltaTime);
+                if (resetFollowTrail) ResetFollowTrail();
+                followTrail.Record(OwnerTrailPosition(), movement == null || movement.IsGrounded, Time.time);
+                transform.position = followTrail.Advance(Time.time, Time.deltaTime, followDelay, followOffset.x);
                 movedBeforeTransition = true;
             }
-            else followVelocity = Vector3.zero;
+            else resetFollowTrail = true;
             if (previousState == PetCompanionCombatState.Approaching && IsLiving(target))
             {
                 MoveTo(TargetPosition(target), approachSpeed);
@@ -340,7 +376,7 @@ namespace EasternFantasy.Player
                 && Vector2.Distance(transform.position, TargetPosition(activeTarget)) <= arrivalDistance;
             float homeDistance = Vector2.Distance(transform.position, home);
             // Normal following remains continuous. Only combat returns require exact arrival.
-            bool readyToAttack = previousState != PetCompanionCombatState.Waiting || homeDistance <= followStartDistance;
+            bool readyToAttack = previousState != PetCompanionCombatState.Waiting || followTrail.IsCaughtUp;
             bool hit = cycle.Tick(Time.deltaTime, owner.IsInCombat && IsLiving(activeTarget) && readyToAttack, nearTarget,
                 previousState == PetCompanionCombatState.Waiting || homeDistance <= arrivalDistance);
             if (previousState != PetCompanionCombatState.Attacking && cycle.State == PetCompanionCombatState.Attacking)

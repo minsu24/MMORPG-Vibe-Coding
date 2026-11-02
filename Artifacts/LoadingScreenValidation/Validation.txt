@@ -1,0 +1,51 @@
+Loading screen integration validation
+PASS SaveRestore: artwork covers loading and screenshot captured
+PASS SaveRestore: gameplay paused and dots animate
+PASS SaveRestore: loading reaches 100% before fade completes
+PASS SaveRestore: loading pause released
+PASS save restore reaches the saved scene
+PASS SaveRestore: confiner is baked before reveal
+PASS SaveRestore: all viewport corners stay inside CameraCollider after reveal
+PASS MovementPrototype: transition accepted
+PASS MovementPrototype: duplicate transfer blocked
+PASS MovementPrototype: black fade covers loading and screenshot captured
+PASS MovementPrototype: gameplay paused without loading artwork
+PASS MovementPrototype: loading pause released
+PASS MovementPrototype: transfer completed
+PASS MovementPrototype: confiner is baked before reveal
+PASS MovementPrototype: all viewport corners stay inside CameraCollider after reveal
+PASS PrologueVilage: transition accepted
+PASS PrologueVilage: duplicate transfer blocked
+PASS PrologueVilage: black fade covers loading and screenshot captured
+PASS PrologueVilage: gameplay paused without loading artwork
+PASS PrologueVilage: loading pause released
+PASS PrologueVilage: transfer completed
+PASS PrologueVilage: confiner is baked before reveal
+PASS PrologueVilage: all viewport corners stay inside CameraCollider after reveal
+PASS SpiderCave: transition accepted
+PASS SpiderCave: duplicate transfer blocked
+PASS SpiderCave: black fade covers loading and screenshot captured
+PASS SpiderCave: gameplay paused without loading artwork
+PASS SpiderCave: loading pause released
+PASS SpiderCave: transfer completed
+PASS SpiderCave: confiner is baked before reveal
+PASS SpiderCave: all viewport corners stay inside CameraCollider after reveal
+PASS Respawn: black fade covers loading and screenshot captured
+PASS Respawn: gameplay paused without loading artwork
+PASS Respawn: loading pause released
+PASS respawn reaches village without the artwork loading screen
+PASS Respawn: confiner is baked before reveal
+PASS Respawn: all viewport corners stay inside CameraCollider after reveal
+PASS character menu transfer accepted
+PASS CharacterMenu: black fade covers loading and screenshot captured
+PASS CharacterMenu: gameplay paused without loading artwork
+PASS CharacterMenu: loading pause released
+PASS SavedCharacterEntry: artwork covers loading and screenshot captured
+PASS SavedCharacterEntry: gameplay paused and dots animate
+PASS SavedCharacterEntry: loading reaches 100% before fade completes
+PASS SavedCharacterEntry: loading pause released
+PASS character entry keeps artwork through the second saved-scene load
+PASS SavedCharacterEntry: confiner is baked before reveal
+PASS SavedCharacterEntry: all viewport corners stay inside CameraCollider after reveal
+COMPLETE
+PASS original player save is unchanged

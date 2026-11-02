@@ -8,9 +8,14 @@ namespace EasternFantasy.Player
     {
         [SerializeField] private PlayerMovementSettings settings;
         [SerializeField] private LayerMask groundLayers;
+        [Header("Jump Audio")]
+        [SerializeField] private AudioClip jumpSound;
+        [SerializeField, Range(0f, 1f)] private float jumpVolume = 0.5f;
+        [SerializeField, Range(0.5f, 1.5f)] private float jumpPitch = 1f;
+        private AudioSource jumpAudio;
         private PlayerIdleAnimation playerIdleAnimation;
         private readonly RaycastHit2D[] groundHits = new RaycastHit2D[8];
-        private readonly RaycastHit2D[] dashHits = new RaycastHit2D[16];
+        private RaycastHit2D[] dashHits = new RaycastHit2D[16];
         public Rigidbody2D body;
         private CapsuleCollider2D bodyCollider;
         private PlayerEntity playerEntity;
@@ -22,12 +27,14 @@ namespace EasternFantasy.Player
         private float jumpExpiresAt = float.NegativeInfinity;
         private float lastGroundedAt = float.NegativeInfinity;
         private readonly List<Collider2D> ignoredPlatforms = new List<Collider2D>();
+        private readonly List<Collider2D> ignoredPassThroughEnemies = new List<Collider2D>();
         private int groundHitCount;
         private float supportDistance;
 
         private RigidbodyConstraints2D constraintsBeforeLock;
         public bool IsMovementLocked { get; private set; }
         public bool IsDashing { get; private set; }
+        public int PassThroughObstacleMask => Physics2D.GetLayerCollisionMask(gameObject.layer) & ~dashEnemyMask;
         private float dashDirection;
         private float dashDistance;
         private float dashDuration;
@@ -40,6 +47,9 @@ namespace EasternFantasy.Player
 
         public bool IsGrounded { get; private set; }
         public float MoveInput => moveInput;
+        public bool IsBasicAttackMovementLocked => IsGrounded && playerIdleAnimation != null && playerIdleAnimation.IsBasicAttackActive;
+        public bool IsGroundedAttackMovementLocked => IsGrounded && playerIdleAnimation != null
+            && playerIdleAnimation.IsStationaryAttackActive;
 
         private void Awake()
         {
@@ -60,16 +70,36 @@ namespace EasternFantasy.Player
             body.freezeRotation = true;
             groundFilter.SetLayerMask(groundLayers);
             groundFilter.useTriggers = false;
+            if (jumpSound != null)
+            {
+                var child = new GameObject("Jump Audio");
+                child.transform.SetParent(transform, false);
+                jumpAudio = child.AddComponent<AudioSource>();
+                jumpAudio.enabled = true;
+                jumpAudio.playOnAwake = false;
+                jumpAudio.loop = false;
+                jumpAudio.spatialBlend = 0f;
+            }
         }
 
         public void SetMoveInput(float value) => moveInput = Mathf.Clamp(value, -1f, 1f);
         public void RequestJump(bool dropThrough = false)
         {
-            if (IsMovementLocked || IsDashing || (playerEntity != null
+            if (IsMovementLocked || IsDashing || IsGroundedAttackMovementLocked || (playerEntity != null
                 && (playerEntity.IsDead || playerEntity.isKnockback))) return;
             jumpRequested = true;
             dropThroughRequested = dropThrough;
             jumpExpiresAt = Time.time + settings.JumpBufferDuration;
+        }
+
+        public void StopMovementForGroundedAttack()
+        {
+            if (!IsGrounded) return;
+            jumpRequested = false;
+            dropThroughRequested = false;
+            jumpExpiresAt = float.NegativeInfinity;
+            // Only grounded attacks stop movement; jump attacks retain full air control.
+            if (body != null) body.linearVelocity = new Vector2(0f, body.linearVelocity.y);
         }
 
         private static bool IsOneWayPlatform(Collider2D collider)
@@ -145,6 +175,7 @@ namespace EasternFantasy.Player
             excludedLayersBeforeDash = bodyCollider.excludeLayers;
             // Ignore enemies only for this player's body, keeping terrain solid.
             bodyCollider.excludeLayers = excludedLayersBeforeDash.value | dashEnemyMask;
+            PrepareEnemyPassThrough();
             body.gravityScale = 0f;
             body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             body.linearVelocity = Vector2.zero;
@@ -160,6 +191,7 @@ namespace EasternFantasy.Player
             if (!IsDashing) return;
             IsDashing = false;
             if (bodyCollider != null) bodyCollider.excludeLayers = excludedLayersBeforeDash;
+            RestoreEnemyPassThrough();
             if (body == null) return;
             body.gravityScale = gravityBeforeDash;
             body.collisionDetectionMode = collisionModeBeforeDash;
@@ -184,11 +216,18 @@ namespace EasternFantasy.Player
             {
                 useTriggers = false,
                 useLayerMask = true,
-                layerMask = ~dashEnemyMask
+                layerMask = PassThroughObstacleMask
             };
-            int count = bodyCollider.Cast(direction, filter, dashHits, step + 0.02f);
+            int count;
+            while (true)
+            {
+                count = bodyCollider.Cast(direction, filter, dashHits, step + 0.02f);
+                if (count < dashHits.Length) break;
+                System.Array.Resize(ref dashHits, dashHits.Length * 2);
+            }
             for (int i = 0; i < count; i++)
             {
+                if (dashHits[i].collider == null || dashHits[i].collider.GetComponentInParent<EnemyController>() != null) continue;
                 if (Vector2.Dot(dashHits[i].normal, direction) >= -0.1f) continue;
                 step = Mathf.Min(step, Mathf.Max(0f, dashHits[i].distance - 0.02f));
             }
@@ -215,6 +254,31 @@ namespace EasternFantasy.Player
             else body.constraints = constraintsBeforeLock;
         }
 
+        public void PrepareEnemyPassThrough()
+        {
+            foreach (var enemy in FindObjectsByType<EnemyController>(FindObjectsSortMode.None))
+                foreach (var collider in enemy.GetComponentsInChildren<Collider2D>())
+                {
+                    if (!collider.enabled || collider.isTrigger || Physics2D.GetIgnoreCollision(bodyCollider, collider)) continue;
+                    Physics2D.IgnoreCollision(bodyCollider, collider, true);
+                    ignoredPassThroughEnemies.Add(collider);
+                }
+        }
+
+        private void RestoreEnemyPassThrough(bool force = false)
+        {
+            for (int i = ignoredPassThroughEnemies.Count - 1; i >= 0; i--)
+            {
+                var collider = ignoredPassThroughEnemies[i];
+                if (collider == null) { ignoredPassThroughEnemies.RemoveAt(i); continue; }
+                // Do not re-enable a collision while ending inside an enemy; restore once clear.
+                if (!force && bodyCollider != null && collider.enabled && collider.gameObject.activeInHierarchy
+                    && bodyCollider.Distance(collider).distance <= .02f) continue;
+                if (bodyCollider != null) Physics2D.IgnoreCollision(bodyCollider, collider, false);
+                ignoredPassThroughEnemies.RemoveAt(i);
+            }
+        }
+
         public void ClearInput()
         {
             moveInput = 0f;
@@ -226,6 +290,7 @@ namespace EasternFantasy.Player
 
         public void TeleportTo(Vector3 position, Quaternion rotation)
         {
+            Vector3 previousPosition = transform.position;
             EndDash();
             ClearInput();
             RestorePlatformCollisions(true);
@@ -234,11 +299,14 @@ namespace EasternFantasy.Player
             body.position = position;
             transform.SetPositionAndRotation(position, rotation);
             Physics2D.SyncTransforms();
+            if ((transform.position - previousPosition).sqrMagnitude > .000001f)
+                CameraFollowDetail.ResetAfterTeleport(transform);
         }
 
         private void FixedUpdate()
         {
             RestorePlatformCollisions();
+            if (!IsDashing) RestoreEnemyPassThrough();
             if (IsDashing)
             {
                 UpdateDash();
@@ -271,12 +339,17 @@ namespace EasternFantasy.Player
             Vector2 velocity = body.linearVelocity;
             float moveSpeed = playerEntity != null ? playerEntity.Speed : settings.MoveSpeed;
             bool canMove = playerEntity == null || (!playerEntity.IsDead && !playerEntity.isKnockback);
-            if (canMove) velocity.x = moveInput * moveSpeed;
+            if (canMove) velocity.x = IsGroundedAttackMovementLocked ? 0f : moveInput * moveSpeed;
             else
             {
                 ClearInput();
                 body.linearVelocity = velocity;
                 return;
+            }
+            if (IsGroundedAttackMovementLocked)
+            {
+                jumpRequested = false;
+                dropThroughRequested = false;
             }
             if (IsGrounded) lastGroundedAt = Time.time;
             if (jumpRequested && Time.time > jumpExpiresAt)
@@ -292,6 +365,12 @@ namespace EasternFantasy.Player
                 float heightBonus = inventory != null ? inventory.EquippedJumpHeightBonus : 0f;
                 velocity.y = dropping ? -settings.DropThroughSpeed
                     : settings.JumpSpeed * Mathf.Sqrt(1f + heightBonus);
+                if (!dropping && jumpAudio != null && jumpSound != null)
+                {
+                    jumpAudio.enabled = true;
+                    jumpAudio.pitch = jumpPitch;
+                    jumpAudio.PlayOneShot(jumpSound, jumpVolume);
+                }
                 if (playerIdleAnimation != null)
                     playerIdleAnimation.SetJumping(true);
                 IsGrounded = false;
@@ -304,6 +383,7 @@ namespace EasternFantasy.Player
 
         private void OnDisable()
         {
+            RestoreEnemyPassThrough(true);
             EndDash();
             RestorePlatformCollisions(true);
             SetMovementLocked(false);

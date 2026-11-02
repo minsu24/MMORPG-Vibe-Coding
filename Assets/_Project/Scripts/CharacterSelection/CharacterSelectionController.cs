@@ -87,7 +87,7 @@ namespace EasternFantasy.CharacterSelection
             EasternFantasy.Saving.SaveGameService.PrepareSelection();
             CharacterSelectionState.CreateOrSelect(definition.ClassId);
             Time.timeScale = 1f;
-            PortalSceneTransition.TryLoad(gameplaySceneName, null);
+            PortalSceneTransition.TryLoad(gameplaySceneName, null, showLoadingScreen: true);
         }
 
         public void ReturnToMainMenu()

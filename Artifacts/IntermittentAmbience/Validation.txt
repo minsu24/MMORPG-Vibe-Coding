@@ -1,0 +1,33 @@
+Exactly one intermittent ambience in Assets/_Project/Scenes/TutorialMap/SpiderCave.unity
+Correct imported clip assigned
+2D sound with no automatic or continuous playback
+Long audio streams without full decompression
+Random first delay is 3-8 seconds
+No ambience during initial quiet interval
+Ambience starts when delay expires
+Random excerpt duration stays in configured range
+Random excerpt remains within source clip
+Both excerpt edges fade to silence
+Fade envelope respects quiet volume limit
+Zero delta leaves playback timers frozen
+Excerpt stops and returns to silence
+Next quiet interval stays in configured range
+Next excerpt restarts after random silence
+Disabling the scene object stops and silences ambience
+Exactly one intermittent ambience in Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity
+Correct imported clip assigned
+2D sound with no automatic or continuous playback
+Long audio streams without full decompression
+Random first delay is 3-8 seconds
+No ambience during initial quiet interval
+Ambience starts when delay expires
+Random excerpt duration stays in configured range
+Random excerpt remains within source clip
+Both excerpt edges fade to silence
+Fade envelope respects quiet volume limit
+Zero delta leaves playback timers frozen
+Excerpt stops and returns to silence
+Next quiet interval stays in configured range
+Next excerpt restarts after random silence
+Disabling the scene object stops and silences ambience
+Existing village outskirts BGM is preserved

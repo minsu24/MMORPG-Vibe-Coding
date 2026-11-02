@@ -1,0 +1,177 @@
+{
+    "version": 1,
+    "characterClass": 0,
+    "savedUtc": "2026-10-29T16:36:26.2298621Z",
+    "scene": "SpiderCave",
+    "position": {
+        "x": 18.901870727539064,
+        "y": -3.5564699172973635,
+        "z": 0.0
+    },
+    "health": 210.7685089111328,
+    "mana": 220.0,
+    "mental": 100.0,
+    "energy": 0.0,
+    "level": 10,
+    "experience": 750,
+    "currency": 1620,
+    "skillPoints": 1,
+    "advancementRank": 1,
+    "unlockedTier": 1,
+    "advancementAttack": 5.0,
+    "advancementDefense": 3.0,
+    "items": [
+        {
+            "id": "a72c833f2045b4a41bb0ac2bf863f544",
+            "quantity": 1,
+            "slot": 0,
+            "equipped": true
+        },
+        {
+            "id": "a8187da46ff350145b329f1397a40e7e",
+            "quantity": 3,
+            "slot": 0,
+            "equipped": false
+        },
+        {
+            "id": "de62d143e4c66c847afc0b92d47a2e94",
+            "quantity": 8,
+            "slot": 0,
+            "equipped": false
+        },
+        {
+            "id": "dc8baf7bb6c3a2d44a7696683dc7d4d2",
+            "quantity": 8,
+            "slot": 1,
+            "equipped": false
+        },
+        {
+            "id": "88a440264c3f63443a1a5955641169a4",
+            "quantity": 1,
+            "slot": 2,
+            "equipped": false
+        },
+        {
+            "id": "dcbf5479bd032a24a95f5a25fb6574fe",
+            "quantity": 1,
+            "slot": 3,
+            "equipped": false
+        },
+        {
+            "id": "95030f8d227f9764787d3ddc05ff9fba",
+            "quantity": 1,
+            "slot": 20,
+            "equipped": true
+        }
+    ],
+    "skills": [
+        {
+            "id": "390809e0eddc5c049ab519420debe55e",
+            "level": 3
+        },
+        {
+            "id": "1591e04543bc7e647a835f0c3a19492b",
+            "level": 3
+        },
+        {
+            "id": "2c898bc42be3ada4ab1cd4ee7a2c0c0d",
+            "level": 3
+        },
+        {
+            "id": "424a2df3e5122c94184b2b21e87266ae",
+            "level": 1
+        },
+        {
+            "id": "21fd44cf3ec9aee48a50617a1758ad66",
+            "level": 1
+        },
+        {
+            "id": "e916551652459d9429808841e39b8c81",
+            "level": 1
+        }
+    ],
+    "consumableSlots": [
+        "",
+        "",
+        "",
+        ""
+    ],
+    "quickSlots": [
+        "21fd44cf3ec9aee48a50617a1758ad66",
+        "424a2df3e5122c94184b2b21e87266ae",
+        "e916551652459d9429808841e39b8c81",
+        "3647757a24af2cd4c87f564126d39fec",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "quests": [],
+    "playedDialogues": [
+        "fbf048c245e3aae4899fdd7bc0ee6800",
+        "a3f8002eb42a8c246b203c5d024695db",
+        "189f7254e50102549bb0d1334594b2f1",
+        "5211ccd05e7e8e64f94182aa398b0bc6",
+        "93c33e06f67a82c489168cc2af58347a",
+        "d189677d599e1ba4fae4d158d8d8f3af",
+        "b12c6a580758caa49aceb24895dd000b"
+    ],
+    "rewardedDialogues": [
+        "d189677d599e1ba4fae4d158d8d8f3af"
+    ],
+    "bossDefeats": [
+        "Marshland:MON_Frog:Frog[2]/"
+    ],
+    "dungeonDefeats": [],
+    "goblinDefeats": [
+        "MovementPrototype:tutorial-goblin"
+    ],
+    "unlockedPortalDialogues": [
+        "d189677d599e1ba4fae4d158d8d8f3af"
+    ],
+    "visitedRegions": [
+        "Dosa.tutorial"
+    ],
+    "visitedScenes": [
+        "Dosa.MovementPrototype",
+        "Dosa.PrologueVilage",
+        "Dosa.Cemetery",
+        "Dosa.SpiderCave",
+        "Dosa.Marshland",
+        "Dosa.BrokenSeal"
+    ],
+    "knownScenes": [
+        "Dosa.Cemetery",
+        "Dosa.SpiderCave",
+        "Dosa.Marshland"
+    ],
+    "presentedScenes": [],
+    "codex": [
+        "Monster.goblin",
+        "Monster.ghost",
+        "Monster.spider",
+        "Monster.frog"
+    ],
+    "inventoryTutorial": true,
+    "statsTutorial": true,
+    "mapTutorial": true,
+    "companionTutorial": true,
+    "companionGuide": true,
+    "firstDeathGuide": false,
+    "companionsJson": "{\"entries\":[{\"characterClass\":0,\"companionId\":\"goblin\",\"progress\":{\"level\":5,\"equipped\":true,\"unlocked\":true}}]}",
+    "shopTutorial": false,
+    "dungeonTutorial": false,
+    "upgradeTutorial": true,
+    "dungeonDiscovered": false,
+    "equipmentInventoryUnified": true,
+    "toadDefeated": true,
+    "toadHasPosition": true,
+    "toadPosition": {
+        "x": 2.187225580215454,
+        "y": -1.6399999856948853,
+        "z": 0.0
+    },
+    "dungeon": "",
+    "dungeonSeconds": 0.0,
+    "dungeonCleared": false
+}

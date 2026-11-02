@@ -18,16 +18,22 @@ namespace EasternFantasy.Skill
         [Header("Triple Talisman")]
         [SerializeField, Min(0f)] private float projectileVerticalSpacing = 0.28f;
         [SerializeField, Min(0f)] private float damageMultiplier = 0.8f;
+        [SerializeField] private AudioClip talismanBurstSound;
+        [SerializeField, Range(0f, 1f)] private float talismanSoundVolume = 0.7f;
 
         [Header("Teleport")]
         [SerializeField, Min(0f)] private float teleportDistance = 4f;
         [SerializeField] private GameObject teleportEffectPrefab;
         [SerializeField, Min(0f)] private float teleportEffectLifetime = 0.4f;
+        [SerializeField] private AudioClip teleportSound;
+        [SerializeField, Range(0f, 1f)] private float teleportSoundVolume = 0.75f;
 
         [Header("Talisman Shield")]
         [SerializeField, Range(0f, 0.95f)] private float shieldDamageReduction = 0.3f;
         [SerializeField, Min(0f)] private float shieldDuration = 5f;
         [SerializeField] private TalismanShieldEffect shieldEffect;
+        [SerializeField] private AudioClip shieldSound;
+        [SerializeField, Range(0f, 1f)] private float shieldSoundVolume = 0.5f;
 
         private readonly Dictionary<SkillDefinition, float> cooldownEnds =
             new Dictionary<SkillDefinition, float>();
@@ -35,6 +41,7 @@ namespace EasternFantasy.Skill
         private PlayerProjectileShooter shooter;
         private PlayerEntity entity;
         private PlayerIdleAnimation animationController;
+        private AudioSource skillAudio;
 
         private void Awake()
         {
@@ -55,7 +62,8 @@ namespace EasternFantasy.Skill
             bool cast;
             if (skill == tripleTalismanSkill)
             {
-                cast = shooter.TryFireBurst(3, projectileVerticalSpacing, damageMultiplier);
+                cast = shooter.TryFireBurst(3, projectileVerticalSpacing, damageMultiplier,
+                    () => PlaySkillSound(talismanBurstSound, talismanSoundVolume));
             }
             else if (skill == teleportSkill)
             {
@@ -71,6 +79,7 @@ namespace EasternFantasy.Skill
                     origin + Vector3.right * direction * teleportDistance,
                     transform.rotation);
                 SpawnTeleportEffect(transform.position);
+                PlaySkillSound(teleportSound, teleportSoundVolume);
                 cast = true;
             }
             else if (skill == talismanShieldSkill)
@@ -78,6 +87,7 @@ namespace EasternFantasy.Skill
                 entity.ActivateDamageReduction(shieldDamageReduction, shieldDuration);
                 if (shieldEffect != null)
                     shieldEffect.Show(shieldDuration);
+                PlaySkillSound(shieldSound, shieldSoundVolume);
                 cast = true;
             }
             else
@@ -102,6 +112,26 @@ namespace EasternFantasy.Skill
 
             GameObject effect = Instantiate(teleportEffectPrefab, position, Quaternion.identity);
             Destroy(effect, teleportEffectLifetime);
+        }
+
+        private void PlaySkillSound(AudioClip clip, float volume)
+        {
+            if (clip == null) return;
+            if (skillAudio == null)
+            {
+                var audioObject = new GameObject("Dosa Skill Audio");
+                audioObject.transform.SetParent(transform, false);
+                skillAudio = audioObject.AddComponent<AudioSource>();
+                skillAudio.playOnAwake = false;
+                skillAudio.loop = false;
+                skillAudio.spatialBlend = 0f;
+            }
+            skillAudio.PlayOneShot(clip, volume);
+        }
+
+        private void OnDisable()
+        {
+            if (skillAudio != null) skillAudio.Stop();
         }
 
         public float GetCooldownRemaining(SkillDefinition skill)

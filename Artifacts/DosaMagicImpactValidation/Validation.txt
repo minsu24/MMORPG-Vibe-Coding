@@ -1,0 +1,3 @@
+PASS projectile launch without hit is silent
+PASS Projectile hit damages enemy and plays custom impact with default sound bank disabled
+PASS TalismanProjectile hit damages enemy and plays custom impact with default sound bank disabled

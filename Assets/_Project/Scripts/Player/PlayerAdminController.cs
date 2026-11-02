@@ -1,4 +1,5 @@
 using System.IO;
+using EasternFantasy.Saving;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -65,6 +66,7 @@ namespace EasternFantasy.Player
 
         private void Update()
         {
+            if (EasternFantasy.UI.SceneLoadingScreen.IsVisible) return;
             Keyboard keyboard = Keyboard.current;
             if (keyboard == null)
                 return;
@@ -93,7 +95,7 @@ namespace EasternFantasy.Player
 
         private void OnGUI()
         {
-            if (EasternFantasy.UI.GameplayHudVisibility.IsMenuScene) return;
+            if (EasternFantasy.UI.GameplayHudVisibility.IsMenuScene || EasternFantasy.UI.SceneLoadingScreen.IsVisible) return;
             GUI.Box(new Rect(Mathf.Max(0f, Screen.width - 240f), 12f, 228f, 28f),
                 ghostMode ? "F9 Ghost: ON  |  F10 Admin" : "F9 Ghost: OFF  |  F10 Admin");
 
@@ -126,6 +128,7 @@ namespace EasternFantasy.Player
             GUI.enabled = true;
             if (GUILayout.Button(entity.IsDead ? "Respawn" : "Restore HP / MP"))
             {
+                SaveGameService.BeginAdminSession();
                 if (entity.IsDead)
                     deathController?.Respawn();
                 else
@@ -137,11 +140,15 @@ namespace EasternFantasy.Player
 
             GUI.enabled = !entity.IsDead && !progression.IsMaximumLevel;
             if (GUILayout.Button("Level Up (+1)"))
+            {
+                SaveGameService.BeginAdminSession();
                 progression.AddExperience(progression.RequiredExperience - progression.CurrentExperience);
+            }
 
             GUI.enabled = !entity.IsDead;
             if (GUILayout.Button("Test Death"))
             {
+                SaveGameService.BeginAdminSession();
                 if (ghostMode)
                     SetGhostMode(false);
                 entity.KillForTesting();
@@ -155,6 +162,8 @@ namespace EasternFantasy.Player
                 panelOpen = false;
                 EasternFantasy.Saving.SaveGameService.ResetForDemo();
             }
+            if (SaveGameService.IsAdminSession)
+                GUILayout.Label("관리자 테스트 중: 저장 안 함 · 캐릭터를 다시 불러오면 정상 저장 재개");
             if (EasternFantasy.Saving.SaveGameService.IsDemoSession)
                 GUILayout.Label("시연 모드: 저장하지 않으며 다음 실행에 기존 기록을 불러옵니다.");
             GUI.enabled = !entity.IsDead;
@@ -183,6 +192,7 @@ namespace EasternFantasy.Player
             if (ghostMode == enabledGhost || (enabledGhost && entity.IsDead))
                 return;
 
+            if (enabledGhost) SaveGameService.BeginAdminSession();
             ghostMode = enabledGhost;
             if (ghostMode)
             {
@@ -220,20 +230,20 @@ namespace EasternFantasy.Player
         {
             if (savedSceneName != SceneManager.GetActiveScene().name)
                 return;
+            SaveGameService.BeginAdminSession();
             locationSetter.TeleportToAndRetarget(savedPosition, savedRotation);
         }
 
         private void ChangeScene(string sceneName)
         {
             if (entity.IsDead || string.IsNullOrEmpty(sceneName)
+                || PortalSceneTransition.IsTransitioning || EasternFantasy.UI.SceneLoadingScreen.IsVisible
                 || !Application.CanStreamedLevelBeLoaded(sceneName))
                 return;
 
+            SaveGameService.BeginAdminSession();
             pendingSceneName = sceneName;
-            EasternFantasy.Saving.SaveGameService.SaveNow(out _);
-            MapTransferData.Clear();
-            SceneWorldState.CaptureActiveScene();
-            SceneManager.LoadScene(sceneName);
+            if (!PortalSceneTransition.TryLoad(sceneName, null)) pendingSceneName = null;
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

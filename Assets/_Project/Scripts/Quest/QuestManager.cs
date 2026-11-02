@@ -13,23 +13,27 @@ namespace EasternFantasy.Quest
         Completed
     }
 
+    [Serializable]
     public sealed class QuestProgress
     {
+        [SerializeField] private QuestDefinition definition;
+        [SerializeField] private int currentAmount;
+        [SerializeField] private QuestStatus status;
         public QuestProgress(QuestDefinition definition)
         {
-            Definition = definition;
+            this.definition = definition;
             Status = QuestStatus.Active;
         }
 
-        public QuestDefinition Definition { get; }
-        public int CurrentAmount { get; internal set; }
-        public QuestStatus Status { get; internal set; }
+        public QuestDefinition Definition => definition;
+        public int CurrentAmount { get => currentAmount; internal set => currentAmount = value; }
+        public QuestStatus Status { get => status; internal set => status = value; }
     }
 
     [DisallowMultipleComponent]
     public sealed partial class QuestManager : MonoBehaviour
     {
-        private readonly List<QuestProgress> quests = new List<QuestProgress>();
+        [SerializeField] private List<QuestProgress> quests = new List<QuestProgress>();
         private GameObject player;
         private PlayerProgression playerProgression;
 
@@ -49,6 +53,12 @@ namespace EasternFantasy.Quest
             player = GameObject.FindGameObjectWithTag("Player");
             playerProgression = player != null ? player.GetComponent<PlayerProgression>() : null;
             DontDestroyOnLoad(gameObject);
+        }
+
+        private void OnEnable()
+        {
+            // Awake is not called again after an in-play script reload.
+            if (Instance == null) Instance = this;
         }
 
         public bool CanAccept(QuestDefinition definition)

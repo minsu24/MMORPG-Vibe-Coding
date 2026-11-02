@@ -3,22 +3,18 @@ using System.Collections;
 using EasternFantasy.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using EasternFantasy.UI;
 
 // One persistent overlay owns portal transitions across scene destruction.
 public sealed class PortalSceneTransition : MonoBehaviour
 {
-    private const float FadeOutSeconds = 0.28f;
-    private const float FadeInSeconds = 0.35f;
     private static PortalSceneTransition instance;
-    private Canvas overlay;
-    private CanvasGroup shade;
     public static bool IsTransitioning => instance != null && instance.busy;
     private bool busy;
 
-    public static bool TryLoad(string sceneName, string spawnPointName, Action<bool> completed = null)
+    public static bool TryLoad(string sceneName, string spawnPointName, Action<bool> completed = null, bool showLoadingScreen = false)
     {
-        if (IsTransitioning) return false;
+        if (IsTransitioning || SceneLoadingScreen.IsVisible) return false;
         if (string.IsNullOrWhiteSpace(sceneName) || !Application.CanStreamedLevelBeLoaded(sceneName))
         {
             Debug.LogError($"Portal transition cannot load scene '{sceneName}'. Check Build Settings.");
@@ -29,46 +25,26 @@ public sealed class PortalSceneTransition : MonoBehaviour
             var root = new GameObject("Portal Scene Transition", typeof(RectTransform));
             instance = root.AddComponent<PortalSceneTransition>();
             DontDestroyOnLoad(root);
-            instance.BuildOverlay();
         }
         EasternFantasy.Saving.SaveGameService.SaveNow(out _);
         instance.busy = true;
-        instance.StartCoroutine(instance.Transfer(sceneName, spawnPointName, completed));
+        instance.StartCoroutine(instance.Transfer(sceneName, spawnPointName, completed, showLoadingScreen));
         return true;
     }
 
-    private void BuildOverlay()
-    {
-        overlay = gameObject.AddComponent<Canvas>();
-        overlay.renderMode = RenderMode.ScreenSpaceOverlay;
-        overlay.sortingOrder = short.MaxValue;
-        var scaler = gameObject.AddComponent<CanvasScaler>();
-        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        scaler.referenceResolution = new Vector2(1920f, 1080f);
-        scaler.matchWidthOrHeight = 0.5f;
-        shade = gameObject.AddComponent<CanvasGroup>();
-        shade.alpha = 0f;
-        shade.blocksRaycasts = false;
-        gameObject.AddComponent<GraphicRaycaster>();
-        var image = gameObject.AddComponent<Image>();
-        image.color = Color.black;
-        image.raycastTarget = true;
-        overlay.enabled = false;
-    }
-
-    private IEnumerator Transfer(string sceneName, string spawnPointName, Action<bool> completed)
+    private IEnumerator Transfer(string sceneName, string spawnPointName, Action<bool> completed, bool showLoadingScreen)
     {
         bool loaded = false;
-        overlay.enabled = true;
-        shade.blocksRaycasts = true;
+        SceneLoadingScreen.Begin(showArtwork: showLoadingScreen);
         var player = FindFirstObjectByType<PlayerMovement2D>();
         if (player != null) player.ClearInput();
         GameTimeController.SetPaused(this, true);
         try
         {
-            yield return Fade(1f, FadeOutSeconds);
-            // Render a fully black frame before starting any scene work.
+            yield return SceneLoadingScreen.WaitUntilCovered();
+            // Render the fully covered artwork before starting any scene work.
             yield return null;
+            SceneLoadingScreen.Report(0.08f);
             MapTransferData.SetTarget(spawnPointName);
             AsyncOperation operation = null;
             try
@@ -79,18 +55,23 @@ public sealed class PortalSceneTransition : MonoBehaviour
             catch (Exception exception) { Debug.LogException(exception); }
             if (operation != null)
             {
-                while (!operation.isDone) yield return null;
+                while (!operation.isDone)
+                {
+                    SceneLoadingScreen.Report(0.08f + Mathf.Clamp01(operation.progress / 0.9f) * 0.57f);
+                    yield return null;
+                }
                 loaded = true;
-                // Let sceneLoaded handlers, Start and the camera settle beneath the overlay.
                 yield return null;
-                yield return null;
+                // Selecting a saved character may load a second scene and restore a saved position.
+                while (EasternFantasy.Saving.SaveGameService.IsRestoring) yield return null;
+                SceneLoadingScreen.Report(0.8f);
             }
             else
             {
                 SceneWorldState.CancelCapture();
                 MapTransferData.Clear();
             }
-            yield return Fade(0f, FadeInSeconds);
+            yield return SceneLoadingScreen.Finish();
         }
         finally
         {
@@ -99,24 +80,9 @@ public sealed class PortalSceneTransition : MonoBehaviour
         }
     }
 
-    private IEnumerator Fade(float target, float duration)
-    {
-        float start = shade.alpha;
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            float progress = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / duration));
-            shade.alpha = Mathf.Lerp(start, target, progress);
-            yield return null;
-        }
-        shade.alpha = target;
-    }
-
     private void Release()
     {
-        if (shade != null) { shade.alpha = 0f; shade.blocksRaycasts = false; }
-        if (overlay != null) overlay.enabled = false;
+        SceneLoadingScreen.Cancel();
         GameTimeController.SetPaused(this, false);
         busy = false;
     }

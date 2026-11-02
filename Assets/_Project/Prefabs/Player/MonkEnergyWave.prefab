@@ -114,3 +114,5 @@ MonoBehaviour:
   beamHeight: 1.1
   duration: 0.45
   fadeDuration: 0.15
+  hitSound: {fileID: 8300000, guid: 3d3e4171cb264eb9a36037c88aa7d61e, type: 3}
+  hitSoundVolume: 0.6

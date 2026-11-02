@@ -39,11 +39,17 @@ public abstract partial class PersistentBossController : EnemyController
     protected virtual void Start()
     {
         // DungeonSceneController starts/continues the run in Awake, before this check.
-        if (!WasDefeatedThisSession) return;
+        RestoreDefeatedState();
+    }
+
+    internal bool RestoreDefeatedState()
+    {
+        if (!WasDefeatedThisSession) return false;
         HP = 0f;
         RestoreDefeatedWorldState();
         // Keep portal references intact; do not replay rewards, dialogue or defeat events.
         gameObject.SetActive(false);
+        return true;
     }
 
     protected virtual void RestoreDefeatedWorldState() { }

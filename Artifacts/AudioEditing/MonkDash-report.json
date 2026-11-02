@@ -1,0 +1,24 @@
+{
+  "source": "C:\\Users\\jeonghuncomputer\\Downloads\\Sonniss.com - GDC - Game Audio Bundle 1of5\\Coll Anderson - Sliding Whoosh By\\EFX SD Sliding Whoosh By 06.wav",
+  "source_duration_seconds": 3.3386666666666667,
+  "source_range_seconds": [
+    2.15,
+    2.51
+  ],
+  "speed": 1.2,
+  "output": "Assets\\_Project\\Audio\\SoundEffects\\Skills\\Monk_Geumgangbo_Whoosh.wav",
+  "duration_seconds": 0.3,
+  "format": "48000 Hz mono PCM 16-bit",
+  "peak_dbfs": -6,
+  "high_pass_hz": 100,
+  "fade_in_ms": 8,
+  "fade_out_ms": 65,
+  "playback_volume": 0.55,
+  "trigger": "Successful Monk Geumgangbo cast, after resource payment",
+  "validation": {
+    "full_game_scripts_compile": "passed",
+    "audio_format_and_fades": "passed",
+    "monk_only_prefab_reference": "passed",
+    "runtime_playback": "not tested: Unity connection unavailable"
+  }
+}

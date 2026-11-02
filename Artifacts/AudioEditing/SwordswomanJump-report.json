@@ -1,0 +1,11 @@
+{
+  "selected_source": "C:\\Users\\jeonghuncomputer\\Downloads\\RPG Voice Starter Pack\\Type 3\\jump1.wav",
+  "reference": "Swordswoman_HurtVoice.wav",
+  "output": "Assets\\_Project\\Audio\\SoundEffects\\Movement\\Swordswoman_JumpVoice.wav",
+  "duration": 0.29707482993197276,
+  "volume": 0.35,
+  "pitch": 1,
+  "selection_basis": "Approximate active-frame autocorrelation: reference ~250 Hz, Type 1 jump3 ~457 Hz, Type 3 jump1 ~308 Hz. Type 3 also has lower periodicity, closer to breathy reference. Analysis only, not a listening judgment.",
+  "rms_difference_db": 6.670127046789139e-06,
+  "guid": "5b90ff3208f946078356d5f11ce5a8bf"
+}

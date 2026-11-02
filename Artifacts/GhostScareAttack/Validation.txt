@@ -1,0 +1,22 @@
+PASS: Original contact damage remains 5
+PASS: Detection starts flight
+PASS: Flight prevents duplicate contact damage
+PASS: Flight has no early damage
+PASS: Ghost flies toward player then scares
+PASS: Frame 7 emits effect and exactly one damage event
+PASS: Ghost sound plays once at 30 percent and respects loading mute
+PASS: Scare emits exactly one attack sound
+PASS: Attack uses original contact damage and player defenses
+PASS: Attack restores gravity
+PASS: Attack restores player collision
+PASS: Cooldown prevents immediate repeat
+PASS: Close player starts scare pose
+PASS: Moving away before frame 7 avoids damage
+PASS: Left target reverses flight and facing
+PASS: Knockback interrupts attack
+PASS: Interruption restores gravity and collision
+PASS: Dead ghost cannot emit a scare
+PASS: Disable cancels attack and restores physics
+PASS: Outside detection cannot attack
+PASS: Dead player cannot trigger attack
+PASS: Spawn grace prevents attacks

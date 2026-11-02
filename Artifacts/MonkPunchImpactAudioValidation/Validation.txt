@@ -1,0 +1,23 @@
+Native Monk punch impact audio validation
+PASS basic attack references the edited hit16 clip
+PASS straight punch references the edited hit10 clip
+PASS movement Foley remains cloth1
+PASS real basic attack starts on a miss
+PASS attack recovery completed
+PASS missed basic attack has no impact audio
+PASS real basic attack starts against the target
+PASS basic punch impact plays exactly when actual damage is dealt
+PASS basic hit does not layer the old generic punch sound
+PASS attack recovery completed
+PASS real two-strike straight punch starts
+PASS straight punch strike 1 deals damage and plays its impact audio
+PASS strike 1 replaces the generic impact without overlap
+PASS straight punch strike 2 deals damage and plays its impact audio
+PASS strike 2 replaces the generic impact without overlap
+PASS attack recovery completed
+PASS straight punch starts on a miss
+PASS attack recovery completed
+PASS both missed straight-punch strikes are silent on the impact channel
+PASS ordinary enemy damage keeps the existing shared impact library
+PASS energy-wave wind impact remains unchanged
+COMPLETE

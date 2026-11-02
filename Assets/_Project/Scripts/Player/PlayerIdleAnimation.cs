@@ -37,10 +37,12 @@ namespace EasternFantasy.Player
         private float basicAttackClipLength;
         private float basicAttackChainAt = float.PositiveInfinity;
         private bool wasKnockedBack;
+        private bool stopGroundedSkillMovement;
 
         public float FacingDirectionX { get; private set; }
         public bool IsAttacking { get; private set; }
         public bool IsBasicAttackActive { get; private set; }
+        public bool IsStationaryAttackActive => IsAttacking && (IsBasicAttackActive || stopGroundedSkillMovement);
         public int BasicAttackSequence { get; private set; }
         public bool CanChainBasicAttack => IsBasicAttackActive && Time.time >= basicAttackChainAt;
         public bool CanPerformCombatAction => isActiveAndEnabled
@@ -93,11 +95,12 @@ namespace EasternFantasy.Player
 
             float horizontalInput = movement != null && !movement.IsMovementLocked && !movement.IsDashing
                 ? movement.MoveInput : 0f;
-            bool isMoving = Mathf.Abs(horizontalInput) > movementThreshold;
+            bool hasDirectionalInput = Mathf.Abs(horizontalInput) > movementThreshold;
+            bool isMoving = hasDirectionalInput && !IsStationaryAttackActive;
             // A basic attack's follow-through must not turn an airborne player into a backpedal.
             bool canTurnInAir = IsBasicAttackActive && movement != null && !movement.IsGrounded;
             if (!lockAttackFacing || canTurnInAir)
-                ApplyFacingDirection(isMoving ? horizontalInput : FacingDirectionX, isMoving && !IsAttacking);
+                ApplyFacingDirection(hasDirectionalInput ? horizontalInput : FacingDirectionX, isMoving && !IsAttacking);
             if (isMoving == wasMoving) return;
 
             wasMoving = isMoving;
@@ -116,6 +119,7 @@ namespace EasternFantasy.Player
             basicAttackChainAt = float.PositiveInfinity;
             lockAttackFacing = lockFacing;
             RefreshAttackFacing();
+            movement?.StopMovementForGroundedAttack();
             animator.ResetTrigger(AttackParameter);
             animator.SetTrigger(AttackParameter);
             attackLockRoutine = StartCoroutine(WaitForAttackAnimation(attackStateHash));
@@ -176,7 +180,7 @@ namespace EasternFantasy.Player
             return true;
         }
 
-        public bool TryRequestSkillAnimation(string stateName, float playbackDuration = 0f)
+        public bool TryRequestSkillAnimation(string stateName, float playbackDuration = 0f, bool stopGroundedMovement = false)
         {
             if (!CanPerformCombatAction || Time.timeScale <= 0f
                 || (IsAttacking && !CanChainBasicAttack) || animator == null)
@@ -188,6 +192,8 @@ namespace EasternFantasy.Player
             CancelBasicAttack();
             RefreshAttackFacing();
             IsAttacking = true;
+            stopGroundedSkillMovement = stopGroundedMovement;
+            if (stopGroundedMovement) movement?.StopMovementForGroundedAttack();
             lockAttackFacing = true;
             if (hasAttackParameter) animator.ResetTrigger(AttackParameter);
             animator.Play(statePath, 0, 0f);
@@ -213,6 +219,7 @@ namespace EasternFantasy.Player
             attackLockRoutine = null;
             IsAttacking = false;
             IsBasicAttackActive = false;
+            stopGroundedSkillMovement = false;
             lockAttackFacing = false;
             RestoreSkillAnimationSpeed();
             if (playerEntity == null || !playerEntity.IsDead) PlayIdle();
@@ -239,6 +246,7 @@ namespace EasternFantasy.Player
             attackLockRoutine = null;
             IsAttacking = false;
             IsBasicAttackActive = false;
+            stopGroundedSkillMovement = false;
             lockAttackFacing = false;
             if (hasAttackParameter)
                 animator.ResetTrigger(AttackParameter);
@@ -305,6 +313,7 @@ namespace EasternFantasy.Player
 
             IsAttacking = false;
             IsBasicAttackActive = false;
+            stopGroundedSkillMovement = false;
             lockAttackFacing = false;
             attackLockRoutine = null;
             RestoreSkillAnimationSpeed();
@@ -322,6 +331,7 @@ namespace EasternFantasy.Player
             attackLockRoutine = null;
             IsAttacking = false;
             IsBasicAttackActive = false;
+            stopGroundedSkillMovement = false;
             lockAttackFacing = false;
         }
 

@@ -11,7 +11,7 @@ namespace EasternFantasy.Skill
         private MonkSkillCaster caster;
         private Animator animator;
         private AnimationClip stabClip;
-        private int nextStrike = 1;
+        private int nextEventFrame = 1;
         private float previousTime = -1f;
 
         private void Awake()
@@ -49,21 +49,24 @@ namespace EasternFantasy.Skill
             }
 
             float clipTime = state.normalizedTime * stabClip.length;
-            if (clipTime < previousTime) nextStrike = 1;
+            if (clipTime < previousTime) nextEventFrame = 1;
             previousTime = clipTime;
 
-            // Unity's timeline frames are zero-based: upper punch at 2, lower at 4.
-            while (nextStrike <= 2
-                && clipTime + 0.00001f >= (nextStrike * 2f) / stabClip.frameRate)
+            // Play movement audio at frames 1 and 3, before the hits at frames 2 and 4.
+            // Process crossed events in order even when one rendered frame skips clip frames.
+            while (nextEventFrame <= 4
+                && clipTime + 0.00001f >= nextEventFrame / stabClip.frameRate)
             {
-                caster.OnStraightPunchHit(nextStrike);
-                nextStrike++;
+                int strike = (nextEventFrame + 1) / 2;
+                if ((nextEventFrame & 1) == 1) caster.OnStraightPunchSwing(strike);
+                else caster.OnStraightPunchHit(strike);
+                nextEventFrame++;
             }
         }
 
         private void ResetTimeline()
         {
-            nextStrike = 1;
+            nextEventFrame = 1;
             previousTime = -1f;
         }
 

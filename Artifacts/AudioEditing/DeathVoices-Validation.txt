@@ -1,0 +1,8 @@
+PASS nonlethal damage does not play death voice
+PASS actual lethal damage plays Monk death voice
+PASS death stops previous hurt voice
+PASS duplicate death does not restart voice
+PASS revive resets playback guard
+PASS second death plays configured Dosa voice
+PASS character prefab bindings verified; swordswoman unchanged
+PASS original save unchanged and preferences restored

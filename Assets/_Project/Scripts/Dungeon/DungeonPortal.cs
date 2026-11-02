@@ -10,6 +10,7 @@ namespace EasternFantasy.Dungeon
         public void Configure(DungeonWindowUI target) => window = target;
         public bool Interact(PlayerMovement2D player)
         {
+            if (DungeonWindowUI.Instance != null) window = DungeonWindowUI.Instance;
             if (window == null || player == null) return false;
             window.Open(this, player);
             return window.IsOpen;

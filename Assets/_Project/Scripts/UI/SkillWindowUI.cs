@@ -18,10 +18,12 @@ namespace EasternFantasy.UI
         [SerializeField] private PlayerSkillSystem skillSystem;
 
         private bool skillSlotsInitialized;
+        private SkillScrollOpenEffect scrollEffect;
 
         public static SkillWindowUI Instance { get; private set; }
         public bool IsUnlocked => StatsSkillTutorialUI.HasFinishedForCurrentClass;
-        public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
+        public bool IsOpen => windowRoot != null && windowRoot.activeSelf
+            && (scrollEffect == null || !scrollEffect.IsClosing);
         public RectTransform TutorialTarget => windowRoot != null ? windowRoot.transform as RectTransform : null;
         public RectTransform TutorialPointsTarget => skillPointText != null ? skillPointText.rectTransform : null;
         public System.Collections.Generic.IReadOnlyList<SkillSlotUI> TutorialSlots => skillSlots;
@@ -35,6 +37,7 @@ namespace EasternFantasy.UI
             }
 
             Instance = this;
+            if (windowRoot != null) scrollEffect = windowRoot.GetComponent<SkillScrollOpenEffect>();
             DontDestroyOnLoad(gameObject);
             if (windowRoot != null)
                 windowRoot.SetActive(false);
@@ -148,6 +151,17 @@ namespace EasternFantasy.UI
                 Refresh();
             else if (tooltip != null)
                 tooltip.Hide();
+            if (scrollEffect == null) scrollEffect = windowRoot.GetComponent<SkillScrollOpenEffect>();
+            if (!open && !forTutorial && windowRoot.activeSelf && scrollEffect != null)
+            {
+                scrollEffect.Close(() => windowRoot.SetActive(false));
+                return;
+            }
+            if (open && windowRoot.activeSelf && scrollEffect != null && scrollEffect.IsClosing)
+            {
+                scrollEffect.Open();
+                return;
+            }
             windowRoot.SetActive(open);
         }
 

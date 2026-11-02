@@ -66,7 +66,7 @@ namespace EasternFantasy.EditorTools
             var root = new GameObject("GoblinCompanion");
             try
             {
-                root.transform.localScale = Vector3.one / 1.5f;
+                root.transform.localScale = Vector3.one * (1.15f / 1.5f);
                 var visual = new GameObject("Visual");
                 visual.transform.SetParent(root.transform, false);
                 var renderer = visual.AddComponent<SpriteRenderer>();

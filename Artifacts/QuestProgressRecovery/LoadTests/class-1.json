@@ -1,0 +1,192 @@
+{
+    "version": 1,
+    "characterClass": 1,
+    "savedUtc": "2026-10-29T16:36:02.7495519Z",
+    "scene": "BrokenSeal",
+    "position": {
+        "x": -8.460000038146973,
+        "y": -2.673454523086548,
+        "z": 0.0
+    },
+    "health": 204.19102478027345,
+    "mana": 190.0,
+    "mental": 100.0,
+    "energy": 0.0,
+    "level": 10,
+    "experience": 75,
+    "currency": 1360,
+    "skillPoints": 1,
+    "advancementRank": 1,
+    "unlockedTier": 1,
+    "advancementAttack": 5.0,
+    "advancementDefense": 3.0,
+    "items": [
+        {
+            "id": "a8187da46ff350145b329f1397a40e7e",
+            "quantity": 4,
+            "slot": 3,
+            "equipped": false
+        },
+        {
+            "id": "0d7fafb82f87cc14e99acfbc85406545",
+            "quantity": 1,
+            "slot": 0,
+            "equipped": true
+        },
+        {
+            "id": "de62d143e4c66c847afc0b92d47a2e94",
+            "quantity": 8,
+            "slot": 0,
+            "equipped": false
+        },
+        {
+            "id": "dc8baf7bb6c3a2d44a7696683dc7d4d2",
+            "quantity": 8,
+            "slot": 1,
+            "equipped": false
+        },
+        {
+            "id": "dcbf5479bd032a24a95f5a25fb6574fe",
+            "quantity": 1,
+            "slot": 0,
+            "equipped": false
+        },
+        {
+            "id": "88a440264c3f63443a1a5955641169a4",
+            "quantity": 1,
+            "slot": 2,
+            "equipped": false
+        },
+        {
+            "id": "95030f8d227f9764787d3ddc05ff9fba",
+            "quantity": 1,
+            "slot": 20,
+            "equipped": true
+        }
+    ],
+    "skills": [
+        {
+            "id": "390809e0eddc5c049ab519420debe55e",
+            "level": 3
+        },
+        {
+            "id": "4a227fe19548eb04f9538dfa75e00895",
+            "level": 3
+        },
+        {
+            "id": "2c898bc42be3ada4ab1cd4ee7a2c0c0d",
+            "level": 3
+        },
+        {
+            "id": "67ed475d7fa7cf64c974c39901520a4b",
+            "level": 1
+        },
+        {
+            "id": "b3e3a3f9ccdbeb940b4c6cd7979e5b5b",
+            "level": 1
+        },
+        {
+            "id": "a83dc257d7284ed1a05db747366b157a",
+            "level": 1
+        }
+    ],
+    "consumableSlots": [
+        "de62d143e4c66c847afc0b92d47a2e94",
+        "dc8baf7bb6c3a2d44a7696683dc7d4d2",
+        "",
+        ""
+    ],
+    "quickSlots": [
+        "67ed475d7fa7cf64c974c39901520a4b",
+        "b3e3a3f9ccdbeb940b4c6cd7979e5b5b",
+        "a83dc257d7284ed1a05db747366b157a",
+        "3647757a24af2cd4c87f564126d39fec",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "quests": [
+        {
+            "id": "60c83731829d76749a21f2aef8916d29",
+            "amount": 5,
+            "status": 2
+        },
+        {
+            "id": "676382dbbc00ac04fb36ce9ed427182d",
+            "amount": 10,
+            "status": 2
+        },
+        {
+            "id": "1e8f52c2dabbec24085f8da748ce1f7b",
+            "amount": 1,
+            "status": 2
+        }
+    ],
+    "playedDialogues": [
+        "fbf048c245e3aae4899fdd7bc0ee6800",
+        "a3f8002eb42a8c246b203c5d024695db",
+        "189f7254e50102549bb0d1334594b2f1",
+        "5211ccd05e7e8e64f94182aa398b0bc6",
+        "93c33e06f67a82c489168cc2af58347a",
+        "d189677d599e1ba4fae4d158d8d8f3af",
+        "b12c6a580758caa49aceb24895dd000b"
+    ],
+    "rewardedDialogues": [
+        "d189677d599e1ba4fae4d158d8d8f3af"
+    ],
+    "bossDefeats": [
+        "Marshland:MON_Frog:Frog[2]/"
+    ],
+    "dungeonDefeats": [],
+    "goblinDefeats": [
+        "MovementPrototype:tutorial-goblin"
+    ],
+    "unlockedPortalDialogues": [
+        "d189677d599e1ba4fae4d158d8d8f3af"
+    ],
+    "visitedRegions": [
+        "Monk.tutorial"
+    ],
+    "visitedScenes": [
+        "Monk.MovementPrototype",
+        "Monk.PrologueVilage",
+        "Monk.Cemetery",
+        "Monk.SpiderCave",
+        "Monk.Marshland",
+        "Monk.BrokenSeal"
+    ],
+    "knownScenes": [
+        "Monk.SpiderCave",
+        "Monk.Marshland"
+    ],
+    "presentedScenes": [],
+    "codex": [
+        "Monster.goblin",
+        "Monster.ghost",
+        "Monster.spider",
+        "Monster.frog"
+    ],
+    "inventoryTutorial": true,
+    "statsTutorial": true,
+    "mapTutorial": true,
+    "companionTutorial": true,
+    "companionGuide": true,
+    "firstDeathGuide": false,
+    "companionsJson": "{\"entries\":[{\"characterClass\":1,\"companionId\":\"goblin\",\"progress\":{\"level\":4,\"equipped\":true,\"unlocked\":true}}]}",
+    "shopTutorial": false,
+    "dungeonTutorial": false,
+    "upgradeTutorial": true,
+    "dungeonDiscovered": false,
+    "equipmentInventoryUnified": true,
+    "toadDefeated": true,
+    "toadHasPosition": true,
+    "toadPosition": {
+        "x": 7.169999122619629,
+        "y": -1.6399999856948853,
+        "z": 0.0
+    },
+    "dungeon": "",
+    "dungeonSeconds": 0.0,
+    "dungeonCleared": false
+}

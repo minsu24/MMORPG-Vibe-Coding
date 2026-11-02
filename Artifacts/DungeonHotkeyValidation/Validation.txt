@@ -1,0 +1,45 @@
+Dungeon shortcut integration validation
+PASS scene transition finishes
+PASS saved entrance scene loads and window bootstraps
+PASS new character starts locked
+PASS O does not open before discovery
+PASS first entrance interaction opens window
+PASS first interaction unlocks shortcut and starts tutorial
+PASS discovery persists independently of incomplete tutorial
+PASS tutorial explains O shortcut
+PASS tutorial completes and restores player input
+PASS O closes window
+PASS O reopens window
+PASS Escape closes and releases pause
+PASS fresh save clears shortcut
+PASS legacy completed tutorial grants discovery
+PASS restored discovery opens with O
+PASS insufficient level blocks entry
+PASS unavailable dungeon blocks entry
+PASS unconfigured scene blocks entry
+PASS valid dungeon allows entry
+PASS travel away from entrance
+PASS scene transition finishes
+PASS same window survives map transfer
+PASS O opens remotely without repeating tutorial
+PASS scene transition finishes
+PASS remote entry loads dungeon and starts run
+PASS entry closes persistent window
+PASS O is blocked during dungeon run
+PASS dungeon timer advances while menus pause gameplay
+PASS scene transition finishes
+PASS exit returns to village and ends run
+PASS shortcut works after exiting dungeon
+PASS return to entrance
+PASS scene transition finishes
+PASS entrance revisit has one window instance
+PASS entrance uses surviving singleton after revisit
+PASS return to village for restart save
+PASS scene transition finishes
+PASS write isolated save: 저장했습니다.
+FIRST SESSION COMPLETE
+PASS scene transition finishes
+PASS restart restores remote saved map
+PASS restart bootstraps window and restores discovery
+PASS O works after full Play Mode restart without replaying tutorial
+SECOND SESSION COMPLETE

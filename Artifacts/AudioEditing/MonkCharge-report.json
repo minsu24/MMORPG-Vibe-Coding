@@ -1,0 +1,18 @@
+{
+  "source": "C:\\Users\\jeonghuncomputer\\Downloads\\Sonniss.com-GDC2026-GameAudioBundle2of5\\Alexander Kopeikin - Emotion and Magic\\magic, drone, tension, spellbound, evanescence-002.wav",
+  "source_range_seconds": [
+    26.0,
+    27.226666666666667
+  ],
+  "output": "Assets\\_Project\\Audio\\SoundEffects\\Skills\\Monk_EnergyWave_Charge.wav",
+  "duration_seconds": 1.2266666666666666,
+  "charge_release_seconds": 1.1666666666666667,
+  "format": "48000 Hz mono PCM16",
+  "peak_dbfs": -6,
+  "high_pass_hz": 110,
+  "low_pass_hz": 7000,
+  "fade_in_ms": 35,
+  "fade_out_ms": 65,
+  "volume": 0.45,
+  "native_unity_validation": "passed: charging start, pause/resume, animation release, cancellation, disable, insufficient energy, original save unchanged"
+}

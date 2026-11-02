@@ -1,0 +1,19 @@
+{
+  "source": "C:\\Users\\jeonghuncomputer\\Downloads\\Sonniss.com - GDC - Game Audio Bundle 3of5\\Mechanical Wave - Hits Whoosh\\Action Swirl Whoosh_HW 04.wav",
+  "source_range_seconds": [
+    0.37,
+    0.83
+  ],
+  "speed": 1.15,
+  "output": "Assets\\_Project\\Audio\\SoundEffects\\Skills\\Monk_EnergyWave_WindHit.wav",
+  "duration_seconds": 0.4,
+  "format": "48000 Hz mono PCM16",
+  "high_pass_hz": 150,
+  "low_pass_hz": 11000,
+  "peak_dbfs": -5,
+  "fade_in_ms": 6,
+  "fade_out_ms": 80,
+  "volume": 0.6,
+  "purpose": "Wind attack impact; replaces generic punch audio only for Monk energy-wave hits",
+  "native_unity_validation": "Passed: real multi-target hit, silent miss/zero damage, no punch overlay, audio survives visual destruction, ordinary hits unchanged, original save preserved"
+}

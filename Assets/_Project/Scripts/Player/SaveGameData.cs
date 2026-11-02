@@ -20,10 +20,13 @@ namespace EasternFantasy.Saving
         public string[] consumableSlots, quickSlots;
         public List<SavedQuest> quests = new List<SavedQuest>();
         public string[] playedDialogues, rewardedDialogues, bossDefeats, dungeonDefeats, goblinDefeats;
+        public string[] unlockedPortalDialogues;
         public string[] visitedRegions, visitedScenes, knownScenes, presentedScenes, codex;
         public bool inventoryTutorial, statsTutorial, mapTutorial, companionTutorial, companionGuide, firstDeathGuide;
         public string companionsJson;
         public bool shopTutorial, dungeonTutorial, upgradeTutorial;
+        public bool dungeonDiscovered;
+        public bool equipmentInventoryUnified;
         public bool toadDefeated, toadHasPosition;
         public Vector3 toadPosition;
         public string dungeon;
