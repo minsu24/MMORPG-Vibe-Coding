@@ -26,6 +26,7 @@ namespace EasternFantasy.Player
         private bool dropThroughRequested;
         private float jumpExpiresAt = float.NegativeInfinity;
         private float lastGroundedAt = float.NegativeInfinity;
+        private float lastJumpStartedAt = float.NegativeInfinity;
         private readonly List<Collider2D> ignoredPlatforms = new List<Collider2D>();
         private readonly List<Collider2D> ignoredPassThroughEnemies = new List<Collider2D>();
         private int groundHitCount;
@@ -46,6 +47,15 @@ namespace EasternFantasy.Player
         private int dashEnemyMask;
 
         public bool IsGrounded { get; private set; }
+        // Measured from an executed jump, not the buffered input or a ledge fall.
+        public bool IsInJumpEvadeWindow(float minimumAge, float maximumAge)
+        {
+            float age = Time.time - lastJumpStartedAt;
+            return isActiveAndEnabled && !IsGrounded && !IsDashing && !IsMovementLocked
+                && (playerEntity == null || (!playerEntity.IsDead && !playerEntity.isKnockback))
+                && body != null && body.linearVelocity.y > 0f
+                && age >= minimumAge && age <= maximumAge;
+        }
         public float MoveInput => moveInput;
         public bool IsBasicAttackMovementLocked => IsGrounded && playerIdleAnimation != null && playerIdleAnimation.IsBasicAttackActive;
         public bool IsGroundedAttackMovementLocked => IsGrounded && playerIdleAnimation != null
@@ -288,17 +298,57 @@ namespace EasternFantasy.Player
             lastGroundedAt = float.NegativeInfinity;
         }
 
+        public Vector3 ResolvePortalArrivalPosition(Transform destination)
+        {
+            Vector3 position = destination.position;
+            if (bodyCollider == null || !destination.gameObject.scene.IsValid()) return position;
+            Physics2D.SyncTransforms();
+            Bounds bounds = bodyCollider.bounds;
+            float searchHeight = Mathf.Max(1f, bounds.size.y);
+            var hits = new RaycastHit2D[32];
+            var filter = new ContactFilter2D();
+            filter.SetLayerMask(groundLayers);
+            filter.useTriggers = false;
+            int count = destination.gameObject.scene.GetPhysicsScene2D().Raycast(
+                (Vector2)position + Vector2.up * searchHeight, Vector2.down,
+                searchHeight * 3f, filter, hits);
+            float nearest = float.PositiveInfinity;
+            float floorY = 0f;
+            for (int i = 0; i < count; i++)
+            {
+                var hit = hits[i];
+                if (hit.collider == bodyCollider || hit.normal.y < 0.65f
+                    || hit.collider.GetComponentInParent<Entity>() != null
+                    || (hit.rigidbody != null && hit.rigidbody.bodyType == RigidbodyType2D.Dynamic)) continue;
+                float distance = Mathf.Abs(hit.point.y - position.y);
+                if (distance >= nearest) continue;
+                nearest = distance;
+                floorY = hit.point.y;
+            }
+            if (!float.IsPositiveInfinity(nearest))
+                position.y = floorY + (transform.position.y - bounds.min.y) + 0.005f;
+            return position;
+        }
+
         public void TeleportTo(Vector3 position, Quaternion rotation)
         {
+            lastJumpStartedAt = float.NegativeInfinity;
             Vector3 previousPosition = transform.position;
             EndDash();
             ClearInput();
             RestorePlatformCollisions(true);
+            // Discard the old scene's interpolation samples before publishing the new pose.
+            var previousInterpolation = body.interpolation;
+            body.interpolation = RigidbodyInterpolation2D.None;
             body.linearVelocity = Vector2.zero;
             body.angularVelocity = 0f;
             body.position = position;
             transform.SetPositionAndRotation(position, rotation);
             Physics2D.SyncTransforms();
+            body.interpolation = previousInterpolation;
+            IsGrounded = false;
+            groundHitCount = 0;
+            supportDistance = float.PositiveInfinity;
             if ((transform.position - previousPosition).sqrMagnitude > .000001f)
                 CameraFollowDetail.ResetAfterTeleport(transform);
         }
@@ -362,6 +412,7 @@ namespace EasternFantasy.Player
             if (jumpRequested && canJump)
             {
                 bool dropping = dropThroughRequested && TryDropThrough();
+                lastJumpStartedAt = dropping ? float.NegativeInfinity : Time.time;
                 float heightBonus = inventory != null ? inventory.EquippedJumpHeightBonus : 0f;
                 velocity.y = dropping ? -settings.DropThroughSpeed
                     : settings.JumpSpeed * Mathf.Sqrt(1f + heightBonus);
@@ -383,6 +434,7 @@ namespace EasternFantasy.Player
 
         private void OnDisable()
         {
+            lastJumpStartedAt = float.NegativeInfinity;
             RestoreEnemyPassThrough(true);
             EndDash();
             RestorePlatformCollisions(true);

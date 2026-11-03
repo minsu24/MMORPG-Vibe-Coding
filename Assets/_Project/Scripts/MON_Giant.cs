@@ -1,4 +1,4 @@
-﻿using Unity.Cinemachine;
+using Unity.Cinemachine;
 using UnityEngine;
 using EasternFantasy.Player;
 using System.Collections.Generic;
@@ -27,6 +27,12 @@ public class MON_Giant : PersistentBossController
     [SerializeField, Min(0.1f)] private float attackCooldown = 2f;
     [SerializeField, Range(0.05f, 1f)] private float smashMapFraction = 1f / 3f;
     [SerializeField, Min(0.1f)] private float smashHeight = 3f;
+    [Header("Smash Jump Timing")]
+    [Tooltip("Jump must have started at least this long before impact to clear the shockwave.")]
+    [SerializeField, Min(0f)] private float smashJumpMinimumAge = 0.08f;
+    [Tooltip("Only a recent, still-rising jump evades the shockwave. Earlier jumps remain vulnerable inside its area.")]
+    [SerializeField, Min(0f)] private float smashJumpMaximumAge = 0.24f;
+    [Header("Other Attack Settings")]
     [SerializeField, Min(0.1f)] private float sprintWarningDuration = 2.2f;
     [SerializeField, Min(1f)] private float sprintSpeed = 32f;
     [SerializeField, Min(1f)] private float sprintRange = 25f;
@@ -170,7 +176,7 @@ public class MON_Giant : PersistentBossController
             sprintEndX = end;
             Bounds body = capsuleCollider2D.bounds;
             warning = GiantAttackVisual.CreateWarning(new Vector2((body.center.x + end) * 0.5f, body.center.y),
-                new Vector2(Mathf.Abs(end - body.center.x) + body.size.x, body.size.y), attackDirection, spriteRenderer);
+                new Vector2(Mathf.Abs(end - body.center.x) + body.size.x, body.size.y), attackDirection, spriteRenderer, sprintWarningDuration);
             phaseEnds = Time.time + sprintWarningDuration;
         }
     }
@@ -224,7 +230,8 @@ public class MON_Giant : PersistentBossController
         foreach (Collider2D c in Physics2D.OverlapBoxAll(center, new Vector2(range, smashHeight), 0f, _playerLayer))
         {
             PlayerEntity entity = c.GetComponentInParent<PlayerEntity>();
-            if (entity != null && hit.Add(entity)) DamagePlayer(entity, normalAttackDamage);
+            if (entity != null && hit.Add(entity) && !CanEvadeSmash(entity))
+                DamagePlayer(entity, normalAttackDamage);
         }
         for (float distance = 1.5f; distance < range; distance += 3f)
         {
@@ -235,6 +242,13 @@ public class MON_Giant : PersistentBossController
         footstepImpulse.ImpulseDefinition.ImpulseDuration = smashShakeDuration;
         footstepImpulse.GenerateImpulseAtPositionWithVelocity(transform.position,
             new Vector3(0.35f * attackDirection, -1f, 0f).normalized * smashShakeStrength);
+    }
+
+    private bool CanEvadeSmash(PlayerEntity entity)
+    {
+        var movement = entity.GetComponent<PlayerMovement2D>();
+        return movement != null && movement.IsInJumpEvadeWindow(smashJumpMinimumAge,
+            Mathf.Max(smashJumpMinimumAge, smashJumpMaximumAge));
     }
 
     // Animation event on the frame where the rock leaves the hands.

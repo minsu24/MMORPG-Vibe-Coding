@@ -1,0 +1,446 @@
+fileFormatVersion: 2
+guid: e5a1c5e0c879dce49a5742c553c89fb7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3248627086399964560
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_0"
+  - first:
+      213: 5333280355034355989
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_1"
+  - first:
+      213: -1048604235851283696
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_2"
+  - first:
+      213: -1475587027716817830
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_3"
+  - first:
+      213: 3578283751121499882
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_4"
+  - first:
+      213: -5951628419825512550
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_5"
+  - first:
+      213: 4047512861453050312
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_6"
+  - first:
+      213: -6205187009844653914
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_7"
+  - first:
+      213: 4107290630125115685
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_8"
+  - first:
+      213: -8150711384322881945
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_9"
+  - first:
+      213: 5772601557307816927
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_10"
+  - first:
+      213: 5780913288803647542
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_11"
+  - first:
+      213: 1011217127114015770
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_12"
+  - first:
+      213: -1311791431724189393
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_13"
+  - first:
+      213: -136198260730933500
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_14"
+  - first:
+      213: 3089404612828181163
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_15"
+  - first:
+      213: -6424843274825219945
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_16"
+  - first:
+      213: -6224814509569734611
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_17"
+  - first:
+      213: 8359106678065975498
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_18"
+  - first:
+      213: 2732954942042209362
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_19"
+  - first:
+      213: -8285791319461533281
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_20"
+  - first:
+      213: -4578090128971142643
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_21"
+  - first:
+      213: -1763357759957236480
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_22"
+  - first:
+      213: 606599408028127891
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_23"
+  - first:
+      213: 4862784207099585226
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_24"
+  - first:
+      213: -2189649492007301682
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_25"
+  - first:
+      213: 5122950755099696966
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_26"
+  - first:
+      213: -6454806453406061785
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_27"
+  - first:
+      213: 5530377557382715634
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_28"
+  - first:
+      213: 5760863606880165544
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_29"
+  - first:
+      213: -6324013103112189696
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_30"
+  - first:
+      213: 861286569007779823
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_31"
+  - first:
+      213: 5572037382898710822
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_32"
+  - first:
+      213: 2130032857300908089
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_33"
+  - first:
+      213: -5244020233454987238
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_34"
+  - first:
+      213: 386327685654873389
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_35"
+  - first:
+      213: -3955412439953257407
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_36"
+  - first:
+      213: 5572507822516508934
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_37"
+  - first:
+      213: -2980975334130392577
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_38"
+  - first:
+      213: -1422108934675127593
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_39"
+  - first:
+      213: 1203227692593695162
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_40"
+  - first:
+      213: 8041024418251439121
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_41"
+  - first:
+      213: 8359712378088635272
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_42"
+  - first:
+      213: 6559201968030092252
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uC0AC\uB9DD_43"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 200
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GinsengDeath_00
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 164
+        width: 264
+        height: 424
+      alignment: 9
+      pivot: {x: 0.5, y: 0.014150944}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 437f8c7cb6ca4e146a9238fdf40953f8
+      internalID: 436482222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GinsengDeath_01
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 164
+        width: 264
+        height: 424
+      alignment: 9
+      pivot: {x: 0.5, y: 0.014150944}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 930f3d9fc63b8a64f8e325e6c72e023c
+      internalID: 1275340110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GinsengDeath_02
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 164
+        width: 264
+        height: 424
+      alignment: 9
+      pivot: {x: 0.5, y: 0.014150944}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea224e6237f24a441bf65463313d8188
+      internalID: -1666066685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GinsengDeath_03
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 164
+        width: 264
+        height: 424
+      alignment: 9
+      pivot: {x: 0.5, y: 0.014150944}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b606a48a12e11cb44bb1f73275852e2b
+      internalID: -1810025075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GinsengDeath_04
+      rect:
+        serializedVersion: 2
+        x: 1092
+        y: 164
+        width: 264
+        height: 424
+      alignment: 9
+      pivot: {x: 0.5, y: 0.014150944}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f613ca9d54aeba49aed0ff64e50e8cc
+      internalID: 152501365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GinsengDeath_05
+      rect:
+        serializedVersion: 2
+        x: 1356
+        y: 164
+        width: 264
+        height: 424
+      alignment: 9
+      pivot: {x: 0.5, y: 0.014150944}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07f926d2d80cf0546aaff4cc55f17817
+      internalID: -1145558298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GinsengDeath_06
+      rect:
+        serializedVersion: 2
+        x: 1619
+        y: 164
+        width: 264
+        height: 424
+      alignment: 9
+      pivot: {x: 0.5, y: 0.014150944}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53c200fe77187394da6c7eb501e037b2
+      internalID: -211090089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GinsengDeath_07
+      rect:
+        serializedVersion: 2
+        x: 1886
+        y: 164
+        width: 264
+        height: 424
+      alignment: 9
+      pivot: {x: 0.5, y: 0.014150944}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5468ea72f60573b4d9c6413b9610fb50
+      internalID: 1209960806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 4decac5a8a98f984b9f1a26e4fd5fe8f
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      GinsengDeath_00: 436482222
+      GinsengDeath_01: 1275340110
+      GinsengDeath_02: -1666066685
+      GinsengDeath_03: -1810025075
+      GinsengDeath_04: 152501365
+      GinsengDeath_05: -1145558298
+      GinsengDeath_06: -211090089
+      GinsengDeath_07: 1209960806
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

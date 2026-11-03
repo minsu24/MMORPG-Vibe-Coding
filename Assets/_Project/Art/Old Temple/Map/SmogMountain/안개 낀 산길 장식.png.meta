@@ -1,0 +1,424 @@
+fileFormatVersion: 2
+guid: 64859bfcb06ba444dac9e48b35b217c9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2432861689535510212
+    second: "\uC548\uAC1C \uB080 \uC0B0\uAE38 \uC7A5\uC2DD_0"
+  - first:
+      213: -5182875753846802013
+    second: "\uC548\uAC1C \uB080 \uC0B0\uAE38 \uC7A5\uC2DD_1"
+  - first:
+      213: -6025386064023734130
+    second: "\uC548\uAC1C \uB080 \uC0B0\uAE38 \uC7A5\uC2DD_2"
+  - first:
+      213: -851682687477005908
+    second: "\uC548\uAC1C \uB080 \uC0B0\uAE38 \uC7A5\uC2DD_3"
+  - first:
+      213: -4254041804949216259
+    second: "\uC548\uAC1C \uB080 \uC0B0\uAE38 \uC7A5\uC2DD_4"
+  - first:
+      213: 1900510542718194230
+    second: "\uC548\uAC1C \uB080 \uC0B0\uAE38 \uC7A5\uC2DD_5"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MountainGrass_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 681
+        width: 557
+        height: 260
+      alignment: 9
+      pivot: {x: 0.4901257, y: 0.06923077}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9078f9c49f30334192ff5056a8bbc6d
+      internalID: -427674780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MountainGrass_1
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 681
+        width: 557
+        height: 260
+      alignment: 9
+      pivot: {x: 0.4362657, y: 0.06923077}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b59dec9f7d233f499e5ba05721bfd09
+      internalID: 1880174313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MountainGrass_2
+      rect:
+        serializedVersion: 2
+        x: 1114
+        y: 681
+        width: 558
+        height: 260
+      alignment: 9
+      pivot: {x: 0.38709676, y: 0.06923077}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4a6335f0ea72514cb39dd8b9a265404
+      internalID: -426106023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MountainLeaves_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 520
+        width: 557
+        height: 146
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bbbf82b9f57198418f27aecf61583ba
+      internalID: 673663718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MountainLeaves_1
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 520
+        width: 557
+        height: 146
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dda02b63d0b465429b94d493fc77e80
+      internalID: 575203227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MountainLeaves_2
+      rect:
+        serializedVersion: 2
+        x: 1114
+        y: 520
+        width: 558
+        height: 146
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62e9578c3778f3f4f8bf2272e4772229
+      internalID: 986487088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MountainTree_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 200
+        width: 557
+        height: 303
+      alignment: 9
+      pivot: {x: 0.28007182, y: 0.0660066}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0323a978f80947140a5fdadf14cf153e
+      internalID: -1054526090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MountainTree_1
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 200
+        width: 557
+        height: 303
+      alignment: 9
+      pivot: {x: 0.23159784, y: 0.0660066}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 813cd4d34d6227d479ad45b84af5733d
+      internalID: -259544757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MountainTree_2
+      rect:
+        serializedVersion: 2
+        x: 1114
+        y: 200
+        width: 558
+        height: 303
+      alignment: 9
+      pivot: {x: 0.20071685, y: 0.0660066}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 917c178c9b29b7348996bc26796220fd
+      internalID: -2141853613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MountainCloud_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 557
+        height: 195
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cb7e38ffc869b7468f50ba43c00626e
+      internalID: -846367732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MountainCloud_1
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 0
+        width: 557
+        height: 195
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f470f92490bbe94f9041734738122ab
+      internalID: 970896306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MountainCloud_2
+      rect:
+        serializedVersion: 2
+        x: 1114
+        y: 0
+        width: 558
+        height: 195
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0726ae255b165042ba992b29e0c94c8
+      internalID: 992955698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: dc3ef6ac541034749ac7e84dfc36f4ae
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MountainCloud_0: -846367732
+      MountainCloud_1: 970896306
+      MountainCloud_2: 992955698
+      MountainGrass_0: -427674780
+      MountainGrass_1: 1880174313
+      MountainGrass_2: -426106023
+      MountainLeaves_0: 673663718
+      MountainLeaves_1: 575203227
+      MountainLeaves_2: 986487088
+      MountainTree_0: -1054526090
+      MountainTree_1: -259544757
+      MountainTree_2: -2141853613
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

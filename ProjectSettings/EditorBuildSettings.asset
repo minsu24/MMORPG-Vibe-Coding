@@ -44,6 +44,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/GiantFarm/GiantFarm_03_Boss.unity
     guid: 505ecee6d9385bd42b93725c2d85a4b4
+  - enabled: 1
+    path: Assets/_Project/Scenes/OldTemple/SmogMountain.unity
+    guid: 02b6d3bcab2c44e4d828e796ce06e1fe
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

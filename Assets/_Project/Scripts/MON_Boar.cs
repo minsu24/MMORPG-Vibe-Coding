@@ -87,7 +87,7 @@ public sealed class MON_Boar : PersistentBossController
         warning = GiantAttackVisual.CreateWarning(
             new Vector2((body.center.x + chargeEndX) * 0.5f, body.center.y),
             new Vector2(Mathf.Abs(chargeEndX - body.center.x) + body.size.x, body.size.y),
-            chargeDirection, spriteRenderer);
+            chargeDirection, spriteRenderer, warningDuration);
         warning.gameObject.name = "Boar Charge Warning";
         phaseEnds = Time.time + warningDuration;
     }

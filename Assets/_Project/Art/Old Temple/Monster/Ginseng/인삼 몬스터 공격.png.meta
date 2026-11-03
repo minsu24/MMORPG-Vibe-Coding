@@ -1,0 +1,350 @@
+fileFormatVersion: 2
+guid: 352b60d2d75216c4797cf828fd1b7ee1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5317438328456605977
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uACF5\uACA9_0"
+  - first:
+      213: -1063467448179012289
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uACF5\uACA9_1"
+  - first:
+      213: -2256982868635063275
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uACF5\uACA9_2"
+  - first:
+      213: -6660548913631390211
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uACF5\uACA9_3"
+  - first:
+      213: -3372321133783780587
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uACF5\uACA9_4"
+  - first:
+      213: -2481373235859379971
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uACF5\uACA9_5"
+  - first:
+      213: 1896894788464740035
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uACF5\uACA9_6"
+  - first:
+      213: 7702903392361052438
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uACF5\uACA9_7"
+  - first:
+      213: -1728307097131305426
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uACF5\uACA9_8"
+  - first:
+      213: 8608901241168648871
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uACF5\uACA9_9"
+  - first:
+      213: 7020610030718179202
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uACF5\uACA9_10"
+  - first:
+      213: 5443205200219890891
+    second: "\uC778\uC0BC \uBAAC\uC2A4\uD130 \uACF5\uACA9_11"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 200
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GinsengAttack_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 448
+        height: 424
+      alignment: 9
+      pivot: {x: 0.60714287, y: 0.009433962}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7c4f39a9df8cc542ad9dc49ffcb471e
+      internalID: -66207640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GinsengAttack_01
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 448
+        height: 424
+      alignment: 9
+      pivot: {x: 0.60714287, y: 0.009433962}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dca3f6ed3d2ed3941b42a79592940cff
+      internalID: 1865538766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GinsengAttack_02
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 448
+        height: 424
+      alignment: 9
+      pivot: {x: 0.60714287, y: 0.009433962}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c7a3c4d44e5f7f45b90f95abed97cfd
+      internalID: -1778413188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GinsengAttack_03
+      rect:
+        serializedVersion: 2
+        x: 1344
+        y: 0
+        width: 448
+        height: 424
+      alignment: 9
+      pivot: {x: 0.60714287, y: 0.009433962}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c5ef4af020b67a4dbc35c8c73a47fda
+      internalID: 864061037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GinsengAttack_04
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 0
+        width: 448
+        height: 424
+      alignment: 9
+      pivot: {x: 0.60714287, y: 0.009433962}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa162d6d7966250448e5c28be7d8106d
+      internalID: 1271766991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GinsengAttack_05
+      rect:
+        serializedVersion: 2
+        x: 2240
+        y: 0
+        width: 448
+        height: 424
+      alignment: 9
+      pivot: {x: 0.60714287, y: 0.009433962}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e70fcbb1bbf97a141bc40f24c3a0574d
+      internalID: -606529452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GinsengAttack_06
+      rect:
+        serializedVersion: 2
+        x: 2688
+        y: 0
+        width: 448
+        height: 424
+      alignment: 9
+      pivot: {x: 0.60714287, y: 0.009433962}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6011f3946dcedfc49ab8e2b0a607750f
+      internalID: 263272503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GinsengAttack_07
+      rect:
+        serializedVersion: 2
+        x: 3136
+        y: 0
+        width: 448
+        height: 424
+      alignment: 9
+      pivot: {x: 0.60714287, y: 0.009433962}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d72f8e32bab151140bf101f8e3224561
+      internalID: -1845661172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 07c5e0dc48c6a6440946cca3fbaa1113
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      GinsengAttack_00: -66207640
+      GinsengAttack_01: 1865538766
+      GinsengAttack_02: -1778413188
+      GinsengAttack_03: 864061037
+      GinsengAttack_04: 1271766991
+      GinsengAttack_05: -606529452
+      GinsengAttack_06: 263272503
+      GinsengAttack_07: -1845661172
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

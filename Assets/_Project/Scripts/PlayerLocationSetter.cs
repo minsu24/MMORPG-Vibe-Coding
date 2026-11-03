@@ -42,11 +42,12 @@ namespace EasternFantasy.Player
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            RetargetCinemachineCamera(transform.position);
-
             string targetName = MapTransferData.TargetSpawnPointName;
             if (string.IsNullOrWhiteSpace(targetName))
+            {
+                RetargetCinemachineCamera(transform.position);
                 return;
+            }
 
             // Consume only this scene transfer, even when its destination is missing.
             MapTransferData.Clear();
@@ -91,7 +92,12 @@ namespace EasternFantasy.Player
             if (destination == null)
                 return;
 
-            TeleportToAndRetarget(destination.position, destination.rotation);
+            // An explicit child anchor denotes the player's origin. Otherwise align the
+            // player's feet to support near the portal, whose pivot may be at its base.
+            var arrival = destination.Find("ArrivalPoint");
+            Vector3 position = arrival != null ? arrival.position
+                : playerController.ResolvePortalArrivalPosition(destination);
+            TeleportToAndRetarget(position, arrival != null ? arrival.rotation : destination.rotation);
         }
 
         public void TeleportToAndRetarget(Vector3 position, Quaternion rotation)

@@ -157,15 +157,21 @@ namespace EasternFantasy.UI
             Selected = dungeon;
             preview.sprite = dungeon != null ? dungeon.preview : null;
             preview.enabled = preview.sprite != null;
-            if (dungeonEmblem != null) { dungeonEmblem.sprite = null; dungeonEmblem.enabled = false; }
+            if (dungeonEmblem != null)
+            {
+                dungeonEmblem.sprite = dungeon != null ? dungeon.emblem : null;
+                dungeonEmblem.preserveAspect = true;
+                dungeonEmblem.gameObject.SetActive(true);
+                dungeonEmblem.enabled = dungeonEmblem.sprite != null;
+            }
             var fitter = preview.GetComponent<AspectRatioFitter>();
             if (fitter != null && preview.sprite != null) fitter.aspectRatio = preview.sprite.rect.width / preview.sprite.rect.height;
             dungeonName.text = dungeon != null ? dungeon.displayName : "등록된 던전 없음";
             description.text = dungeon != null ? dungeon.description : "던전 데이터를 등록해 주세요.";
-            levelText.text = dungeon != null ? $"입장 레벨  {dungeon.minimumLevel}" : "입장 레벨  —";
+            levelText.text = dungeon != null ? $"입장 레벨\n<size=23>{dungeon.minimumLevel}</size>" : "입장 레벨\n<size=23>—</size>";
             timeText.text = dungeon != null && dungeon.timeLimitSeconds > 0
-                ? $"제한시간  {dungeon.timeLimitSeconds / 60:00}:{dungeon.timeLimitSeconds % 60:00}" : "제한시간  미설정";
-            monsterText.text = dungeon != null && dungeon.monsterCount > 0 ? $"몬스터  {dungeon.monsterCount}마리" : "몬스터  미설정";
+                ? $"제한시간\n<size=23>{dungeon.timeLimitSeconds / 60:00}:{dungeon.timeLimitSeconds % 60:00}</size>" : "제한시간\n<size=23>미설정</size>";
+            monsterText.text = dungeon != null && dungeon.monsterCount > 0 ? $"몬스터\n<size=23>{dungeon.monsterCount}마리</size>" : "몬스터\n<size=23>미설정</size>";
             var names = new List<string>();
             int iconIndex = 0;
             bool hasPreviewRewards = dungeon != null && dungeon.obtainableRewards != null && dungeon.obtainableRewards.Length > 0;
@@ -190,6 +196,7 @@ namespace EasternFantasy.UI
                     if (iconIndex >= rewardIcons.Length) continue;
                     rewardIcons[iconIndex].sprite = reward.item.Icon;
                     rewardIcons[iconIndex].enabled = reward.item.Icon != null;
+                    rewardIcons[iconIndex].preserveAspect = true;
                     ItemGradeVisual.Apply(rewardIcons[iconIndex], null);
                     rewardAmounts[iconIndex].text = string.Empty;
                     iconIndex++;

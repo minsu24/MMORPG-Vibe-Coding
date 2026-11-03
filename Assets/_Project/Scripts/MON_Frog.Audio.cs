@@ -32,6 +32,8 @@ public sealed partial class MON_Frog
     protected override void OnDisable()
     {
         StopMovementAudio();
+        HideWarnings();
+        RestoreAnimatorSpeed();
         base.OnDisable();
     }
 }

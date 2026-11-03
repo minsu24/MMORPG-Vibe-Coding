@@ -8,18 +8,6 @@ public sealed class GiantAttackVisual : MonoBehaviour
     private bool isWarning;
     private Vector2 groundPosition;
     private float dustHeight = 4f;
-    private static Sprite whiteSprite;
-
-    private static Sprite WhiteSprite
-    {
-        get
-        {
-            if (whiteSprite == null)
-                whiteSprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0, 0, 1, 1), Vector2.one * 0.5f, 1f);
-            return whiteSprite;
-        }
-    }
-
     private static GiantAttackVisual Create(string name, Vector2 position, SpriteRenderer source)
     {
         GameObject go = new GameObject(name);
@@ -44,45 +32,22 @@ public sealed class GiantAttackVisual : MonoBehaviour
         if (delay <= 0f) effect.ShowDustFrame(0);
     }
 
-    public static GiantAttackVisual CreateWarning(Vector2 center, Vector2 size, float direction, SpriteRenderer source)
+    public static GiantAttackVisual CreateWarning(Vector2 center, Vector2 size, float direction,
+        SpriteRenderer source, float duration = 2.2f)
     {
         GiantAttackVisual effect = Create("Giant Sprint Warning", center, source);
         effect.isWarning = true;
-        effect.visual.sprite = WhiteSprite;
-        effect.visual.color = new Color(1f, 0.05f, 0.02f, 0.22f);
-        effect.transform.localScale = new Vector3(size.x, size.y, 1f);
-        // Repeated chevrons make the committed direction readable across the lane.
-        for (float x = -size.x * 0.5f + 1f; x < size.x * 0.5f; x += 3f)
-        {
-            for (int arm = -1; arm <= 1; arm += 2)
-            {
-                GameObject line = new GameObject("Direction Chevron");
-                line.transform.SetParent(effect.transform, false);
-                line.transform.localPosition = new Vector3(x / size.x, arm * 0.35f / size.y, 0f);
-                // Cancel the lane scale before rotating the arrow bars.
-                line.transform.localScale = new Vector3(1f / size.x, 1f / size.y, 1f);
-                GameObject bar = new GameObject("Arrow Bar");
-                bar.transform.SetParent(line.transform, false);
-                bar.transform.localRotation = Quaternion.Euler(0f, 0f, -arm * direction * 40f);
-                bar.transform.localScale = new Vector3(1.1f, 0.12f, 1f);
-                SpriteRenderer renderer = bar.AddComponent<SpriteRenderer>();
-                renderer.sprite = WhiteSprite;
-                renderer.color = new Color(1f, 0.15f, 0.07f, 0.7f);
-                renderer.sortingLayerID = source.sortingLayerID;
-                renderer.sortingOrder = source.sortingOrder + 2;
-            }
-        }
+        effect.visual.enabled = false;
+        AttackTelegraph telegraph = AttackTelegraph.Create("Charge danger area", center, size,
+            duration, direction, source, source);
+        telegraph.transform.SetParent(effect.transform, true);
         return effect;
     }
 
     private void Update()
     {
         age += Time.deltaTime;
-        if (isWarning)
-        {
-            visual.color = new Color(1f, 0.05f, 0.02f, 0.2f + 0.1f * Mathf.Sin(age * 12f));
-            return;
-        }
+        if (isWarning) return;
         float elapsed = age - delay;
         if (elapsed < 0f) return;
         int frame = Mathf.FloorToInt(elapsed * 10f);

@@ -17,6 +17,8 @@ public sealed class IntermittentAmbientAudio : MonoBehaviour
     private float burstVolume;
     private bool playingBurst;
     private bool paused;
+    public bool IsPlayingBurst => playingBurst;
+    public AudioSource Source => source;
 
     private void Awake()
     {

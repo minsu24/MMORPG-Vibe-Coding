@@ -6,6 +6,7 @@ namespace EasternFantasy.UI
         {
             switch (sceneName)
             {
+                case "SmogMountain": return "안개 낀 산";
                 case "MainScreen":
                 case "ChooseCharactor": return string.Empty;
                 case "MovementPrototype": return "마을 외곽";

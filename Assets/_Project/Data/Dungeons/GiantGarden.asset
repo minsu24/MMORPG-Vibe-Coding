@@ -16,6 +16,8 @@ MonoBehaviour:
   description: "\uC548\uAC1C \uB108\uBA38, \uAC70\uB300\uD55C \uB18D\uC6D0\uC774
     \uBAA8\uC2B5\uC744 \uB4DC\uB7EC\uB0C5\uB2C8\uB2E4."
   preview: {fileID: 3548261074904864037, guid: cd068dc8201486e498b6f80077d6f945, type: 3}
+  emblem: {fileID: 391271200, guid: 6090dfb6e6ee0d74c8deca0b36a055a6, type: 3}
+  listIcon: {fileID: 2088461386, guid: 6090dfb6e6ee0d74c8deca0b36a055a6, type: 3}
   sceneName: GiantFarm_01
   continuationScenes:
   - GiantFarm_02

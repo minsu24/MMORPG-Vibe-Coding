@@ -63,7 +63,7 @@ namespace EasternFantasy.Editor
             yield return WaitForTransfer();
             var destination = Portal("Out_Marshland_Portal");
             Check(SceneManager.GetActiveScene().name == "Marshland", "portal reaches Marshland");
-            Check(Vector2.Distance(movement.body.position, destination.transform.position) < .02f,
+            Check(Vector2.Distance(movement.body.position, movement.ResolvePortalArrivalPosition(destination.transform)) < .02f,
                 "player arrives at Out_Marshland_Portal instead of map entry");
             Check(!destination.gameObject.activeSelf,
                 "inactive boss portal is a valid arrival anchor without activating it");
@@ -72,7 +72,7 @@ namespace EasternFantasy.Editor
             Check(PortalSceneTransition.TryLoad("BrokenSeal", "Out_BrokenSeal_Portal"), "arrival at sealed-door anchor requested");
             yield return WaitForTransfer();
             destination = Portal("Out_BrokenSeal_Portal");
-            Check(Vector2.Distance(movement.body.position, destination.transform.position) < .02f,
+            Check(Vector2.Distance(movement.body.position, movement.ResolvePortalArrivalPosition(destination.transform)) < .02f,
                 "destination name with trailing scene whitespace is resolved");
 
             var root = new GameObject("Inactive Arrival Parent");
@@ -88,7 +88,7 @@ namespace EasternFantasy.Editor
                 MapTransferData.SetTarget("  InactiveArrivalFixture  ");
                 typeof(PlayerLocationSetter).GetMethod("OnSceneLoaded", Hidden).Invoke(player.GetComponent<PlayerLocationSetter>(),
                     new object[] { SceneManager.GetActiveScene(), LoadSceneMode.Single });
-                Check(Vector2.Distance(movement.body.position, anchor.transform.position) < .001f && !root.activeSelf && lockedAnchor.IsLocked,
+                Check(Vector2.Distance(movement.body.position, movement.ResolvePortalArrivalPosition(anchor.transform)) < .001f && !root.activeSelf && lockedAnchor.IsLocked,
                     "nested inactive and locked arrival anchor resolves without activating or unlocking it");
                 var missing = typeof(PlayerLocationSetter).GetMethod("FindSpawnPoint", Static)
                     .Invoke(null, new object[] { SceneManager.GetActiveScene(), "MissingArrivalFixture" });

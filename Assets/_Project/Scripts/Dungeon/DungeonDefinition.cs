@@ -10,6 +10,8 @@ namespace EasternFantasy.Dungeon
         public string displayName;
         [TextArea] public string description;
         public Sprite preview;
+        public Sprite emblem;
+        public Sprite listIcon;
         public string sceneName;
         public string[] continuationScenes = Array.Empty<string>();
         public string spawnPointName = "DungeonSpawn";

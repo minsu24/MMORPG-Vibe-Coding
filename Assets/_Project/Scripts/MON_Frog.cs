@@ -54,10 +54,8 @@ public sealed partial class MON_Frog : PersistentBossController
     private bool jumpCooldownStarted;
     private bool inTongueAttackRange;
     private float tongueDirection = 1f;
-    private LineRenderer attackWarning;
-    private Material attackWarningMaterial;
-    private SpriteRenderer jumpWarning;
-    private Sprite jumpWarningSprite;
+    private AttackTelegraph attackWarning;
+    private AttackTelegraph jumpWarning;
     private Vector2 jumpLandingPosition;
     private float jumpWarningY;
     private float animatorSpeedBeforeJump = 1f;
@@ -149,7 +147,7 @@ public sealed partial class MON_Frog : PersistentBossController
         yield return new WaitForSeconds(Mathf.Min(hitDelay, attackAnimationDuration));
 
         if (attackWarning != null)
-            attackWarning.enabled = false;
+            attackWarning.Clear();
         if (HP <= 0f)
             yield break;
 
@@ -292,7 +290,7 @@ public sealed partial class MON_Frog : PersistentBossController
         // Jump.anim changes to its impact sprite at exactly 0.5 seconds.
         SetJumpPosition(jumpLandingPosition);
         if (jumpWarning != null)
-            jumpWarning.enabled = false;
+            jumpWarning.Clear();
         EnemyAttackAudio.PlayFor(this, "Audio/FrogSlamImpact");
         TrySlamPlayer();
 
@@ -422,61 +420,28 @@ public sealed partial class MON_Frog : PersistentBossController
 
     private void ShowAttackWarning()
     {
-        if (attackWarning == null)
-        {
-            Shader shader = Shader.Find("Sprites/Default");
-            if (shader == null)
-                shader = Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default");
-            if (shader == null)
-                return;
-            GameObject warning = new GameObject("Tongue Attack Range", typeof(LineRenderer));
-            warning.transform.SetParent(transform, false);
-            attackWarning = warning.GetComponent<LineRenderer>();
-            attackWarningMaterial = new Material(shader);
-            attackWarning.sharedMaterial = attackWarningMaterial;
-            attackWarning.useWorldSpace = true;
-            attackWarning.loop = true;
-            attackWarning.positionCount = 4;
-            attackWarning.widthMultiplier = 0.06f;
-            attackWarning.startColor = attackWarning.endColor = new Color(1f, 0.2f, 0.1f, 0.85f);
-            attackWarning.sortingLayerID = spriteRenderer.sortingLayerID;
-            attackWarning.sortingOrder = spriteRenderer.sortingOrder + 2;
-        }
-
-        Vector3 center = transform.position;
-        float tip = attackRange * tongueDirection;
-        attackWarning.SetPosition(0, center + new Vector3(0f, -verticalTolerance));
-        attackWarning.SetPosition(1, center + new Vector3(tip, -verticalTolerance));
-        attackWarning.SetPosition(2, center + new Vector3(tip, verticalTolerance));
-        attackWarning.SetPosition(3, center + new Vector3(0f, verticalTolerance));
-        attackWarning.enabled = true;
+        if (attackWarning != null) attackWarning.Clear();
+        Vector2 center = (Vector2)transform.position + Vector2.right * (attackRange * tongueDirection * 0.5f);
+        attackWarning = AttackTelegraph.Create("Tongue Attack Range", center,
+            new Vector2(attackRange, verticalTolerance * 2f), Mathf.Min(hitDelay, attackAnimationDuration),
+            tongueDirection, spriteRenderer, this);
     }
 
     private void ShowJumpWarning()
     {
-        if (jumpWarning == null)
-        {
-            jumpWarningSprite = Sprite.Create(Texture2D.whiteTexture,
-                new Rect(0f, 0f, 1f, 1f), new Vector2(0.5f, 0.5f), 1f);
-            GameObject warning = new GameObject("Jump Slam Range", typeof(SpriteRenderer));
-            jumpWarning = warning.GetComponent<SpriteRenderer>();
-            jumpWarning.sprite = jumpWarningSprite;
-            jumpWarning.sortingLayerID = spriteRenderer.sortingLayerID;
-            jumpWarning.sortingOrder = spriteRenderer.sortingOrder + 1;
-        }
-
-        jumpWarning.transform.position = new Vector3(jumpLandingPosition.x, jumpWarningY, transform.position.z);
-        jumpWarning.transform.localScale = new Vector3(slamWidth, warningHeight, 1f);
-        jumpWarning.color = new Color(1f, 0.05f, 0.02f, warningOpacity);
-        jumpWarning.enabled = true;
+        if (jumpWarning != null) jumpWarning.Clear();
+        float windup = jumpApexTime + jumpHangTime + Mathf.Max(0.01f, jumpLandingTime - jumpApexTime);
+        jumpWarning = AttackTelegraph.Create("Jump Slam Range",
+            new Vector2(jumpLandingPosition.x, jumpWarningY), new Vector2(slamWidth, warningHeight),
+            windup, 1f, spriteRenderer, this, true, warningOpacity);
     }
 
     private void HideWarnings()
     {
         if (attackWarning != null)
-            attackWarning.enabled = false;
+            attackWarning.Clear();
         if (jumpWarning != null)
-            jumpWarning.enabled = false;
+            jumpWarning.Clear();
     }
 
     private void RestoreAnimatorSpeed()
@@ -487,11 +452,6 @@ public sealed partial class MON_Frog : PersistentBossController
 
     private void OnDestroy()
     {
-        if (attackWarningMaterial != null)
-            Destroy(attackWarningMaterial);
-        if (jumpWarningSprite != null)
-            Destroy(jumpWarningSprite);
-        if (jumpWarning != null)
-            Destroy(jumpWarning.gameObject);
+        HideWarnings();
     }
 }
