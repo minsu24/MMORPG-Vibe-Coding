@@ -126,6 +126,8 @@ namespace EasternFantasy.UI
         }
         private void PrepareStep(int step)
         {
+            guide.SetKeyHint(step == 0 ? "keyboard_c" : "keyboard_k",
+                step == 0 ? "키로 스탯창을 열고 닫을 수 있습니다." : "키로 스킬창을 열고 닫을 수 있습니다.");
             if (step == 0) {
                 skills.SetOpenForTutorial(false); stats.SetOpenForTutorial(true);
                 Capture(stats.TutorialPortrait); Capture(stats.TutorialPortraitBackground);
@@ -155,6 +157,7 @@ namespace EasternFantasy.UI
         }
         private void Update()
         {
+            if (SoulstoneTutorialUI.IsRunning) return;
             BindDialogue();
             if (!running || Time.frameCount == openedFrame || Keyboard.current == null) return;
             if (Keyboard.current.spaceKey.wasPressedThisFrame) guide.Advance();

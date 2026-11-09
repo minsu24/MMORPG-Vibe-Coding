@@ -1,0 +1,237 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using EasternFantasy.Dialogue;
+using EasternFantasy.Player;
+using EasternFantasy.Saving;
+using Unity.Cinemachine;
+using UnityEngine;
+
+[DisallowMultipleComponent, RequireComponent(typeof(PortalManager))]
+public sealed class LockedPortalSequence : MonoBehaviour
+{
+    [SerializeField] private DialogueSequence unlockDialogue;
+    [SerializeField] private Animator sealAnimator;
+    [SerializeField] private SpriteRenderer sealRenderer;
+    [SerializeField] private AnimationClip unlockAnimation;
+    [SerializeField] private Collider2D cameraBounds;
+    [SerializeField, Min(0.1f)] private float zoomInDuration = 0.9f;
+    [SerializeField, Min(0.1f)] private float zoomOutDuration = 0.75f;
+    [SerializeField, Min(0.5f)] private float zoomSize = 2.2f;
+    [SerializeField, Min(0f)] private float anticipation = 0.25f;
+
+    private static readonly HashSet<DialogueSequence> unlockedDialogues = new HashSet<DialogueSequence>();
+    private static readonly HashSet<DialogueSequence> savedCompletedDialogues = new HashSet<DialogueSequence>();
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetSession()
+    {
+        unlockedDialogues.Clear();
+        savedCompletedDialogues.Clear();
+    }
+
+    internal static string[] CaptureSave() => unlockedDialogues.Select(SaveAssetCatalog.Id).ToArray();
+
+    internal static void RestoreSave(SaveGameData data)
+    {
+        ResetSession();
+        foreach (string id in data.unlockedPortalDialogues ?? System.Array.Empty<string>())
+        {
+            var dialogue = SaveAssetCatalog.Resolve<DialogueSequence>(id);
+            if (dialogue != null) unlockedDialogues.Add(dialogue);
+        }
+        // Older saves have no portal field. Reward records prove that the unlock
+        // conversation completed, even when its one-shot trigger can no longer run.
+        foreach (string id in data.rewardedDialogues ?? System.Array.Empty<string>())
+        {
+            var dialogue = SaveAssetCatalog.Resolve<DialogueSequence>(id);
+            if (dialogue != null) savedCompletedDialogues.Add(dialogue);
+        }
+        foreach (string id in data.playedDialogues ?? System.Array.Empty<string>())
+        {
+            var dialogue = SaveAssetCatalog.Resolve<DialogueSequence>(id);
+            if (dialogue != null && dialogue.CompletionExperience <= 0) savedCompletedDialogues.Add(dialogue);
+        }
+        foreach (var sequence in FindObjectsByType<LockedPortalSequence>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            sequence.ApplySavedState();
+    }
+
+    private PortalManager portal;
+    private DialogueManager dialogueManager;
+    private Coroutine sequenceRoutine;
+    private Camera cinematicCamera;
+    private CinemachineBrain brain;
+    private Vector3 savedPosition;
+    private Quaternion savedRotation;
+    private float savedSize;
+    private bool brainWasEnabled, cameraCaptured;
+    private readonly List<PlayerInputReader> inputs = new List<PlayerInputReader>();
+    public bool IsUnlocking { get; private set; }
+
+    public void Configure(DialogueSequence dialogue, Animator animator, SpriteRenderer renderer, AnimationClip clip, Collider2D bounds)
+    { unlockDialogue = dialogue; sealAnimator = animator; sealRenderer = renderer; unlockAnimation = clip; cameraBounds = bounds; }
+
+    private void Awake()
+    {
+        portal = GetComponent<PortalManager>();
+        portal.SetLocked(true);
+        if (sealRenderer != null) sealRenderer.enabled = true;
+    }
+    private void OnEnable()
+    {
+        ApplySavedState();
+        BindDialogue();
+    }
+    private void Start()
+    {
+        // Restore after all Awake calls, including PortalManager's initial lock state.
+        ApplySavedState();
+        BindDialogue();
+    }
+
+    private void ApplySavedState()
+    {
+        if (sequenceRoutine != null) StopCoroutine(sequenceRoutine);
+        sequenceRoutine = null;
+        IsUnlocking = false;
+        RestoreControl();
+        if (portal == null) portal = GetComponent<PortalManager>();
+        if (unlockDialogue != null && savedCompletedDialogues.Contains(unlockDialogue))
+            unlockedDialogues.Add(unlockDialogue);
+        bool open = unlockDialogue != null && unlockedDialogues.Contains(unlockDialogue);
+        portal.SetLocked(!open);
+        if (sealRenderer != null) sealRenderer.enabled = !open;
+        if (!open && sealAnimator != null && sealAnimator.isActiveAndEnabled
+            && sealAnimator.HasState(0, Animator.StringToHash("Locked")))
+        {
+            sealAnimator.Play("Locked", 0, 0f);
+            sealAnimator.Update(0f);
+        }
+    }
+    private void Update()
+    {
+        if (dialogueManager != DialogueManager.Instance) BindDialogue();
+    }
+    private void BindDialogue()
+    {
+        if (dialogueManager != null) dialogueManager.DialogueCompleted -= OnDialogueCompleted;
+        dialogueManager = DialogueManager.Instance;
+        if (dialogueManager != null) dialogueManager.DialogueCompleted += OnDialogueCompleted;
+    }
+    private void OnDialogueCompleted(DialogueSequence completed)
+    {
+        if (portal == null) portal = GetComponent<PortalManager>();
+        if (!isActiveAndEnabled || completed != unlockDialogue || !portal.IsLocked || IsUnlocking) return;
+        // The completed conversation remains consumed even if the scene unloads mid-animation.
+        unlockedDialogues.Add(completed);
+        SaveGameService.SaveNow(out _);
+        sequenceRoutine = StartCoroutine(UnlockSequence());
+    }
+    private IEnumerator UnlockSequence()
+    {
+        IsUnlocking = true;
+        GameTimeController.SetPaused(this, true);
+        inputs.Clear();
+        foreach (var input in FindObjectsByType<PlayerInputReader>(FindObjectsSortMode.None))
+        {
+            inputs.Add(input);
+            input.SetInputBlocked(this, true);
+        }
+        cinematicCamera = Camera.main;
+        if (cinematicCamera != null)
+        {
+            cameraCaptured = true;
+            savedPosition = cinematicCamera.transform.position;
+            savedRotation = cinematicCamera.transform.rotation;
+            savedSize = cinematicCamera.orthographicSize;
+            brain = cinematicCamera.GetComponent<CinemachineBrain>();
+            brainWasEnabled = brain != null && brain.enabled;
+            if (brain != null) brain.enabled = false;
+            Vector3 focus = sealRenderer != null ? sealRenderer.bounds.center : transform.position;
+            focus.z = savedPosition.z;
+            float targetSize = Mathf.Min(savedSize, zoomSize);
+            ConstrainCamera(ref focus, ref targetSize);
+            yield return MoveCamera(savedPosition, focus, savedSize, targetSize, zoomInDuration);
+        }
+        yield return new WaitForSecondsRealtime(anticipation);
+        if (sealAnimator != null)
+        {
+            sealAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+            sealAnimator.Play("Unlock", 0, 0f);
+            sealAnimator.Update(0f);
+        }
+        yield return new WaitForSecondsRealtime(unlockAnimation != null ? unlockAnimation.length + 0.05f : 1.65f);
+        if (sealRenderer != null) sealRenderer.enabled = false;
+        yield return new WaitForSecondsRealtime(0.25f);
+        if (cinematicCamera != null && cameraCaptured)
+            yield return MoveCamera(cinematicCamera.transform.position, savedPosition,
+                cinematicCamera.orthographicSize, savedSize, zoomOutDuration);
+        portal.SetLocked(false);
+        IsUnlocking = false;
+        RestoreControl();
+        sequenceRoutine = null;
+    }
+    private IEnumerator MoveCamera(Vector3 from, Vector3 to, float fromSize, float toSize, float seconds)
+    {
+        float elapsed = 0f;
+        while (elapsed < seconds && cinematicCamera != null)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / seconds));
+            Vector3 position = Vector3.Lerp(from, to, t);
+            float size = Mathf.Lerp(fromSize, toSize, t);
+            ConstrainCamera(ref position, ref size);
+            cinematicCamera.transform.position = position;
+            cinematicCamera.orthographicSize = size;
+            yield return null;
+        }
+    }
+    private void ConstrainCamera(ref Vector3 position, ref float size)
+    {
+        if (cameraBounds == null || cinematicCamera == null) return;
+
+        // BrokenSeal uses an axis-aligned BoxCollider2D shared with the confiner.
+        // Constrain the entire viewport, including during the zoom transitions.
+        Bounds bounds = cameraBounds.bounds;
+        float aspect = cinematicCamera.aspect;
+        size = Mathf.Min(size, bounds.extents.y, bounds.extents.x / aspect);
+        float halfWidth = size * aspect;
+        position.x = Mathf.Clamp(position.x, bounds.min.x + halfWidth, bounds.max.x - halfWidth);
+        position.y = Mathf.Clamp(position.y, bounds.min.y + size, bounds.max.y - size);
+    }
+    private void RestoreControl()
+    {
+        if (cameraCaptured)
+        {
+            if (cinematicCamera != null)
+            {
+                Vector3 position = savedPosition;
+                float size = savedSize;
+                ConstrainCamera(ref position, ref size);
+                cinematicCamera.transform.SetPositionAndRotation(position, savedRotation);
+                cinematicCamera.orthographicSize = size;
+            }
+            if (brain != null) brain.enabled = brainWasEnabled;
+            cameraCaptured = false;
+        }
+        for (int i = 0; i < inputs.Count; i++)
+            if (inputs[i] != null) inputs[i].SetInputBlocked(this, false);
+        inputs.Clear();
+        GameTimeController.SetPaused(this, false);
+    }
+    private void OnDisable()
+    {
+        if (dialogueManager != null) dialogueManager.DialogueCompleted -= OnDialogueCompleted;
+        dialogueManager = null;
+        if (sequenceRoutine != null) StopCoroutine(sequenceRoutine);
+        sequenceRoutine = null;
+        if (IsUnlocking && portal != null && portal.IsLocked)
+        {
+            if (sealRenderer != null) sealRenderer.enabled = true;
+            if (sealAnimator != null && sealAnimator.isActiveAndEnabled) sealAnimator.Play("Locked", 0, 0f);
+        }
+        IsUnlocking = false;
+        RestoreControl();
+    }
+}
+

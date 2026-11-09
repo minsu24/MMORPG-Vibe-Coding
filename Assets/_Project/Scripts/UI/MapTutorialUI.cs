@@ -52,6 +52,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
+            if (SoulstoneTutorialUI.IsRunning) return;
             if (EasternFantasy.Saving.SaveGameService.IsRestoring) return;
             if (!running)
             {
@@ -104,6 +105,7 @@ namespace EasternFantasy.UI
 
         private void PrepareStep(int step)
         {
+            guide.SetKeyHint("keyboard_m", "키로 맵을 열고 닫을 수 있습니다.");
             guide.SetFocusInteraction(step == 4);
             if (step == 0)
             {

@@ -1,0 +1,620 @@
+fileFormatVersion: 2
+guid: 533e8f94e85c7b947bbb240953354d49
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6017806893747329239
+    second: BoarChargeWindup8Frames_0
+  - first:
+      213: -836475281880142114
+    second: BoarChargeWindup8Frames_1
+  - first:
+      213: 8020432250438384232
+    second: BoarChargeWindup8Frames_2
+  - first:
+      213: 6826349486774994720
+    second: BoarChargeWindup8Frames_3
+  - first:
+      213: 1762202541353042138
+    second: BoarChargeWindup8Frames_4
+  - first:
+      213: -4369687450884645069
+    second: BoarChargeWindup8Frames_5
+  - first:
+      213: -8533595632438912583
+    second: BoarChargeWindup8Frames_6
+  - first:
+      213: -499834766529701787
+    second: BoarChargeWindup8Frames_7
+  - first:
+      213: 6892142583902396506
+    second: BoarChargeWindup8Frames_8
+  - first:
+      213: 9193291194542882558
+    second: BoarChargeWindup8Frames_9
+  - first:
+      213: 6054748409982354830
+    second: BoarChargeWindup8Frames_10
+  - first:
+      213: -4790230648992988946
+    second: BoarChargeWindup8Frames_11
+  - first:
+      213: 4281454959184514843
+    second: BoarChargeWindup8Frames_12
+  - first:
+      213: -1878389182458929115
+    second: BoarChargeWindup8Frames_13
+  - first:
+      213: -3236511934874904560
+    second: BoarChargeWindup8Frames_14
+  - first:
+      213: 1583507188959789709
+    second: BoarChargeWindup8Frames_15
+  - first:
+      213: 3722389417690982150
+    second: BoarChargeWindup8Frames_16
+  - first:
+      213: 8577109473232889648
+    second: BoarChargeWindup8Frames_17
+  - first:
+      213: -5385888387438104722
+    second: BoarChargeWindup8Frames_18
+  - first:
+      213: 2878311643672055318
+    second: BoarChargeWindup8Frames_19
+  - first:
+      213: -7687784027182292071
+    second: BoarChargeWindup8Frames_20
+  - first:
+      213: -6920255053254541583
+    second: BoarChargeWindup8Frames_21
+  - first:
+      213: 1918098203753822266
+    second: BoarChargeWindup8Frames_22
+  - first:
+      213: 1950946345950068656
+    second: BoarChargeWindup8Frames_23
+  - first:
+      213: 3555645810257961316
+    second: BoarChargeWindup8Frames_24
+  - first:
+      213: -2029767924288503375
+    second: BoarChargeWindup8Frames_25
+  - first:
+      213: 1877578839125376017
+    second: BoarChargeWindup8Frames_26
+  - first:
+      213: -8231932280980246312
+    second: BoarChargeWindup8Frames_27
+  - first:
+      213: 7701502661106567254
+    second: BoarChargeWindup8Frames_28
+  - first:
+      213: -7993050886450144927
+    second: BoarChargeWindup8Frames_29
+  - first:
+      213: 3699015275788234649
+    second: BoarChargeWindup8Frames_30
+  - first:
+      213: 1163108023314515977
+    second: BoarChargeWindup8Frames_31
+  - first:
+      213: 36004291186569308
+    second: BoarChargeWindup8Frames_32
+  - first:
+      213: 5054248570280570625
+    second: BoarChargeWindup8Frames_33
+  - first:
+      213: -185827036815284177
+    second: BoarChargeWindup8Frames_34
+  - first:
+      213: 5669055090094112054
+    second: BoarChargeWindup8Frames_35
+  - first:
+      213: -3629872832855335256
+    second: BoarChargeWindup8Frames_36
+  - first:
+      213: 5743747657792335409
+    second: BoarChargeWindup8Frames_37
+  - first:
+      213: 4429473405745338825
+    second: BoarChargeWindup8Frames_38
+  - first:
+      213: 4477732718098144949
+    second: BoarChargeWindup8Frames_39
+  - first:
+      213: 2915931481794001606
+    second: BoarChargeWindup8Frames_40
+  - first:
+      213: -3482993604052458760
+    second: BoarChargeWindup8Frames_41
+  - first:
+      213: 3259800496068895549
+    second: BoarChargeWindup8Frames_42
+  - first:
+      213: -7166487659362885955
+    second: BoarChargeWindup8Frames_43
+  - first:
+      213: 8951624021507174587
+    second: BoarChargeWindup8Frames_44
+  - first:
+      213: 1867571913571128460
+    second: BoarChargeWindup8Frames_45
+  - first:
+      213: -4573514917655199663
+    second: BoarChargeWindup8Frames_46
+  - first:
+      213: 985889302047732485
+    second: BoarChargeWindup8Frames_47
+  - first:
+      213: 5298818384526604114
+    second: BoarChargeWindup8Frames_48
+  - first:
+      213: 2920185658216149951
+    second: BoarChargeWindup8Frames_49
+  - first:
+      213: 5086551271509588214
+    second: BoarChargeWindup8Frames_50
+  - first:
+      213: 2651262074305895373
+    second: BoarChargeWindup8Frames_51
+  - first:
+      213: -4279055434729539401
+    second: BoarChargeWindup8Frames_52
+  - first:
+      213: -2973199467318890038
+    second: BoarChargeWindup8Frames_53
+  - first:
+      213: -7440100426671055261
+    second: BoarChargeWindup8Frames_54
+  - first:
+      213: 528264997632504515
+    second: BoarChargeWindup8Frames_55
+  - first:
+      213: -1156143040282131114
+    second: BoarChargeWindup8Frames_56
+  - first:
+      213: -4204303781327374692
+    second: BoarChargeWindup8Frames_57
+  - first:
+      213: -1861112273070019879
+    second: BoarChargeWindup8Frames_58
+  - first:
+      213: -2747217364427513189
+    second: BoarChargeWindup8Frames_59
+  - first:
+      213: -140894734467666792
+    second: BoarChargeWindup8Frames_60
+  - first:
+      213: 8843156003740255533
+    second: BoarChargeWindup8Frames_61
+  - first:
+      213: -2647294513984495070
+    second: BoarChargeWindup8Frames_62
+  - first:
+      213: -5243672118279696279
+    second: BoarChargeWindup8Frames_63
+  - first:
+      213: -5056911120199084604
+    second: BoarChargeWindup8Frames_64
+  - first:
+      213: 7038399923319250511
+    second: BoarChargeWindup8Frames_65
+  - first:
+      213: 3834269246017288571
+    second: BoarChargeWindup8Frames_66
+  - first:
+      213: -8150043108436467875
+    second: BoarChargeWindup8Frames_67
+  - first:
+      213: -8709569656400895602
+    second: BoarChargeWindup8Frames_68
+  - first:
+      213: -8168769176781150254
+    second: BoarChargeWindup8Frames_69
+  - first:
+      213: 1674203799878297051
+    second: BoarChargeWindup8Frames_70
+  - first:
+      213: 8533692137420546122
+    second: BoarChargeWindup8Frames_71
+  - first:
+      213: 6272906595435716004
+    second: BoarChargeWindup8Frames_72
+  - first:
+      213: -1457263039147708635
+    second: BoarChargeWindup8Frames_73
+  - first:
+      213: -2246743538823874950
+    second: BoarChargeWindup8Frames_74
+  - first:
+      213: 47382039489827170
+    second: BoarChargeWindup8Frames_75
+  - first:
+      213: -39649321326880156
+    second: BoarChargeWindup8Frames_76
+  - first:
+      213: 2185585029707043019
+    second: BoarChargeWindup8Frames_77
+  - first:
+      213: 2585350020838486091
+    second: BoarChargeWindup8Frames_78
+  - first:
+      213: 5602178406774686392
+    second: BoarChargeWindup8Frames_79
+  - first:
+      213: -5806748048650935326
+    second: BoarChargeWindup8Frames_80
+  - first:
+      213: 3230300619255523407
+    second: BoarChargeWindup8Frames_81
+  - first:
+      213: 6447075361718686594
+    second: BoarChargeWindup8Frames_82
+  - first:
+      213: 4197394920882999395
+    second: BoarChargeWindup8Frames_83
+  - first:
+      213: 3189525529853183878
+    second: BoarChargeWindup8Frames_84
+  - first:
+      213: -8744522451680363866
+    second: BoarChargeWindup8Frames_85
+  - first:
+      213: 7633749798267579651
+    second: BoarChargeWindup8Frames_86
+  - first:
+      213: -6433129224028065083
+    second: BoarChargeWindup8Frames_87
+  - first:
+      213: -1063575199234355356
+    second: BoarChargeWindup8Frames_88
+  - first:
+      213: 1100224968389511642
+    second: BoarChargeWindup8Frames_89
+  - first:
+      213: -3316530303452145035
+    second: BoarChargeWindup8Frames_90
+  - first:
+      213: -1148401010294821126
+    second: BoarChargeWindup8Frames_91
+  - first:
+      213: -4530022122627646228
+    second: BoarChargeWindup8Frames_92
+  - first:
+      213: 1313067867855418184
+    second: BoarChargeWindup8Frames_93
+  - first:
+      213: 2947179083227596722
+    second: BoarChargeWindup8Frames_94
+  - first:
+      213: -7835991099522535412
+    second: BoarChargeWindup8Frames_95
+  - first:
+      213: 4589668471065039914
+    second: BoarChargeWindup8Frames_96
+  - first:
+      213: 7003707417921070008
+    second: BoarChargeWindup8Frames_97
+  - first:
+      213: -2461586548584166193
+    second: BoarChargeWindup8Frames_98
+  - first:
+      213: 6857845293778632688
+    second: BoarChargeWindup8Frames_99
+  - first:
+      213: -4130421261300198520
+    second: BoarChargeWindup8Frames_100
+  - first:
+      213: -909167570678159023
+    second: BoarChargeWindup8Frames_101
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 75.561646
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BoarChargeWindup8Frames_0
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 496
+        width: 398
+        height: 329
+      alignment: 9
+      pivot: {x: 0.5, y: 0.53745186}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d8d4b47c7b838350800000000000000
+      internalID: 6017806893747329239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoarChargeWindup8Frames_1
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 502
+        width: 398
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.55256766}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edea328b92e3464f0800000000000000
+      internalID: -836475281880142114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoarChargeWindup8Frames_2
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 502
+        width: 400
+        height: 317
+      alignment: 9
+      pivot: {x: 0.5, y: 0.557797}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86a777043ac4e4f60800000000000000
+      internalID: 8020432250438384232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoarChargeWindup8Frames_3
+      rect:
+        serializedVersion: 2
+        x: 1352
+        y: 496
+        width: 398
+        height: 316
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5595622}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 027c4efc0b01cbe50800000000000000
+      internalID: 6826349486774994720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoarChargeWindup8Frames_4
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 52
+        width: 402
+        height: 310
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5703923}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad083a3ffd9947810800000000000000
+      internalID: 1762202541353042138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoarChargeWindup8Frames_5
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 53
+        width: 400
+        height: 307
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5759662}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33fd98e3a60cb53c0800000000000000
+      internalID: -4369687450884645069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoarChargeWindup8Frames_6
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 57
+        width: 401
+        height: 317
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5577969}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b957a73cf3929980800000000000000
+      internalID: -8533595632438912583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoarChargeWindup8Frames_7
+      rect:
+        serializedVersion: 2
+        x: 1352
+        y: 54
+        width: 399
+        height: 324
+      alignment: 9
+      pivot: {x: 0.5, y: 0.54574573}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5685b969dea3019f0800000000000000
+      internalID: -499834766529701787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 3ca39c8268020fb4d9ed0cd8566eb5f8
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BoarChargeWindup8Frames_0: 6017806893747329239
+      BoarChargeWindup8Frames_1: -836475281880142114
+      BoarChargeWindup8Frames_2: 8020432250438384232
+      BoarChargeWindup8Frames_3: 6826349486774994720
+      BoarChargeWindup8Frames_4: 1762202541353042138
+      BoarChargeWindup8Frames_5: -4369687450884645069
+      BoarChargeWindup8Frames_6: -8533595632438912583
+      BoarChargeWindup8Frames_7: -499834766529701787
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

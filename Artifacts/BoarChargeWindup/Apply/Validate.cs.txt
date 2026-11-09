@@ -1,0 +1,25 @@
+﻿var scene=UnityEditor.SceneManagement.EditorSceneManager.NewPreviewScene();float oldVolume=AudioListener.volume;float oldTime=Time.timeScale;
+string stage="setup";try{
+ AudioListener.volume=0;Time.timeScale=1;
+ var root=new GameObject("Boar Windup Validation");root.SetActive(false);UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(root,scene);root.transform.position=new Vector3(990,1000,0);
+ var boar=root.AddComponent<MON_Boar>();var boarData=new UnityEditor.SerializedObject(boar);boarData.FindProperty("_maxHP").floatValue=100;boarData.ApplyModifiedPropertiesWithoutUndo();boar.HP=100;
+ var animator=root.GetComponent<Animator>();animator.runtimeAnimatorController=UnityEditor.AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>("Assets/_Project/Animations/GiantFarm/Boar/Square (1).controller");animator.cullingMode=AnimatorCullingMode.AlwaysAnimate;
+ var renderer=root.GetComponent<SpriteRenderer>();renderer.flipX=true;
+ var player=new GameObject("Boar Test Player");player.SetActive(false);UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(player,scene);player.transform.position=new Vector3(1000,1000,0);var entity=player.AddComponent<EasternFantasy.Player.PlayerEntity>();entity.HP=100;
+ var flags=System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance;var type=typeof(MON_Boar);var baseType=typeof(EnemyController);
+ baseType.GetField("rb",flags).SetValue(boar,root.GetComponent<Rigidbody2D>());baseType.GetField("spriteRenderer",flags).SetValue(boar,renderer);baseType.GetField("animator",flags).SetValue(boar,animator);baseType.GetField("capsuleCollider2D",flags).SetValue(boar,root.GetComponent<CapsuleCollider2D>());baseType.GetField("playerEntity",flags).SetValue(boar,entity);
+ root.SetActive(true);animator.Rebind();animator.Update(0);
+ stage="begin";type.GetMethod("BeginCharge",flags).Invoke(boar,null);animator.Update(0);
+ stage="sample";bool starts=boar.CurrentPhase==MON_Boar.ChargePhase.Warning&&animator.GetCurrentAnimatorStateInfo(0).IsName("BoarWindup");
+ var frames=new System.Collections.Generic.HashSet<string>();for(int i=0;i<28;i++){animator.Update(.1f);if(renderer.sprite!=null)frames.Add(renderer.sprite.name);}
+ bool loops=animator.GetCurrentAnimatorStateInfo(0).IsName("BoarWindup")&&animator.GetCurrentAnimatorStateInfo(0).normalizedTime>2f&&frames.Count==8;
+ stage="wait";type.GetField("phaseEnds",flags).SetValue(boar,Time.time+1f);type.GetMethod("MonsterAbility",flags).Invoke(boar,null);bool waits=boar.CurrentPhase==MON_Boar.ChargePhase.Warning;
+ type.GetField("phaseEnds",flags).SetValue(boar,Time.time-.01f);Time.timeScale=0;type.GetMethod("MonsterAbility",flags).Invoke(boar,null);bool pauses=boar.CurrentPhase==MON_Boar.ChargePhase.Warning;Time.timeScale=1;
+ stage="clear";var warning=(GiantAttackVisual)type.GetField("warning",flags).GetValue(boar);UnityEngine.Object.DestroyImmediate(warning.gameObject);type.GetField("warning",flags).SetValue(boar,null);
+ stage="charge";type.GetMethod("MonsterAbility",flags).Invoke(boar,null);animator.Update(0);bool charges=boar.CurrentPhase==MON_Boar.ChargePhase.Charging&&animator.GetCurrentAnimatorStateInfo(0).IsName("BoarCharge");
+ type.GetMethod("AttackFixedUpdate",flags).Invoke(boar,null);bool moves=root.GetComponent<Rigidbody2D>().linearVelocity.x>0;
+ type.GetMethod("FinishCharge",flags).Invoke(boar,null);animator.Update(0);bool finishes=boar.CurrentPhase==MON_Boar.ChargePhase.None&&animator.GetCurrentAnimatorStateInfo(0).IsName("BoarIdle");
+ var result=Newtonsoft.Json.JsonConvert.SerializeObject(new{windupStarts=starts,allEightFramesLoop=loops,waitsForFullGauge=waits,pauseHoldsWarning=pauses,fullGaugeImmediatelyCharges=charges,chargeMoves=moves,returnsIdle=finishes});System.IO.File.WriteAllText("Artifacts/BoarChargeWindup/Apply/validation.json",result);return result;
+}catch(Exception exception){return stage+": "+exception.ToString();}finally{UnityEditor.SceneManagement.EditorSceneManager.ClosePreviewScene(scene);AudioListener.volume=oldVolume;Time.timeScale=oldTime;}
+
+

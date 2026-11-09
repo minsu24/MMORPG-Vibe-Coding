@@ -1,0 +1,436 @@
+fileFormatVersion: 2
+guid: 25ef502e288af67439e4b7010dcea8f4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4970462096322394251
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_0"
+  - first:
+      213: -6711038030837945524
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_1"
+  - first:
+      213: 5037769615841877509
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_2"
+  - first:
+      213: 2474784317119595386
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_3"
+  - first:
+      213: 2048835191030885897
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_4"
+  - first:
+      213: -1947535943885820245
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_5"
+  - first:
+      213: 6919296997494060393
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_6"
+  - first:
+      213: 2530523939463102265
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_7"
+  - first:
+      213: 8859706423322755687
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_8"
+  - first:
+      213: 6668142186796221141
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_9"
+  - first:
+      213: -8837131293271382798
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_10"
+  - first:
+      213: -9153189006387977253
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_11"
+  - first:
+      213: 2269603459532949817
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_12"
+  - first:
+      213: -8142293030599878529
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_13"
+  - first:
+      213: 3857556864272771910
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_14"
+  - first:
+      213: -1943318885408017555
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_15"
+  - first:
+      213: -5256346487821187303
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_16"
+  - first:
+      213: 5193423997205750551
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_17"
+  - first:
+      213: -6830236442606318049
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_18"
+  - first:
+      213: 3339017490516860894
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_19"
+  - first:
+      213: 4673274021977046151
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_20"
+  - first:
+      213: 1330765384332252437
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_21"
+  - first:
+      213: -2981121160625233172
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_22"
+  - first:
+      213: -605950575944832722
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_23"
+  - first:
+      213: 4461323403570218114
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_24"
+  - first:
+      213: -1988726043160755553
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_25"
+  - first:
+      213: 1367216169252440407
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_26"
+  - first:
+      213: 1308583059010927220
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_27"
+  - first:
+      213: 5592740506045584486
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_28"
+  - first:
+      213: -7806345687348920067
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_29"
+  - first:
+      213: -5638242107398330972
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_30"
+  - first:
+      213: -1682487694568084179
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_31"
+  - first:
+      213: 3450177576209604640
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_32"
+  - first:
+      213: -3159217636138519275
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_33"
+  - first:
+      213: 7223578294104312184
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_34"
+  - first:
+      213: -660358462740925786
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_35"
+  - first:
+      213: 210926451740849529
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_36"
+  - first:
+      213: 8727278156192553043
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_37"
+  - first:
+      213: -7825558871261963279
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_38"
+  - first:
+      213: 3617334834548105513
+    second: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_39"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 200
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 141
+        width: 271
+        height: 425
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 577092bde0f550bb0800000000000000
+      internalID: -4970462096322394251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_1"
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 141
+        width: 271
+        height: 425
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4b64c1b77a9dd2a0800000000000000
+      internalID: -6711038030837945524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_2"
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 141
+        width: 271
+        height: 425
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50ed28c36c0c9e540800000000000000
+      internalID: 5037769615841877509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_3"
+      rect:
+        serializedVersion: 2
+        x: 813
+        y: 141
+        width: 271
+        height: 425
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a730f957933385220800000000000000
+      internalID: 2474784317119595386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_4"
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 141
+        width: 271
+        height: 425
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90e27b440ccee6c10800000000000000
+      internalID: 2048835191030885897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_5"
+      rect:
+        serializedVersion: 2
+        x: 1355
+        y: 141
+        width: 273
+        height: 425
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bae6165a066f8f4e0800000000000000
+      internalID: -1947535943885820245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_6"
+      rect:
+        serializedVersion: 2
+        x: 1629
+        y: 141
+        width: 270
+        height: 425
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9657f0f85f7460060800000000000000
+      internalID: 6919296997494060393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_7"
+      rect:
+        serializedVersion: 2
+        x: 1900
+        y: 141
+        width: 268
+        height: 425
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93ff15b9d1a3e1320800000000000000
+      internalID: 2530523939463102265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 23e0e09a239cba84ba7d2b262dd39aa0
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":1.0},"gridSpriteSize":{"x":271.0,"y":724.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_0": -4970462096322394251
+      "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_1": -6711038030837945524
+      "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_2": 5037769615841877509
+      "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_3": 2474784317119595386
+      "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_4": 2048835191030885897
+      "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_5": -1947535943885820245
+      "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_6": 6919296997494060393
+      "\uBC84\uB824\uC9C4 \uC808 \uBB38 NPC_7": 2530523939463102265
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

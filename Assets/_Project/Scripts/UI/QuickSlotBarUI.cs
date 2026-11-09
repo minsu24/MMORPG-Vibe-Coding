@@ -97,7 +97,7 @@ namespace EasternFantasy.UI
             ShowFailure(string.IsNullOrEmpty(reason) ? "지금 사용할 수 없습니다" : reason);
         }
 
-        private void ShowFailure(string message) => SystemNoticeUI.Show(message, this);
+        private void ShowFailure(string message) => SystemNoticeUI.ShowFailure(message, this);
 
         public void TryUseConsumableSlot(int index)
         {

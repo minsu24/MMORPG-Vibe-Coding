@@ -1,0 +1,31 @@
+﻿var folder="Assets/_Project/Animations/GiantFarm/Boar/";var path="Assets/_Project/Art/Dungeon/GiantFarm/BoarTuskUppercut8Frames_V1.png";
+UnityEditor.AssetDatabase.ImportAsset(path,UnityEditor.ImportAssetOptions.ForceSynchronousImport);
+var idle=UnityEditor.AssetDatabase.LoadAssetAtPath<AnimationClip>(folder+"BoarIdle.anim");var reference=(Sprite)UnityEditor.AnimationUtility.GetObjectReferenceCurve(idle,UnityEditor.AnimationUtility.GetObjectReferenceCurveBindings(idle).First())[0].value;
+var raw=new Texture2D(2,2);raw.LoadImage(System.IO.File.ReadAllBytes(path));var pixels=raw.GetPixels32();var bounds=new int[8,4];
+for(int frame=0;frame<8;frame++){
+ int col=frame%4,row=frame/4,x0=Mathf.RoundToInt(col*raw.width/4f),x1=Mathf.RoundToInt((col+1)*raw.width/4f),y0=Mathf.RoundToInt((1-row)*raw.height/2f),y1=Mathf.RoundToInt((2-row)*raw.height/2f);
+ int minX=x1,maxX=x0,minY=y1,maxY=y0;
+ for(int y=y0;y<y1;y++)for(int x=x0;x<x1;x++)if(pixels[y*raw.width+x].a>32){minX=Math.Min(x,minX);maxX=Math.Max(x,maxX);minY=Math.Min(y,minY);maxY=Math.Max(y,maxY);}
+ bounds[frame,0]=minX;bounds[frame,1]=minY;bounds[frame,2]=maxX;bounds[frame,3]=maxY;
+}
+float referencePixels=bounds[0,2]-bounds[0,0]+1;
+var importer=(UnityEditor.TextureImporter)UnityEditor.AssetImporter.GetAtPath(path);importer.textureType=UnityEditor.TextureImporterType.Sprite;importer.spriteImportMode=UnityEditor.SpriteImportMode.Multiple;importer.spritePixelsPerUnit=referencePixels/reference.bounds.size.x;importer.alphaIsTransparency=true;importer.mipmapEnabled=false;importer.textureCompression=UnityEditor.TextureImporterCompression.Uncompressed;importer.maxTextureSize=2048;importer.filterMode=FilterMode.Bilinear;
+var settings=new UnityEditor.TextureImporterSettings();importer.ReadTextureSettings(settings);settings.spriteMeshType=SpriteMeshType.FullRect;importer.SetTextureSettings(settings);importer.SaveAndReimport();
+var factories=new UnityEditor.U2D.Sprites.SpriteDataProviderFactories();factories.Init();var provider=factories.GetSpriteEditorDataProviderFromObject(importer);provider.InitSpriteEditorDataProvider();var old=provider.GetSpriteRects();var rects=new UnityEditor.SpriteRect[8];
+for(int frame=0;frame<8;frame++){
+ int minX=bounds[frame,0],minY=bounds[frame,1],maxX=bounds[frame,2],maxY=bounds[frame,3];
+ int x0=Mathf.RoundToInt((frame%4)*raw.width/4f),x1=Mathf.RoundToInt((frame%4+1)*raw.width/4f),y0=Mathf.RoundToInt((1-frame/4)*raw.height/2f),y1=Mathf.RoundToInt((2-frame/4)*raw.height/2f);
+ int left=Math.Max(x0,minX-3),bottom=Math.Max(y0,minY-3),right=Math.Min(x1,maxX+4),top=Math.Min(y1,maxY+4);var rect=new Rect(left,bottom,right-left,top-bottom);
+ float anchorX=minX+referencePixels*.5f;float anchorY=minY-reference.bounds.min.y*importer.spritePixelsPerUnit;string name="BoarTuskUppercut8Frames_V1_"+frame;var previous=old.FirstOrDefault(s=>s.name==name);
+ rects[frame]=new UnityEditor.SpriteRect{name=name,rect=rect,alignment=SpriteAlignment.Custom,pivot=new Vector2((anchorX-left)/rect.width,(anchorY-bottom)/rect.height),spriteID=previous==null?UnityEditor.GUID.Generate():previous.spriteID};
+}
+provider.SetSpriteRects(rects);provider.GetDataProvider<UnityEditor.U2D.Sprites.ISpriteNameFileIdDataProvider>().SetNameFileIdPairs(rects.Select(r=>new UnityEditor.SpriteNameFileIdPair(r.name,r.spriteID)));provider.Apply();UnityEditor.AssetDatabase.ImportAsset(path,UnityEditor.ImportAssetOptions.ForceSynchronousImport|UnityEditor.ImportAssetOptions.ForceUpdate);UnityEngine.Object.DestroyImmediate(raw);
+var sprites=UnityEditor.AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>().OrderBy(s=>s.name).ToArray();var controller=UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEditor.Animations.AnimatorController>(folder+"Square (1).controller");
+foreach(string stateName in new[]{"BoarTuskWindup","BoarTuskAttack"}){
+ bool windup=stateName.EndsWith("Windup");int[] indices=windup?new[]{0,1,2}:new[]{3,4,5,6,7};float[] times=windup?new[]{0f,.2f,.4f}:new[]{0f,.08f,.18f,.3f,.42f};
+ var clip=UnityEditor.AssetDatabase.LoadAssetAtPath<AnimationClip>(folder+stateName+".anim");if(clip==null){clip=new AnimationClip();UnityEditor.AssetDatabase.CreateAsset(clip,folder+stateName+".anim");}clip.frameRate=100;
+ UnityEditor.AnimationUtility.SetObjectReferenceCurve(clip,new UnityEditor.EditorCurveBinding{path="",type=typeof(SpriteRenderer),propertyName="m_Sprite"},indices.Select((index,i)=>new UnityEditor.ObjectReferenceKeyframe{time=times[i],value=sprites[index]}).ToArray());
+ var clipSettings=UnityEditor.AnimationUtility.GetAnimationClipSettings(clip);clipSettings.loopTime=false;clipSettings.startTime=0;clipSettings.stopTime=windup?.65f:.55f;UnityEditor.AnimationUtility.SetAnimationClipSettings(clip,clipSettings);
+ var machine=controller.layers[0].stateMachine;var state=machine.states.Select(s=>s.state).FirstOrDefault(s=>s.name==stateName);if(state==null)state=machine.AddState(stateName,new Vector3(windup?650:900,220,0));state.motion=clip;state.writeDefaultValues=true;UnityEditor.EditorUtility.SetDirty(clip);
+}
+UnityEditor.EditorUtility.SetDirty(controller);UnityEditor.AssetDatabase.SaveAssets();return new{frames=sprites.Length,ppu=importer.spritePixelsPerUnit,matchedWidth=referencePixels/importer.spritePixelsPerUnit,ground=reference.bounds.min.y};

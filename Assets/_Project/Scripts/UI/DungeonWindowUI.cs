@@ -70,6 +70,7 @@ namespace EasternFantasy.UI
         }
         private void Update()
         {
+            if (SoulstoneWindowUI.IsOpen || SoulstoneTutorialUI.IsRunning) return;
             var keyboard = Keyboard.current;
             if (!IsTutorialRunning && keyboard != null && keyboard.oKey.wasPressedThisFrame && !IsTyping())
             {
@@ -216,7 +217,7 @@ namespace EasternFantasy.UI
             string destination = Selected.sceneName;
             if (!player.TryGetComponent<PlayerLocationSetter>(out _)) player.gameObject.AddComponent<PlayerLocationSetter>();
             if (!PortalSceneTransition.TryLoad(destination, Selected.spawnPointName,
-                success => { if (this != null) loading = false; })) return;
+                success => { if (this != null) loading = false; }, playPortalAudio: true)) return;
             DungeonRunController.Begin(Selected);
             loading = true;
             enterButton.interactable = false;

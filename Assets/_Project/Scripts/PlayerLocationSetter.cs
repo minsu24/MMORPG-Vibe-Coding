@@ -67,6 +67,8 @@ namespace EasternFantasy.Player
 
         private static GameObject FindSpawnPoint(Scene scene, string targetName)
         {
+            if (targetName == EasternFantasy.UI.SoulstoneWindowUI.ArrivalTarget)
+                return EasternFantasy.UI.SoulstoneWindowUI.FindArrivalStone(scene);
             // A quest/boss may hide the destination portal. Its position is still a
             // valid arrival anchor; finding it must not activate or unlock it.
             string normalizedName = targetName.Trim();

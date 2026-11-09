@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using EasternFantasy.Player;
 using UnityEngine;
@@ -334,8 +334,7 @@ namespace EasternFantasy.Skill
                 {
                     Enemy = enemy,
                     TextPrefab = enemy.damageTextPrefab,
-                    TextPosition = enemy.textSpawnPoint != null
-                        ? enemy.textSpawnPoint.position : enemy.transform.position,
+                    TextPosition = enemy.DamageTextPosition,
                     ImpactPosition = collider.ClosestPoint(center),
                     ImpactOffset = (Vector3)collider.ClosestPoint(center) - enemy.transform.position
                 };
@@ -358,8 +357,7 @@ namespace EasternFantasy.Skill
 
         private void ShowPunchHit(PunchHit hit, int strike, bool showImpact = true)
         {
-            Vector3 origin = hit.Enemy != null && hit.Enemy.textSpawnPoint != null
-                ? hit.Enemy.textSpawnPoint.position : hit.TextPosition;
+            Vector3 origin = hit.Enemy != null ? hit.Enemy.DamageTextPosition : hit.TextPosition;
             if (hit.TextPrefab != null)
             {
                 Vector3 offset = new Vector3(strike == 1 ? -0.18f : 0.18f,

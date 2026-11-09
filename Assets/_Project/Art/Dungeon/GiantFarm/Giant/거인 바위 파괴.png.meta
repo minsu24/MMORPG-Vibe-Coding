@@ -1,0 +1,424 @@
+fileFormatVersion: 2
+guid: 67c2d71798cd76b439f70e74b11dc073
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -39685460184295612
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_0"
+  - first:
+      213: 69819902483015811
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_1"
+  - first:
+      213: -7688968702165122933
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_2"
+  - first:
+      213: -2473354055805935002
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_3"
+  - first:
+      213: -5844592276308405441
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_4"
+  - first:
+      213: 8851867398420112994
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_5"
+  - first:
+      213: 5414481934602513606
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_6"
+  - first:
+      213: -3040170788742361213
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_7"
+  - first:
+      213: 2975464086458760619
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_8"
+  - first:
+      213: -5900097632216884429
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_9"
+  - first:
+      213: -2983757223122946827
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_10"
+  - first:
+      213: 2355862335824919164
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_11"
+  - first:
+      213: -4427044207356516886
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_12"
+  - first:
+      213: -4592829090495461965
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_13"
+  - first:
+      213: -6634463106488084938
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_14"
+  - first:
+      213: -220053818161102982
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_15"
+  - first:
+      213: 5336382133517761665
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_16"
+  - first:
+      213: -6254965350965423915
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_17"
+  - first:
+      213: -7023317592290842646
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_18"
+  - first:
+      213: -209571798022630738
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_19"
+  - first:
+      213: -7071603266733630226
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_20"
+  - first:
+      213: 463043283323947112
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_21"
+  - first:
+      213: -167145860404567300
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_22"
+  - first:
+      213: 523991514771477570
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_23"
+  - first:
+      213: 8376995696121942717
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_24"
+  - first:
+      213: 5510574693377514576
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_25"
+  - first:
+      213: 1874808666088628716
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_26"
+  - first:
+      213: -202779613750349509
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_27"
+  - first:
+      213: -4000267903242562124
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_28"
+  - first:
+      213: -1334728749272794799
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_29"
+  - first:
+      213: 5867247869219467368
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_30"
+  - first:
+      213: 1708744146843714349
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_31"
+  - first:
+      213: -1588134210857303025
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_32"
+  - first:
+      213: 106715600529472349
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_33"
+  - first:
+      213: -4312304977393699734
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_34"
+  - first:
+      213: 2603804885723113401
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_35"
+  - first:
+      213: 3142871747525524867
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_36"
+  - first:
+      213: 7559261536003030291
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_37"
+  - first:
+      213: 6967795256702618003
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_38"
+  - first:
+      213: -5060332799470761563
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_39"
+  - first:
+      213: -3735040278830638520
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_40"
+  - first:
+      213: 4965008302819084988
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_41"
+  - first:
+      213: 8566002465936371092
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_42"
+  - first:
+      213: 1515926777874704979
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_43"
+  - first:
+      213: -2402665953914041468
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_44"
+  - first:
+      213: 9123406826534830410
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_45"
+  - first:
+      213: 8004904225083616720
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_46"
+  - first:
+      213: 6740728529247480784
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_47"
+  - first:
+      213: 7684691926219824873
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_48"
+  - first:
+      213: 6222683727206129827
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_49"
+  - first:
+      213: -6497180465386613641
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_50"
+  - first:
+      213: -1848743856725291933
+    second: "\uAC70\uC778 \uBC14\uC704 \uD30C\uAD34_51"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GiantRockBreak_0
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 283
+        width: 283
+        height: 159
+      alignment: 9
+      pivot: {x: 0.65526503, y: 0.49685535}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44797f2c842037ff0800000000000000
+      internalID: -39685460184295612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GiantRockBreak_1
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 281
+        width: 287
+        height: 161
+      alignment: 9
+      pivot: {x: 0.6287108, y: 0.5031056}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 388a0c5d4dc08f000800000000000000
+      internalID: 69819902483015811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GiantRockBreak_2
+      rect:
+        serializedVersion: 2
+        x: 745
+        y: 277
+        width: 275
+        height: 178
+      alignment: 9
+      pivot: {x: 0.73978186, y: 0.4775281}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b800a5a04bb4b4590800000000000000
+      internalID: -7688968702165122933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GiantRockBreak_3
+      rect:
+        serializedVersion: 2
+        x: 1093
+        y: 270
+        width: 355
+        height: 208
+      alignment: 9
+      pivot: {x: 0.61250687, y: 0.44230768}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6626ae33791ecadd0800000000000000
+      internalID: -2473354055805935002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GiantRockBreak_4
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 265
+        width: 311
+        height: 203
+      alignment: 9
+      pivot: {x: 0.7216718, y: 0.47783253}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3355a96a46d3eea0800000000000000
+      internalID: -5844592276308405441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GiantRockBreak_5
+      rect:
+        serializedVersion: 2
+        x: 1833
+        y: 265
+        width: 306
+        height: 123
+      alignment: 9
+      pivot: {x: 0.65830046, y: 0.7886179}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26621b9ef7628da70800000000000000
+      internalID: 8851867398420112994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f83956d2ad208f44a85a0423784048a2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      GiantRockBreak_0: -39685460184295612
+      GiantRockBreak_1: 69819902483015811
+      GiantRockBreak_2: -7688968702165122933
+      GiantRockBreak_3: -2473354055805935002
+      GiantRockBreak_4: -5844592276308405441
+      GiantRockBreak_5: 8851867398420112994
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,27 @@
+﻿var scene=UnityEditor.SceneManagement.EditorSceneManager.NewPreviewScene();float oldVolume=AudioListener.volume;float oldScale=Time.timeScale;
+try{
+ AudioListener.volume=0;Time.timeScale=1;
+ var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+ var original=UnityEngine.Object.FindObjectsByType<FarmCartAttack>(FindObjectsInactive.Include,FindObjectsSortMode.None).First(c=>c.gameObject.scene.path.EndsWith("GiantFarm_01.unity"));
+ var root=new GameObject("Cart Audio Validation");root.SetActive(false);UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(root,scene);
+ var cart=root.AddComponent<FarmCartAttack>();var renderer=root.GetComponent<SpriteRenderer>();renderer.sprite=original.GetComponent<SpriteRenderer>().sprite;
+ typeof(EnemyController).GetField("spriteRenderer",flags).SetValue(cart,renderer);
+ var frames=(Sprite[])typeof(FarmCartAttack).GetField("radishFrames",flags).GetValue(original);
+ typeof(FarmCartAttack).GetField("pendingFrames",flags).SetValue(cart,frames);typeof(FarmCartAttack).GetField("pendingVelocity",flags).SetValue(cart,new Vector2(10,5));
+ root.SetActive(true);typeof(FarmCartAttack).GetMethod("ShowWarning",flags).Invoke(cart,null);
+ var warning=root.GetComponentInChildren<AudioSource>(true);bool starts=warning!=null&&warning.clip.name=="FarmCartWarningLoop"&&warning.loop&&warning.isPlaying;
+ typeof(FarmCartAttack).GetMethod("FirePendingShot",flags).Invoke(cart,null);
+ var shot=scene.GetRootGameObjects().Select(g=>g.GetComponent<FarmCartProjectile>()).First(s=>s!=null);
+ var flight=shot.GetComponent<AudioSource>();bool switches=!warning.isPlaying&&flight.loop&&flight.clip.name=="FarmCartFlightLoop"&&flight.isPlaying;
+ var effect=shot.GetComponent<FarmCartPhaseAudio>();var update=typeof(FarmCartPhaseAudio).GetMethod("Update",flags);
+ Time.timeScale=0;update.Invoke(effect,null);bool paused=!flight.isPlaying;Time.timeScale=1;update.Invoke(effect,null);bool resumes=flight.isPlaying;
+ var retire=typeof(FarmCartProjectile).GetMethod("Retire",flags);retire.Invoke(shot,new object[]{true});
+ var impacts=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<AudioSource>(true)).Where(s=>s.clip!=null&&s.clip.name=="FarmCartImpact").ToArray();
+ bool hit=!flight.isPlaying&&impacts.Length==1&&impacts[0].isPlaying;
+ retire.Invoke(shot,new object[]{true});bool once=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<AudioSource>(true)).Count(s=>s.clip!=null&&s.clip.name=="FarmCartImpact")==1;
+ var expired=FarmCartProjectile.Create(cart,Vector2.zero,Vector2.right,frames,6,1,1);retire.Invoke(expired,new object[]{false});
+ bool expirationSilent=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<AudioSource>(true)).Count(s=>s.clip!=null&&s.clip.name=="FarmCartImpact")==1&&!expired.GetComponent<AudioSource>().isPlaying;
+ var result=Newtonsoft.Json.JsonConvert.SerializeObject(new{warningStartsOnSpawn=starts,launchStopsWarningAndLoopsFlight=switches,pauseStopsFlight=paused,resumeRestartsFlight=resumes,impactStopsFlightAndPlaysHit=hit,impactOnlyOnce=once,expirationHasNoHitSound=expirationSilent});System.IO.File.WriteAllText("Artifacts/FarmCartProjectileAudio/validation.json",result);return result;
+}finally{UnityEditor.SceneManagement.EditorSceneManager.ClosePreviewScene(scene);AudioListener.volume=oldVolume;Time.timeScale=oldScale;}
+
+

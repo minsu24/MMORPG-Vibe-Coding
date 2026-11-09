@@ -63,11 +63,12 @@ namespace EasternFantasy.Dungeon
 
         private void OnGiantDefeated(EnemyController enemy)
         {
-            if (IsCleared || leaving || !ContainsScene(enemy.gameObject.scene.name)) return;
+            if (IsCleared || hasFailed || leaving || !ContainsScene(enemy.gameObject.scene.name)) return;
             IsCleared = true;
             RemainingSeconds = 30f;
             ui.SetTimer(RemainingSeconds, true, true);
             ui.ShowPrompt();
+            PlayResultAudio(true);
             var player = FindFirstObjectByType<PlayerMovement2D>();
             if (player != null) player.ClearInput();
         }
@@ -76,11 +77,16 @@ namespace EasternFantasy.Dungeon
         {
             if (EasternFantasy.Saving.SaveGameService.IsRestoring) return;
             if (leaving || !ContainsScene(SceneManager.GetActiveScene().name)) return;
+            if (hasFailed) return;
             if (!IsCleared && definition.timeLimitSeconds <= 0) return;
             // Real time keeps the automatic exit running even while a menu is open.
             RemainingSeconds = Mathf.Max(0f, RemainingSeconds - Time.unscaledDeltaTime);
             ui.SetTimer(RemainingSeconds, IsCleared, true);
-            if (RemainingSeconds <= 0f) ExitToVillage();
+            if (RemainingSeconds <= 0f)
+            {
+                if (IsCleared) ExitToVillage();
+                else StartCoroutine(ShowTimeoutFailure());
+            }
         }
 
         public void ExitToVillage()
@@ -102,11 +108,12 @@ namespace EasternFantasy.Dungeon
                 if (!player.TryGetComponent<PlayerLocationSetter>(out _)) player.gameObject.AddComponent<PlayerLocationSetter>();
             }
             if (!PortalSceneTransition.TryLoad(village, "In_Vilage_Portal",
-                success => { if (this != null) leaving = false; })) leaving = false;
+                success => { if (this != null) leaving = false; }, playPortalAudio: true)) leaving = false;
         }
 
         private void OnDestroy()
         {
+            RestoreResultMusic();
             foreach (var giant in giants) if (giant != null) giant.Defeated -= OnGiantDefeated;
             if (Instance == this) Instance = null;
         }

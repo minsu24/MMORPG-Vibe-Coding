@@ -1,4 +1,4 @@
-using EasternFantasy.CharacterSelection;
+﻿using EasternFantasy.CharacterSelection;
 using EasternFantasy.Dialogue;
 using EasternFantasy.Inventory;
 using EasternFantasy.Player;
@@ -63,6 +63,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
+            if (SoulstoneWindowUI.IsOpen || SoulstoneTutorialUI.IsRunning) return;
             if (MapTutorialUI.IsRunning || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning) { if (IsOpen) RefreshCharacter(); return; }
             Keyboard keyboard = Keyboard.current;
             if (keyboard != null && keyboard.jKey.wasPressedThisFrame)

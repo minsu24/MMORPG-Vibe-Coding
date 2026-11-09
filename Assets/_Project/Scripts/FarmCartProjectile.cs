@@ -8,6 +8,7 @@ public sealed class FarmCartProjectile : MonoBehaviour
     private FarmCartAttack owner;
     private float damage, age, lifetime, hitRadius, hitOffset, gravity;
     private bool flying;
+    private FarmCartPhaseAudio flightAudio;
     private readonly RaycastHit2D[] hits = new RaycastHit2D[32];
 
     public Vector2 Velocity { get; private set; }
@@ -40,6 +41,7 @@ public sealed class FarmCartProjectile : MonoBehaviour
         ApplyFlightFacing(shot.visual, velocity);
         go.transform.localScale = Vector3.one * GetScale(frames, width);
         shot.flying = true;
+        shot.flightAudio = FarmCartPhaseAudio.Play(go, "Audio/FarmCartFlightLoop", .18f, true);
         return shot;
     }
 
@@ -145,13 +147,13 @@ public sealed class FarmCartProjectile : MonoBehaviour
                 float before = player.HP;
                 player.TakeDamage(damage);
                 if (!player.IsDead && player.HP < before) player.ApplyKnockback(Mathf.Sign(Velocity.x));
-                Retire();
+                Retire(true);
                 return;
             }
             if (collider.isTrigger || collider.GetComponentInParent<Entity>() != null) continue;
             if (hits[i].normal.y > 0.5f)
                 owner.PlayGroundImpact(hits[i].point, visual);
-            Retire();
+            Retire(true);
             return;
         }
         transform.position = origin + step;
@@ -160,9 +162,12 @@ public sealed class FarmCartProjectile : MonoBehaviour
         age += dt;
     }
 
-    private void Retire()
+    private void Retire(bool collided = false)
     {
+        if (!flying) return;
         flying = false;
+        if (flightAudio != null) flightAudio.Stop();
+        if (collided) EnemyAttackAudio.PlayAt(gameObject, "Audio/FarmCartImpact", .4f, .1f);
         Destroy(gameObject);
     }
 }

@@ -1,0 +1,19 @@
+﻿var path="Assets/_Project/Art/Dungeon/GiantFarm/Giant/거인 바위 파괴.png";
+var raw=new Texture2D(2,2);raw.LoadImage(System.IO.File.ReadAllBytes(path));var pixels=raw.GetPixels32();
+var importer=(UnityEditor.TextureImporter)UnityEditor.AssetImporter.GetAtPath(path);importer.textureType=UnityEditor.TextureImporterType.Sprite;importer.spriteImportMode=UnityEditor.SpriteImportMode.Multiple;importer.spritePixelsPerUnit=100;importer.alphaIsTransparency=true;importer.mipmapEnabled=false;importer.textureCompression=UnityEditor.TextureImporterCompression.Uncompressed;importer.maxTextureSize=4096;
+var settings=new UnityEditor.TextureImporterSettings();importer.ReadTextureSettings(settings);settings.spriteMeshType=SpriteMeshType.FullRect;importer.SetTextureSettings(settings);importer.SaveAndReimport();
+var factories=new UnityEditor.U2D.Sprites.SpriteDataProviderFactories();factories.Init();var provider=factories.GetSpriteEditorDataProviderFromObject(importer);provider.InitSpriteEditorDataProvider();var old=provider.GetSpriteRects();var rects=new UnityEditor.SpriteRect[6];
+for(int frame=0;frame<6;frame++){
+ int x0=Mathf.RoundToInt(frame*raw.width/6f),x1=Mathf.RoundToInt((frame+1)*raw.width/6f);int minX=x1,maxX=x0,minY=raw.height,maxY=0;
+ for(int y=0;y<raw.height;y++)for(int x=x0;x<x1;x++)if(pixels[y*raw.width+x].a>16){minX=Math.Min(minX,x);maxX=Math.Max(maxX,x);minY=Math.Min(minY,y);maxY=Math.Max(maxY,y);}
+ int left=Math.Max(x0,minX-3),right=Math.Min(x1,maxX+4),bottom=Math.Max(0,minY-3),top=Math.Min(raw.height,maxY+4);var rect=new Rect(left,bottom,right-left,top-bottom);
+ // The rock core is right of the motion trail. Keep that origin fixed as debris expands and falls.
+ float coreX=x0+(x1-x0)*.62f,coreY=raw.height*.5f;string name="GiantRockBreak_"+frame;var previous=old.FirstOrDefault(s=>s.name=="거인 바위 파괴_"+frame);
+ rects[frame]=new UnityEditor.SpriteRect{name=name,rect=rect,alignment=SpriteAlignment.Custom,pivot=new Vector2((coreX-left)/rect.width,(coreY-bottom)/rect.height),spriteID=previous==null?UnityEditor.GUID.Generate():previous.spriteID};
+}
+provider.SetSpriteRects(rects);provider.GetDataProvider<UnityEditor.U2D.Sprites.ISpriteNameFileIdDataProvider>().SetNameFileIdPairs(rects.Select(r=>new UnityEditor.SpriteNameFileIdPair(r.name,r.spriteID)));provider.Apply();UnityEditor.AssetDatabase.ImportAsset(path,UnityEditor.ImportAssetOptions.ForceSynchronousImport|UnityEditor.ImportAssetOptions.ForceUpdate);UnityEngine.Object.DestroyImmediate(raw);
+var frames=UnityEditor.AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>().OrderBy(s=>s.name).ToArray();
+if(UnityEditor.EditorApplication.isPlaying)return "Frames imported; scene assignment pending play-mode end.";
+var active=UnityEngine.SceneManagement.SceneManager.GetActiveScene();var scenePath="Assets/_Project/Scenes/GiantFarm/GiantFarm_03_Boss.unity";var scene=UnityEngine.SceneManagement.SceneManager.GetSceneByPath(scenePath);bool opened=!scene.IsValid()||!scene.isLoaded;if(opened)scene=UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scenePath,UnityEditor.SceneManagement.OpenSceneMode.Additive);
+try{var giants=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<MON_Giant>(true)).ToArray();foreach(var giant in giants){var data=new UnityEditor.SerializedObject(giant);var property=data.FindProperty("rockBreakFrames");property.arraySize=frames.Length;for(int i=0;i<frames.Length;i++)property.GetArrayElementAtIndex(i).objectReferenceValue=frames[i];data.ApplyModifiedPropertiesWithoutUndo();}UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(scene);bool saved=UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene);return new{frames=frames.Length,giants=giants.Length,saved=saved};}
+finally{if(active.IsValid()&&active.isLoaded)UnityEngine.SceneManagement.SceneManager.SetActiveScene(active);if(opened)UnityEditor.SceneManagement.EditorSceneManager.CloseScene(scene,true);}

@@ -189,7 +189,7 @@ namespace EasternFantasy.Quest
             var inventory = player.GetComponent<PlayerInventory>();
             if (inventory == null || !inventory.CanAdd(Definition.necklace))
             {
-                SystemNoticeUI.Show("장신구 인벤토리에 빈 칸을 마련한 뒤 다시 조사하세요.", this);
+                SystemNoticeUI.ShowFailure("장신구 인벤토리에 빈 칸을 마련한 뒤 다시 조사하세요.", this);
                 return false;
             }
             inspecting = dialogue.StartDialogue(Definition.discoveryMonologue);

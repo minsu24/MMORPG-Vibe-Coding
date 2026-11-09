@@ -76,7 +76,7 @@ namespace EasternFantasy.UI
             effectText.text = BuildEffectText(item, inventory, shop);
             if (shop)
                 effectText.text += selling
-                    ? (item.CanSell ? $"\n판매 가격: {item.SellPrice} 엽전\n클릭하여 판매" : "\n판매할 수 없는 아이템입니다.")
+                    ? (item.CanSell ? $"\n판매 가격: {item.SellPrice} 엽전\n더블클릭하여 판매" : "\n판매할 수 없는 아이템입니다.")
                     : $"\n구매 가격: {item.BuyPrice} 엽전\n더블클릭하여 구매";
             pendingPointerHide = false;
             tooltipRoot.SetActive(true);

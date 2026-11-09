@@ -130,7 +130,7 @@ namespace EasternFantasy.Quest
                 if (inventory == null || !inventory.TryAddItems(rewards))
                 {
                     progress.Status = QuestStatus.ReadyToTurnIn;
-                    EasternFantasy.UI.SystemNoticeUI.Show("물약 보상을 받을 수 있도록 소비 인벤토리를 정리한 뒤 다시 완료해 주세요.", this);
+                    EasternFantasy.UI.SystemNoticeUI.ShowFailure("물약 보상을 받을 수 있도록 소비 인벤토리를 정리한 뒤 다시 완료해 주세요.", this);
                     return false;
                 }
             }

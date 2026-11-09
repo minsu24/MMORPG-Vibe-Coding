@@ -41,6 +41,14 @@ namespace EasternFantasy.UI
                 normalColor = targetGraphic.color;
         }
 
+        public void Configure(Graphic graphic, float scale, Color color)
+        {
+            targetGraphic = graphic;
+            hoverScale = scale;
+            hoverColor = color;
+            normalColor = graphic != null ? graphic.color : Color.white;
+        }
+
         private void SetHighlightState(bool pointer, bool selection)
         {
             bool wasHighlighted = IsHighlighted;

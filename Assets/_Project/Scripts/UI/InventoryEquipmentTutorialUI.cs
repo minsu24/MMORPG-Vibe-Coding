@@ -57,6 +57,7 @@ namespace EasternFantasy.UI
         }
         private void Update()
         {
+            if (SoulstoneTutorialUI.IsRunning) return;
             if (EasternFantasy.Saving.SaveGameService.IsRestoring) return;
             if (pending && !running && !MapTutorialUI.IsRunning && !StatsSkillTutorialUI.IsRunning
                 && (DungeonWindowUI.Instance == null || !DungeonWindowUI.Instance.IsOpen)
@@ -106,6 +107,8 @@ namespace EasternFantasy.UI
         }
         private void PrepareStep(int step)
         {
+            guide.SetKeyHint(step < 5 ? "keyboard_i" : "keyboard_j",
+                step < 5 ? "키로 인벤토리를 열고 닫을 수 있습니다." : "키로 장비창을 열고 닫을 수 있습니다.");
             inventory.Tooltip?.Hide();
             if (step < 5) {
                 equipment.CloseFromInventory(); inventory.SetOpenForTutorial(true);

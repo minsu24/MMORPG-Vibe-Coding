@@ -63,6 +63,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
+            if (SoulstoneWindowUI.IsOpen || SoulstoneTutorialUI.IsRunning) return;
             if (MapTutorialUI.IsRunning) return;
             var keyboard = Keyboard.current;
             if (keyboard == null) return;
@@ -224,7 +225,7 @@ namespace EasternFantasy.UI
             GameTimeController.SetPaused(this, false);
         }
 
-        private void ShowUnavailableNotice() => SystemNoticeUI.Show("지도를 볼 수 없는 장소입니다.", this);
+        private void ShowUnavailableNotice() => SystemNoticeUI.ShowFailure("지도를 볼 수 없는 장소입니다.", this);
         private void HideUnavailableNotice() => SystemNoticeUI.Hide(this);
 
         private void SceneChanged(Scene previous, Scene next) { CloseInstant(); HideUnavailableNotice(); }

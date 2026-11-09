@@ -1,0 +1,25 @@
+var families=new[]{new[]{"Assets/_Project/Art/Tutorial Map/귀혼석 활성화.png","Assets/_Project/Art/Tutorial Map/귀혼석 반복.png"},new[]{"Assets/_Project/Art/Old Temple/Map/버려진 절 귀혼석 활성화.png","Assets/_Project/Art/Old Temple/Map/버려전 절 귀혼석 반복.png"}};
+var reports=new System.Collections.Generic.List<object>();
+for(int family=0;family<2;family++){
+ var textures=new UnityEngine.Texture2D[2];var pixels=new UnityEngine.Color32[2][];
+ for(int sheet=0;sheet<2;sheet++){textures[sheet]=new UnityEngine.Texture2D(2,2);UnityEngine.ImageConversion.LoadImage(textures[sheet],System.IO.File.ReadAllBytes(families[family][sheet]));pixels[sheet]=textures[sheet].GetPixels32();}
+ System.Func<int,float,float,float> sample=(sheet,x,y)=>{var t=textures[sheet];int ix=UnityEngine.Mathf.Clamp((int)UnityEngine.Mathf.Round(x),0,t.width-1),iy=UnityEngine.Mathf.Clamp((int)UnityEngine.Mathf.Round(y),0,t.height-1);var p=pixels[sheet][(t.height-1-iy)*t.width+ix];return (p.r*.299f+p.g*.587f+p.b*.114f)*p.a/255f;};
+ float refX=family==0?140:135,refY=family==0?450:390;
+ var offsets=new System.Collections.Generic.List<UnityEngine.Vector2>();var reference=new System.Collections.Generic.List<float>();
+ for(int y=-30;y<=30;y+=6)for(int x=-90;x<=90;x+=9){offsets.Add(new UnityEngine.Vector2(x,y));reference.Add(sample(0,refX+x,refY+y));}
+ float avg=reference.Average(),sumRef=reference.Sum(v=>(v-avg)*(v-avg));
+ for(int sheet=0;sheet<2;sheet++){
+  var importer=(UnityEditor.TextureImporter)UnityEditor.AssetImporter.GetAtPath(families[family][sheet]);var factories=new UnityEditor.U2D.Sprites.SpriteDataProviderFactories();factories.Init();var provider=factories.GetSpriteEditorDataProviderFromObject(importer);provider.InitSpriteEditorDataProvider();var rects=provider.GetSpriteRects().OrderBy(r=>r.rect.x).ToArray();
+  for(int frame=0;frame<rects.Length;frame++){
+   float expectedX=rects[frame].rect.x+(sheet==0?refX:refX+15),expectedY=sheet==0?refY:(family==0?380:325);float best=-2,bx=0,by=0,bs=1;
+   System.Func<float,float,float,float> score=(cx,cy,scale)=>{float sum=0,sumSq=0,cross=0;for(int k=0;k<offsets.Count;k++){float v=sample(sheet,cx+offsets[k].x*scale,cy+offsets[k].y*scale);sum+=v;sumSq+=v*v;cross+=(reference[k]-avg)*v;}float variance=sumSq-sum*sum/offsets.Count;return cross/(float)System.Math.Sqrt(System.Math.Max(.001f,variance*sumRef));};
+   for(int si=0;si<(sheet==0?1:13);si++){float scale=sheet==0?1:.95f+si*.025f;for(float dy=-40;dy<=40;dy+=4)for(float dx=-44;dx<=44;dx+=4){float value=score(expectedX+dx,expectedY+dy,scale);if(value>best){best=value;bx=expectedX+dx;by=expectedY+dy;bs=scale;}}}
+   float coarseX=bx,coarseY=by,coarseScale=bs;
+   for(int si=0;si<(sheet==0?1:9);si++){float scale=sheet==0?1:coarseScale-.02f+si*.005f;for(float dy=-4;dy<=4;dy+=.5f)for(float dx=-4;dx<=4;dx+=.5f){float value=score(coarseX+dx,coarseY+dy,scale);if(value>best){best=value;bx=coarseX+dx;by=coarseY+dy;bs=scale;}}}
+   reports.Add(new{family=family,sheet=sheet,frame=frame,path=families[family][sheet],name=rects[frame].name,anchorX=bx-rects[frame].rect.x,anchorY=textures[sheet].height-by-rects[frame].rect.y,scale=bs,score=best,rectX=rects[frame].rect.x,rectY=rects[frame].rect.y,rectW=rects[frame].rect.width,rectH=rects[frame].rect.height,oldPivotX=rects[frame].pivot.x,oldPivotY=rects[frame].pivot.y,ppu=importer.spritePixelsPerUnit,sourceWidth=textures[sheet].width,sourceHeight=textures[sheet].height});
+  }
+ }
+ foreach(var t in textures)UnityEngine.Object.DestroyImmediate(t);
+}
+System.IO.Directory.CreateDirectory("Artifacts/RespawnStoneAlignment");
+var json=Newtonsoft.Json.JsonConvert.SerializeObject(reports,Newtonsoft.Json.Formatting.Indented);System.IO.File.WriteAllText("Artifacts/RespawnStoneAlignment/measurements.json",json);return json;

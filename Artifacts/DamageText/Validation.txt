@@ -1,0 +1,51 @@
+RUNNING: normal/critical/suppressed damage numbers for all eight monster types.
+PASS: MON_Ginseng initialized with enough health for nonlethal checks
+PASS: MON_Ginseng normal hit creates the correct damage value
+PASS: MON_Ginseng critical hit creates the critical value
+PASS: MON_Ginseng number spawns above the head collider
+PASS: MON_Ginseng normal and critical text render in front of world sprites
+PASS: MON_Ginseng multi-hit suppression does not create duplicate numbers
+PASS: Ginseng render comparison confirms text visibility changes when sorting is corrected (229 pixels)
+PASS: MON_Ghost initialized with enough health for nonlethal checks
+PASS: MON_Ghost normal hit creates the correct damage value
+PASS: MON_Ghost critical hit creates the critical value
+PASS: MON_Ghost number spawns above the head collider
+PASS: MON_Ghost normal and critical text render in front of world sprites
+PASS: MON_Ghost multi-hit suppression does not create duplicate numbers
+PASS: MON_Spider initialized with enough health for nonlethal checks
+PASS: MON_Spider normal hit creates the correct damage value
+PASS: MON_Spider critical hit creates the critical value
+PASS: MON_Spider number spawns above the head collider
+PASS: MON_Spider normal and critical text render in front of world sprites
+PASS: MON_Spider multi-hit suppression does not create duplicate numbers
+PASS: FarmCartAttack initialized with enough health for nonlethal checks
+PASS: FarmCartAttack normal hit creates the correct damage value
+PASS: FarmCartAttack critical hit creates the critical value
+PASS: FarmCartAttack number spawns above the head collider
+PASS: FarmCartAttack normal and critical text render in front of world sprites
+PASS: FarmCartAttack multi-hit suppression does not create duplicate numbers
+PASS: MON_Boar initialized with enough health for nonlethal checks
+PASS: MON_Boar normal hit creates the correct damage value
+PASS: MON_Boar critical hit creates the critical value
+PASS: MON_Boar number spawns above the head collider
+PASS: MON_Boar normal and critical text render in front of world sprites
+PASS: MON_Boar multi-hit suppression does not create duplicate numbers
+PASS: MON_Giant initialized with enough health for nonlethal checks
+PASS: MON_Giant normal hit creates the correct damage value
+PASS: MON_Giant critical hit creates the critical value
+PASS: MON_Giant number spawns above the head collider
+PASS: MON_Giant normal and critical text render in front of world sprites
+PASS: MON_Giant multi-hit suppression does not create duplicate numbers
+PASS: MON_Frog initialized with enough health for nonlethal checks
+PASS: MON_Frog normal hit creates the correct damage value
+PASS: MON_Frog critical hit creates the critical value
+PASS: MON_Frog number spawns above the head collider
+PASS: MON_Frog normal and critical text render in front of world sprites
+PASS: MON_Frog multi-hit suppression does not create duplicate numbers
+PASS: MON_Goblin initialized with enough health for nonlethal checks
+PASS: MON_Goblin normal hit creates the correct damage value
+PASS: MON_Goblin critical hit creates the critical value
+PASS: MON_Goblin number spawns above the head collider
+PASS: MON_Goblin normal and critical text render in front of world sprites
+PASS: MON_Goblin multi-hit suppression does not create duplicate numbers
+PASS: ALL 8 MONSTER TYPES VERIFIED. Original scenes/saves restored on exit.

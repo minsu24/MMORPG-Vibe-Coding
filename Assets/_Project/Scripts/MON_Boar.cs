@@ -5,9 +5,9 @@ using UnityEngine;
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(CapsuleCollider2D), typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
-public sealed class MON_Boar : PersistentBossController
+public sealed partial class MON_Boar : PersistentBossController
 {
-    public enum ChargePhase { None, Warning, Charging }
+    public enum ChargePhase { None, Warning, Charging, Approaching, TuskWarning, TuskAttacking }
 
     [Header("Charge Attack")]
     [SerializeField, Min(0.1f)] private float warningDuration = 2.2f;
@@ -24,6 +24,7 @@ public sealed class MON_Boar : PersistentBossController
     private float nextAttackTime, phaseEnds, chargeDirection, chargeEndX;
     private bool chargeHit;
     private GiantAttackVisual warning;
+    private BoarChargeAudio chargeAudio;
     private readonly List<Collider2D> ignoredPlayerColliders = new List<Collider2D>();
 
     protected override bool ResetsOnDungeonEntry => true;
@@ -32,6 +33,7 @@ public sealed class MON_Boar : PersistentBossController
     {
         base.Start();
         if (!gameObject.activeInHierarchy) return;
+        EnsureChargeAudio();
         nextAttackTime = Time.time + attackCooldown;
     }
 
@@ -43,11 +45,14 @@ public sealed class MON_Boar : PersistentBossController
         if (CurrentPhase != ChargePhase.None)
         {
             if (!HasLivingPlayer || HP <= 0f) { FinishCharge(); return; }
+            if (CurrentPhase == ChargePhase.Approaching || CurrentPhase == ChargePhase.TuskWarning
+                || CurrentPhase == ChargePhase.TuskAttacking) { UpdateTuskPattern(); return; }
             if (CurrentPhase == ChargePhase.Warning && Time.time >= phaseEnds)
             {
                 ClearWarning();
                 CurrentPhase = ChargePhase.Charging;
                 animator.Play("BoarCharge", 0, 0f);
+                if (chargeAudio != null) chargeAudio.BeginCharge();
                 phaseEnds = Time.time + Mathf.Abs(chargeEndX - rb.position.x) / chargeSpeed + 0.2f;
             }
             else if (Time.time >= phaseEnds) FinishCharge();
@@ -55,7 +60,7 @@ public sealed class MON_Boar : PersistentBossController
         }
         if (Time.time < nextAttackTime || isKnockback || !CanDetectLivingPlayer()
             || Mathf.Abs(rb.linearVelocity.y) > 0.3f) return;
-        BeginCharge();
+        BeginPattern(Random.value < .5f);
     }
 
     private void BeginCharge()
@@ -74,7 +79,9 @@ public sealed class MON_Boar : PersistentBossController
         isAttacking = true;
         CurrentPhase = ChargePhase.Warning;
         rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-        animator.Play("BoarIdle", 0, 0f);
+        animator.Play("BoarWindup", 0, 0f);
+        EnsureChargeAudio();
+        chargeAudio.BeginWarning();
         foreach (Collider2D c in playerEntity.GetComponentsInChildren<Collider2D>())
         {
             if (c.enabled && !Physics2D.GetIgnoreCollision(capsuleCollider2D, c))
@@ -94,6 +101,8 @@ public sealed class MON_Boar : PersistentBossController
 
     protected override void AttackFixedUpdate()
     {
+        if (CurrentPhase == ChargePhase.Approaching) { MoveIntoTuskRange(); return; }
+        if (CurrentPhase == ChargePhase.TuskAttacking) TryTuskHit();
         if (CurrentPhase != ChargePhase.Charging)
         {
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
@@ -111,6 +120,7 @@ public sealed class MON_Boar : PersistentBossController
             PlayerEntity entity = c.GetComponentInParent<PlayerEntity>();
             if (entity == null || chargeHit) continue;
             chargeHit = true;
+            if (chargeAudio != null) chargeAudio.PlayImpact();
             float before = entity.HP;
             entity.TakeDamage(Attack_Power);
             if (!entity.IsDead && entity.HP < before) entity.ApplyKnockback(chargeDirection);
@@ -131,6 +141,8 @@ public sealed class MON_Boar : PersistentBossController
 
     private void FinishCharge()
     {
+        if (animator != null) animator.speed = 1f;
+        if (chargeAudio != null) chargeAudio.EndCharge();
         foreach (Collider2D c in ignoredPlayerColliders)
             if (c != null && capsuleCollider2D != null)
                 Physics2D.IgnoreCollision(capsuleCollider2D, c, false);

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7c049fd588591429571cbb51e2f249, type: 3}
+  m_Name: SoulstoneCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.UI.SoulstoneCatalog
+  villageActivation: {fileID: 7400000, guid: d23aee40fe1fce143bbfbe6524bcf7ed, type: 2}
+  villageLoop: {fileID: 7400000, guid: ad00afec724b813488eaefb81b65931a, type: 2}
+  templeActivation: {fileID: 7400000, guid: b953883c693967f449cff84f5b5f65a9, type: 2}
+  templeLoop: {fileID: 7400000, guid: f4d41486d50092a4badecfadda4f1113, type: 2}
+  villagePromptTop: 0.4025
+  templePromptTop: 0.8899997
+  interactionPromptPrefab: {fileID: 7806287556799390664, guid: 359fde7da46395e41b840065f04a368c, type: 3}
+  windowPrefab: {fileID: 8518154919295339876, guid: 86ce8c2991c3cbe4fb8aa3ac393cd6a0, type: 3}
+  frame: {fileID: 6716941651702131156, guid: 47c6611d353d96240ac065667abd35d5, type: 3}
+  listSlot: {fileID: 6716941651702131156, guid: 772ee1010f16e86429db764ae209b4fc, type: 3}
+  mapFrame: {fileID: 6716941651702131156, guid: 23b1e3962e110a141a4d0fce1323401c, type: 3}
+  mapNamePanel: {fileID: 6716941651702131156, guid: 5e1552fd038f93a41b3e4bfb0b028f18, type: 3}
+  listPanel: {fileID: 6716941651702131156, guid: bcc7696c21680fe4fab19286c5fe2720, type: 3}
+  npcPanel: {fileID: 6716941651702131156, guid: 984c65da7441d7f49a7600aa0f6af92d, type: 3}
+  travelNormal: {fileID: 6716941651702131156, guid: bb7542e1d50b94140975bd2380e5a00f, type: 3}
+  travelHover: {fileID: 6716941651702131156, guid: fd8e9a94cf2c2184dbafc6431c46cc60, type: 3}
+  mapFrameOutline: {fileID: 11400000, guid: a0f82a596489d1046904587629391693, type: 2}
+  font: {fileID: 11400000, guid: a6970fcf3cdaea146800c8032fb7178c, type: 2}
+  destinations:
+  - sceneName: PrologueVilage
+    displayName: "\uC11C\uB9C9 \uB9C8\uC744"
+    stoneName: "\uADC0\uD63C\uC11D"
+    preview: {fileID: 21300000, guid: c1973bb0586152640ad65edd057f0cb8, type: 3}
+    npcs:
+    - name: "\uB300\uC7A5\uC7A5\uC774"
+      portrait: {fileID: 11400000, guid: 64491b9ac02e3954aa2064f3b3eb63d2, type: 2}
+    - name: "\uC0C1\uC810 \uC8FC\uC778"
+      portrait: {fileID: 11400000, guid: 57482b9307a84664b8e2f4fadbae630c, type: 2}
+    - name: "\uCD0C\uC7A5"
+      portrait: {fileID: 11400000, guid: 042693633ede2dc40939c9f1c23f8d6b, type: 2}
+  - sceneName: TempleGate
+    displayName: "\uC808 \uBB38"
+    stoneName: "\uC808 \uBB38 \uADC0\uD63C\uC11D"
+    preview: {fileID: 21300000, guid: e53838c6ea783824dbe61e068d898333, type: 3}
+    npcs: []

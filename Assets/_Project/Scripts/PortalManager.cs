@@ -1,4 +1,4 @@
-using EasternFantasy.Player;
+﻿using EasternFantasy.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,11 +23,12 @@ public sealed class PortalManager : MonoBehaviour
 
     private void Update()
     {
+        if (EasternFantasy.UI.SoulstoneWindowUI.IsOpen || EasternFantasy.UI.SoulstoneTutorialUI.IsRunning) return;
         if (EasternFantasy.Dungeon.DungeonRunController.Instance != null
             && EasternFantasy.Dungeon.DungeonRunController.Instance.IsExitPromptOpen) return;
         if (Time.timeScale > 0f && playerInPortal != null && NecklaceBlocked
             && Keyboard.current?.upArrowKey.wasPressedThisFrame == true)
-            EasternFantasy.UI.SystemNoticeUI.Show("목걸이를 T키로 조사해 획득한 뒤 이동하세요.", this);
+            EasternFantasy.UI.SystemNoticeUI.ShowFailure("목걸이를 T키로 조사해 획득한 뒤 이동하세요.", this);
         if (IsLocked || Time.timeScale <= 0f || playerInPortal == null || isLoadingScene || (EasternFantasy.UI.DungeonWindowUI.Instance != null && EasternFantasy.UI.DungeonWindowUI.Instance.IsOpen))
             return;
 
@@ -66,7 +67,7 @@ public sealed class PortalManager : MonoBehaviour
             playerInPortal.gameObject.AddComponent<PlayerLocationSetter>();
 
         isLoadingScene = PortalSceneTransition.TryLoad(sceneName, targetPointName,
-            success => { if (this != null) isLoadingScene = false; });
+            success => { if (this != null) isLoadingScene = false; }, playPortalAudio: true);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

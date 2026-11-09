@@ -1,4 +1,4 @@
-using EasternFantasy.Dialogue;
+﻿using EasternFantasy.Dialogue;
 using EasternFantasy.Player;
 using EasternFantasy.CharacterSelection;
 using TMPro;
@@ -85,6 +85,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
+            if (SoulstoneWindowUI.IsOpen || SoulstoneTutorialUI.IsRunning) return;
             if (MapTutorialUI.IsRunning || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning) return;
             Keyboard keyboard = Keyboard.current;
             if (keyboard == null)

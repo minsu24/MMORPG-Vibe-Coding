@@ -1,0 +1,5 @@
+PASS: RespornStone 8 frames, preserved sprite IDs/references, integer non-overlapping rectangles with 2px gutters, fixed world foot position.
+PASS: ActiveRespornStone 8 frames, preserved sprite IDs/references, integer non-overlapping rectangles with 2px gutters, fixed world foot position.
+PASS: InActiveTempleRespornStone 8 frames, preserved sprite IDs/references, integer non-overlapping rectangles with 2px gutters, fixed world foot position.
+PASS: TempleRespornStone 8 frames, preserved sprite IDs/references, integer non-overlapping rectangles with 2px gutters, fixed world foot position.
+PASS: maximum world-foot drift across 32 frames: 2.43287416878957E-07

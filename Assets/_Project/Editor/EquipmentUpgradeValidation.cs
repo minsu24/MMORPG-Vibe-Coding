@@ -106,12 +106,28 @@ namespace EasternFantasy.EditorTools
                 confirm.GetComponent<UpgradeConfirmFeedback>().OnPointerClick(new PointerEventData(eventRoot.GetComponent<EventSystem>())
                     {button=PointerEventData.InputButton.Left});
                 Check(text.text.Contains("엽전이 부족"),"Disabled button did not explain insufficient currency");
+                var audio=(AudioSource)typeof(EquipmentUpgradeWindowUI).GetField("upgradeAudio",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(window);
+                Check(audio!=null&&audio.clip.name=="UpgradeInsufficient"&&audio.isPlaying&&audio.ignoreListenerPause,"Insufficient feedback audio missing");
                 Check(inv.GetQuantity(fan)==1&&money.Yeopjeon==0,"Disabled click upgraded");
                 money.Add(100);
+                inv.RemoveItem(Item("FrogOrb"));window.Confirm();
+                Check(text.text.Contains("재료가 부족")&&audio.clip.name=="UpgradeInsufficient"&&money.Yeopjeon==100,"Material shortage feedback missing");
+                inv.AddItem(Item("FrogOrb"));window.ClearSlot(1);window.Confirm();
+                Check(text.text.Contains("재료를 모두")&&audio.clip.name=="UpgradeInsufficient","Uninserted material feedback missing");
+                window.DropItem(Item("FrogOrb"),1);
                 Check(window.CanConfirm,"Valid selection did not enable button");
                 int upgrades=0;window.Upgraded+=item=>upgrades++;
                 confirm.onClick.Invoke();
+                Check(audio.clip.name=="UpgradeSuccess"&&audio.isPlaying,"Success sound did not start on confirmation");
+                var tick=typeof(EquipmentUpgradeWindowUI).GetMethod("TickUpgradePresentation",BindingFlags.Instance|BindingFlags.NonPublic);
+                Check(upgrades==0&&window.Target==fan&&money.Yeopjeon==100&&!window.CanConfirm,"Upgrade committed before gathering finished");
+                confirm.onClick.Invoke();window.ClearSlot(-1);window.Close();
+                Check(window.Target==fan&&window.IsOpen,"Presentation accepted duplicate input or closed");
+                tick.Invoke(window,new object[]{1.71f});
+                Check(upgrades==0&&money.Yeopjeon==100,"Upgrade committed before sound impact");
+                tick.Invoke(window,new object[]{.02f});
                 Check(upgrades==1&&window.Target==rare&&money.Yeopjeon==0,"Confirmation did not upgrade once");
+                tick.Invoke(window,new object[]{1.5f});
                 Check(inv.GetQuantity(rare)==1&&inv.GetQuantity(fan)==0&&!window.CanConfirm,"UI did not refresh next grade");
 
                 var scene=UnityEditor.SceneManagement.EditorSceneManager.OpenPreviewScene("Assets/_Project/Scenes/TutorialMap/PrologueVilage.unity");
@@ -127,7 +143,7 @@ namespace EasternFantasy.EditorTools
                     Check(npc&&overlay,"Village NPC/UI connection missing");
                 }
                 finally{UnityEditor.SceneManagement.EditorSceneManager.ClosePreviewScene(scene);}
-                return "PASS: insufficient funds/materials leave resources intact; duplicate materials summed; complete transaction events; stack/equipped grade preserved; eight weapon/armor recipe filters; unconfigured recipes blocked; actual prefab drop rejection, disabled-button feedback, enable/confirm/success event; village blacksmith greeting and overlay.";
+                return "PASS: insufficient funds/materials and uninserted materials play shortage audio without consumption; success audio starts on click; gathering defers consumption until impact; duplicate input and closing blocked; one success event; duplicate materials summed; equipped grade preserved; eight recipe filters; unconfigured recipes blocked; prefab feedback and village wiring verified.";
             }
             finally
             {

@@ -42,6 +42,8 @@ namespace EasternFantasy.Skill
         private PlayerEntity entity;
         private PlayerIdleAnimation animationController;
         private AudioSource skillAudio;
+        private SpriteRenderer bodyRenderer;
+        private readonly List<SpriteRenderer> arrivalEffects = new List<SpriteRenderer>();
 
         private void Awake()
         {
@@ -49,6 +51,9 @@ namespace EasternFantasy.Skill
             shooter = GetComponent<PlayerProjectileShooter>();
             entity = GetComponent<PlayerEntity>();
             animationController = GetComponent<PlayerIdleAnimation>();
+            Animator bodyAnimator = GetComponentInChildren<Animator>();
+            if (bodyAnimator != null)
+                bodyRenderer = bodyAnimator.GetComponent<SpriteRenderer>();
         }
 
         public bool TryCast(SkillDefinition skill)
@@ -78,7 +83,7 @@ namespace EasternFantasy.Skill
                 movement.TeleportTo(
                     origin + Vector3.right * direction * teleportDistance,
                     transform.rotation);
-                SpawnTeleportEffect(transform.position);
+                SpawnTeleportEffect(transform.position, true);
                 PlaySkillSound(teleportSound, teleportSoundVolume);
                 cast = true;
             }
@@ -105,13 +110,44 @@ namespace EasternFantasy.Skill
             return cast;
         }
 
-        private void SpawnTeleportEffect(Vector3 position)
+        private void SpawnTeleportEffect(Vector3 position, bool followBody = false)
         {
             if (teleportEffectPrefab == null)
                 return;
 
             GameObject effect = Instantiate(teleportEffectPrefab, position, Quaternion.identity);
+            if (followBody && bodyRenderer != null)
+            {
+                SpriteRenderer effectRenderer = effect.GetComponent<SpriteRenderer>();
+                if (effectRenderer != null)
+                {
+                    AlignArrivalEffect(effectRenderer);
+                    arrivalEffects.Add(effectRenderer);
+                }
+            }
             Destroy(effect, teleportEffectLifetime);
+        }
+
+        private void LateUpdate()
+        {
+            for (int index = arrivalEffects.Count - 1; index >= 0; index--)
+            {
+                SpriteRenderer effect = arrivalEffects[index];
+                if (effect == null)
+                    arrivalEffects.RemoveAt(index);
+                else if (bodyRenderer != null)
+                    AlignArrivalEffect(effect);
+            }
+        }
+
+        private void AlignArrivalEffect(SpriteRenderer effect)
+        {
+            // Recenter each animation frame, including sprites with an offset pivot.
+            Vector3 offset = bodyRenderer.bounds.center - effect.bounds.center;
+            offset.z = 0f;
+            effect.transform.position += offset;
+            effect.sortingLayerID = bodyRenderer.sortingLayerID;
+            effect.sortingOrder = bodyRenderer.sortingOrder + 2;
         }
 
         private void PlaySkillSound(AudioClip clip, float volume)
@@ -125,6 +161,7 @@ namespace EasternFantasy.Skill
                 skillAudio.playOnAwake = false;
                 skillAudio.loop = false;
                 skillAudio.spatialBlend = 0f;
+                skillAudio.volume = 0.5f;
             }
             skillAudio.PlayOneShot(clip, volume);
         }

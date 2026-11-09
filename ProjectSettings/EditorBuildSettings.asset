@@ -47,6 +47,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/OldTemple/SmogMountain.unity
     guid: 02b6d3bcab2c44e4d828e796ce06e1fe
+  - enabled: 1
+    path: Assets/_Project/Scenes/OldTemple/TempleGate.unity
+    guid: d248c4fc6d71e0c40a60db1bc2f1ecfc
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

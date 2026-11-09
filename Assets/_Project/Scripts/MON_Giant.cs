@@ -41,6 +41,7 @@ public class MON_Giant : PersistentBossController
     [SerializeField] private Collider2D arenaBounds;
     [SerializeField] private Sprite[] dustFrames;
     [SerializeField] private Sprite[] rockFrames;
+    [SerializeField] private Sprite[] rockBreakFrames;
     [SerializeField, Min(0f)] private float smashShakeStrength = 0.85f;
     [SerializeField, Min(0.01f)] private float smashShakeDuration = 0.3f;
 
@@ -76,6 +77,9 @@ public class MON_Giant : PersistentBossController
             || Mathf.Abs(rb.linearVelocity.y) > 0.3f || Time.time < nextFootstepTime)
             return;
 
+        nextFootstepTime = Time.time + 0.12f;
+        GiantAudioCue.Play(gameObject, "Audio/GiantFootstepSource", .32f);
+
         Camera mainCamera = Camera.main;
         if (mainCamera == null || footstepImpulse == null)
             return;
@@ -101,7 +105,6 @@ public class MON_Giant : PersistentBossController
             impulseListener.ChannelMask |= FootstepChannel;
         }
 
-        nextFootstepTime = Time.time + 0.12f;
         footstepImpulse.ImpulseDefinition.ImpulseDuration = footstepShakeDuration;
         footstepImpulse.GenerateImpulseAtPositionWithVelocity(transform.position, Vector3.down * strength);
     }
@@ -120,6 +123,7 @@ public class MON_Giant : PersistentBossController
                 if (warning != null) Destroy(warning.gameObject);
                 CurrentAttack = AttackPattern.Sprint;
                 animator.Play("GiantSprint", 0, 0f);
+                GiantAudioCue.Play(gameObject, "Audio/GiantSprintVoice", .45f);
                 phaseEnds = Time.time + Mathf.Abs(sprintEndX - rb.position.x) / sprintSpeed + 0.2f;
             }
             else if (Time.time >= phaseEnds)
@@ -223,6 +227,7 @@ public class MON_Giant : PersistentBossController
     {
         if (CurrentAttack != AttackPattern.Smash || impactFired || HP <= 0f || !HasLivingPlayer) return;
         impactFired = true;
+        GiantAudioCue.Play(gameObject, "Audio/GiantSmashImpact", .35f);
         float range = (arenaBounds != null ? arenaBounds.bounds.size.x : 60f) * smashMapFraction;
         float ground = capsuleCollider2D.bounds.min.y;
         Vector2 center = new Vector2(transform.position.x + attackDirection * range * 0.5f, ground + smashHeight * 0.5f);
@@ -236,7 +241,8 @@ public class MON_Giant : PersistentBossController
         for (float distance = 1.5f; distance < range; distance += 3f)
         {
             Vector2 point = new Vector2(transform.position.x + attackDirection * distance, ground);
-            GiantAttackVisual.CreateDust(point, dustFrames, spriteRenderer, distance * 0.006f);
+            GiantAttackVisual.CreateDust(point, dustFrames, spriteRenderer, distance * 0.006f, 4f,
+                distance < 2f ? "Audio/GiantSmashDust" : null);
         }
         EnsureImpulseListener();
         footstepImpulse.ImpulseDefinition.ImpulseDuration = smashShakeDuration;
@@ -256,11 +262,12 @@ public class MON_Giant : PersistentBossController
     {
         if (CurrentAttack != AttackPattern.Throw || impactFired || HP <= 0f || !HasLivingPlayer) return;
         impactFired = true;
+        GiantAudioCue.Play(gameObject, "Audio/GiantThrowVoice", .45f);
         Vector2 origin = (Vector2)transform.position + new Vector2(rockHandOffset.x * attackDirection, rockHandOffset.y);
         Vector2 aim = (Vector2)playerEntity.transform.position - origin;
         if (aim.x * attackDirection < 0.1f) aim = new Vector2(attackDirection, 0f);
         GiantRockProjectile.Create(origin, aim.normalized * rockSpeed, normalAttackDamage,
-            rockFrames, spriteRenderer, _playerLayer, gameObject);
+            rockFrames, spriteRenderer, _playerLayer, gameObject, rockBreakFrames);
     }
 
     protected override void AttackFixedUpdate()
@@ -283,6 +290,7 @@ public class MON_Giant : PersistentBossController
             if (entity != null && !sprintHit)
             {
                 sprintHit = true;
+                GiantAudioCue.Play(gameObject, "Audio/ChargePlayerImpact", .45f);
                 DamagePlayer(entity, sprintDamage);
             }
         }

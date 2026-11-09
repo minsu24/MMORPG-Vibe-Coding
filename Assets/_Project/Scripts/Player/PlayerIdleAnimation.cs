@@ -8,6 +8,7 @@ namespace EasternFantasy.Player
     {
         private static readonly int IsMovingParameter = Animator.StringToHash("IsMoving");
         private static readonly int IsJumpingParameter = Animator.StringToHash("isJumping");
+        private static readonly int VerticalSpeedParameter = Animator.StringToHash("VerticalSpeed");
         private static readonly int AttackParameter = Animator.StringToHash("Attack");
 
         [SerializeField] private Animator animator;
@@ -30,6 +31,7 @@ namespace EasternFantasy.Player
         private int throwStateHash;
         private bool hasMovingParameter;
         private bool hasJumpingParameter;
+        private bool hasVerticalSpeedParameter;
         private bool hasAttackParameter;
         private bool lockAttackFacing;
         private bool skillSpeedOverridden;
@@ -91,6 +93,14 @@ namespace EasternFantasy.Player
             {
                 wasKnockedBack = false;
                 if (!IsAttacking && movement != null && movement.IsGrounded) PlayIdle();
+            }
+
+            // Controllers with separate rise/fall poses follow physics, not clip duration.
+            if (hasVerticalSpeedParameter && movement != null && movement.body != null)
+            {
+                animator.SetFloat(VerticalSpeedParameter, movement.body.linearVelocity.y);
+                if (hasJumpingParameter && !movement.IsMovementLocked && !movement.IsDashing)
+                    animator.SetBool(IsJumpingParameter, !movement.IsGrounded);
             }
 
             float horizontalInput = movement != null && !movement.IsMovementLocked && !movement.IsDashing
@@ -348,6 +358,9 @@ namespace EasternFantasy.Player
                 else if (parameter.nameHash == AttackParameter
                     && parameter.type == AnimatorControllerParameterType.Trigger)
                     hasAttackParameter = true;
+                else if (parameter.nameHash == VerticalSpeedParameter
+                    && parameter.type == AnimatorControllerParameterType.Float)
+                    hasVerticalSpeedParameter = true;
             }
         }
 

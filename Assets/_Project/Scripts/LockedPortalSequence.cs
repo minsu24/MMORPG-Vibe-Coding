@@ -59,6 +59,7 @@ public sealed class LockedPortalSequence : MonoBehaviour
     private PortalManager portal;
     private DialogueManager dialogueManager;
     private Coroutine sequenceRoutine;
+    private PortalSealAudioEvents sealAudio;
     private Camera cinematicCamera;
     private CinemachineBrain brain;
     private Vector3 savedPosition;
@@ -91,6 +92,7 @@ public sealed class LockedPortalSequence : MonoBehaviour
 
     private void ApplySavedState()
     {
+        if (sealAudio != null) sealAudio.StopSounds();
         if (sequenceRoutine != null) StopCoroutine(sequenceRoutine);
         sequenceRoutine = null;
         IsUnlocking = false;
@@ -156,6 +158,9 @@ public sealed class LockedPortalSequence : MonoBehaviour
         yield return new WaitForSecondsRealtime(anticipation);
         if (sealAnimator != null)
         {
+            sealAudio = sealAnimator.GetComponent<PortalSealAudioEvents>();
+            if (sealAudio == null) sealAudio = sealAnimator.gameObject.AddComponent<PortalSealAudioEvents>();
+            sealAudio.Begin();
             sealAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
             sealAnimator.Play("Unlock", 0, 0f);
             sealAnimator.Update(0f);
@@ -221,6 +226,7 @@ public sealed class LockedPortalSequence : MonoBehaviour
     }
     private void OnDisable()
     {
+        if (sealAudio != null) sealAudio.StopSounds();
         if (dialogueManager != null) dialogueManager.DialogueCompleted -= OnDialogueCompleted;
         dialogueManager = null;
         if (sequenceRoutine != null) StopCoroutine(sequenceRoutine);

@@ -1,0 +1,374 @@
+fileFormatVersion: 2
+guid: b5bd6391b7437bb458aea2c717acf23d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -109591168016584018
+    second: PlayerWalk8Frames_SideV2_0
+  - first:
+      213: 6837993477420878764
+    second: PlayerWalk8Frames_SideV2_1
+  - first:
+      213: 4763441337685065264
+    second: PlayerWalk8Frames_SideV2_2
+  - first:
+      213: -2992626472393121898
+    second: PlayerWalk8Frames_SideV2_3
+  - first:
+      213: 5634832262878861830
+    second: PlayerWalk8Frames_SideV2_4
+  - first:
+      213: -1908901834665086275
+    second: PlayerWalk8Frames_SideV2_5
+  - first:
+      213: 4117515420206112362
+    second: PlayerWalk8Frames_SideV2_6
+  - first:
+      213: 8610771479278819667
+    second: PlayerWalk8Frames_SideV2_7
+  - first:
+      213: -2409203375930966312
+    second: PlayerWalk8Frames_SideV2_8
+  - first:
+      213: -6404014940988836681
+    second: PlayerWalk8Frames_SideV2_9
+  - first:
+      213: -5822533420801641970
+    second: PlayerWalk8Frames_SideV2_10
+  - first:
+      213: 8891444222915303450
+    second: PlayerWalk8Frames_SideV2_11
+  - first:
+      213: -2593077544899677727
+    second: PlayerWalk8Frames_SideV2_12
+  - first:
+      213: 5411072561383140662
+    second: PlayerWalk8Frames_SideV2_13
+  - first:
+      213: -1029704252533701535
+    second: PlayerWalk8Frames_SideV2_14
+  - first:
+      213: -6900194105272219530
+    second: PlayerWalk8Frames_SideV2_15
+  - first:
+      213: 7358091983101719503
+    second: PlayerWalk8Frames_SideV2_16
+  - first:
+      213: 3263165513386237801
+    second: PlayerWalk8Frames_SideV2_17
+  - first:
+      213: -4760509341049162840
+    second: PlayerWalk8Frames_SideV2_18
+  - first:
+      213: 4747366847310378232
+    second: PlayerWalk8Frames_SideV2_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 223.11111
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DosaWalkSideV2_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 443
+        width: 443
+        height: 443
+      alignment: 9
+      pivot: {x: 0.5433216, y: 0.56550586}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43c86133ea739924eac1fac2107731fb
+      internalID: -663045827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DosaWalkSideV2_01
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 443
+        width: 443
+        height: 443
+      alignment: 9
+      pivot: {x: 0.5432709, y: 0.56550586}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42df297efb8790b4fba32d7e2598ef72
+      internalID: -2113475006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DosaWalkSideV2_02
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 443
+        width: 443
+        height: 443
+      alignment: 9
+      pivot: {x: 0.53956497, y: 0.56550586}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 466afe7dc26a1ed43941d4f8fb319b1e
+      internalID: -1220825360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DosaWalkSideV2_03
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 443
+        width: 443
+        height: 443
+      alignment: 9
+      pivot: {x: 0.54223, y: 0.56550586}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b277bbbc0bd2eb9469e563dcefeaa276
+      internalID: 642050751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DosaWalkSideV2_04
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 443
+        height: 443
+      alignment: 9
+      pivot: {x: 0.5422243, y: 0.55647653}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8bb330724e56b248ac2aa34dd183975
+      internalID: 1566190613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DosaWalkSideV2_05
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 0
+        width: 443
+        height: 443
+      alignment: 9
+      pivot: {x: 0.54330325, y: 0.55647653}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42d778c737fa8d14e91c391933eeba03
+      internalID: 1833692818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DosaWalkSideV2_06
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 0
+        width: 443
+        height: 443
+      alignment: 9
+      pivot: {x: 0.54132164, y: 0.55647653}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d56b297843226b143b80d3bf343fee2a
+      internalID: 21616017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DosaWalkSideV2_07
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 0
+        width: 443
+        height: 443
+      alignment: 9
+      pivot: {x: 0.54198015, y: 0.55647653}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 450b946d61bef0b4d96266c33bb37157
+      internalID: 113553016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 29bd4c5c7752aab48b6eceb80d5d06b6
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      DosaWalkSideV2_00: -663045827
+      DosaWalkSideV2_01: -2113475006
+      DosaWalkSideV2_02: -1220825360
+      DosaWalkSideV2_03: 642050751
+      DosaWalkSideV2_04: 1566190613
+      DosaWalkSideV2_05: 1833692818
+      DosaWalkSideV2_06: 21616017
+      DosaWalkSideV2_07: 113553016
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

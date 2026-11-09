@@ -1,0 +1,55 @@
+﻿var texturePath="Assets/_Project/Art/Dungeon/GiantFarm/BoarChargeWindup8Frames.png";
+var animationFolder="Assets/_Project/Animations/GiantFarm/Boar/";
+var referenceClip=UnityEditor.AssetDatabase.LoadAssetAtPath<AnimationClip>(animationFolder+"BoarIdle.anim");
+var referenceBinding=UnityEditor.AnimationUtility.GetObjectReferenceCurveBindings(referenceClip).First();
+var reference=(Sprite)UnityEditor.AnimationUtility.GetObjectReferenceCurve(referenceClip,referenceBinding)[0].value;
+var raw=new Texture2D(2,2);raw.LoadImage(System.IO.File.ReadAllBytes(texturePath));
+var pixels=raw.GetPixels32();
+var importer=(UnityEditor.TextureImporter)UnityEditor.AssetImporter.GetAtPath(texturePath);
+importer.textureType=UnityEditor.TextureImporterType.Sprite;importer.spriteImportMode=UnityEditor.SpriteImportMode.Multiple;
+importer.spritePixelsPerUnit=394f/reference.bounds.size.x;
+importer.alphaIsTransparency=true;importer.mipmapEnabled=false;importer.textureCompression=UnityEditor.TextureImporterCompression.Uncompressed;
+importer.maxTextureSize=2048;importer.filterMode=FilterMode.Bilinear;
+var settings=new UnityEditor.TextureImporterSettings();importer.ReadTextureSettings(settings);settings.spriteMeshType=SpriteMeshType.FullRect;importer.SetTextureSettings(settings);
+importer.SaveAndReimport();
+var factories=new UnityEditor.U2D.Sprites.SpriteDataProviderFactories();factories.Init();
+var provider=factories.GetSpriteEditorDataProviderFromObject(importer);provider.InitSpriteEditorDataProvider();
+var old=provider.GetSpriteRects();var rects=new UnityEditor.SpriteRect[8];
+var report=new System.Collections.Generic.List<object>();
+for(int frame=0;frame<8;frame++){
+ int col=frame%4,row=frame/4;
+ int x0=Mathf.RoundToInt(col*raw.width/4f),x1=Mathf.RoundToInt((col+1)*raw.width/4f);
+ int y0=Mathf.RoundToInt((1-row)*raw.height/2f),y1=Mathf.RoundToInt((2-row)*raw.height/2f);
+ int minX=x1,maxX=x0,minY=y1,maxY=y0;
+ for(int y=y0;y<y1;y++)for(int x=x0;x<x1;x++)if(pixels[y*raw.width+x].a>32){minX=Math.Min(x,minX);maxX=Math.Max(x,maxX);minY=Math.Min(y,minY);maxY=Math.Max(y,maxY);}
+ // Two pixels of transparent padding retain antialiased edge detail; independent pivots keep the feet still.
+ int left=Math.Max(x0,minX-2),bottom=Math.Max(y0,minY-2),right=Math.Min(x1,maxX+3),top=Math.Min(y1,maxY+3);
+ var rect=new Rect(left,bottom,right-left,top-bottom);
+ float anchorX=(minX+maxX+1)*.5f;
+ float anchorY=minY-reference.bounds.min.y*importer.spritePixelsPerUnit;
+ string name="BoarChargeWindup8Frames_"+frame;
+ var existing=old.FirstOrDefault(s=>s.name==name);
+ rects[frame]=new UnityEditor.SpriteRect{name=name,rect=rect,alignment=SpriteAlignment.Custom,pivot=new Vector2((anchorX-left)/rect.width,(anchorY-bottom)/rect.height),spriteID=existing==null?UnityEditor.GUID.Generate():existing.spriteID};
+ report.Add(new{frame=frame,visibleWidth=(maxX-minX+1)/importer.spritePixelsPerUnit,ground=(minY-anchorY)/importer.spritePixelsPerUnit,pivotX=rects[frame].pivot.x,pivotY=rects[frame].pivot.y});
+}
+provider.SetSpriteRects(rects);
+provider.GetDataProvider<UnityEditor.U2D.Sprites.ISpriteNameFileIdDataProvider>().SetNameFileIdPairs(rects.Select(r=>new UnityEditor.SpriteNameFileIdPair(r.name,r.spriteID)));
+provider.Apply();UnityEditor.AssetDatabase.ImportAsset(texturePath,UnityEditor.ImportAssetOptions.ForceSynchronousImport|UnityEditor.ImportAssetOptions.ForceUpdate);
+UnityEngine.Object.DestroyImmediate(raw);
+var sprites=UnityEditor.AssetDatabase.LoadAllAssetsAtPath(texturePath).OfType<Sprite>().OrderBy(s=>s.name).ToArray();
+var clipPath=animationFolder+"BoarWindup.anim";
+var clip=UnityEditor.AssetDatabase.LoadAssetAtPath<AnimationClip>(clipPath);
+if(clip==null){clip=new AnimationClip();UnityEditor.AssetDatabase.CreateAsset(clip,clipPath);}
+clip.frameRate=8f;
+var binding=new UnityEditor.EditorCurveBinding{path="",type=typeof(SpriteRenderer),propertyName="m_Sprite"};
+UnityEditor.AnimationUtility.SetObjectReferenceCurve(clip,binding,sprites.Select((s,i)=>new UnityEditor.ObjectReferenceKeyframe{time=i/8f,value=s}).ToArray());
+var clipSettings=UnityEditor.AnimationUtility.GetAnimationClipSettings(clip);clipSettings.loopTime=true;clipSettings.startTime=0;clipSettings.stopTime=1f;UnityEditor.AnimationUtility.SetAnimationClipSettings(clip,clipSettings);
+var controller=UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEditor.Animations.AnimatorController>(animationFolder+"Square (1).controller");
+var machine=controller.layers[0].stateMachine;var state=machine.states.Select(s=>s.state).FirstOrDefault(s=>s.name=="BoarWindup");
+if(state==null)state=machine.AddState("BoarWindup",new Vector3(420,120,0));
+state.motion=clip;state.speed=1f;state.writeDefaultValues=true;
+UnityEditor.EditorUtility.SetDirty(clip);UnityEditor.EditorUtility.SetDirty(controller);UnityEditor.AssetDatabase.SaveAssets();
+var result=Newtonsoft.Json.JsonConvert.SerializeObject(new{frames=sprites.Length,ppu=importer.spritePixelsPerUnit,referenceWidth=reference.bounds.size.x,referenceGround=reference.bounds.min.y,loop=clip.isLooping,seconds=clip.length,framesInfo=report});
+System.IO.File.WriteAllText("Artifacts/BoarChargeWindup/Apply/setup.json",result);return result;
+
+

@@ -8,6 +8,8 @@ public sealed class GiantAttackVisual : MonoBehaviour
     private bool isWarning;
     private Vector2 groundPosition;
     private float dustHeight = 4f;
+    private string appearSound;
+    private bool appearSoundPlayed;
     private static GiantAttackVisual Create(string name, Vector2 position, SpriteRenderer source)
     {
         GameObject go = new GameObject(name);
@@ -20,7 +22,8 @@ public sealed class GiantAttackVisual : MonoBehaviour
         return effect;
     }
 
-    public static void CreateDust(Vector2 position, Sprite[] sprites, SpriteRenderer source, float delay, float height = 4f)
+    public static void CreateDust(Vector2 position, Sprite[] sprites, SpriteRenderer source, float delay, float height = 4f,
+        string appearSound = null)
     {
         if (sprites == null || sprites.Length == 0) return;
         GiantAttackVisual effect = Create("Giant Smash Dust", position, source);
@@ -28,6 +31,7 @@ public sealed class GiantAttackVisual : MonoBehaviour
         effect.groundPosition = position;
         effect.delay = delay;
         effect.dustHeight = height;
+        effect.appearSound = appearSound;
         effect.visual.enabled = false;
         if (delay <= 0f) effect.ShowDustFrame(0);
     }
@@ -57,6 +61,11 @@ public sealed class GiantAttackVisual : MonoBehaviour
 
     private void ShowDustFrame(int frame)
     {
+        if (!appearSoundPlayed && !string.IsNullOrEmpty(appearSound))
+        {
+            appearSoundPlayed = true;
+            GiantAudioCue.Play(gameObject, appearSound, .28f, false, .08f);
+        }
         visual.enabled = true;
         Sprite sprite = frames[frame];
         visual.sprite = sprite;

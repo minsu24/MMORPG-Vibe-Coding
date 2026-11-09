@@ -1,0 +1,14 @@
+RUNNING: isolated G/ESC, near/far interaction, current-map restriction, and round-trip travel validation.
+PASS: source soulstone resolved
+PASS: G window cannot open far from a soulstone
+PASS: G opens and pauses gameplay
+PASS: current-map travel is blocked
+PASS: outbound soulstone travel starts
+PASS: destination soulstone resolved after scene load
+PASS: player arrives within destination interaction range
+PASS: ESC restores time and player input
+PASS: destination window reopens
+PASS: return soulstone travel starts
+PASS: round trip returns to the original soulstone
+PASS: round-trip completion releases input and pause
+PASS: ALL LIVE SOULSTONE CHECKS COMPLETED. Original editor scenes and save directory restored on exiting play mode.

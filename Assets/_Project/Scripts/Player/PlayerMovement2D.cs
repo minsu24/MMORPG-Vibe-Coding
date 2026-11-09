@@ -13,6 +13,11 @@ namespace EasternFantasy.Player
         [SerializeField, Range(0f, 1f)] private float jumpVolume = 0.5f;
         [SerializeField, Range(0.5f, 1.5f)] private float jumpPitch = 1f;
         private AudioSource jumpAudio;
+        [Header("Landing Audio")]
+        [SerializeField] private AudioClip landingSound;
+        [SerializeField, Range(0f, 1f)] private float landingVolume = .3f;
+        private AudioSource landingAudio;
+        private bool landingPending, landingAirborne;
         private PlayerIdleAnimation playerIdleAnimation;
         private readonly RaycastHit2D[] groundHits = new RaycastHit2D[8];
         private RaycastHit2D[] dashHits = new RaycastHit2D[16];
@@ -80,6 +85,7 @@ namespace EasternFantasy.Player
             body.freezeRotation = true;
             groundFilter.SetLayerMask(groundLayers);
             groundFilter.useTriggers = false;
+            if (landingSound == null) landingSound = Resources.Load<AudioClip>("Audio/PlayerLandingShort");
             if (jumpSound != null)
             {
                 var child = new GameObject("Jump Audio");
@@ -333,6 +339,8 @@ namespace EasternFantasy.Player
         public void TeleportTo(Vector3 position, Quaternion rotation)
         {
             lastJumpStartedAt = float.NegativeInfinity;
+            landingPending = landingAirborne = false;
+            if (landingAudio != null) landingAudio.Stop();
             Vector3 previousPosition = transform.position;
             EndDash();
             ClearInput();
@@ -386,6 +394,7 @@ namespace EasternFantasy.Player
                     }
             }
 
+            UpdateLandingAudio();
             Vector2 velocity = body.linearVelocity;
             float moveSpeed = playerEntity != null ? playerEntity.Speed : settings.MoveSpeed;
             bool canMove = playerEntity == null || (!playerEntity.IsDead && !playerEntity.isKnockback);
@@ -413,6 +422,8 @@ namespace EasternFantasy.Player
             {
                 bool dropping = dropThroughRequested && TryDropThrough();
                 lastJumpStartedAt = dropping ? float.NegativeInfinity : Time.time;
+                landingPending = !dropping;
+                landingAirborne = false;
                 float heightBonus = inventory != null ? inventory.EquippedJumpHeightBonus : 0f;
                 velocity.y = dropping ? -settings.DropThroughSpeed
                     : settings.JumpSpeed * Mathf.Sqrt(1f + heightBonus);
@@ -435,12 +446,37 @@ namespace EasternFantasy.Player
         private void OnDisable()
         {
             lastJumpStartedAt = float.NegativeInfinity;
+            landingPending = landingAirborne = false;
+            if (landingAudio != null) landingAudio.Stop();
             RestoreEnemyPassThrough(true);
             EndDash();
             RestorePlatformCollisions(true);
             SetMovementLocked(false);
             ClearInput();
             if (body != null) body.linearVelocity = new Vector2(0f, body.linearVelocity.y);
+        }
+
+        private void UpdateLandingAudio()
+        {
+            if (!landingPending) return;
+            if (playerEntity != null && playerEntity.IsDead) { landingPending = false; return; }
+            if (!IsGrounded) { landingAirborne = true; return; }
+            if (!landingAirborne) return;
+            landingPending = landingAirborne = false;
+            if (landingSound == null) return;
+            if (landingAudio == null)
+            {
+                var child = new GameObject("Landing Audio");
+                child.transform.SetParent(transform, false);
+                landingAudio = child.AddComponent<AudioSource>();
+                landingAudio.playOnAwake = false;
+                landingAudio.loop = false;
+                landingAudio.spatialBlend = 0f;
+            }
+            landingAudio.clip = landingSound;
+            landingAudio.volume = landingVolume;
+            landingAudio.time = 0f;
+            landingAudio.Play();
         }
     }
 }

@@ -1,0 +1,65 @@
+{
+  "prefabControllerConnected": true,
+  "sampledFrames": [
+    {
+      "frame": 0,
+      "sprite": "DosaWalkSideV2_00",
+      "expected": "DosaWalkSideV2_00",
+      "valid": true,
+      "flipX": false
+    },
+    {
+      "frame": 1,
+      "sprite": "DosaWalkSideV2_01",
+      "expected": "DosaWalkSideV2_01",
+      "valid": true,
+      "flipX": false
+    },
+    {
+      "frame": 2,
+      "sprite": "DosaWalkSideV2_02",
+      "expected": "DosaWalkSideV2_02",
+      "valid": true,
+      "flipX": false
+    },
+    {
+      "frame": 3,
+      "sprite": "DosaWalkSideV2_03",
+      "expected": "DosaWalkSideV2_03",
+      "valid": true,
+      "flipX": false
+    },
+    {
+      "frame": 4,
+      "sprite": "DosaWalkSideV2_04",
+      "expected": "DosaWalkSideV2_04",
+      "valid": true,
+      "flipX": false
+    },
+    {
+      "frame": 5,
+      "sprite": "DosaWalkSideV2_05",
+      "expected": "DosaWalkSideV2_05",
+      "valid": true,
+      "flipX": false
+    },
+    {
+      "frame": 6,
+      "sprite": "DosaWalkSideV2_06",
+      "expected": "DosaWalkSideV2_06",
+      "valid": true,
+      "flipX": false
+    },
+    {
+      "frame": 7,
+      "sprite": "DosaWalkSideV2_07",
+      "expected": "DosaWalkSideV2_07",
+      "valid": true,
+      "flipX": false
+    }
+  ],
+  "maxGroundError": 1.46933754E-08,
+  "duration": 1.0,
+  "frameRate": 8.0,
+  "loop": true
+}

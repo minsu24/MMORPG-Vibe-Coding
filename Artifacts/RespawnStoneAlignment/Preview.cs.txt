@@ -1,0 +1,16 @@
+string stage="STAGE";
+string[][] clips={new[]{"Assets/_Project/Animations/RespornStone.anim","Assets/_Project/Animations/ActiveRespornStone.anim"},new[]{"Assets/_Project/Animations/Old Temple/InActiveTempleRespornStone.anim","Assets/_Project/Animations/Old Temple/TempleRespornStone.anim"}};
+var root=new UnityEngine.GameObject("Stone alignment preview");root.layer=31;root.transform.position=new UnityEngine.Vector3(10000,0,0);var sr=root.AddComponent<UnityEngine.SpriteRenderer>();sr.sortingOrder=32760;sr.sharedMaterial=new UnityEngine.Material(UnityEngine.Shader.Find("Sprites/Default"));
+var cameraGO=new UnityEngine.GameObject("Stone preview camera");var camera=cameraGO.AddComponent<UnityEngine.Camera>();camera.transform.position=new UnityEngine.Vector3(10000,0,-10);camera.orthographic=true;camera.cullingMask=1<<31;camera.clearFlags=UnityEngine.CameraClearFlags.SolidColor;camera.backgroundColor=new UnityEngine.Color(.12f,.14f,.16f,1);var rt=new UnityEngine.RenderTexture(320,640,24);var previous=UnityEngine.RenderTexture.active;
+try{
+for(int family=0;family<2;family++){
+ camera.orthographicSize=family==0?2.35f:4.4f;var sheet=new UnityEngine.Texture2D(1280,640,UnityEngine.TextureFormat.RGB24,false);
+ for(int column=0;column<4;column++){
+  var clip=UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.AnimationClip>(clips[family][column/2]);clip.SampleAnimation(root,column%2==0?0:7f/6f+.001f);camera.targetTexture=rt;camera.Render();UnityEngine.RenderTexture.active=rt;var tile=new UnityEngine.Texture2D(320,640,UnityEngine.TextureFormat.RGB24,false);tile.ReadPixels(new UnityEngine.Rect(0,0,320,640),0,0);tile.Apply();sheet.SetPixels(column*320,0,320,640,tile.GetPixels());UnityEngine.Object.DestroyImmediate(tile);
+ }
+ float baseline=family==0?-1.6575f:-2.64f;int gy=UnityEngine.Mathf.RoundToInt((baseline/camera.orthographicSize+1)*320);
+ for(int x=0;x<1280;x++)if(x%10<5)sheet.SetPixel(x,gy,new UnityEngine.Color(.25f,.85f,.55f));
+ sheet.Apply();System.IO.File.WriteAllBytes("Artifacts/RespawnStoneAlignment/"+(family==0?"Village":"Temple")+"_"+stage+".png",sheet.EncodeToPNG());UnityEngine.Object.DestroyImmediate(sheet);
+}
+}finally{camera.targetTexture=null;UnityEngine.RenderTexture.active=previous;rt.Release();UnityEngine.Object.DestroyImmediate(rt);UnityEngine.Object.DestroyImmediate(sr.sharedMaterial);UnityEngine.Object.DestroyImmediate(root);UnityEngine.Object.DestroyImmediate(cameraGO);}
+return "Rendered activation first/last and loop first/last previews.";

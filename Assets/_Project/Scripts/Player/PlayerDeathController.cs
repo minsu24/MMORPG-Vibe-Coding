@@ -101,6 +101,7 @@ namespace EasternFantasy.Player
             DeathScreenUI screen = deathUi.GetComponent<DeathScreenUI>();
             if (screen != null)
                 screen.Configure(isFirstDeath, SceneManager.GetActiveScene().name == TutorialScene);
+            EasternFantasy.Dungeon.DungeonRunController.Instance?.NotifyFailureDisplayed();
             Button respawnButton = deathUi.GetComponentInChildren<Button>(true);
             if (respawnButton != null)
                 respawnButton.onClick.AddListener(Respawn);

@@ -1,0 +1,15 @@
+﻿var scene=UnityEditor.SceneManagement.EditorSceneManager.NewPreviewScene();float oldVolume=AudioListener.volume;float oldTime=Time.timeScale;var oldRandom=UnityEngine.Random.state;
+try{
+ AudioListener.volume=0;Time.timeScale=1;
+ var root=new GameObject("Boar Charge Audio Validation");UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(root,scene);var audio=root.AddComponent<BoarChargeAudio>();
+ var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;var type=typeof(BoarChargeAudio);var tick=type.GetMethod("Tick",flags);var timer=type.GetField("nextFoot",flags);
+ audio.BeginWarning();var sources=(AudioSource[])type.GetField("sources",flags).GetValue(audio);
+ bool grunt=sources[2].clip.name=="BoarGrunt"&&sources[2].isPlaying&&Math.Abs(sources[2].time-2f)<.05;
+ tick.Invoke(audio,new object[]{.19f});bool before=!sources[0].isPlaying;tick.Invoke(audio,new object[]{.02f});bool scrape=before&&sources[0].isPlaying&&sources[0].clip.name=="BoarScrape"&&Math.Abs((float)timer.GetValue(audio)-.49f)<.001;
+ audio.BeginCharge();bool transition=!sources[2].isPlaying&&(sources[0].isPlaying||sources[1].isPlaying)&&sources.Any(s=>s.clip!=null&&s.clip.name.StartsWith("BoarStep")&&s.isPlaying);
+ var intervals=new System.Collections.Generic.HashSet<int>();var clips=new System.Collections.Generic.HashSet<string>();for(int i=0;i<20;i++){tick.Invoke(audio,new object[]{.3f});float interval=(float)timer.GetValue(audio);if(interval<.14f||interval>.26f)throw new Exception("Foot cadence out of bounds");intervals.Add(Mathf.RoundToInt(interval*1000));foreach(var source in sources.Take(2))if(source.clip!=null)clips.Add(source.clip.name);}
+ Time.timeScale=0;tick.Invoke(audio,new object[]{1f});bool paused=sources.All(s=>!s.isPlaying);Time.timeScale=1;tick.Invoke(audio,new object[]{0f});bool resumed=sources.Take(2).Any(s=>s.isPlaying);
+ audio.PlayImpact();bool impact=sources[3].isPlaying&&sources[3].clip.name=="ChargePlayerImpact";sources[3].time=.3f;audio.PlayImpact();bool once=sources[3].time>.25f;
+ audio.EndCharge();bool stop=sources.Take(3).All(s=>!s.isPlaying)&&sources[3].isPlaying;type.GetMethod("OnDisable",flags).Invoke(audio,null);bool cleanup=sources.All(s=>!s.isPlaying);
+ var result=Newtonsoft.Json.JsonConvert.SerializeObject(new{gruntStartsAtTwoSeconds=grunt,scrapeMatchesPawTiming=scrape,chargeSwitchesToFootsteps=transition,irregularIntervals=intervals.Count>1,variedSteps=clips.Count>1,pauseStopsAll=paused,resumeRestoresFeet=resumed,playerHitSound=impact,oneImpactPerCharge=once,endStopsStepsAndGrunt=stop,disableStopsAll=cleanup});System.IO.File.WriteAllText("Artifacts/BoarChargeAudio/validation.json",result);return result;
+}finally{UnityEditor.SceneManagement.EditorSceneManager.ClosePreviewScene(scene);AudioListener.volume=oldVolume;Time.timeScale=oldTime;UnityEngine.Random.state=oldRandom;}

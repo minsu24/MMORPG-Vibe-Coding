@@ -18,6 +18,8 @@ namespace EasternFantasy.UI
         private Vector2 restingPosition;
         private Vector3 restingScale;
         private bool prepared;
+        private AudioSource restrictionAudio;
+        private AudioClip restrictionSound;
         public bool IsVisible => panel != null && panel.gameObject.activeSelf;
         public string CurrentMessage => messageText != null ? messageText.text : string.Empty;
 
@@ -35,6 +37,11 @@ namespace EasternFantasy.UI
             if (instance == null) instance = FindFirstObjectByType<SystemNoticeUI>();
             if (instance != null) instance.Present(message, owner);
         }
+        public static void ShowFailure(string message, Object owner = null)
+        {
+            if (instance == null) instance = FindFirstObjectByType<SystemNoticeUI>();
+            if (instance != null) instance.Present(message, owner, true);
+        }
         public static void Hide(Object owner)
         {
             if (instance != null && instance.messageOwner == owner) instance.HideInstant();
@@ -47,7 +54,7 @@ namespace EasternFantasy.UI
             restingPosition = rect.anchoredPosition;
             restingScale = rect.localScale;
         }
-        public void Present(string message, Object owner = null)
+        public void Present(string message, Object owner = null, bool restriction = false)
         {
             if (panel == null || messageText == null || string.IsNullOrWhiteSpace(message)) return;
             Prepare();
@@ -61,6 +68,7 @@ namespace EasternFantasy.UI
             panel.interactable = false;
             panel.blocksRaycasts = false;
             panel.gameObject.SetActive(true);
+            if (restriction) PlayRestrictionSound();
             sequence = DOTween.Sequence().SetUpdate(true);
             sequence.Append(panel.DOFade(visibleOpacity, .14f).SetEase(Ease.OutQuad));
             sequence.Join(rect.DOAnchorPos(restingPosition, .18f).SetEase(Ease.OutCubic));
@@ -72,6 +80,7 @@ namespace EasternFantasy.UI
         }
         public void HideInstant()
         {
+            if (restrictionAudio != null) restrictionAudio.Stop();
             sequence?.Kill();
             sequence = null;
             messageOwner = null;
@@ -82,6 +91,23 @@ namespace EasternFantasy.UI
             var rect = (RectTransform)panel.transform;
             rect.anchoredPosition = restingPosition;
             rect.localScale = restingScale;
+        }
+        private void PlayRestrictionSound()
+        {
+            if (restrictionSound == null) restrictionSound = Resources.Load<AudioClip>("Audio/UpgradeInsufficient");
+            if (restrictionSound == null) return;
+            if (restrictionAudio == null)
+            {
+                restrictionAudio = gameObject.AddComponent<AudioSource>();
+                restrictionAudio.playOnAwake = false;
+                restrictionAudio.loop = false;
+                restrictionAudio.spatialBlend = 0f;
+                restrictionAudio.ignoreListenerPause = true;
+                restrictionAudio.volume = .4f;
+                restrictionAudio.clip = restrictionSound;
+            }
+            // Repeated attempts share one voice instead of stacking loud one-shots.
+            if (!restrictionAudio.isPlaying) restrictionAudio.Play();
         }
         private void SceneChanged(Scene before, Scene next) => HideInstant();
         private void OnDisable() => HideInstant();

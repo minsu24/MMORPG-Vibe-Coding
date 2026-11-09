@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using EasternFantasy.Player;
 using UnityEngine;
@@ -169,8 +169,7 @@ namespace EasternFantasy.Skill
                 EnemyController enemy = hitBuffer[i] != null
                     ? hitBuffer[i].GetComponentInParent<EnemyController>() : null;
                 if (enemy == null || enemy.HP <= 0f || !hitEnemies.Add(enemy)) continue;
-                Vector3 textPosition = enemy.textSpawnPoint != null
-                    ? enemy.textSpawnPoint.position : enemy.transform.position;
+                Vector3 textPosition = enemy.DamageTextPosition;
                 GameObject textPrefab = enemy.damageTextPrefab;
                 float before = enemy.HP;
                 entity.NotifyAttackTarget(enemy);

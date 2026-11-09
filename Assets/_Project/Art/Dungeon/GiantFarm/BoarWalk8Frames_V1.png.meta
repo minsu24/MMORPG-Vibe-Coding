@@ -1,0 +1,665 @@
+fileFormatVersion: 2
+guid: 96c2d2d37f8929f4ea8bd2563c2c7d89
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6400046714136877549
+    second: BoarWalk8Frames_V1_0
+  - first:
+      213: 4643417873912211976
+    second: BoarWalk8Frames_V1_1
+  - first:
+      213: 4614542105038738892
+    second: BoarWalk8Frames_V1_2
+  - first:
+      213: -4714879181104326931
+    second: BoarWalk8Frames_V1_3
+  - first:
+      213: 7783954783873186376
+    second: BoarWalk8Frames_V1_4
+  - first:
+      213: -7621207352490348020
+    second: BoarWalk8Frames_V1_5
+  - first:
+      213: 2309717592323569534
+    second: BoarWalk8Frames_V1_6
+  - first:
+      213: 3337425979620176869
+    second: BoarWalk8Frames_V1_7
+  - first:
+      213: 6189227838090311853
+    second: BoarWalk8Frames_V1_8
+  - first:
+      213: 9465818501684918
+    second: BoarWalk8Frames_V1_9
+  - first:
+      213: -7954467312963602643
+    second: BoarWalk8Frames_V1_10
+  - first:
+      213: -8426396073996040990
+    second: BoarWalk8Frames_V1_11
+  - first:
+      213: -5813319046729995503
+    second: BoarWalk8Frames_V1_12
+  - first:
+      213: 5079594893879987962
+    second: BoarWalk8Frames_V1_13
+  - first:
+      213: -2663136226572965510
+    second: BoarWalk8Frames_V1_14
+  - first:
+      213: 5691382029822292773
+    second: BoarWalk8Frames_V1_15
+  - first:
+      213: 8488642208860140242
+    second: BoarWalk8Frames_V1_16
+  - first:
+      213: -4647037463683774172
+    second: BoarWalk8Frames_V1_17
+  - first:
+      213: 3248311007881720024
+    second: BoarWalk8Frames_V1_18
+  - first:
+      213: 915629245437051770
+    second: BoarWalk8Frames_V1_19
+  - first:
+      213: -7045327120105070168
+    second: BoarWalk8Frames_V1_20
+  - first:
+      213: -6754491212520933173
+    second: BoarWalk8Frames_V1_21
+  - first:
+      213: -9078361671658617340
+    second: BoarWalk8Frames_V1_22
+  - first:
+      213: 4239090550021496302
+    second: BoarWalk8Frames_V1_23
+  - first:
+      213: -401102601965678913
+    second: BoarWalk8Frames_V1_24
+  - first:
+      213: 2148317919753596253
+    second: BoarWalk8Frames_V1_25
+  - first:
+      213: 7766886815520017866
+    second: BoarWalk8Frames_V1_26
+  - first:
+      213: 6025533963626484059
+    second: BoarWalk8Frames_V1_27
+  - first:
+      213: 3767839311560356176
+    second: BoarWalk8Frames_V1_28
+  - first:
+      213: -3788366187466642699
+    second: BoarWalk8Frames_V1_29
+  - first:
+      213: -785874939123440823
+    second: BoarWalk8Frames_V1_30
+  - first:
+      213: -4595134331369844203
+    second: BoarWalk8Frames_V1_31
+  - first:
+      213: 172668401764327707
+    second: BoarWalk8Frames_V1_32
+  - first:
+      213: -7239305393100777653
+    second: BoarWalk8Frames_V1_33
+  - first:
+      213: -4487740699844776447
+    second: BoarWalk8Frames_V1_34
+  - first:
+      213: 1036160771442848291
+    second: BoarWalk8Frames_V1_35
+  - first:
+      213: -6045538620518774977
+    second: BoarWalk8Frames_V1_36
+  - first:
+      213: -1498084821887616609
+    second: BoarWalk8Frames_V1_37
+  - first:
+      213: -3541824175682692910
+    second: BoarWalk8Frames_V1_38
+  - first:
+      213: 388512606335030709
+    second: BoarWalk8Frames_V1_39
+  - first:
+      213: 7641945275871151660
+    second: BoarWalk8Frames_V1_40
+  - first:
+      213: -5384331306606762303
+    second: BoarWalk8Frames_V1_41
+  - first:
+      213: 1625201608976244163
+    second: BoarWalk8Frames_V1_42
+  - first:
+      213: 3043730485559142298
+    second: BoarWalk8Frames_V1_43
+  - first:
+      213: 4285491908851675623
+    second: BoarWalk8Frames_V1_44
+  - first:
+      213: 3129089630804433607
+    second: BoarWalk8Frames_V1_45
+  - first:
+      213: 1386765063173025705
+    second: BoarWalk8Frames_V1_46
+  - first:
+      213: 1782164648647511687
+    second: BoarWalk8Frames_V1_47
+  - first:
+      213: -1377301329728420290
+    second: BoarWalk8Frames_V1_48
+  - first:
+      213: -8276782416954249889
+    second: BoarWalk8Frames_V1_49
+  - first:
+      213: 3678971635338128543
+    second: BoarWalk8Frames_V1_50
+  - first:
+      213: -3040379301137718241
+    second: BoarWalk8Frames_V1_51
+  - first:
+      213: -2783385315180323342
+    second: BoarWalk8Frames_V1_52
+  - first:
+      213: 4871571476507539463
+    second: BoarWalk8Frames_V1_53
+  - first:
+      213: 1522158106133328785
+    second: BoarWalk8Frames_V1_54
+  - first:
+      213: -1437074768100554411
+    second: BoarWalk8Frames_V1_55
+  - first:
+      213: -6596027462494673242
+    second: BoarWalk8Frames_V1_56
+  - first:
+      213: -397240263454143480
+    second: BoarWalk8Frames_V1_57
+  - first:
+      213: 6786802836550282050
+    second: BoarWalk8Frames_V1_58
+  - first:
+      213: 4706511474131611505
+    second: BoarWalk8Frames_V1_59
+  - first:
+      213: -5112125936574429583
+    second: BoarWalk8Frames_V1_60
+  - first:
+      213: 2051644870075126954
+    second: BoarWalk8Frames_V1_61
+  - first:
+      213: 4231648256224834218
+    second: BoarWalk8Frames_V1_62
+  - first:
+      213: -5018587955275311586
+    second: BoarWalk8Frames_V1_63
+  - first:
+      213: 9202866339078997586
+    second: BoarWalk8Frames_V1_64
+  - first:
+      213: -8294576396849799783
+    second: BoarWalk8Frames_V1_65
+  - first:
+      213: -7175619227289510308
+    second: BoarWalk8Frames_V1_66
+  - first:
+      213: 6208785179971870310
+    second: BoarWalk8Frames_V1_67
+  - first:
+      213: 3517835951918715513
+    second: BoarWalk8Frames_V1_68
+  - first:
+      213: -846803399577343187
+    second: BoarWalk8Frames_V1_69
+  - first:
+      213: -3312495567793406441
+    second: BoarWalk8Frames_V1_70
+  - first:
+      213: 7820780294714094378
+    second: BoarWalk8Frames_V1_71
+  - first:
+      213: -9161478558488061964
+    second: BoarWalk8Frames_V1_72
+  - first:
+      213: -894886005415384179
+    second: BoarWalk8Frames_V1_73
+  - first:
+      213: -5649733285129632533
+    second: BoarWalk8Frames_V1_74
+  - first:
+      213: 7640209965533819831
+    second: BoarWalk8Frames_V1_75
+  - first:
+      213: 3332008487807106331
+    second: BoarWalk8Frames_V1_76
+  - first:
+      213: 7687505870883264553
+    second: BoarWalk8Frames_V1_77
+  - first:
+      213: 7538980524873107784
+    second: BoarWalk8Frames_V1_78
+  - first:
+      213: -8091843676569793065
+    second: BoarWalk8Frames_V1_79
+  - first:
+      213: -8179743829868403104
+    second: BoarWalk8Frames_V1_80
+  - first:
+      213: 547840039061408912
+    second: BoarWalk8Frames_V1_81
+  - first:
+      213: 7076113570398986633
+    second: BoarWalk8Frames_V1_82
+  - first:
+      213: 4485285633103856515
+    second: BoarWalk8Frames_V1_83
+  - first:
+      213: -8663862188547391081
+    second: BoarWalk8Frames_V1_84
+  - first:
+      213: -7329102758319122340
+    second: BoarWalk8Frames_V1_85
+  - first:
+      213: -8558146512491014411
+    second: BoarWalk8Frames_V1_86
+  - first:
+      213: 3364911650826511222
+    second: BoarWalk8Frames_V1_87
+  - first:
+      213: 2182198130906343461
+    second: BoarWalk8Frames_V1_88
+  - first:
+      213: -106547607998419921
+    second: BoarWalk8Frames_V1_89
+  - first:
+      213: 8593198463148996833
+    second: BoarWalk8Frames_V1_90
+  - first:
+      213: -8464846353173469415
+    second: BoarWalk8Frames_V1_91
+  - first:
+      213: 8093597597377561722
+    second: BoarWalk8Frames_V1_92
+  - first:
+      213: 9210702851753518889
+    second: BoarWalk8Frames_V1_93
+  - first:
+      213: 4776391605758636686
+    second: BoarWalk8Frames_V1_94
+  - first:
+      213: 7579813798172622972
+    second: BoarWalk8Frames_V1_95
+  - first:
+      213: -2075327191687392755
+    second: BoarWalk8Frames_V1_96
+  - first:
+      213: 4923911646807402363
+    second: BoarWalk8Frames_V1_97
+  - first:
+      213: 1582886515536369911
+    second: BoarWalk8Frames_V1_98
+  - first:
+      213: 8374559495248929825
+    second: BoarWalk8Frames_V1_99
+  - first:
+      213: -4496800758460887151
+    second: BoarWalk8Frames_V1_100
+  - first:
+      213: 7406093169267446969
+    second: BoarWalk8Frames_V1_101
+  - first:
+      213: -8553121372202208423
+    second: BoarWalk8Frames_V1_102
+  - first:
+      213: 1949692908790742812
+    second: BoarWalk8Frames_V1_103
+  - first:
+      213: -7093263064723304923
+    second: BoarWalk8Frames_V1_104
+  - first:
+      213: -3024795783196603477
+    second: BoarWalk8Frames_V1_105
+  - first:
+      213: -6613915710921586292
+    second: BoarWalk8Frames_V1_106
+  - first:
+      213: 4027344087740995570
+    second: BoarWalk8Frames_V1_107
+  - first:
+      213: 165508432900455730
+    second: BoarWalk8Frames_V1_108
+  - first:
+      213: 293808341726613810
+    second: BoarWalk8Frames_V1_109
+  - first:
+      213: -481814278456886647
+    second: BoarWalk8Frames_V1_110
+  - first:
+      213: 8408890541958503582
+    second: BoarWalk8Frames_V1_111
+  - first:
+      213: 690891471283837488
+    second: BoarWalk8Frames_V1_112
+  - first:
+      213: 8955895799989314584
+    second: BoarWalk8Frames_V1_113
+  - first:
+      213: 3625670550037968145
+    second: BoarWalk8Frames_V1_114
+  - first:
+      213: 8936212229096872371
+    second: BoarWalk8Frames_V1_115
+  - first:
+      213: -6613797462731895421
+    second: BoarWalk8Frames_V1_116
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 71.15069
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BoarWalk8Frames_V1_0
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 493
+        width: 377
+        height: 339
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49444345}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31627f12c677e27a0800000000000000
+      internalID: -6400046714136877549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoarWalk8Frames_V1_1
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 494
+        width: 366
+        height: 341
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4915435}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80aac3654fbb07040800000000000000
+      internalID: 4643417873912211976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoarWalk8Frames_V1_2
+      rect:
+        serializedVersion: 2
+        x: 940
+        y: 496
+        width: 362
+        height: 341
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4915435}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc5daeb78952a0040800000000000000
+      internalID: 4614542105038738892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoarWalk8Frames_V1_3
+      rect:
+        serializedVersion: 2
+        x: 1387
+        y: 494
+        width: 358
+        height: 343
+      alignment: 9
+      pivot: {x: 0.5, y: 0.48867735}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de654638d52619eb0800000000000000
+      internalID: -4714879181104326931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoarWalk8Frames_V1_4
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 49
+        width: 361
+        height: 343
+      alignment: 9
+      pivot: {x: 0.5, y: 0.48867726}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84ab67082a9260c60800000000000000
+      internalID: 7783954783873186376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoarWalk8Frames_V1_5
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 48
+        width: 364
+        height: 342
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49010614}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c02b733ba480c3690800000000000000
+      internalID: -7621207352490348020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoarWalk8Frames_V1_6
+      rect:
+        serializedVersion: 2
+        x: 936
+        y: 48
+        width: 368
+        height: 342
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49010614}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e77baeda9e3cd0020800000000000000
+      internalID: 2309717592323569534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoarWalk8Frames_V1_7
+      rect:
+        serializedVersion: 2
+        x: 1374
+        y: 53
+        width: 373
+        height: 338
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49590623}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e3bb6bfe3be05e20800000000000000
+      internalID: 3337425979620176869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 2d8291d27934ef74a895574f32c557d8
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BoarWalk8Frames_V1_0: -6400046714136877549
+      BoarWalk8Frames_V1_1: 4643417873912211976
+      BoarWalk8Frames_V1_2: 4614542105038738892
+      BoarWalk8Frames_V1_3: -4714879181104326931
+      BoarWalk8Frames_V1_4: 7783954783873186376
+      BoarWalk8Frames_V1_5: -7621207352490348020
+      BoarWalk8Frames_V1_6: 2309717592323569534
+      BoarWalk8Frames_V1_7: 3337425979620176869
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,55 @@
+{
+  "driverCompiled": true,
+  "cases": [
+    {
+      "test": "rise reaches fourth frame before apex",
+      "expected": "도사 점프 찐_3",
+      "actual": "도사 점프 찐_3",
+      "passed": true
+    },
+    {
+      "test": "long rise holds fourth frame",
+      "expected": "도사 점프 찐_3",
+      "actual": "도사 점프 찐_3",
+      "passed": true
+    },
+    {
+      "test": "zero velocity at apex holds fourth frame",
+      "expected": "도사 점프 찐_3",
+      "actual": "도사 점프 찐_3",
+      "passed": true
+    },
+    {
+      "test": "negative velocity switches to fifth frame",
+      "expected": "도사 점프 찐_4",
+      "actual": "도사 점프 찐_4",
+      "passed": true
+    },
+    {
+      "test": "fall holds fifth frame",
+      "expected": "도사 점프 찐_4",
+      "actual": "도사 점프 찐_4",
+      "passed": true
+    },
+    {
+      "test": "landing returns idle",
+      "passed": true
+    },
+    {
+      "test": "ledge fall enters fifth frame directly",
+      "expected": "도사 점프 찐_4",
+      "actual": "도사 점프 찐_4",
+      "passed": true
+    },
+    {
+      "test": "air movement preserves falling pose",
+      "expected": "도사 점프 찐_4",
+      "actual": "도사 점프 찐_4",
+      "passed": true
+    },
+    {
+      "test": "moving landing returns walk",
+      "passed": true
+    }
+  ]
+}

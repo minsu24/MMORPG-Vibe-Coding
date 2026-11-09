@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +23,7 @@ namespace EasternFantasy.Saving
         public string[] unlockedPortalDialogues;
         public string[] visitedRegions, visitedScenes, knownScenes, presentedScenes, codex;
         public bool inventoryTutorial, statsTutorial, mapTutorial, companionTutorial, companionGuide, firstDeathGuide;
+        public bool soulstoneActivated, soulstoneTutorial, soulstoneVillageAwakened;
         public string companionsJson;
         public bool shopTutorial, dungeonTutorial, upgradeTutorial;
         public bool dungeonDiscovered;

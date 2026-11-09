@@ -156,6 +156,8 @@ public sealed class FarmCartAttack : EnemyController
         warning.sortingOrder = spriteRenderer.sortingOrder + 1;
         warning.color = new Color(1f, 0.8f, 0.45f, 0.6f);
         warningEnds = Time.time + warningDuration;
+        // The original clip's quiet lead-in is longer than this warning phase.
+        FarmCartPhaseAudio.Play(go, "Audio/FarmCartWarningLoop", .3f, true);
     }
 
     private void FirePendingShot()
@@ -174,6 +176,7 @@ public sealed class FarmCartAttack : EnemyController
 
     private void ClearWarning()
     {
+        if (warning != null) warning.GetComponent<FarmCartPhaseAudio>()?.Stop();
         if (warning != null) Destroy(warning.gameObject);
         warning = null;
     }

@@ -144,6 +144,8 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: ae6fc4623d1d48ca820f48c2d24cc54a, type: 3}
   jumpVolume: 0.25
   jumpPitch: 1
+  landingSound: {fileID: 0}
+  landingVolume: 0.3
   body: {fileID: 0}
 --- !u!114 &4975863889217955417
 MonoBehaviour:
@@ -777,7 +779,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 29
   m_MaskInteraction: 0
   m_Sprite: {fileID: -66257555155154971, guid: 1e97bf599671765468d6f4d4ed33a837, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

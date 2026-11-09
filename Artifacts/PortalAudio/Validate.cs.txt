@@ -1,0 +1,21 @@
+﻿var scene=UnityEditor.SceneManagement.EditorSceneManager.NewPreviewScene();
+try{
+ var root=new GameObject("Portal Seal Audio Validation",typeof(SpriteRenderer),typeof(Animator),typeof(PortalSealAudioEvents));UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(root,scene);
+ var events=root.GetComponent<PortalSealAudioEvents>();var animator=root.GetComponent<Animator>();animator.runtimeAnimatorController=UnityEditor.AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>("Assets/_Project/Animations/PortalSeal/PortalSeal.controller");animator.cullingMode=AnimatorCullingMode.AlwaysAnimate;animator.updateMode=AnimatorUpdateMode.UnscaledTime;
+ events.PortalSealTension();bool restoredSealSilent=root.GetComponentsInChildren<AudioSource>(true).Length==0;
+ events.Begin();animator.Rebind();animator.Play("Unlock",0,0);animator.Update(0);
+ Func<string,int> count=name=>root.GetComponentsInChildren<AudioSource>(true).Count(s=>s.clip!=null&&s.clip.name==name);
+ Action mute=()=>{foreach(var source in root.GetComponentsInChildren<AudioSource>(true))source.mute=true;};
+ animator.Update(.16f);bool beforeRed=count("PortalSealTension")==0;
+ animator.Update(.02f);mute();bool red=count("PortalSealTension")==1&&count("PortalChainsBreak")==0;
+ animator.Update(.16f);mute();bool chains=count("PortalChainsBreak")==1&&count("PortalSealBreak")==0;
+ animator.Update(.17f);mute();bool broken=count("PortalSealBreak")==1;
+ events.PortalSealTension();events.PortalSealChainsBreak();events.PortalSealLockBreak();bool once=count("PortalSealTension")==1&&count("PortalChainsBreak")==1&&count("PortalSealBreak")==1;
+ var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;var advance=typeof(PortalAudioCue).GetMethod("Advance",flags);
+ var tension=root.GetComponentsInChildren<PortalAudioCue>(true).First(c=>c.GetComponent<AudioSource>().clip.name=="PortalSealTension");advance.Invoke(tension,new object[]{.33f});bool shortCue=tension==null||!tension.gameObject.activeSelf;
+ var enter=PortalAudioCue.Play("Audio/PortalEnter",.45f,.7f,owner:root.transform);enter.GetComponent<AudioSource>().mute=true;var exit=PortalAudioCue.Play("Audio/PortalExit",.4f,.05f,owner:root.transform);exit.GetComponent<AudioSource>().mute=true;advance.Invoke(enter,new object[]{.05f});advance.Invoke(exit,new object[]{.05f});
+ bool loadingBypass=enter.GetComponent<AudioSource>().ignoreListenerPause&&exit.GetComponent<AudioSource>().ignoreListenerPause&&enter.GetComponent<AudioSource>().pitch==1&&exit.GetComponent<AudioSource>().volume>0;
+ events.StopSounds();bool cancelled=root.GetComponentsInChildren<AudioSource>(true).Where(s=>s.clip!=null&&s.clip.name.StartsWith("PortalSeal")).All(s=>!s.isPlaying);
+ enter.Stop();exit.Stop();
+ var result=Newtonsoft.Json.JsonConvert.SerializeObject(new{savedSealDoesNotReplay=restoredSealSilent,noSoundBeforeRed=beforeRed,redFrameCue=red,chainsFrameCue=chains,lockBreakFrameCue=broken,eachEventOnce=once,tensionShortened=shortCue,loadingPauseBypass=loadingBypass,cancellationStopsSealAudio=cancelled});System.IO.File.WriteAllText("Artifacts/PortalAudio/validation.json",result);return result;
+}finally{UnityEditor.SceneManagement.EditorSceneManager.ClosePreviewScene(scene);}

@@ -68,7 +68,7 @@ namespace EasternFantasy.UI
         private static void ResetTutorials() { tutorialCompletedClasses.Clear(); }
         public static EquipmentUpgradeWindowUI Instance { get; private set; }
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
-        public bool CanConfirm => confirmButton != null && confirmButton.interactable;
+        public bool CanConfirm => !committing && confirmButton != null && confirmButton.interactable;
         public ItemDefinition Target => target;
         public event Action<ItemDefinition> Upgraded;
 
@@ -101,6 +101,7 @@ namespace EasternFantasy.UI
         }
         public void Open()
         {
+            if (committing) return;
             if (MapTutorialUI.IsRunning || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning || IsTutorialRunning) return;
             Initialize();
             BindPlayer(FindFirstObjectByType<PlayerInventory>(), FindFirstObjectByType<PlayerCurrency>());
@@ -150,6 +151,7 @@ namespace EasternFantasy.UI
         }
         public void Close()
         {
+            if (committing) return;
             EndTutorial();
             if (closing) return;
             if (!IsOpen || !isActiveAndEnabled) { CloseInstant(); return; }
@@ -167,6 +169,7 @@ namespace EasternFantasy.UI
         }
         private void CloseInstant()
         {
+            CancelUpgradePresentation();
             EndTutorial();
             popupSequence?.Kill();
             popupSequence = null;
@@ -186,6 +189,7 @@ namespace EasternFantasy.UI
         private void Update()
         {
             if (!IsOpen) return;
+            if (committing) { TickUpgradePresentation(Time.unscaledDeltaTime); return; }
             if (IsTutorialRunning) { if (Keyboard.current?.spaceKey.wasPressedThisFrame == true) tutorial.Advance(); return; }
             if (inventory == null || currency == null) { Close(); return; }
             if (Keyboard.current?.escapeKey.wasPressedThisFrame == true) Close();
@@ -251,10 +255,10 @@ namespace EasternFantasy.UI
             Destroy(tutorialCanvas); tutorialCanvas = null; tutorial = null;
         }
 
-        private void SetPicker(bool equipment) { pickingEquipment = equipment; Refresh(); }
+        private void SetPicker(bool equipment) { if (committing) return; pickingEquipment = equipment; Refresh(); }
         public void SelectFromInventory(ItemDefinition item)
         {
-            if (IsTutorialRunning) return;
+            if (committing || IsTutorialRunning) return;
             if (item == null) return;
             if (item.Category == ItemCategory.Equipment && item.EquipmentSlot != EquipmentSlot.None) DropItem(item, -1);
             else
@@ -266,7 +270,7 @@ namespace EasternFantasy.UI
         }
         public void DropItem(ItemDefinition item, int materialIndex)
         {
-            if (IsTutorialRunning) return;
+            if (committing || IsTutorialRunning) return;
             if (inventory == null || item == null || inventory.GetQuantity(item) <= 0) return;
             if (materialIndex < 0)
             {
@@ -286,7 +290,7 @@ namespace EasternFantasy.UI
         }
         public void ClearSlot(int index)
         {
-            if (IsTutorialRunning) return;
+            if (committing || IsTutorialRunning) return;
             if (index < 0) { target = null; insertedMaterials.Clear(); }
             else if (index < requirements.Count) insertedMaterials.Remove(requirements[index].Key);
             messageText.text = ""; Refresh();
@@ -297,23 +301,19 @@ namespace EasternFantasy.UI
             if (committing || !IsOpen || closing || (windowGroup != null && !windowGroup.interactable)) return;
             confirmButton.GetComponent<UpgradeConfirmFeedback>()?.PlayFeedback(CanConfirm);
             committing = true;
+            bool presenting = false;
             try
             {
                 onConfirmClicked.Invoke();
                 if (!IsOpen || closing || (windowGroup != null && !windowGroup.interactable) || inventory == null || currency == null) return;
                 if (!inventory.CanUpgradeEquipment(target, currentRecipe, currency, out string error))
-                { messageText.text = error; return; }
+                { ShowUpgradeError(error); return; }
                 if (!AllMaterialsInserted())
-                { messageText.text = "필요한 재료를 모두 넣어 주세요."; return; }
-                if (!inventory.TryUpgradeEquipment(target, currentRecipe, currency, out var result, out error))
-                { messageText.text = error; return; }
-                target = result;
-                insertedMaterials.Clear();
-                messageText.text = result.GradedDisplayName + " 승급 완료!";
-                onUpgradeSucceeded.Invoke(result);
-                Upgraded?.Invoke(result);
+                { ShowUpgradeError("필요한 재료를 모두 넣어 주세요."); return; }
+                BeginUpgradePresentation();
+                presenting = true;
             }
-            finally { committing = false; Refresh(); }
+            finally { if (!presenting) { committing = false; Refresh(); } }
         }
         private bool AllMaterialsInserted()
         {
@@ -389,6 +389,7 @@ namespace EasternFantasy.UI
         private void OnDisable() => CloseInstant();
         private void OnDestroy()
         {
+            CancelUpgradePresentation();
             popupSequence?.Kill();
             BindPlayer(null, null);
             GameTimeController.SetPaused(this, false);

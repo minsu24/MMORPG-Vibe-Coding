@@ -1,0 +1,57 @@
+{
+  "prefabConnected": true,
+  "samples": [
+    {
+      "frame": 0,
+      "valid": true,
+      "flipX": false,
+      "sprite": "DosaWalkSideV3_00"
+    },
+    {
+      "frame": 1,
+      "valid": true,
+      "flipX": false,
+      "sprite": "DosaWalkSideV3_01"
+    },
+    {
+      "frame": 2,
+      "valid": true,
+      "flipX": false,
+      "sprite": "DosaWalkSideV3_02"
+    },
+    {
+      "frame": 3,
+      "valid": true,
+      "flipX": false,
+      "sprite": "DosaWalkSideV3_03"
+    },
+    {
+      "frame": 4,
+      "valid": true,
+      "flipX": false,
+      "sprite": "DosaWalkSideV3_04"
+    },
+    {
+      "frame": 5,
+      "valid": true,
+      "flipX": false,
+      "sprite": "DosaWalkSideV3_05"
+    },
+    {
+      "frame": 6,
+      "valid": true,
+      "flipX": false,
+      "sprite": "DosaWalkSideV3_06"
+    },
+    {
+      "frame": 7,
+      "valid": true,
+      "flipX": false,
+      "sprite": "DosaWalkSideV3_07"
+    }
+  ],
+  "maxFootBaselineError": 0.0,
+  "frameRate": 8.0,
+  "duration": 1.0,
+  "loop": true
+}

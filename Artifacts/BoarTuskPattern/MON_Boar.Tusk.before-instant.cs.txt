@@ -1,0 +1,148 @@
+using EasternFantasy.Player;
+using UnityEngine;
+
+public sealed partial class MON_Boar
+{
+    [Header("Tusk Uppercut")]
+    [SerializeField, Range(.1f, .99f)] private float tuskDamageMultiplier = .8f;
+    [SerializeField, Min(.5f)] private float tuskReach = 2.8f;
+    [SerializeField, Min(.1f)] private float tuskWarningDuration = .65f;
+    [SerializeField, Min(1f)] private float approachSpeed = 12f;
+    [SerializeField, Min(1f)] private float farChargeDistance = 18f;
+    private float tuskStarted;
+    private bool tuskHit;
+    public float TuskDamage => Attack_Power * tuskDamageMultiplier;
+
+    private void EnsureChargeAudio()
+    {
+        if (chargeAudio == null) chargeAudio = GetComponent<BoarChargeAudio>();
+        if (chargeAudio == null) chargeAudio = gameObject.AddComponent<BoarChargeAudio>();
+    }
+
+    private void LateUpdate()
+    {
+        if (chargeAudio == null || rb == null || CurrentPhase != ChargePhase.None) return;
+        bool moving = HP > 0f && !isKnockback && Mathf.Abs(rb.linearVelocity.x) > .1f && Mathf.Abs(rb.linearVelocity.y) < .3f;
+        chargeAudio.SetLocomotion(moving, Mathf.Abs(rb.linearVelocity.x));
+    }
+
+    private void BeginPattern(bool chargeSelected)
+    {
+        // Draw once with equal odds. A distant charge selection becomes an approach + uppercut.
+        float distance = Mathf.Abs(playerEntity.transform.position.x - rb.position.x);
+        if (chargeSelected && distance <= farChargeDistance) BeginCharge();
+        else if (IsInTuskRange()) BeginTuskWarning();
+        else BeginApproach();
+    }
+
+    private Bounds PlayerBounds()
+    {
+        var collider = playerEntity.GetComponent<Collider2D>();
+        return collider != null && collider.enabled ? collider.bounds : new Bounds(playerEntity.transform.position, Vector3.one);
+    }
+
+    private bool IsInTuskRange()
+    {
+        Bounds body = capsuleCollider2D.bounds, playerBody = PlayerBounds();
+        float gap = Mathf.Abs(playerBody.center.x - body.center.x) - body.extents.x - playerBody.extents.x;
+        return gap <= tuskReach * .6f && Mathf.Abs(playerBody.center.y - body.center.y) <= body.extents.y + playerBody.extents.y + .8f;
+    }
+
+    private void FaceTuskTarget()
+    {
+        chargeDirection = playerEntity.transform.position.x >= rb.position.x ? 1f : -1f;
+        Vector3 scale = transform.localScale;
+        scale.x = -Mathf.Abs(scale.x) * chargeDirection;
+        transform.localScale = scale;
+    }
+
+    private void BeginApproach()
+    {
+        EnsureChargeAudio();
+        isAttacking = true;
+        CurrentPhase = ChargePhase.Approaching;
+        phaseEnds = Time.time + 4f;
+        animator.speed = 1.7f;
+        animator.SetBool("isMoving", true);
+        animator.Play("BoarMove", 0, 0f);
+        FaceTuskTarget();
+    }
+
+    private void MoveIntoTuskRange()
+    {
+        if (!HasLivingPlayer || HP <= 0f) { FinishCharge(); return; }
+        if (IsInTuskRange()) { BeginTuskWarning(); return; }
+        FaceTuskTarget();
+        float speed = Mathf.Clamp(approachSpeed, .1f, chargeSpeed * .65f);
+        float desiredX = rb.position.x + chargeDirection * speed * Time.fixedDeltaTime;
+        if (arenaBounds != null)
+            desiredX = Mathf.Clamp(desiredX, arenaBounds.bounds.min.x + capsuleCollider2D.bounds.extents.x,
+                arenaBounds.bounds.max.x - capsuleCollider2D.bounds.extents.x);
+        float velocity = (desiredX - rb.position.x) / Time.fixedDeltaTime;
+        rb.linearVelocity = new Vector2(velocity, rb.linearVelocity.y);
+        chargeAudio.SetLocomotion(Mathf.Abs(velocity) > .1f && Mathf.Abs(rb.linearVelocity.y) < .3f, Mathf.Abs(velocity));
+    }
+
+    private Bounds TuskArea()
+    {
+        Bounds body = capsuleCollider2D.bounds;
+        float height = body.size.y + 1.3f;
+        return new Bounds(new Vector3(body.center.x + chargeDirection * (body.extents.x + tuskReach * .5f - .35f),
+            body.min.y + height * .5f, body.center.z), new Vector3(tuskReach, height, 1f));
+    }
+
+    private void BeginTuskWarning()
+    {
+        EnsureChargeAudio();
+        chargeAudio.EndCharge();
+        isAttacking = true;
+        CurrentPhase = ChargePhase.TuskWarning;
+        tuskHit = false;
+        FaceTuskTarget();
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        animator.speed = 1f;
+        animator.Play("BoarTuskWindup", 0, 0f);
+        Bounds area = TuskArea();
+        warning = GiantAttackVisual.CreateWarning(area.center, area.size, chargeDirection, spriteRenderer, tuskWarningDuration);
+        warning.gameObject.name = "Boar Tusk Warning";
+        phaseEnds = Time.time + tuskWarningDuration;
+    }
+
+    private void UpdateTuskPattern()
+    {
+        if (CurrentPhase == ChargePhase.Approaching)
+        {
+            if (IsInTuskRange()) BeginTuskWarning();
+            else if (Time.time >= phaseEnds) FinishCharge();
+            return;
+        }
+        if (Time.time < phaseEnds) return;
+        if (CurrentPhase == ChargePhase.TuskWarning)
+        {
+            ClearWarning();
+            CurrentPhase = ChargePhase.TuskAttacking;
+            tuskStarted = Time.time;
+            phaseEnds = Time.time + .55f;
+            animator.Play("BoarTuskAttack", 0, 0f);
+            chargeAudio.PlayTuskSwing();
+        }
+        else FinishCharge();
+    }
+
+    private void TryTuskHit()
+    {
+        float elapsed = Time.time - tuskStarted;
+        if (tuskHit || elapsed < .08f || elapsed > .28f) return;
+        Bounds area = TuskArea();
+        foreach (Collider2D collider in Physics2D.OverlapBoxAll(area.center, area.size, 0f, _playerLayer))
+        {
+            PlayerEntity entity = collider.GetComponentInParent<PlayerEntity>();
+            if (entity == null || entity.IsDead) continue;
+            tuskHit = true;
+            float before = entity.HP;
+            entity.TakeDamage(TuskDamage);
+            if (!entity.IsDead && entity.HP < before) entity.ApplyKnockback(chargeDirection);
+            break;
+        }
+    }
+}

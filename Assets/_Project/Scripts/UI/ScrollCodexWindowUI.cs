@@ -23,6 +23,7 @@ namespace EasternFantasy.UI
         }
         private void Update()
         {
+            if (SoulstoneWindowUI.IsOpen || SoulstoneTutorialUI.IsRunning) return;
             if (IsOpen) Fit();
             if (MapTutorialUI.IsRunning) return;
             var keyboard = Keyboard.current;

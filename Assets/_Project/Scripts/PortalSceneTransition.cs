@@ -12,7 +12,8 @@ public sealed class PortalSceneTransition : MonoBehaviour
     public static bool IsTransitioning => instance != null && instance.busy;
     private bool busy;
 
-    public static bool TryLoad(string sceneName, string spawnPointName, Action<bool> completed = null, bool showLoadingScreen = false)
+    public static bool TryLoad(string sceneName, string spawnPointName, Action<bool> completed = null,
+        bool showLoadingScreen = false, bool playPortalAudio = false)
     {
         if (IsTransitioning || SceneLoadingScreen.IsVisible) return false;
         if (string.IsNullOrWhiteSpace(sceneName) || !Application.CanStreamedLevelBeLoaded(sceneName))
@@ -28,11 +29,12 @@ public sealed class PortalSceneTransition : MonoBehaviour
         }
         EasternFantasy.Saving.SaveGameService.SaveNow(out _);
         instance.busy = true;
-        instance.StartCoroutine(instance.Transfer(sceneName, spawnPointName, completed, showLoadingScreen));
+        if (playPortalAudio) PortalAudioCue.Play("Audio/PortalEnter", .45f, .7f, 1.2f, persistent: true);
+        instance.StartCoroutine(instance.Transfer(sceneName, spawnPointName, completed, showLoadingScreen, playPortalAudio));
         return true;
     }
 
-    private IEnumerator Transfer(string sceneName, string spawnPointName, Action<bool> completed, bool showLoadingScreen)
+    private IEnumerator Transfer(string sceneName, string spawnPointName, Action<bool> completed, bool showLoadingScreen, bool playPortalAudio)
     {
         bool loaded = false;
         SceneLoadingScreen.Begin(showArtwork: showLoadingScreen);
@@ -71,7 +73,10 @@ public sealed class PortalSceneTransition : MonoBehaviour
                 SceneWorldState.CancelCapture();
                 MapTransferData.Clear();
             }
-            yield return SceneLoadingScreen.Finish();
+            yield return SceneLoadingScreen.Finish(() =>
+            {
+                if (loaded && playPortalAudio) PortalAudioCue.Play("Audio/PortalExit", .4f, .05f, .5f, persistent: true);
+            });
         }
         finally
         {

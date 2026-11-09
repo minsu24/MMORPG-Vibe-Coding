@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.IO;
 using EasternFantasy.Advancement;
@@ -165,6 +165,7 @@ namespace EasternFantasy.Saving
         }
         private static void RestoreWorld(SaveGameData data)
         {
+            SoulstoneProgress.RestoreSave(data);
             FirstDeathGuideCompleted = data.firstDeathGuide;
             PersistentBossController.RestoreSave(data); MON_Goblin.RestoreSave(data.goblinDefeats);
             DialogueTrigger.RestoreSave(data.playedDialogues); DialogueManager.RestoreSave(data.rewardedDialogues);
@@ -272,6 +273,7 @@ namespace EasternFantasy.Saving
             PetCompanionWindowUI.Instance?.CaptureSave(data); DungeonRunController.Instance?.CaptureSave(data);
             ShopWindowUI.CaptureSave(data); DungeonWindowUI.CaptureSave(data); EquipmentUpgradeWindowUI.CaptureSave(data);
             QuestSaveRecovery.RecoverMissingProgress(data);
+            SoulstoneProgress.CaptureSave(data);
             return data;
         }
         internal static SaveGameData Read(CharacterClassId id, out bool protectedFile)

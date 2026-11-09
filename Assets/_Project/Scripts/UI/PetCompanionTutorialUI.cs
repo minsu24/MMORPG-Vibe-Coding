@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,10 +23,17 @@ namespace EasternFantasy.UI
         private readonly Image[] borders = new Image[4];
         private RectTransform[] targets;
         private TMP_Text title, body, nextLabel, counter, heading, controlsHint;
+        private RectTransform keyHint;
+        private CanvasGroup keyHintGroup;
+        private Image keyHintImage;
+        private TMP_Text keyHintText;
+        private string keyHintName;
+        private float keyHintElapsed;
         private string[] activeTitles = Titles, activeMessages = Messages;
         private Action<int> stepChanged;
         private bool dockRight;
         private bool allowFocusInteraction;
+        private bool actionRequired;
         private Image inputBlock;
         private GameObject skipButton;
         private Button previousButton;
@@ -49,9 +56,12 @@ namespace EasternFantasy.UI
         {
             if (titles == null || messages == null || titles.Length == 0 || titles.Length != messages.Length)
                 throw new ArgumentException("Tutorial titles and messages must have the same nonzero length.");
+            actionRequired = false;
             activeTitles = titles; activeMessages = messages; stepChanged = onStepChanged; dockRight = placeOnRight;
             targets = focusTargets; finished = onFinished; step = 0;
             if (card == null) Build(font);
+            if (keyHint != null) keyHint.gameObject.SetActive(false);
+            keyHintName = null;
             skipButton.SetActive(allowSkip);
             Place((RectTransform)previousButton.transform, new Rect(10, 0, allowSkip ? 210 : 265, 78));
             Place((RectTransform)nextLabel.transform.parent, new Rect(allowSkip ? 240 : 315, 0, allowSkip ? 210 : 265, 78));
@@ -60,10 +70,79 @@ namespace EasternFantasy.UI
             gameObject.SetActive(true);
             Display();
         }
+        public void SetPlacement(bool placeOnRight)
+        {
+            dockRight = placeOnRight;
+            if (card != null) RefreshLayout();
+        }
         public void SetFocusInteraction(bool allowed)
         {
             allowFocusInteraction = allowed;
             if (card != null) RefreshLayout();
+        }
+
+        public void SetKeyHint(string imageName, string message)
+        {
+            if (keyHintName == imageName && keyHintText != null && keyHintText.text == message) return;
+            if (keyHint == null)
+            {
+                var hint = new GameObject("Floating Tutorial Key Hint", typeof(RectTransform), typeof(CanvasGroup), typeof(Image), typeof(HorizontalLayoutGroup));
+                hint.layer = gameObject.layer;
+                hint.transform.SetParent(transform, false);
+                keyHint = hint.GetComponent<RectTransform>();
+                keyHint.anchorMin = keyHint.anchorMax = keyHint.pivot = new Vector2(.5f, 1f);
+                keyHintGroup = hint.GetComponent<CanvasGroup>();
+                keyHintGroup.interactable = keyHintGroup.blocksRaycasts = false;
+                var background = hint.GetComponent<Image>();
+                background.color = new Color(.025f, .035f, .045f, .65f);
+                background.raycastTarget = false;
+                var layout = hint.GetComponent<HorizontalLayoutGroup>();
+                layout.padding = new RectOffset(24, 28, 6, 6);
+                layout.spacing = 8f;
+                layout.childAlignment = TextAnchor.MiddleCenter;
+                layout.childControlWidth = layout.childControlHeight = true;
+                layout.childForceExpandWidth = layout.childForceExpandHeight = false;
+                var icon = new GameObject("Shortcut Key", typeof(RectTransform), typeof(Image), typeof(LayoutElement));
+                icon.layer = gameObject.layer;
+                icon.transform.SetParent(hint.transform, false);
+                keyHintImage = icon.GetComponent<Image>();
+                keyHintImage.preserveAspect = true;
+                keyHintImage.raycastTarget = false;
+                var iconSize = icon.GetComponent<LayoutElement>();
+                iconSize.preferredWidth = iconSize.preferredHeight = 80f;
+                keyHintText = Label("Shortcut Instruction", hint.transform, heading.font, 32f);
+                keyHintText.color = new Color(1f, .95f, .83f);
+                keyHintText.alignment = TextAlignmentOptions.MidlineLeft;
+                keyHintText.textWrappingMode = TextWrappingModes.NoWrap;
+                keyHintText.gameObject.AddComponent<LayoutElement>().preferredHeight = 56f;
+            }
+            keyHintName = imageName;
+            keyHintImage.sprite = Resources.Load<Sprite>("UI/InputPrompts/" + imageName);
+            keyHintText.text = message;
+            float textWidth = keyHintText.GetPreferredValues(message).x + 8f;
+            keyHintText.GetComponent<LayoutElement>().preferredWidth = textWidth;
+            keyHint.sizeDelta = new Vector2(52f + 80f + 8f + textWidth, 92f);
+            keyHint.anchoredPosition = new Vector2(0f, -120f);
+            keyHintElapsed = 0f;
+            keyHintGroup.alpha = 0f;
+            keyHint.gameObject.SetActive(true);
+        }
+        public void ClearKeyHint()
+        {
+            if (keyHint != null) keyHint.gameObject.SetActive(false);
+            keyHintName = null;
+        }
+        public void RequireAction(string instruction)
+        {
+            actionRequired = true;
+            controlsHint.text = instruction;
+            previousButton.interactable = false;
+            nextLabel.transform.parent.GetComponent<Button>().interactable = false;
+        }
+        public void CompleteAction()
+        {
+            actionRequired = false;
+            Advance();
         }
         public void Hide()
         {
@@ -72,13 +151,13 @@ namespace EasternFantasy.UI
         }
         public void Advance()
         {
-            if (!IsShowing) return;
+            if (!IsShowing || actionRequired) return;
             if (++step >= activeTitles.Length) { Complete(); return; }
             Display();
         }
         public void Previous()
         {
-            if (!IsShowing || step <= 0) return;
+            if (!IsShowing || actionRequired || step <= 0) return;
             step--;
             Display();
         }
@@ -148,18 +227,28 @@ namespace EasternFantasy.UI
         }
         private void Display()
         {
+            actionRequired = false;
+            nextLabel.transform.parent.GetComponent<Button>().interactable = true;
             stepChanged?.Invoke(step);
             title.text = activeTitles[step]; body.text = activeMessages[step];
             counter.text = dockRight ? (step + 1) + " / " + activeTitles.Length
                 : step == 0 ? "도움말" : step + " / " + (activeTitles.Length - 1);
-            previousButton.interactable = step > 0;
-            previousButton.GetComponent<Image>().color = step > 0 ? Color.white : new Color(.55f, .55f, .55f, .7f);
-            nextLabel.text = step == activeTitles.Length - 1 ? "안내 완료" : "다음";
+            previousButton.interactable = step > 0 && !actionRequired;
+            previousButton.GetComponent<Image>().color = previousButton.interactable ? Color.white : new Color(.55f, .55f, .55f, .7f);
+            nextLabel.transform.parent.GetComponent<Image>().color = actionRequired ? new Color(.55f, .55f, .55f, .7f) : Color.white;
+            nextLabel.text = actionRequired ? "직접 조작해 주세요" : step == activeTitles.Length - 1 ? "안내 완료" : "다음";
             RefreshLayout();
         }
         private void LateUpdate()
         {
             if (card == null) return;
+            if (keyHint != null && keyHint.gameObject.activeSelf)
+            {
+                // System tutorials pause gameplay; keep their key prompts animated in real time.
+                keyHintElapsed += Time.unscaledDeltaTime;
+                keyHintGroup.alpha = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(keyHintElapsed / .35f));
+                keyHint.anchoredPosition = new Vector2(0f, -120f + Mathf.Sin(keyHintElapsed * Mathf.PI * .8f) * 6f);
+            }
             RefreshLayout();
             float alpha = .65f + .35f * Mathf.Sin(Time.unscaledTime * 4f);
             foreach (var border in borders) border.color = new Color(1f, .76f, .24f, alpha);

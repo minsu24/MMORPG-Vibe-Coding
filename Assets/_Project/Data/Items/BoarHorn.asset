@@ -17,12 +17,22 @@ MonoBehaviour:
   description: "\uAC70\uC778\uC758 \uC560\uC644 \uBA67\uB3FC\uC9C0\uC5D0\uAC8C\uC11C
     \uB4DC\uB78D\uB418\uB294 \uC544\uC774\uD15C."
   icon: {fileID: 465900438229139267, guid: 36717bad346aa844c988ad08ba76946a, type: 3}
-  category: 0
+  category: 2
+  grade: 1
+  gradeFrame: {fileID: 0}
+  gradeAppearance: {fileID: 0}
+  gradeVariants: []
   equipmentSlot: 0
+  allowedClasses: 
+  equipmentSet: {fileID: 0}
   attackBonus: 0
   defenseBonus: 0
+  specialAbility: 0
+  specialAbilityValue: 0
   consumableEffect: 0
   useAmount: 0
   maximumStack: 99
   buyPrice: 0
   sellPrice: 0
+  cannotSell: 1
+  materialSource: {fileID: 0}

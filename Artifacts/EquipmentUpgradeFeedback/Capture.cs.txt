@@ -1,0 +1,40 @@
+﻿var ui=UnityEditor.PrefabUtility.LoadPrefabContents("Assets/_Project/Prefabs/UI/EquipmentUpgradeWindow.prefab");
+var player=new GameObject("Upgrade Preview Inventory");player.SetActive(false);
+UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(player,ui.scene);
+var target=new RenderTexture(1920,1080,24);var pixels=new Texture2D(1920,1080,TextureFormat.RGB24,false);
+var previous=RenderTexture.active;float oldVolume=AudioListener.volume;
+UnityEngine.ScriptableObject recipe=null;
+try {
+ AudioListener.volume=0;
+ var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+ var type=typeof(EasternFantasy.UI.EquipmentUpgradeWindowUI);
+ var window=ui.GetComponent<EasternFantasy.UI.EquipmentUpgradeWindowUI>();
+ type.GetMethod("Initialize",flags).Invoke(window,null);
+ type.GetMethod("PreparePopup",flags).Invoke(window,null);
+ var data=new UnityEditor.SerializedObject(window);
+ ui.SetActive(true); var root=(GameObject)data.FindProperty("windowRoot").objectReferenceValue;root.SetActive(true);
+ recipe=(UnityEngine.ScriptableObject)typeof(EasternFantasy.EditorTools.EquipmentUpgradeValidation).GetMethod("TestRecipe",System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic).Invoke(null,null);
+ var recipes=data.FindProperty("recipes");recipes.arraySize=1;recipes.GetArrayElementAtIndex(0).objectReferenceValue=recipe;data.ApplyModifiedPropertiesWithoutUndo();
+ var inv=player.AddComponent<EasternFantasy.Inventory.PlayerInventory>();var money=player.AddComponent<EasternFantasy.Inventory.PlayerCurrency>();
+ var fan=UnityEditor.AssetDatabase.LoadAssetAtPath<EasternFantasy.Inventory.ItemDefinition>("Assets/_Project/Data/Items/OldFan.asset");
+ var horn=UnityEditor.AssetDatabase.LoadAssetAtPath<EasternFantasy.Inventory.ItemDefinition>("Assets/_Project/Data/Items/BoarHorn.asset");
+ var orb=UnityEditor.AssetDatabase.LoadAssetAtPath<EasternFantasy.Inventory.ItemDefinition>("Assets/_Project/Data/Items/FrogOrb.asset");
+ inv.AddItem(fan);inv.AddItem(horn,4);inv.AddItem(orb);money.Add(100);window.BindPlayer(inv,money);window.DropItem(fan,-1);window.DropItem(horn,0);window.DropItem(orb,1);
+ var group=root.GetComponent<CanvasGroup>();group.alpha=1;group.interactable=true;
+ var cameraRoot=new GameObject("Upgrade Preview Camera",typeof(Camera));UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(cameraRoot,ui.scene);
+ var camera=cameraRoot.GetComponent<Camera>();camera.scene=ui.scene;camera.transform.position=new Vector3(0,0,-100);camera.orthographic=true;camera.orthographicSize=540;camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=new Color(.06f,.055f,.08f);camera.targetTexture=target;
+ var canvas=ui.GetComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.worldCamera=camera;canvas.planeDistance=10;
+ Canvas.ForceUpdateCanvases();window.Refresh();var feedback=ui.GetComponentInChildren<EasternFantasy.UI.UpgradeConfirmFeedback>(true);typeof(EasternFantasy.UI.UpgradeConfirmFeedback).GetMethod("Awake",flags).Invoke(feedback,null);window.Confirm();
+ var tick=type.GetMethod("TickUpgradePresentation",flags);
+ float[] steps={.95f,.78f,.39f};string[] names={"Gathering","Impact","Radiance"};
+ for(int i=0;i<steps.Length;i++){
+  tick.Invoke(window,new object[]{steps[i]});Canvas.ForceUpdateCanvases();camera.Render();RenderTexture.active=target;pixels.ReadPixels(new Rect(0,0,1920,1080),0,0);pixels.Apply();System.IO.File.WriteAllBytes("Artifacts/EquipmentUpgradeFeedback/"+names[i]+".png",pixels.EncodeToPNG());
+ }
+ type.GetMethod("CancelUpgradePresentation",flags).Invoke(window,null);
+ UnityEngine.Object.DestroyImmediate(cameraRoot);
+ return "Captured gathering, impact and radiance from actual upgrade prefab.";
+} finally {RenderTexture.active=previous;AudioListener.volume=oldVolume;UnityEngine.Object.DestroyImmediate(pixels);UnityEngine.Object.DestroyImmediate(target);UnityEditor.PrefabUtility.UnloadPrefabContents(ui);if(recipe!=null)UnityEngine.Object.DestroyImmediate(recipe);}
+
+
+
+

@@ -1,0 +1,57 @@
+[
+  {
+    "pattern": "FrogTongue",
+    "warningSeconds": 0.5,
+    "sourceConfigured": true,
+    "correctClip": true,
+    "pause": true,
+    "resume": true,
+    "stoppedAtGaugeEnd": true,
+    "startSeconds": 2.0749886,
+    "passed": true
+  },
+  {
+    "pattern": "FrogSlam",
+    "warningSeconds": 0.9,
+    "sourceConfigured": true,
+    "correctClip": true,
+    "pause": true,
+    "resume": true,
+    "stoppedAtGaugeEnd": true,
+    "startSeconds": 1.67498863,
+    "passed": true
+  },
+  {
+    "pattern": "BoarCharge",
+    "warningSeconds": 2.2,
+    "sourceConfigured": true,
+    "correctClip": true,
+    "pause": true,
+    "resume": true,
+    "stoppedAtGaugeEnd": true,
+    "startSeconds": 0.374966,
+    "passed": true
+  },
+  {
+    "pattern": "GiantCharge",
+    "warningSeconds": 2.2,
+    "sourceConfigured": true,
+    "correctClip": true,
+    "pause": true,
+    "resume": true,
+    "stoppedAtGaugeEnd": true,
+    "startSeconds": 0.374966,
+    "passed": true
+  },
+  {
+    "pattern": "Unrelated",
+    "warningSeconds": 2.2,
+    "sourceConfigured": true,
+    "correctClip": true,
+    "pause": true,
+    "resume": true,
+    "stoppedAtGaugeEnd": true,
+    "startSeconds": 0.0,
+    "passed": true
+  }
+]

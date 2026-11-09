@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using EasternFantasy.Quest;
@@ -43,6 +43,9 @@ namespace EasternFantasy.Player
             && movement != null && !movement.IsMovementLocked && !movement.IsDashing;
 
         private static bool IsGameplayWindowOpen =>
+            EasternFantasy.UI.SoulstoneTutorialUI.IsRunning
+            || EasternFantasy.UI.SoulstoneWindowUI.IsOpen
+            ||
             (EasternFantasy.Dialogue.DialogueManager.Instance != null && EasternFantasy.Dialogue.DialogueManager.Instance.IsDialogueActive)
             || (EasternFantasy.UI.InventoryWindowUI.Instance != null && EasternFantasy.UI.InventoryWindowUI.Instance.IsOpen)
             || (EasternFantasy.UI.SkillWindowUI.Instance != null && EasternFantasy.UI.SkillWindowUI.Instance.IsOpen)

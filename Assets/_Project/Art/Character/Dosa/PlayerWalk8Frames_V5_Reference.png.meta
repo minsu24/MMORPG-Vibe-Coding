@@ -1,0 +1,344 @@
+fileFormatVersion: 2
+guid: 1121afbdf8b10b34cbe33a759ac5d4f3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8959322327188131511
+    second: PlayerWalk8Frames_V5_Reference_0
+  - first:
+      213: -2305532135821766306
+    second: PlayerWalk8Frames_V5_Reference_1
+  - first:
+      213: 5147500480174748610
+    second: PlayerWalk8Frames_V5_Reference_2
+  - first:
+      213: -3501513782642510126
+    second: PlayerWalk8Frames_V5_Reference_3
+  - first:
+      213: -3741898106985626502
+    second: PlayerWalk8Frames_V5_Reference_4
+  - first:
+      213: -6347195004690403805
+    second: PlayerWalk8Frames_V5_Reference_5
+  - first:
+      213: -252188652614462464
+    second: PlayerWalk8Frames_V5_Reference_6
+  - first:
+      213: 5138346548223520387
+    second: PlayerWalk8Frames_V5_Reference_7
+  - first:
+      213: 9068793753500783655
+    second: PlayerWalk8Frames_V5_Reference_8
+  - first:
+      213: -8626756807168764412
+    second: PlayerWalk8Frames_V5_Reference_9
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 240
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DosaWalkV5_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 456
+        width: 443
+        height: 430
+      alignment: 9
+      pivot: {x: 0.5094445, y: 0.441918}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5847d881daf2bda4682395e71a3ffe03
+      internalID: 273117843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DosaWalkV5_01
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 457
+        width: 443
+        height: 429
+      alignment: 9
+      pivot: {x: 0.5104953, y: 0.43966064}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8fbe4d29e0a8894fbeefa0df7415ce8
+      internalID: -2059427166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DosaWalkV5_02
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 457
+        width: 443
+        height: 429
+      alignment: 9
+      pivot: {x: 0.50967604, y: 0.441918}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acd0bec3017b5a741ab0e32a1c68481b
+      internalID: -1039273906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DosaWalkV5_03
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 457
+        width: 443
+        height: 429
+      alignment: 9
+      pivot: {x: 0.511226, y: 0.44643265}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fd2bd01ca786be40ba140b2effdb73e
+      internalID: 1528638141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DosaWalkV5_04
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 11
+        width: 443
+        height: 432
+      alignment: 9
+      pivot: {x: 0.509562, y: 0.43966064}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13c596205fab3f24abc0e2d02226bef3
+      internalID: -2097510264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DosaWalkV5_05
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 11
+        width: 443
+        height: 433
+      alignment: 9
+      pivot: {x: 0.51134735, y: 0.43966064}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e91c72d897356f745859ef3d4419988c
+      internalID: 1512852410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DosaWalkV5_06
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 12
+        width: 443
+        height: 431
+      alignment: 9
+      pivot: {x: 0.5102217, y: 0.43966064}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79551863c1444d846a65c70c90c7791a
+      internalID: -1901000320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DosaWalkV5_07
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 13
+        width: 443
+        height: 430
+      alignment: 9
+      pivot: {x: 0.51194215, y: 0.44643265}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0919bb51bbff5d4ba6191caa29d3384
+      internalID: 1408893850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: acd081fed0ab78a43b32fbdf7bb35735
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      DosaWalkV5_00: 273117843
+      DosaWalkV5_01: -2059427166
+      DosaWalkV5_02: -1039273906
+      DosaWalkV5_03: 1528638141
+      DosaWalkV5_04: -2097510264
+      DosaWalkV5_05: 1512852410
+      DosaWalkV5_06: -1901000320
+      DosaWalkV5_07: 1408893850
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

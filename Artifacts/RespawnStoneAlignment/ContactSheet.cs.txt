@@ -1,0 +1,12 @@
+var rows=Newtonsoft.Json.Linq.JArray.Parse(System.IO.File.ReadAllText("Artifacts/RespawnStoneAlignment/aligned.json"));
+for(int family=0;family<2;family++)for(int stage=0;stage<2;stage++){
+ int w=1280,h=640;var output=new UnityEngine.Color32[w*h];var bg=new UnityEngine.Color32(31,36,41,255);for(int k=0;k<output.Length;k++)output[k]=bg;float units=family==0?2.35f:4.4f,ppw=320/units;
+ for(int column=0;column<4;column++){
+  int sheet=column/2,frame=column%2==0?0:7;var row=rows.First(r=>(int)r["family"]==family&&(int)r["sheet"]==sheet&&(int)r["frame"]==frame);var tex=new UnityEngine.Texture2D(2,2);UnityEngine.ImageConversion.LoadImage(tex,System.IO.File.ReadAllBytes((string)row["path"]));var pixels=tex.GetPixels32();float ppu=stage==0?(float)row["ppu"]:(float)row["newPPU"],px=(stage==0?.5f:(float)row["newPivotX"])*(float)row["rectW"],py=(stage==0?.5f:(float)row["newPivotY"])*(float)row["rectH"];
+  for(int y=0;y<h;y++)for(int x=0;x<320;x++){
+   int sx=UnityEngine.Mathf.RoundToInt((x-160)/ppw*ppu+px),sy=UnityEngine.Mathf.RoundToInt((y-320)/ppw*ppu+py);if(sx<0||sy<0||sx>=(int)row["rectW"]||sy>=(int)row["rectH"])continue;sx+=(int)row["rectX"];sy+=(int)row["rectY"];var c=pixels[sy*tex.width+sx];float alpha=c.a/255f;output[y*w+column*320+x]=new UnityEngine.Color32((byte)(c.r*alpha+bg.r*(1-alpha)),(byte)(c.g*alpha+bg.g*(1-alpha)),(byte)(c.b*alpha+bg.b*(1-alpha)),255);
+  }UnityEngine.Object.DestroyImmediate(tex);
+ }
+ float baseline=family==0?-1.6575f:-2.64f;int gy=UnityEngine.Mathf.RoundToInt(320+baseline*ppw);for(int x=0;x<w;x++)if(x%10<5)output[gy*w+x]=new UnityEngine.Color32(64,220,140,255);var result=new UnityEngine.Texture2D(w,h,UnityEngine.TextureFormat.RGB24,false);result.SetPixels32(output);result.Apply();System.IO.File.WriteAllBytes("Artifacts/RespawnStoneAlignment/"+(family==0?"Village":"Temple")+"_"+(stage==0?"Before":"After")+".png",result.EncodeToPNG());UnityEngine.Object.DestroyImmediate(result);
+}
+return "Wrote four native-sprite contact sheets with a fixed ground guide.";

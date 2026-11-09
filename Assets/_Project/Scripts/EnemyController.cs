@@ -51,6 +51,17 @@ public abstract class EnemyController : Entity
     public GameObject damageTextPrefab; // Inspector에서 프리팹 할당
 
     public Transform textSpawnPoint;    // 텍스트가 뜰 위치 (예: 몬스터 머리 위 빈 오브젝트)
+    public Vector3 DamageTextPosition
+    {
+        get
+        {
+            Vector3 position = textSpawnPoint != null ? textSpawnPoint.position : transform.position;
+            // Keep authored anchors above the head, but correct missing/root-level anchors.
+            var hitbox = capsuleCollider2D != null ? capsuleCollider2D : GetComponent<Collider2D>();
+            if (hitbox != null) position.y = Mathf.Max(position.y, hitbox.bounds.max.y + .25f);
+            return position;
+        }
+    }
     private Vector3 direction, moveDirection; //플레이어 따라가기 위한 벡터 값.
     protected GameObject player;
     protected PlayerMovement2D playerController;
@@ -351,7 +362,7 @@ public abstract class EnemyController : Entity
             // 몬스터 머리 위 위치 기준, 약간의 랜덤성을 주면 글자가 겹치지 않아 더 자연스럽습니다.
             if (showDamageText && damageTextPrefab != null)
             {
-                Vector3 textOrigin = textSpawnPoint != null ? textSpawnPoint.position : transform.position;
+                Vector3 textOrigin = DamageTextPosition;
                 Vector3 spawnPosition = textOrigin + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(0, 0.3f), 0);
                 GameObject textObj = Instantiate(damageTextPrefab, spawnPosition, Quaternion.identity);
 

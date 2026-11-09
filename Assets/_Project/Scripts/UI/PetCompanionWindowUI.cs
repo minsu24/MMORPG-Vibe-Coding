@@ -270,6 +270,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
+            if (SoulstoneWindowUI.IsOpen || SoulstoneTutorialUI.IsRunning) return;
             if (EasternFantasy.Saving.SaveGameService.IsRestoring) return;
             BindDialogue();
             EnsureCompanionActor();

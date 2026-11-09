@@ -1,4 +1,4 @@
-using EasternFantasy.Dialogue;
+﻿using EasternFantasy.Dialogue;
 using EasternFantasy.Inventory;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -79,6 +79,7 @@ namespace EasternFantasy.UI
 
         private void Update()
         {
+            if (SoulstoneWindowUI.IsOpen || SoulstoneTutorialUI.IsRunning) return;
             if (MapTutorialUI.IsRunning || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || EquipmentUpgradeWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning) return;
             if (IsOpen && (inventory == null || inventory.gameObject == null))
                 BindCurrentInventory();

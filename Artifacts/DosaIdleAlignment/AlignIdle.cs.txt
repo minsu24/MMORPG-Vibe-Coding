@@ -1,0 +1,34 @@
+string path="Assets/_Project/Art/Character/Dosa/PlayerIdle8Frames.png";
+string backup="Artifacts/DosaIdleAlignment/PlayerIdle8Frames.png.meta.before";
+if(!System.IO.File.Exists(backup))System.IO.File.Copy(path+".meta",backup);
+var tex=new UnityEngine.Texture2D(2,2);UnityEngine.ImageConversion.LoadImage(tex,System.IO.File.ReadAllBytes(path));int width=tex.width,height=tex.height;var pixels=tex.GetPixels32();var labels=new int[pixels.Length];var queue=new System.Collections.Generic.Queue<int>();var components=new System.Collections.Generic.List<Newtonsoft.Json.Linq.JObject>();int label=0;
+for(int k=0;k<pixels.Length;k++){
+ if(labels[k]!=0||pixels[k].a<=32)continue;label++;labels[k]=label;queue.Enqueue(k);int count=0,minx=width,miny=height,maxx=0,maxy=0;
+ while(queue.Count>0){int p=queue.Dequeue(),x=p%width,y=p/width;count++;minx=System.Math.Min(minx,x);maxx=System.Math.Max(maxx,x);miny=System.Math.Min(miny,y);maxy=System.Math.Max(maxy,y);for(int dy=-1;dy<=1;dy++)for(int dx=-1;dx<=1;dx++){int nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=width||ny>=height)continue;int n=ny*width+nx;if(labels[n]==0&&pixels[n].a>32){labels[n]=label;queue.Enqueue(n);}}}
+ if(count>5000)components.Add(Newtonsoft.Json.Linq.JObject.FromObject(new{label=label,count=count,minx=minx,miny=miny,maxx=maxx,maxy=maxy}));
+}
+components=components.OrderBy(c=>(int)c["minx"]).ToList();if(components.Count!=8)throw new System.Exception("Expected eight separate character silhouettes.");
+var factories=new UnityEditor.U2D.Sprites.SpriteDataProviderFactories();factories.Init();var importer=(UnityEditor.TextureImporter)UnityEditor.AssetImporter.GetAtPath(path);var provider=factories.GetSpriteEditorDataProviderFromObject(importer);provider.InitSpriteEditorDataProvider();var rects=provider.GetSpriteRects().OrderBy(r=>r.name).ToArray();var outlines=provider.GetDataProvider<UnityEditor.U2D.Sprites.ISpriteOutlineDataProvider>();var before=Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText("Artifacts/DosaIdleAlignment/before.json"));var first=before["rects"][0];float ground=(int)components[0]["miny"]-((float)first["y"]+(float)first["h"]*(float)first["py"]);float capTarget=0;
+var records=new System.Collections.Generic.List<object>();
+for(int frame=0;frame<8;frame++){
+ var comp=components[frame];int own=(int)comp["label"],minx=(int)comp["minx"],maxx=(int)comp["maxx"],miny=(int)comp["miny"],maxy=(int)comp["maxy"];
+ int rx=UnityEngine.Mathf.Clamp((minx+maxx)/2-136,0,width-272),ry=UnityEngine.Mathf.Clamp(miny-12,0,height-544);
+ float capX=0,capCount=0;for(int y=maxy-17;y<=maxy-3;y++)for(int x=minx;x<=maxx;x++)if(labels[y*width+x]==own){capX+=x;capCount++;}capX/=capCount;
+ if(frame==0)capTarget=capX-((float)first["x"]+(float)first["w"]*(float)first["px"]);
+ var rect=rects[frame];rect.rect=new UnityEngine.Rect(rx,ry,272,544);rect.alignment=UnityEngine.SpriteAlignment.Custom;rect.pivot=new UnityEngine.Vector2((capX-rx-capTarget)/272f,(miny-ry-ground)/544f);
+ var left=new System.Collections.Generic.List<UnityEngine.Vector2>();var right=new System.Collections.Generic.List<UnityEngine.Vector2>();
+ for(int y=miny;y<=maxy;y++){
+  int lo=width,hi=-1;for(int x=minx;x<=maxx;x++)if(labels[y*width+x]==own){lo=System.Math.Min(lo,x);hi=System.Math.Max(hi,x);}if(hi<0)continue;
+  float l=lo-1f,r=hi+2f;for(int x=System.Math.Max(rx,lo-3);x<lo;x++)if(labels[y*width+x]!=0&&labels[y*width+x]!=own&&pixels[y*width+x].a>32)l=System.Math.Max(l,x+1f);for(int x=hi+1;x<=System.Math.Min(rx+271,hi+3);x++)if(labels[y*width+x]!=0&&labels[y*width+x]!=own&&pixels[y*width+x].a>32)r=System.Math.Min(r,x);
+  l=UnityEngine.Mathf.Clamp(l,rx,rx+272);r=UnityEngine.Mathf.Clamp(r,rx,rx+272);
+  left.Add(new UnityEngine.Vector2(l-rx-136,y-ry-272));
+  left.Add(new UnityEngine.Vector2(l-rx-136,y+1-ry-272));
+  right.Add(new UnityEngine.Vector2(r-rx-136,y-ry-272));
+  right.Add(new UnityEngine.Vector2(r-rx-136,y+1-ry-272));
+ }
+ // Preserve only changes in slope; straight outline runs need no extra vertices.
+ System.Func<System.Collections.Generic.List<UnityEngine.Vector2>,System.Collections.Generic.List<UnityEngine.Vector2>> simplify=points=>{var result=new System.Collections.Generic.List<UnityEngine.Vector2>();for(int i=0;i<points.Count;i++){if(i==0||i==points.Count-1){result.Add(points[i]);continue;}var a=points[i]-points[i-1];var b=points[i+1]-points[i];if(UnityEngine.Mathf.Abs(a.x*b.y-a.y*b.x)>.01f)result.Add(points[i]);}return result;};
+ var poly=simplify(left);var opposite=simplify(right);opposite.Reverse();poly.AddRange(opposite);outlines.SetOutlines(rect.spriteID,new System.Collections.Generic.List<UnityEngine.Vector2[]>{poly.ToArray()});outlines.SetTessellationDetail(rect.spriteID,1);
+ records.Add(new{name=rect.name,label=own,rectX=rx,rectY=ry,width=272,height=544,pivotX=rect.pivot.x,pivotY=rect.pivot.y,capX=capX,baseY=miny,minx=minx,maxx=maxx,miny=miny,maxy=maxy,outlinePoints=poly.Count,id=rect.spriteID.ToString()});
+}
+provider.SetSpriteRects(rects);provider.Apply();importer.SaveAndReimport();UnityEditor.AssetDatabase.SaveAssets();UnityEditor.SceneView.RepaintAll();var json=Newtonsoft.Json.JsonConvert.SerializeObject(records,Newtonsoft.Json.Formatting.Indented);System.IO.File.WriteAllText("Artifacts/DosaIdleAlignment/aligned.json",json);UnityEngine.Object.DestroyImmediate(tex);return json;

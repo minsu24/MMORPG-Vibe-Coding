@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5104668909479473130, guid: b7eb78549642e0f4d86c33c72336a3ee, type: 2}
+  - {fileID: -8810070879228512180, guid: 6999f66eeffa44c4a86adc67e98a2d6f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,7 +84,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1000
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4042989114256975803
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_text: Sample text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6999f66eeffa44c4a86adc67e98a2d6f, type: 2}
-  m_sharedMaterial: {fileID: -5104668909479473130, guid: b7eb78549642e0f4d86c33c72336a3ee, type: 2}
+  m_sharedMaterial: {fileID: -8810070879228512180, guid: 6999f66eeffa44c4a86adc67e98a2d6f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   _SortingLayer: 0
   _SortingLayerID: 0
-  _SortingOrder: 0
+  _SortingOrder: 1000
   m_hasFontAssetChanged: 1
   m_renderer: {fileID: 6947947573607089351}
   m_maskType: 0
@@ -197,3 +197,7 @@ MonoBehaviour:
   moveSpeed: 2
   destroyTime: 1
   alphaSpeed: 2
+  popScale: 1.18
+  criticalPopScale: 1.4
+  popDuration: 0.12
+  settleDuration: 0.16

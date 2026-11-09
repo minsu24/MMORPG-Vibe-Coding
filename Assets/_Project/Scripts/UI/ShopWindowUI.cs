@@ -22,6 +22,10 @@ namespace EasternFantasy.UI
         [SerializeField] private ShopSlotUI[] slots;
         [SerializeField] private ItemTooltipUI tooltip;
         private ShopSlotUI tooltipSlot;
+        private AudioSource transactionAudio;
+        private AudioClip sellSound;
+        private AudioClip buySound;
+        private AudioClip failureSound;
 
         [Header("DOTween popup")]
         [SerializeField, Min(0.01f)] private float openDuration = 0.25f;
@@ -187,28 +191,65 @@ namespace EasternFantasy.UI
                 if (!item.CanSell || !inventory.RemoveItem(item))
                 {
                     messageText.text = "판매할 수 없습니다.";
+                    PlayTransactionFailureSound();
                     return;
                 }
                 currency.Add(item.SellPrice);
                 messageText.text = $"{item.DisplayName} 판매 완료";
+                PlayTransactionSound(true);
             }
             else
             {
                 if (!inventory.CanAdd(item))
                 {
                     messageText.text = "인벤토리 공간이나 최대 수량을 확인하세요.";
+                    PlayTransactionFailureSound();
                     return;
                 }
                 if (!currency.TrySpend(item.BuyPrice))
                 {
                     messageText.text = "엽전이 부족합니다.";
+                    PlayTransactionFailureSound();
                     return;
                 }
                 inventory.AddItem(item);
                 messageText.text = $"{item.DisplayName} 구매 완료";
+                PlayTransactionSound(false);
             }
 
             Refresh();
+        }
+
+        private void PlayTransactionSound(bool sold)
+        {
+            if (sellSound == null) sellSound = Resources.Load<AudioClip>("Audio/ShopSell");
+            if (buySound == null) buySound = Resources.Load<AudioClip>("Audio/ShopBuy");
+            AudioClip clip = sold ? sellSound : buySound;
+            PlayShopSound(clip);
+        }
+
+        private void PlayTransactionFailureSound()
+        {
+            if (failureSound == null) failureSound = Resources.Load<AudioClip>("Audio/UpgradeInsufficient");
+            if (transactionAudio != null && transactionAudio.isPlaying && transactionAudio.clip == failureSound) return;
+            PlayShopSound(failureSound);
+        }
+
+        private void PlayShopSound(AudioClip clip)
+        {
+            if (clip == null) return;
+            if (transactionAudio == null)
+            {
+                transactionAudio = gameObject.AddComponent<AudioSource>();
+                transactionAudio.playOnAwake = false;
+                transactionAudio.loop = false;
+                transactionAudio.spatialBlend = 0f;
+                transactionAudio.ignoreListenerPause = true;
+                transactionAudio.volume = 0.4f;
+            }
+            transactionAudio.Stop();
+            transactionAudio.clip = clip;
+            transactionAudio.Play();
         }
 
         private void BeginTutorial()
@@ -235,7 +276,7 @@ namespace EasternFantasy.UI
             overlay.transform.SetParent(tutorialCanvas.transform, false); tutorial = overlay.GetComponent<PetCompanionTutorialUI>();
             tutorial.ShowCustom(currencyText.font, "상점 튜토리얼", new[] { "1. 엽전으로 아이템 구매", "2. 아이템 판매" },
                 new[] { "구매 탭에서 아이템에 표시된 가격만큼 엽전을 지불하면 구매할 수 있습니다.\n원하는 아이템을 더블클릭해 구매하세요.\n보유 엽전과 인벤토리 공간을 확인해 주세요.",
-                    "판매 탭에서 보유 아이템을 클릭하면 판매하고 엽전을 받을 수 있습니다.\n판매불가로 표시된 아이템은 팔 수 없어요.\n안내를 마치면 구매와 판매를 이용해 보세요." },
+                    "판매 탭에서 보유 아이템을 더블클릭하면 판매하고 엽전을 받을 수 있습니다.\n판매불가로 표시된 아이템은 팔 수 없어요.\n안내를 마치면 구매와 판매를 이용해 보세요." },
                 new[] { (RectTransform)buyTab.transform, (RectTransform)sellTab.transform },
                 step => SetSelling(step == 1), CompleteTutorial, true, false);
         }

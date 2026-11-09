@@ -1,0 +1,48 @@
+{
+  "alignment": [
+    {
+      "family": 0,
+      "frames": 16,
+      "xSpreadUnits": 7.4505806E-08,
+      "groundSpreadUnits": 4.60147858E-05,
+      "spriteIDsPreserved": true
+    },
+    {
+      "family": 1,
+      "frames": 16,
+      "xSpreadUnits": 1.56462193E-07,
+      "groundSpreadUnits": 0.00128889084,
+      "spriteIDsPreserved": true
+    }
+  ],
+  "clips": [
+    {
+      "clip": "Assets/_Project/Animations/RespornStone.anim",
+      "frames": 8,
+      "allReferencesValid": true,
+      "fps": 6.0,
+      "positionCurves": 0
+    },
+    {
+      "clip": "Assets/_Project/Animations/ActiveRespornStone.anim",
+      "frames": 8,
+      "allReferencesValid": true,
+      "fps": 6.0,
+      "positionCurves": 0
+    },
+    {
+      "clip": "Assets/_Project/Animations/Old Temple/InActiveTempleRespornStone.anim",
+      "frames": 8,
+      "allReferencesValid": true,
+      "fps": 6.0,
+      "positionCurves": 0
+    },
+    {
+      "clip": "Assets/_Project/Animations/Old Temple/TempleRespornStone.anim",
+      "frames": 8,
+      "allReferencesValid": true,
+      "fps": 6.0,
+      "positionCurves": 0
+    }
+  ]
+}

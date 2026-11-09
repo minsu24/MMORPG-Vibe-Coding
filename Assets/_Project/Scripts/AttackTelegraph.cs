@@ -5,6 +5,11 @@ using UnityEngine;
 public sealed class AttackTelegraph : MonoBehaviour
 {
     private static Sprite pixel;
+    private static AudioClip windupClip;
+    private const float WindupVolume = 0.28f;
+    private AudioSource windupAudio;
+    private float windupPitch = 1f;
+    private bool windupPaused;
     private readonly List<SpriteRenderer> edges = new List<SpriteRenderer>();
     private readonly List<SpriteRenderer> arrows = new List<SpriteRenderer>();
     private SpriteRenderer fill, gauge;
@@ -32,8 +37,54 @@ public sealed class AttackTelegraph : MonoBehaviour
         effect.order = source.sortingOrder + 1;
         effect.Build();
         effect.Draw(0f);
+        effect.StartWindupAudio();
         return effect;
     }
+
+    private void StartWindupAudio()
+    {
+        if (owner == null || (owner.GetComponent<MON_Frog>() == null
+            && owner.GetComponent<MON_Boar>() == null && owner.GetComponent<MON_Giant>() == null)) return;
+        if (windupClip == null) windupClip = Resources.Load<AudioClip>("Audio/EnemyGaugeRiser");
+        if (windupClip == null) return;
+        windupAudio = gameObject.AddComponent<AudioSource>();
+        windupAudio.playOnAwake = false;
+        windupAudio.loop = false;
+        windupAudio.spatialBlend = 0f;
+        windupAudio.volume = 0f;
+        windupAudio.clip = windupClip;
+        // Use the end of a long riser for short warnings, so its peak matches the hit.
+        // Longer warnings slow the full clip rather than looping its build-up.
+        windupPitch = Mathf.Min(1f, windupClip.length / duration);
+        windupAudio.time = Mathf.Max(0f, windupClip.length - duration);
+        windupAudio.pitch = Mathf.Clamp(windupPitch * Time.timeScale, 0.01f, 3f);
+        windupAudio.Play();
+        if (Time.timeScale <= 0f) { windupAudio.Pause(); windupPaused = true; }
+    }
+
+    private void UpdateWindupAudio()
+    {
+        if (windupAudio == null) return;
+        if (elapsed >= duration) { StopWindupAudio(); return; }
+        if (Time.timeScale <= 0f)
+        {
+            if (!windupPaused) { windupAudio.Pause(); windupPaused = true; }
+            return;
+        }
+        windupAudio.pitch = Mathf.Clamp(windupPitch * Time.timeScale, 0.01f, 3f);
+        if (windupPaused) { windupAudio.UnPause(); windupPaused = false; }
+        // A short envelope avoids clicks when starting partway through the sound.
+        windupAudio.volume = WindupVolume * Mathf.Clamp01(elapsed / 0.035f)
+            * Mathf.Clamp01((duration - elapsed) / 0.035f);
+    }
+
+    private void StopWindupAudio()
+    {
+        if (windupAudio != null) windupAudio.Stop();
+        windupPaused = false;
+    }
+
+    private void OnDisable() => StopWindupAudio();
 
     private SpriteRenderer Bar(string label, Vector2 position, Vector2 dimensions, Color color, int depth)
     {
@@ -86,8 +137,9 @@ public sealed class AttackTelegraph : MonoBehaviour
 
     private void Update()
     {
-        if (owner == null || !owner.gameObject.activeInHierarchy) { Destroy(gameObject); return; }
+        if (owner == null || !owner.gameObject.activeInHierarchy) { Clear(); return; }
         elapsed += Time.deltaTime;
+        UpdateWindupAudio();
         // The attack owns removal; reaching 100% never clears the warning ahead of the hit.
         Draw(Mathf.Clamp01(elapsed / duration));
     }
@@ -110,6 +162,7 @@ public sealed class AttackTelegraph : MonoBehaviour
 
     public void Clear()
     {
+        StopWindupAudio();
         gameObject.SetActive(false);
         Destroy(gameObject);
     }

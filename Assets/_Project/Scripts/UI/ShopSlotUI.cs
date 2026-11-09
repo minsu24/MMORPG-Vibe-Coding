@@ -108,7 +108,7 @@ namespace EasternFantasy.UI
         {
             if (item != null && button.interactable
                 && eventData.button == PointerEventData.InputButton.Left
-                && (owner.IsSelling || eventData.clickCount >= 2))
+                && eventData.clickCount >= 2)
                 owner.ProcessItem(item);
         }
     }

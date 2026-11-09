@@ -1,0 +1,25 @@
+﻿var scene=UnityEditor.SceneManagement.EditorSceneManager.NewPreviewScene();var report=new System.Collections.Generic.List<object>();
+var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+try{
+ var physics=scene.GetPhysicsScene2D();var floor=new GameObject("Landing Test Floor",typeof(BoxCollider2D));UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(floor,scene);floor.transform.position=new Vector3(0,-.5f,0);floor.GetComponent<BoxCollider2D>().size=new Vector2(100,1);
+ foreach(var name in new[]{"Player","MonkPlayer","SwordswomanPlayer"}){
+  var prefab=UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Player/"+name+".prefab");var root=(GameObject)UnityEditor.PrefabUtility.InstantiatePrefab(prefab,scene);root.SetActive(true);
+  var entity=root.GetComponent<EasternFantasy.Player.PlayerEntity>();var movement=root.GetComponent<EasternFantasy.Player.PlayerMovement2D>();var body=root.GetComponent<Rigidbody2D>();
+  var data=new UnityEditor.SerializedObject(movement);data.FindProperty("groundLayers").intValue=1;data.FindProperty("landingVolume").floatValue=0;data.ApplyModifiedPropertiesWithoutUndo();
+  typeof(EasternFantasy.Player.PlayerEntity).GetMethod("Awake",flags).Invoke(entity,null);typeof(EasternFantasy.Player.PlayerMovement2D).GetMethod("Awake",flags).Invoke(movement,null);
+  foreach(var source in root.GetComponentsInChildren<AudioSource>(true))source.mute=true;
+  var tick=typeof(EasternFantasy.Player.PlayerMovement2D).GetMethod("FixedUpdate",flags);var landingField=typeof(EasternFantasy.Player.PlayerMovement2D).GetField("landingAudio",flags);var pendingField=typeof(EasternFantasy.Player.PlayerMovement2D).GetField("landingPending",flags);
+  body.position=new Vector2(0,4);root.transform.position=body.position;Physics2D.SyncTransforms();
+  for(int i=0;i<150;i++){tick.Invoke(movement,null);physics.Simulate(.02f);}
+  bool spawnSilent=landingField.GetValue(movement)==null&&movement.IsGrounded;
+  movement.RequestJump();tick.Invoke(movement,null);bool pending=(bool)pendingField.GetValue(movement)&&body.linearVelocity.y>0;bool leftGround=false;
+  for(int i=0;i<160;i++){physics.Simulate(.02f);tick.Invoke(movement,null);leftGround|=!movement.IsGrounded;if(leftGround&&movement.IsGrounded)break;}
+  var landing=(AudioSource)landingField.GetValue(movement);bool landed=leftGround&&movement.IsGrounded&&landing!=null&&landing.clip.name=="PlayerLanding"&&landing.isPlaying&&!(bool)pendingField.GetValue(movement);
+  if(landing!=null){landing.mute=true;landing.Stop();}
+  for(int i=0;i<15;i++){tick.Invoke(movement,null);physics.Simulate(.02f);}bool noRepeat=landing!=null&&!landing.isPlaying;
+  movement.RequestJump();tick.Invoke(movement,null);movement.TeleportTo(new Vector3(0,6,0),Quaternion.identity);bool teleportClears=!(bool)pendingField.GetValue(movement);
+  for(int i=0;i<160;i++){physics.Simulate(.02f);tick.Invoke(movement,null);}bool teleportSilent=landing!=null&&!landing.isPlaying;
+  report.Add(new{character=name,spawnDoesNotPlay=spawnSilent,realJumpTracked=pending,landingPlaysOnce=landed,groundedDoesNotRepeat=noRepeat,teleportCancels=teleportClears,teleportArrivalSilent=teleportSilent});UnityEngine.Object.DestroyImmediate(root);
+ }
+ var result=Newtonsoft.Json.JsonConvert.SerializeObject(report);System.IO.File.WriteAllText("Artifacts/HoverLandingAudio/landing-validation.json",result);return result;
+}finally{UnityEditor.SceneManagement.EditorSceneManager.ClosePreviewScene(scene);}

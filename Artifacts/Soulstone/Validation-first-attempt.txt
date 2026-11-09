@@ -1,0 +1,3 @@
+RUNNING: isolated G/ESC, near/far interaction, current-map restriction, and round-trip travel validation.
+FAILED phase 1: System.TimeoutException: Live travel validation timed out in phase 1
+  at EasternFantasy.EditorTools.SoulstoneLiveValidation.Tick () [0x00026] in D:\UnityWork\MMORPG-Vibe-Coding\Assets\_Project\Editor\SoulstoneLiveValidation.cs:71 

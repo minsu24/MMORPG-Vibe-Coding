@@ -1,0 +1,35 @@
+﻿var folder="Assets/_Project/Animations/GiantFarm/Boar/";
+var idle=UnityEditor.AssetDatabase.LoadAssetAtPath<AnimationClip>(folder+"BoarIdle.anim");var reference=(Sprite)UnityEditor.AnimationUtility.GetObjectReferenceCurve(idle,UnityEditor.AnimationUtility.GetObjectReferenceCurveBindings(idle).First())[0].value;
+var output=new System.Collections.Generic.List<object>();
+foreach(var asset in new[]{"BoarWalk8Frames_V1","BoarChargeRun8Frames_V1"}){
+ bool charging=asset.Contains("Charge");var path="Assets/_Project/Art/Dungeon/GiantFarm/"+asset+".png";
+ UnityEditor.AssetDatabase.ImportAsset(path,UnityEditor.ImportAssetOptions.ForceSynchronousImport);
+ var raw=new Texture2D(2,2);raw.LoadImage(System.IO.File.ReadAllBytes(path));var pixels=raw.GetPixels32();
+ var importer=(UnityEditor.TextureImporter)UnityEditor.AssetImporter.GetAtPath(path);
+ importer.textureType=UnityEditor.TextureImporterType.Sprite;importer.spriteImportMode=UnityEditor.SpriteImportMode.Multiple;importer.spritePixelsPerUnit=371f/reference.bounds.size.x;
+ importer.alphaIsTransparency=true;importer.mipmapEnabled=false;importer.textureCompression=UnityEditor.TextureImporterCompression.Uncompressed;importer.maxTextureSize=2048;importer.filterMode=FilterMode.Bilinear;
+ var textureSettings=new UnityEditor.TextureImporterSettings();importer.ReadTextureSettings(textureSettings);textureSettings.spriteMeshType=SpriteMeshType.FullRect;importer.SetTextureSettings(textureSettings);importer.SaveAndReimport();
+ var factories=new UnityEditor.U2D.Sprites.SpriteDataProviderFactories();factories.Init();var provider=factories.GetSpriteEditorDataProviderFromObject(importer);provider.InitSpriteEditorDataProvider();var old=provider.GetSpriteRects();var rects=new UnityEditor.SpriteRect[8];var frameReport=new System.Collections.Generic.List<object>();
+ for(int frame=0;frame<8;frame++){
+  int col=frame%4,row=frame/4;int x0=Mathf.RoundToInt(col*raw.width/4f),x1=Mathf.RoundToInt((col+1)*raw.width/4f),y0=Mathf.RoundToInt((1-row)*raw.height/2f),y1=Mathf.RoundToInt((2-row)*raw.height/2f);
+  int minX=x1,maxX=x0,minY=y1,maxY=y0;
+  for(int y=y0;y<y1;y++)for(int x=x0;x<x1;x++)if(pixels[y*raw.width+x].a>32){minX=Math.Min(x,minX);maxX=Math.Max(x,maxX);minY=Math.Min(y,minY);maxY=Math.Max(y,maxY);}
+  int left=Math.Max(x0,minX-3),bottom=Math.Max(y0,minY-3),right=Math.Min(x1,maxX+4),top=Math.Min(y1,maxY+4);var rect=new Rect(left,bottom,right-left,top-bottom);
+  float anchorX=(minX+maxX+1)*.5f;
+  // Walking hooves stay planted; the gallop keeps its authored airborne stride above a fixed row baseline.
+  float baseline=charging?y0+67:minY;
+  float anchorY=baseline-reference.bounds.min.y*importer.spritePixelsPerUnit;
+  string name=asset+"_"+frame;var previous=old.FirstOrDefault(s=>s.name==name);
+  rects[frame]=new UnityEditor.SpriteRect{name=name,rect=rect,alignment=SpriteAlignment.Custom,pivot=new Vector2((anchorX-left)/rect.width,(anchorY-bottom)/rect.height),spriteID=previous==null?UnityEditor.GUID.Generate():previous.spriteID};
+  frameReport.Add(new{index=frame,width=(maxX-minX+1)/importer.spritePixelsPerUnit,ground=(minY-anchorY)/importer.spritePixelsPerUnit});
+ }
+ provider.SetSpriteRects(rects);provider.GetDataProvider<UnityEditor.U2D.Sprites.ISpriteNameFileIdDataProvider>().SetNameFileIdPairs(rects.Select(r=>new UnityEditor.SpriteNameFileIdPair(r.name,r.spriteID)));provider.Apply();UnityEditor.AssetDatabase.ImportAsset(path,UnityEditor.ImportAssetOptions.ForceSynchronousImport|UnityEditor.ImportAssetOptions.ForceUpdate);UnityEngine.Object.DestroyImmediate(raw);
+ var sprites=UnityEditor.AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>().OrderBy(s=>s.name).ToArray();
+ var clip=UnityEditor.AssetDatabase.LoadAssetAtPath<AnimationClip>(folder+(charging?"BoarCharge.anim":"BoarMove.anim"));
+ float fps=charging?12f:8f;clip.frameRate=fps;
+ var binding=new UnityEditor.EditorCurveBinding{path="",type=typeof(SpriteRenderer),propertyName="m_Sprite"};
+ UnityEditor.AnimationUtility.SetObjectReferenceCurve(clip,binding,sprites.Select((s,i)=>new UnityEditor.ObjectReferenceKeyframe{time=i/fps,value=s}).ToArray());
+ var clipSettings=UnityEditor.AnimationUtility.GetAnimationClipSettings(clip);clipSettings.loopTime=true;clipSettings.startTime=0;clipSettings.stopTime=8f/fps;UnityEditor.AnimationUtility.SetAnimationClipSettings(clip,clipSettings);UnityEditor.EditorUtility.SetDirty(clip);
+ output.Add(new{clip=clip.name,frames=sprites.Length,fps=fps,length=8f/fps,ppu=importer.spritePixelsPerUnit,frameInfo=frameReport});
+}
+UnityEditor.AssetDatabase.SaveAssets();var result=Newtonsoft.Json.JsonConvert.SerializeObject(output);System.IO.File.WriteAllText("Artifacts/BoarLocomotionApply/setup.json",result);return result;
