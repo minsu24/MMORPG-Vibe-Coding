@@ -1,0 +1,625 @@
+fileFormatVersion: 2
+guid: c3c89115592fadc4ca9a1c9350473563
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -588983459734796051
+    second: SkullMonkWalk_LongStride12_0
+  - first:
+      213: 4936331636570706909
+    second: SkullMonkWalk_LongStride12_1
+  - first:
+      213: -638491158687788618
+    second: SkullMonkWalk_LongStride12_2
+  - first:
+      213: -7525122568974579909
+    second: SkullMonkWalk_LongStride12_3
+  - first:
+      213: 649099175428596804
+    second: SkullMonkWalk_LongStride12_4
+  - first:
+      213: -5373810304871258020
+    second: SkullMonkWalk_LongStride12_5
+  - first:
+      213: 131288602229858473
+    second: SkullMonkWalk_LongStride12_6
+  - first:
+      213: 3148178625956607833
+    second: SkullMonkWalk_LongStride12_7
+  - first:
+      213: 7337161000804850919
+    second: SkullMonkWalk_LongStride12_8
+  - first:
+      213: 9089117805635162671
+    second: SkullMonkWalk_LongStride12_9
+  - first:
+      213: 4625442712678271128
+    second: SkullMonkWalk_LongStride12_10
+  - first:
+      213: 6413609606304915307
+    second: SkullMonkWalk_LongStride12_11
+  - first:
+      213: -5439232663691992428
+    second: SkullMonkWalk_LongStride12_12
+  - first:
+      213: -6713188118612458173
+    second: SkullMonkWalk_LongStride12_13
+  - first:
+      213: -2864657583261258295
+    second: SkullMonkWalk_LongStride12_14
+  - first:
+      213: 841655342538955186
+    second: SkullMonkWalk_LongStride12_15
+  - first:
+      213: -22109344014031793
+    second: SkullMonkWalk_LongStride12_16
+  - first:
+      213: 6749852612921122715
+    second: SkullMonkWalk_LongStride12_17
+  - first:
+      213: 7277155886773972868
+    second: SkullMonkWalk_LongStride12_18
+  - first:
+      213: 4116025748634349805
+    second: SkullMonkWalk_LongStride12_19
+  - first:
+      213: 7616703426387674606
+    second: SkullMonkWalk_LongStride12_20
+  - first:
+      213: -1418973691740490386
+    second: SkullMonkWalk_LongStride12_21
+  - first:
+      213: 529740289969074470
+    second: SkullMonkWalk_LongStride12_22
+  - first:
+      213: 4978995775702038218
+    second: SkullMonkWalk_LongStride12_23
+  - first:
+      213: -3527262330454659695
+    second: SkullMonkWalk_LongStride12_24
+  - first:
+      213: 158026661005092856
+    second: SkullMonkWalk_LongStride12_25
+  - first:
+      213: -4053139280331645790
+    second: SkullMonkWalk_LongStride12_26
+  - first:
+      213: 113277887654472778
+    second: SkullMonkWalk_LongStride12_27
+  - first:
+      213: -3703641904659733882
+    second: SkullMonkWalk_LongStride12_28
+  - first:
+      213: 1851384924616777904
+    second: SkullMonkWalk_LongStride12_29
+  - first:
+      213: 3746696233239877801
+    second: SkullMonkWalk_LongStride12_30
+  - first:
+      213: -1578644713115261632
+    second: SkullMonkWalk_LongStride12_31
+  - first:
+      213: -1019086774778986886
+    second: SkullMonkWalk_LongStride12_32
+  - first:
+      213: -6785992178319339105
+    second: SkullMonkWalk_LongStride12_33
+  - first:
+      213: -3255343558479915507
+    second: SkullMonkWalk_LongStride12_34
+  - first:
+      213: 3787813703609044733
+    second: SkullMonkWalk_LongStride12_35
+  - first:
+      213: 3599060793671982628
+    second: SkullMonkWalk_LongStride12_36
+  - first:
+      213: -3447240753862434841
+    second: SkullMonkWalk_LongStride12_37
+  - first:
+      213: -8845622247769599000
+    second: SkullMonkWalk_LongStride12_38
+  - first:
+      213: 5256497056551129935
+    second: SkullMonkWalk_LongStride12_39
+  - first:
+      213: 6258159901522966881
+    second: SkullMonkWalk_LongStride12_40
+  - first:
+      213: 6712238420173047132
+    second: SkullMonkWalk_LongStride12_41
+  - first:
+      213: 3653162394746900652
+    second: SkullMonkWalk_LongStride12_42
+  - first:
+      213: 4282305245419721949
+    second: SkullMonkWalk_LongStride12_43
+  - first:
+      213: -1376227519278390708
+    second: SkullMonkWalk_LongStride12_44
+  - first:
+      213: 6066974001507684986
+    second: SkullMonkWalk_LongStride12_45
+  - first:
+      213: 1040849284018472505
+    second: SkullMonkWalk_LongStride12_46
+  - first:
+      213: 4158305032766577501
+    second: SkullMonkWalk_LongStride12_47
+  - first:
+      213: 8952573131070016567
+    second: SkullMonkWalk_LongStride12_48
+  - first:
+      213: 6701139885202968292
+    second: SkullMonkWalk_LongStride12_49
+  - first:
+      213: 2931400896758611374
+    second: SkullMonkWalk_LongStride12_50
+  - first:
+      213: -666657984706066422
+    second: SkullMonkWalk_LongStride12_51
+  - first:
+      213: -7271563962646237742
+    second: SkullMonkWalk_LongStride12_52
+  - first:
+      213: 702836283926506858
+    second: SkullMonkWalk_LongStride12_53
+  - first:
+      213: -8988660745224986449
+    second: SkullMonkWalk_LongStride12_54
+  - first:
+      213: -620711544408989380
+    second: SkullMonkWalk_LongStride12_55
+  - first:
+      213: 9124243732711959355
+    second: SkullMonkWalk_LongStride12_56
+  - first:
+      213: 4533472193017762128
+    second: SkullMonkWalk_LongStride12_57
+  - first:
+      213: -8668154010020806624
+    second: SkullMonkWalk_LongStride12_58
+  - first:
+      213: 2612626416382752591
+    second: SkullMonkWalk_LongStride12_59
+  - first:
+      213: -780090502435016391
+    second: SkullMonkWalk_LongStride12_60
+  - first:
+      213: -7349171879655060780
+    second: SkullMonkWalk_LongStride12_61
+  - first:
+      213: 1610961916744798202
+    second: SkullMonkWalk_LongStride12_62
+  - first:
+      213: -2203558424403845396
+    second: SkullMonkWalk_LongStride12_63
+  - first:
+      213: 4795377001078672825
+    second: SkullMonkWalk_LongStride12_64
+  - first:
+      213: 3100307904040076454
+    second: SkullMonkWalk_LongStride12_65
+  - first:
+      213: -1894555824229938788
+    second: SkullMonkWalk_LongStride12_66
+  - first:
+      213: 6673018232776906084
+    second: SkullMonkWalk_LongStride12_67
+  - first:
+      213: 7461871001857122559
+    second: SkullMonkWalk_LongStride12_68
+  - first:
+      213: 5650777465772847014
+    second: SkullMonkWalk_LongStride12_69
+  - first:
+      213: 3355284576723187650
+    second: SkullMonkWalk_LongStride12_70
+  - first:
+      213: -474707059172040758
+    second: SkullMonkWalk_LongStride12_71
+  - first:
+      213: 6962728856941172686
+    second: SkullMonkWalk_LongStride12_72
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 74.90049
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SkullMonkWalk12_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5487288, y: 0.4983685}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b9dfd612f5f3f64e90c91d3bc32af30
+      internalID: 746840203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_01
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5589527, y: 0.490556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a62821c1a845b4444b5480c7a8779313
+      internalID: -1399804986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_02
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.56065035, y: 0.48860288}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 370e7408a2fa6414f8250a1b11ae4e07
+      internalID: 1149863759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_03
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 512
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5617926, y: 0.48664975}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 941c42f3edb8f134da650de82ba2e553
+      internalID: -1768107672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_04
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5587535, y: 0.48860288}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 116e051f2d80a084c82a2fb9f357fbef
+      internalID: -672966468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_05
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 512
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5573225, y: 0.49250913}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 106810c7d8922114aba4fb420f0b8f3e
+      internalID: 1249576066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_06
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5459654, y: 0.5003216}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a3d444d0d98d1c4fb3fa88a0cc0fd65
+      internalID: 1338860526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_07
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5536226, y: 0.49446225}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04017ad229368a24c9395b7681d4c804
+      internalID: -46977882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_08
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5559721, y: 0.5003216}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 708d217235037f3468833da78ebc35e7
+      internalID: 102069630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_09
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5472255, y: 0.49446225}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ee6abb05fdfe8e4689f7c27608c7b63
+      internalID: 639683488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_10
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.54498386, y: 0.49446225}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f09a6728beb1a594a805fdaae97ec200
+      internalID: -843320956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_11
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5536313, y: 0.5003216}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c0a3d116ad1e1e45843a216654e8bcf
+      internalID: 199191605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 29bf7b2ff4013d649a82cee76e514fae
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SkullMonkWalk12_00: 746840203
+      SkullMonkWalk12_01: -1399804986
+      SkullMonkWalk12_02: 1149863759
+      SkullMonkWalk12_03: -1768107672
+      SkullMonkWalk12_04: -672966468
+      SkullMonkWalk12_05: 1249576066
+      SkullMonkWalk12_06: 1338860526
+      SkullMonkWalk12_07: -46977882
+      SkullMonkWalk12_08: 102069630
+      SkullMonkWalk12_09: 639683488
+      SkullMonkWalk12_10: -843320956
+      SkullMonkWalk12_11: 199191605
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

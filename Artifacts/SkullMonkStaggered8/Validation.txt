@@ -1,0 +1,39 @@
+Native Unity 8-frame walk verification
+PASS Distinct sprites and keys: 8
+PASS Slow six-FPS loop with correct duration
+PASS No animation curves move or scale the actor
+PASS Generated sheet retains transparent alpha
+PASS Chronological top-row then bottom-row frame 0
+PASS Animator displays frame 0 without transform drift
+PASS Rendered sole height remains fixed in frame 0
+PASS Frame has valid custom separation mesh 0
+PASS Chronological top-row then bottom-row frame 1
+PASS Animator displays frame 1 without transform drift
+PASS Rendered sole height remains fixed in frame 1
+PASS Frame has valid custom separation mesh 1
+PASS Chronological top-row then bottom-row frame 2
+PASS Animator displays frame 2 without transform drift
+PASS Rendered sole height remains fixed in frame 2
+PASS Frame has valid custom separation mesh 2
+PASS Chronological top-row then bottom-row frame 3
+PASS Animator displays frame 3 without transform drift
+PASS Rendered sole height remains fixed in frame 3
+PASS Frame has valid custom separation mesh 3
+PASS Chronological top-row then bottom-row frame 4
+PASS Animator displays frame 4 without transform drift
+PASS Rendered sole height remains fixed in frame 4
+PASS Frame has valid custom separation mesh 4
+PASS Chronological top-row then bottom-row frame 5
+PASS Animator displays frame 5 without transform drift
+PASS Rendered sole height remains fixed in frame 5
+PASS Frame has valid custom separation mesh 5
+PASS Chronological top-row then bottom-row frame 6
+PASS Animator displays frame 6 without transform drift
+PASS Rendered sole height remains fixed in frame 6
+PASS Frame has valid custom separation mesh 6
+PASS Chronological top-row then bottom-row frame 7
+PASS Animator displays frame 7 without transform drift
+PASS Rendered sole height remains fixed in frame 7
+PASS Frame has valid custom separation mesh 7
+PASS Last frame wraps back to first correctly
+COMPLETE 37 checks passed

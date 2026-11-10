@@ -30,6 +30,9 @@ namespace EasternFantasy.Quest
         [SerializeField] private string title;
         [SerializeField, TextArea(2, 5)] private string objectiveDescription;
         [SerializeField, Min(1)] private int requiredAmount = 1;
+        [Tooltip("For collection quests, count this material in the inventory and consume it on turn-in.")]
+        [SerializeField] private EasternFantasy.Inventory.ItemDefinition requiredItem;
+        public EasternFantasy.Inventory.ItemDefinition RequiredItem => requiredItem;
         [SerializeField, Min(0)] private int rewardYeopjeon = 20;
         [SerializeField, Min(0)] private int rewardEXP = 100;
         [SerializeField] private QuestItemReward[] rewardItems = Array.Empty<QuestItemReward>();

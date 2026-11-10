@@ -49,6 +49,41 @@ namespace EasternFantasy.Inventory
             new Dictionary<EquipmentSlot, ItemDefinition>();
         private PlayerEntity playerEntity;
         private bool initialized;
+        private float regenerationElapsed;
+        private float previousRegenerationRate;
+
+        public float EquippedHealthRegeneration
+        {
+            get
+            {
+                EnsureInitialized();
+                float total = 0f;
+                foreach (var item in equippedItems.Values)
+                    if (item != null && item.IsAccessory && item.SpecialAbility == AccessoryAbility.HealthRegeneration)
+                        total += item.SpecialAbilityValue;
+                return total;
+            }
+        }
+
+        private void Update()
+        {
+            float rate = EquippedHealthRegeneration;
+            if (rate != previousRegenerationRate)
+            {
+                regenerationElapsed = 0f;
+                previousRegenerationRate = rate;
+            }
+            if (rate <= 0f || playerEntity == null || playerEntity.IsDead || playerEntity.HP >= playerEntity.maxHP)
+            {
+                regenerationElapsed = 0f;
+                return;
+            }
+            regenerationElapsed += Time.deltaTime;
+            int ticks = Mathf.FloorToInt(regenerationElapsed);
+            if (ticks <= 0) return;
+            regenerationElapsed -= ticks;
+            playerEntity.RestoreHealth(rate * ticks);
+        }
 
         public const int SlotsPerCategory = 20;
         public static int GetSlotCapacity(ItemCategory category) => SlotsPerCategory;
@@ -210,6 +245,7 @@ namespace EasternFantasy.Inventory
             else
                 items.Add(new InventoryStack(item, amount, FindFirstEmptySlot(item.InventoryCategory)));
 
+            FirstDropProgress.RegisterAcquired(item);
             InventoryChanged?.Invoke();
             ItemAcquired?.Invoke(this, item);
             return true;
@@ -217,8 +253,13 @@ namespace EasternFantasy.Inventory
 
         // Validate the whole reward before changing inventory or raising acquisition events.
         public bool TryAddItems(IReadOnlyDictionary<ItemDefinition, int> rewards)
+            => TryExchangeMaterialForItems(null, 0, rewards);
+
+        // Validate both sides before changing anything, then publish one inventory update.
+        public bool TryExchangeMaterialForItems(ItemDefinition material, int amount, IReadOnlyDictionary<ItemDefinition, int> rewards)
         {
             EnsureInitialized();
+            if (amount < 0 || (amount > 0 && (material == null || GetMaterialQuantity(material) < amount))) return false;
             if (rewards == null) return false;
             var newSlots = new Dictionary<ItemCategory, int>();
             foreach (var reward in rewards)
@@ -238,12 +279,14 @@ namespace EasternFantasy.Inventory
                     if (stack.Item.InventoryCategory == category.Key) occupied.Add(stack.SlotIndex);
                 if (occupied.Count + category.Value > GetSlotCapacity(category.Key)) return false;
             }
+            if (amount > 0) ConsumeMaterial(material, amount);
             foreach (var reward in rewards)
             {
                 var existing = FindStack(reward.Key);
                 if (existing != null) existing.SetQuantity(existing.Quantity + reward.Value);
                 else items.Add(new InventoryStack(reward.Key, reward.Value, FindFirstEmptySlot(reward.Key.InventoryCategory)));
             }
+            foreach (var reward in rewards) FirstDropProgress.RegisterAcquired(reward.Key);
             InventoryChanged?.Invoke();
             foreach (var reward in rewards) ItemAcquired?.Invoke(this, reward.Key);
             return true;

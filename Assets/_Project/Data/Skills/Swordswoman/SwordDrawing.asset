@@ -17,13 +17,13 @@ MonoBehaviour:
   shortDescription: "\uAE30\uB97C \uBAA8\uC740 \uB4A4 \uC804\uBC29\uC73C\uB85C \uC21C\uAC04
     \uC774\uB3D9\uD558\uBA70 \uACBD\uB85C\uC758 \uC801\uB4E4\uC744 \uD55C \uBC88
     \uD06C\uAC8C \uBCA0\uC5B4\uB0C5\uB2C8\uB2E4."
-  detailedDescription: "\uCCB4\uB825 \uC99D\uAC00 Lv.3 \uD544\uC694. \uACF5\uACA9\uB825\uC758
-    500% \uD53C\uD574. MP 25 \uC18C\uBAA8, \uC7AC\uC0AC\uC6A9 \uB300\uAE30\uC2DC\uAC04
-    20\uCD08. \uC9C0\uD615\uC5D0 \uB9C9\uD788\uBA74 \uC774\uB3D9 \uACBD\uB85C\uAC00
-    \uC9E7\uC544\uC9D1\uB2C8\uB2E4."
+  detailedDescription: "체력 증가 Lv.3 필요. 1레벨 공격력의 500% 피해를 주며 레벨당 25%p 증가하여 9레벨에 700% 피해를 줍니다. MP 25 소모, 재사용 대기시간 20초. 이동 거리 8이며 지형에 막히면 이동 경로가 짧아집니다."
   tier: 1
   activationType: 1
-  maximumLevel: 1
+  maximumLevel: 9
+  damageMultiplier: 5
+  damageMultiplierPerLevel: 0.25
+  damageHitCount: 1
   cooldownSeconds: 20
   manaCost: 25
   resourceCost: 0

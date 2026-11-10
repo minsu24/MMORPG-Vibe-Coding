@@ -15,6 +15,8 @@ namespace EasternFantasy.Dungeon
         public bool IsExitPromptOpen => ui != null && ui.promptRoot.activeSelf;
         private DungeonDefinition definition;
         private bool leaving;
+        private string runId;
+        private bool rewardsQueued;
         private MON_Giant[] giants = Array.Empty<MON_Giant>();
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -34,6 +36,7 @@ namespace EasternFantasy.Dungeon
             var controller = Instantiate(prefab).GetComponent<DungeonRunController>();
             Instance = controller;
             controller.definition = dungeon;
+            controller.runId = Guid.NewGuid().ToString("N");
             controller.RemainingSeconds = dungeon.timeLimitSeconds;
             controller.ui.HidePrompt();
             controller.ui.SetTimer(controller.RemainingSeconds, false, dungeon.timeLimitSeconds > 0);
@@ -49,7 +52,12 @@ namespace EasternFantasy.Dungeon
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (mode == LoadSceneMode.Additive) return;
-            if (!ContainsScene(scene.name)) { Destroy(gameObject); return; }
+            if (!ContainsScene(scene.name))
+            {
+                if (IsCleared) QueueClearRewards();
+                Destroy(gameObject);
+                return;
+            }
             BindGiants();
         }
 
@@ -66,6 +74,7 @@ namespace EasternFantasy.Dungeon
             if (IsCleared || hasFailed || leaving || !ContainsScene(enemy.gameObject.scene.name)) return;
             IsCleared = true;
             RemainingSeconds = 30f;
+            QueueClearRewards();
             ui.SetTimer(RemainingSeconds, true, true);
             ui.ShowPrompt();
             PlayResultAudio(true);
@@ -92,7 +101,7 @@ namespace EasternFantasy.Dungeon
         public void ExitToVillage()
         {
             if (leaving || PortalSceneTransition.IsTransitioning) return;
-            const string village = "PrologueVilage";
+            string village = string.IsNullOrEmpty(definition.returnSceneName) ? "PrologueVilage" : definition.returnSceneName;
             if (!Application.CanStreamedLevelBeLoaded(village))
             { Debug.LogError("PrologueVilage must be enabled in Build Settings."); return; }
             leaving = true;
@@ -107,7 +116,7 @@ namespace EasternFantasy.Dungeon
                 { death.Respawn(); return; }
                 if (!player.TryGetComponent<PlayerLocationSetter>(out _)) player.gameObject.AddComponent<PlayerLocationSetter>();
             }
-            if (!PortalSceneTransition.TryLoad(village, "In_Vilage_Portal",
+            if (!PortalSceneTransition.TryLoad(village, definition.returnSpawnPointName,
                 success => { if (this != null) leaving = false; }, playPortalAudio: true)) leaving = false;
         }
 
@@ -116,6 +125,15 @@ namespace EasternFantasy.Dungeon
             RestoreResultMusic();
             foreach (var giant in giants) if (giant != null) giant.Defeated -= OnGiantDefeated;
             if (Instance == this) Instance = null;
+        }
+
+        private void QueueClearRewards()
+        {
+            if (!IsCleared || rewardsQueued) return;
+            if (string.IsNullOrEmpty(runId)) runId = Guid.NewGuid().ToString("N");
+            rewardsQueued = true;
+            DungeonRewardProgress.Queue(runId, definition);
+            EasternFantasy.Saving.SaveGameService.SaveNow(out _);
         }
     }
 }

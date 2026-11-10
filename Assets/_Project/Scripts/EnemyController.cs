@@ -14,6 +14,24 @@ public abstract class EnemyController : Entity
 
     public event System.Action<EnemyController> Defeated;
 
+    [Header("Nameplate")]
+    [SerializeField] private string monsterDisplayName;
+    [SerializeField, Min(0.1f)] private float nameplateShowDistance = 4f;
+    [SerializeField, Min(0f)] private float nameplateHitDuration = 5f;
+    private float nameplateHitUntil = float.NegativeInfinity;
+    public string MonsterDisplayName => monsterDisplayName;
+    public bool ShouldShowNameplate => isActiveAndEnabled && !isDefeated && HP > 0f && HasLivingPlayer
+        && (Time.time < nameplateHitUntil ||
+            ((Vector2)(playerEntity.transform.position - transform.position)).sqrMagnitude <= nameplateShowDistance * nameplateShowDistance);
+    public Vector3 NameplatePosition
+    {
+        get
+        {
+            Bounds bounds = capsuleCollider2D != null ? capsuleCollider2D.bounds : spriteRenderer.bounds;
+            return new Vector3(bounds.center.x, bounds.min.y - .15f, transform.position.z);
+        }
+    }
+
     [SerializeField] private float _maxHP;
     [SerializeField] protected float _attackPower;
     [SerializeField] private float _moveSpeed;
@@ -141,6 +159,9 @@ public abstract class EnemyController : Entity
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalMaterial = spriteRenderer.sharedMaterial;
+        var nameplate = GetComponent<EasternFantasy.UI.MonsterNameplateUI>();
+        if (nameplate == null) nameplate = gameObject.AddComponent<EasternFantasy.UI.MonsterNameplateUI>();
+        nameplate.Initialize(this);
         target = HasLivingPlayer ? playerEntity : null;
         animator = GetComponent<Animator>();
         if (animator != null)
@@ -356,6 +377,7 @@ public abstract class EnemyController : Entity
         }
         if (HP > 0)
         {
+            nameplateHitUntil = Time.time + nameplateHitDuration;
             HP -= damage;
             CombatImpactFeedback.Play(transform.position, isCritical, impactSound, impactVolume);
             // 1. 데미지 텍스트 생성
@@ -508,6 +530,7 @@ public abstract class EnemyController : Entity
 
     protected virtual void OnDisable()
     {
+        nameplateHitUntil = float.NegativeInfinity;
         EndSpawnContactGrace();
         if (hitFlashRoutine != null)
         {

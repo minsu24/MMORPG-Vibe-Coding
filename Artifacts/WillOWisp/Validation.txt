@@ -1,0 +1,202 @@
+Native Unity wisp frame size, separation and rendering verification
+PASS 도깨비 불 공격.png: correct frame count 8
+PASS Native resolution and uncompressed transparent import
+PASS Identical 384px square frame cells
+PASS Frame 0: exact non-overlapping grid rectangle
+PASS Frame 0: common scale and centre pivot
+PASS Frame 0: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 0: visible maximum extent 320px (target320)
+PASS Frame 0: visible silhouette centred
+PASS Frame 0: native SpriteRenderer uses common world bounds
+PASS Frame 1: exact non-overlapping grid rectangle
+PASS Frame 1: common scale and centre pivot
+PASS Frame 1: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 1: visible maximum extent 320px (target320)
+PASS Frame 1: visible silhouette centred
+PASS Frame 1: native SpriteRenderer uses common world bounds
+PASS Frame 2: exact non-overlapping grid rectangle
+PASS Frame 2: common scale and centre pivot
+PASS Frame 2: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 2: visible maximum extent 320px (target320)
+PASS Frame 2: visible silhouette centred
+PASS Frame 2: native SpriteRenderer uses common world bounds
+PASS Frame 3: exact non-overlapping grid rectangle
+PASS Frame 3: common scale and centre pivot
+PASS Frame 3: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 3: visible maximum extent 320px (target320)
+PASS Frame 3: visible silhouette centred
+PASS Frame 3: native SpriteRenderer uses common world bounds
+PASS Frame 4: exact non-overlapping grid rectangle
+PASS Frame 4: common scale and centre pivot
+PASS Frame 4: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 4: visible maximum extent 320px (target320)
+PASS Frame 4: visible silhouette centred
+PASS Frame 4: native SpriteRenderer uses common world bounds
+PASS Frame 5: exact non-overlapping grid rectangle
+PASS Frame 5: common scale and centre pivot
+PASS Frame 5: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 5: visible maximum extent 320px (target320)
+PASS Frame 5: visible silhouette centred
+PASS Frame 5: native SpriteRenderer uses common world bounds
+PASS Frame 6: exact non-overlapping grid rectangle
+PASS Frame 6: common scale and centre pivot
+PASS Frame 6: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 6: visible maximum extent 320px (target320)
+PASS Frame 6: visible silhouette centred
+PASS Frame 6: native SpriteRenderer uses common world bounds
+PASS Frame 7: exact non-overlapping grid rectangle
+PASS Frame 7: common scale and centre pivot
+PASS Frame 7: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 7: visible maximum extent 321px (target320)
+PASS Frame 7: visible silhouette centred
+PASS Frame 7: native SpriteRenderer uses common world bounds
+PASS 도깨비 불 사망.png: correct frame count 8
+PASS Native resolution and uncompressed transparent import
+PASS Identical 384px square frame cells
+PASS Frame 0: exact non-overlapping grid rectangle
+PASS Frame 0: common scale and centre pivot
+PASS Frame 0: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 0: visible maximum extent 320px (target320)
+PASS Frame 0: visible silhouette centred
+PASS Frame 0: native SpriteRenderer uses common world bounds
+PASS Frame 1: exact non-overlapping grid rectangle
+PASS Frame 1: common scale and centre pivot
+PASS Frame 1: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 1: visible maximum extent 320px (target320)
+PASS Frame 1: visible silhouette centred
+PASS Frame 1: native SpriteRenderer uses common world bounds
+PASS Frame 2: exact non-overlapping grid rectangle
+PASS Frame 2: common scale and centre pivot
+PASS Frame 2: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 2: visible maximum extent 320px (target320)
+PASS Frame 2: visible silhouette centred
+PASS Frame 2: native SpriteRenderer uses common world bounds
+PASS Frame 3: exact non-overlapping grid rectangle
+PASS Frame 3: common scale and centre pivot
+PASS Frame 3: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 3: visible maximum extent 320px (target320)
+PASS Frame 3: visible silhouette centred
+PASS Frame 3: native SpriteRenderer uses common world bounds
+PASS Frame 4: exact non-overlapping grid rectangle
+PASS Frame 4: common scale and centre pivot
+PASS Frame 4: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 4: visible maximum extent 320px (target320)
+PASS Frame 4: visible silhouette centred
+PASS Frame 4: native SpriteRenderer uses common world bounds
+PASS Frame 5: exact non-overlapping grid rectangle
+PASS Frame 5: common scale and centre pivot
+PASS Frame 5: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 5: visible maximum extent 320px (target320)
+PASS Frame 5: visible silhouette centred
+PASS Frame 5: native SpriteRenderer uses common world bounds
+PASS Frame 6: exact non-overlapping grid rectangle
+PASS Frame 6: common scale and centre pivot
+PASS Frame 6: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 6: visible maximum extent 320px (target320)
+PASS Frame 6: visible silhouette centred
+PASS Frame 6: native SpriteRenderer uses common world bounds
+PASS Frame 7: exact non-overlapping grid rectangle
+PASS Frame 7: common scale and centre pivot
+PASS Frame 7: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 7: visible maximum extent 319px (target320)
+PASS Frame 7: visible silhouette centred
+PASS Frame 7: native SpriteRenderer uses common world bounds
+PASS 도깨비 불 투사체.png: correct frame count 7
+PASS Native resolution and uncompressed transparent import
+PASS Identical 384px square frame cells
+PASS Frame 0: exact non-overlapping grid rectangle
+PASS Frame 0: common scale and centre pivot
+PASS Frame 0: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 0: visible maximum extent 320px (target320)
+PASS Frame 0: visible silhouette centred
+PASS Frame 0: native SpriteRenderer uses common world bounds
+PASS Frame 1: exact non-overlapping grid rectangle
+PASS Frame 1: common scale and centre pivot
+PASS Frame 1: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 1: visible maximum extent 321px (target320)
+PASS Frame 1: visible silhouette centred
+PASS Frame 1: native SpriteRenderer uses common world bounds
+PASS Frame 2: exact non-overlapping grid rectangle
+PASS Frame 2: common scale and centre pivot
+PASS Frame 2: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 2: visible maximum extent 319px (target320)
+PASS Frame 2: visible silhouette centred
+PASS Frame 2: native SpriteRenderer uses common world bounds
+PASS Frame 3: exact non-overlapping grid rectangle
+PASS Frame 3: common scale and centre pivot
+PASS Frame 3: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 3: visible maximum extent 321px (target320)
+PASS Frame 3: visible silhouette centred
+PASS Frame 3: native SpriteRenderer uses common world bounds
+PASS Frame 4: exact non-overlapping grid rectangle
+PASS Frame 4: common scale and centre pivot
+PASS Frame 4: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 4: visible maximum extent 320px (target320)
+PASS Frame 4: visible silhouette centred
+PASS Frame 4: native SpriteRenderer uses common world bounds
+PASS Frame 5: exact non-overlapping grid rectangle
+PASS Frame 5: common scale and centre pivot
+PASS Frame 5: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 5: visible maximum extent 320px (target320)
+PASS Frame 5: visible silhouette centred
+PASS Frame 5: native SpriteRenderer uses common world bounds
+PASS Frame 6: exact non-overlapping grid rectangle
+PASS Frame 6: common scale and centre pivot
+PASS Frame 6: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 6: visible maximum extent 321px (target320)
+PASS Frame 6: visible silhouette centred
+PASS Frame 6: native SpriteRenderer uses common world bounds
+PASS 도깨비불 대기.png: correct frame count 8
+PASS Native resolution and uncompressed transparent import
+PASS Identical 384px square frame cells
+PASS Frame 0: exact non-overlapping grid rectangle
+PASS Frame 0: common scale and centre pivot
+PASS Frame 0: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 0: visible maximum extent 321px (target320)
+PASS Frame 0: visible silhouette centred
+PASS Frame 0: native SpriteRenderer uses common world bounds
+PASS Frame 1: exact non-overlapping grid rectangle
+PASS Frame 1: common scale and centre pivot
+PASS Frame 1: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 1: visible maximum extent 320px (target320)
+PASS Frame 1: visible silhouette centred
+PASS Frame 1: native SpriteRenderer uses common world bounds
+PASS Frame 2: exact non-overlapping grid rectangle
+PASS Frame 2: common scale and centre pivot
+PASS Frame 2: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 2: visible maximum extent 320px (target320)
+PASS Frame 2: visible silhouette centred
+PASS Frame 2: native SpriteRenderer uses common world bounds
+PASS Frame 3: exact non-overlapping grid rectangle
+PASS Frame 3: common scale and centre pivot
+PASS Frame 3: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 3: visible maximum extent 320px (target320)
+PASS Frame 3: visible silhouette centred
+PASS Frame 3: native SpriteRenderer uses common world bounds
+PASS Frame 4: exact non-overlapping grid rectangle
+PASS Frame 4: common scale and centre pivot
+PASS Frame 4: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 4: visible maximum extent 320px (target320)
+PASS Frame 4: visible silhouette centred
+PASS Frame 4: native SpriteRenderer uses common world bounds
+PASS Frame 5: exact non-overlapping grid rectangle
+PASS Frame 5: common scale and centre pivot
+PASS Frame 5: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 5: visible maximum extent 320px (target320)
+PASS Frame 5: visible silhouette centred
+PASS Frame 5: native SpriteRenderer uses common world bounds
+PASS Frame 6: exact non-overlapping grid rectangle
+PASS Frame 6: common scale and centre pivot
+PASS Frame 6: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 6: visible maximum extent 320px (target320)
+PASS Frame 6: visible silhouette centred
+PASS Frame 6: native SpriteRenderer uses common world bounds
+PASS Frame 7: exact non-overlapping grid rectangle
+PASS Frame 7: common scale and centre pivot
+PASS Frame 7: eight-pixel transparent outer border prevents neighbouring-frame bleed
+PASS Frame 7: visible maximum extent 320px (target320)
+PASS Frame 7: visible silhouette centred
+PASS Frame 7: native SpriteRenderer uses common world bounds
+PASS All 31 animation frames rendered in Unity
+PASS Existing monster prefab retains its original sprite file ID
+COMPLETE 200 checks passed

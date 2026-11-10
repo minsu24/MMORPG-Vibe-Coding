@@ -57,9 +57,13 @@ namespace EasternFantasy.Skill
         [SerializeField, Min(0f)] private float cooldownReductionPerLevel;
         [SerializeField, Min(0f)] private float dashDistance;
         [SerializeField, Min(0f)] private float dashDistancePerLevel;
+        [SerializeField, Min(0f)] private float teleportDistance;
+        [SerializeField, Min(0f)] private float teleportDistancePerLevel;
         [SerializeField, Min(0f)] private float damageMultiplier;
         [SerializeField, Min(0f)] private float damageMultiplierPerLevel;
         [SerializeField, Min(1)] private int damageHitCount = 1;
+        [SerializeField, Range(0f, 1f)] private float damageReduction;
+        [SerializeField, Range(0f, 1f)] private float damageReductionPerLevel;
         [SerializeField, Min(0f)] private float manaCost;
         [SerializeField] private SkillResourceCost resourceCost;
         [SerializeField, Min(0f), Tooltip("Amount spent when Resource Cost is Energy.")] private float energyCost;
@@ -96,6 +100,17 @@ namespace EasternFantasy.Skill
             return dashDistance + dashDistancePerLevel * (Mathf.Clamp(level, 1, maximumLevel) - 1);
         }
 
+        public float GetTeleportDistance(int level)
+        {
+            return teleportDistance + teleportDistancePerLevel * (Mathf.Clamp(level, 1, maximumLevel) - 1);
+        }
+
+        public float GetDamageReduction(int level)
+        {
+            return Mathf.Clamp01(damageReduction
+                + damageReductionPerLevel * (Mathf.Clamp(level, 1, maximumLevel) - 1));
+        }
+
         public string GetLevelEffectDescription(int level)
         {
             string result = damageMultiplier > 0f
@@ -107,6 +122,12 @@ namespace EasternFantasy.Skill
             if (dashDistance > 0f)
                 result += (result.Length > 0 ? " · " : string.Empty)
                     + $"돌진 거리 {GetDashDistance(level):0.##}";
+            if (damageReduction > 0f || damageReductionPerLevel > 0f)
+                result += (result.Length > 0 ? " · " : string.Empty)
+                    + $"받는 피해 {GetDamageReduction(level) * 100f:0.#}% 감소";
+            if (teleportDistance > 0f)
+                result += (result.Length > 0 ? " · " : string.Empty)
+                    + $"순간이동 거리 {GetTeleportDistance(level):0.##}";
             return result;
         }
         public float ManaCost => manaCost;

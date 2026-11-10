@@ -70,17 +70,33 @@ namespace EasternFantasy.Editor
             SkillDefinition teleport = GetOrCreateSkill(
                 "FirstTeleport", "텔레포트",
                 "바라보는 방향으로 빠르게 이동하는 스킬입니다.",
-                "이동 거리, 무적 여부와 재사용 대기시간은 여기에 작성하세요.",
-                SkillTier.FirstAdvancement, 1,
+                "1레벨 이동 거리 4, 재사용 대기시간 6초. 레벨당 이동 거리가 0.5 증가하고 재사용 대기시간이 0.5초 감소합니다. 5레벨 이동 거리 6, 재사용 대기시간 4초. MP 5 소모.",
+                SkillTier.FirstAdvancement, 5,
                 SkillActivationType.Active, 6f,
                 SkillEffectType.None, 0f, speed);
+            var teleportData = new SerializedObject(teleport);
+            teleportData.FindProperty("teleportDistance").floatValue = 4f;
+            teleportData.FindProperty("teleportDistancePerLevel").floatValue = 0.5f;
+            teleportData.FindProperty("cooldownReductionPerLevel").floatValue = 0.5f;
+            teleportData.FindProperty("manaCost").floatValue = 5f;
+            teleportData.FindProperty("requirements").GetArrayElementAtIndex(0)
+                .FindPropertyRelative("requiredLevel").intValue = 3;
+            teleportData.ApplyModifiedPropertiesWithoutUndo();
             SkillDefinition talismanShield = GetOrCreateSkill(
                 "FirstTalismanShield", "부적 실드",
                 "부적으로 보호막을 생성하는 방어 스킬입니다.",
-                "보호막 수치, 지속시간과 재사용 대기시간은 여기에 작성하세요.",
-                SkillTier.FirstAdvancement, 1,
+                "5초간 받는 피해를 감소시킵니다. 1레벨 30%, 레벨당 5%p 증가하여 9레벨에 70% 감소합니다. MP 30 소모, 재사용 대기시간 10초.",
+                SkillTier.FirstAdvancement, 9,
                 SkillActivationType.Active, 10f,
                 SkillEffectType.None, 0f, health);
+
+            var shieldData = new SerializedObject(talismanShield);
+            shieldData.FindProperty("damageReduction").floatValue = 0.3f;
+            shieldData.FindProperty("damageReductionPerLevel").floatValue = 0.05f;
+            shieldData.FindProperty("manaCost").floatValue = 30f;
+            shieldData.FindProperty("requirements").GetArrayElementAtIndex(0)
+                .FindPropertyRelative("requiredLevel").intValue = 3;
+            shieldData.ApplyModifiedPropertiesWithoutUndo();
 
             SkillDefinition[] skills =
             {

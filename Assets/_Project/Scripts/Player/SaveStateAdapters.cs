@@ -143,6 +143,8 @@ namespace EasternFantasy.Quest
                 var definition = SaveAssetCatalog.Resolve<QuestDefinition>(entry.id);
                 if (definition != null) quests.Add(new QuestProgress(definition) { CurrentAmount = Mathf.Clamp(entry.amount, 0, definition.RequiredAmount), Status = (QuestStatus)Mathf.Clamp(entry.status, 0, 2) });
             }
+            BindCollectionInventory();
+            RefreshCollectionProgress();
             QuestsChanged?.Invoke();
         }
     }
@@ -216,10 +218,17 @@ namespace EasternFantasy.Dungeon
 {
     public sealed partial class DungeonRunController
     {
-        internal void CaptureSave(SaveGameData data) { data.dungeon = SaveAssetCatalog.Id(definition); data.dungeonSeconds = RemainingSeconds; data.dungeonCleared = IsCleared; }
+        internal void CaptureSave(SaveGameData data)
+        {
+            data.dungeon = SaveAssetCatalog.Id(definition); data.dungeonSeconds = RemainingSeconds; data.dungeonCleared = IsCleared;
+            data.dungeonRunId = runId; data.dungeonRewardsQueued = rewardsQueued;
+        }
         internal void RestoreSave(SaveGameData data)
         {
             RemainingSeconds = Mathf.Max(.1f, data.dungeonSeconds); IsCleared = data.dungeonCleared;
+            runId = string.IsNullOrEmpty(data.dungeonRunId) ? System.Guid.NewGuid().ToString("N") : data.dungeonRunId;
+            rewardsQueued = data.dungeonRewardsQueued;
+            if (IsCleared) QueueClearRewards();
             ui.SetTimer(RemainingSeconds, IsCleared, IsCleared || definition.timeLimitSeconds > 0);
         }
     }

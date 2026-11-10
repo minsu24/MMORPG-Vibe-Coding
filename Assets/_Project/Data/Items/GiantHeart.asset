@@ -27,10 +27,13 @@ MonoBehaviour:
   equipmentSet: {fileID: 0}
   attackBonus: 0
   defenseBonus: 0
+  specialAbility: 0
+  specialAbilityValue: 0
   consumableEffect: 0
   useAmount: 0
   maximumStack: 1
   buyPrice: 1000
   sellPrice: 1000
   cannotSell: 0
+  firstAcquisitionOnly: 1
   materialSource: {fileID: 0}

@@ -1,0 +1,24 @@
+Native Unity monster nameplate validation
+PASS Spawned monster automatically receives nameplate behaviour
+PASS Distant unhit monster is hidden
+PASS Distant monster does not allocate a UI panel
+PASS Approaching within four units reveals name
+PASS Nearby monster creates and displays its UI
+PASS Ginseng displays Korean monster name
+PASS Readable Korean font with white 18px text
+PASS Rectangular black background has 65 percent opacity
+PASS Nameplates cannot intercept mouse input
+PASS Background fits name plus horizontal padding
+PASS Facing flips do not mirror or rotate text
+PASS Top of nameplate follows position below monster feet
+PASS Nameplate follows moving monster
+PASS Leaving proximity hides name
+PASS Zero damage does not reveal name
+PASS Actual distant hit reveals name without changing damage behaviour
+PASS Hit reuses the same UI panel
+PASS Hit keeps name visible for five seconds
+PASS Name hides when distant hit timer expires
+PASS Dead player does not reveal nearby names
+PASS Defeated monster name is hidden immediately
+PASS Disabling monster immediately hides detached UI
+COMPLETE 22 checks passed

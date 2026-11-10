@@ -43,6 +43,7 @@ namespace EasternFantasy.Player
             && movement != null && !movement.IsMovementLocked && !movement.IsDashing;
 
         private static bool IsGameplayWindowOpen =>
+            EasternFantasy.UI.DungeonClearWindowUI.IsOpen ||
             EasternFantasy.UI.SoulstoneTutorialUI.IsRunning
             || EasternFantasy.UI.SoulstoneWindowUI.IsOpen
             ||

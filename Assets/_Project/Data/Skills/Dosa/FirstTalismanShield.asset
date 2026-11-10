@@ -16,12 +16,12 @@ MonoBehaviour:
   displayName: "\uBD80\uC801 \uC2E4\uB4DC"
   shortDescription: "\uBD80\uC801\uC73C\uB85C \uBCF4\uD638\uB9C9\uC744 \uC0DD\uC131\uD558\uB294
     \uBC29\uC5B4 \uC2A4\uD0AC\uC785\uB2C8\uB2E4."
-  detailedDescription: " 5\uCD08\uAC04 \uBCF4\uD638\uB9C9\uC744 \uB458\uB7EC \uBC1B\uB294
-    \uB370\uBBF8\uC9C0\uB97C 30\uD504\uB85C \uAC10\uC18C\uC2DC\uD0B5\uB2C8\uB2E4.\n\uC7AC\uC0AC\uC6A9
-    \uB300\uAE30\uC2DC\uAC04 : 10\uCD08  "
+  detailedDescription: "5초간 받는 피해를 감소시킵니다. 1레벨 30%, 레벨당 5%p 증가하여 9레벨에 70% 감소합니다. MP 30 소모, 재사용 대기시간 10초."
   tier: 1
   activationType: 1
-  maximumLevel: 1
+  maximumLevel: 9
+  damageReduction: 0.3
+  damageReductionPerLevel: 0.05
   cooldownSeconds: 10
   manaCost: 30
   icon: {fileID: -27775029027750616, guid: 2ac0d094d661233419e61691c72c737a, type: 3}

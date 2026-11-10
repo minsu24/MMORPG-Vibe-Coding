@@ -16,12 +16,13 @@ MonoBehaviour:
   displayName: "\uC2ED\uC790\uBCA0\uAE30"
   shortDescription: "\uC804\uBC29\uC758 \uC801\uB4E4\uC744 \uC2ED\uC790\uB85C \uBCA0\uC5B4
     \uB450 \uBC88 \uACF5\uACA9\uD569\uB2C8\uB2E4."
-  detailedDescription: "\uB9C8\uB098 \uC99D\uAC00 Lv.3 \uD544\uC694. \uAC01 \uD0C0\uACA9\uC740
-    \uACF5\uACA9\uB825\uC758 120% \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4. MP 15 \uC18C\uBAA8,
-    \uC7AC\uC0AC\uC6A9 \uB300\uAE30\uC2DC\uAC04 8\uCD08."
+  detailedDescription: "마나 증가 Lv.3 필요. 1레벨 공격력의 120%로 2회 타격합니다. 레벨당 각 타격 피해량이 6%p 증가하여 10레벨에 174%로 2회 타격합니다. MP 15 소모, 재사용 대기시간 8초."
   tier: 1
   activationType: 1
-  maximumLevel: 1
+  maximumLevel: 10
+  damageMultiplier: 1.2
+  damageMultiplierPerLevel: 0.06
+  damageHitCount: 2
   cooldownSeconds: 8
   manaCost: 15
   resourceCost: 0

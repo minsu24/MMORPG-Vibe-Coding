@@ -1,0 +1,266 @@
+Native Unity Play Mode skill balance validation
+PASS Original 14 to 15 experience preserved (actual 5500, expected 5500)
+PASS Experience exists at level 15
+PASS Experience exists at level 16
+PASS Experience exists at level 17
+PASS Experience exists at level 18
+PASS Experience exists at level 19
+PASS Experience exists at level 20
+PASS Experience exists at level 21
+PASS Experience exists at level 22
+PASS Experience exists at level 23
+PASS Experience exists at level 24
+PASS Experience exists at level 25
+PASS Experience exists at level 26
+PASS Experience exists at level 27
+PASS Experience exists at level 28
+PASS Experience exists at level 29
+PASS Player progresses beyond 15
+PASS Player stops at level 30
+PASS Player emits one level-up reward per gained level
+PASS MonkPlayer progresses beyond 15
+PASS MonkPlayer stops at level 30
+PASS MonkPlayer emits one level-up reward per gained level
+PASS SwordswomanPlayer progresses beyond 15
+PASS SwordswomanPlayer stops at level 30
+PASS SwordswomanPlayer emits one level-up reward per gained level
+PASS Teleport maximum level 5
+PASS Unlearned teleport rejected
+PASS Teleport casts at level 1
+PASS Teleport actual distance level 1 (actual 4, expected 4)
+PASS Teleport actual cooldown level 1 (actual 6, expected 6)
+PASS Teleport MP cost (actual 5, expected 5)
+PASS Teleport cooldown blocks repeat cast
+PASS Teleport tooltip includes distance
+PASS Unlearned teleport rejected
+PASS Teleport casts at level 2
+PASS Teleport actual distance level 2 (actual 4.5, expected 4.5)
+PASS Teleport actual cooldown level 2 (actual 5.5, expected 5.5)
+PASS Teleport MP cost (actual 5, expected 5)
+PASS Teleport cooldown blocks repeat cast
+PASS Teleport tooltip includes distance
+PASS Unlearned teleport rejected
+PASS Teleport casts at level 3
+PASS Teleport actual distance level 3 (actual 5, expected 5)
+PASS Teleport actual cooldown level 3 (actual 5, expected 5)
+PASS Teleport MP cost (actual 5, expected 5)
+PASS Teleport cooldown blocks repeat cast
+PASS Teleport tooltip includes distance
+PASS Unlearned teleport rejected
+PASS Teleport casts at level 4
+PASS Teleport actual distance level 4 (actual 5.5, expected 5.5)
+PASS Teleport actual cooldown level 4 (actual 4.5, expected 4.5)
+PASS Teleport MP cost (actual 5, expected 5)
+PASS Teleport cooldown blocks repeat cast
+PASS Teleport tooltip includes distance
+PASS Unlearned teleport rejected
+PASS Teleport casts at level 5
+PASS Teleport actual distance level 5 (actual 6, expected 6)
+PASS Teleport actual cooldown level 5 (actual 4, expected 4)
+PASS Teleport MP cost (actual 5, expected 5)
+PASS Teleport cooldown blocks repeat cast
+PASS Teleport tooltip includes distance
+PASS Shield maximum level 9
+PASS Shield casts at level 1
+PASS Shield applied reduction level 1 (actual 0.3, expected 0.3)
+PASS Shield actual damage mitigation level 1 (actual 33.98058, expected 33.98058)
+PASS Shield MP cost (actual 30, expected 30)
+PASS Shield cooldown (actual 10, expected 10)
+PASS Shield tooltip matches reduction
+PASS Shield casts at level 2
+PASS Shield applied reduction level 2 (actual 0.35, expected 0.35)
+PASS Shield actual damage mitigation level 2 (actual 31.5534, expected 31.5534)
+PASS Shield MP cost (actual 30, expected 30)
+PASS Shield cooldown (actual 10, expected 10)
+PASS Shield tooltip matches reduction
+PASS Shield casts at level 3
+PASS Shield applied reduction level 3 (actual 0.4, expected 0.4)
+PASS Shield actual damage mitigation level 3 (actual 29.12621, expected 29.12621)
+PASS Shield MP cost (actual 30, expected 30)
+PASS Shield cooldown (actual 10, expected 10)
+PASS Shield tooltip matches reduction
+PASS Shield casts at level 4
+PASS Shield applied reduction level 4 (actual 0.45, expected 0.45)
+PASS Shield actual damage mitigation level 4 (actual 26.69903, expected 26.69903)
+PASS Shield MP cost (actual 30, expected 30)
+PASS Shield cooldown (actual 10, expected 10)
+PASS Shield tooltip matches reduction
+PASS Shield casts at level 5
+PASS Shield applied reduction level 5 (actual 0.5, expected 0.5)
+PASS Shield actual damage mitigation level 5 (actual 24.27184, expected 24.27184)
+PASS Shield MP cost (actual 30, expected 30)
+PASS Shield cooldown (actual 10, expected 10)
+PASS Shield tooltip matches reduction
+PASS Shield casts at level 6
+PASS Shield applied reduction level 6 (actual 0.55, expected 0.55)
+PASS Shield actual damage mitigation level 6 (actual 21.84466, expected 21.84466)
+PASS Shield MP cost (actual 30, expected 30)
+PASS Shield cooldown (actual 10, expected 10)
+PASS Shield tooltip matches reduction
+PASS Shield casts at level 7
+PASS Shield applied reduction level 7 (actual 0.6, expected 0.6)
+PASS Shield actual damage mitigation level 7 (actual 19.41747, expected 19.41747)
+PASS Shield MP cost (actual 30, expected 30)
+PASS Shield cooldown (actual 10, expected 10)
+PASS Shield tooltip matches reduction
+PASS Shield casts at level 8
+PASS Shield applied reduction level 8 (actual 0.65, expected 0.65)
+PASS Shield actual damage mitigation level 8 (actual 16.99029, expected 16.99029)
+PASS Shield MP cost (actual 30, expected 30)
+PASS Shield cooldown (actual 10, expected 10)
+PASS Shield tooltip matches reduction
+PASS Shield casts at level 9
+PASS Shield applied reduction level 9 (actual 0.7, expected 0.7)
+PASS Shield actual damage mitigation level 9 (actual 14.5631, expected 14.5631)
+PASS Shield MP cost (actual 30, expected 30)
+PASS Shield cooldown (actual 10, expected 10)
+PASS Shield tooltip matches reduction
+PASS SwordDoubleSlash maximum level 10
+PASS SwordDoubleSlash actual cast level 1
+PASS SwordDoubleSlash actual cooldown level 1 (actual 8, expected 8)
+PASS Double slash two actual hits level 1 (actual 240, expected 240)
+PASS Duplicate slash event cannot hit twice (actual 9760, expected 9760)
+PASS SwordDoubleSlash MP cost (actual 15, expected 15)
+PASS SwordDoubleSlash level tooltip exists
+PASS SwordDoubleSlash actual cast level 2
+PASS SwordDoubleSlash actual cooldown level 2 (actual 8, expected 8)
+PASS Double slash two actual hits level 2 (actual 252, expected 252)
+PASS Duplicate slash event cannot hit twice (actual 9748, expected 9748)
+PASS SwordDoubleSlash MP cost (actual 15, expected 15)
+PASS SwordDoubleSlash level tooltip exists
+PASS SwordDoubleSlash actual cast level 3
+PASS SwordDoubleSlash actual cooldown level 3 (actual 8, expected 8)
+PASS Double slash two actual hits level 3 (actual 264, expected 264)
+PASS Duplicate slash event cannot hit twice (actual 9736, expected 9736)
+PASS SwordDoubleSlash MP cost (actual 15, expected 15)
+PASS SwordDoubleSlash level tooltip exists
+PASS SwordDoubleSlash actual cast level 4
+PASS SwordDoubleSlash actual cooldown level 4 (actual 8, expected 8)
+PASS Double slash two actual hits level 4 (actual 276, expected 276)
+PASS Duplicate slash event cannot hit twice (actual 9724, expected 9724)
+PASS SwordDoubleSlash MP cost (actual 15, expected 15)
+PASS SwordDoubleSlash level tooltip exists
+PASS SwordDoubleSlash actual cast level 5
+PASS SwordDoubleSlash actual cooldown level 5 (actual 8, expected 8)
+PASS Double slash two actual hits level 5 (actual 288, expected 288)
+PASS Duplicate slash event cannot hit twice (actual 9712, expected 9712)
+PASS SwordDoubleSlash MP cost (actual 15, expected 15)
+PASS SwordDoubleSlash level tooltip exists
+PASS SwordDoubleSlash actual cast level 6
+PASS SwordDoubleSlash actual cooldown level 6 (actual 8, expected 8)
+PASS Double slash two actual hits level 6 (actual 300, expected 300)
+PASS Duplicate slash event cannot hit twice (actual 9700, expected 9700)
+PASS SwordDoubleSlash MP cost (actual 15, expected 15)
+PASS SwordDoubleSlash level tooltip exists
+PASS SwordDoubleSlash actual cast level 7
+PASS SwordDoubleSlash actual cooldown level 7 (actual 8, expected 8)
+PASS Double slash two actual hits level 7 (actual 312, expected 312)
+PASS Duplicate slash event cannot hit twice (actual 9688, expected 9688)
+PASS SwordDoubleSlash MP cost (actual 15, expected 15)
+PASS SwordDoubleSlash level tooltip exists
+PASS SwordDoubleSlash actual cast level 8
+PASS SwordDoubleSlash actual cooldown level 8 (actual 8, expected 8)
+PASS Double slash two actual hits level 8 (actual 324, expected 324)
+PASS Duplicate slash event cannot hit twice (actual 9676, expected 9676)
+PASS SwordDoubleSlash MP cost (actual 15, expected 15)
+PASS SwordDoubleSlash level tooltip exists
+PASS SwordDoubleSlash actual cast level 9
+PASS SwordDoubleSlash actual cooldown level 9 (actual 8, expected 8)
+PASS Double slash two actual hits level 9 (actual 336, expected 336)
+PASS Duplicate slash event cannot hit twice (actual 9664, expected 9664)
+PASS SwordDoubleSlash MP cost (actual 15, expected 15)
+PASS SwordDoubleSlash level tooltip exists
+PASS SwordDoubleSlash actual cast level 10
+PASS SwordDoubleSlash actual cooldown level 10 (actual 8, expected 8)
+PASS Double slash two actual hits level 10 (actual 348, expected 348)
+PASS Duplicate slash event cannot hit twice (actual 9652, expected 9652)
+PASS SwordDoubleSlash MP cost (actual 15, expected 15)
+PASS SwordDoubleSlash level tooltip exists
+PASS SwordDrawing maximum level 9
+PASS SwordDrawing actual cast level 1
+PASS SwordDrawing actual cooldown level 1 (actual 20, expected 20)
+PASS Drawing actual path damage level 1 (actual 500, expected 500)
+PASS Drawing distance remains 8 (actual 8, expected 8)
+PASS SwordDrawing MP cost (actual 25, expected 25)
+PASS SwordDrawing level tooltip exists
+PASS SwordDrawing actual cast level 2
+PASS SwordDrawing actual cooldown level 2 (actual 20, expected 20)
+PASS Drawing actual path damage level 2 (actual 525, expected 525)
+PASS Drawing distance remains 8 (actual 8, expected 8)
+PASS SwordDrawing MP cost (actual 25, expected 25)
+PASS SwordDrawing level tooltip exists
+PASS SwordDrawing actual cast level 3
+PASS SwordDrawing actual cooldown level 3 (actual 20, expected 20)
+PASS Drawing actual path damage level 3 (actual 550, expected 550)
+PASS Drawing distance remains 8 (actual 8, expected 8)
+PASS SwordDrawing MP cost (actual 25, expected 25)
+PASS SwordDrawing level tooltip exists
+PASS SwordDrawing actual cast level 4
+PASS SwordDrawing actual cooldown level 4 (actual 20, expected 20)
+PASS Drawing actual path damage level 4 (actual 575, expected 575)
+PASS Drawing distance remains 8 (actual 8, expected 8)
+PASS SwordDrawing MP cost (actual 25, expected 25)
+PASS SwordDrawing level tooltip exists
+PASS SwordDrawing actual cast level 5
+PASS SwordDrawing actual cooldown level 5 (actual 20, expected 20)
+PASS Drawing actual path damage level 5 (actual 600, expected 600)
+PASS Drawing distance remains 8 (actual 8, expected 8)
+PASS SwordDrawing MP cost (actual 25, expected 25)
+PASS SwordDrawing level tooltip exists
+PASS SwordDrawing actual cast level 6
+PASS SwordDrawing actual cooldown level 6 (actual 20, expected 20)
+PASS Drawing actual path damage level 6 (actual 625, expected 625)
+PASS Drawing distance remains 8 (actual 8, expected 8)
+PASS SwordDrawing MP cost (actual 25, expected 25)
+PASS SwordDrawing level tooltip exists
+PASS SwordDrawing actual cast level 7
+PASS SwordDrawing actual cooldown level 7 (actual 20, expected 20)
+PASS Drawing actual path damage level 7 (actual 650, expected 650)
+PASS Drawing distance remains 8 (actual 8, expected 8)
+PASS SwordDrawing MP cost (actual 25, expected 25)
+PASS SwordDrawing level tooltip exists
+PASS SwordDrawing actual cast level 8
+PASS SwordDrawing actual cooldown level 8 (actual 20, expected 20)
+PASS Drawing actual path damage level 8 (actual 675, expected 675)
+PASS Drawing distance remains 8 (actual 8, expected 8)
+PASS SwordDrawing MP cost (actual 25, expected 25)
+PASS SwordDrawing level tooltip exists
+PASS SwordDrawing actual cast level 9
+PASS SwordDrawing actual cooldown level 9 (actual 20, expected 20)
+PASS Drawing actual path damage level 9 (actual 700, expected 700)
+PASS Drawing distance remains 8 (actual 8, expected 8)
+PASS SwordDrawing MP cost (actual 25, expected 25)
+PASS SwordDrawing level tooltip exists
+PASS SwordDash maximum level 5
+PASS SwordDash actual cast level 1
+PASS SwordDash actual cooldown level 1 (actual 5, expected 5)
+PASS Dash retains damage and CC immunity
+PASS Dash distance remains 4 (actual 4, expected 4)
+PASS SwordDash MP cost (actual 0, expected 0)
+PASS SwordDash level tooltip exists
+PASS SwordDash actual cast level 2
+PASS SwordDash actual cooldown level 2 (actual 4.5, expected 4.5)
+PASS Dash retains damage and CC immunity
+PASS Dash distance remains 4 (actual 4, expected 4)
+PASS SwordDash MP cost (actual 0, expected 0)
+PASS SwordDash level tooltip exists
+PASS SwordDash actual cast level 3
+PASS SwordDash actual cooldown level 3 (actual 4, expected 4)
+PASS Dash retains damage and CC immunity
+PASS Dash distance remains 4 (actual 4, expected 4)
+PASS SwordDash MP cost (actual 0, expected 0)
+PASS SwordDash level tooltip exists
+PASS SwordDash actual cast level 4
+PASS SwordDash actual cooldown level 4 (actual 3.5, expected 3.5)
+PASS Dash retains damage and CC immunity
+PASS Dash distance remains 4 (actual 4, expected 4)
+PASS SwordDash MP cost (actual 0, expected 0)
+PASS SwordDash level tooltip exists
+PASS SwordDash actual cast level 5
+PASS SwordDash actual cooldown level 5 (actual 3, expected 3)
+PASS Dash retains damage and CC immunity
+PASS Dash distance remains 4 (actual 4, expected 4)
+PASS SwordDash MP cost (actual 0, expected 0)
+PASS SwordDash level tooltip exists
+PASS No Unity runtime errors during validation: 
+COMPLETE 264 checks passed

@@ -91,7 +91,6 @@ namespace EasternFantasy.Editor
             Physics2D.SyncTransforms();
             Check(Mathf.Abs((float)typeof(SwordswomanDrawingAttack).GetMethod("GetUnblockedDistance", Hidden).Invoke(drawing, null) - 8) < .01f,
                 "drawing path ignores enemy bodies and invisible monster boundary");
-            typeof(SwordswomanDrawingAttack).GetField("damageMultiplier", Hidden).SetValue(drawing, .01f);
             float firstHealth = enemy.HP, secondHealth = second.HP;
             StartDrawing(actor, drawing); drawing.Release();
             Check(Mathf.Abs(body.position.x - 8) < .01f, "drawing passes through both enemies for full distance");
@@ -150,8 +149,13 @@ namespace EasternFantasy.Editor
         {
             var caster = actor.GetComponent<SwordswomanSkillCaster>();
             var skill = (SkillDefinition)typeof(SwordswomanSkillCaster).GetField("drawingSkill", Hidden).GetValue(caster);
+            var levels = (System.Collections.Generic.Dictionary<SkillDefinition, int>)typeof(PlayerSkillSystem)
+                .GetField("skillLevels", Hidden).GetValue(actor.GetComponent<PlayerSkillSystem>());
+            levels[skill] = 1;
             actor.GetComponent<PlayerEntity>().MP = actor.GetComponent<PlayerEntity>().maxMP;
             Check(drawing.TryStart(skill), "drawing starts");
+            // Cast now snapshots its learned-level multiplier; lower it after casting to keep both targets alive.
+            typeof(SwordswomanDrawingAttack).GetField("damageMultiplier", Hidden).SetValue(drawing, .01f);
             typeof(SwordswomanDrawingAttack).GetField("direction", Hidden).SetValue(drawing, 1f);
         }
         private static void ValidateRhythm(GameObject actor)

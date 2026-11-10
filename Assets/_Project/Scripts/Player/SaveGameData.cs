@@ -33,6 +33,11 @@ namespace EasternFantasy.Saving
         public string dungeon;
         public float dungeonSeconds;
         public bool dungeonCleared;
+        public string dungeonRunId;
+        public bool dungeonRewardsQueued;
+        public string[] firstDropItems;
+        public string[] dungeonRewardRuns;
+        public List<EasternFantasy.Dungeon.PendingDungeonReward> pendingDungeonRewards = new List<EasternFantasy.Dungeon.PendingDungeonReward>();
     }
 
     [Serializable] public sealed class SavedItem

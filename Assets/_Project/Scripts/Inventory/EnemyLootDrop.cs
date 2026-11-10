@@ -74,7 +74,7 @@ namespace EasternFantasy.Inventory
             int dropIndex = 0;
             foreach (EnemyDropEntry drop in drops)
             {
-                if (drop == null || !CanDropForClass(drop.Item, playerClass) ||
+                if (drop == null || !CanDropForClass(drop.Item, playerClass) || !FirstDropProgress.CanDrop(drop.Item) ||
                     UnityEngine.Random.value > drop.DropChance)
                     continue;
 

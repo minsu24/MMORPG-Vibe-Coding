@@ -1,0 +1,55 @@
+Native Unity first drops, clear rewards and return window validation
+PASS BoarHorn is first-acquisition-only
+PASS BoarHorn eligible before first acquisition
+PASS BoarHorn actually spawns once
+PASS BoarHorn blocks another live uncollected drop
+PASS BoarHorn can be recovered if never collected
+PASS BoarHorn pickup records acquisition
+PASS BoarHorn does not return after item removal or sale
+PASS BoarHorn first-drop history survives save reload
+PASS BoarHorn does not consume another class character's first drop
+PASS GiantHeart is first-acquisition-only
+PASS GiantHeart eligible before first acquisition
+PASS GiantHeart actually spawns once
+PASS GiantHeart blocks another live uncollected drop
+PASS GiantHeart can be recovered if never collected
+PASS GiantHeart pickup records acquisition
+PASS GiantHeart does not return after item removal or sale
+PASS GiantHeart first-drop history survives save reload
+PASS GiantHeart does not consume another class character's first drop
+PASS Fabric Piece configured as one item per clear
+PASS Dungeon guide includes Fabric Piece
+PASS Fabric icon uses the full cloth illustration
+PASS Clear return destination is village
+PASS Entering dungeon does not grant clear reward
+PASS Actual clear callback queues one reward batch
+PASS Clear reward waits for village arrival
+PASS Duplicate boss event cannot queue extra rewards
+PASS Cleared run and pending reward survive save reload without duplication
+PASS Clear window opens after village scene arrival
+PASS Arrival pays Fabric Piece exactly once
+PASS Clear window blocks gameplay and pauses game
+PASS Clear window shows dungeon title and actual reward
+PASS Frame, calligraphy banner and reward area use supplied artwork
+PASS Confirm button is not automatically selected on opening
+PASS Confirm starts in normal state without pointer hover
+PASS Close uses distinct states on identical sprite canvases
+PASS Close does not leave its hover sprite active through automatic selection
+PASS Close opaque artwork stays centered on hover; movement=(0.000, 0.000)
+PASS Confirm uses distinct states on identical sprite canvases
+PASS Confirm does not leave its hover sprite active through automatic selection
+PASS Confirm opaque artwork stays centered on hover; movement=(0.000, 0.000)
+PASS Close button changes to supplied hover sprite
+PASS Close button restores supplied normal sprite
+PASS Confirm button changes to supplied hover sprite
+PASS Confirm button restores supplied normal sprite
+PASS Confirm closes window and releases input
+PASS Repeated confirm and repeated run ID cannot duplicate payment
+PASS Leaving an uncleared dungeon grants no reward
+PASS Full stack preserves pending reward without partial payout
+PASS Close X preserves unreceived reward
+PASS Freeing inventory space retries and pays saved pending reward
+PASS Close X releases pause after reward receipt
+PASS Claimed run receipt persists after save reload
+PASS No Unity runtime errors: 
+COMPLETE 53 checks passed

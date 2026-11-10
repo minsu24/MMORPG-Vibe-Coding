@@ -842,7 +842,7 @@ MonoBehaviour:
   maximumMana: 100
   maximumMental: 100
   baseAttackPower: 25
-  baseDefensePower: 5
+  baseDefensePower: 3
   lifeStealRate: 0
   criticalChance: 0.05
   criticalDamageMultiplier: 1.5
@@ -960,12 +960,10 @@ MonoBehaviour:
   damageMultiplier: 0.8
   talismanBurstSound: {fileID: 8300000, guid: 2f4cf50e3aaf4952982a9faeb335f752, type: 3}
   talismanSoundVolume: 0.7
-  teleportDistance: 4
   teleportEffectPrefab: {fileID: 8145390253291139497, guid: e1fe3dcb83812984fbba76320fd67801, type: 3}
   teleportEffectLifetime: 0.4
   teleportSound: {fileID: 8300000, guid: 52d152f55fae481fa6156c75dbf37b34, type: 3}
   teleportSoundVolume: 0.75
-  shieldDamageReduction: 0.3
   shieldDuration: 5
   shieldEffect: {fileID: 6200000000000000002}
   shieldSound: {fileID: 8300000, guid: 68985f649e1d402ba49025669df68cd3, type: 3}

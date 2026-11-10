@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 6720233555567161352}
   - component: {fileID: 6473428375431748574}
   - component: {fileID: 687721499395890118}
+  - component: {fileID: 6560318625193913620}
   m_Layer: 7
   m_Name: Ginseng
   m_TagString: Monster
@@ -255,3 +256,26 @@ MonoBehaviour:
   attackHeight: 1.25
   attackCooldown: 1.3
   attackDuration: 0.9
+--- !u!114 &6560318625193913620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5101291703097361790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fafb4a9592654409b21c10f4575cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.EnemyLootDrop
+  pickupPrefab: {fileID: 1989097639827239875, guid: 554de1e741f28c1438da42f16684da6a, type: 3}
+  floorCollider: {fileID: 0}
+  drops:
+  - item: {fileID: 11400000, guid: a40f8d58f18228842b1e7bac824af7a6, type: 2}
+    dropChance: 0.7
+    minimumQuantity: 1
+    maximumQuantity: 1
+  spawnHeight: 0.35
+  horizontalScatter: 0.65
+  overridesCommonLoot: 0
+  filterWeaponsByPlayerClass: 0

@@ -15,7 +15,8 @@ MonoBehaviour:
   itemId: fe6f0d7aa9464652aafec9eb1c8130e0
   displayName: "\uBA67\uB3FC\uC9C0\uC758 \uC5C4\uB2C8"
   description: "\uAC70\uC778\uC758 \uC560\uC644 \uBA67\uB3FC\uC9C0\uC5D0\uAC8C\uC11C
-    \uB4DC\uB78D\uB418\uB294 \uC544\uC774\uD15C."
+    \uB4DC\uB78D\uB418\uB294 \uC544\uC774\uD15C. \uC7A5\uBE44 \uC2B9\uAE09\uC5D0
+    \uC0AC\uC6A9\uB41C\uB2E4."
   icon: {fileID: 465900438229139267, guid: 36717bad346aa844c988ad08ba76946a, type: 3}
   category: 2
   grade: 1
@@ -35,4 +36,5 @@ MonoBehaviour:
   buyPrice: 0
   sellPrice: 0
   cannotSell: 1
+  firstAcquisitionOnly: 1
   materialSource: {fileID: 0}

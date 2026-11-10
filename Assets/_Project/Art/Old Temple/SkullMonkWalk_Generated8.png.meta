@@ -1,0 +1,335 @@
+fileFormatVersion: 2
+guid: 67d71421e3367524fb60e9e3ce1ff149
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2507344435331781519
+    second: SkullMonkWalk_Generated8_0
+  - first:
+      213: 586024669863329997
+    second: SkullMonkWalk_Generated8_1
+  - first:
+      213: -6642334965863113821
+    second: SkullMonkWalk_Generated8_2
+  - first:
+      213: -533020262443223730
+    second: SkullMonkWalk_Generated8_3
+  - first:
+      213: -4945295019473889620
+    second: SkullMonkWalk_Generated8_4
+  - first:
+      213: -1620874951004522638
+    second: SkullMonkWalk_Generated8_5
+  - first:
+      213: -4925399858080658945
+    second: SkullMonkWalk_Generated8_6
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 94.29098
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SkullMonkWalkGenerated_00
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 95
+        width: 282
+        height: 496
+      alignment: 9
+      pivot: {x: 0.49113476, y: 0.48518956}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89968654486e15b4abf385519a89ea2e
+      internalID: -1106549097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalkGenerated_01
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 95
+        width: 269
+        height: 496
+      alignment: 9
+      pivot: {x: 0.5018587, y: 0.48518956}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03d245938f5a4104a852deac8fa99a86
+      internalID: -754494974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalkGenerated_02
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 95
+        width: 267
+        height: 496
+      alignment: 9
+      pivot: {x: 0.49812734, y: 0.48518956}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aafba0063a0003641995379a1387bda1
+      internalID: -1945258659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalkGenerated_03
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 95
+        width: 262
+        height: 496
+      alignment: 9
+      pivot: {x: 0.50763357, y: 0.48518956}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a062d627ef965f444bbc6e17c9024000
+      internalID: -658676988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalkGenerated_04
+      rect:
+        serializedVersion: 2
+        x: 1098
+        y: 95
+        width: 270
+        height: 496
+      alignment: 9
+      pivot: {x: 0.5, y: 0.48518956}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ac6333a84dac224ba6f0625e0b2ae7e
+      internalID: 459420684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalkGenerated_05
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 95
+        width: 263
+        height: 496
+      alignment: 9
+      pivot: {x: 0.50190115, y: 0.48518956}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ffed2b54b60dc642984637df7ce2b5b
+      internalID: 1282208210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalkGenerated_06
+      rect:
+        serializedVersion: 2
+        x: 1631
+        y: 95
+        width: 264
+        height: 496
+      alignment: 9
+      pivot: {x: 0.5094697, y: 0.48518956}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0afd3ab2cec3334c9ef55e863932d18
+      internalID: -1108913081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalkGenerated_07
+      rect:
+        serializedVersion: 2
+        x: 1895
+        y: 95
+        width: 267
+        height: 496
+      alignment: 9
+      pivot: {x: 0.49625468, y: 0.48518956}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b515fc74caaf2d54c82eee382cb7d0fb
+      internalID: 528432925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 47635b29671d95e419f040982383c3cf
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SkullMonkWalkGenerated_00: -1106549097
+      SkullMonkWalkGenerated_01: -754494974
+      SkullMonkWalkGenerated_02: -1945258659
+      SkullMonkWalkGenerated_03: -658676988
+      SkullMonkWalkGenerated_04: 459420684
+      SkullMonkWalkGenerated_05: 1282208210
+      SkullMonkWalkGenerated_06: -1108913081
+      SkullMonkWalkGenerated_07: 528432925
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

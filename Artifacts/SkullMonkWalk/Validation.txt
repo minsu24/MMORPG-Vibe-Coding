@@ -1,0 +1,62 @@
+Native Skull monk slicing, original backup, restore and playback verification
+PASS Original four-frame motion and original frame rate preserved
+PASS Backup still references original sheets
+PASS Scene snapshot includes the previously unsaved Skull object
+PASS Restore menu restores the exact original sprite sequence and timings
+PASS Restore menu restores original default animation state
+PASS Reapplying generated walk leaves the original backup unchanged
+PASS Eight distinct sprite slices and eight animation frames
+PASS Generated motion is an eight-FPS, one-second loop
+PASS Frame 0 has the correct sprite and timing
+PASS Frame 1 has the correct sprite and timing
+PASS Frame 2 has the correct sprite and timing
+PASS Frame 3 has the correct sprite and timing
+PASS Frame 4 has the correct sprite and timing
+PASS Frame 5 has the correct sprite and timing
+PASS Frame 6 has the correct sprite and timing
+PASS Frame 7 has the correct sprite and timing
+PASS All frames share world scale and vertical ground anchor
+PASS Frame slices do not overlap: 0 and 1
+PASS Frame slices do not overlap: 1 and 2
+PASS Frame slices do not overlap: 2 and 3
+PASS Frame slices do not overlap: 3 and 4
+PASS Frame slices do not overlap: 4 and 5
+PASS Frame slices do not overlap: 5 and 6
+PASS Frame slices do not overlap: 6 and 7
+PASS Eight distinct sprite slices and eight animation frames
+PASS Generated motion is an eight-FPS, one-second loop
+PASS Frame 0 has the correct sprite and timing
+PASS Frame 1 has the correct sprite and timing
+PASS Frame 2 has the correct sprite and timing
+PASS Frame 3 has the correct sprite and timing
+PASS Frame 4 has the correct sprite and timing
+PASS Frame 5 has the correct sprite and timing
+PASS Frame 6 has the correct sprite and timing
+PASS Frame 7 has the correct sprite and timing
+PASS All frames share world scale and vertical ground anchor
+PASS Frame slices do not overlap: 0 and 1
+PASS Frame slices do not overlap: 1 and 2
+PASS Frame slices do not overlap: 2 and 3
+PASS Frame slices do not overlap: 3 and 4
+PASS Frame slices do not overlap: 4 and 5
+PASS Frame slices do not overlap: 5 and 6
+PASS Frame slices do not overlap: 6 and 7
+PASS Play Mode Animator renders generated frame 0
+PASS Frame 0 leaves Skull transform unchanged
+PASS Play Mode Animator renders generated frame 1
+PASS Frame 1 leaves Skull transform unchanged
+PASS Play Mode Animator renders generated frame 2
+PASS Frame 2 leaves Skull transform unchanged
+PASS Play Mode Animator renders generated frame 3
+PASS Frame 3 leaves Skull transform unchanged
+PASS Play Mode Animator renders generated frame 4
+PASS Frame 4 leaves Skull transform unchanged
+PASS Play Mode Animator renders generated frame 5
+PASS Frame 5 leaves Skull transform unchanged
+PASS Play Mode Animator renders generated frame 6
+PASS Frame 6 leaves Skull transform unchanged
+PASS Play Mode Animator renders generated frame 7
+PASS Frame 7 leaves Skull transform unchanged
+PASS Animator wraps from final frame back to first frame
+PASS Skull starts with generated walk when playing
+COMPLETE 60 checks passed

@@ -1,0 +1,725 @@
+fileFormatVersion: 2
+guid: 5398852e9fc324a4b97fa9cc840be414
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1107112140807368552
+    second: SkullMonkWalk_Staggered8_0
+  - first:
+      213: -9119863170565926483
+    second: SkullMonkWalk_Staggered8_1
+  - first:
+      213: 2716183417573168803
+    second: SkullMonkWalk_Staggered8_2
+  - first:
+      213: -2664817165843097423
+    second: SkullMonkWalk_Staggered8_3
+  - first:
+      213: -3924456702965622958
+    second: SkullMonkWalk_Staggered8_4
+  - first:
+      213: -5062603603516344121
+    second: SkullMonkWalk_Staggered8_5
+  - first:
+      213: 8961702463734734927
+    second: SkullMonkWalk_Staggered8_6
+  - first:
+      213: 5816743703862331482
+    second: SkullMonkWalk_Staggered8_7
+  - first:
+      213: 4804908095597905282
+    second: SkullMonkWalk_Staggered8_8
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 90.48892
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SkullMonkStaggered_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 275
+        height: 724
+      alignment: 9
+      pivot: {x: 0.49363637, y: 0.47506937}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: -137.5, y: -362}
+        - {x: -137.5, y: 362}
+        - {x: 134.5, y: 362}
+        - {x: 134.5, y: 97}
+        - {x: 136.5, y: 95}
+        - {x: 136.5, y: 74}
+        - {x: 137.5, y: 73}
+        - {x: 137.5, y: 70}
+        - {x: 136.5, y: 69}
+        - {x: 136.5, y: 65}
+        - {x: 137.5, y: 64}
+        - {x: 137.5, y: 46}
+        - {x: 136.5, y: 45}
+        - {x: 136.5, y: 44}
+        - {x: 135.5, y: 43}
+        - {x: 135.5, y: 39}
+        - {x: 136.5, y: 38}
+        - {x: 136.5, y: 27}
+        - {x: 134.5, y: 25}
+        - {x: 134.5, y: -116}
+        - {x: 129.5, y: -121}
+        - {x: 129.5, y: -123}
+        - {x: 128.5, y: -124}
+        - {x: 128.5, y: -140}
+        - {x: 129.5, y: -141}
+        - {x: 129.5, y: -149}
+        - {x: 130.5, y: -150}
+        - {x: 130.5, y: -151}
+        - {x: 134.5, y: -155}
+        - {x: 134.5, y: -362}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3af1e58c59fd200478e02e4062c4abea
+      internalID: 391828847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkStaggered_01
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 0
+        width: 283
+        height: 724
+      alignment: 9
+      pivot: {x: 0.4991166, y: 0.47092575}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: -135.5, y: -362}
+        - {x: -135.5, y: -155}
+        - {x: -139.5, y: -151}
+        - {x: -139.5, y: -150}
+        - {x: -140.5, y: -149}
+        - {x: -140.5, y: -141}
+        - {x: -141.5, y: -140}
+        - {x: -141.5, y: -124}
+        - {x: -140.5, y: -123}
+        - {x: -140.5, y: -121}
+        - {x: -135.5, y: -116}
+        - {x: -135.5, y: 25}
+        - {x: -133.5, y: 27}
+        - {x: -133.5, y: 38}
+        - {x: -134.5, y: 39}
+        - {x: -134.5, y: 43}
+        - {x: -133.5, y: 44}
+        - {x: -133.5, y: 45}
+        - {x: -132.5, y: 46}
+        - {x: -132.5, y: 64}
+        - {x: -133.5, y: 65}
+        - {x: -133.5, y: 69}
+        - {x: -132.5, y: 70}
+        - {x: -132.5, y: 73}
+        - {x: -133.5, y: 74}
+        - {x: -133.5, y: 95}
+        - {x: -135.5, y: 97}
+        - {x: -135.5, y: 362}
+        - {x: 135.5, y: 362}
+        - {x: 135.5, y: 170}
+        - {x: 137.5, y: 168}
+        - {x: 137.5, y: 167}
+        - {x: 139.5, y: 165}
+        - {x: 139.5, y: 158}
+        - {x: 140.5, y: 157}
+        - {x: 140.5, y: 144}
+        - {x: 141.5, y: 143}
+        - {x: 141.5, y: 47}
+        - {x: 140.5, y: 46}
+        - {x: 140.5, y: 37}
+        - {x: 139.5, y: 36}
+        - {x: 139.5, y: 27}
+        - {x: 137.5, y: 25}
+        - {x: 137.5, y: 22}
+        - {x: 135.5, y: 20}
+        - {x: 135.5, y: -362}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5d3dcf1245ec0e41a54e2fbbe217ca3
+      internalID: -235786118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkStaggered_02
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 0
+        width: 279
+        height: 724
+      alignment: 9
+      pivot: {x: 0.48655915, y: 0.4764506}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: -139.5, y: -362}
+        - {x: -139.5, y: 20}
+        - {x: -137.5, y: 22}
+        - {x: -137.5, y: 25}
+        - {x: -135.5, y: 27}
+        - {x: -135.5, y: 36}
+        - {x: -134.5, y: 37}
+        - {x: -134.5, y: 46}
+        - {x: -133.5, y: 47}
+        - {x: -133.5, y: 143}
+        - {x: -134.5, y: 144}
+        - {x: -134.5, y: 157}
+        - {x: -135.5, y: 158}
+        - {x: -135.5, y: 165}
+        - {x: -137.5, y: 167}
+        - {x: -137.5, y: 168}
+        - {x: -139.5, y: 170}
+        - {x: -139.5, y: 362}
+        - {x: 131.5, y: 362}
+        - {x: 131.5, y: 70}
+        - {x: 132.5, y: 69}
+        - {x: 132.5, y: 64}
+        - {x: 136.5, y: 60}
+        - {x: 136.5, y: 58}
+        - {x: 137.5, y: 57}
+        - {x: 137.5, y: 54}
+        - {x: 138.5, y: 53}
+        - {x: 138.5, y: 45}
+        - {x: 139.5, y: 44}
+        - {x: 139.5, y: 24}
+        - {x: 131.5, y: 16}
+        - {x: 131.5, y: -20}
+        - {x: 129.5, y: -22}
+        - {x: 129.5, y: -23}
+        - {x: 128.5, y: -24}
+        - {x: 128.5, y: -28}
+        - {x: 127.5, y: -29}
+        - {x: 127.5, y: -32}
+        - {x: 126.5, y: -33}
+        - {x: 126.5, y: -35}
+        - {x: 125.5, y: -36}
+        - {x: 125.5, y: -39}
+        - {x: 124.5, y: -40}
+        - {x: 124.5, y: -43}
+        - {x: 125.5, y: -44}
+        - {x: 125.5, y: -55}
+        - {x: 126.5, y: -56}
+        - {x: 126.5, y: -57}
+        - {x: 128.5, y: -59}
+        - {x: 128.5, y: -60}
+        - {x: 131.5, y: -63}
+        - {x: 131.5, y: -362}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca122179848d88d4a9824b017ee55ca6
+      internalID: 654631937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkStaggered_03
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 0
+        width: 287
+        height: 724
+      alignment: 9
+      pivot: {x: 0.4991289, y: 0.4736882}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: -136.5, y: -362}
+        - {x: -136.5, y: -63}
+        - {x: -139.5, y: -60}
+        - {x: -139.5, y: -59}
+        - {x: -141.5, y: -57}
+        - {x: -141.5, y: -56}
+        - {x: -142.5, y: -55}
+        - {x: -142.5, y: -44}
+        - {x: -143.5, y: -43}
+        - {x: -143.5, y: -40}
+        - {x: -142.5, y: -39}
+        - {x: -142.5, y: -36}
+        - {x: -141.5, y: -35}
+        - {x: -141.5, y: -33}
+        - {x: -140.5, y: -32}
+        - {x: -140.5, y: -29}
+        - {x: -139.5, y: -28}
+        - {x: -139.5, y: -24}
+        - {x: -138.5, y: -23}
+        - {x: -138.5, y: -22}
+        - {x: -136.5, y: -20}
+        - {x: -136.5, y: 16}
+        - {x: -128.5, y: 24}
+        - {x: -128.5, y: 44}
+        - {x: -129.5, y: 45}
+        - {x: -129.5, y: 53}
+        - {x: -130.5, y: 54}
+        - {x: -130.5, y: 57}
+        - {x: -131.5, y: 58}
+        - {x: -131.5, y: 60}
+        - {x: -135.5, y: 64}
+        - {x: -135.5, y: 69}
+        - {x: -136.5, y: 70}
+        - {x: -136.5, y: 362}
+        - {x: 135.5, y: 362}
+        - {x: 135.5, y: 189}
+        - {x: 137.5, y: 187}
+        - {x: 137.5, y: 186}
+        - {x: 139.5, y: 184}
+        - {x: 139.5, y: 183}
+        - {x: 141.5, y: 181}
+        - {x: 141.5, y: 87}
+        - {x: 142.5, y: 86}
+        - {x: 142.5, y: 85}
+        - {x: 143.5, y: 84}
+        - {x: 143.5, y: 39}
+        - {x: 141.5, y: 37}
+        - {x: 141.5, y: 28}
+        - {x: 135.5, y: 22}
+        - {x: 135.5, y: -39}
+        - {x: 133.5, y: -41}
+        - {x: 133.5, y: -45}
+        - {x: 134.5, y: -46}
+        - {x: 134.5, y: -64}
+        - {x: 135.5, y: -65}
+        - {x: 135.5, y: -362}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14f1af70f6ac05b418a08dff708da52d
+      internalID: -1095925768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkStaggered_04
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 0
+        width: 280
+        height: 724
+      alignment: 9
+      pivot: {x: 0.49196428, y: 0.48059425}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: -138, y: -362}
+        - {x: -138, y: -65}
+        - {x: -139, y: -64}
+        - {x: -139, y: -46}
+        - {x: -140, y: -45}
+        - {x: -140, y: -41}
+        - {x: -138, y: -39}
+        - {x: -138, y: 22}
+        - {x: -132, y: 28}
+        - {x: -132, y: 37}
+        - {x: -130, y: 39}
+        - {x: -130, y: 84}
+        - {x: -131, y: 85}
+        - {x: -131, y: 86}
+        - {x: -132, y: 87}
+        - {x: -132, y: 181}
+        - {x: -134, y: 183}
+        - {x: -134, y: 184}
+        - {x: -136, y: 186}
+        - {x: -136, y: 187}
+        - {x: -138, y: 189}
+        - {x: -138, y: 362}
+        - {x: 134, y: 362}
+        - {x: 134, y: 171}
+        - {x: 136, y: 169}
+        - {x: 136, y: 168}
+        - {x: 137, y: 167}
+        - {x: 137, y: 151}
+        - {x: 136, y: 150}
+        - {x: 136, y: 145}
+        - {x: 135, y: 144}
+        - {x: 135, y: 143}
+        - {x: 134, y: 142}
+        - {x: 134, y: 89}
+        - {x: 136, y: 87}
+        - {x: 136, y: 80}
+        - {x: 138, y: 78}
+        - {x: 138, y: 64}
+        - {x: 139, y: 63}
+        - {x: 139, y: 58}
+        - {x: 138, y: 57}
+        - {x: 138, y: 55}
+        - {x: 140, y: 53}
+        - {x: 140, y: 39}
+        - {x: 138, y: 37}
+        - {x: 138, y: 36}
+        - {x: 136, y: 34}
+        - {x: 136, y: 27}
+        - {x: 134, y: 25}
+        - {x: 134, y: -362}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5ef933690329d048bd39230827c5408
+      internalID: -1390166313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkStaggered_05
+      rect:
+        serializedVersion: 2
+        x: 1358
+        y: 0
+        width: 286
+        height: 724
+      alignment: 9
+      pivot: {x: 0.4729021, y: 0.47092575}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: -143, y: -362}
+        - {x: -143, y: 25}
+        - {x: -141, y: 27}
+        - {x: -141, y: 34}
+        - {x: -139, y: 36}
+        - {x: -139, y: 37}
+        - {x: -137, y: 39}
+        - {x: -137, y: 53}
+        - {x: -139, y: 55}
+        - {x: -139, y: 57}
+        - {x: -138, y: 58}
+        - {x: -138, y: 63}
+        - {x: -139, y: 64}
+        - {x: -139, y: 78}
+        - {x: -141, y: 80}
+        - {x: -141, y: 87}
+        - {x: -143, y: 89}
+        - {x: -143, y: 142}
+        - {x: -142, y: 143}
+        - {x: -142, y: 144}
+        - {x: -141, y: 145}
+        - {x: -141, y: 150}
+        - {x: -140, y: 151}
+        - {x: -140, y: 167}
+        - {x: -141, y: 168}
+        - {x: -141, y: 169}
+        - {x: -143, y: 171}
+        - {x: -143, y: 362}
+        - {x: 128, y: 362}
+        - {x: 128, y: 84}
+        - {x: 137, y: 75}
+        - {x: 137, y: 74}
+        - {x: 140, y: 71}
+        - {x: 140, y: 69}
+        - {x: 141, y: 68}
+        - {x: 141, y: 66}
+        - {x: 142, y: 65}
+        - {x: 142, y: 61}
+        - {x: 143, y: 60}
+        - {x: 143, y: 54}
+        - {x: 142, y: 53}
+        - {x: 142, y: 41}
+        - {x: 140, y: 39}
+        - {x: 140, y: 31}
+        - {x: 139, y: 30}
+        - {x: 139, y: 29}
+        - {x: 138, y: 28}
+        - {x: 138, y: 27}
+        - {x: 128, y: 17}
+        - {x: 128, y: -362}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1533a6230cac56f40b212f780c4bc9d8
+      internalID: 1982004405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkStaggered_06
+      rect:
+        serializedVersion: 2
+        x: 1629
+        y: 0
+        width: 277
+        height: 724
+      alignment: 9
+      pivot: {x: 0.4900722, y: 0.48335668}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: -138.5, y: -362}
+        - {x: -138.5, y: 17}
+        - {x: -128.5, y: 27}
+        - {x: -128.5, y: 28}
+        - {x: -127.5, y: 29}
+        - {x: -127.5, y: 30}
+        - {x: -126.5, y: 31}
+        - {x: -126.5, y: 39}
+        - {x: -124.5, y: 41}
+        - {x: -124.5, y: 53}
+        - {x: -123.5, y: 54}
+        - {x: -123.5, y: 60}
+        - {x: -124.5, y: 61}
+        - {x: -124.5, y: 65}
+        - {x: -125.5, y: 66}
+        - {x: -125.5, y: 68}
+        - {x: -126.5, y: 69}
+        - {x: -126.5, y: 71}
+        - {x: -129.5, y: 74}
+        - {x: -129.5, y: 75}
+        - {x: -138.5, y: 84}
+        - {x: -138.5, y: 362}
+        - {x: 132.5, y: 362}
+        - {x: 132.5, y: 169}
+        - {x: 133.5, y: 168}
+        - {x: 133.5, y: 167}
+        - {x: 135.5, y: 165}
+        - {x: 135.5, y: 68}
+        - {x: 136.5, y: 67}
+        - {x: 136.5, y: 65}
+        - {x: 137.5, y: 64}
+        - {x: 137.5, y: 58}
+        - {x: 138.5, y: 57}
+        - {x: 138.5, y: 45}
+        - {x: 137.5, y: 44}
+        - {x: 137.5, y: 32}
+        - {x: 136.5, y: 31}
+        - {x: 136.5, y: 30}
+        - {x: 134.5, y: 28}
+        - {x: 134.5, y: 27}
+        - {x: 133.5, y: 26}
+        - {x: 133.5, y: 25}
+        - {x: 132.5, y: 24}
+        - {x: 132.5, y: -20}
+        - {x: 130.5, y: -22}
+        - {x: 130.5, y: -23}
+        - {x: 129.5, y: -24}
+        - {x: 129.5, y: -39}
+        - {x: 128.5, y: -40}
+        - {x: 128.5, y: -55}
+        - {x: 127.5, y: -56}
+        - {x: 127.5, y: -74}
+        - {x: 128.5, y: -75}
+        - {x: 128.5, y: -142}
+        - {x: 127.5, y: -143}
+        - {x: 127.5, y: -160}
+        - {x: 131.5, y: -164}
+        - {x: 131.5, y: -165}
+        - {x: 132.5, y: -166}
+        - {x: 132.5, y: -362}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3bdd93d71d299045b8dc7739fca3f5e
+      internalID: 1866008219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkStaggered_07
+      rect:
+        serializedVersion: 2
+        x: 1895
+        y: 0
+        width: 277
+        height: 724
+      alignment: 9
+      pivot: {x: 0.5099278, y: 0.47921303}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: -133.5, y: -362}
+        - {x: -133.5, y: -166}
+        - {x: -134.5, y: -165}
+        - {x: -134.5, y: -164}
+        - {x: -138.5, y: -160}
+        - {x: -138.5, y: -143}
+        - {x: -137.5, y: -142}
+        - {x: -137.5, y: -75}
+        - {x: -138.5, y: -74}
+        - {x: -138.5, y: -56}
+        - {x: -137.5, y: -55}
+        - {x: -137.5, y: -40}
+        - {x: -136.5, y: -39}
+        - {x: -136.5, y: -24}
+        - {x: -135.5, y: -23}
+        - {x: -135.5, y: -22}
+        - {x: -133.5, y: -20}
+        - {x: -133.5, y: 24}
+        - {x: -132.5, y: 25}
+        - {x: -132.5, y: 26}
+        - {x: -131.5, y: 27}
+        - {x: -131.5, y: 28}
+        - {x: -129.5, y: 30}
+        - {x: -129.5, y: 31}
+        - {x: -128.5, y: 32}
+        - {x: -128.5, y: 44}
+        - {x: -127.5, y: 45}
+        - {x: -127.5, y: 57}
+        - {x: -128.5, y: 58}
+        - {x: -128.5, y: 64}
+        - {x: -129.5, y: 65}
+        - {x: -129.5, y: 67}
+        - {x: -130.5, y: 68}
+        - {x: -130.5, y: 165}
+        - {x: -132.5, y: 167}
+        - {x: -132.5, y: 168}
+        - {x: -133.5, y: 169}
+        - {x: -133.5, y: 362}
+        - {x: 138.5, y: 362}
+        - {x: 138.5, y: -362}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40528ef6d47b16741947c54e49a3b938
+      internalID: 1624127792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 48969551f7cdb704382284b99be18e95
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SkullMonkStaggered_00: 391828847
+      SkullMonkStaggered_01: -235786118
+      SkullMonkStaggered_02: 654631937
+      SkullMonkStaggered_03: -1095925768
+      SkullMonkStaggered_04: -1390166313
+      SkullMonkStaggered_05: 1982004405
+      SkullMonkStaggered_06: 1866008219
+      SkullMonkStaggered_07: 1624127792
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

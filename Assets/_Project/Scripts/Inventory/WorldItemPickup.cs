@@ -117,6 +117,12 @@ namespace EasternFantasy.Inventory
         {
             if (!initialized || collected || !other.CompareTag("Player"))
                 return;
+            if (item.FirstAcquisitionOnly && FirstDropProgress.IsAcquired(item))
+            {
+                collected = true;
+                Destroy(gameObject);
+                return;
+            }
 
             PlayerInventory inventory = other.GetComponentInParent<PlayerInventory>();
             if (inventory == null || !inventory.AddItem(item, quantity))

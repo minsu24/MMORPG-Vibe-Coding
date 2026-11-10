@@ -25,8 +25,3 @@ PASS secondSlashSound is sixty milliseconds
 PASS impact is ninety milliseconds
 PASS each short swish and hit completes before the next sound
 COMPLETE
-INFO animation at 0.129s: swing=1, hit=0
-INFO animation at 0.201s: swing=1, hit=1
-INFO animation at 0.295s: swing=2, hit=1
-INFO animation at 0.361s: swing=2, hit=2
-PASS real animator invokes both swishes and both hits without basic-attack audio

@@ -15,7 +15,6 @@ namespace EasternFantasy.Skill
         [SerializeField] private float pathVerticalOffset = 0.15f;
         [SerializeField, Min(0f), Tooltip("Extra range at each end of the actual movement path.")]
         private float pathEndPadding = 0.25f;
-        [SerializeField, Min(0f)] private float damageMultiplier = 5f;
         [SerializeField] private LayerMask enemyLayers;
         [Header("Path Effect")]
         [SerializeField] private SwordDrawingTrailEffect trailPrefab;
@@ -26,6 +25,8 @@ namespace EasternFantasy.Skill
         [SerializeField, Range(0f, 1f)] private float hitSoundVolume = .35f;
 
         private PlayerEntity entity;
+        private PlayerSkillSystem skills;
+        private float damageMultiplier = 5f;
         private PlayerMovement2D movement;
         private PlayerIdleAnimation animationController;
         private CapsuleCollider2D bodyCollider;
@@ -43,6 +44,7 @@ namespace EasternFantasy.Skill
         private void Awake()
         {
             entity = GetComponent<PlayerEntity>();
+            skills = GetComponent<PlayerSkillSystem>();
             movement = GetComponent<PlayerMovement2D>();
             animationController = GetComponent<PlayerIdleAnimation>();
             bodyCollider = GetComponent<CapsuleCollider2D>();
@@ -58,6 +60,7 @@ namespace EasternFantasy.Skill
         public bool TryStart(SkillDefinition skill)
         {
             if (!isActiveAndEnabled || IsActive || entity.IsDead || entity.isKnockback
+                || skill == null || skills == null || skills.GetSkillLevel(skill) <= 0
                 || movement.IsMovementLocked || movement.IsDashing
                 || !SkillResourcePayment.CanAfford(entity, skill)) return false;
             if (!animationController.TryRequestSkillAnimation("SwordDrawing")) return false;
@@ -66,6 +69,7 @@ namespace EasternFantasy.Skill
                 animationController.FinishSkillAnimation();
                 return false;
             }
+            damageMultiplier = skill.GetDamageMultiplier(skills.GetSkillLevel(skill));
             direction = animationController.FacingDirectionX < 0f ? -1f : 1f;
             IsActive = true;
             released = false;

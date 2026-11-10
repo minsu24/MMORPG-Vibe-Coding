@@ -16,13 +16,11 @@ MonoBehaviour:
   displayName: "\uB300\uC26C"
   shortDescription: "\uBC14\uB77C\uBCF4\uB294 \uBC29\uD5A5\uC73C\uB85C \uBE60\uB974\uAC8C
     \uB3CC\uC9C4\uD569\uB2C8\uB2E4."
-  detailedDescription: "\uC774\uB3D9\uC18D\uB3C4 \uC99D\uAC00 Lv.3 \uD544\uC694.
-    \uC7AC\uC0AC\uC6A9 \uB300\uAE30\uC2DC\uAC04 5\uCD08. \uB300\uC26C \uC911 \uD53C\uD574\uC640
-    \uAD70\uC911 \uC81C\uC5B4\uC5D0 \uBA74\uC5ED\uC774\uBA70, \uC9C0\uD615\uC5D0
-    \uB9C9\uD788\uBA74 \uC774\uB3D9\uC774 \uC81C\uD55C\uB429\uB2C8\uB2E4."
+  detailedDescription: "이동속도 증가 Lv.3 필요. 돌진 거리 4, 돌진 시간 0.25초. 1레벨 재사용 대기시간 5초에서 레벨당 0.5초 감소하여 5레벨에 3초가 됩니다. 자원 소모 없음. 돌진 중 피해와 군중 제어에 면역이며 지형에 막히면 이동이 제한됩니다."
   tier: 1
   activationType: 1
-  maximumLevel: 1
+  maximumLevel: 5
+  cooldownReductionPerLevel: 0.5
   cooldownSeconds: 5
   manaCost: 0
   resourceCost: 1

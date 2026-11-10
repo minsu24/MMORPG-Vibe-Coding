@@ -29,7 +29,8 @@ namespace EasternFantasy.Inventory
     public enum AccessoryAbility
     {
         None,
-        JumpHeight
+        JumpHeight,
+        HealthRegeneration
     }
 
     public enum ConsumableEffect
@@ -60,7 +61,7 @@ namespace EasternFantasy.Inventory
         [SerializeField, Min(0f)] private float defenseBonus;
         [Header("Accessory special ability")]
         [SerializeField] private AccessoryAbility specialAbility;
-        [SerializeField, Min(0f), Tooltip("Fractional jump-height bonus: 0.2 means 20% higher.")]
+        [SerializeField, Min(0f), Tooltip("JumpHeight: fractional bonus (0.2 = 20%). HealthRegeneration: HP restored each second.")]
         private float specialAbilityValue;
         [SerializeField] private ConsumableEffect consumableEffect;
         [SerializeField, Min(0f)] private float useAmount;
@@ -69,6 +70,9 @@ namespace EasternFantasy.Inventory
         [SerializeField, Min(0)] private int sellPrice;
 
         [SerializeField] private bool cannotSell;
+        [SerializeField, Tooltip("Enemy loot stops after this character first acquires this item, even after selling it.")]
+        private bool firstAcquisitionOnly;
+        public bool FirstAcquisitionOnly => firstAcquisitionOnly;
         [Tooltip("The ordinary version of this material. Tutorial and ordinary stacks stay separate, but both can be consumed.")]
         [SerializeField] private ItemDefinition materialSource;
 
@@ -120,7 +124,9 @@ namespace EasternFantasy.Inventory
         public AccessoryAbility SpecialAbility => specialAbility;
         public float SpecialAbilityValue => Mathf.Max(0f, specialAbilityValue);
         public string SpecialAbilityDescription => specialAbility == AccessoryAbility.JumpHeight
-            ? $"점프 높이 +{SpecialAbilityValue * 100f:0.#}%" : string.Empty;
+            ? $"점프 높이 +{SpecialAbilityValue * 100f:0.#}%"
+            : specialAbility == AccessoryAbility.HealthRegeneration
+                ? $"1초마다 체력 {SpecialAbilityValue:0.#} 회복" : string.Empty;
         public EquipmentSlot EquipmentSlot => equipmentSlot;
         public EquipmentSetDefinition EquipmentSet => category == ItemCategory.Equipment ? equipmentSet : null;
         public bool HasClassRestriction => allowedClasses != null && allowedClasses.Length > 0;

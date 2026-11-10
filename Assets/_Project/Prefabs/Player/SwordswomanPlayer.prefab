@@ -431,7 +431,6 @@ MonoBehaviour:
   dashSoundVolume: 0.5
   doubleSlashOffset: {x: 1.6, y: 0.15}
   doubleSlashSize: {x: 3, y: 1.8}
-  doubleSlashDamageMultiplier: 1.2
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -456,7 +455,6 @@ MonoBehaviour:
   pathHeight: 1.8
   pathVerticalOffset: 0.15
   pathEndPadding: 0.25
-  damageMultiplier: 5
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0

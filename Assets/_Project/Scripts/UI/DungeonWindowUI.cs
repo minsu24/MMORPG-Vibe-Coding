@@ -186,7 +186,12 @@ namespace EasternFantasy.UI
                     rewardIcons[iconIndex].enabled = reward.Icon != null;
                     rewardIcons[iconIndex].preserveAspect = true;
                     ItemGradeVisual.Apply(rewardIcons[iconIndex], null);
-                    rewardAmounts[iconIndex].text = string.Empty;
+                    DungeonReward clearReward = null;
+                    if (reward.item != null && dungeon.clearRewards != null)
+                        foreach (var configured in dungeon.clearRewards)
+                            if (configured != null && configured.item == reward.item) { clearReward = configured; break; }
+                    rewardAmounts[iconIndex].text = reward.item != null && reward.item.FirstAcquisitionOnly ? "초회 한정"
+                        : clearReward != null ? "클리어 ×" + clearReward.quantity : string.Empty;
                     iconIndex++;
                 }
             if (!hasPreviewRewards && dungeon != null && dungeon.clearRewards != null)

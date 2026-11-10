@@ -22,8 +22,6 @@ namespace EasternFantasy.Skill
         [Header("Double Slash - Forward Rectangle")]
         [SerializeField] private Vector2 doubleSlashOffset = new Vector2(1.6f, 0.15f);
         [SerializeField] private Vector2 doubleSlashSize = new Vector2(3f, 1.8f);
-        [SerializeField, Min(0f), Tooltip("Attack damage multiplier for each of the two strikes.")]
-        private float doubleSlashDamageMultiplier = 1.2f;
         [SerializeField] private LayerMask enemyLayers;
         [Header("Double Slash Audio")]
         [SerializeField] private AudioClip firstSlashSound, secondSlashSound, doubleSlashHitSound;
@@ -40,6 +38,7 @@ namespace EasternFantasy.Skill
         private AudioSource slashAudio;
         private Coroutine slashRoutine;
         private bool slashActive;
+        private float doubleSlashDamageMultiplier;
         private float slashDirection;
         private int lastStrike;
         private int lastSwing;
@@ -99,6 +98,7 @@ namespace EasternFantasy.Skill
                     animationController.FinishSkillAnimation();
                     return false;
                 }
+                doubleSlashDamageMultiplier = skill.GetDamageMultiplier(skills.GetSkillLevel(skill));
                 slashActive = true;
                 lastStrike = 0;
                 lastSwing = 0;
@@ -110,7 +110,7 @@ namespace EasternFantasy.Skill
             {
                 return false;
             }
-            cooldownEnds[skill] = Time.time + skill.CooldownSeconds;
+            cooldownEnds[skill] = Time.time + skill.GetCooldownSeconds(skills.GetSkillLevel(skill));
             return true;
         }
 

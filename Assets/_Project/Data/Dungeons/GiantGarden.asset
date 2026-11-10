@@ -23,11 +23,15 @@ MonoBehaviour:
   - GiantFarm_02
   - GiantFarm_03_Boss
   spawnPointName: DungeonSpawn
+  returnSceneName: PrologueVilage
+  returnSpawnPointName: In_Vilage_Portal
   available: 1
   minimumLevel: 1
   timeLimitSeconds: 600
   monsterCount: 0
-  clearRewards: []
+  clearRewards:
+  - item: {fileID: 11400000, guid: b4b04f5ff7df8584e871bda12269733c, type: 2}
+    quantity: 1
   obtainableRewards:
   - item: {fileID: 0}
     displayName: "\uC5FD\uC804"
@@ -36,5 +40,8 @@ MonoBehaviour:
     displayName: 
     icon: {fileID: 0}
   - item: {fileID: 11400000, guid: 01aeae1147d10d044beb90de90c60a2c, type: 2}
+    displayName: 
+    icon: {fileID: 0}
+  - item: {fileID: 11400000, guid: b4b04f5ff7df8584e871bda12269733c, type: 2}
     displayName: 
     icon: {fileID: 0}

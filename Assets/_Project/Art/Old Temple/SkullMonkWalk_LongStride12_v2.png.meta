@@ -1,0 +1,706 @@
+fileFormatVersion: 2
+guid: 3e575012b2464524187e46fa88badc73
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8386327524210919949
+    second: SkullMonkWalk_LongStride12_v2_0
+  - first:
+      213: -7846372939780927539
+    second: SkullMonkWalk_LongStride12_v2_1
+  - first:
+      213: 2153621726680057746
+    second: SkullMonkWalk_LongStride12_v2_2
+  - first:
+      213: -7447865276067868342
+    second: SkullMonkWalk_LongStride12_v2_3
+  - first:
+      213: 7366249647218071423
+    second: SkullMonkWalk_LongStride12_v2_4
+  - first:
+      213: -2149564183433456667
+    second: SkullMonkWalk_LongStride12_v2_5
+  - first:
+      213: -5756333805911645006
+    second: SkullMonkWalk_LongStride12_v2_6
+  - first:
+      213: 7205462245227387574
+    second: SkullMonkWalk_LongStride12_v2_7
+  - first:
+      213: -5752244642793425605
+    second: SkullMonkWalk_LongStride12_v2_8
+  - first:
+      213: -7216987792658664925
+    second: SkullMonkWalk_LongStride12_v2_9
+  - first:
+      213: -5323472555713304705
+    second: SkullMonkWalk_LongStride12_v2_10
+  - first:
+      213: -4097122445468541967
+    second: SkullMonkWalk_LongStride12_v2_11
+  - first:
+      213: 1757926904610318341
+    second: SkullMonkWalk_LongStride12_v2_12
+  - first:
+      213: 6183563744435579965
+    second: SkullMonkWalk_LongStride12_v2_13
+  - first:
+      213: -8018963174998203264
+    second: SkullMonkWalk_LongStride12_v2_14
+  - first:
+      213: -8671028897433693077
+    second: SkullMonkWalk_LongStride12_v2_15
+  - first:
+      213: 8860726801786813736
+    second: SkullMonkWalk_LongStride12_v2_16
+  - first:
+      213: -1636916095169961217
+    second: SkullMonkWalk_LongStride12_v2_17
+  - first:
+      213: 8062404866593825186
+    second: SkullMonkWalk_LongStride12_v2_18
+  - first:
+      213: -9034206944349560471
+    second: SkullMonkWalk_LongStride12_v2_19
+  - first:
+      213: 4945206770606422386
+    second: SkullMonkWalk_LongStride12_v2_20
+  - first:
+      213: 8920178720458322427
+    second: SkullMonkWalk_LongStride12_v2_21
+  - first:
+      213: -551005531724708062
+    second: SkullMonkWalk_LongStride12_v2_22
+  - first:
+      213: -4115465989299061846
+    second: SkullMonkWalk_LongStride12_v2_23
+  - first:
+      213: 9041047240686031779
+    second: SkullMonkWalk_LongStride12_v2_24
+  - first:
+      213: -843054813552593364
+    second: SkullMonkWalk_LongStride12_v2_25
+  - first:
+      213: -3990184831232679613
+    second: SkullMonkWalk_LongStride12_v2_26
+  - first:
+      213: -3297368297423276944
+    second: SkullMonkWalk_LongStride12_v2_27
+  - first:
+      213: -2607536746504220117
+    second: SkullMonkWalk_LongStride12_v2_28
+  - first:
+      213: 4694407182078614402
+    second: SkullMonkWalk_LongStride12_v2_29
+  - first:
+      213: 7813137644062380852
+    second: SkullMonkWalk_LongStride12_v2_30
+  - first:
+      213: -2289290381533729316
+    second: SkullMonkWalk_LongStride12_v2_31
+  - first:
+      213: 1471064658798993287
+    second: SkullMonkWalk_LongStride12_v2_32
+  - first:
+      213: 5814655965129354598
+    second: SkullMonkWalk_LongStride12_v2_33
+  - first:
+      213: 8970040795094064678
+    second: SkullMonkWalk_LongStride12_v2_34
+  - first:
+      213: -5138410726268080039
+    second: SkullMonkWalk_LongStride12_v2_35
+  - first:
+      213: -6279150737091533329
+    second: SkullMonkWalk_LongStride12_v2_36
+  - first:
+      213: -1718678068291704087
+    second: SkullMonkWalk_LongStride12_v2_37
+  - first:
+      213: -7621296345792452493
+    second: SkullMonkWalk_LongStride12_v2_38
+  - first:
+      213: 1011937287854779329
+    second: SkullMonkWalk_LongStride12_v2_39
+  - first:
+      213: 5532715507342508574
+    second: SkullMonkWalk_LongStride12_v2_40
+  - first:
+      213: 9167679784676555726
+    second: SkullMonkWalk_LongStride12_v2_41
+  - first:
+      213: 7036417575089018908
+    second: SkullMonkWalk_LongStride12_v2_42
+  - first:
+      213: 2397503742022672743
+    second: SkullMonkWalk_LongStride12_v2_43
+  - first:
+      213: -4316223802753311904
+    second: SkullMonkWalk_LongStride12_v2_44
+  - first:
+      213: -6793659395476595778
+    second: SkullMonkWalk_LongStride12_v2_45
+  - first:
+      213: 7326161847061476545
+    second: SkullMonkWalk_LongStride12_v2_46
+  - first:
+      213: -1909272172090957175
+    second: SkullMonkWalk_LongStride12_v2_47
+  - first:
+      213: 4946105753455703045
+    second: SkullMonkWalk_LongStride12_v2_48
+  - first:
+      213: 4917110477975892860
+    second: SkullMonkWalk_LongStride12_v2_49
+  - first:
+      213: 8493557909986547280
+    second: SkullMonkWalk_LongStride12_v2_50
+  - first:
+      213: 5550414036505422542
+    second: SkullMonkWalk_LongStride12_v2_51
+  - first:
+      213: 3624240687730884056
+    second: SkullMonkWalk_LongStride12_v2_52
+  - first:
+      213: 5872449135755351493
+    second: SkullMonkWalk_LongStride12_v2_53
+  - first:
+      213: -1854040200886560498
+    second: SkullMonkWalk_LongStride12_v2_54
+  - first:
+      213: 4292934053912415900
+    second: SkullMonkWalk_LongStride12_v2_55
+  - first:
+      213: -7561054215467992436
+    second: SkullMonkWalk_LongStride12_v2_56
+  - first:
+      213: 7758157160665050345
+    second: SkullMonkWalk_LongStride12_v2_57
+  - first:
+      213: -6415114139301140072
+    second: SkullMonkWalk_LongStride12_v2_58
+  - first:
+      213: -5306123151536209010
+    second: SkullMonkWalk_LongStride12_v2_59
+  - first:
+      213: 7431941597667281607
+    second: SkullMonkWalk_LongStride12_v2_60
+  - first:
+      213: -8260479860767273725
+    second: SkullMonkWalk_LongStride12_v2_61
+  - first:
+      213: 3550385227870846016
+    second: SkullMonkWalk_LongStride12_v2_62
+  - first:
+      213: 5091606178841338937
+    second: SkullMonkWalk_LongStride12_v2_63
+  - first:
+      213: 3210662631244450552
+    second: SkullMonkWalk_LongStride12_v2_64
+  - first:
+      213: 4936879882604131074
+    second: SkullMonkWalk_LongStride12_v2_65
+  - first:
+      213: 5484503045142869699
+    second: SkullMonkWalk_LongStride12_v2_66
+  - first:
+      213: -2438194950119141365
+    second: SkullMonkWalk_LongStride12_v2_67
+  - first:
+      213: -9041927306345794954
+    second: SkullMonkWalk_LongStride12_v2_68
+  - first:
+      213: -1120402271243653550
+    second: SkullMonkWalk_LongStride12_v2_69
+  - first:
+      213: 5530285122253128734
+    second: SkullMonkWalk_LongStride12_v2_70
+  - first:
+      213: 817124463776585965
+    second: SkullMonkWalk_LongStride12_v2_71
+  - first:
+      213: 9021552837385558261
+    second: SkullMonkWalk_LongStride12_v2_72
+  - first:
+      213: -849927439515368876
+    second: SkullMonkWalk_LongStride12_v2_73
+  - first:
+      213: 101388692874238472
+    second: SkullMonkWalk_LongStride12_v2_74
+  - first:
+      213: 3646423021075202292
+    second: SkullMonkWalk_LongStride12_v2_75
+  - first:
+      213: 6497399509705633459
+    second: SkullMonkWalk_LongStride12_v2_76
+  - first:
+      213: -6725452515910533839
+    second: SkullMonkWalk_LongStride12_v2_77
+  - first:
+      213: 3162899797090882574
+    second: SkullMonkWalk_LongStride12_v2_78
+  - first:
+      213: 7439443856775358128
+    second: SkullMonkWalk_LongStride12_v2_79
+  - first:
+      213: -8898142610435173111
+    second: SkullMonkWalk_LongStride12_v2_80
+  - first:
+      213: -4291446599387706526
+    second: SkullMonkWalk_LongStride12_v2_81
+  - first:
+      213: 633673644096350770
+    second: SkullMonkWalk_LongStride12_v2_82
+  - first:
+      213: -961670156430330776
+    second: SkullMonkWalk_LongStride12_v2_83
+  - first:
+      213: -708656664677771629
+    second: SkullMonkWalk_LongStride12_v2_84
+  - first:
+      213: -5987041806158496124
+    second: SkullMonkWalk_LongStride12_v2_85
+  - first:
+      213: 5485440093924056262
+    second: SkullMonkWalk_LongStride12_v2_86
+  - first:
+      213: 1523567353261582019
+    second: SkullMonkWalk_LongStride12_v2_87
+  - first:
+      213: 5457530236242930748
+    second: SkullMonkWalk_LongStride12_v2_88
+  - first:
+      213: -4847832794084796997
+    second: SkullMonkWalk_LongStride12_v2_89
+  - first:
+      213: -2196698283873074625
+    second: SkullMonkWalk_LongStride12_v2_90
+  - first:
+      213: 4630491178889358663
+    second: SkullMonkWalk_LongStride12_v2_91
+  - first:
+      213: 4534409308204598230
+    second: SkullMonkWalk_LongStride12_v2_92
+  - first:
+      213: -7553488037256794839
+    second: SkullMonkWalk_LongStride12_v2_93
+  - first:
+      213: 7607173055381810760
+    second: SkullMonkWalk_LongStride12_v2_94
+  - first:
+      213: -663830938477576421
+    second: SkullMonkWalk_LongStride12_v2_95
+  - first:
+      213: -8080181007935648579
+    second: SkullMonkWalk_LongStride12_v2_96
+  - first:
+      213: -2827669899409370635
+    second: SkullMonkWalk_LongStride12_v2_97
+  - first:
+      213: -4443988124785238500
+    second: SkullMonkWalk_LongStride12_v2_98
+  - first:
+      213: -3595786127921179157
+    second: SkullMonkWalk_LongStride12_v2_99
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 74.90049
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SkullMonkWalk12_v2_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5487288, y: 0.4983685}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91ea05b697dd6ea499754b64f3911871
+      internalID: 1915019950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_v2_01
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5589527, y: 0.490556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67030864e0305424d86c9980ddc02f07
+      internalID: -1014918972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_v2_02
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.56065035, y: 0.48860288}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e462011c7b969847bc22780d1cb6921
+      internalID: -1094132242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_v2_03
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 512
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5617926, y: 0.48664975}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92244a29dd8d6af408bb88a559f5d1ec
+      internalID: -1731475811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_v2_04
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5587535, y: 0.48860288}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b836284dac77d92478bdb701cc5ac224
+      internalID: 1351011074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_v2_05
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 512
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5573225, y: 0.49250913}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac25b7a751a42ce44987f477cfb7d991
+      internalID: -1310380017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_v2_06
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5459654, y: 0.5003216}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0492b35065dd8848b97f916e56a0e5f
+      internalID: 1307772919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_v2_07
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5536226, y: 0.49446225}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee9930fa17fd56e449ae2a7dc5ee012d
+      internalID: -1289576257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_v2_08
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5559721, y: 0.5003216}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baff9bca7e3832a4dac71679729c6b64
+      internalID: -2063542682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_v2_09
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5472255, y: 0.49446225}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 803571d63d98e104b990ac0524a699a4
+      internalID: -241690794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_v2_10
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.54498386, y: 0.49446225}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a20f44bb15653145b16b67aaa25613f
+      internalID: -1245237723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkWalk12_v2_11
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 256
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5536313, y: 0.5003216}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3a498b8c2d4ba74d8ac505ef185d185
+      internalID: 931849369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 1e6810452a225c841b568df7633ba447
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SkullMonkWalk12_v2_00: 1915019950
+      SkullMonkWalk12_v2_01: -1014918972
+      SkullMonkWalk12_v2_02: -1094132242
+      SkullMonkWalk12_v2_03: -1731475811
+      SkullMonkWalk12_v2_04: 1351011074
+      SkullMonkWalk12_v2_05: -1310380017
+      SkullMonkWalk12_v2_06: 1307772919
+      SkullMonkWalk12_v2_07: -1289576257
+      SkullMonkWalk12_v2_08: -2063542682
+      SkullMonkWalk12_v2_09: -241690794
+      SkullMonkWalk12_v2_10: -1245237723
+      SkullMonkWalk12_v2_11: 931849369
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

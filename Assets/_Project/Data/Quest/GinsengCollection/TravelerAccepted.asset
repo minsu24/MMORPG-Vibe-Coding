@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1556faa70b3ce43862d54865c7f42e, type: 3}
+  m_Name: TravelerAccepted
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dialogue.DialogueSequence
+  playerCharacter: {fileID: 0}
+  partnerCharacter: {fileID: 11400000, guid: 4813f7681cdd4374d911c43214df06ce, type: 2}
+  lines:
+  - speaker: 1
+    text: "\uACE0\uB9D9\uB124. \uC778\uC0BC \uC904\uAE30 15\uAC1C\uB97C \uBAA8\uC73C\uBA74
+      \uB0B4\uAC8C \uB3CC\uC544\uC624\uAC8C. \uC904\uAE30\uB294 \uB0B4\uAC00 \uBC1B\uC544
+      \uC57D\uC73C\uB85C \uC4F0\uACA0\uB124."
+    classOverrides: []
+    firstAdvancementText: 
+  completionExperience: 0

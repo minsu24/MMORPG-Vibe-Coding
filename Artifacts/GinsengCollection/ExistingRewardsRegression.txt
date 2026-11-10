@@ -1,0 +1,4 @@
+PASS Existing spider quest grants five HP and five MP potions
+PASS Existing quest cannot grant duplicate rewards
+PASS Full-stack potion reward stays atomic and retryable
+PASS Toad necklace jump and ginseng ring regeneration coexist

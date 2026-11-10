@@ -1,0 +1,50 @@
+PASS Exactly six intermediate keys added
+PASS Original 1.5 second duration retained
+PASS Original pose and time retained: SkullMonkWalk12_10
+PASS Original pose and time retained: SkullMonkWalk12_01
+PASS Original pose and time retained: SkullMonkWalk12_02
+PASS Original pose and time retained: SkullMonkWalk12_03
+PASS Original pose and time retained: SkullMonkWalk12_04
+PASS Original pose and time retained: SkullMonkWalk12_05
+PASS Original pose and time retained: SkullMonkWalk12_06
+PASS Original pose and time retained: SkullMonkWalk12_07
+PASS Original pose and time retained: SkullMonkWalk12_08
+PASS Looping enabled
+PASS Animator renders SkullMonkWalk12_10
+PASS Transform remains fixed at 0
+PASS Animator renders SkullMonkWalk12_01
+PASS Transform remains fixed at 0.1666667
+PASS Animator renders SkullMonkWalk12_02
+PASS Transform remains fixed at 0.3333333
+PASS Animator renders SkullMonkWalk12_03
+PASS Transform remains fixed at 0.5
+PASS Animator renders SkullMonkWalk12_04
+PASS Transform remains fixed at 0.6666667
+PASS Animator renders SkullMonkWalk12_05
+PASS Transform remains fixed at 0.8333333
+PASS Animator renders SkullMonkWalk12_06
+PASS Transform remains fixed at 1
+PASS Animator renders SkullMonkBridge_06_07_1
+PASS Transform remains fixed at 1.055556
+PASS Animator renders SkullMonkBridge_06_07_2
+PASS Transform remains fixed at 1.111111
+PASS Animator renders SkullMonkWalk12_07
+PASS Transform remains fixed at 1.166667
+PASS Animator renders SkullMonkBridge_07_08_1
+PASS Transform remains fixed at 1.222222
+PASS Animator renders SkullMonkBridge_07_08_2
+PASS Transform remains fixed at 1.277778
+PASS Animator renders SkullMonkWalk12_08
+PASS Transform remains fixed at 1.333333
+PASS Animator renders SkullMonkBridge_08_10_1
+PASS Transform remains fixed at 1.388889
+PASS Animator renders SkullMonkBridge_08_10_2
+PASS Transform remains fixed at 1.444444
+PASS Interpolated final segment loops to original first pose
+PASS Two new poses follow SkullMonkWalk12_06
+PASS Transition ends at SkullMonkWalk12_07
+PASS Two new poses follow SkullMonkWalk12_07
+PASS Transition ends at SkullMonkWalk12_08
+PASS Two new poses follow SkullMonkWalk12_08
+PASS Transition ends at SkullMonkWalk12_10
+COMPLETE 49 checks passed

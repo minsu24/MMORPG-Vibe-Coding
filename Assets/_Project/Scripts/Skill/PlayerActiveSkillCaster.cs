@@ -22,14 +22,12 @@ namespace EasternFantasy.Skill
         [SerializeField, Range(0f, 1f)] private float talismanSoundVolume = 0.7f;
 
         [Header("Teleport")]
-        [SerializeField, Min(0f)] private float teleportDistance = 4f;
         [SerializeField] private GameObject teleportEffectPrefab;
         [SerializeField, Min(0f)] private float teleportEffectLifetime = 0.4f;
         [SerializeField] private AudioClip teleportSound;
         [SerializeField, Range(0f, 1f)] private float teleportSoundVolume = 0.75f;
 
         [Header("Talisman Shield")]
-        [SerializeField, Range(0f, 0.95f)] private float shieldDamageReduction = 0.3f;
         [SerializeField, Min(0f)] private float shieldDuration = 5f;
         [SerializeField] private TalismanShieldEffect shieldEffect;
         [SerializeField] private AudioClip shieldSound;
@@ -40,6 +38,7 @@ namespace EasternFantasy.Skill
         private PlayerMovement2D movement;
         private PlayerProjectileShooter shooter;
         private PlayerEntity entity;
+        private PlayerSkillSystem skillSystem;
         private PlayerIdleAnimation animationController;
         private AudioSource skillAudio;
         private SpriteRenderer bodyRenderer;
@@ -50,6 +49,7 @@ namespace EasternFantasy.Skill
             movement = GetComponent<PlayerMovement2D>();
             shooter = GetComponent<PlayerProjectileShooter>();
             entity = GetComponent<PlayerEntity>();
+            skillSystem = GetComponent<PlayerSkillSystem>();
             animationController = GetComponent<PlayerIdleAnimation>();
             Animator bodyAnimator = GetComponentInChildren<Animator>();
             if (bodyAnimator != null)
@@ -61,6 +61,8 @@ namespace EasternFantasy.Skill
             if (!isActiveAndEnabled || !animationController.CanPerformCombatAction || Time.timeScale <= 0f
                 || skill == null || skill.ActivationType != SkillActivationType.Active
                 || GetCooldownRemaining(skill) > 0f)
+                return false;
+            if (skillSystem == null || skillSystem.GetSkillLevel(skill) <= 0)
                 return false;
             if (!SkillResourcePayment.CanAfford(entity, skill))
                 return false;
@@ -81,7 +83,7 @@ namespace EasternFantasy.Skill
                 Vector3 origin = transform.position;
                 SpawnTeleportEffect(origin);
                 movement.TeleportTo(
-                    origin + Vector3.right * direction * teleportDistance,
+                    origin + Vector3.right * direction * skill.GetTeleportDistance(skillSystem.GetSkillLevel(skill)),
                     transform.rotation);
                 SpawnTeleportEffect(transform.position, true);
                 PlaySkillSound(teleportSound, teleportSoundVolume);
@@ -89,7 +91,8 @@ namespace EasternFantasy.Skill
             }
             else if (skill == talismanShieldSkill)
             {
-                entity.ActivateDamageReduction(shieldDamageReduction, shieldDuration);
+                entity.ActivateDamageReduction(
+                    skill.GetDamageReduction(skillSystem.GetSkillLevel(skill)), shieldDuration);
                 if (shieldEffect != null)
                     shieldEffect.Show(shieldDuration);
                 PlaySkillSound(shieldSound, shieldSoundVolume);
@@ -104,7 +107,7 @@ namespace EasternFantasy.Skill
             {
                 if (!SkillResourcePayment.TrySpend(entity, skill))
                     return false;
-                cooldownEnds[skill] = Time.time + skill.CooldownSeconds;
+                cooldownEnds[skill] = Time.time + skill.GetCooldownSeconds(skillSystem.GetSkillLevel(skill));
             }
 
             return cast;

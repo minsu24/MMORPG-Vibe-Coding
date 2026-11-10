@@ -1,0 +1,233 @@
+Native Unity ginseng collection and accessory validation
+PASS Quest uses existing stem material and requires 15
+PASS Existing ring has regeneration ability 1 HP per second
+PASS Ring identity differs from toad necklace
+PASS Actual TempleGate traveler offers the quest
+PASS Traveler available marker visible
+PASS Quest accepts
+PASS Traveler in-progress marker visible
+PASS Collect first 14 stems
+PASS 14 stems cannot complete quest
+PASS 15 stems ready to turn in
+PASS Traveler completion marker visible
+PASS Removing a stem reverses ready state
+PASS Full equipment inventory preserves materials and reward
+PASS Turn-in consumes exactly 15 and awards one ring
+PASS Quest and ring reward cannot be repeated
+PASS Traveler marker hides after completion
+PASS Stems collected before acceptance count immediately
+PASS Collection inventory and quest survive save round-trip
+PASS Unequipped ring does not heal
+PASS Ring equips in ring slot
+PASS Equipped ring heals exactly 1 HP after one second
+PASS Paused game does not regenerate
+PASS Removing ring stops regeneration
+PASS Regeneration never exceeds maximum HP
+PASS Ring never revives a dead player
+PASS Ginseng prefab drop table uses existing stem at 70 percent
+PASS Actual ginseng death invokes configured loot component
+PASS Stem drop quantity is one, roll 0
+PASS Defeat callback cannot duplicate loot, roll 0
+PASS Stem drop quantity is one, roll 1
+PASS Defeat callback cannot duplicate loot, roll 1
+PASS Stem drop quantity is one, roll 2
+PASS Defeat callback cannot duplicate loot, roll 2
+PASS Actual dropped stem pickup adds one item to inventory
+PASS Stem drop quantity is one, roll 3
+PASS Defeat callback cannot duplicate loot, roll 3
+PASS Stem drop quantity is one, roll 4
+PASS Defeat callback cannot duplicate loot, roll 4
+PASS Stem drop quantity is one, roll 5
+PASS Defeat callback cannot duplicate loot, roll 5
+PASS Stem drop quantity is one, roll 6
+PASS Defeat callback cannot duplicate loot, roll 6
+PASS Stem drop quantity is one, roll 7
+PASS Defeat callback cannot duplicate loot, roll 7
+PASS Stem drop quantity is one, roll 8
+PASS Defeat callback cannot duplicate loot, roll 8
+PASS Stem drop quantity is one, roll 9
+PASS Defeat callback cannot duplicate loot, roll 9
+PASS Stem drop quantity is one, roll 10
+PASS Defeat callback cannot duplicate loot, roll 10
+PASS Stem drop quantity is one, roll 11
+PASS Defeat callback cannot duplicate loot, roll 11
+PASS Stem drop quantity is one, roll 12
+PASS Defeat callback cannot duplicate loot, roll 12
+PASS Stem drop quantity is one, roll 13
+PASS Defeat callback cannot duplicate loot, roll 13
+PASS Stem drop quantity is one, roll 14
+PASS Defeat callback cannot duplicate loot, roll 14
+PASS Stem drop quantity is one, roll 15
+PASS Defeat callback cannot duplicate loot, roll 15
+PASS Stem drop quantity is one, roll 16
+PASS Defeat callback cannot duplicate loot, roll 16
+PASS Stem drop quantity is one, roll 17
+PASS Defeat callback cannot duplicate loot, roll 17
+PASS Stem drop quantity is one, roll 18
+PASS Defeat callback cannot duplicate loot, roll 18
+PASS Stem drop quantity is one, roll 19
+PASS Defeat callback cannot duplicate loot, roll 19
+PASS Stem drop quantity is one, roll 20
+PASS Defeat callback cannot duplicate loot, roll 20
+PASS Stem drop quantity is one, roll 21
+PASS Defeat callback cannot duplicate loot, roll 21
+PASS Stem drop quantity is one, roll 22
+PASS Defeat callback cannot duplicate loot, roll 22
+PASS Stem drop quantity is one, roll 23
+PASS Defeat callback cannot duplicate loot, roll 23
+PASS Stem drop quantity is one, roll 24
+PASS Defeat callback cannot duplicate loot, roll 24
+PASS Stem drop quantity is one, roll 25
+PASS Defeat callback cannot duplicate loot, roll 25
+PASS Stem drop quantity is one, roll 26
+PASS Defeat callback cannot duplicate loot, roll 26
+PASS Stem drop quantity is one, roll 27
+PASS Defeat callback cannot duplicate loot, roll 27
+PASS Stem drop quantity is one, roll 28
+PASS Defeat callback cannot duplicate loot, roll 28
+PASS Stem drop quantity is one, roll 29
+PASS Defeat callback cannot duplicate loot, roll 29
+PASS Stem drop quantity is one, roll 30
+PASS Defeat callback cannot duplicate loot, roll 30
+PASS Stem drop quantity is one, roll 31
+PASS Defeat callback cannot duplicate loot, roll 31
+PASS Stem drop quantity is one, roll 32
+PASS Defeat callback cannot duplicate loot, roll 32
+PASS Stem drop quantity is one, roll 33
+PASS Defeat callback cannot duplicate loot, roll 33
+PASS Stem drop quantity is one, roll 34
+PASS Defeat callback cannot duplicate loot, roll 34
+PASS Stem drop quantity is one, roll 35
+PASS Defeat callback cannot duplicate loot, roll 35
+PASS Stem drop quantity is one, roll 36
+PASS Defeat callback cannot duplicate loot, roll 36
+PASS Stem drop quantity is one, roll 37
+PASS Defeat callback cannot duplicate loot, roll 37
+PASS Stem drop quantity is one, roll 38
+PASS Defeat callback cannot duplicate loot, roll 38
+PASS Stem drop quantity is one, roll 39
+PASS Defeat callback cannot duplicate loot, roll 39
+PASS Stem drop quantity is one, roll 40
+PASS Defeat callback cannot duplicate loot, roll 40
+PASS Stem drop quantity is one, roll 41
+PASS Defeat callback cannot duplicate loot, roll 41
+PASS Stem drop quantity is one, roll 42
+PASS Defeat callback cannot duplicate loot, roll 42
+PASS Stem drop quantity is one, roll 43
+PASS Defeat callback cannot duplicate loot, roll 43
+PASS Stem drop quantity is one, roll 44
+PASS Defeat callback cannot duplicate loot, roll 44
+PASS Stem drop quantity is one, roll 45
+PASS Defeat callback cannot duplicate loot, roll 45
+PASS Stem drop quantity is one, roll 46
+PASS Defeat callback cannot duplicate loot, roll 46
+PASS Stem drop quantity is one, roll 47
+PASS Defeat callback cannot duplicate loot, roll 47
+PASS Stem drop quantity is one, roll 48
+PASS Defeat callback cannot duplicate loot, roll 48
+PASS Stem drop quantity is one, roll 49
+PASS Defeat callback cannot duplicate loot, roll 49
+PASS Stem drop quantity is one, roll 50
+PASS Defeat callback cannot duplicate loot, roll 50
+PASS Stem drop quantity is one, roll 51
+PASS Defeat callback cannot duplicate loot, roll 51
+PASS Stem drop quantity is one, roll 52
+PASS Defeat callback cannot duplicate loot, roll 52
+PASS Stem drop quantity is one, roll 53
+PASS Defeat callback cannot duplicate loot, roll 53
+PASS Stem drop quantity is one, roll 54
+PASS Defeat callback cannot duplicate loot, roll 54
+PASS Stem drop quantity is one, roll 55
+PASS Defeat callback cannot duplicate loot, roll 55
+PASS Stem drop quantity is one, roll 56
+PASS Defeat callback cannot duplicate loot, roll 56
+PASS Stem drop quantity is one, roll 57
+PASS Defeat callback cannot duplicate loot, roll 57
+PASS Stem drop quantity is one, roll 58
+PASS Defeat callback cannot duplicate loot, roll 58
+PASS Stem drop quantity is one, roll 59
+PASS Defeat callback cannot duplicate loot, roll 59
+PASS Stem drop quantity is one, roll 60
+PASS Defeat callback cannot duplicate loot, roll 60
+PASS Stem drop quantity is one, roll 61
+PASS Defeat callback cannot duplicate loot, roll 61
+PASS Stem drop quantity is one, roll 62
+PASS Defeat callback cannot duplicate loot, roll 62
+PASS Stem drop quantity is one, roll 63
+PASS Defeat callback cannot duplicate loot, roll 63
+PASS Stem drop quantity is one, roll 64
+PASS Defeat callback cannot duplicate loot, roll 64
+PASS Stem drop quantity is one, roll 65
+PASS Defeat callback cannot duplicate loot, roll 65
+PASS Stem drop quantity is one, roll 66
+PASS Defeat callback cannot duplicate loot, roll 66
+PASS Stem drop quantity is one, roll 67
+PASS Defeat callback cannot duplicate loot, roll 67
+PASS Stem drop quantity is one, roll 68
+PASS Defeat callback cannot duplicate loot, roll 68
+PASS Stem drop quantity is one, roll 69
+PASS Defeat callback cannot duplicate loot, roll 69
+PASS Stem drop quantity is one, roll 70
+PASS Defeat callback cannot duplicate loot, roll 70
+PASS Stem drop quantity is one, roll 71
+PASS Defeat callback cannot duplicate loot, roll 71
+PASS Stem drop quantity is one, roll 72
+PASS Defeat callback cannot duplicate loot, roll 72
+PASS Stem drop quantity is one, roll 73
+PASS Defeat callback cannot duplicate loot, roll 73
+PASS Stem drop quantity is one, roll 74
+PASS Defeat callback cannot duplicate loot, roll 74
+PASS Stem drop quantity is one, roll 75
+PASS Defeat callback cannot duplicate loot, roll 75
+PASS Stem drop quantity is one, roll 76
+PASS Defeat callback cannot duplicate loot, roll 76
+PASS Stem drop quantity is one, roll 77
+PASS Defeat callback cannot duplicate loot, roll 77
+PASS Stem drop quantity is one, roll 78
+PASS Defeat callback cannot duplicate loot, roll 78
+PASS Stem drop quantity is one, roll 79
+PASS Defeat callback cannot duplicate loot, roll 79
+PASS Stem drop quantity is one, roll 80
+PASS Defeat callback cannot duplicate loot, roll 80
+PASS Stem drop quantity is one, roll 81
+PASS Defeat callback cannot duplicate loot, roll 81
+PASS Stem drop quantity is one, roll 82
+PASS Defeat callback cannot duplicate loot, roll 82
+PASS Stem drop quantity is one, roll 83
+PASS Defeat callback cannot duplicate loot, roll 83
+PASS Stem drop quantity is one, roll 84
+PASS Defeat callback cannot duplicate loot, roll 84
+PASS Stem drop quantity is one, roll 85
+PASS Defeat callback cannot duplicate loot, roll 85
+PASS Stem drop quantity is one, roll 86
+PASS Defeat callback cannot duplicate loot, roll 86
+PASS Stem drop quantity is one, roll 87
+PASS Defeat callback cannot duplicate loot, roll 87
+PASS Stem drop quantity is one, roll 88
+PASS Defeat callback cannot duplicate loot, roll 88
+PASS Stem drop quantity is one, roll 89
+PASS Defeat callback cannot duplicate loot, roll 89
+PASS Stem drop quantity is one, roll 90
+PASS Defeat callback cannot duplicate loot, roll 90
+PASS Stem drop quantity is one, roll 91
+PASS Defeat callback cannot duplicate loot, roll 91
+PASS Stem drop quantity is one, roll 92
+PASS Defeat callback cannot duplicate loot, roll 92
+PASS Stem drop quantity is one, roll 93
+PASS Defeat callback cannot duplicate loot, roll 93
+PASS Stem drop quantity is one, roll 94
+PASS Defeat callback cannot duplicate loot, roll 94
+PASS Stem drop quantity is one, roll 95
+PASS Defeat callback cannot duplicate loot, roll 95
+PASS Stem drop quantity is one, roll 96
+PASS Defeat callback cannot duplicate loot, roll 96
+PASS Stem drop quantity is one, roll 97
+PASS Defeat callback cannot duplicate loot, roll 97
+PASS Stem drop quantity is one, roll 98
+PASS Defeat callback cannot duplicate loot, roll 98
+PASS Stem drop quantity is one, roll 99
+PASS Defeat callback cannot duplicate loot, roll 99
+PASS Actual seeded drop rolls near 70 percent: 70/100
+PASS At least one real stem pickup collected
+PASS No Unity runtime errors: 
+COMPLETE 231 checks passed

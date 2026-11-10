@@ -36,6 +36,41 @@ namespace EasternFantasy.Quest
         [SerializeField] private List<QuestProgress> quests = new List<QuestProgress>();
         private GameObject player;
         private PlayerProgression playerProgression;
+        private PlayerInventory collectionInventory;
+        private float nextInventoryCheck;
+
+        private void Update()
+        {
+            if (Time.unscaledTime < nextInventoryCheck) return;
+            nextInventoryCheck = Time.unscaledTime + .25f;
+            BindCollectionInventory();
+        }
+
+        private void BindCollectionInventory()
+        {
+            var inventory = FindFirstObjectByType<PlayerInventory>();
+            if (collectionInventory == inventory) return;
+            if (collectionInventory != null) collectionInventory.InventoryChanged -= RefreshCollectionProgress;
+            collectionInventory = inventory;
+            if (collectionInventory != null) collectionInventory.InventoryChanged += RefreshCollectionProgress;
+            RefreshCollectionProgress();
+        }
+
+        public void RefreshCollectionProgress()
+        {
+            bool changed = false;
+            foreach (var progress in quests)
+            {
+                if (progress.Definition == null || progress.Definition.RequiredItem == null || progress.Status == QuestStatus.Completed) continue;
+                int amount = collectionInventory != null ? Mathf.Min(collectionInventory.GetMaterialQuantity(progress.Definition.RequiredItem), progress.Definition.RequiredAmount) : 0;
+                var status = amount >= progress.Definition.RequiredAmount ? QuestStatus.ReadyToTurnIn : QuestStatus.Active;
+                if (progress.CurrentAmount == amount && progress.Status == status) continue;
+                progress.CurrentAmount = amount;
+                progress.Status = status;
+                changed = true;
+            }
+            if (changed) QuestsChanged?.Invoke();
+        }
 
         public static QuestManager Instance { get; private set; }
         public IReadOnlyList<QuestProgress> Quests => quests;
@@ -88,6 +123,8 @@ namespace EasternFantasy.Quest
                 quests.Remove(existing);
 
             quests.Add(new QuestProgress(definition));
+            BindCollectionInventory();
+            RefreshCollectionProgress();
             EasternFantasy.UI.MapRegionDiscovery.RevealQuestDestinations(definition);
             QuestsChanged?.Invoke();
             return true;
@@ -95,6 +132,7 @@ namespace EasternFantasy.Quest
 
         public bool AddProgress(QuestDefinition definition, int amount = 1)
         {
+            if (definition == null || definition.RequiredItem != null) return false;
             QuestProgress progress = FindProgress(definition);
             if (progress == null || progress.Status != QuestStatus.Active || amount <= 0)
                 return false;
@@ -112,6 +150,8 @@ namespace EasternFantasy.Quest
 
         public bool CompleteQuest(QuestDefinition definition)
         {
+            BindCollectionInventory();
+            RefreshCollectionProgress();
             QuestProgress progress = FindProgress(definition);
             if (progress == null || progress.Status != QuestStatus.ReadyToTurnIn)
                 return false;
@@ -124,13 +164,14 @@ namespace EasternFantasy.Quest
                 rewards.TryGetValue(reward.Item, out int amount);
                 rewards[reward.Item] = amount + reward.Quantity;
             }
-            if (rewards.Count > 0)
+            if (rewards.Count > 0 || definition.RequiredItem != null)
             {
                 var inventory = FindFirstObjectByType<PlayerInventory>();
-                if (inventory == null || !inventory.TryAddItems(rewards))
+                if (inventory == null || !inventory.TryExchangeMaterialForItems(definition.RequiredItem,
+                    definition.RequiredItem != null ? definition.RequiredAmount : 0, rewards))
                 {
                     progress.Status = QuestStatus.ReadyToTurnIn;
-                    EasternFantasy.UI.SystemNoticeUI.ShowFailure("물약 보상을 받을 수 있도록 소비 인벤토리를 정리한 뒤 다시 완료해 주세요.", this);
+                    EasternFantasy.UI.SystemNoticeUI.ShowFailure("제출할 아이템 수량과 보상을 받을 인벤토리 공간을 확인해 주세요.", this);
                     return false;
                 }
             }
@@ -159,6 +200,7 @@ namespace EasternFantasy.Quest
 
         private void OnDestroy()
         {
+            if (collectionInventory != null) collectionInventory.InventoryChanged -= RefreshCollectionProgress;
             if (Instance == this)
                 Instance = null;
         }

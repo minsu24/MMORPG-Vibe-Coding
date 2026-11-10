@@ -15,6 +15,8 @@ namespace EasternFantasy.Dungeon
         public string sceneName;
         public string[] continuationScenes = Array.Empty<string>();
         public string spawnPointName = "DungeonSpawn";
+        public string returnSceneName = "PrologueVilage";
+        public string returnSpawnPointName = "In_Vilage_Portal";
         public bool available = true;
         [Min(1)] public int minimumLevel = 1;
         [Tooltip("0 means not configured.")] [Min(0)] public int timeLimitSeconds;

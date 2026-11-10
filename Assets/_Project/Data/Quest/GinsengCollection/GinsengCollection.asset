@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8509864fd7d5bb24fbb693fd80a56360, type: 3}
+  m_Name: GinsengCollection
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Quest.QuestDefinition
+  questId: temple_gate_ginseng_stems
+  questType: 1
+  title: "\uB098\uADF8\uB124\uC758 \uC57D\uCD08 \uBD80\uD0C1"
+  objectiveDescription: "\uC778\uC0BC \uBAAC\uC2A4\uD130\uC5D0\uAC8C\uC11C \uC778\uC0BC
+    \uC904\uAE30 15\uAC1C\uB97C \uBAA8\uC544 \uB098\uADF8\uB124\uC5D0\uAC8C \uAC00\uC838\uAC00\uAE30"
+  requiredAmount: 15
+  requiredItem: {fileID: 11400000, guid: a40f8d58f18228842b1e7bac824af7a6, type: 2}
+  rewardYeopjeon: 0
+  rewardEXP: 0
+  rewardItems:
+  - item: {fileID: 11400000, guid: 213418b459c453247aab301355a85c11, type: 2}
+    quantity: 1
+  prerequisiteQuest: {fileID: 0}
+  turnInDescription: "\uC0AC\uCC30 \uC785\uAD6C\uC758 \uB098\uADF8\uB124\uC5D0\uAC8C
+    \uC778\uC0BC \uC904\uAE30 15\uAC1C \uC804\uB2EC"
+  revealedMapScenes: []
+  mapOfferScene: TempleGate
+  mapObjectiveScene: TempleGate
+  mapTurnInScene: TempleGate
