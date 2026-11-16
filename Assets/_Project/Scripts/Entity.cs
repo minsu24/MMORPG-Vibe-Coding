@@ -87,6 +87,7 @@ public abstract class Entity : MonoBehaviour
         public float AttacK_Power;
         [HideInInspector]
         public float Speed;
+        
     }
 }
 
