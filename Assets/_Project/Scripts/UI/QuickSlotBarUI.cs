@@ -10,7 +10,7 @@ using UnityEngine.UI;
 namespace EasternFantasy.UI
 {
     [DisallowMultipleComponent]
-    public sealed class QuickSlotBarUI : MonoBehaviour
+    public sealed partial class QuickSlotBarUI : MonoBehaviour
     {
         public static readonly char[] SkillHotkeys = { 'Q', 'W', 'E', 'R', 'A', 'S', 'D', 'F' };
         [SerializeField] private QuickSkillSlotUI[] slots;
@@ -40,6 +40,7 @@ namespace EasternFantasy.UI
             Instance = this;
             DontDestroyOnLoad(gameObject);
             GameplayHudVisibility.Attach(gameObject);
+            ApplyCornerLayout();
         }
 
         private void Start()

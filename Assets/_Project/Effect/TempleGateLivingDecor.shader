@@ -10,6 +10,9 @@ Shader "Eastern Fantasy/Temple Gate Living Decor"
         _FlagSpeed("Flag Sway Speed", Range(0.1, 3)) = 1.5
         _FlagPhase("Flag Sway Phase", Float) = 0
         _FlagRegion("Sprite Rect In Atlas Pixels (XYWH)", Vector) = (443, 773, 502, 924)
+        _AtlasSize("Atlas Size In Pixels", Vector) = (1448, 1086, 0, 0)
+        _MotionRect("Optional Moving Region In Atlas Pixels (XYWH)", Vector) = (0, 0, 0, 0)
+        _SecondaryMotionRect("Optional Second Moving Region (XYWH)", Vector) = (0, 0, 0, 0)
         _AtmosphereAmount("Background Mist Blend", Range(0, 0.4)) = 0
         _AtmosphereColor("Background Mist Color", Color) = (0.57,0.55,0.59,1)
         _AtmosphereRect("Sprite UV Bounds XYWH", Vector) = (0,0,1,1)
@@ -90,6 +93,9 @@ Shader "Eastern Fantasy/Temple Gate Living Decor"
                 float _FlagSpeed;
                 float _FlagPhase;
                 float4 _FlagRegion;
+                float4 _AtlasSize;
+                float4 _MotionRect;
+                float4 _SecondaryMotionRect;
                 float _MotionMode;
                 float _PreviewTime;
             CBUFFER_END
@@ -172,6 +178,9 @@ Shader "Eastern Fantasy/Temple Gate Living Decor"
                 float _FlagSpeed;
                 float _FlagPhase;
                 float4 _FlagRegion;
+                float4 _AtlasSize;
+                float4 _MotionRect;
+                float4 _SecondaryMotionRect;
                 float _MotionMode;
                 float _PreviewTime;
             CBUFFER_END
@@ -244,6 +253,9 @@ Shader "Eastern Fantasy/Temple Gate Living Decor"
                 float _FlagSpeed;
                 float _FlagPhase;
                 float4 _FlagRegion;
+                float4 _AtlasSize;
+                float4 _MotionRect;
+                float4 _SecondaryMotionRect;
                 float _MotionMode;
                 float _PreviewTime;
             CBUFFER_END

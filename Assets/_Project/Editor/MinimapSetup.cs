@@ -46,7 +46,7 @@ namespace EasternFantasy.Editor
                 panelRect.anchorMin = panelRect.anchorMax = new Vector2(1f, 1f);
                 panelRect.pivot = new Vector2(1f, 1f);
                 panelRect.sizeDelta = new Vector2(360f, 212f);
-                panelRect.anchoredPosition = new Vector2(-20f, -130f);
+                panelRect.anchoredPosition = new Vector2(-20f, -66f);
                 Image background = CreateImage("Panel Background", panel.transform, new Color(0.025f, 0.045f, 0.05f, 0.96f));
                 background.rectTransform.anchorMin = Vector2.zero;
                 background.rectTransform.anchorMax = Vector2.one;

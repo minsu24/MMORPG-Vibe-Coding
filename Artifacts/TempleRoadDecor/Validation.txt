@@ -1,0 +1,21 @@
+PASS TempleRoadDecor_00_BannerPole: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_01_Signpost: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_02_HangingLantern: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_03_PaperLanternPole: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_04_StoneLantern: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_05_TallGravestone: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_06_SmallGravestone: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_07_BrokenWheel: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_08_BrokenJar: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_09_FallenGravestone: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_10_StoneCairn: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_11_Reeds: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_12_RedMapleBush: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_13_WhiteSpiderLilies: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_14_MossyRocks: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_15_MapleLeaves: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_16_CloudWisp01: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_17_CloudWisp02: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_18_CloudWisp03: individual sprite, clear 64px border, no overlap
+PASS TempleRoadDecor_19_CloudWisp04: individual sprite, clear 64px border, no overlap
+PASS native-resolution uncompressed import; transparent background; no mipmaps

@@ -103,6 +103,7 @@ namespace EasternFantasy.UI
             saveButton = root.GetComponent<Button>(); saveButton.targetGraphic = image;
             if (close != null) saveButton.colors = close.colors;
             saveButton.onClick.AddListener(Save);
+            UIButtonClickAudio.ConfigureConfirmation(saveButton);
             var textObject = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
             textObject.transform.SetParent(root.transform, false);
             var text = textObject.GetComponent<TextMeshProUGUI>();

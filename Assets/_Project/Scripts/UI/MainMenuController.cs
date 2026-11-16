@@ -21,6 +21,7 @@ namespace EasternFantasy.UI
             }
 
             Time.timeScale = 1f;
+            UIFeedbackAudio.Play(UIFeedbackCue.Confirm);
             SceneManager.LoadScene(characterSelectionSceneName);
         }
 

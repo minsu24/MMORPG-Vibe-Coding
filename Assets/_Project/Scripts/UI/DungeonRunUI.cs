@@ -17,6 +17,7 @@ namespace EasternFantasy.UI
         {
             noButton.onClick.AddListener(HidePrompt);
             yesButton.onClick.AddListener(() => DungeonRunController.Instance?.ExitToVillage());
+            UIButtonClickAudio.ConfigureConfirmation(yesButton);
         }
 
         public static string FormatTime(float seconds)

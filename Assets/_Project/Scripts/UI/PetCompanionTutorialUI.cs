@@ -34,6 +34,7 @@ namespace EasternFantasy.UI
         private bool dockRight;
         private bool allowFocusInteraction;
         private bool actionRequired;
+        private bool compactBottom;
         private Image inputBlock;
         private GameObject skipButton;
         private Button previousButton;
@@ -138,6 +139,24 @@ namespace EasternFantasy.UI
             controlsHint.text = instruction;
             previousButton.interactable = false;
             nextLabel.transform.parent.GetComponent<Button>().interactable = false;
+        }
+        public void SetControlsHint(string instruction) => controlsHint.text = instruction;
+        public void SetCompactBottomLayout()
+        {
+            compactBottom = true;
+            Place((RectTransform)card.Find("Parchment"), new Rect(0, 60, CardWidth, 180));
+            card.Find("Divider").gameObject.SetActive(false);
+            heading.fontSize = 22;
+            Place(heading.rectTransform, new Rect(205, 204, 490, 30));
+            Place(title.rectTransform, new Rect(48, 159, 804, 30));
+            Place(body.rectTransform, new Rect(48, 106, 804, 50));
+            controlsHint.fontSize = 16;
+            Place(controlsHint.rectTransform, new Rect(48, 76, 804, 24));
+            Place((RectTransform)previousButton.transform, new Rect(10, 0, 210, 58));
+            Place((RectTransform)nextLabel.transform.parent, new Rect(240, 0, 360, 58));
+            Place((RectTransform)card.Find("CounterPlate"), new Rect(700, 0, 190, 58));
+            Place(counter.rectTransform, new Rect(715, 9, 160, 40));
+            RefreshLayout();
         }
         public void CompleteAction()
         {
@@ -284,6 +303,13 @@ namespace EasternFantasy.UI
             inputBlock.raycastTarget = !allowFocusInteraction || !hasFocus;
             foreach (var shade in shades) shade.GetComponent<Image>().raycastTarget = allowFocusInteraction && hasFocus;
             foreach (var border in borders) border.gameObject.SetActive(hasFocus);
+            if (compactBottom)
+            {
+                float compactScale = Mathf.Min(1f, (width - 40f) / CardWidth);
+                card.localScale = Vector3.one * compactScale;
+                Place(card, new Rect((width - CardWidth * compactScale) * .5f, 16f, CardWidth, 250));
+                return;
+            }
             if (dockRight)
             {
                 float guideScale = Mathf.Min(1f, (width * .48f - 32f) / CardWidth, (height - 80f) / CardHeight);

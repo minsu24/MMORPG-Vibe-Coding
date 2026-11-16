@@ -38,6 +38,8 @@ namespace EasternFantasy.UI
         internal RectTransform TutorialPanel => windowRoot != null ? windowRoot.transform as RectTransform : null;
         internal RectTransform TutorialOverview => mapBackground;
         internal RectTransform TutorialDetail => detailImage != null ? detailImage.rectTransform : null;
+        internal RectTransform TutorialBackButton => backButton != null ? backButton.transform as RectTransform : null;
+        internal bool IsShowingCurrentRegionForTutorial => CurrentRegionIsGiantFarm ? IsShowingGiantFarm : IsShowingTutorial;
         internal RectTransform TutorialIsland => CurrentRegionIsGiantFarm
             ? giantFarmButton != null ? giantFarmButton.transform as RectTransform : null
             : tutorialMapButton != null ? tutorialMapButton.transform as RectTransform : null;

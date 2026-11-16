@@ -1,0 +1,203 @@
+fileFormatVersion: 2
+guid: ba758d7d1f268da448a2de1c9733308d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5107119138370259085
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_0"
+  - first:
+      213: -5667513635360958508
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_1"
+  - first:
+      213: -6772517354906912735
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_2"
+  - first:
+      213: 2924695755284526608
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_3"
+  - first:
+      213: 8365609813015254569
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_4"
+  - first:
+      213: 2756620492129916611
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_5"
+  - first:
+      213: -8062847905124870981
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_6"
+  - first:
+      213: -7188644069147315362
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_7"
+  - first:
+      213: 2531607265308973499
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_8"
+  - first:
+      213: -1499986657486245041
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_9"
+  - first:
+      213: 5222076572877256223
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_10"
+  - first:
+      213: -2837206987195090607
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_11"
+  - first:
+      213: -1674011160264680404
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_12"
+  - first:
+      213: -421950822043068979
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_13"
+  - first:
+      213: 7778979605919606063
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_14"
+  - first:
+      213: 2793017894968481725
+    second: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_15"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_0"
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 0
+        width: 2090
+        height: 648
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8888243cc120e640800000000000000
+      internalID: 5107119138370259085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 9e986aaf8237b5a4c998679f4a50352e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":2172.0,"y":724.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      "\uC808\uB85C \uD5A5\uD558\uB294 \uAE38 \uD50C\uB7AB\uD3FC_0": 5107119138370259085
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

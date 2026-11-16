@@ -1,0 +1,13 @@
+﻿{
+  "automaticColliderDialogue": true,
+  "meditatingBeforeEntry": true,
+  "combatLockedDuringDialogue": true,
+  "combatLockedDuringRise": true,
+  "riseAnimationAfterFinalLine": true,
+  "combatReadyAfterRiseEvent": true,
+  "timeScaleRestoredAfterDialogue": true,
+  "portraitSpriteSize": [800,800],
+  "cancelledDialogueKeepsMeditation": true,
+  "cancelledDialogueCanRetry": true,
+  "runtimeConsoleErrors": 0
+}

@@ -144,9 +144,9 @@ public sealed class FarmCartProjectile : MonoBehaviour
             PlayerEntity player = collider.GetComponentInParent<PlayerEntity>();
             if (player != null)
             {
-                float before = player.HP;
+                uint before = player.HitReactionVersion;
                 player.TakeDamage(damage);
-                if (!player.IsDead && player.HP < before) player.ApplyKnockback(Mathf.Sign(Velocity.x));
+                if (!player.IsDead && player.HitReactionVersion != before) player.ApplyKnockback(Mathf.Sign(Velocity.x));
                 Retire(true);
                 return;
             }

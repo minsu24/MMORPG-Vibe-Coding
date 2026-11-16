@@ -24,6 +24,7 @@ namespace EasternFantasy.UI
         private SkillDefinition definition;
         private CanvasGroup canvasGroup;
         private GameObject dragVisual;
+        private RectTransform learnBadge;
 
         public SkillDefinition Definition => definition;
 
@@ -54,6 +55,7 @@ namespace EasternFantasy.UI
                 placeholderText.gameObject.SetActive(true);
                 learnButton.interactable = false;
                 if (lockOverlay != null) lockOverlay.SetActive(false);
+                if (learnBadge != null) learnBadge.gameObject.SetActive(false);
                 return;
             }
             if (skillSystem == null)
@@ -70,6 +72,41 @@ namespace EasternFantasy.UI
                 lockOverlay.SetActive(!isAcquired);
                 lockOverlay.transform.SetAsLastSibling();
             }
+            EnsureLearnBadge();
+            learnBadge.gameObject.SetActive(learnButton.interactable);
+            learnBadge.SetAsLastSibling();
+        }
+
+        private void EnsureLearnBadge()
+        {
+            if (learnBadge != null) return;
+            var badge = new GameObject("LearnPointBadge", typeof(RectTransform), typeof(Image), typeof(Outline));
+            badge.layer = gameObject.layer;
+            badge.transform.SetParent(transform, false);
+            learnBadge = (RectTransform)badge.transform;
+            learnBadge.anchorMin = learnBadge.anchorMax = learnBadge.pivot = new Vector2(1f, 0f);
+            learnBadge.anchoredPosition = new Vector2(-2f, 2f);
+            learnBadge.sizeDelta = new Vector2(24f, 24f);
+            var image = badge.GetComponent<Image>();
+            image.color = new Color(.19f, .12f, .055f);
+            image.raycastTarget = false;
+            var outline = badge.GetComponent<Outline>();
+            outline.effectColor = new Color(.95f, .72f, .28f);
+            outline.effectDistance = new Vector2(1f, -1f);
+            var labelObject = new GameObject("Plus", typeof(RectTransform), typeof(TextMeshProUGUI));
+            labelObject.layer = gameObject.layer;
+            labelObject.transform.SetParent(badge.transform, false);
+            var label = labelObject.GetComponent<TextMeshProUGUI>();
+            label.rectTransform.anchorMin = Vector2.zero;
+            label.rectTransform.anchorMax = Vector2.one;
+            label.rectTransform.offsetMin = label.rectTransform.offsetMax = Vector2.zero;
+            label.font = placeholderText != null ? placeholderText.font : TMP_Settings.defaultFontAsset;
+            label.text = "+";
+            label.fontSize = 23f;
+            label.fontStyle = FontStyles.Bold;
+            label.color = new Color(1f, .88f, .56f);
+            label.alignment = TextAlignmentOptions.Center;
+            label.raycastTarget = false;
         }
 
         private void EnsureLockOverlay()

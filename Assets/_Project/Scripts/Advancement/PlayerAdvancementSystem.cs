@@ -141,6 +141,7 @@ namespace EasternFantasy.Advancement
             if (completedFirstAdvancement)
                 skillSystem.GrantSkillPoints(4);
             skillSystem.NotifyAdvancementChanged();
+            EasternFantasy.UI.UIFeedbackAudio.Play(EasternFantasy.UI.UIFeedbackCue.Advancement);
             Advanced?.Invoke();
         }
 

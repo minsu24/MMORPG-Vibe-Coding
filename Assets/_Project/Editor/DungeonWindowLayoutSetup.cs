@@ -59,7 +59,7 @@ namespace EasternFantasy.Editor
             ui.entryTemplate.thumbnail.gameObject.SetActive(true);
             ui.entryTemplate.thumbnail.enabled = ui.entryTemplate.thumbnail.sprite != null;
             ui.entryTemplate.thumbnail.preserveAspect = true;
-            Set(ui.entryTemplate.transform, "Thumbnail", 29, 20, 65, 65);
+            Set(ui.entryTemplate.transform, "Thumbnail", 26, 17, 70, 70);
             Set(panel, "DungeonName", 222, 675, 213, 45);
             Set(panel, "DungeonCategory", 222, 724, 205, 30);
             Set(panel, "LevelPanel", 465, 650, 197, 197f * 137 / 351);
@@ -99,15 +99,11 @@ namespace EasternFantasy.Editor
             for (int i = 0; i < ui.rewardIcons.Length; i++)
             {
                 // Slot centers are derived from the six square slots in the source sprite.
-                Set(panel, "RewardIcon" + i, 602 + i * 75.5f, 786, 48, 48);
+                Set(panel, "RewardIcon" + i, 598.5f + i * 75.5f, 779.5f, 58, 58);
                 ui.rewardIcons[i].preserveAspect = true;
                 ui.rewardIcons[i].rectTransform.localScale = Vector3.one;
-                Set(panel, "RewardCount" + i, 591 + i * 75.5f, 822, 71, 36);
-                ui.rewardAmounts[i].alignment = TextAlignmentOptions.Center;
-                ui.rewardAmounts[i].fontSize = 12;
-                ui.rewardAmounts[i].fontSizeMax = 12;
-                ui.rewardAmounts[i].fontSizeMin = 10;
-                ui.rewardAmounts[i].textWrappingMode = TextWrappingModes.Normal;
+                ui.rewardAmounts[i].text = string.Empty;
+                ui.rewardAmounts[i].gameObject.SetActive(false);
             }
             // Leave a separate scrollbar lane and move the controls away from the right frame.
             Set(panel, "DungeonList", 1129, 97, 421, 630);

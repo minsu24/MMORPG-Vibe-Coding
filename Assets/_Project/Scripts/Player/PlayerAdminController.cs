@@ -33,6 +33,8 @@ namespace EasternFantasy.Player
         private string pendingSceneName;
         private Vector2 sceneScroll;
         private Rect windowRect = new Rect(20f, 20f, 480f, 640f);
+        public bool CombatInvulnerabilityEnabled => entity != null && entity.AdminInvulnerability;
+        public bool InfiniteManaEnabled => entity != null && entity.HasInfiniteMana;
 
         private void Awake()
         {
@@ -62,6 +64,8 @@ namespace EasternFantasy.Player
             SceneManager.sceneLoaded -= OnSceneLoaded;
             if (ghostMode)
                 SetGhostMode(false);
+            SetCombatInvulnerability(false);
+            SetInfiniteMana(false);
         }
 
         private void Update()
@@ -75,6 +79,10 @@ namespace EasternFantasy.Player
                 panelOpen = !panelOpen;
             if (keyboard.f9Key.wasPressedThisFrame)
                 SetGhostMode(!ghostMode);
+            if (keyboard.f8Key.wasPressedThisFrame)
+                SetCombatInvulnerability(!CombatInvulnerabilityEnabled);
+            if (keyboard.f7Key.wasPressedThisFrame)
+                SetInfiniteMana(!InfiniteManaEnabled);
 
             if (!ghostMode)
                 return;
@@ -96,8 +104,11 @@ namespace EasternFantasy.Player
         private void OnGUI()
         {
             if (EasternFantasy.UI.GameplayHudVisibility.IsMenuScene || EasternFantasy.UI.SceneLoadingScreen.IsVisible) return;
-            GUI.Box(new Rect(Mathf.Max(0f, Screen.width - 240f), 12f, 228f, 28f),
+            GUI.Box(new Rect(12f, 12f, Mathf.Min(228f, Screen.width - 24f), 28f),
                 ghostMode ? "F9 Ghost: ON  |  F10 Admin" : "F9 Ghost: OFF  |  F10 Admin");
+            if (CombatInvulnerabilityEnabled || InfiniteManaEnabled)
+                GUI.Box(new Rect(12f, 44f, Mathf.Min(300f, Screen.width - 24f), 28f),
+                    $"F8 God: {(CombatInvulnerabilityEnabled ? "ON" : "OFF")}  |  F7 Mana: {(InfiniteManaEnabled ? "ON" : "OFF")}");
 
             if (!panelOpen)
                 return;
@@ -118,6 +129,11 @@ namespace EasternFantasy.Player
             if (GUILayout.Button(ghostMode ? "Ghost Mode: ON  (F9 to exit)" : "Ghost Mode: OFF  (F9 to enter)"))
                 SetGhostMode(!ghostMode);
             GUILayout.Label("Ghost: Arrows to fly, Shift to move faster; F9 to exit");
+            if (GUILayout.Button(CombatInvulnerabilityEnabled ? "무적 모드: 켜짐 (F8)" : "무적 모드: 꺼짐 (F8)"))
+                SetCombatInvulnerability(!CombatInvulnerabilityEnabled);
+            GUILayout.Label("HP 피해만 방지 · 적 인식과 넉백은 그대로 적용");
+            if (GUILayout.Button(InfiniteManaEnabled ? "무한 마나: 켜짐 (F7)" : "무한 마나: 꺼짐 (F7)"))
+                SetInfiniteMana(!InfiniteManaEnabled);
 
             if (GUILayout.Button("Save Position"))
                 SavePosition();
@@ -159,6 +175,8 @@ namespace EasternFantasy.Player
             if (GUILayout.Button("초기화 (이번 플레이만 · 기존 저장 유지)"))
             {
                 if (ghostMode) SetGhostMode(false);
+                SetCombatInvulnerability(false);
+                SetInfiniteMana(false);
                 panelOpen = false;
                 EasternFantasy.Saving.SaveGameService.ResetForDemo();
             }
@@ -168,7 +186,7 @@ namespace EasternFantasy.Player
                 GUILayout.Label("시연 모드: 저장하지 않으며 다음 실행에 기존 기록을 불러옵니다.");
             GUI.enabled = !entity.IsDead;
             GUILayout.Label("Move to Scene (entry portal)");
-            sceneScroll = GUILayout.BeginScrollView(sceneScroll, GUILayout.Height(220f));
+            sceneScroll = GUILayout.BeginScrollView(sceneScroll, GUILayout.Height(150f));
             for (int index = 0; index < SceneManager.sceneCountInBuildSettings; index++)
             {
                 string path = SceneUtility.GetScenePathByBuildIndex(index);
@@ -185,6 +203,30 @@ namespace EasternFantasy.Player
             GUILayout.EndScrollView();
             GUI.enabled = true;
             GUI.DragWindow(new Rect(0f, 0f, windowRect.width, 24f));
+        }
+
+        private void LateUpdate()
+        {
+            if (InfiniteManaEnabled && !entity.IsDead) entity.RestoreMana(entity.maxMP);
+        }
+
+        public void SetCombatInvulnerability(bool value)
+        {
+            if (entity == null || (value && (!enabled || entity.IsDead))) return;
+            if (value)
+            {
+                SaveGameService.BeginAdminSession();
+                if (ghostMode) SetGhostMode(false);
+            }
+            entity.AdminInvulnerability = value;
+        }
+
+        public void SetInfiniteMana(bool value)
+        {
+            if (entity == null || (value && (!enabled || entity.IsDead))) return;
+            if (value) SaveGameService.BeginAdminSession();
+            entity.HasInfiniteMana = value;
+            if (value) entity.RestoreMana(entity.maxMP);
         }
 
         private void SetGhostMode(bool enabledGhost)

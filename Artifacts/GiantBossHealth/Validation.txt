@@ -1,0 +1,14 @@
+PASS Real damage updates value and gauge to 65 percent
+PASS Player death hides boss bar
+PASS Player revival restores engaged boss bar
+PASS Exit prompt hides boss bar
+PASS Closing exit prompt restores boss bar
+PASS Disabled boss hides HUD
+PASS Healing updates gauge to full
+PASS All boss HUD graphics are nonblocking
+PASS One boss bar instance
+PASS Frame and fill have CanvasRenderers
+
+PASS Real boss defeat immediately hides HUD and preserves dungeon clear
+PASS No boss HUD remains after leaving arena
+PASS Visual inspection at 1920x1080 and 1366x768: timer, player HP/MP and minimap do not overlap boss bar

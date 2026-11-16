@@ -62,6 +62,36 @@ namespace EasternFantasy.Player
         private bool subscribed;
         private float facing = 1f;
         private string animationState;
+        private bool swingSoundPlayed, impactSoundPlayed, dismissalSoundPlayed;
+
+        private void ResetAttackAudio()
+        {
+            swingSoundPlayed = impactSoundPlayed = false;
+        }
+
+        private void PlayAttackAudio(float elapsed, float hitTime, bool impact)
+        {
+            if (companionId != "goblin") return;
+            // Use the monster's clips and levels, aligned to the pet's shorter attack animations.
+            if (!swingSoundPlayed && elapsed >= Mathf.Max(0f, hitTime - .1f))
+            {
+                swingSoundPlayed = true;
+                EnemyAttackAudio.PlayAt(gameObject, "Audio/GoblinSwing");
+            }
+            if (impact && !impactSoundPlayed)
+            {
+                impactSoundPlayed = true;
+                EnemyAttackAudio.PlayAt(gameObject, "Audio/GoblinAttackImpact", .21f);
+            }
+        }
+
+        public void PlayDismissalSound()
+        {
+            if (companionId != "goblin" || dismissalSoundPlayed) return;
+            dismissalSoundPlayed = true;
+            // A scene-owned source lets the sound finish after the companion is removed.
+            EnemyAttackAudio.PlayAt(gameObject, "Audio/GoblinDeath");
+        }
 
         public string CompanionId => companionId;
         public string DisplayName => displayName;
@@ -84,6 +114,8 @@ namespace EasternFantasy.Player
             Unsubscribe();
             owner = player;
             progress = state;
+            dismissalSoundPlayed = false;
+            ResetAttackAudio();
             skillSystem = player.GetComponent<PlayerSkillSystem>();
             if (skillSystem != null)
             {
@@ -198,10 +230,12 @@ namespace EasternFantasy.Player
             if (skillPhase == SkillPhase.Growing && skillElapsed >= growDuration)
             {
                 skillPhase = SkillPhase.Striking; skillElapsed = 0f;
+                ResetAttackAudio();
                 PlayAnimation("Companion_SkillStrike");
             }
             else if (skillPhase == SkillPhase.Striking)
             {
+                PlayAttackAudio(skillElapsed, skillHitTime, !skillHitApplied && skillElapsed >= skillHitTime);
                 if (!skillHitApplied && skillElapsed >= skillHitTime)
                 {
                     skillHitApplied = true;
@@ -383,7 +417,11 @@ namespace EasternFantasy.Player
             {
                 attackTarget = target;
                 attackFacing = -approachSide;
+                ResetAttackAudio();
             }
+            if (previousState == PetCompanionCombatState.Attacking
+                && (cycle.State == PetCompanionCombatState.Attacking || hit))
+                PlayAttackAudio(cycle.AttackElapsed, attackHitTime, hit);
             if (hit && IsLiving(attackTarget) && InAttackRange(attackTarget))
                 attackTarget.TakeDamage(progress.Attack);
 

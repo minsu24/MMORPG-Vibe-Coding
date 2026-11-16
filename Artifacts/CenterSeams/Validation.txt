@@ -1,0 +1,10 @@
+PASS All pixels outside repair strips and local roof correction unchanged
+PASS Original central lotus medallion pixels unchanged
+PASS Original central Daeungjeon facade, entrance and Buddha pixels unchanged
+PASS Vertical border 1 mean RGB difference 31.66 -> 8.79
+PASS Vertical border 2 mean RGB difference 30.00 -> 9.60
+PASS Horizontal border column 1 mean RGB difference 30.92 -> 12.08
+PASS Horizontal border column 2 mean RGB difference 31.11 -> 11.15
+PASS Horizontal border column 3 mean RGB difference 34.71 -> 13.40
+PASS Six 1672x941 panels meet with no overlap or gaps in a 3x2 grid
+PASS Center-specific materials isolate other maps

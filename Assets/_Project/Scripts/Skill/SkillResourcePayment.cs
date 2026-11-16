@@ -12,7 +12,7 @@ namespace EasternFantasy.Skill
                 case SkillResourceCost.None:
                     return true;
                 case SkillResourceCost.Mana:
-                    return player.MP >= skill.ManaCost;
+                    return player.HasInfiniteMana || player.MP >= skill.ManaCost;
                 case SkillResourceCost.Energy:
                     return player.Energy != null && player.Energy.Current >= skill.EnergyCost;
                 case SkillResourceCost.FullEnergy:

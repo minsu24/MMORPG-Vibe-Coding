@@ -127,9 +127,9 @@ public sealed partial class MON_Boar
             PlayerEntity entity = collider.GetComponentInParent<PlayerEntity>();
             if (entity == null || entity.IsDead) continue;
             tuskHit = true;
-            float before = entity.HP;
+            uint before = entity.HitReactionVersion;
             entity.TakeDamage(TuskDamage);
-            if (!entity.IsDead && entity.HP < before) entity.ApplyKnockback(chargeDirection);
+            if (!entity.IsDead && entity.HitReactionVersion != before) entity.ApplyKnockback(chargeDirection);
             break;
         }
     }

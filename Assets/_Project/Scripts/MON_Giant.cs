@@ -46,12 +46,16 @@ public class MON_Giant : PersistentBossController
     [SerializeField, Min(0.01f)] private float smashShakeDuration = 0.3f;
 
     public AttackPattern CurrentAttack { get; private set; }
+    public bool HasLivingBossTarget => HasLivingPlayer;
+    public bool IsEncounterEngaged => HasLivingPlayer && (CanDetectLivingPlayer()
+        || CurrentAttack != AttackPattern.None || HP < maxHP);
     public override float ContactDamage => CurrentAttack == AttackPattern.None ? base.ContactDamage : 0f;
     protected override bool ControlsAttackMovement => true;
     protected override string DeathAnimationState => "GiantDefeated";
     private float nextAttackTime, phaseEnds, attackDirection, sprintEndX;
     private int nextPattern;
     private bool impactFired, sprintHit;
+    private bool deathImpactPlayed;
     private GiantAttackVisual warning;
     private readonly List<Collider2D> ignoredPlayerColliders = new List<Collider2D>();
 
@@ -299,9 +303,9 @@ public class MON_Giant : PersistentBossController
 
     private void DamagePlayer(PlayerEntity entity, float damage)
     {
-        float before = entity.HP;
+        uint before = entity.HitReactionVersion;
         entity.TakeDamage(damage);
-        if (!entity.IsDead && entity.HP < before) entity.ApplyKnockback(attackDirection);
+        if (!entity.IsDead && entity.HitReactionVersion != before) entity.ApplyKnockback(attackDirection);
     }
 
     private void EnsureImpulseListener()
@@ -334,7 +338,16 @@ public class MON_Giant : PersistentBossController
     protected override void OnDefeated()
     {
         FinishAttack();
+        EnemyDeathAudio.PlayFor(this, "Audio/GiantDeath");
         base.OnDefeated();
+    }
+
+    // Animation event on the first dust/ground-contact frame of the fall.
+    public void PlayDeathGroundImpact()
+    {
+        if (HP > 0f || deathImpactPlayed) return;
+        deathImpactPlayed = true;
+        EnemyAttackAudio.PlayAt(gameObject, "Audio/EnemyDeathGroundImpact");
     }
 
     protected override void OnDisable()

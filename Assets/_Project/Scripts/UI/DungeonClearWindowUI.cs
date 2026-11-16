@@ -43,6 +43,7 @@ namespace EasternFantasy.UI
             DontDestroyOnLoad(gameObject);
             windowRoot.SetActive(false); rewardRowTemplate.SetActive(false);
             confirmButton.onClick.AddListener(Confirm);
+            UIButtonClickAudio.ConfigureConfirmation(confirmButton);
             closeButton.onClick.AddListener(Dismiss);
             SceneManager.activeSceneChanged += SceneChanged;
         }
@@ -81,6 +82,19 @@ namespace EasternFantasy.UI
                 row.GetComponentInChildren<TMP_Text>().text = (item != null ? item.DisplayName : "아이템") + " ×" + entry.quantity;
                 rows.Add(row);
             }
+            if (reward.experience > 0)
+            {
+                var row = Instantiate(rewardRowTemplate, rewardContent); row.SetActive(true);
+                row.name = "ExperienceReward";
+                var icons = Resources.Load<EasternFantasy.Quest.QuestRewardIcons>("UI/QuestRewards/Icons");
+                var image = row.GetComponentInChildren<Image>();
+                image.sprite = icons != null ? icons.experience : Resources.Load<Sprite>("UI/QuestRewards/Experience");
+                image.enabled = image.sprite != null;
+                image.preserveAspect = true;
+                row.GetComponentInChildren<TMP_Text>().text = $"EXP +{reward.experience:N0}";
+                rows.Add(row);
+            }
+            FitRewardRows();
             input = actor.GetComponent<PlayerInputReader>();
             input?.SetInputBlocked(this, true);
             actor.GetComponent<PlayerMovement2D>()?.ClearInput();
@@ -89,6 +103,34 @@ namespace EasternFantasy.UI
             TryReceive();
             // A selected button uses its selected sprite even before the pointer enters it.
             EventSystem.current?.SetSelectedGameObject(null);
+        }
+        private void FitRewardRows()
+        {
+            var layout = rewardContent.GetComponent<HorizontalLayoutGroup>();
+            if (layout != null)
+            {
+                layout.childControlWidth = true;
+                layout.childForceExpandWidth = true;
+            }
+            foreach (var row in rows)
+            {
+                var size = row.GetComponent<LayoutElement>();
+                if (size == null) size = row.AddComponent<LayoutElement>();
+                size.minWidth = size.preferredWidth = 0;
+                size.flexibleWidth = 1;
+                var icon = row.GetComponentInChildren<Image>().rectTransform;
+                icon.anchorMin = icon.anchorMax = icon.pivot = new Vector2(0, .5f);
+                icon.anchoredPosition = new Vector2(8, 0);
+                var label = row.GetComponentInChildren<TMP_Text>();
+                var rect = label.rectTransform;
+                rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one;
+                rect.offsetMin = new Vector2(92, 4); rect.offsetMax = new Vector2(-8, -4);
+                label.enableAutoSizing = true;
+                label.fontSizeMax = label.fontSize;
+                label.fontSizeMin = 16;
+                label.textWrappingMode = TextWrappingModes.NoWrap;
+                label.alignment = TextAlignmentOptions.MidlineLeft;
+            }
         }
         private void InventoryChanged() { dismissedRun = null; }
         private bool TryReceive()
@@ -101,7 +143,7 @@ namespace EasternFantasy.UI
                 return false;
             }
             current = null;
-            message.text = "클리어 보상이 인벤토리에 지급되었습니다.";
+            message.text = "클리어 보상을 받았습니다.";
             confirmButton.GetComponentInChildren<TMP_Text>().text = "확인";
             SaveGameService.SaveNow(out _);
             return true;

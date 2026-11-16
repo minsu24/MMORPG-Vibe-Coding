@@ -144,7 +144,12 @@ public abstract class EnemyController : Entity
     }
     protected virtual bool ControlsAttackMovement => false;
     protected virtual void AttackFixedUpdate() { }
+    protected virtual bool ControlsLocomotion => false;
+    protected virtual void LocomotionFixedUpdate() { }
+    protected virtual float LocomotionSpeedMultiplier => 1f;
+    protected virtual void OnDamageReceived(float damage) { }
     protected virtual string DeathAnimationState => null;
+    protected virtual float MinimumDeathAnimationDuration => 1f;
     public override float maxHP => _maxHP;
     public override float maxMP => 0;
     public override float maxMental => 0f;
@@ -212,8 +217,16 @@ public abstract class EnemyController : Entity
             ResolvePlayer();
 
         target = HasLivingPlayer ? playerEntity : null;
-        if (isDefeated || isKnockback)
+        if (isDefeated)
             return;
+
+        if (ControlsLocomotion)
+        {
+            LocomotionFixedUpdate();
+            return;
+        }
+
+        if (isKnockback) return;
 
         if (isAttacking || inFarAttackRange)
         {
@@ -341,7 +354,7 @@ public abstract class EnemyController : Entity
 
     private void SetHorizontalVelocity(float horizontalVelocity)
     {
-        rb.linearVelocity = new Vector2(horizontalVelocity, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(horizontalVelocity * LocomotionSpeedMultiplier, rb.linearVelocity.y);
     }
 
     private void FaceDirection(float directionX)
@@ -379,6 +392,7 @@ public abstract class EnemyController : Entity
         {
             nameplateHitUntil = Time.time + nameplateHitDuration;
             HP -= damage;
+            OnDamageReceived(damage);
             CombatImpactFeedback.Play(transform.position, isCritical, impactSound, impactVolume);
             // 1. 데미지 텍스트 생성
             // 몬스터 머리 위 위치 기준, 약간의 랜덤성을 주면 글자가 겹치지 않아 더 자연스럽습니다.
@@ -480,7 +494,7 @@ public abstract class EnemyController : Entity
 
     private IEnumerator DeadAnimation()
     {
-        float duration = 1f;
+        float duration = MinimumDeathAnimationDuration;
         if (animator != null)
         {
             if (!string.IsNullOrEmpty(DeathAnimationState)

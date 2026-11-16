@@ -1,0 +1,5 @@
+PASS Prefab scale is exactly 1.3
+PASS Idle: flipX=True, upright world height=2.561
+PASS Walk: flipX=False, upright world height=2.561
+PASS Attack: flipX=False, upright world height=2.561
+PASS Dead: flipX=True, upright world height=2.561

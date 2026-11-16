@@ -85,6 +85,7 @@ namespace EasternFantasy.CharacterSelection
                 return;
 
             EasternFantasy.Saving.SaveGameService.PrepareSelection();
+            EasternFantasy.UI.UIFeedbackAudio.Play(EasternFantasy.UI.UIFeedbackCue.Confirm);
             CharacterSelectionState.CreateOrSelect(definition.ClassId);
             Time.timeScale = 1f;
             PortalSceneTransition.TryLoad(gameplaySceneName, null, showLoadingScreen: true);

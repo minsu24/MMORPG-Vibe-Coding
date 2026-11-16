@@ -1,0 +1,12 @@
+PASS Approved generated image is the active boss frame
+PASS Artwork aspect ratio preserved
+PASS Real damage updates gauge and number to 130/200
+PASS Boss panel stays below dungeon timer
+PASS Boss HUD does not intercept clicks
+PASS Hidden on player death
+PASS Visible on player revival
+PASS Hidden behind exit prompt
+PASS Restored after closing prompt
+PASS Boss defeat hides bar and still clears dungeon
+
+PASS Visual QA at 1920x1080 and 1366x768: original HUD and minimap remain clear

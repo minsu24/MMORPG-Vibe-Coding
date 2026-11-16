@@ -1,0 +1,121 @@
+Goblin companion audio validation
+PASS: 30 fps silent before swing at 0
+PASS: 30 fps silent before swing at 1
+PASS: 30 fps silent before swing at 2
+PASS: 30 fps silent before swing at 3
+PASS: 30 fps silent before swing at 4
+PASS: 30 fps silent before swing at 5
+PASS: 30 fps silent before swing at 6
+PASS: 30 fps silent before swing at 7
+PASS: 30 fps silent before swing at 8
+PASS: 30 fps silent before swing at 9
+PASS: 30 fps silent before swing at 10
+PASS: 30 fps silent before swing at 11
+PASS: 30 fps silent before swing at 12
+PASS: 30 fps silent before swing at 13
+PASS: 30 fps basic attack exactly two cues
+PASS: 30 fps original swing clip/volume
+PASS: 30 fps original impact clip/volume
+PASS: 30 fps skill strike exactly two cues
+PASS: 60 fps silent before swing at 0
+PASS: 60 fps silent before swing at 1
+PASS: 60 fps silent before swing at 2
+PASS: 60 fps silent before swing at 3
+PASS: 60 fps silent before swing at 4
+PASS: 60 fps silent before swing at 5
+PASS: 60 fps silent before swing at 6
+PASS: 60 fps silent before swing at 7
+PASS: 60 fps silent before swing at 8
+PASS: 60 fps silent before swing at 9
+PASS: 60 fps silent before swing at 10
+PASS: 60 fps silent before swing at 11
+PASS: 60 fps silent before swing at 12
+PASS: 60 fps silent before swing at 13
+PASS: 60 fps silent before swing at 14
+PASS: 60 fps silent before swing at 15
+PASS: 60 fps silent before swing at 16
+PASS: 60 fps silent before swing at 17
+PASS: 60 fps silent before swing at 18
+PASS: 60 fps silent before swing at 19
+PASS: 60 fps silent before swing at 20
+PASS: 60 fps silent before swing at 21
+PASS: 60 fps silent before swing at 22
+PASS: 60 fps silent before swing at 23
+PASS: 60 fps silent before swing at 24
+PASS: 60 fps silent before swing at 25
+PASS: 60 fps silent before swing at 26
+PASS: 60 fps silent before swing at 27
+PASS: 60 fps silent before swing at 28
+PASS: 60 fps basic attack exactly two cues
+PASS: 60 fps original swing clip/volume
+PASS: 60 fps original impact clip/volume
+PASS: 60 fps skill strike exactly two cues
+PASS: 120 fps silent before swing at 0
+PASS: 120 fps silent before swing at 1
+PASS: 120 fps silent before swing at 2
+PASS: 120 fps silent before swing at 3
+PASS: 120 fps silent before swing at 4
+PASS: 120 fps silent before swing at 5
+PASS: 120 fps silent before swing at 6
+PASS: 120 fps silent before swing at 7
+PASS: 120 fps silent before swing at 8
+PASS: 120 fps silent before swing at 9
+PASS: 120 fps silent before swing at 10
+PASS: 120 fps silent before swing at 11
+PASS: 120 fps silent before swing at 12
+PASS: 120 fps silent before swing at 13
+PASS: 120 fps silent before swing at 14
+PASS: 120 fps silent before swing at 15
+PASS: 120 fps silent before swing at 16
+PASS: 120 fps silent before swing at 17
+PASS: 120 fps silent before swing at 18
+PASS: 120 fps silent before swing at 19
+PASS: 120 fps silent before swing at 20
+PASS: 120 fps silent before swing at 21
+PASS: 120 fps silent before swing at 22
+PASS: 120 fps silent before swing at 23
+PASS: 120 fps silent before swing at 24
+PASS: 120 fps silent before swing at 25
+PASS: 120 fps silent before swing at 26
+PASS: 120 fps silent before swing at 27
+PASS: 120 fps silent before swing at 28
+PASS: 120 fps silent before swing at 29
+PASS: 120 fps silent before swing at 30
+PASS: 120 fps silent before swing at 31
+PASS: 120 fps silent before swing at 32
+PASS: 120 fps silent before swing at 33
+PASS: 120 fps silent before swing at 34
+PASS: 120 fps silent before swing at 35
+PASS: 120 fps silent before swing at 36
+PASS: 120 fps silent before swing at 37
+PASS: 120 fps silent before swing at 38
+PASS: 120 fps silent before swing at 39
+PASS: 120 fps silent before swing at 40
+PASS: 120 fps silent before swing at 41
+PASS: 120 fps silent before swing at 42
+PASS: 120 fps silent before swing at 43
+PASS: 120 fps silent before swing at 44
+PASS: 120 fps silent before swing at 45
+PASS: 120 fps silent before swing at 46
+PASS: 120 fps silent before swing at 47
+PASS: 120 fps silent before swing at 48
+PASS: 120 fps silent before swing at 49
+PASS: 120 fps silent before swing at 50
+PASS: 120 fps silent before swing at 51
+PASS: 120 fps silent before swing at 52
+PASS: 120 fps silent before swing at 53
+PASS: 120 fps silent before swing at 54
+PASS: 120 fps silent before swing at 55
+PASS: 120 fps silent before swing at 56
+PASS: 120 fps silent before swing at 57
+PASS: 120 fps silent before swing at 58
+PASS: 120 fps basic attack exactly two cues
+PASS: 120 fps original swing clip/volume
+PASS: 120 fps original impact clip/volume
+PASS: 120 fps skill strike exactly two cues
+PASS: large frame crossing swing and hit retains both cues
+PASS: repeated hit notification does not duplicate audio
+PASS: cancelled cycle cannot report a hit
+PASS: dismissal plays only once
+PASS: original disappearance clip and volume
+PASS: dismissal source survives companion removal and is playing

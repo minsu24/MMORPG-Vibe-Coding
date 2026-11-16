@@ -12,6 +12,7 @@ namespace EasternFantasy.Player
         private bool hitApplied;
         public PetCompanionCombatState State { get; private set; }
         public float CooldownRemaining => cooldown;
+        public float AttackElapsed => elapsed;
 
         public PetCompanionCombatCycle(float attackInterval, float attackDuration, float attackHitTime)
         {

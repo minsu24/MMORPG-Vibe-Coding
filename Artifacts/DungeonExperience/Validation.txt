@@ -1,0 +1,9 @@
+PASS Giant Farm configured for 1000 EXP
+PASS Pending EXP survives save JSON roundtrip
+PASS EXP awarded exactly once alongside items
+PASS Full inventory leaves EXP and items pending
+PASS Inventory retry pays 1000 EXP exactly once
+PASS Dungeon selector displays shared quest EXP icon without text labels
+PASS Clear reward window displays shared EXP icon and EXP +1,000
+PASS EXP-only saved reward grants 1000 EXP
+PASS Both reward entries fit inside the clear panel with no text overflow

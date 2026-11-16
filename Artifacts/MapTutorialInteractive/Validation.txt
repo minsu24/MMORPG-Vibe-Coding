@@ -1,0 +1,16 @@
+PASS Guide starts with map closed and requires M
+PASS Next cannot bypass opening the map
+PASS M action opens the real overview
+PASS Next does not automatically select a region
+PASS Overview spans most of the screen instead of a small side panel
+PASS Highlighted map button receives pointer input: TutoMap
+PASS Clicking current island opens its actual detailed map
+PASS Detail step requires the real back button
+PASS Highlighted map button receives pointer input: BackButton
+PASS Clicking back returns to overview and advances
+PASS Completion saves progress and closes map
+PASS Original map layout is restored after completion
+PASS Gameplay input is released after guide completion
+PASS Previously completed characters do not replay tutorial
+PASS Interrupted tutorial does not falsely complete or leave input blocked
+COMPLETE

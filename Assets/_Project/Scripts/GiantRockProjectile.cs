@@ -68,9 +68,9 @@ public sealed class GiantRockProjectile : MonoBehaviour
             PlayerEntity player = collider.GetComponentInParent<PlayerEntity>();
             if (player != null)
             {
-                float before = player.HP;
+                uint before = player.HitReactionVersion;
                 player.TakeDamage(damage);
-                if (!player.IsDead && player.HP < before) player.ApplyKnockback(Mathf.Sign(velocity.x));
+                if (!player.IsDead && player.HitReactionVersion != before) player.ApplyKnockback(Mathf.Sign(velocity.x));
                 transform.position = hits[i].centroid;
                 Retire(true);
                 return;

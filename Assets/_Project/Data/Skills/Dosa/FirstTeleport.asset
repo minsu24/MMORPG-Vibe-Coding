@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Skill.SkillDefinition
   skillId: 5fc2143103384512999c8ade50c1658b
   displayName: "\uD154\uB808\uD3EC\uD2B8"
-  shortDescription: "\uBC14\uB77C\uBCF4\uB294 \uBC29\uD5A5\uC73C\uB85C \uBE60\uB974\uAC8C
-    \uC774\uB3D9\uD558\uB294 \uC2A4\uD0AC\uC785\uB2C8\uB2E4."
+  shortDescription: "바라보는 방향으로 순간이동합니다. 위 방향키를 누르면 위로 이동하며, 발판이 없으면 아래로 떨어집니다."
   detailedDescription: "1레벨 이동 거리 4, 재사용 대기시간 6초. 레벨당 이동 거리가 0.5 증가하고 재사용 대기시간이 0.5초 감소합니다. 5레벨 이동 거리 6, 재사용 대기시간 4초. MP 5 소모."
   tier: 1
   activationType: 1

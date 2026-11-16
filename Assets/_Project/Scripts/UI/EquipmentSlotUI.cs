@@ -52,6 +52,8 @@ namespace EasternFantasy.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (eventData.button == PointerEventData.InputButton.Left && GetComponent<UnityEngine.UI.Button>() == null)
+                UIFeedbackAudio.Play(UIFeedbackCue.Click);
             if (eventData.button == PointerEventData.InputButton.Left && eventData.clickCount >= 2)
                 inventory?.TryUnequip(slot);
         }

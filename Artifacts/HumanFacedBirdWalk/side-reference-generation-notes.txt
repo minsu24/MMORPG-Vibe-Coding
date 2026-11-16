@@ -1,0 +1,20 @@
+Mode: built-in image_gen. One retry with user's SIDE walking diagram and original character reference.
+Status: draft; alternating leg support still inaccurate; not applied to Unity. Generated resolution 2170x725 instead of requested 2168x724.
+
+Prompt:
+Use case: identity-preserve. Deliver one transparent 8-frame game walking sprite sheet.
+INPUT ROLES: the user's white "VANILLA WALK / 1 CYCLE" diagram is the MOTION reference. The ivory-haired human-faced bird sprite sheet is the CHARACTER DESIGN reference only.
+Follow ONLY THE TOP ROW labeled SIDE in the walking diagram. Transfer the first EIGHT poses (times 0,3,6,9,12,15,18,21) directly to the bird's two legs. The diagram's ninth pose at 24 repeats pose 0 and must NOT be included. Ignore FRONT and 2 CYCLES.
+The red and green diagram legs represent two persistent physical legs. Track each leg consistently for the entire cycle; do NOT color the bird legs red or green. A grounded two-step walk with opposite legs stepping, NOT one leg hopping repeatedly.
+Frame 1 = contact, near leg FORWARD to right, far leg BACK to left.
+Frame 2 = down, near leg bearing weight, far leg behind lifting off.
+Frame 3 = passing, near leg planted, far leg passing forward underneath body.
+Frame 4 = up, near leg back support, far leg reaching forward.
+Frame 5 = OPPOSITE contact: FAR leg FORWARD to right, NEAR leg BACK to left.
+Frame 6 = opposite down, FAR leg bearing weight, NEAR leg behind lifting off.
+Frame 7 = opposite passing, FAR leg planted, NEAR leg passing forward.
+Frame 8 = opposite up, FAR leg back support, NEAR leg reaching forward.
+The identities and occlusion of the near and far legs must visibly reverse between 1 and 5, between 2 and 6, between 3 and 7, between 4 and 8. The far leg must extend from under the belly and be visible all the way to a distinct clawed foot. TWO recognizable feet in EVERY frame. Feet pass each other and alternate rightmost/leftmost positions. Keep rear foot exposed below wings. Do not reuse the character reference's one-legged idle poses.
+LOCK CHARACTER DESIGN: exact pale young female face, red eyes, long silver ivory hair, long ivory feathered neck, taupe-gray feathered bird body, two folded hanging wings, gray scaled avian legs and talons. Keep original proportions, painterly detail, original muted colors, and three-quarter right-facing view. Do not mirror or rotate body/head to fake leg swapping. Preserve feather detail and shading. No new features.
+LAYOUT: exactly 8 complete equally sized sprites left to right in ONE ROW, requested canvas 2168x724, each cell 271x724. Match original scale (body about 260 wide and 400 tall); feet baseline y=545 from top, small diagram-consistent vertical bob, same anchor in all frames. No character cropped or overlapping adjacent cell.
+Background truly transparent, alpha zero outside silhouettes. NO noise, red/yellow flecks, white halo, shadows, text, grids, ground, or motion trails. Original diagram is for motion only and must not appear in output.

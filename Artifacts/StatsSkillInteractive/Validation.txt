@@ -1,0 +1,23 @@
+PASS Guide waits for C with both windows closed
+PASS Next and K cannot bypass the C action
+PASS C action opens actual stats window
+PASS Next cannot bypass the K action
+PASS K action opens actual skill window
+PASS Passive explanation highlights a real passive skill
+PASS Active explanation highlights a real active skill
+PASS Learning step cannot be skipped and has not spent or granted points
+PASS Actual skill scroll uses most of the screen above the compact guide
+PASS Learnable skill displays a visible plus badge
+PASS Guide allows pointer input to an actual learn button (hit: SkillSlot)
+PASS Real plus button spends one point and increases chosen skill level
+PASS Plus badge disappears when no points remain
+PASS Partial progress persists the genuine point spend before guide completion
+PASS Learning advances to the actual quick-slot bar explanation
+PASS The first passive learned is not assignable as an active shortcut
+PASS Completion preserves the learned skill and spent point
+PASS Input and closed windows are restored
+PASS Reloading an unfinished lesson does not require spending a second point
+PASS Previously completed saves remain unlocked without replay
+PASS Cancelling before learning does not spend points or falsely complete practice
+PASS Interrupted lesson can restart without repeating the boss dialogue
+COMPLETE

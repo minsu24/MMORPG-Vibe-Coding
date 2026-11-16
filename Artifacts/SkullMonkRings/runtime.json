@@ -1,0 +1,21 @@
+{
+  "fourthGestureFrameExcluded": true,
+  "launchCounts": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "risesOverhead": true,
+  "exactlyFour": true,
+  "earlyTrackingSeconds": 0.4,
+  "locksAndFliesStraight": true,
+  "directions": 2,
+  "oneHitPerRing": true,
+  "recovers": true,
+  "cancelsOnDisable": true
+}

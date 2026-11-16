@@ -84,6 +84,7 @@ namespace EasternFantasy.UI
             if (initialized) return;
             initialized = true;
             confirmButton.onClick.AddListener(Confirm);
+            UIButtonClickAudio.ConfigureConfirmation(confirmButton);
             closeButton.onClick.AddListener(Close);
             equipmentTab.onClick.AddListener(() => SetPicker(true));
             materialTab.onClick.AddListener(() => SetPicker(false));

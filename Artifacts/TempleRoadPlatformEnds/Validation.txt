@@ -1,0 +1,6 @@
+PASS left end: 11616 changed pixels
+PASS right end: 11433 changed pixels
+PASS tiled center: 0 changed pixels
+PASS transform, collider and one-way platform settings unchanged
+PASS shader compilation
+PASS imported FullRect mesh (4 vertices); tiled bounds and physics preserved

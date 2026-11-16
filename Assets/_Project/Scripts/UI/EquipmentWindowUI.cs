@@ -22,6 +22,11 @@ namespace EasternFantasy.UI
         public static EquipmentWindowUI Instance { get; private set; }
         public RectTransform TutorialTarget => windowRoot != null ? windowRoot.transform as RectTransform : null;
         public RectTransform TutorialWeaponTarget { get { foreach (var slot in slots) if (slot != null && slot.Slot == EquipmentSlot.Weapon) return slot.transform as RectTransform; return TutorialTarget; } }
+        public RectTransform TutorialSlotTarget(EquipmentSlot equipmentSlot)
+        {
+            foreach (var slot in slots) if (slot != null && slot.Slot == equipmentSlot) return slot.transform as RectTransform;
+            return TutorialTarget;
+        }
         public bool IsUnlocked => InventoryEquipmentTutorialUI.HasFinishedForCurrentClass;
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
 

@@ -70,9 +70,9 @@ public sealed class MON_Ginseng : EnemyController
         {
             var entity = attackHits[i].GetComponentInParent<PlayerEntity>();
             if (entity != playerEntity) continue;
-            float health = entity.HP;
+            uint health = entity.HitReactionVersion;
             entity.TakeDamage(Attack_Power);
-            if (!entity.IsDead && entity.HP < health) entity.ApplyKnockback(attackDirection);
+            if (!entity.IsDead && entity.HitReactionVersion != health) entity.ApplyKnockback(attackDirection);
             break;
         }
     }

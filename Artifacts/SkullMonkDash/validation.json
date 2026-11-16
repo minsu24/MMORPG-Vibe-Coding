@@ -1,0 +1,49 @@
+{
+  "noIntroDash": true,
+  "cases": [
+    {
+      "bossStart": 15.0,
+      "playerX": 23.0,
+      "startedDash": true,
+      "steps": 24,
+      "endX": 20.1952915,
+      "gap": 2.80470848,
+      "attacking": true,
+      "melee": true,
+      "facingRight": true
+    },
+    {
+      "bossStart": 28.0,
+      "playerX": 20.0,
+      "startedDash": true,
+      "steps": 24,
+      "endX": 22.8047085,
+      "gap": 2.80470848,
+      "attacking": true,
+      "melee": true,
+      "facingRight": false
+    },
+    {
+      "bossStart": 25.0,
+      "playerX": 22.2,
+      "startedDash": false,
+      "steps": 0,
+      "endX": 25.0,
+      "gap": 2.79999924,
+      "attacking": true,
+      "melee": true,
+      "facingRight": false
+    },
+    {
+      "bossStart": 30.0,
+      "playerX": 40.0,
+      "startedDash": true,
+      "steps": 11,
+      "endX": 32.7456856,
+      "gap": 7.25431442,
+      "attacking": false,
+      "melee": false,
+      "facingRight": true
+    }
+  ]
+}

@@ -237,6 +237,8 @@ namespace EasternFantasy.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (eventData.button == PointerEventData.InputButton.Right && skillSystem != null
+                && GetComponent<UnityEngine.UI.Button>() == null) UIFeedbackAudio.Play(UIFeedbackCue.Click);
             if (eventData.button == PointerEventData.InputButton.Right && skillSystem != null)
                 skillSystem.ClearQuickSlot(slotIndex);
         }

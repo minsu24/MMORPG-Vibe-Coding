@@ -86,8 +86,8 @@ public sealed class SpiderSpitProjectile : MonoBehaviour
         EnemyAttackAudio.PlayAt(gameObject, "Audio/SpiderProjectileImpact", .27f);
         var victim = collider.GetComponentInParent<PlayerEntity>();
         if (victim == null || victim.IsDead) return;
-        float before = victim.HP;
+        uint before = victim.HitReactionVersion;
         victim.TakeDamage(damage);
-        if (!victim.IsDead && victim.HP < before) victim.ApplyKnockback(Mathf.Sign(direction.x));
+        if (!victim.IsDead && victim.HitReactionVersion != before) victim.ApplyKnockback(Mathf.Sign(direction.x));
     }
 }

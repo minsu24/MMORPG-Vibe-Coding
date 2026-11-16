@@ -156,9 +156,9 @@ public partial class MON_Goblin
             PlayerEntity victim = strikeResults[i].GetComponentInParent<PlayerEntity>();
             if (victim == null || victim.IsDead) continue;
             strikeHit = true;
-            float before = victim.HP;
+            uint before = victim.HitReactionVersion;
             victim.TakeDamage(Attack_Power);
-            if (!victim.IsDead && victim.HP < before) victim.ApplyKnockback(attackDirection);
+            if (!victim.IsDead && victim.HitReactionVersion != before) victim.ApplyKnockback(attackDirection);
             break;
         }
     }

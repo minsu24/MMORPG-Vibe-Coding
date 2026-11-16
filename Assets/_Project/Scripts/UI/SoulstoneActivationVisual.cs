@@ -44,6 +44,7 @@ namespace EasternFantasy.UI
             if (clip == null) { Debug.LogError("Soulstone animation clip is missing.", this); return; }
             if (playable.IsValid()) graph.DestroyPlayable(playable);
             current = clip; elapsed = 0; IsDormant = dormant; IsActivating = activating;
+            if (activating) UIFeedbackAudio.Play(UIFeedbackCue.SoulstoneActivation);
             playable = AnimationClipPlayable.Create(graph, clip);
             playable.SetApplyFootIK(false); playable.SetSpeed(dormant ? 0 : 1);
             output.SetSourcePlayable(playable); graph.Play(); graph.Evaluate(0);

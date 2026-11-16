@@ -182,6 +182,7 @@ namespace EasternFantasy.UI
             BuildCompanionList();
             closeButton.onClick.AddListener(Close);
             confirmButton.onClick.AddListener(SummonOrGrow);
+            UIButtonClickAudio.ConfigureConfirmation(confirmButton);
             if (equipButton != null) equipButton.onClick.AddListener(ToggleEquipment);
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
@@ -412,7 +413,11 @@ namespace EasternFantasy.UI
         {
             if (!IsOpen || !IsUnlocked || SelectedPrefab == null || !CurrentProgress.IsSummoned) return;
             bool unequip = CurrentProgress.IsEquipped;
-            if (unequip) CurrentProgress.Unequip();
+            if (unequip)
+            {
+                if (actor != null && actor.CompanionId == SelectedPrefab.CompanionId) actor.PlayDismissalSound();
+                CurrentProgress.Unequip();
+            }
             else if (!EquipSelected()) return;
             nextPlayerSearch = 0f;
             EnsureCompanionActor();

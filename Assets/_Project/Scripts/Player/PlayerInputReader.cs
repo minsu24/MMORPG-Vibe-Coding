@@ -32,6 +32,8 @@ namespace EasternFantasy.Player
         private bool hasFocus = true;
         private readonly HashSet<object> inputBlockers = new HashSet<object>();
         public bool IsInputBlocked => inputBlockers.Count > 0;
+        public Vector2 MoveInput => CanControlGameplay && move != null
+            ? move.ReadValue<Vector2>() : Vector2.zero;
 
         public bool CanControlGameplay => isActiveAndEnabled && hasFocus && !IsInputBlocked
             && !EasternFantasy.UI.GameplayHudVisibility.IsMenuScene

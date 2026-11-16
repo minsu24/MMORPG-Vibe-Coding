@@ -36,6 +36,7 @@ namespace EasternFantasy.Skill
         private readonly Dictionary<SkillDefinition, float> cooldownEnds =
             new Dictionary<SkillDefinition, float>();
         private PlayerMovement2D movement;
+        private PlayerInputReader inputReader;
         private PlayerProjectileShooter shooter;
         private PlayerEntity entity;
         private PlayerSkillSystem skillSystem;
@@ -47,6 +48,7 @@ namespace EasternFantasy.Skill
         private void Awake()
         {
             movement = GetComponent<PlayerMovement2D>();
+            inputReader = GetComponent<PlayerInputReader>();
             shooter = GetComponent<PlayerProjectileShooter>();
             entity = GetComponent<PlayerEntity>();
             skillSystem = GetComponent<PlayerSkillSystem>();
@@ -77,13 +79,16 @@ namespace EasternFantasy.Skill
                 if (animationController.IsAttacking && !animationController.CanChainBasicAttack) return false;
                 animationController.CancelBasicAttack();
                 animationController.RefreshAttackFacing();
-                float direction = animationController != null
-                    ? animationController.FacingDirectionX
-                    : 1f;
+                // Up takes priority over horizontal input, including diagonal input.
+                // TeleportTo clears velocity; normal gravity and platform collisions
+                // then decide whether the player lands or falls from the destination.
+                Vector3 direction = inputReader != null && inputReader.MoveInput.y > 0.5f
+                    ? Vector3.up
+                    : Vector3.right * animationController.FacingDirectionX;
                 Vector3 origin = transform.position;
                 SpawnTeleportEffect(origin);
                 movement.TeleportTo(
-                    origin + Vector3.right * direction * skill.GetTeleportDistance(skillSystem.GetSkillLevel(skill)),
+                    origin + direction * skill.GetTeleportDistance(skillSystem.GetSkillLevel(skill)),
                     transform.rotation);
                 SpawnTeleportEffect(transform.position, true);
                 PlaySkillSound(teleportSound, teleportSoundVolume);

@@ -57,12 +57,17 @@ namespace EasternFantasy.UI
     }
     public sealed partial class StatsSkillTutorialUI
     {
-        internal static void CaptureSave(SaveGameData data) => data.statsTutorial = HasFinishedForCurrentClass;
+        internal static void CaptureSave(SaveGameData data)
+        {
+            data.statsTutorial = HasFinishedForCurrentClass;
+            data.statsSkillPracticed = practicedClasses.Contains(CharacterSelectionState.SelectedClass);
+        }
         internal static void RestoreSave(SaveGameData data)
         {
             active?.Finish();
             var id = CharacterSelectionState.SelectedClass;
-            shownClasses.Remove(id); finishedClasses.Remove(id);
+            shownClasses.Remove(id); finishedClasses.Remove(id); practicedClasses.Remove(id);
+            if (data.statsSkillPracticed) practicedClasses.Add(id);
             if (data.statsTutorial) { shownClasses.Add(id); finishedClasses.Add(id); }
         }
     }

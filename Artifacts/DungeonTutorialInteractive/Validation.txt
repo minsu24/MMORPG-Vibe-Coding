@@ -1,0 +1,17 @@
+PASS Large window above compact bottom guide
+PASS Step 0 cannot be skipped
+PASS Real pointer click advances step 0
+PASS Step 1 cannot be skipped
+PASS Real pointer click advances step 1
+PASS Step 2 cannot be skipped
+PASS Real pointer click advances step 2
+PASS Step 3 cannot be skipped
+PASS Real pointer click advances step 3
+PASS Final step requires real entry click
+PASS Entry button receives real pointer click
+PASS Completion recorded for current class
+PASS Original layout restored
+PASS Player input restored: True
+PASS Real entry transitions to GiantFarm_01
+PASS Locked dungeon permits guide completion without entering
+PASS Interrupted guide restores input without recording completion

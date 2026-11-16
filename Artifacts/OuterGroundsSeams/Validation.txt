@@ -1,0 +1,8 @@
+PASS Panel 1: 1672x941, artwork outside seam strips pixel-identical
+PASS Panel 2: 1672x941, artwork outside seam strips pixel-identical
+PASS Panel 3: 1672x941, artwork outside seam strips pixel-identical
+PASS Join 1: mean border RGB difference 24.53 -> 5.05
+PASS Join 2: mean border RGB difference 23.65 -> 6.29
+PASS Join 1: zero gap and common vertical alignment
+PASS Join 2: zero gap and common vertical alignment
+PASS Materials isolated to Outer Grounds; TempleRoad materials unchanged

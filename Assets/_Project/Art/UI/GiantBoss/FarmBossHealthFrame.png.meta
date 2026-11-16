@@ -1,0 +1,1170 @@
+fileFormatVersion: 2
+guid: fdaf11fb87526fc42b8d6c7317b91d6b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6577004627855909844
+    second: FarmBossHealthFrame_0
+  - first:
+      213: -5860729011537381157
+    second: FarmBossHealthFrame_1
+  - first:
+      213: -3161391753790175036
+    second: FarmBossHealthFrame_2
+  - first:
+      213: 8633869633826000415
+    second: FarmBossHealthFrame_3
+  - first:
+      213: -6071819648002514947
+    second: FarmBossHealthFrame_4
+  - first:
+      213: -330871801561169341
+    second: FarmBossHealthFrame_5
+  - first:
+      213: -668336289953660645
+    second: FarmBossHealthFrame_6
+  - first:
+      213: 5131094201664537784
+    second: FarmBossHealthFrame_7
+  - first:
+      213: -1169464958917349533
+    second: FarmBossHealthFrame_8
+  - first:
+      213: 407458238077600058
+    second: FarmBossHealthFrame_9
+  - first:
+      213: 3583845642221147170
+    second: FarmBossHealthFrame_10
+  - first:
+      213: -2455150538053080497
+    second: FarmBossHealthFrame_11
+  - first:
+      213: -494388044925014922
+    second: FarmBossHealthFrame_12
+  - first:
+      213: -5230191939866937294
+    second: FarmBossHealthFrame_13
+  - first:
+      213: 3555697596045715695
+    second: FarmBossHealthFrame_14
+  - first:
+      213: 6231748502869101923
+    second: FarmBossHealthFrame_15
+  - first:
+      213: 5252628851688164766
+    second: FarmBossHealthFrame_16
+  - first:
+      213: -3569011055390762012
+    second: FarmBossHealthFrame_17
+  - first:
+      213: -3672788646151998039
+    second: FarmBossHealthFrame_18
+  - first:
+      213: -6142269104909964000
+    second: FarmBossHealthFrame_19
+  - first:
+      213: 162498608204956127
+    second: FarmBossHealthFrame_20
+  - first:
+      213: 7943765372822790202
+    second: FarmBossHealthFrame_21
+  - first:
+      213: -2843537504475110294
+    second: FarmBossHealthFrame_22
+  - first:
+      213: 3121150507825196382
+    second: FarmBossHealthFrame_23
+  - first:
+      213: -8217268089085679862
+    second: FarmBossHealthFrame_24
+  - first:
+      213: -7805564056218055426
+    second: FarmBossHealthFrame_25
+  - first:
+      213: -7026541062794181218
+    second: FarmBossHealthFrame_26
+  - first:
+      213: -4510097039914301602
+    second: FarmBossHealthFrame_27
+  - first:
+      213: 7471310406329990823
+    second: FarmBossHealthFrame_28
+  - first:
+      213: -297384143840955799
+    second: FarmBossHealthFrame_29
+  - first:
+      213: -8105841180996439577
+    second: FarmBossHealthFrame_30
+  - first:
+      213: -8759849122068065054
+    second: FarmBossHealthFrame_31
+  - first:
+      213: -5495888459478584551
+    second: FarmBossHealthFrame_32
+  - first:
+      213: 7180880432611248552
+    second: FarmBossHealthFrame_33
+  - first:
+      213: 5723928959473177947
+    second: FarmBossHealthFrame_34
+  - first:
+      213: -3983524537834389752
+    second: FarmBossHealthFrame_35
+  - first:
+      213: -5000343619235102706
+    second: FarmBossHealthFrame_36
+  - first:
+      213: 7349173137961599906
+    second: FarmBossHealthFrame_37
+  - first:
+      213: -6192508597912076982
+    second: FarmBossHealthFrame_38
+  - first:
+      213: -1211989542927316781
+    second: FarmBossHealthFrame_39
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 2158
+        height: 724
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d3a371dcd6364b50800000000000000
+      internalID: 6577004627855909844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_1
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 710
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd8fc76f3028aaea0800000000000000
+      internalID: -5860729011537381157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_2
+      rect:
+        serializedVersion: 2
+        x: 1066
+        y: 707
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c8cc7f13fa7024d0800000000000000
+      internalID: -3161391753790175036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_3
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 677
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1e0b3110baa1d770800000000000000
+      internalID: 8633869633826000415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_4
+      rect:
+        serializedVersion: 2
+        x: 814
+        y: 657
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dff929433309cbba0800000000000000
+      internalID: -6071819648002514947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_5
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 642
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 342c0c979d1886bf0800000000000000
+      internalID: -330871801561169341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_6
+      rect:
+        serializedVersion: 2
+        x: 1538
+        y: 657
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b114fce6fa799b6f0800000000000000
+      internalID: -668336289953660645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_7
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 628
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b4084f9dfe453740800000000000000
+      internalID: 5131094201664537784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_8
+      rect:
+        serializedVersion: 2
+        x: 1142
+        y: 617
+        width: 15
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36fe672e0d935cfe0800000000000000
+      internalID: -1169464958917349533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_9
+      rect:
+        serializedVersion: 2
+        x: 1322
+        y: 624
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a310c65db1597a500800000000000000
+      internalID: 407458238077600058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_10
+      rect:
+        serializedVersion: 2
+        x: 1746
+        y: 627
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2245c62af906cb130800000000000000
+      internalID: 3583845642221147170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_11
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 598
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4aac35f79d8dedd0800000000000000
+      internalID: -2455150538053080497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_12
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 596
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67c6b0941b49329f0800000000000000
+      internalID: -494388044925014922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_13
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 594
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 238be153420aa67b0800000000000000
+      internalID: -5230191939866937294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_14
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 586
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe8e30def10685130800000000000000
+      internalID: 3555697596045715695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_15
+      rect:
+        serializedVersion: 2
+        x: 1923
+        y: 546
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36dc5130f3e9b7650800000000000000
+      internalID: 6231748502869101923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_16
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 130
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9d47d96c1615e840800000000000000
+      internalID: 5252628851688164766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_17
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 99
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ebddf3ca53587ec0800000000000000
+      internalID: -3569011055390762012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_18
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 99
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a5b5038f22a70dc0800000000000000
+      internalID: -3672788646151998039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_19
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 103
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02d2cfecac642caa0800000000000000
+      internalID: -6142269104909964000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_20
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 101
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd14d8a8f9f414200800000000000000
+      internalID: 162498608204956127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_21
+      rect:
+        serializedVersion: 2
+        x: 1285
+        y: 95
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a30a62ac48ced3e60800000000000000
+      internalID: 7943765372822790202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_22
+      rect:
+        serializedVersion: 2
+        x: 1327
+        y: 98
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a64a24494b9b988d0800000000000000
+      internalID: -2843537504475110294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_23
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 79
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5d637da9dd805b20800000000000000
+      internalID: 3121150507825196382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_24
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 79
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0725edb53666fd80800000000000000
+      internalID: -8217268089085679862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_25
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 79
+        width: 21
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efcc095b8d01da390800000000000000
+      internalID: -7805564056218055426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_26
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 61
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e950570b126bc7e90800000000000000
+      internalID: -7026541062794181218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_27
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 46
+        width: 25
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e570e5143aae861c0800000000000000
+      internalID: -4510097039914301602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_28
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 39
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ae7af7da3d6fa760800000000000000
+      internalID: 7471310406329990823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_29
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 47
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 962b68062ba7fdbf0800000000000000
+      internalID: -297384143840955799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_30
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 47
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e179f87464428f80800000000000000
+      internalID: -8105841180996439577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_31
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 48
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e49d1992a3ce6680800000000000000
+      internalID: -8759849122068065054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_32
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 47
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9133c97809eaab3b0800000000000000
+      internalID: -5495888459478584551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_33
+      rect:
+        serializedVersion: 2
+        x: 1078
+        y: 37
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a9c85025bc97a360800000000000000
+      internalID: 7180880432611248552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_34
+      rect:
+        serializedVersion: 2
+        x: 1705
+        y: 49
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5558fcdf0b7f6f40800000000000000
+      internalID: 5723928959473177947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_35
+      rect:
+        serializedVersion: 2
+        x: 1824
+        y: 47
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80f3458d98da7b8c0800000000000000
+      internalID: -3983524537834389752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_36
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 50
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e00c994a8f53b9ab0800000000000000
+      internalID: -5000343619235102706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_37
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 31
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a34b0908028df560800000000000000
+      internalID: 7349173137961599906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_38
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 33
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4df5e05d3acf0aa0800000000000000
+      internalID: -6192508597912076982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmBossHealthFrame_39
+      rect:
+        serializedVersion: 2
+        x: 1902
+        y: 33
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d8445e9ee52e2fe0800000000000000
+      internalID: -1211989542927316781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      FarmBossHealthFrame_0: 6577004627855909844
+      FarmBossHealthFrame_1: -5860729011537381157
+      FarmBossHealthFrame_10: 3583845642221147170
+      FarmBossHealthFrame_11: -2455150538053080497
+      FarmBossHealthFrame_12: -494388044925014922
+      FarmBossHealthFrame_13: -5230191939866937294
+      FarmBossHealthFrame_14: 3555697596045715695
+      FarmBossHealthFrame_15: 6231748502869101923
+      FarmBossHealthFrame_16: 5252628851688164766
+      FarmBossHealthFrame_17: -3569011055390762012
+      FarmBossHealthFrame_18: -3672788646151998039
+      FarmBossHealthFrame_19: -6142269104909964000
+      FarmBossHealthFrame_2: -3161391753790175036
+      FarmBossHealthFrame_20: 162498608204956127
+      FarmBossHealthFrame_21: 7943765372822790202
+      FarmBossHealthFrame_22: -2843537504475110294
+      FarmBossHealthFrame_23: 3121150507825196382
+      FarmBossHealthFrame_24: -8217268089085679862
+      FarmBossHealthFrame_25: -7805564056218055426
+      FarmBossHealthFrame_26: -7026541062794181218
+      FarmBossHealthFrame_27: -4510097039914301602
+      FarmBossHealthFrame_28: 7471310406329990823
+      FarmBossHealthFrame_29: -297384143840955799
+      FarmBossHealthFrame_3: 8633869633826000415
+      FarmBossHealthFrame_30: -8105841180996439577
+      FarmBossHealthFrame_31: -8759849122068065054
+      FarmBossHealthFrame_32: -5495888459478584551
+      FarmBossHealthFrame_33: 7180880432611248552
+      FarmBossHealthFrame_34: 5723928959473177947
+      FarmBossHealthFrame_35: -3983524537834389752
+      FarmBossHealthFrame_36: -5000343619235102706
+      FarmBossHealthFrame_37: 7349173137961599906
+      FarmBossHealthFrame_38: -6192508597912076982
+      FarmBossHealthFrame_39: -1211989542927316781
+      FarmBossHealthFrame_4: -6071819648002514947
+      FarmBossHealthFrame_5: -330871801561169341
+      FarmBossHealthFrame_6: -668336289953660645
+      FarmBossHealthFrame_7: 5131094201664537784
+      FarmBossHealthFrame_8: -1169464958917349533
+      FarmBossHealthFrame_9: 407458238077600058
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

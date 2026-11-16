@@ -1,0 +1,30 @@
+PASS: runtime button is bound once
+PASS: ordinary mouse click plays during timeScale zero
+PASS: disabled button stays silent
+PASS: Button ignores right clicks
+PASS: keyboard submit uses confirmation cue without ordinary click
+PASS: rebuilt listener works and audio survives UI close
+PASS: same action cannot stack normal and confirm clicks
+PASS: invalid quest acceptance stays silent
+PASS: successful acceptance plays quest acceptance cue
+PASS: duplicate acceptance stays silent
+PASS: unfinished quest does not play completion cue
+PASS: successful quest turn-in plays completion cue
+PASS: duplicate quest turn-in stays silent
+PASS: learning without skill points stays silent
+PASS: successful skill learning plays supplied cue
+PASS: failed repeat learning stays silent
+PASS: completed advancement plays supplied cue
+PASS: duplicate advancement completion stays silent
+PASS: dormant soulstone is silent
+PASS: activation sound starts with activation animation
+PASS: already activated soulstone stays silent
+PASS: save restoration suppresses all seven cue types
+PASS: UIClick uses supplied audio asset
+PASS: UIConfirm uses supplied audio asset
+PASS: SoulstoneActivation uses supplied audio asset
+PASS: SkillLearn uses supplied audio asset
+PASS: Advancement uses supplied audio asset
+PASS: QuestComplete uses supplied audio asset
+PASS: QuestAccept uses supplied audio asset
+PASS: audio channels persist through scene transitions

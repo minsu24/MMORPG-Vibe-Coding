@@ -1,0 +1,6 @@
+PASS Panel 1: native 1920x1080 dimensions and unaffected pixels preserved
+PASS Panel 2: native 1920x1080 dimensions and unaffected pixels preserved
+PASS Panel 3: native 1920x1080 dimensions and unaffected pixels preserved
+PASS Join 1: contiguous world bounds, no gap or overlap
+PASS Join 2: contiguous world bounds, no gap or overlap
+PASS Both repaired joins and scene overview rendered and visually inspected

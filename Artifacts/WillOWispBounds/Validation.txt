@@ -1,0 +1,8 @@
+PASS neutral movement stays in +/-0.15 band and inside camera for 30 simulated seconds
+PASS provoked chasing movement stays in +/-0.15 band and inside camera for 30 simulated seconds
+PASS extreme knockback in four directions cannot leave CameraCollider or vertical band
+PASS external displacement is corrected before rendering
+PASS enlarged visible bounds are kept inside camera
+PASS changed CameraCollider bounds take effect immediately
+Maximum normal vertical offset=0.15
+PASS actual updated TempleRoad Floor/SkyPlatform/CameraCollider geometry with all 9 spawn points for 30 simulated seconds

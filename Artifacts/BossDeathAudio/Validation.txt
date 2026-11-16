@@ -1,0 +1,14 @@
+PASS: Boar alive: no death impact
+PASS: Boar death start plays assigned voice
+PASS: Boar fall before ground contact has no impact
+PASS: Boar ground-contact animation event adds impact
+PASS: Boar shared ground impact uses uploaded clip
+PASS: Boar repeated callbacks do not duplicate either cue
+PASS: Boar both audio tails survive corpse removal
+PASS: Giant alive: no death impact
+PASS: Giant death start plays assigned voice
+PASS: Giant fall before ground contact has no impact
+PASS: Giant ground-contact animation event adds impact
+PASS: Giant shared ground impact uses uploaded clip
+PASS: Giant repeated callbacks do not duplicate either cue
+PASS: Giant both audio tails survive corpse removal

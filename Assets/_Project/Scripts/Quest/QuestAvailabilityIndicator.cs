@@ -18,6 +18,7 @@ namespace EasternFantasy.Quest
         private QuestManager subscribedManager;
         private SpriteRenderer npcSprite;
         private Collider2D npcCollider;
+        private bool giverWasActiveAndEnabled;
 
         private void Awake()
         {
@@ -34,8 +35,12 @@ namespace EasternFantasy.Quest
 
         private void Update()
         {
+            // OnEnable can run before the giver is enabled during scene loading.
+            // A persistent manager will not change, so also watch the giver's readiness.
             if (subscribedManager != QuestManager.Instance)
                 RebindManager();
+            else if (giverWasActiveAndEnabled != (questGiver != null && questGiver.isActiveAndEnabled))
+                Refresh();
         }
 
         private void LateUpdate()
@@ -64,11 +69,12 @@ namespace EasternFantasy.Quest
 
         private void Refresh()
         {
+            giverWasActiveAndEnabled = questGiver != null && questGiver.isActiveAndEnabled;
             if (indicatorRoot == null || indicatorImage == null)
                 return;
 
             Sprite sprite = null;
-            if (questGiver != null && questGiver.isActiveAndEnabled && subscribedManager != null)
+            if (giverWasActiveAndEnabled && subscribedManager != null)
             {
                 if (questGiver.CanOfferQuest)
                     sprite = availableSprite;

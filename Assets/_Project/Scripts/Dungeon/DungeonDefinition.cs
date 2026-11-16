@@ -21,6 +21,7 @@ namespace EasternFantasy.Dungeon
         [Min(1)] public int minimumLevel = 1;
         [Tooltip("0 means not configured.")] [Min(0)] public int timeLimitSeconds;
         [Tooltip("0 means not configured.")] [Min(0)] public int monsterCount;
+        [Min(0)] public int clearExperience;
         public DungeonReward[] clearRewards = Array.Empty<DungeonReward>();
         [Tooltip("Items and currency obtainable during the dungeon; display only.")]
         public DungeonRewardPreview[] obtainableRewards = Array.Empty<DungeonRewardPreview>();

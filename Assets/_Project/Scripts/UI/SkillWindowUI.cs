@@ -27,6 +27,7 @@ namespace EasternFantasy.UI
         public RectTransform TutorialTarget => windowRoot != null ? windowRoot.transform as RectTransform : null;
         public RectTransform TutorialPointsTarget => skillPointText != null ? skillPointText.rectTransform : null;
         public System.Collections.Generic.IReadOnlyList<SkillSlotUI> TutorialSlots => skillSlots;
+        internal void HideTutorialTooltip() => tooltip?.Hide();
 
         private void Awake()
         {

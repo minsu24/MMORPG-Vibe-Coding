@@ -265,6 +265,7 @@ namespace EasternFantasy.UI
             title = view.mapName; status = view.travelStatus;
             travel = view.travel; travelHover = view.travelHover;
             travel.onClick.AddListener(() => Travel());
+            UIButtonClickAudio.ConfigureConfirmation(travel);
             view.close.onClick.AddListener(Close);
             // Reuse the authored rows; only extra catalog entries need a template clone.
             for (int i = 0; i < catalog.destinations.Length; i++)

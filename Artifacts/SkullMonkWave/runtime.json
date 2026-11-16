@@ -1,0 +1,22 @@
+{
+  "waveCounts": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "smoke": true,
+  "recovered": true,
+  "directions": 2,
+  "damageFraction": 0.4,
+  "centeredExpandingCircle": true,
+  "sideViewDepthAndOcclusion": true,
+  "singleHitPerPulse": true,
+  "jumpingEvades": true,
+  "reachesBothEdges": true,
+  "normalKnockbackAndPostHitInvincibility": true,
+  "followingPulseBlockedDuringInvincibility": true,
+  "immunity": true,
+  "deathEvents": 1
+}

@@ -1,0 +1,6 @@
+PASS Panel 1: 1920x1080; previous seams retained; changed pixels=74326
+PASS Panel 2: 1920x1080; previous seams retained; changed pixels=0
+PASS Panel 3: 1920x1080; previous seams retained; changed pixels=73526
+PASS All three backgrounds use identical tone parameters with their own correct textures
+PASS Both joins remain gap-free
+PASS Unity overview visually inspected: only the middle moon remains

@@ -1,0 +1,114 @@
+{
+  "rows": [
+    {
+      "side": 1.0,
+      "phase": 0.0,
+      "speed": 0.974999964,
+      "ok": true
+    },
+    {
+      "side": 1.0,
+      "phase": 0.15,
+      "speed": 0.8159009,
+      "ok": true
+    },
+    {
+      "side": 1.0,
+      "phase": 0.3,
+      "speed": 0.74999994,
+      "ok": true
+    },
+    {
+      "side": 1.0,
+      "phase": 0.5,
+      "speed": 0.862499952,
+      "ok": true
+    },
+    {
+      "side": 1.0,
+      "phase": 0.6,
+      "speed": 0.974999964,
+      "ok": true
+    },
+    {
+      "side": 1.0,
+      "phase": 0.7,
+      "speed": 2.67205572,
+      "ok": true
+    },
+    {
+      "side": 1.0,
+      "phase": 0.8,
+      "speed": 3.375,
+      "ok": true
+    },
+    {
+      "side": 1.0,
+      "phase": 0.9,
+      "speed": 2.67205667,
+      "ok": true
+    },
+    {
+      "side": 1.0,
+      "phase": 0.999,
+      "speed": 0.993849754,
+      "ok": true
+    },
+    {
+      "side": -1.0,
+      "phase": 0.0,
+      "speed": -0.974999964,
+      "ok": true
+    },
+    {
+      "side": -1.0,
+      "phase": 0.15,
+      "speed": -0.8159009,
+      "ok": true
+    },
+    {
+      "side": -1.0,
+      "phase": 0.3,
+      "speed": -0.74999994,
+      "ok": true
+    },
+    {
+      "side": -1.0,
+      "phase": 0.5,
+      "speed": -0.862499952,
+      "ok": true
+    },
+    {
+      "side": -1.0,
+      "phase": 0.6,
+      "speed": -0.974999964,
+      "ok": true
+    },
+    {
+      "side": -1.0,
+      "phase": 0.7,
+      "speed": -2.67205572,
+      "ok": true
+    },
+    {
+      "side": -1.0,
+      "phase": 0.8,
+      "speed": -3.375,
+      "ok": true
+    },
+    {
+      "side": -1.0,
+      "phase": 0.9,
+      "speed": -2.67205667,
+      "ok": true
+    },
+    {
+      "side": -1.0,
+      "phase": 0.999,
+      "speed": -0.993849754,
+      "ok": true
+    }
+  ],
+  "meanSpeedMultiplier": 1.0001421,
+  "attackStationary": true
+}

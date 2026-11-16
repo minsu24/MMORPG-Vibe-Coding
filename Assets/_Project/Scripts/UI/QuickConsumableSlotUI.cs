@@ -62,6 +62,8 @@ namespace EasternFantasy.UI
         {
             if (inventory == null)
                 return;
+            if ((eventData.button == PointerEventData.InputButton.Left || eventData.button == PointerEventData.InputButton.Right)
+                && GetComponent<UnityEngine.UI.Button>() == null) UIFeedbackAudio.Play(UIFeedbackCue.Click);
             if (eventData.button == PointerEventData.InputButton.Right)
                 inventory.ClearConsumableSlot(slotIndex);
             else if (eventData.button == PointerEventData.InputButton.Left)

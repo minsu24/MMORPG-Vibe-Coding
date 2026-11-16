@@ -112,9 +112,9 @@ public partial class MON_Ghost
         {
             var victim = scareHits[i].GetComponentInParent<PlayerEntity>();
             if (victim == null || victim.IsDead) continue;
-            float before = victim.HP;
+            uint before = victim.HitReactionVersion;
             victim.TakeDamage(Attack_Power);
-            if (!victim.IsDead && victim.HP < before) victim.ApplyKnockback(scareDirection);
+            if (!victim.IsDead && victim.HitReactionVersion != before) victim.ApplyKnockback(scareDirection);
             break;
         }
     }

@@ -153,6 +153,7 @@ namespace EasternFantasy.Skill
 
             skillLevels[skill]++;
             skillPoints--;
+            EasternFantasy.UI.UIFeedbackAudio.Play(EasternFantasy.UI.UIFeedbackCue.SkillLearn);
             SkillsChanged?.Invoke();
             return true;
         }

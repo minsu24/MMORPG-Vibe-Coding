@@ -35,6 +35,29 @@ namespace EasternFantasy.UI
         }
 
         private static MinimapUI instance;
+        private static readonly HashSet<object> encounterHiders = new HashSet<object>();
+        private bool panelRequested;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetEncounterVisibility() => encounterHiders.Clear();
+
+        public static void SetEncounterHidden(object owner, bool hidden)
+        {
+            if (owner == null) return;
+            if (hidden) encounterHiders.Add(owner); else encounterHiders.Remove(owner);
+            if (instance != null) instance.ApplyPanelVisibility();
+        }
+
+        private void SetPanelVisible(bool visible)
+        {
+            panelRequested = visible;
+            ApplyPanelVisibility();
+        }
+
+        private void ApplyPanelVisibility()
+        {
+            if (panelRoot != null) panelRoot.SetActive(panelRequested && encounterHiders.Count == 0);
+        }
         private readonly List<GameObject> generatedObjects = new List<GameObject>();
         private readonly List<Marker> markers = new List<Marker>();
         private Rect worldBounds;
@@ -55,7 +78,8 @@ namespace EasternFantasy.UI
             }
             instance = this;
             DontDestroyOnLoad(gameObject);
-            panelRoot.SetActive(false);
+            ApplyCornerLayout();
+            SetPanelVisible(false);
         }
 
         private void OnEnable()
@@ -64,13 +88,21 @@ namespace EasternFantasy.UI
                 SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
+        public void ApplyCornerLayout()
+        {
+            if (panelRoot == null) return;
+            var rect = panelRoot.GetComponent<RectTransform>();
+            rect.anchorMin = rect.anchorMax = rect.pivot = Vector2.one;
+            rect.anchoredPosition = new Vector2(-20f, -66f);
+        }
+
         private void Start() => QueueRebuild();
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode) => QueueRebuild();
 
         private void QueueRebuild()
         {
-            panelRoot.SetActive(false);
+            SetPanelVisible(false);
             if (rebuildRoutine != null)
                 StopCoroutine(rebuildRoutine);
             rebuildRoutine = StartCoroutine(RebuildAfterSceneLoad());
@@ -127,7 +159,7 @@ namespace EasternFantasy.UI
             }
             if (terrain.Count == 0 || player == null)
             {
-                panelRoot.SetActive(false);
+                SetPanelVisible(false);
                 return;
             }
 
@@ -139,7 +171,7 @@ namespace EasternFantasy.UI
             foreach (QuestGiver item in quests) bounds.Encapsulate(item.transform.position);
             worldBounds = Rect.MinMaxRect(bounds.min.x - mapPadding, bounds.min.y - mapPadding,
                 bounds.max.x + mapPadding, bounds.max.y + mapPadding);
-            panelRoot.SetActive(true);
+            SetPanelVisible(true);
             Canvas.ForceUpdateCanvases();
             Vector2 viewportSize = mapViewport.rect.size;
             // Expand the captured world instead of leaving plain letterbox strips.

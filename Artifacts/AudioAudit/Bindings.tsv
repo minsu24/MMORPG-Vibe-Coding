@@ -1,0 +1,181 @@
+SOURCE	Assets/_Project/Scenes/ChooseCharactor.unity	Character Selection BGM	Assets/_Project/Audio/BackGroundMusic/CharacterSelection.mp3	True	True	0.5	True	True
+SCENE	Assets/_Project/Scenes/ChooseCharactor.unity
+SOURCE	Assets/_Project/Scenes/GapInSpace.unity	Gap In Space BGM	Assets/_Project/Audio/BackGround/Morning Over Hanyang - Where Two Worlds Lean - Treblo.mp3	True	True	0.25	True	True
+SCENE	Assets/_Project/Scenes/GapInSpace.unity
+MONSTER	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	FarmCart	FarmCartAttack
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Player.PlayerMovement2D	jumpSound	Assets/_Project/Audio/SoundEffects/Movement/Dosa_Jump_Voice.wav	True	True
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Player.PlayerMovement2D	landingSound	NULL	True	True
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Skill.PlayerActiveSkillCaster	talismanBurstSound	Assets/_Project/Audio/SoundEffects/Skills/Dosa_Talisman_Single.wav	True	True
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Skill.PlayerActiveSkillCaster	teleportSound	Assets/_Project/Audio/SoundEffects/Skills/Dosa_Teleport_Whoosh.wav	True	True
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Skill.PlayerActiveSkillCaster	shieldSound	Assets/_Project/Audio/SoundEffects/Skills/Dosa_TalismanShield.wav	True	True
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Player.PlayerDeathController	reviveSound	Assets/_Project/Audio/SoundEffects/Revival/soumages-magic-spell-333896.mp3	True	True
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Player.PlayerFootstepDust	footstepSound	Assets/_Project/Audio/SoundEffects/Footsteps/Grass_SoftStep.wav	True	True
+SOURCE	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	NULL	True	True	1	False	False
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Player.PlayerBasicAttackAudio	attackSound	Assets/_Project/Audio/SoundEffects/dropLeather.ogg	True	True
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Player.PlayerDeathAudio	deathSound	Assets/_Project/Audio/SoundEffects/Impacts/Dosa_Death.wav	True	True
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Player.PlayerHurtAudio	hurtSound	Assets/_Project/Audio/SoundEffects/Impacts/Dosa_Hurt_Voice.wav	True	True
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Player.PlayerDeathEffectAudio	effectSound	Assets/_Project/Audio/SoundEffects/Impacts/Dosa_Death_Dissolve.wav	True	True
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Player.PlayerItemAudio	equipSound	Assets/_Project/Audio/SoundEffects/Interactions/Equip_Short.wav	True	True
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Player.PlayerItemAudio	potionSound	Assets/_Project/Audio/SoundEffects/Interactions/freesound_community-085594_potion-35983.mp3	True	True
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Player.PlayerItemAudio	currencySound	Assets/_Project/Audio/SoundEffects/Interactions/mixkit-coins-sound-2003.wav	True	True
+FIELD	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Player	EasternFantasy.Player.PlayerItemAudio	itemSound	Assets/_Project/Audio/SoundEffects/Interactions/freesound_community-effect_notify-84408.mp3	True	True
+SOURCE	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity	Giant Farm BGM	Assets/_Project/Audio/BackGroundMusic/GiantFarm_01_02.mp3	True	True	0.5	True	True
+SCENE	Assets/_Project/Scenes/GiantFarm/GiantFarm_01.unity
+MONSTER	Assets/_Project/Scenes/GiantFarm/GiantFarm_02.unity	Boar	MON_Boar
+SOURCE	Assets/_Project/Scenes/GiantFarm/GiantFarm_02.unity	Giant Farm BGM	Assets/_Project/Audio/BackGroundMusic/GiantFarm_02.mp3	True	True	0.5	True	True
+SCENE	Assets/_Project/Scenes/GiantFarm/GiantFarm_02.unity
+MONSTER	Assets/_Project/Scenes/GiantFarm/GiantFarm_03_Boss.unity	Giant	MON_Giant
+SOURCE	Assets/_Project/Scenes/GiantFarm/GiantFarm_03_Boss.unity	Giant Farm BGM	Assets/_Project/Audio/BackGroundMusic/GiantFarm_03.mp3	True	True	0.5	True	True
+SCENE	Assets/_Project/Scenes/GiantFarm/GiantFarm_03_Boss.unity
+SOURCE	Assets/_Project/Scenes/MainScreen.unity	Main Screen BGM	Assets/_Project/Audio/BackGroundMusic/MainScreen.mp3	True	True	0.5	True	True
+SCENE	Assets/_Project/Scenes/MainScreen.unity
+SOURCE	Assets/_Project/Scenes/TutorialMap/BrokenSeal.unity	Broken Seal BGM	Assets/_Project/Audio/BackGround/Morning Over Hanyang - The Seal Unbound - Treblo.mp3	True	True	0.25	True	True
+SCENE	Assets/_Project/Scenes/TutorialMap/BrokenSeal.unity
+SOURCE	Assets/_Project/Scenes/TutorialMap/Cemetery.unity	Cemetery BGM	Assets/_Project/Audio/BackGround/Morning Over Hanyang - Where the Lanterns Went Out - Treblo.mp3	True	True	0.35	True	True
+SCENE	Assets/_Project/Scenes/TutorialMap/Cemetery.unity
+MONSTER	Assets/_Project/Scenes/TutorialMap/Marshland.unity	Frog	MON_Frog
+SOURCE	Assets/_Project/Scenes/TutorialMap/Marshland.unity	Marshland BGM	Assets/_Project/Audio/BackGround/Morning Over Hanyang - Mist Over the Toad King's Marsh - Treblo.mp3	True	True	0.25	True	True
+SCENE	Assets/_Project/Scenes/TutorialMap/Marshland.unity
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Player.PlayerMovement2D	jumpSound	Assets/_Project/Audio/SoundEffects/Movement/Dosa_Jump_Voice.wav	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Player.PlayerMovement2D	landingSound	NULL	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Skill.PlayerActiveSkillCaster	talismanBurstSound	Assets/_Project/Audio/SoundEffects/Skills/Dosa_Talisman_Single.wav	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Skill.PlayerActiveSkillCaster	teleportSound	Assets/_Project/Audio/SoundEffects/Skills/Dosa_Teleport_Whoosh.wav	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Skill.PlayerActiveSkillCaster	shieldSound	Assets/_Project/Audio/SoundEffects/Skills/Dosa_TalismanShield.wav	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Player.PlayerDeathController	reviveSound	Assets/_Project/Audio/SoundEffects/Revival/soumages-magic-spell-333896.mp3	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Player.PlayerFootstepDust	footstepSound	Assets/_Project/Audio/SoundEffects/Footsteps/Grass_SoftStep.wav	True	True
+SOURCE	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	NULL	True	True	1	False	False
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Player.PlayerBasicAttackAudio	attackSound	Assets/_Project/Audio/SoundEffects/dropLeather.ogg	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Player.PlayerDeathAudio	deathSound	Assets/_Project/Audio/SoundEffects/Impacts/Dosa_Death.wav	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Player.PlayerHurtAudio	hurtSound	Assets/_Project/Audio/SoundEffects/Impacts/Dosa_Hurt_Voice.wav	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Player.PlayerDeathEffectAudio	effectSound	Assets/_Project/Audio/SoundEffects/Impacts/Dosa_Death_Dissolve.wav	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Player.PlayerItemAudio	equipSound	Assets/_Project/Audio/SoundEffects/Interactions/Equip_Short.wav	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Player.PlayerItemAudio	potionSound	Assets/_Project/Audio/SoundEffects/Interactions/freesound_community-085594_potion-35983.mp3	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Player.PlayerItemAudio	currencySound	Assets/_Project/Audio/SoundEffects/Interactions/mixkit-coins-sound-2003.wav	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Player	EasternFantasy.Player.PlayerItemAudio	itemSound	Assets/_Project/Audio/SoundEffects/Interactions/freesound_community-effect_notify-84408.mp3	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Goblin	MON_Goblin	disappearanceSound	NULL	True	True
+MONSTER	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Goblin	MON_Goblin
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	LevelUpEffectOverlay	EasternFantasy.UI.LevelUpEffectUI	levelUpSound	Assets/_Project/Audio/SoundEffects/Skills/LevelUp_Shimmer.wav	True	True
+FIELD	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	GameplayUIRoot/DialogueSystem	EasternFantasy.Dialogue.DialogueManager	typingSound	NULL	True	True
+SOURCE	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Tutorial BGM	Assets/_Project/Audio/BackGround/Morning Over Hanyang - Danso Beneath the Lantern Moon - Treblo.mp3	True	True	0.35	True	True
+SOURCE	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity	Village Outskirts Insects Intermittent Ambience	Assets/_Project/Audio/Ambience/freesound_community-swamp-at-night-with-crickets-and-cicadas2-27687.mp3	True	True	0	False	False
+SCENE	Assets/_Project/Scenes/TutorialMap/MovementPrototype.unity
+SOURCE	Assets/_Project/Scenes/TutorialMap/PrologueVilage.unity	BackGround/Layer2_village_3764x2118_0/VillageWaterfall_Animated/Waterfall Local Ambience	Assets/_Project/Audio/Ambience/Village_Waterfall_Loop.wav	True	True	0	True	False
+SOURCE	Assets/_Project/Scenes/TutorialMap/PrologueVilage.unity	Village BGM	Assets/_Project/Audio/BackGroundMusic/PrologueVillage_V2.mp3	True	True	0.5	True	True
+SOURCE	Assets/_Project/Scenes/TutorialMap/PrologueVilage.unity	Village Forest Ambience	Assets/_Project/Audio/Ambience/Village_WindThroughTrees_Loop.wav	True	True	0.25	True	True
+SCENE	Assets/_Project/Scenes/TutorialMap/PrologueVilage.unity
+SOURCE	Assets/_Project/Scenes/TutorialMap/SpiderCave.unity	Cave Droplets Intermittent Ambience	Assets/_Project/Audio/Ambience/freesound_community-droplets-in-a-cave-6785.mp3	True	True	0	False	False
+SOURCE	Assets/_Project/Scenes/TutorialMap/SpiderCave.unity	Spider Cave BGM	Assets/_Project/Audio/BackGround/Morning Over Hanyang - Cocoons in the Dark - Treblo.mp3	True	True	0.25	True	True
+SCENE	Assets/_Project/Scenes/TutorialMap/SpiderCave.unity
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Player.PlayerMovement2D	jumpSound	Assets/_Project/Audio/SoundEffects/Movement/Dosa_Jump_Voice.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Player.PlayerMovement2D	landingSound	NULL	True	False
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Skill.PlayerActiveSkillCaster	talismanBurstSound	Assets/_Project/Audio/SoundEffects/Skills/Dosa_Talisman_Single.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Skill.PlayerActiveSkillCaster	teleportSound	Assets/_Project/Audio/SoundEffects/Skills/Dosa_Teleport_Whoosh.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Skill.PlayerActiveSkillCaster	shieldSound	Assets/_Project/Audio/SoundEffects/Skills/Dosa_TalismanShield.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Player.PlayerDeathController	reviveSound	Assets/_Project/Audio/SoundEffects/Revival/soumages-magic-spell-333896.mp3	True	False
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Player.PlayerFootstepDust	footstepSound	Assets/_Project/Audio/SoundEffects/Footsteps/Grass_SoftStep.wav	True	False
+SOURCE	Assets/_Project/Prefabs/Player/Player.prefab	Player	NULL	True	False	1	False	False
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Player.PlayerBasicAttackAudio	attackSound	Assets/_Project/Audio/SoundEffects/dropLeather.ogg	True	False
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Player.PlayerDeathAudio	deathSound	Assets/_Project/Audio/SoundEffects/Impacts/Dosa_Death.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Player.PlayerHurtAudio	hurtSound	Assets/_Project/Audio/SoundEffects/Impacts/Dosa_Hurt_Voice.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Player.PlayerDeathEffectAudio	effectSound	Assets/_Project/Audio/SoundEffects/Impacts/Dosa_Death_Dissolve.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Player.PlayerItemAudio	equipSound	Assets/_Project/Audio/SoundEffects/Interactions/Equip_Short.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Player.PlayerItemAudio	potionSound	Assets/_Project/Audio/SoundEffects/Interactions/freesound_community-085594_potion-35983.mp3	True	False
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Player.PlayerItemAudio	currencySound	Assets/_Project/Audio/SoundEffects/Interactions/mixkit-coins-sound-2003.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/Player.prefab	Player	EasternFantasy.Player.PlayerItemAudio	itemSound	Assets/_Project/Audio/SoundEffects/Interactions/freesound_community-effect_notify-84408.mp3	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Player.PlayerMovement2D	jumpSound	Assets/_Project/Audio/SoundEffects/Movement/Grunt Oof 2.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Player.PlayerMovement2D	landingSound	NULL	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Player.MonkBasicAttack	hitSound	Assets/_Project/Audio/SoundEffects/Skills/Monk_BasicPunch_Hit.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Player.PlayerDeathController	reviveSound	Assets/_Project/Audio/SoundEffects/Revival/soumages-magic-spell-333896.mp3	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Skill.MonkSkillCaster	dashSound	Assets/_Project/Audio/SoundEffects/Skills/Monk_Geumgangbo_Whoosh.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Skill.MonkSkillCaster	waveChargeSound	Assets/_Project/Audio/SoundEffects/Skills/Monk_EnergyWave_Charge.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Skill.MonkSkillCaster	punchHitSound	Assets/_Project/Audio/SoundEffects/Skills/Monk_StraightPunch_Hit.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Player.PlayerFootstepDust	footstepSound	Assets/_Project/Audio/SoundEffects/Footsteps/Grass_SoftStep.wav	True	False
+SOURCE	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	NULL	True	False	0.391	False	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Player.PlayerBasicAttackAudio	attackSound	Assets/_Project/Audio/SoundEffects/cloth1.ogg	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Player.PlayerHurtAudio	hurtSound	Assets/_Project/Audio/SoundEffects/Impacts/Monk_Hurt_Oof1.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Player.PlayerDeathAudio	deathSound	Assets/_Project/Audio/SoundEffects/Impacts/Monk_Death.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Player.PlayerDeathEffectAudio	effectSound	Assets/_Project/Audio/SoundEffects/Impacts/Player_Death_BodyFall.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Player.PlayerItemAudio	equipSound	Assets/_Project/Audio/SoundEffects/Interactions/Equip_Short.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Player.PlayerItemAudio	potionSound	Assets/_Project/Audio/SoundEffects/Interactions/freesound_community-085594_potion-35983.mp3	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Player.PlayerItemAudio	currencySound	Assets/_Project/Audio/SoundEffects/Interactions/mixkit-coins-sound-2003.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/MonkPlayer.prefab	MonkPlayer	EasternFantasy.Player.PlayerItemAudio	itemSound	Assets/_Project/Audio/SoundEffects/Interactions/freesound_community-effect_notify-84408.mp3	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Player.PlayerMovement2D	jumpSound	Assets/_Project/Audio/SoundEffects/Movement/Swordswoman_JumpVoice.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Player.PlayerMovement2D	landingSound	NULL	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Player.PlayerDeathController	reviveSound	Assets/_Project/Audio/SoundEffects/Revival/soumages-magic-spell-333896.mp3	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Player.SwordswomanBasicAttack	hitSound	Assets/_Project/Audio/SoundEffects/Skills/Swordswoman_BasicHit.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Skill.SwordswomanSkillCaster	dashSound	Assets/_Project/Audio/SoundEffects/Skills/Swordswoman_Dash_Whoosh.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Skill.SwordswomanSkillCaster	firstSlashSound	Assets/_Project/Audio/SoundEffects/Skills/Swordswoman_DoubleSlash_Swing1.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Skill.SwordswomanSkillCaster	secondSlashSound	Assets/_Project/Audio/SoundEffects/Skills/Swordswoman_DoubleSlash_Swing2.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Skill.SwordswomanSkillCaster	doubleSlashHitSound	Assets/_Project/Audio/SoundEffects/Skills/Swordswoman_DoubleSlash_Hit.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Skill.SwordswomanDrawingAttack	chargeSound	Assets/_Project/Audio/SoundEffects/Skills/Swordswoman_Drawing_Charge.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Skill.SwordswomanDrawingAttack	releaseSound	Assets/_Project/Audio/SoundEffects/Skills/Swordswoman_Drawing_Release.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Skill.SwordswomanDrawingAttack	hitSound	Assets/_Project/Audio/SoundEffects/Skills/Swordswoman_Drawing_Hit.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Player.PlayerFootstepDust	footstepSound	Assets/_Project/Audio/SoundEffects/Footsteps/Grass_SoftStep.wav	True	False
+SOURCE	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	NULL	True	False	1	False	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Player.PlayerBasicAttackAudio	attackSound	Assets/_Project/Audio/SoundEffects/Skills/Swordswoman_BasicSwing.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Player.PlayerHurtAudio	hurtSound	Assets/_Project/Audio/SoundEffects/Skills/Swordswoman_HurtVoice.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Player.PlayerDeathAudio	deathSound	Assets/_Project/Audio/SoundEffects/Impacts/Swordswoman_Death.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Player.PlayerDeathEffectAudio	effectSound	Assets/_Project/Audio/SoundEffects/Impacts/Player_Death_BodyFall.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Player.PlayerItemAudio	equipSound	Assets/_Project/Audio/SoundEffects/Interactions/Equip_Short.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Player.PlayerItemAudio	potionSound	Assets/_Project/Audio/SoundEffects/Interactions/freesound_community-085594_potion-35983.mp3	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Player.PlayerItemAudio	currencySound	Assets/_Project/Audio/SoundEffects/Interactions/mixkit-coins-sound-2003.wav	True	False
+FIELD	Assets/_Project/Prefabs/Player/SwordswomanPlayer.prefab	SwordswomanPlayer	EasternFantasy.Player.PlayerItemAudio	itemSound	Assets/_Project/Audio/SoundEffects/Interactions/freesound_community-effect_notify-84408.mp3	True	False
+FIELD	Assets/_Project/Prefabs/UI/LevelUpEffect.prefab	LevelUpEffect	EasternFantasy.UI.LevelUpEffectUI	levelUpSound	Assets/_Project/Audio/SoundEffects/Skills/LevelUp_Shimmer.wav	True	False
+RESOURCE	Assets/_Project/Resources/Audio/BoarCrunchSource.wav	23.20687
+RESOURCE	Assets/_Project/Resources/Audio/BoarGrunt.mp3	4.008
+RESOURCE	Assets/_Project/Resources/Audio/BoarScrape.wav	0.4
+RESOURCE	Assets/_Project/Resources/Audio/BoarStep0.wav	0.24
+RESOURCE	Assets/_Project/Resources/Audio/BoarStep1.wav	0.24
+RESOURCE	Assets/_Project/Resources/Audio/BoarStep2.wav	0.2399773
+RESOURCE	Assets/_Project/Resources/Audio/BoarStep3.wav	0.24
+RESOURCE	Assets/_Project/Resources/Audio/ChargePlayerImpact.wav	3.469433
+RESOURCE	Assets/_Project/Resources/Audio/DialogueWritingTick.wav	0.06
+RESOURCE	Assets/_Project/Resources/Audio/DungeonClear.wav	2.5
+RESOURCE	Assets/_Project/Resources/Audio/DungeonFailure.wav	2
+RESOURCE	Assets/_Project/Resources/Audio/EnemyGaugeRiser.wav	2.574989
+RESOURCE	Assets/_Project/Resources/Audio/FarmCartFlight.wav	1.099365
+RESOURCE	Assets/_Project/Resources/Audio/FarmCartFlightLoop.wav	0.2050113
+RESOURCE	Assets/_Project/Resources/Audio/FarmCartImpact.wav	0.5909978
+RESOURCE	Assets/_Project/Resources/Audio/FarmCartWarning.wav	2.516984
+RESOURCE	Assets/_Project/Resources/Audio/FarmCartWarningLoop.wav	0.49
+RESOURCE	Assets/_Project/Resources/Audio/FrogDeath.mp3	2.115918
+RESOURCE	Assets/_Project/Resources/Audio/FrogJump.mp3	0.6
+RESOURCE	Assets/_Project/Resources/Audio/FrogMove.mp3	4.032
+RESOURCE	Assets/_Project/Resources/Audio/FrogSlamImpact.mp3	1.872
+RESOURCE	Assets/_Project/Resources/Audio/FrogSpitImpact.mp3	1.32
+RESOURCE	Assets/_Project/Resources/Audio/FrogSpitLaunch.mp3	4.032
+RESOURCE	Assets/_Project/Resources/Audio/FrogSpitLaunchShort.wav	0.55
+RESOURCE	Assets/_Project/Resources/Audio/FrogTongue.mp3	0.9142857
+RESOURCE	Assets/_Project/Resources/Audio/GhostAttack.mp3	2.115918
+RESOURCE	Assets/_Project/Resources/Audio/GhostDeath.mp3	16.032
+RESOURCE	Assets/_Project/Resources/Audio/GhostDeathCut.wav	1
+RESOURCE	Assets/_Project/Resources/Audio/GiantFootstepSource.wav	3.00449
+RESOURCE	Assets/_Project/Resources/Audio/GiantRockFlightLoop.wav	0.85
+RESOURCE	Assets/_Project/Resources/Audio/GiantRockFlightSource.wav	4.348912
+RESOURCE	Assets/_Project/Resources/Audio/GiantRockImpact.wav	1
+RESOURCE	Assets/_Project/Resources/Audio/GiantRockImpactSource.wav	10.60889
+RESOURCE	Assets/_Project/Resources/Audio/GiantSmashDust.mp3	3.096
+RESOURCE	Assets/_Project/Resources/Audio/GiantSmashImpact.mp3	2.112
+RESOURCE	Assets/_Project/Resources/Audio/GiantSprintVoice.wav	3.5
+RESOURCE	Assets/_Project/Resources/Audio/GiantThrowVoice.wav	0.7780499
+RESOURCE	Assets/_Project/Resources/Audio/GoblinAttackImpact.mp3	2.112
+RESOURCE	Assets/_Project/Resources/Audio/GoblinDeath.mp3	2.304
+RESOURCE	Assets/_Project/Resources/Audio/GoblinSwing.mp3	1.056
+RESOURCE	Assets/_Project/Resources/Audio/PlayerLanding.mp3	0.864
+RESOURCE	Assets/_Project/Resources/Audio/PlayerLandingShort.wav	0.3
+RESOURCE	Assets/_Project/Resources/Audio/PortalChainsBreak.mp3	3.912
+RESOURCE	Assets/_Project/Resources/Audio/PortalEnter.mp3	3.144
+RESOURCE	Assets/_Project/Resources/Audio/PortalExit.mp3	8.04
+RESOURCE	Assets/_Project/Resources/Audio/PortalSealBreak.mp3	2.832
+RESOURCE	Assets/_Project/Resources/Audio/PortalSealTension.mp3	5.112
+RESOURCE	Assets/_Project/Resources/Audio/ScrollClose.wav	1.2
+RESOURCE	Assets/_Project/Resources/Audio/ScrollOpen.wav	0.5549887
+RESOURCE	Assets/_Project/Resources/Audio/ShopBuy.wav	1.024513
+RESOURCE	Assets/_Project/Resources/Audio/ShopSell.wav	1.223311
+RESOURCE	Assets/_Project/Resources/Audio/SpiderAttack.mp3	1.032
+RESOURCE	Assets/_Project/Resources/Audio/SpiderDeath.mp3	1.32
+RESOURCE	Assets/_Project/Resources/Audio/SpiderProjectileImpact.mp3	1.17551
+RESOURCE	Assets/_Project/Resources/Audio/UIHover.wav	0.1
+RESOURCE	Assets/_Project/Resources/Audio/UIHoverSource.mp3	0.4963265
+RESOURCE	Assets/_Project/Resources/Audio/UpgradeInsufficient.wav	0.404263
+RESOURCE	Assets/_Project/Resources/Audio/UpgradeSuccess.wav	7.413106

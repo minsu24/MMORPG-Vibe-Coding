@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EasternFantasy.CharacterSelection;
 using EasternFantasy.Inventory;
+using EasternFantasy.Player;
 using EasternFantasy.Saving;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace EasternFantasy.Dungeon
     public sealed class PendingDungeonReward
     {
         public string runId, dungeon, title, returnScene;
+        public int experience;
         public List<SavedDungeonRewardItem> items = new List<SavedDungeonRewardItem>();
     }
     public static class DungeonRewardProgress
@@ -40,16 +42,19 @@ namespace EasternFantasy.Dungeon
         public static void Queue(string runId, DungeonDefinition dungeon)
         {
             if (dungeon == null || string.IsNullOrEmpty(runId) || !Runs(CharacterSelectionState.SelectedClass).Add(runId)) return;
-            var value = new PendingDungeonReward { runId = runId, dungeon = SaveAssetCatalog.Id(dungeon), title = dungeon.displayName, returnScene = dungeon.returnSceneName };
+            var value = new PendingDungeonReward { runId = runId, dungeon = SaveAssetCatalog.Id(dungeon), title = dungeon.displayName, returnScene = dungeon.returnSceneName,
+                experience = Mathf.Max(0, dungeon.clearExperience) };
             foreach (var reward in dungeon.clearRewards ?? Array.Empty<DungeonReward>())
                 if (reward != null && reward.item != null && reward.quantity > 0)
                     value.items.Add(new SavedDungeonRewardItem { item = SaveAssetCatalog.Id(reward.item), quantity = reward.quantity });
-            if (value.items.Count > 0) For(CharacterSelectionState.SelectedClass).Add(value);
+            if (value.items.Count > 0 || value.experience > 0) For(CharacterSelectionState.SelectedClass).Add(value);
         }
         public static bool TryClaim(PendingDungeonReward value, PlayerInventory inventory)
         {
             var values = For(CharacterSelectionState.SelectedClass);
             if (value == null || inventory == null || !values.Contains(value)) return false;
+            var progression = inventory.GetComponent<PlayerProgression>();
+            if (value.experience > 0 && (progression == null || !progression.enabled)) return false;
             var rewards = new Dictionary<ItemDefinition, int>();
             foreach (var reward in value.items)
             {
@@ -60,7 +65,11 @@ namespace EasternFantasy.Dungeon
             }
             // Remove before callbacks so a reentrant UI/save cannot pay this batch twice.
             values.Remove(value);
-            if (inventory.TryAddItems(rewards)) return true;
+            if (rewards.Count == 0 || inventory.TryAddItems(rewards))
+            {
+                if (value.experience > 0) progression.AddExperience(value.experience);
+                return true;
+            }
             values.Insert(0, value);
             return false;
         }
@@ -79,6 +88,7 @@ namespace EasternFantasy.Dungeon
         private static List<PendingDungeonReward> Clone(List<PendingDungeonReward> values) =>
             values == null ? new List<PendingDungeonReward>() : values.Where(value => value != null).Select(value =>
                 new PendingDungeonReward { runId = value.runId, dungeon = value.dungeon, title = value.title, returnScene = value.returnScene,
+                    experience = Mathf.Max(0, value.experience),
                     items = (value.items ?? new List<SavedDungeonRewardItem>()).Where(item => item != null).Select(item =>
                         new SavedDungeonRewardItem { item = item.item, quantity = item.quantity }).ToList() }).ToList();
     }

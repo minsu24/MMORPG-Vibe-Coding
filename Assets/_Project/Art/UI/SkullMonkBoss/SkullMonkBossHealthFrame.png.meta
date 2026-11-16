@@ -1,0 +1,2054 @@
+fileFormatVersion: 2
+guid: 33679fe4cd51c9848a8cdc90ffe54116
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7208618206283884343
+    second: SkullMonkBossHealthFrame_0
+  - first:
+      213: -6945911462906708223
+    second: SkullMonkBossHealthFrame_1
+  - first:
+      213: -2653906985089982831
+    second: SkullMonkBossHealthFrame_2
+  - first:
+      213: 6722397030564735238
+    second: SkullMonkBossHealthFrame_3
+  - first:
+      213: 112512033222811658
+    second: SkullMonkBossHealthFrame_4
+  - first:
+      213: 3726079413057506308
+    second: SkullMonkBossHealthFrame_5
+  - first:
+      213: 7591527991591470786
+    second: SkullMonkBossHealthFrame_6
+  - first:
+      213: -437753168438676415
+    second: SkullMonkBossHealthFrame_7
+  - first:
+      213: 4069733083832358377
+    second: SkullMonkBossHealthFrame_8
+  - first:
+      213: -5951388020122083042
+    second: SkullMonkBossHealthFrame_9
+  - first:
+      213: -1848684010263118005
+    second: SkullMonkBossHealthFrame_10
+  - first:
+      213: 7491624667185280740
+    second: SkullMonkBossHealthFrame_11
+  - first:
+      213: 6398305761657769471
+    second: SkullMonkBossHealthFrame_12
+  - first:
+      213: 8059156315088677566
+    second: SkullMonkBossHealthFrame_13
+  - first:
+      213: 3131666826234776107
+    second: SkullMonkBossHealthFrame_14
+  - first:
+      213: 4900647735766050692
+    second: SkullMonkBossHealthFrame_15
+  - first:
+      213: 2223275115494922454
+    second: SkullMonkBossHealthFrame_16
+  - first:
+      213: 3238376684922493689
+    second: SkullMonkBossHealthFrame_17
+  - first:
+      213: 2889887923037483233
+    second: SkullMonkBossHealthFrame_18
+  - first:
+      213: 1110279721596727503
+    second: SkullMonkBossHealthFrame_19
+  - first:
+      213: 9115690820558364882
+    second: SkullMonkBossHealthFrame_20
+  - first:
+      213: -2256855493278465858
+    second: SkullMonkBossHealthFrame_21
+  - first:
+      213: 2055939692476819121
+    second: SkullMonkBossHealthFrame_22
+  - first:
+      213: -4644776238845286508
+    second: SkullMonkBossHealthFrame_23
+  - first:
+      213: -6136488767479967011
+    second: SkullMonkBossHealthFrame_24
+  - first:
+      213: -1456943522655225615
+    second: SkullMonkBossHealthFrame_25
+  - first:
+      213: 8336592308189267674
+    second: SkullMonkBossHealthFrame_26
+  - first:
+      213: 5072111053195634990
+    second: SkullMonkBossHealthFrame_27
+  - first:
+      213: 2196408847583695510
+    second: SkullMonkBossHealthFrame_28
+  - first:
+      213: -1210967338105514276
+    second: SkullMonkBossHealthFrame_29
+  - first:
+      213: 1252173389130879381
+    second: SkullMonkBossHealthFrame_30
+  - first:
+      213: 6398370528511756811
+    second: SkullMonkBossHealthFrame_31
+  - first:
+      213: 3952550985713217370
+    second: SkullMonkBossHealthFrame_32
+  - first:
+      213: -3919310455444598869
+    second: SkullMonkBossHealthFrame_33
+  - first:
+      213: -6622119045030787752
+    second: SkullMonkBossHealthFrame_34
+  - first:
+      213: 4793338227318564213
+    second: SkullMonkBossHealthFrame_35
+  - first:
+      213: -1826435727316886389
+    second: SkullMonkBossHealthFrame_36
+  - first:
+      213: -4508784886473235074
+    second: SkullMonkBossHealthFrame_37
+  - first:
+      213: 3942755181851951554
+    second: SkullMonkBossHealthFrame_38
+  - first:
+      213: 569243083272015006
+    second: SkullMonkBossHealthFrame_39
+  - first:
+      213: -4965550388912477086
+    second: SkullMonkBossHealthFrame_40
+  - first:
+      213: 9032949779872350051
+    second: SkullMonkBossHealthFrame_41
+  - first:
+      213: 6812271321649047309
+    second: SkullMonkBossHealthFrame_42
+  - first:
+      213: -3243115571350456352
+    second: SkullMonkBossHealthFrame_43
+  - first:
+      213: 3349169257729388013
+    second: SkullMonkBossHealthFrame_44
+  - first:
+      213: 8359195513526774416
+    second: SkullMonkBossHealthFrame_45
+  - first:
+      213: 6003195038468629349
+    second: SkullMonkBossHealthFrame_46
+  - first:
+      213: -4474241484484853571
+    second: SkullMonkBossHealthFrame_47
+  - first:
+      213: -6290215872943516549
+    second: SkullMonkBossHealthFrame_48
+  - first:
+      213: -2000077357634976253
+    second: SkullMonkBossHealthFrame_49
+  - first:
+      213: 4219701748446792898
+    second: SkullMonkBossHealthFrame_50
+  - first:
+      213: 3885222715479269186
+    second: SkullMonkBossHealthFrame_51
+  - first:
+      213: -1339319196790300076
+    second: SkullMonkBossHealthFrame_52
+  - first:
+      213: 2158782474072666665
+    second: SkullMonkBossHealthFrame_53
+  - first:
+      213: 6929237698280472230
+    second: SkullMonkBossHealthFrame_54
+  - first:
+      213: 8001191295819688928
+    second: SkullMonkBossHealthFrame_55
+  - first:
+      213: -2962222257812134265
+    second: SkullMonkBossHealthFrame_56
+  - first:
+      213: -8543910947418190959
+    second: SkullMonkBossHealthFrame_57
+  - first:
+      213: 8409568033559506906
+    second: SkullMonkBossHealthFrame_58
+  - first:
+      213: 894725035557306707
+    second: SkullMonkBossHealthFrame_59
+  - first:
+      213: 5304211940728282499
+    second: SkullMonkBossHealthFrame_60
+  - first:
+      213: -6435703935900939719
+    second: SkullMonkBossHealthFrame_61
+  - first:
+      213: -8199999343094703428
+    second: SkullMonkBossHealthFrame_62
+  - first:
+      213: -7416554421533793858
+    second: SkullMonkBossHealthFrame_63
+  - first:
+      213: 8744148108311738808
+    second: SkullMonkBossHealthFrame_64
+  - first:
+      213: 457979696263135002
+    second: SkullMonkBossHealthFrame_65
+  - first:
+      213: -8593403223100833214
+    second: SkullMonkBossHealthFrame_66
+  - first:
+      213: 6791279126829559790
+    second: SkullMonkBossHealthFrame_67
+  - first:
+      213: -561585788244604137
+    second: SkullMonkBossHealthFrame_68
+  - first:
+      213: -2668396393679456026
+    second: SkullMonkBossHealthFrame_69
+  - first:
+      213: -5220051765801714066
+    second: SkullMonkBossHealthFrame_70
+  - first:
+      213: 6604857561170909614
+    second: SkullMonkBossHealthFrame_71
+  - first:
+      213: -1404179341153545627
+    second: SkullMonkBossHealthFrame_72
+  - first:
+      213: -2165939214136780439
+    second: SkullMonkBossHealthFrame_73
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_0
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 0
+        width: 2111
+        height: 716
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 737e6f2d0182a0460800000000000000
+      internalID: 7208618206283884343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_1
+      rect:
+        serializedVersion: 2
+        x: 1184
+        y: 630
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10fb124535a2b9f90800000000000000
+      internalID: -6945911462906708223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_2
+      rect:
+        serializedVersion: 2
+        x: 1528
+        y: 610
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19e98c678ad6b2bd0800000000000000
+      internalID: -2653906985089982831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 59
+        width: 100
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 609a3f58b70ca4d50800000000000000
+      internalID: 6722397030564735238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_4
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 90
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a00e33d1919bf8100800000000000000
+      internalID: 112512033222811658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_5
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 81
+        width: 19
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40c403c0c71b5b330800000000000000
+      internalID: 3726079413057506308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_6
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 49
+        width: 231
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c68e399c768a5960800000000000000
+      internalID: 7591527991591470786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_7
+      rect:
+        serializedVersion: 2
+        x: 1404
+        y: 45
+        width: 81
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14439e700d9cce9f0800000000000000
+      internalID: -437753168438676415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_8
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 84
+        width: 37
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e59b786da89a7830800000000000000
+      internalID: 4069733083832358377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_9
+      rect:
+        serializedVersion: 2
+        x: 1502
+        y: 49
+        width: 64
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e11ab14a02c686da0800000000000000
+      internalID: -5951388020122083042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_10
+      rect:
+        serializedVersion: 2
+        x: 2124
+        y: 87
+        width: 30
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4f725affa72856e0800000000000000
+      internalID: -1848684010263118005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_11
+      rect:
+        serializedVersion: 2
+        x: 2148
+        y: 103
+        width: 22
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e6f12641f897f760800000000000000
+      internalID: 7491624667185280740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_12
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 58
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffd42f7c0395bc850800000000000000
+      internalID: 6398305761657769471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_13
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 17
+        width: 33
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebae43628ffd7df60800000000000000
+      internalID: 8059156315088677566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_14
+      rect:
+        serializedVersion: 2
+        x: 1291
+        y: 74
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2a499cd26ae57b20800000000000000
+      internalID: 3131666826234776107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_15
+      rect:
+        serializedVersion: 2
+        x: 1361
+        y: 67
+        width: 38
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48768a3a629920440800000000000000
+      internalID: 4900647735766050692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_16
+      rect:
+        serializedVersion: 2
+        x: 2094
+        y: 85
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d85a0920f8aade10800000000000000
+      internalID: 2223275115494922454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_17
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 63
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fa56b1ff6601fc20800000000000000
+      internalID: 3238376684922493689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_18
+      rect:
+        serializedVersion: 2
+        x: 1228
+        y: 63
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e0375531c1fa1820800000000000000
+      internalID: 2889887923037483233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_19
+      rect:
+        serializedVersion: 2
+        x: 1275
+        y: 31
+        width: 70
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc0b7173681886f00800000000000000
+      internalID: 1110279721596727503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_20
+      rect:
+        serializedVersion: 2
+        x: 1349
+        y: 77
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d0aba91180718e70800000000000000
+      internalID: 9115690820558364882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_21
+      rect:
+        serializedVersion: 2
+        x: 1575
+        y: 63
+        width: 23
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb08fbdd2e90ea0e0800000000000000
+      internalID: -2256855493278465858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_22
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 55
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b6e4b9e14a288c10800000000000000
+      internalID: 2055939692476819121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_23
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 67
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 497a37eae907a8fb0800000000000000
+      internalID: -4644776238845286508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_24
+      rect:
+        serializedVersion: 2
+        x: 1339
+        y: 61
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd29e2e7affc6daa0800000000000000
+      internalID: -6136488767479967011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_25
+      rect:
+        serializedVersion: 2
+        x: 1609
+        y: 47
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f8345ad595e7cbe0800000000000000
+      internalID: -1456943522655225615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_26
+      rect:
+        serializedVersion: 2
+        x: 1639
+        y: 55
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad600eef88681b370800000000000000
+      internalID: 8336592308189267674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_27
+      rect:
+        serializedVersion: 2
+        x: 2081
+        y: 69
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e29ee033122c36640800000000000000
+      internalID: 5072111053195634990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_28
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 47
+        width: 9
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69250c5b5363b7e10800000000000000
+      internalID: 2196408847583695510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_29
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 49
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd6de993f97c13fe0800000000000000
+      internalID: -1210967338105514276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_30
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 49
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 591d758201d906110800000000000000
+      internalID: 1252173389130879381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_31
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 15
+        width: 75
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0a854d78149bc850800000000000000
+      internalID: 6398370528511756811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_32
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 57
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5f6e041e284ad630800000000000000
+      internalID: 3952550985713217370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_33
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 59
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: baf00caf7efcb99c0800000000000000
+      internalID: -3919310455444598869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_34
+      rect:
+        serializedVersion: 2
+        x: 903
+        y: 55
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 855479460d18914a0800000000000000
+      internalID: -6622119045030787752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_35
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 46
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 575af97b8bb558240800000000000000
+      internalID: 4793338227318564213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_36
+      rect:
+        serializedVersion: 2
+        x: 1255
+        y: 49
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8cd134026237a6e0800000000000000
+      internalID: -1826435727316886389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_37
+      rect:
+        serializedVersion: 2
+        x: 1663
+        y: 8
+        width: 31
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e75ec19c8049d61c0800000000000000
+      internalID: -4508784886473235074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_38
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 45
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c1cd92c2fa77b630800000000000000
+      internalID: 3942755181851951554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_39
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 45
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9cc649719b56e700800000000000000
+      internalID: 569243083272015006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_40
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 43
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26ca19ada32d61bb0800000000000000
+      internalID: -4965550388912477086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_41
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 47
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36ffb3757fb7b5d70800000000000000
+      internalID: 9032949779872350051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_42
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 33
+        width: 7
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d07e8709cac0a8e50800000000000000
+      internalID: 6812271321649047309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_43
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 45
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e73e1412932ef2d0800000000000000
+      internalID: -3243115571350456352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_44
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 29
+        width: 34
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ded6e9bf1b3aa7e20800000000000000
+      internalID: 3349169257729388013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_45
+      rect:
+        serializedVersion: 2
+        x: 835
+        y: 39
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09a6dc7d704d10470800000000000000
+      internalID: 8359195513526774416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_46
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 15
+        width: 65
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5636f49c412af4350800000000000000
+      internalID: 6003195038468629349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_47
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 47
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db0c6fd431d48e1c0800000000000000
+      internalID: -4474241484484853571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_48
+      rect:
+        serializedVersion: 2
+        x: 1591
+        y: 33
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b749da49df9a4b8a0800000000000000
+      internalID: -6290215872943516549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_49
+      rect:
+        serializedVersion: 2
+        x: 1637
+        y: 29
+        width: 31
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3068dd67d3c4e34e0800000000000000
+      internalID: -2000077357634976253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_50
+      rect:
+        serializedVersion: 2
+        x: 1834
+        y: 17
+        width: 19
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cc044e12646f8a30800000000000000
+      internalID: 4219701748446792898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_51
+      rect:
+        serializedVersion: 2
+        x: 1880
+        y: 37
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24f9b6599751be530800000000000000
+      internalID: 3885222715479269186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_52
+      rect:
+        serializedVersion: 2
+        x: 2089
+        y: 39
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 452e37a5948c96de0800000000000000
+      internalID: -1339319196790300076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_53
+      rect:
+        serializedVersion: 2
+        x: 2094
+        y: 18
+        width: 11
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 922b072f83985fd10800000000000000
+      internalID: 2158782474072666665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_54
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 30
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6aeb04259f8992060800000000000000
+      internalID: 6929237698280472230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_55
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 31
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eba7476711f90f60800000000000000
+      internalID: 8001191295819688928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_56
+      rect:
+        serializedVersion: 2
+        x: 973
+        y: 17
+        width: 30
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7862a511d8214e6d0800000000000000
+      internalID: -2962222257812134265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_57
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 23
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19b419ac24eed6980800000000000000
+      internalID: -8543910947418190959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_58
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 21
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adf6bca1299c4b470800000000000000
+      internalID: 8409568033559506906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_59
+      rect:
+        serializedVersion: 2
+        x: 1166
+        y: 30
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 351ca0ceda3ba6c00800000000000000
+      internalID: 894725035557306707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_60
+      rect:
+        serializedVersion: 2
+        x: 1213
+        y: 18
+        width: 31
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38d9e7c38a85c9940800000000000000
+      internalID: 5304211940728282499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_61
+      rect:
+        serializedVersion: 2
+        x: 1263
+        y: 31
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93a8a0d3e59cfa6a0800000000000000
+      internalID: -6435703935900939719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_62
+      rect:
+        serializedVersion: 2
+        x: 1268
+        y: 29
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cba576cfa00c33e80800000000000000
+      internalID: -8199999343094703428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_63
+      rect:
+        serializedVersion: 2
+        x: 1599
+        y: 33
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb120275c0b131990800000000000000
+      internalID: -7416554421533793858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_64
+      rect:
+        serializedVersion: 2
+        x: 1627
+        y: 21
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b933534064795970800000000000000
+      internalID: 8744148108311738808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_65
+      rect:
+        serializedVersion: 2
+        x: 1633
+        y: 31
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1ffa167b121b5600800000000000000
+      internalID: 457979696263135002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_66
+      rect:
+        serializedVersion: 2
+        x: 1721
+        y: 26
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 242c0636c491eb880800000000000000
+      internalID: -8593403223100833214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_67
+      rect:
+        serializedVersion: 2
+        x: 1723
+        y: 15
+        width: 30
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eef633552687f3e50800000000000000
+      internalID: 6791279126829559790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_68
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 17
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71bc5c473b8d438f0800000000000000
+      internalID: -561585788244604137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_69
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 23
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e87dc22e93f7fad0800000000000000
+      internalID: -2668396393679456026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_70
+      rect:
+        serializedVersion: 2
+        x: 877
+        y: 17
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6efc367396ae87b0800000000000000
+      internalID: -5220051765801714066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_71
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 15
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea915a535fa29ab50800000000000000
+      internalID: 6604857561170909614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_72
+      rect:
+        serializedVersion: 2
+        x: 1721
+        y: 21
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 562d991345a538ce0800000000000000
+      internalID: -1404179341153545627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkullMonkBossHealthFrame_73
+      rect:
+        serializedVersion: 2
+        x: 1754
+        y: 23
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 969d948a2c901f1e0800000000000000
+      internalID: -2165939214136780439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SkullMonkBossHealthFrame_0: 7208618206283884343
+      SkullMonkBossHealthFrame_1: -6945911462906708223
+      SkullMonkBossHealthFrame_10: -1848684010263118005
+      SkullMonkBossHealthFrame_11: 7491624667185280740
+      SkullMonkBossHealthFrame_12: 6398305761657769471
+      SkullMonkBossHealthFrame_13: 8059156315088677566
+      SkullMonkBossHealthFrame_14: 3131666826234776107
+      SkullMonkBossHealthFrame_15: 4900647735766050692
+      SkullMonkBossHealthFrame_16: 2223275115494922454
+      SkullMonkBossHealthFrame_17: 3238376684922493689
+      SkullMonkBossHealthFrame_18: 2889887923037483233
+      SkullMonkBossHealthFrame_19: 1110279721596727503
+      SkullMonkBossHealthFrame_2: -2653906985089982831
+      SkullMonkBossHealthFrame_20: 9115690820558364882
+      SkullMonkBossHealthFrame_21: -2256855493278465858
+      SkullMonkBossHealthFrame_22: 2055939692476819121
+      SkullMonkBossHealthFrame_23: -4644776238845286508
+      SkullMonkBossHealthFrame_24: -6136488767479967011
+      SkullMonkBossHealthFrame_25: -1456943522655225615
+      SkullMonkBossHealthFrame_26: 8336592308189267674
+      SkullMonkBossHealthFrame_27: 5072111053195634990
+      SkullMonkBossHealthFrame_28: 2196408847583695510
+      SkullMonkBossHealthFrame_29: -1210967338105514276
+      SkullMonkBossHealthFrame_3: 6722397030564735238
+      SkullMonkBossHealthFrame_30: 1252173389130879381
+      SkullMonkBossHealthFrame_31: 6398370528511756811
+      SkullMonkBossHealthFrame_32: 3952550985713217370
+      SkullMonkBossHealthFrame_33: -3919310455444598869
+      SkullMonkBossHealthFrame_34: -6622119045030787752
+      SkullMonkBossHealthFrame_35: 4793338227318564213
+      SkullMonkBossHealthFrame_36: -1826435727316886389
+      SkullMonkBossHealthFrame_37: -4508784886473235074
+      SkullMonkBossHealthFrame_38: 3942755181851951554
+      SkullMonkBossHealthFrame_39: 569243083272015006
+      SkullMonkBossHealthFrame_4: 112512033222811658
+      SkullMonkBossHealthFrame_40: -4965550388912477086
+      SkullMonkBossHealthFrame_41: 9032949779872350051
+      SkullMonkBossHealthFrame_42: 6812271321649047309
+      SkullMonkBossHealthFrame_43: -3243115571350456352
+      SkullMonkBossHealthFrame_44: 3349169257729388013
+      SkullMonkBossHealthFrame_45: 8359195513526774416
+      SkullMonkBossHealthFrame_46: 6003195038468629349
+      SkullMonkBossHealthFrame_47: -4474241484484853571
+      SkullMonkBossHealthFrame_48: -6290215872943516549
+      SkullMonkBossHealthFrame_49: -2000077357634976253
+      SkullMonkBossHealthFrame_5: 3726079413057506308
+      SkullMonkBossHealthFrame_50: 4219701748446792898
+      SkullMonkBossHealthFrame_51: 3885222715479269186
+      SkullMonkBossHealthFrame_52: -1339319196790300076
+      SkullMonkBossHealthFrame_53: 2158782474072666665
+      SkullMonkBossHealthFrame_54: 6929237698280472230
+      SkullMonkBossHealthFrame_55: 8001191295819688928
+      SkullMonkBossHealthFrame_56: -2962222257812134265
+      SkullMonkBossHealthFrame_57: -8543910947418190959
+      SkullMonkBossHealthFrame_58: 8409568033559506906
+      SkullMonkBossHealthFrame_59: 894725035557306707
+      SkullMonkBossHealthFrame_6: 7591527991591470786
+      SkullMonkBossHealthFrame_60: 5304211940728282499
+      SkullMonkBossHealthFrame_61: -6435703935900939719
+      SkullMonkBossHealthFrame_62: -8199999343094703428
+      SkullMonkBossHealthFrame_63: -7416554421533793858
+      SkullMonkBossHealthFrame_64: 8744148108311738808
+      SkullMonkBossHealthFrame_65: 457979696263135002
+      SkullMonkBossHealthFrame_66: -8593403223100833214
+      SkullMonkBossHealthFrame_67: 6791279126829559790
+      SkullMonkBossHealthFrame_68: -561585788244604137
+      SkullMonkBossHealthFrame_69: -2668396393679456026
+      SkullMonkBossHealthFrame_7: -437753168438676415
+      SkullMonkBossHealthFrame_70: -5220051765801714066
+      SkullMonkBossHealthFrame_71: 6604857561170909614
+      SkullMonkBossHealthFrame_72: -1404179341153545627
+      SkullMonkBossHealthFrame_73: -2165939214136780439
+      SkullMonkBossHealthFrame_8: 4069733083832358377
+      SkullMonkBossHealthFrame_9: -5951388020122083042
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

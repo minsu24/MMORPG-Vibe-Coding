@@ -1,0 +1,3 @@
+PASS Sign reads 대웅전 after imagegen lettering correction.
+PASS Only middle syllable region changed: 986 pixels.
+PASS All pixels outside 36x31 patch are identical, including first and last characters and background joins.

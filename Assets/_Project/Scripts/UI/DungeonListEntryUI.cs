@@ -21,6 +21,7 @@ namespace EasternFantasy.UI
             thumbnail.enabled = thumbnail.sprite != null;
             state.text = window.CanEnter(dungeon) ? "입장" : "잠김";
             button.onClick.RemoveAllListeners();
+            button.GetComponent<UIButtonClickAudio>()?.Rebind();
             button.onClick.AddListener(() => window.Select(dungeon));
             SetSelected(false);
         }

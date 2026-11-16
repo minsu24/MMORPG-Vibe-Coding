@@ -29,6 +29,7 @@ MonoBehaviour:
   minimumLevel: 1
   timeLimitSeconds: 600
   monsterCount: 0
+  clearExperience: 1000
   clearRewards:
   - item: {fileID: 11400000, guid: b4b04f5ff7df8584e871bda12269733c, type: 2}
     quantity: 1

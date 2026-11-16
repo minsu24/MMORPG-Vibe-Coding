@@ -50,6 +50,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/OldTemple/TempleGate.unity
     guid: d248c4fc6d71e0c40a60db1bc2f1ecfc
+  - enabled: 1
+    path: Assets/_Project/Scenes/OldTemple/TempleRoad.unity
+    guid: b70d07f74b3cf2048914417565dad25a
+  - enabled: 1
+    path: Assets/_Project/Scenes/OldTemple/OldTemple - Outer Grounds.unity
+    guid: 87acb1786a2427841892e3f23ca01d83
+  - enabled: 1
+    path: Assets/_Project/Scenes/OldTemple/OldTemple - Center.unity
+    guid: ed0b11e9f0620b144a52eae4d3db57e9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

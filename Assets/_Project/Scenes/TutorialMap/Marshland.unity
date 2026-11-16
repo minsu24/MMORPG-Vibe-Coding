@@ -251,6 +251,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MON_Frog
   target: {fileID: 0}
+  monsterDisplayName: 
+  nameplateShowDistance: 4
+  nameplateHitDuration: 5
   _maxHP: 120
   _attackPower: 12
   _moveSpeed: 2
@@ -790,7 +793,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.5
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -815,7 +818,7 @@ Transform:
   m_GameObject: {fileID: 929379491}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8932457, y: -0.52036476, z: -22.159399}
+  m_LocalPosition: {x: -0.5316458, y: -0.3759246, z: -22.159399}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1163,7 +1166,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 4.5
+    OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0

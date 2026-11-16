@@ -126,6 +126,7 @@ namespace EasternFantasy.Quest
             BindCollectionInventory();
             RefreshCollectionProgress();
             EasternFantasy.UI.MapRegionDiscovery.RevealQuestDestinations(definition);
+            EasternFantasy.UI.UIFeedbackAudio.Play(EasternFantasy.UI.UIFeedbackCue.QuestAccept);
             QuestsChanged?.Invoke();
             return true;
         }
@@ -186,6 +187,7 @@ namespace EasternFantasy.Quest
                     playerProgression = FindFirstObjectByType<PlayerProgression>();
                 playerProgression?.AddExperience(definition.RewardEXP);
             }
+            EasternFantasy.UI.UIFeedbackAudio.Play(EasternFantasy.UI.UIFeedbackCue.QuestComplete);
             QuestsChanged?.Invoke();
             return true;
         }

@@ -84,6 +84,7 @@ namespace EasternFantasy.UI
         {
             if (eventData.button != PointerEventData.InputButton.Left || item == null)
                 return;
+            if (GetComponent<UnityEngine.UI.Button>() == null) UIFeedbackAudio.Play(UIFeedbackCue.Click);
             if (item.IsEquippable && eventData.clickCount < 2)
                 return;
             UseOrEquip();

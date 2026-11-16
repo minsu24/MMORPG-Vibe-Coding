@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3691935958963178595}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.2, z: 0}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -63,7 +63,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8366936849412541394}
@@ -116,7 +116,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 9
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4944381863768852117, guid: 97273b73273448f4fbdd09cb7dc09da1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -143,7 +143,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -171,7 +171,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -189,8 +189,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.66}
-  m_Size: {x: 0.62, y: 1.3}
+  m_Offset: {x: 0, y: -0.35}
+  m_Size: {x: 1.7, y: 1.7}
   m_Direction: 0
 --- !u!95 &6473428375431748574
 Animator:
@@ -202,7 +202,7 @@ Animator:
   m_GameObject: {fileID: 5101291703097361790}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c19ed7ab13887914eaaa51017dba2274, type: 2}
+  m_Controller: {fileID: 9100000, guid: d77cf28b9b361aa48aef5c2e043739f9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -223,19 +223,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 5101291703097361790}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4224b6a5715f19942830729226e60b83, type: 3}
+  m_Script: {fileID: 11500000, guid: 55424ddc9350314469fba9fa9a95740f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MON_Ginseng
+  m_EditorClassIdentifier: Assembly-CSharp::MON_WillOWisp
   target: {fileID: 0}
-  monsterDisplayName: 
+  monsterDisplayName: "\uB3C4\uAE68\uBE44\uBD88"
   nameplateShowDistance: 4
   nameplateHitDuration: 5
-  _maxHP: 60
+  _maxHP: 180
   _attackPower: 10
   _moveSpeed: 1.4
   detectionShape: 1
-  _detectRange: 5
-  detectionHalfHeight: 1.4
+  _detectRange: 8
+  detectionHalfHeight: 3.5
   patrolRange: 2.5
   patrolMinWait: 1.3
   patrolMaxWait: 2.5
@@ -253,12 +253,21 @@ MonoBehaviour:
   damageTextPrefab: {fileID: 3890553193077931215, guid: ffe84f00c64695a48b630feb8433f6f6, type: 3}
   textSpawnPoint: {fileID: 8366936849412541394}
   isKnockback: 0
-  walkAnimationReferenceSpeed: 1.4
-  attackRange: 2
-  attackReach: 2
-  attackHeight: 1.25
+  cameraBounds: {fileID: 0}
+  calmRoamRadius: {x: 3.5, y: 0.15}
+  blinkDistance: {x: 1.4, y: 2.8}
+  blinkDuration: 0.11
+  blinkPause: {x: 1.5, y: 3}
+  idleHoverSpeed: 0.25
+  projectilePrefab: {fileID: 6979058687208786393, guid: 9085d4dbf6b983c4db4fbf4c0e680a0e, type: 3}
+  attackRange: 6
   attackCooldown: 1.3
-  attackDuration: 0.9
+  attackDuration: 1.3333333
+  deathDuration: 1.5333333
+  destinationSpacing: 1.25
+  flightDuration: 1.1
+  arcHeight: 1.6
+  mouthOffset: {x: 0.48, y: -0.4}
 --- !u!114 &6560318625193913620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,11 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.EnemyLootDrop
   pickupPrefab: {fileID: 1989097639827239875, guid: 554de1e741f28c1438da42f16684da6a, type: 3}
   floorCollider: {fileID: 0}
-  drops:
-  - item: {fileID: 11400000, guid: a40f8d58f18228842b1e7bac824af7a6, type: 2}
-    dropChance: 0.7
-    minimumQuantity: 1
-    maximumQuantity: 1
+  drops: []
   spawnHeight: 0.35
   horizontalScatter: 0.65
   overridesCommonLoot: 0

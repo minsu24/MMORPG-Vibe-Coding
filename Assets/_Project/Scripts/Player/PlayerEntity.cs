@@ -113,6 +113,10 @@ namespace EasternFantasy.Player
         public bool IsDead => HP <= 0f;
         public bool IsCrowdControlImmune => playerController != null && playerController.IsDashing;
         public bool IsDamageImmune => isInvincible || IsCrowdControlImmune;
+        public bool AdminInvulnerability { get; internal set; }
+        public bool HasInfiniteMana { get; internal set; }
+        // Attackers use accepted hits, rather than HP loss, to apply reactions.
+        public uint HitReactionVersion { get; private set; }
         public float ActiveDamageReduction => activeDamageReduction;
         public MonkEnergy Energy => GetComponent<MonkEnergy>();
 
@@ -242,8 +246,14 @@ namespace EasternFantasy.Player
 
         public bool TrySpendMana(float amount)
         {
-            if (amount < 0f || MP < amount)
+            if (amount < 0f || (!HasInfiniteMana && MP < amount))
                 return false;
+
+            if (HasInfiniteMana)
+            {
+                RestoreMana(maxMP);
+                return true;
+            }
 
             MP -= amount;
             StatsChanged?.Invoke();
@@ -257,6 +267,11 @@ namespace EasternFantasy.Player
             MonkEnergy monkEnergy = Energy;
             if (monkEnergy != null && monkEnergy.TryParry())
                 return;
+            if (AdminInvulnerability)
+            {
+                RegisterAcceptedHit();
+                return;
+            }
 
             float defendedDamage = damage
                 * (100f / (100f + Mathf.Max(0f, Defense)));
@@ -266,7 +281,25 @@ namespace EasternFantasy.Player
             HP -= appliedDamage;
             if (shieldReduction > 0f)
                 DamageReduced?.Invoke(defendedDamage * shieldReduction);
-            RegisterCombat();
+            NotifyResolvedDamage(appliedDamage);
+        }
+
+        // Boss ground waves deal an exact fraction of maximum health, without armor scaling.
+        // Keep normal immunity/parry checks, damage events, combat state and death handling.
+        public void TakeMaxHealthDamage(float fraction)
+        {
+            if (IsDead || IsDamageImmune || fraction <= 0f) return;
+            MonkEnergy monkEnergy = Energy;
+            if (monkEnergy != null && monkEnergy.TryParry()) return;
+            if (AdminInvulnerability) { RegisterAcceptedHit(); return; }
+            float appliedDamage = Mathf.Min(maxHP * Mathf.Clamp01(fraction), HP);
+            HP -= appliedDamage;
+            NotifyResolvedDamage(appliedDamage);
+        }
+
+        private void NotifyResolvedDamage(float appliedDamage)
+        {
+            RegisterAcceptedHit();
             Damaged?.Invoke(appliedDamage);
 
             if (IsDead)
@@ -274,6 +307,12 @@ namespace EasternFantasy.Player
                 EndCombat();
                 Died?.Invoke();
             }
+        }
+
+        private void RegisterAcceptedHit()
+        {
+            unchecked { HitReactionVersion++; }
+            RegisterCombat();
         }
 
         public void Revive()
@@ -346,9 +385,9 @@ namespace EasternFantasy.Player
             if (IsDead || IsDamageImmune || collider == null) return;
             EnemyController enemy = collider.GetComponentInParent<EnemyController>();
             if (enemy == null || !enemy.CanDealContactDamage || enemy.ContactDamage <= 0f) return;
-            float previousHealth = HP;
+            uint previousHit = HitReactionVersion;
             TakeDamage(enemy.ContactDamage);
-            if (!IsDead && HP < previousHealth)
+            if (!IsDead && HitReactionVersion != previousHit)
             {
                 float direction = transform.position.x > enemy.transform.position.x ? 1f : -1f;
                 ApplyKnockback(direction);

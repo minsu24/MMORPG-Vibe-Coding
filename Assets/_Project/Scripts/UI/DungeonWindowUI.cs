@@ -66,6 +66,7 @@ namespace EasternFantasy.UI
         private void Initialize()
         {
             Instance = this;
+            UIButtonClickAudio.ConfigureConfirmation(enterButton);
 
         }
         private void Update()
@@ -153,7 +154,7 @@ namespace EasternFantasy.UI
         }
         public void Select(DungeonDefinition dungeon)
         {
-            if (IsTutorialRunning) return;
+            if (IsTutorialRunning && tutorial.CurrentStep != 0) return;
             if (dungeon != null && !boundDungeons.Contains(dungeon)) return;
             Selected = dungeon;
             preview.sprite = dungeon != null ? dungeon.preview : null;
@@ -175,23 +176,19 @@ namespace EasternFantasy.UI
             monsterText.text = dungeon != null && dungeon.monsterCount > 0 ? $"몬스터\n<size=23>{dungeon.monsterCount}마리</size>" : "몬스터\n<size=23>미설정</size>";
             var names = new List<string>();
             int iconIndex = 0;
+            bool hasExperience = dungeon != null && dungeon.clearExperience > 0;
+            int itemIconLimit = rewardIcons.Length - (hasExperience ? 1 : 0);
             bool hasPreviewRewards = dungeon != null && dungeon.obtainableRewards != null && dungeon.obtainableRewards.Length > 0;
             if (hasPreviewRewards)
                 foreach (var reward in dungeon.obtainableRewards)
                 {
                     if (reward == null || string.IsNullOrWhiteSpace(reward.DisplayName)) continue;
                     names.Add(reward.DisplayName);
-                    if (iconIndex >= rewardIcons.Length) continue;
+                    if (iconIndex >= itemIconLimit) continue;
                     rewardIcons[iconIndex].sprite = reward.Icon;
                     rewardIcons[iconIndex].enabled = reward.Icon != null;
                     rewardIcons[iconIndex].preserveAspect = true;
                     ItemGradeVisual.Apply(rewardIcons[iconIndex], null);
-                    DungeonReward clearReward = null;
-                    if (reward.item != null && dungeon.clearRewards != null)
-                        foreach (var configured in dungeon.clearRewards)
-                            if (configured != null && configured.item == reward.item) { clearReward = configured; break; }
-                    rewardAmounts[iconIndex].text = reward.item != null && reward.item.FirstAcquisitionOnly ? "초회 한정"
-                        : clearReward != null ? "클리어 ×" + clearReward.quantity : string.Empty;
                     iconIndex++;
                 }
             if (!hasPreviewRewards && dungeon != null && dungeon.clearRewards != null)
@@ -199,26 +196,46 @@ namespace EasternFantasy.UI
                 {
                     if (reward == null || reward.item == null) continue;
                     names.Add($"{reward.item.DisplayName} ×{reward.quantity}");
-                    if (iconIndex >= rewardIcons.Length) continue;
+                    if (iconIndex >= itemIconLimit) continue;
                     rewardIcons[iconIndex].sprite = reward.item.Icon;
                     rewardIcons[iconIndex].enabled = reward.item.Icon != null;
                     rewardIcons[iconIndex].preserveAspect = true;
                     ItemGradeVisual.Apply(rewardIcons[iconIndex], null);
-                    rewardAmounts[iconIndex].text = string.Empty;
                     iconIndex++;
                 }
+            if (hasExperience && iconIndex < rewardIcons.Length)
+            {
+                names.Add("EXP");
+                var icons = Resources.Load<EasternFantasy.Quest.QuestRewardIcons>("UI/QuestRewards/Icons");
+                var image = rewardIcons[iconIndex++];
+                image.sprite = icons != null ? icons.experience : Resources.Load<Sprite>("UI/QuestRewards/Experience");
+                image.enabled = image.sprite != null;
+                image.preserveAspect = true;
+                ItemGradeVisual.Apply(image, null);
+            }
             for (int i = iconIndex; i < rewardIcons.Length; i++)
-            { rewardIcons[i].enabled = false; ItemGradeVisual.Apply(rewardIcons[i], null); rewardAmounts[i].text = string.Empty; }
+            { rewardIcons[i].enabled = false; ItemGradeVisual.Apply(rewardIcons[i], null); }
+            foreach (var amount in rewardAmounts)
+            {
+                if (amount == null) continue;
+                amount.text = string.Empty;
+                amount.gameObject.SetActive(false);
+            }
             rewardText.text = names.Count > 0 ? "클리어 보상" : "클리어 보상  미설정";
             for (int i = 0; i < entries.Count; i++) entries[i].SetSelected(boundDungeons[i] == dungeon);
             enterButton.interactable = !loading && CanEnter(dungeon);
             message.text = dungeon != null && !CanEnter(dungeon) ? "입장 조건 또는 연결된 씬을 확인해 주세요." : string.Empty;
+            if (IsTutorialRunning && dungeon != null) tutorial.CompleteAction();
         }
         public void EnterSelected()
         {
-            if (IsTutorialRunning) return;
+            if (IsTutorialRunning)
+            {
+                if (tutorial.CurrentStep != 4 || !CanEnter(Selected)) return;
+            }
             if (!IsOpen || loading || player == null || DungeonRunController.Instance != null || PortalSceneTransition.IsTransitioning || !CanEnter(Selected)) return;
             if (player.GetComponent<PlayerEntity>() is PlayerEntity entity && entity.IsDead) return;
+            if (IsTutorialRunning) CompleteTutorial();
             string destination = Selected.sceneName;
             if (!player.TryGetComponent<PlayerLocationSetter>(out _)) player.gameObject.AddComponent<PlayerLocationSetter>();
             if (!PortalSceneTransition.TryLoad(destination, Selected.spawnPointName,
@@ -234,53 +251,6 @@ namespace EasternFantasy.UI
             if (windowRoot != null) windowRoot.SetActive(false);
             if (player != null) player.ClearInput();
             GameTimeController.SetPaused(this, false);
-        }
-        private void BeginTutorial()
-        {
-            if (tutorialCompletedClasses.Contains(CharacterSelectionState.SelectedClass) || IsTutorialRunning) return;
-            tutorialInput = player.GetComponent<PlayerInputReader>();
-            if (tutorialInput != null) { tutorialInputWasEnabled = tutorialInput.enabled; tutorialInput.enabled = false; }
-            tutorialCanvas = new GameObject("DungeonTutorialCanvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
-            var canvas = tutorialCanvas.GetComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay; canvas.sortingOrder = 5000;
-            var scaler = tutorialCanvas.GetComponent<CanvasScaler>(); scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1920,1080); scaler.matchWidthOrHeight = .5f;
-            Canvas.ForceUpdateCanvases();
-            var canvasRect = (RectTransform)tutorialCanvas.transform;
-            tutorialPanel = list.transform.parent as RectTransform;
-            tutorialPosition = tutorialPanel.position; tutorialScale = tutorialPanel.localScale;
-            var corners = new Vector3[4]; tutorialPanel.GetWorldCorners(corners);
-            Vector2 min = canvasRect.InverseTransformPoint(corners[0]), max = canvasRect.InverseTransformPoint(corners[2]);
-            float fit = Mathf.Min(1f, canvasRect.rect.width*.46f / Mathf.Max(1f,max.x-min.x), canvasRect.rect.height*.82f / Mathf.Max(1f,max.y-min.y));
-            tutorialPanel.localScale *= fit;
-            var center = canvasRect.TransformPoint(canvasRect.rect.min + new Vector2(canvasRect.rect.width*.25f,canvasRect.rect.height*.53f));
-            tutorialPanel.position += center - tutorialPanel.TransformPoint(tutorialPanel.rect.center);
-            var overlay = new GameObject("DungeonGuide", typeof(RectTransform), typeof(PetCompanionTutorialUI));
-            overlay.transform.SetParent(tutorialCanvas.transform,false); tutorial = overlay.GetComponent<PetCompanionTutorialUI>();
-            tutorial.ShowCustom(dungeonName.font, "던전 튜토리얼",
-                new[] { "1. 던전 목록에서 선택", "2. 선택한 던전 정보", "3. 입장 조건과 제한시간", "4. 특별한 클리어 보상", "5. 준비가 되면 던전 입장" },
-                new[] {
-                    "던전 목록에서 도전하고 싶은 던전을 고를 수 있습니다.\n목록이 길면 스크롤해서 다른 던전도 살펴보세요.\n이 안내에서는 현재 선택된 던전을 예시로 보여 드립니다.",
-                    "던전을 선택하면 해당 던전의 정보가 표시됩니다.\n이름과 설명, 미리보기 이미지, 입장 레벨, 제한시간,\n몬스터와 보상 정보를 확인하고 도전을 준비하세요.",
-                    "던전마다 입장에 필요한 레벨과 조건이 있습니다.\n조건을 충족해야 입장 버튼을 사용할 수 있어요.\n제한시간이 있는 던전은 시간 안에 목표를 달성해야 합니다.\n던전 안에서는 메뉴를 열어도 제한시간이 흐르니 주의하세요.",
-                    "던전을 클리어하면 특별한 보상을 얻을 수 있습니다.\n보상은 던전마다 다르므로 도전할 던전의 보상 정보를 살펴보세요.\n던전의 목표를 달성하고 클리어에 도전해 보세요!",
-                    "도전할 던전을 고르고 준비가 끝나면 던전 입장 버튼을 누르세요.\n최초 발견 후에는 어디서든 O키로 던전 창을 열 수 있어요.\nO키, 닫기 버튼이나 ESC키로 창을 닫을 수 있습니다.\n던전 진행 중에는 다시 입장할 수 없습니다." },
-                new[] { list.viewport != null ? list.viewport : (RectTransform)list.transform,
-                    preview.rectTransform.parent as RectTransform, levelText.rectTransform, rewardText.rectTransform, (RectTransform)enterButton.transform },
-                null, CompleteTutorial, true, false);
-        }
-        private void CompleteTutorial()
-        {
-            tutorialCompletedClasses.Add(CharacterSelectionState.SelectedClass);
-            EndTutorial();
-        }
-        private void EndTutorial()
-        {
-            if (tutorialCanvas == null) return;
-            if (tutorial != null) tutorial.Hide();
-            if (tutorialPanel != null) { tutorialPanel.position = tutorialPosition; tutorialPanel.localScale = tutorialScale; }
-            if (tutorialInput != null) tutorialInput.enabled = tutorialInputWasEnabled;
-            if (player != null) player.ClearInput();
-            Destroy(tutorialCanvas); tutorialCanvas = null; tutorial = null;
         }
         private void OnDisable() => Close();
         private void SceneChanged(Scene previous, Scene next) => Close();

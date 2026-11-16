@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586f67a596c613d41b40feefe26f86aa, type: 3}
   m_Name: Armor_Common_To_Rare
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.EquipmentUpgrade.EquipmentUpgradeRecipe
-  configured: 0
+  configured: 1
   equipmentKind: 1
   sourceGrade: 0
-  costYeopjeon: 0
-  materials: []
+  costYeopjeon: 500
+  materials:
+  - item: {fileID: 11400000, guid: b4b04f5ff7df8584e871bda12269733c, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: a8187da46ff350145b329f1397a40e7e, type: 2}
+    quantity: 10

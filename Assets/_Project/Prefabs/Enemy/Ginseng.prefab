@@ -227,9 +227,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MON_Ginseng
   target: {fileID: 0}
-  _maxHP: 60
-  _attackPower: 10
-  _moveSpeed: 1.4
+  monsterDisplayName: 
+  nameplateShowDistance: 4
+  nameplateHitDuration: 5
+  _maxHP: 140
+  _attackPower: 20
+  _moveSpeed: 1.6
   detectionShape: 1
   _detectRange: 5
   detectionHalfHeight: 1.4

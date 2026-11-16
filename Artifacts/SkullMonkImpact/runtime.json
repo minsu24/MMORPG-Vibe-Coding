@@ -1,0 +1,27 @@
+{
+  "reports": [
+    {
+      "side": 1.0,
+      "before": 100.0,
+      "after": 70.87379,
+      "single": true,
+      "stop": true,
+      "resumed": true,
+      "burst": true,
+      "finished": true
+    },
+    {
+      "side": -1.0,
+      "before": 100.0,
+      "after": 70.87379,
+      "single": true,
+      "stop": true,
+      "resumed": true,
+      "burst": true,
+      "finished": true
+    }
+  ],
+  "whiff": true,
+  "interrupted": true,
+  "method": "Deterministic Animator.Update in Play Mode; expiry advanced to positive elapsed time for resume check"
+}

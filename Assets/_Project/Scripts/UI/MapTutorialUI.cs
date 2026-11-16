@@ -30,15 +30,12 @@ namespace EasternFantasy.UI
         private int openedFrame;
 
         private static readonly string[] Titles = {
-            "1. M키로 맵 열기", "2. 게임 전체 맵 살펴보기", "3. 아직 도달하지 못한 지역",
-            "4. 아이콘으로 현재 위치 확인", "5. 섬을 눌러 상세 맵 보기", "6. 상세 맵의 현재 위치" };
+            "1. 맵 직접 열기", "2. 현재 지역 클릭", "3. 상세 맵 확인", "4. 맵 안내 완료" };
         private static readonly string[] Messages = {
-            "M키를 누르면 맵을 열 수 있습니다.\n여행을 시작하기 전에 맵을 함께 살펴볼까요?\nM키를 누르거나 다음 버튼을 눌러 맵을 펼쳐 보세요.",
-            "이 화면에서 게임 전체 맵을 볼 수 있습니다.\n여러 섬과 지역의 위치를 살펴보고\n앞으로 여행할 곳을 확인해 보세요.",
-            "아직 도달하지 못한 지역은 이름이 ???로 표시되고\n흐릿하게 보입니다.\n직접 그 지역에 도달하면 이름과 모습이 밝혀집니다.",
-            "맵의 캐릭터 아이콘이 현재 위치를 표시합니다.\n어느 섬에 있는지 궁금할 때는 이 아이콘을 찾아보세요.",
-            "방문한 섬을 누르면 그 섬에 속한 각 맵의\n상세 맵을 볼 수 있습니다.\n강조된 섬을 직접 누르거나 다음 버튼을 눌러 보세요.",
-            "상세 맵에서도 미방문 지역은 먹안개와 ???로 표시됩니다.\n현재 지역은 금색 띠와 캐릭터 아이콘으로 강조합니다.\n퀘스트로 알게 된 목적지는 방문 전에 이름만 먼저 공개됩니다.\n안내를 마친 뒤에는 M키로 언제든 맵을 확인하세요!" };
+            "M키를 직접 눌러 맵을 열어 보세요.",
+            "캐릭터 아이콘이 있는 섬이 현재 지역이에요.\n강조된 섬을 직접 클릭하세요.",
+            "금색 띠와 캐릭터 아이콘이 현재 위치예요.\n전체 맵으로 돌아가는 버튼을 클릭하세요.",
+            "???는 아직 방문하지 않은 지역이에요.\n안내 후 M키로 언제든 맵을 열 수 있어요." };
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetSession() { completedClasses.Clear(); active = null; }
@@ -67,11 +64,28 @@ namespace EasternFantasy.UI
                 return;
             }
             if (Time.frameCount == openedFrame) return;
-            if (guide.CurrentStep == 4 && map.IsShowingDetail) { guide.Advance(); return; }
             var keyboard = Keyboard.current;
-            if (keyboard == null) return;
-            if (keyboard.spaceKey.wasPressedThisFrame
-                || (guide.CurrentStep == 0 && keyboard.mKey.wasPressedThisFrame)) guide.Advance();
+            if (keyboard != null)
+            {
+                if (guide.CurrentStep == 0 && keyboard.mKey.wasPressedThisFrame) HandleOpenMap();
+                if (keyboard.spaceKey.wasPressedThisFrame) guide.Advance();
+            }
+            EvaluateProgress();
+        }
+
+        private void HandleOpenMap()
+        {
+            if (!running || CurrentStep != 0) return;
+            map.Open();
+            EvaluateProgress();
+        }
+
+        private void EvaluateProgress()
+        {
+            if (CurrentStep == 0 && map.IsOpen
+                || CurrentStep == 1 && map.IsShowingCurrentRegionForTutorial
+                || CurrentStep == 2 && map.IsOpen && !map.IsShowingDetail)
+                guide.CompleteAction();
         }
 
         private void Begin(PlayerInputReader player)
@@ -101,32 +115,36 @@ namespace EasternFantasy.UI
                 targets, PrepareStep, Complete, true, false);
             // MapWindow renders at 6000; the guide and its pointer mask must be above it.
             guide.GetComponent<Canvas>().sortingOrder = 7100;
+            guide.SetCompactBottomLayout();
         }
 
         private void PrepareStep(int step)
         {
-            guide.SetKeyHint("keyboard_m", "키로 맵을 열고 닫을 수 있습니다.");
-            guide.SetFocusInteraction(step == 4);
+            guide.SetFocusInteraction(step == 1 || step == 2);
             if (step == 0)
             {
                 map.CloseInstant();
                 targets[step] = null;
+                guide.SetKeyHint("keyboard_m", "키를 눌러 맵을 여세요.");
+                guide.RequireAction("M키를 직접 눌러 주세요.");
                 return;
             }
-            if (!map.IsOpen) map.Open();
-            if (step == 5) map.ShowCurrentRegionForTutorial(); else map.ShowOverview();
+            guide.ClearKeyHint();
             PlaceMap();
             switch (step)
             {
-                case 1: targets[step] = map.TutorialOverview; break;
-                case 2:
-                    targets[step] = map.TutorialOverview;
-                    foreach (var island in map.GetComponentsInChildren<MapIslandDiscoveryUI>(true))
-                        if (!island.IsDiscovered) { targets[step] = island.transform as RectTransform; break; }
+                case 1:
+                    targets[step] = map.TutorialIsland;
+                    guide.RequireAction("강조된 섬을 클릭하세요.");
                     break;
-                case 3: targets[step] = location.OverviewTutorialTarget; break;
-                case 4: targets[step] = map.TutorialIsland; break;
-                case 5: targets[step] = map.TutorialDetail; break;
+                case 2:
+                    targets[step] = map.TutorialBackButton;
+                    guide.RequireAction("전체 맵으로 돌아가는 버튼을 클릭하세요.");
+                    break;
+                case 3:
+                    targets[step] = map.TutorialOverview;
+                    guide.SetControlsHint("Space 또는 안내 완료");
+                    break;
             }
         }
 
@@ -137,12 +155,21 @@ namespace EasternFantasy.UI
         private void PlaceMap()
         {
             if (canvasRect == null || panel == null) return;
-            // The overview artwork is enlarged inside the panel; fit that artwork too.
-            float artworkScale = !map.IsShowingDetail && map.TutorialOverview != null
-                ? Mathf.Max(1f, map.TutorialOverview.localScale.x) : 1f;
-            panel.localScale = originalScale * Mathf.Min(.47f, .46f / artworkScale);
-            Vector2 center = canvasRect.rect.center + Vector2.left * canvasRect.rect.width * .25f;
-            panel.position = canvasRect.TransformPoint(center);
+            // Reserve a short bottom strip for instructions and fit the actual map artwork above it.
+            panel.localPosition = originalPosition;
+            panel.localScale = originalScale;
+            var artwork = map.IsShowingDetail ? map.TutorialDetail : map.TutorialOverview;
+            if (artwork == null) return;
+            var corners = new Vector3[4]; artwork.GetWorldCorners(corners);
+            Vector2 min = canvasRect.InverseTransformPoint(corners[0]);
+            Vector2 max = canvasRect.InverseTransformPoint(corners[2]);
+            float reserved = Mathf.Min(280f, canvasRect.rect.height * .3f);
+            float fit = Mathf.Min(1f, (canvasRect.rect.width - 48f) / Mathf.Max(1f, max.x - min.x),
+                (canvasRect.rect.height - reserved - 24f) / Mathf.Max(1f, max.y - min.y));
+            panel.localScale *= fit;
+            Vector2 center = canvasRect.rect.min + new Vector2(canvasRect.rect.width * .5f,
+                reserved + (canvasRect.rect.height - reserved) * .5f);
+            panel.position += canvasRect.TransformPoint(center) - artwork.TransformPoint(artwork.rect.center);
         }
         private void Complete()
         {

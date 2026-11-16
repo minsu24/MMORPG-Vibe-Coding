@@ -1,0 +1,23 @@
+PASS Consumables, materials and another class's weapon do not start the tutorial
+PASS Acquiring usable equipment queues the tutorial even if a dialogue delays it
+PASS Acquiring usable equipment waits for I with both windows closed
+PASS Space, next and J cannot bypass the I action
+PASS I action opens only the large inventory
+PASS Inventory uses a large readable panel rather than a shrunken two-window layout
+PASS Required equip action cannot be skipped
+PASS Another item and next do not complete the required equip action
+PASS Guide permits clicks on the acquired inventory item (hit: InventorySlot_1)
+PASS Actual inventory double-click equips the acquired item and advances
+PASS Equipping waits for J rather than automatically opening equipment
+PASS Space, next and I cannot bypass the J action
+PASS J action opens only the large equipment window
+PASS Equipment confirmation also uses a large readable panel
+PASS Completion preserves equipped gear and unlocks both windows
+PASS Player input and closed window layout are restored
+PASS Completion is captured by the existing save format
+PASS Completed saves do not replay the guide
+PASS Incomplete saves recover using owned gear without a new drop
+PASS Resumed guide can complete the same direct equip flow
+PASS Interrupted guide restores input without falsely recording completion
+PASS Interrupted guide can restart in the same session
+COMPLETE

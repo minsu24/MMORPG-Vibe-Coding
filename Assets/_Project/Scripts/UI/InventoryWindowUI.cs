@@ -33,6 +33,11 @@ namespace EasternFantasy.UI
             (category == ItemCategory.Equipment || category == ItemCategory.Accessory ? equipmentTab
                 : category == ItemCategory.Consumable ? consumableTab : miscellaneousTab).transform as RectTransform;
         public RectTransform TutorialItemTarget { get { foreach (var slot in slots) if (slot != null && slot.Definition != null) return slot.transform as RectTransform; return TutorialTarget; } }
+        public RectTransform TutorialItemTargetFor(ItemDefinition item)
+        {
+            foreach (var slot in slots) if (slot != null && slot.Definition == item) return slot.transform as RectTransform;
+            return TutorialTarget;
+        }
         public bool IsUnlocked => InventoryEquipmentTutorialUI.HasFinishedForCurrentClass;
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
         public ItemCategory SelectedCategory => selectedCategory;

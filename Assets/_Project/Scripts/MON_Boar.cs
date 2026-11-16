@@ -23,6 +23,7 @@ public sealed partial class MON_Boar : PersistentBossController
 
     private float nextAttackTime, phaseEnds, chargeDirection, chargeEndX;
     private bool chargeHit;
+    private bool deathImpactPlayed;
     private GiantAttackVisual warning;
     private BoarChargeAudio chargeAudio;
     private readonly List<Collider2D> ignoredPlayerColliders = new List<Collider2D>();
@@ -121,9 +122,9 @@ public sealed partial class MON_Boar : PersistentBossController
             if (entity == null || chargeHit) continue;
             chargeHit = true;
             if (chargeAudio != null) chargeAudio.PlayImpact();
-            float before = entity.HP;
+            uint before = entity.HitReactionVersion;
             entity.TakeDamage(Attack_Power);
-            if (!entity.IsDead && entity.HP < before) entity.ApplyKnockback(chargeDirection);
+            if (!entity.IsDead && entity.HitReactionVersion != before) entity.ApplyKnockback(chargeDirection);
         }
         rb.linearVelocity = new Vector2(chargeDirection * step / Time.fixedDeltaTime, rb.linearVelocity.y);
     }
@@ -159,7 +160,16 @@ public sealed partial class MON_Boar : PersistentBossController
     protected override void OnDefeated()
     {
         FinishCharge();
+        EnemyDeathAudio.PlayFor(this, "Audio/BoarDeath");
         base.OnDefeated();
+    }
+
+    // Animation event on the first frame where the body lands on its side.
+    public void PlayDeathGroundImpact()
+    {
+        if (HP > 0f || deathImpactPlayed) return;
+        deathImpactPlayed = true;
+        EnemyAttackAudio.PlayAt(gameObject, "Audio/EnemyDeathGroundImpact");
     }
 
     protected override void OnDisable()

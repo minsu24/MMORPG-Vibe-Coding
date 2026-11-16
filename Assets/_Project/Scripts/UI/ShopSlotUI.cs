@@ -23,6 +23,7 @@ namespace EasternFantasy.UI
         {
             owner = shopWindow;
             button.onClick.RemoveAllListeners();
+            button.GetComponent<UIButtonClickAudio>()?.Rebind();
             ConfigureLayout();
             Clear();
         }
