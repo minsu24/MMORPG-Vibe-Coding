@@ -284,7 +284,7 @@ namespace EasternFantasy.Player
             NotifyResolvedDamage(appliedDamage);
         }
 
-        // Boss ground waves deal an exact fraction of maximum health, without armor scaling.
+        // Boss attacks can deal an exact fraction of maximum health, without armor scaling.
         // Keep normal immunity/parry checks, damage events, combat state and death handling.
         public void TakeMaxHealthDamage(float fraction)
         {

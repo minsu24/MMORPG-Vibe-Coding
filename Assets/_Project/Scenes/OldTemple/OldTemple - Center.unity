@@ -1227,33 +1227,35 @@ MonoBehaviour:
   giantStaffHighResolutionSprite: {fileID: -1717688383, guid: 2df568504f392b846a2ce0a0df8225c2, type: 3}
   giantStaffImpactHeight: 2.4
   giantStaffCooldown: 24
-  giantStaffWarningSeconds: 3.5
+  giantStaffWarningSeconds: 2.5
   giantStaffEdgeSafety: 5
+  giantStaffMaxWidth: 26
+  giantStaffGroundVisualOffset: 0.4
   requireIntroDialogue: 1
   introDialogue: {fileID: 11400000, guid: b6da9737287c0784e83c635a6aa619dc, type: 2}
   introDialogueUiPrefab: {fileID: 125018391400522474, guid: 36619939b13d43c458c3b1b4979b2501, type: 3}
   prayerExplosionFrames:
-  - {fileID: -2127773752, guid: f502affcf1580a94f89f75eec71316e1, type: 3}
-  - {fileID: 235201172, guid: f502affcf1580a94f89f75eec71316e1, type: 3}
-  - {fileID: -1671161695, guid: f502affcf1580a94f89f75eec71316e1, type: 3}
-  - {fileID: -1021154612, guid: f502affcf1580a94f89f75eec71316e1, type: 3}
-  - {fileID: 331074916, guid: f502affcf1580a94f89f75eec71316e1, type: 3}
-  - {fileID: -1942769637, guid: f502affcf1580a94f89f75eec71316e1, type: 3}
-  - {fileID: -821260181, guid: f502affcf1580a94f89f75eec71316e1, type: 3}
-  - {fileID: 1955626265, guid: f502affcf1580a94f89f75eec71316e1, type: 3}
+  - {fileID: -2096575090, guid: 57f48249469aa5847b558fc3cefe0ae2, type: 3}
+  - {fileID: 1062841366, guid: 57f48249469aa5847b558fc3cefe0ae2, type: 3}
+  - {fileID: 895850286, guid: 57f48249469aa5847b558fc3cefe0ae2, type: 3}
+  - {fileID: 518984233, guid: 57f48249469aa5847b558fc3cefe0ae2, type: 3}
+  - {fileID: -1762392005, guid: ab7cec3bc8facb14ba9b2486dae4e094, type: 3}
+  - {fileID: -1239626448, guid: ab7cec3bc8facb14ba9b2486dae4e094, type: 3}
+  - {fileID: 1016250594, guid: ab7cec3bc8facb14ba9b2486dae4e094, type: 3}
+  - {fileID: 2094900396, guid: ab7cec3bc8facb14ba9b2486dae4e094, type: 3}
   prayerDissolveFrames:
-  - {fileID: 1572000428, guid: 6eed9f2b254f6f54486ba8289d614191, type: 3}
-  - {fileID: -309531348, guid: 6eed9f2b254f6f54486ba8289d614191, type: 3}
-  - {fileID: -910520990, guid: 6eed9f2b254f6f54486ba8289d614191, type: 3}
-  - {fileID: -348696671, guid: 6eed9f2b254f6f54486ba8289d614191, type: 3}
-  - {fileID: 1909511397, guid: 6eed9f2b254f6f54486ba8289d614191, type: 3}
+  - {fileID: -2115521769, guid: fdb171fbb84430c499df71a3e70568b6, type: 3}
+  - {fileID: -1705364934, guid: fdb171fbb84430c499df71a3e70568b6, type: 3}
+  - {fileID: 718171498, guid: fdb171fbb84430c499df71a3e70568b6, type: 3}
+  - {fileID: -808973616, guid: fdb171fbb84430c499df71a3e70568b6, type: 3}
+  - {fileID: 343017656, guid: fdb171fbb84430c499df71a3e70568b6, type: 3}
   prayerLeftWall: {fileID: 1584826980}
   prayerRightWall: {fileID: 1265372691}
-  prayerCooldown: 20
+  prayerCooldown: 18
   prayerWarningSeconds: 0.95
   prayerJumpHeight: 16
   prayerExplosionHeight: 18
-  prayerDamageMultiplier: 1.5
+  prayerMaxHealthDamageFraction: 0.5
   rotatingRingFrames:
   - {fileID: -1909852526, guid: d00152fd6f804a849a8f08e16e7d7430, type: 3}
   - {fileID: -575583475, guid: d00152fd6f804a849a8f08e16e7d7430, type: 3}
@@ -1272,10 +1274,10 @@ MonoBehaviour:
   - {fileID: 1502449578, guid: 68df7d3ba32f4a742b26d01c4ebdfc2f, type: 3}
   - {fileID: 1943993042, guid: 68df7d3ba32f4a742b26d01c4ebdfc2f, type: 3}
   - {fileID: -1022222239, guid: 68df7d3ba32f4a742b26d01c4ebdfc2f, type: 3}
-  ringCooldown: 14
+  ringCooldown: 12
   ringLaunchInterval: 0.55
   ringTrackingSeconds: 0.4
-  waveCooldown: 12
+  waveCooldown: 10
   waveSpeed: 12
   waveHeight: 0.45
   waveArenaBounds: {fileID: 229384508}
@@ -1290,6 +1292,11 @@ MonoBehaviour:
   attackVerticalRange: 2
   attackDownwardRange: 3.5
   attackCooldown: 1.8
+  meleeWeight: 35
+  waveWeight: 20
+  ringWeight: 20
+  prayerWeight: 15
+  giantStaffWeight: 10
   thrustEffectFrames:
   - {fileID: 1344099105, guid: 838ed6d3d75d073448a320e16a7d9073, type: 3}
   - {fileID: -1649275869, guid: 838ed6d3d75d073448a320e16a7d9073, type: 3}

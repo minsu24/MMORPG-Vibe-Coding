@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "sceneObject": "GoblinBlacksmith",
+  "defaultIdle": true,
+  "intermittentHammer": true,
+  "returnsToIdle": true,
+  "existingInteractionRoute": true,
+  "correctPortrait": true,
+  "existingUpgradeUiOpens": true,
+  "duplicateInteractionBlocked": true,
+  "colliderIsTrigger": true
+}

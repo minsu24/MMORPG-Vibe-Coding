@@ -8,7 +8,7 @@ public sealed class SkullMonkStaffRing : MonoBehaviour
     private PlayerEntity target;
     private SpriteRenderer visual;
     private Sprite[] spinFrames, flightFrames;
-    private float elapsed, trackingDuration, damage, impactAge;
+    private float elapsed, trackingDuration, maxHealthDamageFraction, impactAge;
     private int slot;
     private bool launched, locked, impacted;
     private Vector2 travelDirection;
@@ -35,10 +35,10 @@ public sealed class SkullMonkStaffRing : MonoBehaviour
         int frame=step<8?step:14-step;
         visual.sprite=spinFrames[frame];
     }
-    public void Launch(PlayerEntity player,float attackDamage,float homingSeconds)
+    public void Launch(PlayerEntity player,float maxHealthDamageFraction,float homingSeconds)
     {
         if(launched)return;
-        launched=true;target=player;damage=attackDamage;trackingDuration=Mathf.Max(0,homingSeconds);
+        launched=true;target=player;this.maxHealthDamageFraction=Mathf.Clamp01(maxHealthDamageFraction);trackingDuration=Mathf.Max(0,homingSeconds);
         elapsed=impactAge=0;locked=trackingDuration<=0;
         transform.SetParent(null,true);
         var scale=transform.localScale;transform.localScale=new Vector3(Mathf.Abs(scale.x),Mathf.Abs(scale.y),Mathf.Abs(scale.z));
@@ -81,7 +81,7 @@ public sealed class SkullMonkStaffRing : MonoBehaviour
                 }
             }
             if(step<=.000001f){locked=true;continue;}
-            float speed=Mathf.Lerp(7.5f,12f,Mathf.Clamp01((elapsed+step)/.4f));
+            float speed=Mathf.Lerp(9.75f,15.6f,Mathf.Clamp01((elapsed+step)/.4f));
             Move(step*speed);
             elapsed+=step;remaining-=step;
             if(elapsed>=trackingDuration-.000001f)locked=true;
@@ -111,7 +111,13 @@ public sealed class SkullMonkStaffRing : MonoBehaviour
             transform.position+=(Vector3)(travelDirection*nearestDistance);
             impacted=true;impactAge=0;visual.sprite=flightFrames[6];transform.rotation=Quaternion.identity;
             var player=nearest.collider.GetComponentInParent<PlayerEntity>();
-            if(player!=null&&!player.IsDead)player.TakeDamage(damage);
+            if(player!=null&&!player.IsDead)
+            {
+                uint previousHit=player.HitReactionVersion;
+                player.TakeMaxHealthDamage(maxHealthDamageFraction);
+                if(!player.IsDead&&player.HitReactionVersion!=previousHit)
+                    player.ApplyKnockback(travelDirection.x>=0f?1f:-1f);
+            }
             return;
         }
         transform.position+=(Vector3)(travelDirection*distance);

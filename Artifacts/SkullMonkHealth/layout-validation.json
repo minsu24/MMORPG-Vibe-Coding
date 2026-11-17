@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "layouts": [
+    {
+      "resolution": "(1280, 720)",
+      "playerHP": "(x:-14.67, y:638.67, width:333.33, height:66.67)",
+      "bossHP": "(x:333.33, y:662.00, width:613.33, height:50.00)",
+      "overlap": false
+    },
+    {
+      "resolution": "(1920, 1080)",
+      "playerHP": "(x:-22.00, y:958.00, width:500.00, height:100.00)",
+      "bossHP": "(x:500.00, y:993.00, width:920.00, height:75.00)",
+      "overlap": false
+    },
+    {
+      "resolution": "(2560, 1440)",
+      "playerHP": "(x:-29.33, y:1277.33, width:666.67, height:133.33)",
+      "bossHP": "(x:666.67, y:1324.01, width:1226.67, height:99.99)",
+      "overlap": false
+    },
+    {
+      "resolution": "(1920, 1200)",
+      "playerHP": "(x:-22.00, y:1018.00, width:500.00, height:100.00)",
+      "bossHP": "(x:499.20, y:1112.23, width:921.60, height:75.13)",
+      "overlap": false
+    },
+    {
+      "resolution": "(1024, 768)",
+      "playerHP": "(x:-11.73, y:606.93, width:266.67, height:53.33)",
+      "bossHP": "(x:266.24, y:720.54, width:491.52, height:40.07)",
+      "overlap": false
+    },
+    {
+      "resolution": "(2560, 1080)",
+      "playerHP": "(x:-29.33, y:1097.33, width:666.67, height:133.33)",
+      "bossHP": "(x:748.84, y:979.55, width:1062.33, height:86.60)",
+      "overlap": false
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "eligibilityChecks": 19392,
+  "fullPoolCounts": [
+    3500,
+    2000,
+    2000,
+    1500,
+    1000
+  ],
+  "sequentialDrawsWithoutRepeat": 10000,
+  "zeroAndNegativeWeightsExcluded": true,
+  "singleRepeatWaits": true,
+  "savedCooldowns": [
+    1.8,
+    10.0,
+    12.0,
+    18.0,
+    24.0
+  ],
+  "openingOrderRandom": true
+}

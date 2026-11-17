@@ -4,7 +4,7 @@ using UnityEngine;
 public sealed partial class MON_SkullMonk
 {
     [Header("Five ground waves")]
-    [SerializeField, Min(1f)] private float waveCooldown = 12f;
+    [SerializeField, Min(1f)] private float waveCooldown = 10f;
     [SerializeField, Min(1f)] private float waveSpeed = 12f;
     [SerializeField, Min(.1f)] private float waveHeight = .45f;
     [SerializeField] private Collider2D waveArenaBounds;
@@ -24,10 +24,7 @@ public sealed partial class MON_SkullMonk
     {
         base.Start();
         InitializeIntro();
-        nextWaveAt = Time.time + 5f;
-        nextRingAt = Time.time + 9f;
-        nextPrayerAt = Time.time + 13f;
-        nextGiantStaffAt = Time.time + 17f;
+        ResetPatternSelection();
     }
 
     private bool CanStartWavePattern()

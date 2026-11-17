@@ -77,7 +77,6 @@ namespace EasternFantasy.Skill
             else if (skill == teleportSkill)
             {
                 if (animationController.IsAttacking && !animationController.CanChainBasicAttack) return false;
-                animationController.CancelBasicAttack();
                 animationController.RefreshAttackFacing();
                 // Up takes priority over horizontal input, including diagonal input.
                 // TeleportTo clears velocity; normal gravity and platform collisions
@@ -86,10 +85,12 @@ namespace EasternFantasy.Skill
                     ? Vector3.up
                     : Vector3.right * animationController.FacingDirectionX;
                 Vector3 origin = transform.position;
+                Vector3 destination = movement.ResolveSkillTeleportPosition(
+                    origin + direction * skill.GetTeleportDistance(skillSystem.GetSkillLevel(skill)));
+                if ((destination - origin).sqrMagnitude <= .0001f) return false;
+                animationController.CancelBasicAttack();
                 SpawnTeleportEffect(origin);
-                movement.TeleportTo(
-                    origin + direction * skill.GetTeleportDistance(skillSystem.GetSkillLevel(skill)),
-                    transform.rotation);
+                movement.TeleportTo(destination, transform.rotation);
                 SpawnTeleportEffect(transform.position, true);
                 PlaySkillSound(teleportSound, teleportSoundVolume);
                 cast = true;

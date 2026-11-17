@@ -21,6 +21,7 @@ namespace EasternFantasy.Player
         private PlayerIdleAnimation playerIdleAnimation;
         private readonly RaycastHit2D[] groundHits = new RaycastHit2D[8];
         private RaycastHit2D[] dashHits = new RaycastHit2D[16];
+        private RaycastHit2D[] teleportHits = new RaycastHit2D[16];
         public Rigidbody2D body;
         private CapsuleCollider2D bodyCollider;
         private PlayerEntity playerEntity;
@@ -334,6 +335,38 @@ namespace EasternFantasy.Player
             if (!float.IsPositiveInfinity(nearest))
                 position.y = floorY + (transform.position.y - bounds.min.y) + 0.005f;
             return position;
+        }
+
+        // Skill teleports sweep the whole body so thin/invisible walls also block the path.
+        // Portal, respawn and save restoration continue to use the unrestricted TeleportTo.
+        public Vector3 ResolveSkillTeleportPosition(Vector3 destination)
+        {
+            Vector3 origin = transform.position;
+            Vector2 delta = destination - origin;
+            float distance = delta.magnitude;
+            if (bodyCollider == null || distance <= .0001f) return origin;
+            Physics2D.SyncTransforms();
+            Vector2 direction = delta / distance;
+            var filter = new ContactFilter2D();
+            filter.SetLayerMask(PassThroughObstacleMask);
+            filter.useTriggers = false;
+            int count;
+            do
+            {
+                count = bodyCollider.Cast(direction, filter, teleportHits, distance + .02f);
+                if (count < teleportHits.Length) break;
+                System.Array.Resize(ref teleportHits, teleportHits.Length * 2);
+            } while (true);
+            for (int i = 0; i < count; i++)
+            {
+                var hit = teleportHits[i];
+                if (hit.collider == null || hit.collider.GetComponentInParent<EnemyController>() != null) continue;
+                // One-way platforms permit rising through their underside, just like a jump.
+                if (direction.y >= 0f && IsOneWayPlatform(hit.collider)) continue;
+                if (Vector2.Dot(hit.normal, direction) >= -.1f) continue;
+                distance = Mathf.Min(distance, Mathf.Max(0f, hit.distance - .02f));
+            }
+            return origin + (Vector3)(direction * distance);
         }
 
         public void TeleportTo(Vector3 position, Quaternion rotation)

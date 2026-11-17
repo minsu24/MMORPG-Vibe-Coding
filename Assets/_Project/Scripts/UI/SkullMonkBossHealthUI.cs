@@ -7,6 +7,9 @@ namespace EasternFantasy.UI
 {
     public sealed class SkullMonkBossHealthUI : MonoBehaviour
     {
+        // Reserve the upper-left player HUD area even when the canvases scale differently.
+        public const float MaximumPanelWidth = 920f;
+        public const float PanelWidthFraction = .48f;
         public CanvasGroup visibility;
         public RectTransform panel;
         public Slider health;
@@ -35,12 +38,11 @@ namespace EasternFantasy.UI
                 ref gaugeTarget, ref gaugeTween);
             healthText.SetText("{0:0} / {1:0}", boss.HP, boss.maxHP);
             float width = ((RectTransform)panel.parent).rect.width;
-            float panelWidth = Mathf.Min(1280f, width * .80f);
+            float panelWidth = Mathf.Min(MaximumPanelWidth, width * PanelWidthFraction);
             float aspect = panel.GetComponent<Image>().sprite.rect.height / panel.GetComponent<Image>().sprite.rect.width;
             panel.sizeDelta = new Vector2(panelWidth, panelWidth * aspect);
             panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(.5f, 1f);
-            // The frame sprite includes 23 source pixels of transparent top padding.
-            panel.anchoredPosition = new Vector2(0, panel.sizeDelta.y * 23f / 524f - 8f);
+            panel.anchoredPosition = new Vector2(0, -12f);
             visibility.alpha = 1;
         }
 

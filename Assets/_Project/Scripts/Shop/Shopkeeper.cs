@@ -10,6 +10,9 @@ namespace EasternFantasy.Shop
     {
         [SerializeField] private ItemDefinition[] stock;
         [SerializeField] private DialogueSequence greetingDialogue;
+        [Header("Optional existing UI prefabs for maps opened directly")]
+        [SerializeField] private GameObject shopWindowPrefab;
+        [SerializeField] private GameObject dialogueUiPrefab;
 
         private DialogueManager activeDialogueManager;
 
@@ -17,6 +20,8 @@ namespace EasternFantasy.Shop
 
         public void Interact()
         {
+            if (ShopWindowUI.Instance != null && ShopWindowUI.Instance.IsOpen) return;
+            EnsureUi();
             if (greetingDialogue == null)
             {
                 OpenShop();
@@ -62,6 +67,7 @@ namespace EasternFantasy.Shop
 
         public void OpenShop()
         {
+            EnsureUi();
             if (ShopWindowUI.Instance == null)
             {
                 Debug.LogWarning("The scene needs a ShopWindowUI.", this);
@@ -69,6 +75,18 @@ namespace EasternFantasy.Shop
             }
 
             ShopWindowUI.Instance.Open(this);
+        }
+
+        private void EnsureUi()
+        {
+            if (ShopWindowUI.Instance == null && shopWindowPrefab != null) CreateUi(shopWindowPrefab);
+            if (DialogueManager.Instance == null && dialogueUiPrefab != null) CreateUi(dialogueUiPrefab);
+        }
+
+        private void CreateUi(GameObject prefab)
+        {
+            var instance = Instantiate(prefab);
+            UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(instance, gameObject.scene);
         }
     }
 }

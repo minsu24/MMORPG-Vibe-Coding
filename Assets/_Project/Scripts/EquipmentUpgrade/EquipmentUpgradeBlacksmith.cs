@@ -8,10 +8,18 @@ namespace EasternFantasy.EquipmentUpgrade
     public sealed class EquipmentUpgradeBlacksmith : MonoBehaviour
     {
         [SerializeField] private DialogueSequence greetingDialogue;
+        [Header("Optional existing UI prefabs for maps opened directly")]
+        [SerializeField] private GameObject upgradeWindowPrefab;
+        [SerializeField] private GameObject dialogueUiPrefab;
         private DialogueManager manager;
         public DialogueSequence GreetingDialogue => greetingDialogue;
         public void Interact()
         {
+            // Reuse live services when arriving from another map; create the same UI only if absent.
+            if (EquipmentUpgradeWindowUI.Instance == null && upgradeWindowPrefab != null)
+                CreateUi(upgradeWindowPrefab);
+            if (DialogueManager.Instance == null && dialogueUiPrefab != null)
+                CreateUi(dialogueUiPrefab);
             if (EquipmentUpgradeWindowUI.Instance == null || EquipmentUpgradeWindowUI.Instance.IsOpen) return;
             var current = DialogueManager.Instance;
             if (greetingDialogue == null || current == null || current.IsDialogueActive || manager != null) return;
@@ -19,6 +27,11 @@ namespace EasternFantasy.EquipmentUpgrade
             manager.DialogueCompleted += OnCompleted;
             manager.DialogueEnded += OnEnded;
             if (!manager.StartDialogue(greetingDialogue)) StopWaiting();
+        }
+        private void CreateUi(GameObject prefab)
+        {
+            var instance = Instantiate(prefab);
+            UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(instance, gameObject.scene);
         }
         private void OnCompleted(DialogueSequence sequence)
         {

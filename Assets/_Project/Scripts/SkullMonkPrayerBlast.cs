@@ -7,9 +7,10 @@ public sealed class SkullMonkPrayerBlast : MonoBehaviour
     private MON_SkullMonk owner;
     private SpriteRenderer visual;
     private Sprite[] explosion, dissolve;
+    private Vector2 explosionReferenceSize, dissolveReferenceSize;
     private LineRenderer warningRing;
     private Material ringMaterial;
-    private float age, warningSeconds, width, height, damage, groundY;
+    private float age, warningSeconds, width, height, maxHealthDamageFraction, groundY;
     private LayerMask playerLayers;
     private readonly Collider2D[] contacts = new Collider2D[12];
     private readonly HashSet<PlayerEntity> victims = new HashSet<PlayerEntity>();
@@ -20,15 +21,17 @@ public sealed class SkullMonkPrayerBlast : MonoBehaviour
     public float ExplosionHeight => height;
 
     public static SkullMonkPrayerBlast Create(MON_SkullMonk owner, Vector2 position, float width, float height,
-        float warningSeconds, float damage, LayerMask layers, Sprite[] explosion, Sprite[] dissolve, SpriteRenderer source)
+        float warningSeconds, float maxHealthDamageFraction, LayerMask layers, Sprite[] explosion, Sprite[] dissolve, SpriteRenderer source)
     {
         var go = new GameObject("Skull Monk Prayer Eruption");
         UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(go, owner.gameObject.scene);
         go.transform.position = position;
         var blast = go.AddComponent<SkullMonkPrayerBlast>();
         blast.owner = owner; blast.width = width; blast.height = height; blast.warningSeconds = warningSeconds;
-        blast.damage = damage; blast.groundY = position.y; blast.playerLayers = layers;
+        blast.maxHealthDamageFraction = Mathf.Clamp01(maxHealthDamageFraction); blast.groundY = position.y; blast.playerLayers = layers;
         blast.explosion = explosion; blast.dissolve = dissolve;
+        blast.explosionReferenceSize = ReferenceSize(explosion);
+        blast.dissolveReferenceSize = ReferenceSize(dissolve);
         var artwork = new GameObject("Eruption artwork"); artwork.transform.SetParent(go.transform, false);
         blast.visual = artwork.AddComponent<SpriteRenderer>();
         blast.visual.sharedMaterial = source.sharedMaterial;
@@ -67,15 +70,28 @@ public sealed class SkullMonkPrayerBlast : MonoBehaviour
         visual.sprite = attackAge < 0 ? explosion[0] : fading
             ? dissolve[Mathf.Clamp(Mathf.FloorToInt((attackAge - .72f) / .1f), 0, dissolve.Length - 1)]
             : explosion[Mathf.Clamp(1 + Mathf.FloorToInt(attackAge / .06f), 1, explosion.Length - 1)];
-        float scale = width / 2.5f;
-        // Keep the warning low on the floor; only the eruption and its dissolve
-        // stretch into sky-high columns. Preserve the same ground pivot.
-        float verticalScale = attackAge < 0 ? 1f : height / (fading ? 4.16f : 3.86f);
-        visual.transform.localScale = new Vector3(scale * (fading ? .75f : 1f), verticalScale, 1);
+        // Normalize against the full sequence, preserving growth/dissolve proportions.
+        // Imported pivots keep the visible ground contact fixed at every resolution.
+        Vector2 reference = fading ? dissolveReferenceSize : explosionReferenceSize;
+        float scale = width / reference.x;
+        float verticalScale = attackAge < 0 ? scale : height / reference.y;
+        visual.transform.localScale = new Vector3(scale, verticalScale, 1);
+        visual.transform.localPosition = Vector3.zero;
         float pulse = .75f + .25f * Mathf.Sin(age * 12);
         visual.color = attackAge < 0 ? new Color(1f, .7f, .7f, pulse) : Color.white;
         warningRing.enabled = attackAge < 0;
         warningRing.startColor = warningRing.endColor = new Color(1f, .18f, .10f, pulse);
+    }
+
+    private static Vector2 ReferenceSize(Sprite[] frames)
+    {
+        Vector2 size = Vector2.one * .01f;
+        foreach (var frame in frames)
+        {
+            size.x = Mathf.Max(size.x, frame.bounds.size.x);
+            size.y = Mathf.Max(size.y, frame.bounds.max.y);
+        }
+        return size;
     }
 
     private void DamagePlayers(float attackAge)
@@ -88,7 +104,7 @@ public sealed class SkullMonkPrayerBlast : MonoBehaviour
         {
             var player = contacts[i].GetComponentInParent<PlayerEntity>();
             if (player == null || player.IsDead || !victims.Add(player)) continue;
-            uint before = player.HitReactionVersion; player.TakeDamage(damage);
+            uint before = player.HitReactionVersion; player.TakeMaxHealthDamage(maxHealthDamageFraction);
             if (player.HitReactionVersion == before) continue;
             if (!player.IsDead) player.ApplyKnockback(player.transform.position.x >= transform.position.x ? 1 : -1);
         }

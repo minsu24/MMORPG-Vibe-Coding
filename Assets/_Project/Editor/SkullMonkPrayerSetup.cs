@@ -74,6 +74,7 @@ namespace EasternFantasy.Editor
             var transforms=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<Transform>(true)).ToArray();
             var boss=transforms.Single(t=>t.name=="Skull").GetComponent<MON_SkullMonk>();var data=new SerializedObject(boss);
             Assign(data,"prayerExplosionFrames",Frames("SkullMonkPrayerExplosion.png"));Assign(data,"prayerDissolveFrames",Frames("SkullMonkPrayerDissolve.png"));
+            SkullMonkPrayerHighResolutionSetup.AssignFrames(data);
             data.FindProperty("prayerLeftWall").objectReferenceValue=transforms.Single(t=>t.name=="Wall").GetComponent<Collider2D>();
             data.FindProperty("prayerRightWall").objectReferenceValue=transforms.Single(t=>t.name=="Wall (1)").GetComponent<Collider2D>();
             data.FindProperty("prayerJumpHeight").floatValue=16f;

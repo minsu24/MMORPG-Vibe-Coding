@@ -8,8 +8,10 @@ public sealed partial class MON_SkullMonk
     [SerializeField] private Sprite giantStaffHighResolutionSprite;
     [SerializeField, Min(.1f)] private float giantStaffImpactHeight = 2.4f;
     [SerializeField, Min(5f)] private float giantStaffCooldown = 24f;
-    [SerializeField, Min(3f)] private float giantStaffWarningSeconds = 3.5f;
+    [SerializeField, Min(1f)] private float giantStaffWarningSeconds = 2.5f;
     [SerializeField, Min(3f)] private float giantStaffEdgeSafety = 5f;
+    [SerializeField, Min(3f)] private float giantStaffMaxWidth = 26f;
+    [SerializeField] private float giantStaffGroundVisualOffset = .4f;
     private enum GiantStaffStage { None, Throwing, Warning, Commanding, Waiting, Regenerating }
     private GiantStaffStage giantStaffStage;
     private float giantStaffAge, nextGiantStaffAt;
@@ -49,14 +51,17 @@ public sealed partial class MON_SkullMonk
             Physics2D.IgnoreCollision(capsuleCollider2D, collider, true);
             giantStaffIgnoredColliders.Add(collider);
         }
-        float width = PrayerMaxX - PrayerMinX;
-        float safety = Mathf.Clamp(giantStaffEdgeSafety, 3f, width * .25f);
-        // At base running speed, even a player at the arena center can clear the footprint.
-        float warning = Mathf.Max(giantStaffWarningSeconds, (width * .5f - safety + 1.2f) / 6f + .75f);
-        giantStaff = SkullMonkGiantStaff.Create(this, PrayerArenaCenter, width - safety * 2f, warning,
+        float arenaWidth = PrayerMaxX - PrayerMinX;
+        float safety = Mathf.Clamp(giantStaffEdgeSafety, 3f, arenaWidth * .25f);
+        float width = Mathf.Min(arenaWidth - safety * 2f, giantStaffMaxWidth);
+        // Use the configured telegraph duration for both the shadow and drop command.
+        float warning = Mathf.Max(1f, giantStaffWarningSeconds);
+        // Center the telegraph and hit area on the map, rather than the asymmetric arena walls.
+        var ground = new Vector2(waveArenaBounds.bounds.center.x, waveFloor.bounds.max.y);
+        giantStaff = SkullMonkGiantStaff.Create(this, ground, width, warning,
             _playerLayer, giantStaffFallFrames, giantStaffImpactFrames, spriteRenderer,
             (Vector2)transform.position + new Vector2(direction * 1.1f, 1.7f), giantStaffHighResolutionSprite,
-            giantStaffImpactHeight);
+            giantStaffImpactHeight, giantStaffGroundVisualOffset);
         endsAt = Time.time + warning + SkullMonkGiantStaff.ImpactLifetime + 4f;
     }
 

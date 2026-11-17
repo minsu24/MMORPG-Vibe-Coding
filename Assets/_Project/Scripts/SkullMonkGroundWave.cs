@@ -86,7 +86,7 @@ public sealed class SkullMonkGroundWave : MonoBehaviour
             var player = contacts[i].GetComponentInParent<PlayerEntity>();
             if (player == null || player.IsDead || contacts[i].bounds.min.y > floorY + height || !hit.Add(player)) continue;
             uint before = player.HitReactionVersion;
-            player.TakeMaxHealthDamage(.4f);
+            player.TakeMaxHealthDamage(.3f);
             if (!player.IsDead && player.HitReactionVersion != before)
                 player.ApplyKnockback(to >= from ? 1f : -1f);
         }

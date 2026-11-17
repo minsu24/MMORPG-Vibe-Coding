@@ -79,14 +79,14 @@ namespace EasternFantasy.Editor
                         && Mathf.Abs(rear.GetPosition(48).y - wave.Radius * .105f) < .001f
                         && SkullMonkGroundWave.GroundDepth(20f) > SkullMonkGroundWave.GroundDepth(10f),
                         "Side-view depth or front/back occlusion is incorrect.");
-                    Require(Mathf.Abs(victim.HP - max * .6f) < .001f, "Ground hit was not exactly 40% maximum health.");
+                    Require(Mathf.Abs(victim.HP - max * .7f) < .001f, "Ground hit was not exactly 30% maximum health.");
                     Require(victim.isInvincible && victim.isKnockback, "Wave hit did not use normal knockback and invincibility.");
                     // A separate following pulse must also respect the normal post-hit immunity.
                     var protectedWave = SkullMonkGroundWave.Create(boss, new Vector2(0, ground), -10, 10, 12, .45f, LayerMask.GetMask("Player"), source);
                     created.Add(protectedWave); protectedWave.Advance(.34f);
-                    Require(Mathf.Abs(victim.HP - max * .6f) < .001f, "A following pulse ignored post-hit invincibility.");
+                    Require(Mathf.Abs(victim.HP - max * .7f) < .001f, "A following pulse ignored post-hit invincibility.");
                     wave.Advance(.02f);
-                    Require(Mathf.Abs(victim.HP - max * .6f) < .001f, "One pulse hit twice.");
+                    Require(Mathf.Abs(victim.HP - max * .7f) < .001f, "One pulse hit twice.");
                     wave.Advance(1f);
                     Require(wave.LeftFront == -10 && wave.RightFront == 10 && !wave.gameObject.activeSelf, "Wave did not finish at both map edges.");
                     victim.HP = max; victim.isInvincible = false;
@@ -95,10 +95,10 @@ namespace EasternFantasy.Editor
                     wave.Advance(.34f); Require(victim.HP == max, "Airborne player was hit.");
                 }
                 int deathEvents = 0; victim.Died += () => deathEvents++;
-                victim.isInvincible = true; victim.TakeMaxHealthDamage(.4f); Require(victim.HP == max, "Immunity was ignored.");
-                victim.isInvincible = false; victim.HP = max * .2f; victim.TakeMaxHealthDamage(.4f);
+                victim.isInvincible = true; victim.TakeMaxHealthDamage(.3f); Require(victim.HP == max, "Immunity was ignored.");
+                victim.isInvincible = false; victim.HP = max * .2f; victim.TakeMaxHealthDamage(.3f);
                 Require(victim.IsDead && deathEvents == 1, "Percentage damage skipped death handling.");
-                var report = new { waveCounts = counts, smoke, recovered, directions = 2, damageFraction = .4f,
+                var report = new { waveCounts = counts, smoke, recovered, directions = 2, damageFraction = .3f,
                     centeredExpandingCircle = true, sideViewDepthAndOcclusion = true,
                     singleHitPerPulse = true, jumpingEvades = true, reachesBothEdges = true,
                     normalKnockbackAndPostHitInvincibility = true, followingPulseBlockedDuringInvincibility = true, immunity = true, deathEvents };

@@ -67,7 +67,7 @@ namespace EasternFantasy.Editor
                 {
                     target.HP=target.maxHP;player.transform.position=new Vector3(15+side*12,2,0);Physics2D.SyncTransforms();
                     var ring=SkullMonkStaffRing.Create(boss,spin,flight,0,boss.GetComponent<SpriteRenderer>());temporary.Add(ring);
-                    ring.transform.position=new Vector3(15,2,0);ring.Launch(target,30,.4f);
+                    ring.transform.position=new Vector3(15,2,0);ring.Launch(target,.1f,.4f);
                     Vector2 original=ring.TravelDirection;
                     player.transform.position+=Vector3.up*5;Physics2D.SyncTransforms();ring.Advance(.15f);
                     Require(Vector2.Angle(original,ring.TravelDirection)>1f&&!ring.TrackingLocked,"Initial bounded tracking did not steer.");
@@ -78,11 +78,11 @@ namespace EasternFantasy.Editor
                 }
                 target.HP=target.maxHP;target.isInvincible=false;player.transform.position=new Vector3(21,1,0);Physics2D.SyncTransforms();
                 var shot=SkullMonkStaffRing.Create(boss,spin,flight,0,boss.GetComponent<SpriteRenderer>());temporary.Add(shot);
-                shot.transform.position=new Vector3(15,1,0);shot.Launch(target,30,0);float before=target.HP;
+                shot.transform.position=new Vector3(15,1,0);shot.Launch(target,.1f,0);float before=target.HP;
                 shot.Advance(.6f);float after=target.HP;Require(shot.HasImpacted&&after<before,"Swept ring collision did not damage player.");
                 shot.Advance(.02f);Require(target.HP==after,"One ring applied damage twice.");
                 var cleanup=SkullMonkStaffRing.Create(boss,spin,flight,0,boss.GetComponent<SpriteRenderer>());temporary.Add(cleanup);
-                cleanup.transform.position=new Vector3(15,2,0);cleanup.Launch(target,30,.4f);
+                cleanup.transform.position=new Vector3(15,2,0);cleanup.Launch(target,.1f,.4f);
                 boss.gameObject.SetActive(false);cleanup.Advance(.02f);Require(!cleanup.gameObject.activeSelf,"Owner disable did not cancel ring.");
                 var report=new{fourthGestureFrameExcluded=true,launchCounts=counts,risesOverhead=true,exactlyFour=true,
                     earlyTrackingSeconds=.4f,locksAndFliesStraight=true,directions=2,oneHitPerRing=true,recovers=true,cancelsOnDisable=true};
@@ -138,7 +138,7 @@ namespace EasternFantasy.Editor
                             float lift=Mathf.SmoothStep(0,1,Mathf.Clamp01((t-1.8f)/.65f));
                             var p=Vector2.Lerp(MON_SkullMonk.StaffRingStart(j),MON_SkullMonk.StaffRingOverhead(j),lift);
                             p.y+=Mathf.Sin(t*3+j*1.7f)*.035f*lift;rings[j].SetHover(new Vector2(-p.x,p.y),t);
-                            if(j==launched&&t+.0001f>=2.72f+j*.55f){rings[j].Launch(target,30,.4f);launched++;}
+                            if(j==launched&&t+.0001f>=2.72f+j*.55f){rings[j].Launch(target,.1f,.4f);launched++;}
                         }
                         if(rings[j]!=null)foreach(var tr in rings[j].GetComponentsInChildren<Transform>())tr.gameObject.layer=31;
                     }

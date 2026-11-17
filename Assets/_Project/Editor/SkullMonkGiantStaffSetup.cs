@@ -84,14 +84,16 @@ namespace EasternFantasy.Editor
             data.FindProperty("giantStaffImpactHeight").floatValue = paintedImpact.Length == 8 ? 2.4f : 5.5f;
             var highResolution = AssetDatabase.LoadAllAssetsAtPath(SkullMonkGiantStaffHighResolutionSetup.SpritePath).OfType<Sprite>().FirstOrDefault();
             if (highResolution != null) data.FindProperty("giantStaffHighResolutionSprite").objectReferenceValue = highResolution;
-            data.FindProperty("giantStaffWarningSeconds").floatValue = 3.5f;
+            data.FindProperty("giantStaffWarningSeconds").floatValue = 2.5f;
             data.FindProperty("giantStaffEdgeSafety").floatValue = 5f;
+            data.FindProperty("giantStaffMaxWidth").floatValue = 26f;
+            data.FindProperty("giantStaffGroundVisualOffset").floatValue = .4f;
             data.FindProperty("giantStaffCooldown").floatValue = 24f;
             data.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(controller); EditorUtility.SetDirty(machine); EditorUtility.SetDirty(regenerate);
             AssetDatabase.SaveAssets(); EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene);
             if (opened) EditorSceneManager.CloseScene(scene, true);
-            Debug.Log("Giant staff judgment configured: 3.5-second shadow, safe edges, 80% maximum HP impact.");
+            Debug.Log("Giant staff judgment configured: 2.5-second shadow, safe edges, 80% maximum HP impact.");
         }
 
         private static void Character(string file, Rect[] cells, Sprite reference, float bodyPixels, float[] heels, float sole)

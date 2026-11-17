@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "direction": 1,
+      "damageFraction": 0.1,
+      "knockback": true,
+      "invincible": true,
+      "alpha": 0.5,
+      "nextRingBlocked": true
+    },
+    {
+      "direction": -1,
+      "damageFraction": 0.1,
+      "knockback": true,
+      "invincible": true,
+      "alpha": 0.5,
+      "nextRingBlocked": true
+    }
+  ]
+}

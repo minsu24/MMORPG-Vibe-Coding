@@ -1,0 +1,53 @@
+using System;
+using System.Linq;
+using UnityEngine;
+using UnityEditor;
+using EasternFantasy.Shop;
+if(!Application.isPlaying)throw new Exception("Play mode required");
+Action<bool,string> check=(ok,message)=>{if(!ok)throw new Exception(message);};
+var npc=UnityEngine.Object.FindObjectsByType<MonkeyMerchantAmbientAnimation>(FindObjectsSortMode.None).Single();
+var animator=npc.GetComponent<Animator>();var visual=npc.GetComponent<SpriteRenderer>();var data=new SerializedObject(npc);
+var idle=data.FindProperty("idleAnchorFrame").objectReferenceValue as Sprite;
+var pipe=AssetDatabase.LoadAllAssetsAtPath("Assets/_Project/Art/Old Temple/NPC/원숭이 상인 곰방대.png").OfType<Sprite>().OrderBy(s=>s.name).First();
+var allIdle=AssetDatabase.LoadAllAssetsAtPath("Assets/_Project/Art/Old Temple/NPC/원숭이 상인 대기.png").OfType<Sprite>().OrderBy(s=>s.name).ToArray();
+var position=npc.transform.position;var scale=npc.transform.localScale;
+MerchantPipeSmoke smoke=null;
+try{
+npc.SendMessage("OnEnable");animator.Update(0f);
+visual.sprite=allIdle[3];npc.Advance(15f);
+check(!npc.IsTransitioning&&!npc.IsSmoking,"Did not wait for matching idle pose");
+visual.sprite=idle;npc.Advance(0f);animator.Update(0f);
+check(npc.IsTransitioning&&!npc.IsSmoking&&animator.GetCurrentAnimatorStateInfo(0).IsName(MonkeyMerchantAmbientAnimation.EnterPipeState),"Missing entry transition");
+check(visual.sprite==idle,"Entry start must use exact original idle sprite");
+float duration=data.FindProperty("transitionDuration").floatValue;
+npc.Advance(duration-.01f);animator.Update(duration-.01f);
+check(npc.IsTransitioning&&!npc.IsSmoking&&visual.sprite==pipe,"Entry end must match original pipe sprite");
+npc.Advance(.02f);animator.Update(0f);
+check(npc.IsSmoking&&!npc.IsTransitioning&&visual.sprite==pipe,"Pipe started without matching endpoint");
+float handoff=data.FindProperty("pipeDuration").floatValue*7f/8f;
+npc.Advance(handoff-.01f);animator.Update(handoff-.01f);
+check(npc.IsSmoking&&visual.sprite.name.EndsWith("06"),"Smoke handoff timing changed");
+var existing=UnityEngine.Object.FindObjectsByType<MerchantPipeSmoke>(FindObjectsSortMode.None);
+npc.Advance(.02f);animator.Update(0f);
+check(!npc.IsSmoking&&!npc.IsTransitioning&&animator.GetCurrentAnimatorStateInfo(0).IsName(MonkeyMerchantAmbientAnimation.IdleState)&&visual.sprite==idle,"Eighth-frame immediate idle handoff changed");
+smoke=UnityEngine.Object.FindObjectsByType<MerchantPipeSmoke>(FindObjectsSortMode.None).Except(existing).Single();
+check(smoke.transform.parent==null,"Smoke should remain independent of transition");
+check(smoke.GetComponent<SpriteRenderer>().sprite==data.FindProperty("smokeFrames").GetArrayElementAtIndex(0).objectReferenceValue,"Smoke should start on first frame");
+var origin=smoke.transform.position;var drift=npc.transform.TransformVector(data.FindProperty("smokeDrift").vector2Value);
+npc.transform.position+=Vector3.left*3;
+smoke.Advance(.01f);
+check(Vector3.Distance(smoke.transform.position,origin+drift*.01f)<.0001f,"Smoke did not immediately move up-right independently");
+npc.transform.position=position;
+check(!npc.IsSmoking&&!npc.IsTransitioning,"Merchant should already be idle while smoke moves");
+smoke.Advance(1.19f);var alpha=smoke.GetComponent<SpriteRenderer>().color.a;
+check(alpha>0&&alpha<1,"Smoke stopped fading during return");smoke.Advance(.5f);
+check(smoke.IsFinished&&!smoke.gameObject.activeSelf,"Smoke did not finish");
+check(npc.transform.position==position&&npc.transform.localScale==scale,"Merchant transform changed");
+var clips=animator.runtimeAnimatorController.animationClips;
+foreach(var state in new[]{MonkeyMerchantAmbientAnimation.EnterPipeState}){
+var clip=clips.Single(c=>c.name==state);
+var keys=AnimationUtility.GetObjectReferenceCurve(clip,EditorCurveBinding.PPtrCurve("",typeof(SpriteRenderer),"m_Sprite"));
+check(keys.Length==8,"Transition must contain six new poses and two exact endpoints");
+}
+return new{passed=true,newPoses=6,transitionSeconds=duration,exactOriginalEndpoints=true,waitsForMatchingIdlePose=true,smokeAndImmediateIdlePreserved=true,transformUnchanged=true};
+}finally{npc.transform.position=position;npc.transform.localScale=scale;npc.SendMessage("OnEnable");animator.Update(0f);if(smoke!=null&&smoke.gameObject.activeSelf)UnityEngine.Object.Destroy(smoke.gameObject);}

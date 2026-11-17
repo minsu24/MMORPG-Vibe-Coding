@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "sceneObject": "MonkeyMerchant",
+  "defaultIdle": true,
+  "intermittentPipe": true,
+  "returnsToIdle": true,
+  "existingInteractionRoute": true,
+  "correctPortrait": true,
+  "existingShopUiOpens": true,
+  "duplicateInteractionBlocked": true,
+  "colliderIsTrigger": true
+}

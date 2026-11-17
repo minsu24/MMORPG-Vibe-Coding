@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "test": "Stops before a thin invisible right wall",
+      "destination": "(2.4600, 0.0000, 0.0000)"
+    },
+    {
+      "test": "Stops before a left wall",
+      "destination": "(-2.4600, 0.0000, 0.0000)"
+    },
+    {
+      "test": "Stops below a solid ceiling",
+      "destination": "(0.0000, 2.9600, 0.0000)"
+    },
+    {
+      "test": "Nonblocking triggers do not shorten teleport",
+      "destination": "(8.0000, 0.0000, 0.0000)"
+    },
+    {
+      "test": "Enemy layer remains passable",
+      "destination": "(8.0000, 0.0000, 0.0000)"
+    },
+    {
+      "test": "Upward teleport passes through a one-way platform",
+      "destination": "(0.0000, 8.0000, 0.0000)"
+    },
+    {
+      "test": "Standing on the floor does not block horizontal teleport",
+      "destination": "(8.0000, 0.0000, 0.0000)"
+    },
+    {
+      "test": "Collider offset is included in wall clearance",
+      "destination": "(2.1099, 0.0000, 0.0000)"
+    },
+    {
+      "test": "Wall-adjacent cast makes no progress",
+      "destination": "(0.0000, 0.0000, 0.0000)"
+    },
+    {
+      "test": "Clear path preserves full range",
+      "destination": "(8.0000, 0.0000, 0.0000)"
+    }
+  ]
+}

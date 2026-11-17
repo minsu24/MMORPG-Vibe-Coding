@@ -6,7 +6,7 @@ public sealed partial class MON_SkullMonk
     [Header("Four staff rings")]
     [SerializeField] private Sprite[] rotatingRingFrames;
     [SerializeField] private Sprite[] flyingRingFrames;
-    [SerializeField, Min(1f)] private float ringCooldown = 14f;
+    [SerializeField, Min(1f)] private float ringCooldown = 12f;
     [SerializeField, Min(.1f)] private float ringLaunchInterval = .55f;
     [SerializeField, Min(0f)] private float ringTrackingSeconds = .4f;
     private enum RingStage { None, Charging, Lifting, Holding, Recovering }
@@ -74,7 +74,7 @@ public sealed partial class MON_SkullMonk
         if(RingsLaunched<4 && holdingAge>=nextLaunchAge)
         {
             var ring=heldRings[RingsLaunched];
-            if(ring!=null)ring.Launch(playerEntity,Attack_Power,ringTrackingSeconds);
+            if(ring!=null)ring.Launch(playerEntity,.1f,ringTrackingSeconds);
             RingsLaunched++;
             lastRingLaunchAge=holdingAge;nextLaunchAge=holdingAge+ringLaunchInterval;
         }

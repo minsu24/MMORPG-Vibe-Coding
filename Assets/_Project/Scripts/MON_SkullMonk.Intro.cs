@@ -73,10 +73,7 @@ public sealed partial class MON_SkullMonk
         if (introStage != IntroStage.Standing || HP <= 0f) return;
         introStage = IntroStage.Ready;
         nextAttackAt = Time.time + .65f;
-        nextWaveAt = Time.time + 5f;
-        nextRingAt = Time.time + 9f;
-        nextPrayerAt = Time.time + 13f;
-        nextGiantStaffAt = Time.time + 17f;
+        ResetPatternSelection();
         animator.Play("SkullMonkIdle", 0, 0f);
     }
 

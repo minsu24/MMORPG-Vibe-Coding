@@ -7,11 +7,11 @@ public sealed partial class MON_SkullMonk
     [SerializeField] private Sprite[] prayerExplosionFrames;
     [SerializeField] private Sprite[] prayerDissolveFrames;
     [SerializeField] private Collider2D prayerLeftWall, prayerRightWall;
-    [SerializeField, Min(5f)] private float prayerCooldown = 20f;
+    [SerializeField, Min(5f)] private float prayerCooldown = 18f;
     [SerializeField, Min(.5f)] private float prayerWarningSeconds = .95f;
     [SerializeField, Min(8f)] private float prayerJumpHeight = 16f;
     [SerializeField, Min(8f)] private float prayerExplosionHeight = 18f;
-    [SerializeField, Min(.1f)] private float prayerDamageMultiplier = 1.5f;
+    [SerializeField, Range(0f, 1f)] private float prayerMaxHealthDamageFraction = .5f;
     private enum PrayerStage { None, Jumping, Preparing, Channeling, Recovering }
     private PrayerStage prayerStage;
     private float nextPrayerAt, prayerAge, prayerGravity;
@@ -137,7 +137,7 @@ public sealed partial class MON_SkullMonk
         for (int i = 0; i < PrayerExplosionCount; i++)
             prayerBlasts.Add(SkullMonkPrayerBlast.Create(this,
                 new Vector2(min + (i + .5f) * spacing, waveFloor.bounds.max.y), width, prayerExplosionHeight,
-                prayerWarningSeconds, Attack_Power * prayerDamageMultiplier, _playerLayer,
+                prayerWarningSeconds, prayerMaxHealthDamageFraction, _playerLayer,
                 prayerExplosionFrames, prayerDissolveFrames, spriteRenderer));
     }
 

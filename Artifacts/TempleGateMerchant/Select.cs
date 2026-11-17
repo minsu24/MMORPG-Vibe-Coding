@@ -1,0 +1,10 @@
+using System.Linq;
+using UnityEngine.SceneManagement;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+var path = EasternFantasy.Editor.TempleGateMerchantSetup.ScenePath;
+var scene = SceneManager.GetSceneByPath(path);
+if (!scene.isLoaded) scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
+var npc = scene.GetRootGameObjects().Single(g => g.name == "MonkeyMerchant");
+Selection.activeGameObject = npc;
+return new { npc.name, scene = scene.path };

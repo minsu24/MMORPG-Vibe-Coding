@@ -1,0 +1,858 @@
+fileFormatVersion: 2
+guid: 4c21d797407352f4bb28a7a93031a51e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1517224866503543195
+    second: MonkeyMerchantBridge_02_0
+  - first:
+      213: -6579190207227437260
+    second: MonkeyMerchantBridge_02_1
+  - first:
+      213: 255599329948969398
+    second: MonkeyMerchantBridge_02_2
+  - first:
+      213: -3584940732342387910
+    second: MonkeyMerchantBridge_02_3
+  - first:
+      213: -7865512413148087113
+    second: MonkeyMerchantBridge_02_4
+  - first:
+      213: -6333548642234593269
+    second: MonkeyMerchantBridge_02_5
+  - first:
+      213: -8178897872242659254
+    second: MonkeyMerchantBridge_02_6
+  - first:
+      213: 4718254829326082425
+    second: MonkeyMerchantBridge_02_7
+  - first:
+      213: -7132461740366965118
+    second: MonkeyMerchantBridge_02_8
+  - first:
+      213: 592487098787372139
+    second: MonkeyMerchantBridge_02_9
+  - first:
+      213: 958063423838261743
+    second: MonkeyMerchantBridge_02_10
+  - first:
+      213: 1756954913383259816
+    second: MonkeyMerchantBridge_02_11
+  - first:
+      213: 4799075758731888781
+    second: MonkeyMerchantBridge_02_12
+  - first:
+      213: -6540255352904079422
+    second: MonkeyMerchantBridge_02_13
+  - first:
+      213: -5105691306713306007
+    second: MonkeyMerchantBridge_02_14
+  - first:
+      213: -1800168316000604962
+    second: MonkeyMerchantBridge_02_15
+  - first:
+      213: -8105438871263023932
+    second: MonkeyMerchantBridge_02_16
+  - first:
+      213: 8943438846689477478
+    second: MonkeyMerchantBridge_02_17
+  - first:
+      213: 8228240049080495914
+    second: MonkeyMerchantBridge_02_18
+  - first:
+      213: -4200113424910462899
+    second: MonkeyMerchantBridge_02_19
+  - first:
+      213: -921240203012182511
+    second: MonkeyMerchantBridge_02_20
+  - first:
+      213: 2466445829358255240
+    second: MonkeyMerchantBridge_02_21
+  - first:
+      213: 5157435092309625428
+    second: MonkeyMerchantBridge_02_22
+  - first:
+      213: 2321558044343535246
+    second: MonkeyMerchantBridge_02_23
+  - first:
+      213: -1889046148679861344
+    second: MonkeyMerchantBridge_02_24
+  - first:
+      213: -5327252888383946676
+    second: MonkeyMerchantBridge_02_25
+  - first:
+      213: -5455595311827937435
+    second: MonkeyMerchantBridge_02_26
+  - first:
+      213: -5688671691441144306
+    second: MonkeyMerchantBridge_02_27
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 9
+  spritePivot: {x: 0.53055143, y: 0.08726004}
+  spritePixelsToUnits: 190.40001
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 458
+        height: 557
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 566baa3c50cb1fae0800000000000000
+      internalID: -1517224866503543195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 423
+        width: 99
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43fda745d5502b4a0800000000000000
+      internalID: -6579190207227437260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_2
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 542
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b9af628c321c8300800000000000000
+      internalID: 255599329948969398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_3
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 540
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3b37e3d56bbf3ec0800000000000000
+      internalID: -3584940732342387910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_4
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 461
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bcf1ed222618d290800000000000000
+      internalID: -7865512413148087113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_5
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 439
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0013f30117ba18a0800000000000000
+      internalID: -6333548642234593269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_6
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 429
+        width: 9
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4037c608b7be7e80800000000000000
+      internalID: -8178897872242659254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 374
+        width: 13
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 971a0c5d4cb9a7140800000000000000
+      internalID: 4718254829326082425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_8
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 376
+        width: 53
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 286dc5726d7640d90800000000000000
+      internalID: -7132461740366965118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 324
+        width: 39
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6c193190efe83800800000000000000
+      internalID: 592487098787372139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 286
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe19c22ab99bb4d00800000000000000
+      internalID: 958063423838261743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_11
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 249
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ae169a5f25f16810800000000000000
+      internalID: 1756954913383259816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_12
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 145
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d880769d9fdb99240800000000000000
+      internalID: 4799075758731888781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 62
+        width: 19
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c72ec588685c35a0800000000000000
+      internalID: -6540255352904079422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_14
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 82
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96cad82cec0f429b0800000000000000
+      internalID: -5105691306713306007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 18
+        width: 71
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edceedc44748407e0800000000000000
+      internalID: -1800168316000604962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_16
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 18
+        width: 9
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cc69b18a42b38f80800000000000000
+      internalID: -8105438871263023932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_17
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 0
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6630b572f3a7d1c70800000000000000
+      internalID: 8943438846689477478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_18
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 6
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2fe514cab4903270800000000000000
+      internalID: 8228240049080495914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_19
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 0
+        width: 22
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d40dcdbd71336b5c0800000000000000
+      internalID: -4200113424910462899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_20
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 11
+        width: 27
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11e66a29ae81733f0800000000000000
+      internalID: -921240203012182511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_21
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 24
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88c74acf9639a3220800000000000000
+      internalID: 2466445829358255240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_22
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 7
+        width: 11
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45acf3524e3e29740800000000000000
+      internalID: 5157435092309625428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_23
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 5
+        width: 19
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e860c8ebdb4d73020800000000000000
+      internalID: 2321558044343535246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_24
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 0
+        width: 66
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0abfd9f4982c8c5e0800000000000000
+      internalID: -1889046148679861344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 27
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c40833719bbc116b0800000000000000
+      internalID: -5327252888383946676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_26
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 8
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 567953808f4d944b0800000000000000
+      internalID: -5455595311827937435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonkeyMerchantBridge_02_27
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 0
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0e74db8c37cd01b0800000000000000
+      internalID: -5688671691441144306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MonkeyMerchantBridge_02_0: -1517224866503543195
+      MonkeyMerchantBridge_02_1: -6579190207227437260
+      MonkeyMerchantBridge_02_10: 958063423838261743
+      MonkeyMerchantBridge_02_11: 1756954913383259816
+      MonkeyMerchantBridge_02_12: 4799075758731888781
+      MonkeyMerchantBridge_02_13: -6540255352904079422
+      MonkeyMerchantBridge_02_14: -5105691306713306007
+      MonkeyMerchantBridge_02_15: -1800168316000604962
+      MonkeyMerchantBridge_02_16: -8105438871263023932
+      MonkeyMerchantBridge_02_17: 8943438846689477478
+      MonkeyMerchantBridge_02_18: 8228240049080495914
+      MonkeyMerchantBridge_02_19: -4200113424910462899
+      MonkeyMerchantBridge_02_2: 255599329948969398
+      MonkeyMerchantBridge_02_20: -921240203012182511
+      MonkeyMerchantBridge_02_21: 2466445829358255240
+      MonkeyMerchantBridge_02_22: 5157435092309625428
+      MonkeyMerchantBridge_02_23: 2321558044343535246
+      MonkeyMerchantBridge_02_24: -1889046148679861344
+      MonkeyMerchantBridge_02_25: -5327252888383946676
+      MonkeyMerchantBridge_02_26: -5455595311827937435
+      MonkeyMerchantBridge_02_27: -5688671691441144306
+      MonkeyMerchantBridge_02_3: -3584940732342387910
+      MonkeyMerchantBridge_02_4: -7865512413148087113
+      MonkeyMerchantBridge_02_5: -6333548642234593269
+      MonkeyMerchantBridge_02_6: -8178897872242659254
+      MonkeyMerchantBridge_02_7: 4718254829326082425
+      MonkeyMerchantBridge_02_8: -7132461740366965118
+      MonkeyMerchantBridge_02_9: 592487098787372139
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

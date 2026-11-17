@@ -10,6 +10,14 @@ public sealed partial class MON_SkullMonk : PersistentBossController
     [SerializeField, Min(.1f)] private float attackVerticalRange = 2f;
     [SerializeField, Min(.1f)] private float attackDownwardRange = 3.5f;
     [SerializeField, Min(0f)] private float attackCooldown = 1.8f;
+    [Header("Pattern selection weights (0 disables a pattern)")]
+    [SerializeField, Min(0)] private int meleeWeight = 35;
+    [SerializeField, Min(0)] private int waveWeight = 20;
+    [SerializeField, Min(0)] private int ringWeight = 20;
+    [SerializeField, Min(0)] private int prayerWeight = 15;
+    [SerializeField, Min(0)] private int giantStaffWeight = 10;
+    private enum AttackPattern { None = -1, Melee, Wave, Rings, Prayer, GiantStaff }
+    private AttackPattern lastAttackPattern = AttackPattern.None;
     [SerializeField] private Sprite[] thrustEffectFrames;
     [SerializeField] private Vector2 thrustOrigin = new Vector2(2.7f, .45f);
     [SerializeField, Min(0f)] private float thrustTravel = .95f;
@@ -24,7 +32,9 @@ public sealed partial class MON_SkullMonk : PersistentBossController
     private bool stepPlanted;
     public bool IsAttacking => isAttacking;
     public override float ContactDamage => 0f;
-    protected override bool CanUseAbility() => IsCombatReady && (isAttacking || CanStartGiantStaffPattern() || CanStartPrayerPattern() || base.CanUseAbility());
+    protected override bool CanUseAbility() => IsCombatReady && (isAttacking || base.CanUseAbility()
+        || (HasLivingPlayer && (CanStartWavePattern() || CanStartRingPattern()
+            || CanStartGiantStaffPattern() || CanStartPrayerPattern())));
     protected override float LocomotionSpeedMultiplier
     {
         get
@@ -59,23 +69,77 @@ public sealed partial class MON_SkullMonk : PersistentBossController
             return;
         }
         if (!HasLivingPlayer || !CanDealContactDamage || isKnockback || Time.time < nextAttackAt) return;
-        bool waveReady = CanStartWavePattern();
-        bool ringReady = CanStartRingPattern();
-        if (CanStartGiantStaffPattern() && (!waveReady || nextGiantStaffAt <= nextWaveAt)
-            && (!ringReady || nextGiantStaffAt <= nextRingAt)
-            && (!CanStartPrayerPattern() || nextGiantStaffAt <= nextPrayerAt)) { StartGiantStaffPattern(); return; }
-        if (CanStartPrayerPattern() && (!waveReady || nextPrayerAt <= nextWaveAt)
-            && (!ringReady || nextPrayerAt <= nextRingAt)) { StartPrayerPattern(); return; }
-        if (ringReady && (!waveReady || nextRingAt <= nextWaveAt)) { StartRingPattern(); return; }
-        if (waveReady) { StartWavePattern(); return; }
         Vector2 delta = playerEntity.transform.position - transform.position;
-        if (delta.y > attackVerticalRange || delta.y < -attackDownwardRange) return;
-        if (CanStartDash(delta))
+        AttackPattern selected = SelectAttackPattern(AvailableAttackPatterns(delta), Random.value);
+        switch (selected)
         {
-            StartMeleeApproach();
-            return;
+            case AttackPattern.Melee:
+                if (CanStartDash(delta)) StartMeleeApproach();
+                else StartMeleeAttack();
+                break;
+            case AttackPattern.Wave: StartWavePattern(); break;
+            case AttackPattern.Rings: StartRingPattern(); break;
+            case AttackPattern.Prayer: StartPrayerPattern(); break;
+            case AttackPattern.GiantStaff: StartGiantStaffPattern(); break;
         }
-        if (Mathf.Abs(delta.x) <= attackRange) StartMeleeAttack();
+        // A blocked melee approach is not a committed pattern.
+        if (isAttacking) lastAttackPattern = selected;
+    }
+
+    private int AvailableAttackPatterns(Vector2 delta)
+    {
+        int mask = 0;
+        if (delta.y <= attackVerticalRange && delta.y >= -attackDownwardRange
+            && (Mathf.Abs(delta.x) <= attackRange || CanStartDash(delta)))
+            mask |= 1 << (int)AttackPattern.Melee;
+        if (CanStartWavePattern()) mask |= 1 << (int)AttackPattern.Wave;
+        if (CanStartRingPattern()) mask |= 1 << (int)AttackPattern.Rings;
+        if (CanStartPrayerPattern()) mask |= 1 << (int)AttackPattern.Prayer;
+        if (CanStartGiantStaffPattern()) mask |= 1 << (int)AttackPattern.GiantStaff;
+        return mask;
+    }
+
+    private int PatternWeight(AttackPattern pattern)
+    {
+        switch (pattern)
+        {
+            case AttackPattern.Melee: return Mathf.Max(0, meleeWeight);
+            case AttackPattern.Wave: return Mathf.Max(0, waveWeight);
+            case AttackPattern.Rings: return Mathf.Max(0, ringWeight);
+            case AttackPattern.Prayer: return Mathf.Max(0, prayerWeight);
+            case AttackPattern.GiantStaff: return Mathf.Max(0, giantStaffWeight);
+            default: return 0;
+        }
+    }
+
+    private AttackPattern SelectAttackPattern(int availableMask, float randomValue)
+    {
+        if (lastAttackPattern != AttackPattern.None) availableMask &= ~(1 << (int)lastAttackPattern);
+        float total = 0f;
+        for (int i = 0; i < 5; i++)
+            if ((availableMask & (1 << i)) != 0) total += PatternWeight((AttackPattern)i);
+        if (total <= 0f) return AttackPattern.None;
+
+        float roll = Mathf.Clamp01(randomValue) * total;
+        AttackPattern fallback = AttackPattern.None;
+        for (int i = 0; i < 5; i++)
+        {
+            if ((availableMask & (1 << i)) == 0) continue;
+            int weight = PatternWeight((AttackPattern)i);
+            if (weight <= 0) continue;
+            fallback = (AttackPattern)i;
+            if (roll < weight) return fallback;
+            roll -= weight;
+        }
+        // Random.value can equal 1; still select the last eligible positive weight.
+        return fallback;
+    }
+
+    private void ResetPatternSelection()
+    {
+        lastAttackPattern = AttackPattern.None;
+        // All patterns enter the first draw together, without a forced opening order.
+        nextWaveAt = nextRingAt = nextPrayerAt = nextGiantStaffAt = Time.time;
     }
 
     private void StartMeleeAttack()
@@ -133,7 +197,7 @@ public sealed partial class MON_SkullMonk : PersistentBossController
             var victim = hits[i].GetComponentInParent<PlayerEntity>();
             if (victim != playerEntity || victim.IsDead) continue;
             uint before = victim.HitReactionVersion;
-            victim.TakeDamage(Attack_Power);
+            victim.TakeMaxHealthDamage(.1f);
             if (victim.HitReactionVersion != before)
             {
                 // Shared feedback owns the 40ms hit stop and small camera impulse, and respects menus.
