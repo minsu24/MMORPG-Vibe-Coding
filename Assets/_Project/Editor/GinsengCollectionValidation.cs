@@ -118,6 +118,7 @@ namespace EasternFantasy.Editor
             var ring = AssetDatabase.LoadAssetAtPath<ItemDefinition>(GinsengCollectionSetup.RingPath);
             var quest = AssetDatabase.LoadAssetAtPath<QuestDefinition>(GinsengCollectionSetup.QuestPath);
             var giver = npc.GetComponent<QuestGiver>();
+            var nextQuest = (QuestDefinition)Get(giver, "nextQuest");
             var indicator = npc.GetComponent<QuestAvailabilityIndicator>();
             var image = (Image)Get(indicator, "indicatorImage");
             var indicatorRoot = (GameObject)Get(indicator, "indicatorRoot");
@@ -125,6 +126,7 @@ namespace EasternFantasy.Editor
             Check(ring.EquipmentSlot == EquipmentSlot.Ring && ring.SpecialAbility == AccessoryAbility.HealthRegeneration && ring.SpecialAbilityValue == 1f, "Existing ring has regeneration ability 1 HP per second");
             Check(ring.ItemId != AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/_Project/Data/Items/ToadBellNecklace.asset").ItemId, "Ring identity differs from toad necklace");
             Check(giver.Quest == quest && giver.CanOfferQuest, "Actual TempleGate traveler offers the quest");
+            Check(nextQuest != null && !manager.CanAccept(nextQuest), "Follow-up quest requires completing the ring quest");
             Call(manager, "BindCollectionInventory"); Call(indicator, "Refresh");
             Check(indicatorRoot.activeSelf && image.sprite == (Sprite)Get(indicator, "availableSprite"), "Traveler available marker visible");
             Check(manager.AcceptQuest(quest), "Quest accepts");
@@ -148,7 +150,8 @@ namespace EasternFantasy.Editor
             inventory.RemoveItem(fillers[0]);
             Check(manager.CompleteQuest(quest) && inventory.GetQuantity(stem) == 2 && inventory.GetQuantity(ring) == 1, "Turn-in consumes exactly 15 and awards one ring");
             Check(!manager.CompleteQuest(quest) && !manager.CanAccept(quest) && inventory.GetQuantity(ring) == 1, "Quest and ring reward cannot be repeated");
-            Check(!indicatorRoot.activeSelf, "Traveler marker hides after completion");
+            Check(giver.Quest == nextQuest && giver.CanOfferQuest && indicatorRoot.activeSelf
+                && image.sprite == (Sprite)Get(indicator, "availableSprite"), "Receiving the ring enables the Traveler's follow-up quest");
             foreach (var item in fillers) { inventory.RemoveItem(item); UnityEngine.Object.DestroyImmediate(item); }
             inventory.RemoveItem(stem, inventory.GetQuantity(stem));
             Set(manager, "quests", new List<QuestProgress>());

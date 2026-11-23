@@ -13,6 +13,7 @@ public sealed partial class MON_WillOWisp
     private float blinkWait, blinkSpeed;
     private float hoverElapsed, hoverPhase;
     private bool blinking;
+    private bool blinkSoundPlayed;
     private RaycastHit2D[] blinkHits = new RaycastHit2D[16];
     private Collider2D[] terrainOverlaps = new Collider2D[16];
     private bool needsSpawnClearance = true;
@@ -76,6 +77,11 @@ public sealed partial class MON_WillOWisp
         Vector2 direction = remaining.normalized;
         rb.linearVelocity = LimitTerrainVelocity(direction * (distance / Time.fixedDeltaTime));
         if (rb.linearVelocity.sqrMagnitude < .001f) { StopBlink(); return; }
+        if (!blinkSoundPlayed)
+        {
+            blinkSoundPlayed = true;
+            EnemyAttackAudio.PlayFor(this, "Audio/WispMove", .18f);
+        }
         if (Mathf.Abs(direction.x) > .01f)
         {
             Vector3 scale = transform.localScale;
@@ -212,5 +218,6 @@ public sealed partial class MON_WillOWisp
         blinkTarget = ClampToCamera(blinkTarget);
         blinkSpeed = Vector2.Distance(start, blinkTarget) / Mathf.Max(.02f, blinkDuration);
         blinking = true;
+        blinkSoundPlayed = false;
     }
 }

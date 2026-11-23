@@ -52,10 +52,8 @@ namespace EasternFantasy.EditorTools
         private static void ValidateCompanionPrefab()
         {
             var catalog = AssetDatabase.LoadAssetAtPath<PetCompanionCatalog>(PetCompanionPrefabSetup.CatalogPath);
-            Check(catalog != null && catalog.CompanionPrefabs.Length == 1 && catalog.CompanionPrefabs[0] != null,
-                "Expected the Goblin companion catalog entry");
-            var prefab = catalog.CompanionPrefabs[0];
-            Check(prefab.CompanionId == "goblin" && prefab.SummonItem != null, "Missing companion metadata");
+            var prefab = catalog != null ? Array.Find(catalog.CompanionPrefabs, pet => pet != null && pet.CompanionId == "goblin") : null;
+            Check(prefab != null && prefab.SummonItem != null, "Missing Goblin companion metadata");
             Check(prefab.GetComponentsInChildren<Collider2D>().Length == 0
                 && prefab.GetComponentsInChildren<Entity>().Length == 0, "Companion has health/collision");
             Check(Mathf.Abs(prefab.transform.localScale.x - 1.15f / 1.5f) < .0001f, "Incorrect pet scale");

@@ -8,6 +8,9 @@ Shader "Eastern Fantasy/Village Harmony"
         _Contrast("Contrast", Range(0.5, 1.5)) = 1
         _Saturation("Saturation", Range(0, 1)) = 1
         _Brightness("Brightness", Range(0, 1.5)) = 1
+        [Toggle(_FORGE_SHADE)] _ForgeShade("Desaturate Away From Forge", Float) = 0
+        _ForgeLightCenter("Forge Light Center (Frame Pixels)", Vector) = (77,285,0,0)
+        _ForgeShadeStrength("Red Shade Desaturation", Range(0, 1)) = .58
         _OutlineColor("Outline Color", Color) = (0.16, 0.09, 0.04, 1)
         _OutlineWidth("Outline Width In Texture Pixels", Range(0, 6)) = 0
         _FlashAmount("Hit Flash", Range(0, 1)) = 0
@@ -39,6 +42,7 @@ Shader "Eastern Fantasy/Village Harmony"
 
             #pragma vertex LitVertex
             #pragma fragment LitFragment
+            #pragma shader_feature_local _FORGE_SHADE
 
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/ShapeLightShared.hlsl"
 
@@ -72,6 +76,8 @@ Shader "Eastern Fantasy/Village Harmony"
                 half _Brightness;
                 half _OutlineWidth;
                 half _FlashAmount;
+                float4 _ForgeLightCenter;
+                half _ForgeShadeStrength;
             CBUFFER_END
 
             #include "Assets/_Project/Effect/VillageHarmony.hlsl"
@@ -91,6 +97,9 @@ Shader "Eastern Fantasy/Village Harmony"
             half4 LitFragment(Varyings input) : SV_Target
             {
                 half4 main = ApplyReadability(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv), input.uv, input.color);
+                #if defined(_FORGE_SHADE)
+                main.rgb = ApplyForgeShade(main.rgb, input.uv);
+                #endif
                 half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, input.uv);
                 half3 normalTS = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv));
                 SurfaceData2D surfaceData;
@@ -141,6 +150,8 @@ Shader "Eastern Fantasy/Village Harmony"
                 half _Brightness;
                 half _OutlineWidth;
                 half _FlashAmount;
+                float4 _ForgeLightCenter;
+                half _ForgeShadeStrength;
             CBUFFER_END
 
             Varyings NormalsRenderingVertex(Attributes input)
@@ -171,6 +182,7 @@ Shader "Eastern Fantasy/Village Harmony"
 
             #pragma vertex UnlitVertex
             #pragma fragment UnlitFragment
+            #pragma shader_feature_local _FORGE_SHADE
 
             struct Attributes
             {
@@ -201,6 +213,8 @@ Shader "Eastern Fantasy/Village Harmony"
                 half _Brightness;
                 half _OutlineWidth;
                 half _FlashAmount;
+                float4 _ForgeLightCenter;
+                half _ForgeShadeStrength;
             CBUFFER_END
 
             #include "Assets/_Project/Effect/VillageHarmony.hlsl"
@@ -218,7 +232,11 @@ Shader "Eastern Fantasy/Village Harmony"
 
             half4 UnlitFragment(Varyings input) : SV_Target
             {
-                return ApplyReadability(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv), input.uv, input.color);
+                half4 main = ApplyReadability(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv), input.uv, input.color);
+                #if defined(_FORGE_SHADE)
+                main.rgb = ApplyForgeShade(main.rgb, input.uv);
+                #endif
+                return main;
             }
             ENDHLSL
         }

@@ -1,0 +1,377 @@
+fileFormatVersion: 2
+guid: 398f3a1d06c484841b4ba3685c8360ac
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8656298211194015430
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_0"
+  - first:
+      213: 3678089819070754816
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_1"
+  - first:
+      213: 8351860329113910323
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_2"
+  - first:
+      213: 429203661224598187
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_3"
+  - first:
+      213: 1096048723861303199
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_4"
+  - first:
+      213: 3323630507629074209
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_5"
+  - first:
+      213: -1122668359972181726
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_6"
+  - first:
+      213: 7328400348550841385
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_7"
+  - first:
+      213: 1933366707979540444
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_8"
+  - first:
+      213: 402433342233486846
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_9"
+  - first:
+      213: 8915998046951885868
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_10"
+  - first:
+      213: 5306976109336653079
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_11"
+  - first:
+      213: 4306911831041838137
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_12"
+  - first:
+      213: 6238857835440406867
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_13"
+  - first:
+      213: -3072613892691498891
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_14"
+  - first:
+      213: 6035413713070904939
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_15"
+  - first:
+      213: 5742833343086231779
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_16"
+  - first:
+      213: -7011186366556280235
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_17"
+  - first:
+      213: 9212464008999098990
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_18"
+  - first:
+      213: 1222928599345124766
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_19"
+  - first:
+      213: 5161182125560311717
+    second: "\uB3D9\uC790\uC2B9 \uB300\uAE30 V2_20"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 86
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: NoviceMonkIdle_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 187
+        width: 272
+        height: 363
+      alignment: 9
+      pivot: {x: 0.5202206, y: 0.016528925}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bff6e79c40c4cbd4d86e4137105325dd
+      internalID: 13457739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoviceMonkIdle_01
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 187
+        width: 272
+        height: 363
+      alignment: 9
+      pivot: {x: 0.52205884, y: 0.016528925}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6bab9e28b33b7d4ca1d15fd7d816016
+      internalID: 1831357642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoviceMonkIdle_02
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 187
+        width: 271
+        height: 363
+      alignment: 9
+      pivot: {x: 0.52398527, y: 0.016528925}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9044fd9fda1314f4c92d4b0214ada19f
+      internalID: -2049582635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoviceMonkIdle_03
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 187
+        width: 271
+        height: 363
+      alignment: 9
+      pivot: {x: 0.5221402, y: 0.016528925}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edd736c16c6b5e3499fc838ebff85f92
+      internalID: 326087486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoviceMonkIdle_04
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 187
+        width: 272
+        height: 363
+      alignment: 9
+      pivot: {x: 0.5202206, y: 0.016528925}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 649f5eb8eccf8c64b96f4876a7754518
+      internalID: 487092965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoviceMonkIdle_05
+      rect:
+        serializedVersion: 2
+        x: 1358
+        y: 187
+        width: 271
+        height: 363
+      alignment: 9
+      pivot: {x: 0.5221402, y: 0.016528925}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79b708acd98b14a4d862850d6c4dcf20
+      internalID: -2113968559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoviceMonkIdle_06
+      rect:
+        serializedVersion: 2
+        x: 1629
+        y: 187
+        width: 271
+        height: 363
+      alignment: 9
+      pivot: {x: 0.52398527, y: 0.016528925}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81875c8ebeff55b4b81873a6fe136fd6
+      internalID: -1104776605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NoviceMonkIdle_07
+      rect:
+        serializedVersion: 2
+        x: 1900
+        y: 187
+        width: 272
+        height: 363
+      alignment: 9
+      pivot: {x: 0.5202206, y: 0.016528925}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 660d16d6430f9174aa054b91ce3ae519
+      internalID: -21494412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: b8ae6f30a4a81dd4eae3139e72d2f043
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      NoviceMonkIdle_00: 13457739
+      NoviceMonkIdle_01: 1831357642
+      NoviceMonkIdle_02: -2049582635
+      NoviceMonkIdle_03: 326087486
+      NoviceMonkIdle_04: 487092965
+      NoviceMonkIdle_05: -2113968559
+      NoviceMonkIdle_06: -1104776605
+      NoviceMonkIdle_07: -21494412
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

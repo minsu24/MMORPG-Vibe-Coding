@@ -85,14 +85,14 @@ namespace EasternFantasy.UI
             {
                 var marker=markers[i];
                 marker.Visible=TryGetMarker(mainQuests[i],manager,out marker.State,out marker.Scene)
-                    && window.IsOpen && window.IsShowingDetail && MapRegionDiscovery.IsSceneNameKnown(marker.Scene);
+                    && window.IsOpen && window.IsSceneOnDetailPage(marker.Scene) && MapRegionDiscovery.IsSceneNameKnown(marker.Scene);
             }
             Rect drawn=MapPlayerLocationUI.GetDrawingRect(detailImage);float scale=drawn.height/1080;
             for(int i=0;i<markers.Length;i++)
             {
                 var marker=markers[i];MapPlayerLocationUI.Location location=null;
                 if(marker.Visible) foreach(var candidate in playerLocation.Locations)
-                    if(candidate.sceneName==marker.Scene && candidate.giantFarm==window.IsShowingGiantFarm){location=candidate;break;}
+                    if(candidate.sceneName==marker.Scene){location=candidate;break;}
                 bool visible=location!=null && location.bannerOutline!=null && location.bannerOutline.Length>0;
                 marker.Root.gameObject.SetActive(visible);if(!visible)continue;
                 int total=0,index=0;

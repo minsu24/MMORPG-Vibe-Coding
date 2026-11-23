@@ -33,7 +33,7 @@ namespace EasternFantasy.Inventory
         private ItemDefinition item;
         private int quantity;
         private Rigidbody2D dropBody;
-        private Vector3 landingPosition;
+        private Vector3 gatherOrigin, landingPosition;
         private float elapsed;
         private bool initialized;
         private bool collected;
@@ -44,6 +44,7 @@ namespace EasternFantasy.Inventory
         public int Quantity => quantity;
         public bool IsCollected => collected;
         public Vector3 LandingPosition => landingPosition;
+        internal float LandingCenterX => landingPosition.x + iconRenderer.bounds.center.x - transform.position.x;
         // Before initialization, reserve enough room for the largest possible weapon.
         public float VisualWidth => item == null ? worldIconSize * slenderWeaponScale : DisplaySize;
         private float DisplaySize => worldIconSize * (item != null && item.Category == ItemCategory.Equipment
@@ -84,10 +85,12 @@ namespace EasternFantasy.Inventory
 
 
             landingPosition = landingPoint;
+            landingPosition.x -= iconRenderer.bounds.center.x - transform.position.x;
             landingPosition.y += iconRenderer.bounds.extents.y - (iconRenderer.bounds.center.y - transform.position.y);
             elapsed = 0f;
             initialized = true;
-            dropBody = DropPlacement2D.LaunchPhysicalDrop(gameObject, iconRenderer, landingPosition, tossDuration, tossHeight);
+            gatherOrigin = transform.position;
+            DropPlacement2D.GatherAtDropOrigin(transform, gatherOrigin, landingPosition, 0f);
 
             if (lifetime > 0f)
                 Destroy(gameObject, lifetime);
@@ -99,6 +102,14 @@ namespace EasternFantasy.Inventory
                 return;
 
             elapsed += Time.deltaTime;
+            if (dropBody == null)
+            {
+                DropPlacement2D.GatherAtDropOrigin(transform, gatherOrigin, landingPosition, elapsed);
+                if (elapsed < DropPlacement2D.GatherDuration) return;
+
+                dropBody = DropPlacement2D.LaunchPhysicalDrop(gameObject, iconRenderer, landingPosition, tossDuration, tossHeight);
+                elapsed = 0f;
+            }
             if (!pickupCollider.enabled && elapsed >= pickupDelay)
                 pickupCollider.enabled = true;
         }
@@ -142,10 +153,10 @@ namespace EasternFantasy.Inventory
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (!collected && DropPlacement2D.StopOnLanding(dropBody, collision))
+            if (!collected && DropPlacement2D.TrySettleOnLanding(dropBody, iconRenderer, collision,
+                VisualWidth * .5f, landingPosition, out Vector3 position))
             {
-                landingPosition = transform.position;
-                DropPlacement2D.SettlePhysicalDrop(dropBody, gameObject);
+                landingPosition = position;
                 floating.Begin(landingPosition);
             }
         }

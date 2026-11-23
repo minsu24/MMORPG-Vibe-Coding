@@ -27,6 +27,7 @@ namespace EasternFantasy.Quest
 
         public QuestDefinition Definition => definition;
         public int CurrentAmount { get => currentAmount; internal set => currentAmount = value; }
+        public int CollectedAmount { get; internal set; }
         public QuestStatus Status { get => status; internal set => status = value; }
     }
 
@@ -62,14 +63,33 @@ namespace EasternFantasy.Quest
             foreach (var progress in quests)
             {
                 if (progress.Definition == null || progress.Definition.RequiredItem == null || progress.Status == QuestStatus.Completed) continue;
-                int amount = collectionInventory != null ? Mathf.Min(collectionInventory.GetMaterialQuantity(progress.Definition.RequiredItem), progress.Definition.RequiredAmount) : 0;
-                var status = amount >= progress.Definition.RequiredAmount ? QuestStatus.ReadyToTurnIn : QuestStatus.Active;
-                if (progress.CurrentAmount == amount && progress.Status == status) continue;
-                progress.CurrentAmount = amount;
-                progress.Status = status;
-                changed = true;
+                var definition = progress.Definition;
+                int amount = collectionInventory != null
+                    ? Mathf.Min(collectionInventory.GetMaterialQuantity(definition.RequiredItem), definition.RequiredItemAmount) : 0;
+                if (progress.CollectedAmount != amount)
+                {
+                    progress.CollectedAmount = amount;
+                    changed = true;
+                }
+                if (!definition.HasCountObjective && progress.CurrentAmount != amount)
+                {
+                    progress.CurrentAmount = amount;
+                    changed = true;
+                }
+                changed |= UpdateReadiness(progress);
             }
             if (changed) QuestsChanged?.Invoke();
+        }
+
+        private static bool UpdateReadiness(QuestProgress progress)
+        {
+            var definition = progress.Definition;
+            var status = (!definition.HasCountObjective || progress.CurrentAmount >= definition.RequiredAmount)
+                && (definition.RequiredItem == null || progress.CollectedAmount >= definition.RequiredItemAmount)
+                ? QuestStatus.ReadyToTurnIn : QuestStatus.Active;
+            if (progress.Status == status) return false;
+            progress.Status = status;
+            return true;
         }
 
         public static QuestManager Instance { get; private set; }
@@ -133,17 +153,15 @@ namespace EasternFantasy.Quest
 
         public bool AddProgress(QuestDefinition definition, int amount = 1)
         {
-            if (definition == null || definition.RequiredItem != null) return false;
+            if (definition == null || !definition.HasCountObjective) return false;
             QuestProgress progress = FindProgress(definition);
             if (progress == null || progress.Status != QuestStatus.Active || amount <= 0)
                 return false;
 
-            progress.CurrentAmount = Mathf.Min(
-                progress.CurrentAmount + amount,
-                definition.RequiredAmount);
-
-            if (progress.CurrentAmount >= definition.RequiredAmount)
-                progress.Status = QuestStatus.ReadyToTurnIn;
+            int added = Mathf.Min(amount, definition.RequiredAmount - progress.CurrentAmount);
+            if (added <= 0) return false;
+            progress.CurrentAmount += added;
+            UpdateReadiness(progress);
 
             QuestsChanged?.Invoke();
             return true;
@@ -169,7 +187,7 @@ namespace EasternFantasy.Quest
             {
                 var inventory = FindFirstObjectByType<PlayerInventory>();
                 if (inventory == null || !inventory.TryExchangeMaterialForItems(definition.RequiredItem,
-                    definition.RequiredItem != null ? definition.RequiredAmount : 0, rewards))
+                    definition.RequiredItem != null ? definition.RequiredItemAmount : 0, rewards))
                 {
                     progress.Status = QuestStatus.ReadyToTurnIn;
                     EasternFantasy.UI.SystemNoticeUI.ShowFailure("제출할 아이템 수량과 보상을 받을 인벤토리 공간을 확인해 주세요.", this);

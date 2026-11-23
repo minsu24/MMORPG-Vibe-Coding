@@ -70,6 +70,7 @@ namespace EasternFantasy.Player
 
         private void Update()
         {
+            if (CaveBellInteraction.IsViewing) return;
             if (EasternFantasy.UI.SceneLoadingScreen.IsVisible) return;
             Keyboard keyboard = Keyboard.current;
             if (keyboard == null)
@@ -103,6 +104,7 @@ namespace EasternFantasy.Player
 
         private void OnGUI()
         {
+            if (CaveBellInteraction.IsViewing) return;
             if (EasternFantasy.UI.GameplayHudVisibility.IsMenuScene || EasternFantasy.UI.SceneLoadingScreen.IsVisible) return;
             GUI.Box(new Rect(12f, 12f, Mathf.Min(228f, Screen.width - 24f), 28f),
                 ghostMode ? "F9 Ghost: ON  |  F10 Admin" : "F9 Ghost: OFF  |  F10 Admin");

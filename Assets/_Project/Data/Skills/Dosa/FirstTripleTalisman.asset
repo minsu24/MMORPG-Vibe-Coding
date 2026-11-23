@@ -16,12 +16,14 @@ MonoBehaviour:
   displayName: "3\uB2E8 \uBD80\uC801 \uB0A0\uB9AC\uAE30"
   shortDescription: "\uC804\uBC29\uC73C\uB85C \uBD80\uC801 \uC138 \uC7A5\uC744 \uB0A0\uB9AC\uB294
     \uACF5\uACA9 \uC2A4\uD0AC\uC785\uB2C8\uB2E4."
-  detailedDescription: "\uD53C\uD574\uB7C9, \uD22C\uC0AC\uCCB4 \uAC04\uACA9\uACFC
-    \uC7AC\uC0AC\uC6A9 \uB300\uAE30\uC2DC\uAC04\uC740 \uC5EC\uAE30\uC5D0 \uC791\uC131\uD558\uC138\uC694."
+  detailedDescription: '부적 한 장당 1레벨에 공격력의 80% 피해를 줍니다. 레벨당 5%p 증가하여 10레벨에 125%가 됩니다. MP 40 소모, 재사용 대기시간 4초.'
   tier: 1
   activationType: 1
-  maximumLevel: 1
+  maximumLevel: 10
   cooldownSeconds: 4
+  damageMultiplier: 0.8
+  damageMultiplierPerLevel: 0.05
+  damageHitCount: 3
   manaCost: 40
   icon: {fileID: 6925722185343869235, guid: 2ac0d094d661233419e61691c72c737a, type: 3}
   effectType: 0

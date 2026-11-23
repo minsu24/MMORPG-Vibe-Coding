@@ -29,6 +29,7 @@ namespace EasternFantasy.Player
         [Header("Base Stats")]
         [SerializeField, Min(0f)] private float baseAttackPower = 10f;
         [SerializeField, Min(0f)] private float baseDefensePower = 5f;
+        [SerializeField, Range(0f, 100f)] private float baseDamageReduction;
         [SerializeField, Range(0f, 1f)] private float lifeStealRate;
         [SerializeField, Range(0f, 1f)] private float criticalChance = 0.05f;
         [SerializeField, Min(1f)] private float criticalDamageMultiplier = 1.5f;
@@ -57,6 +58,10 @@ namespace EasternFantasy.Player
         private float manaSetBonus;
         private float activeDamageReduction;
         private Coroutine damageReductionRoutine;
+        private ItemDefinition attackPotion;
+        private float attackPotionRemaining;
+        private ItemDefinition reductionPotion;
+        private float reductionPotionRemaining;
 
         
 
@@ -105,6 +110,9 @@ namespace EasternFantasy.Player
         public float Defense => ApplySetStat(EquipmentSetStat.Defense, baseDefensePower + defenseLevelBonus +
             (playerInventory != null ? playerInventory.EquippedDefenseBonus : 0f) +
             (advancementSystem != null ? advancementSystem.DefenseBonus : 0f));
+        public float AttackPower => Attack_Power * (1f + (attackPotion != null ? attackPotion.UseAmount : 0f));
+        public float DamageReduction => Mathf.Clamp(baseDamageReduction +
+            (activeDamageReduction + (reductionPotion != null ? reductionPotion.UseAmount : 0f)) * 100f, 0f, 100f);
         public float LifeStealRate => lifeStealRate;
         public float CriticalChance => criticalChance;
         public float CriticalDamageMultiplier => criticalDamageMultiplier;
@@ -195,8 +203,9 @@ namespace EasternFantasy.Player
             float advancementAttackBonus = advancementSystem != null
                 ? advancementSystem.AttackBonus
                 : 0f;
+            float titleAttackBonusRate = playerInventory?.GetEquipped(EquipmentSlot.Title)?.TitleAttackBonusRate ?? 0f;
             Attack_Power = ApplySetStat(EquipmentSetStat.Attack, baseAttackPower + attackLevelBonus + equipmentAttackBonus
-                + advancementAttackBonus);
+                + advancementAttackBonus) * (1f + titleAttackBonusRate);
             Speed = ApplySetStat(EquipmentSetStat.MoveSpeed, baseSpeed + speedSkillBonus);
             float healthWithoutSet = maximumHealth + healthLevelBonus + healthSkillBonus;
             float manaWithoutSet = maximumMana + manaLevelBonus + manaSkillBonus;
@@ -215,7 +224,62 @@ namespace EasternFantasy.Player
         public float RollAttackDamage(out bool isCritical)
         {
             isCritical = UnityEngine.Random.value < criticalChance;
-            return Attack_Power * (isCritical ? criticalDamageMultiplier : 1f);
+            return AttackPower * (isCritical ? criticalDamageMultiplier : 1f);
+        }
+
+        internal bool TryApplyPotionBuff(ItemDefinition potion)
+        {
+            if (IsDead || potion == null || potion.UseAmount <= 0f || potion.BuffDuration <= 0f) return false;
+
+            switch (potion.ConsumableEffect)
+            {
+                case ConsumableEffect.IncreaseAttackPower:
+                    attackPotion = potion;
+                    attackPotionRemaining = potion.BuffDuration;
+                    break;
+                case ConsumableEffect.IncreaseDamageReduction:
+                    reductionPotion = potion;
+                    reductionPotionRemaining = potion.BuffDuration;
+                    break;
+                default:
+                    return false;
+            }
+            StatsChanged?.Invoke();
+            return true;
+        }
+
+        public ItemDefinition GetActivePotionBuff(ConsumableEffect effect, out float remaining)
+        {
+            switch (effect)
+            {
+                case ConsumableEffect.IncreaseAttackPower:
+                    remaining = attackPotionRemaining;
+                    return attackPotion;
+                case ConsumableEffect.IncreaseDamageReduction:
+                    remaining = reductionPotionRemaining;
+                    return reductionPotion;
+                default:
+                    remaining = 0f;
+                    return null;
+            }
+        }
+
+        private void Update() => AdvancePotionBuffs(Time.deltaTime);
+
+        private void AdvancePotionBuffs(float deltaTime)
+        {
+            bool attackExpired = AdvancePotionTimer(ref attackPotionRemaining, deltaTime);
+            bool reductionExpired = AdvancePotionTimer(ref reductionPotionRemaining, deltaTime);
+            if (attackExpired) attackPotion = null;
+            if (reductionExpired) reductionPotion = null;
+            if (attackExpired || reductionExpired) StatsChanged?.Invoke();
+        }
+
+        private static bool AdvancePotionTimer(ref float remaining, float deltaTime)
+        {
+            if (remaining <= 0f) return false;
+            remaining = Mathf.Max(0f, remaining - deltaTime);
+            return remaining == 0f;
         }
 
         public void ApplyLifeSteal(float dealtDamage)
@@ -275,26 +339,27 @@ namespace EasternFantasy.Player
 
             float defendedDamage = damage
                 * (100f / (100f + Mathf.Max(0f, Defense)));
-            float shieldReduction = Mathf.Clamp01(activeDamageReduction);
-            float mitigatedDamage = defendedDamage * (1f - shieldReduction);
-            float appliedDamage = Mathf.Min(Mathf.Max(1f, mitigatedDamage), HP);
-            HP -= appliedDamage;
-            if (shieldReduction > 0f)
-                DamageReduced?.Invoke(defendedDamage * shieldReduction);
-            NotifyResolvedDamage(appliedDamage);
+            ApplyIncomingDamage(Mathf.Max(1f, defendedDamage));
         }
 
-        // Boss attacks can deal an exact fraction of maximum health, without armor scaling.
-        // Keep normal immunity/parry checks, damage events, combat state and death handling.
+        // Boss attacks based on maximum health bypass armor and still use percentage mitigation.
         public void TakeMaxHealthDamage(float fraction)
         {
             if (IsDead || IsDamageImmune || fraction <= 0f) return;
             MonkEnergy monkEnergy = Energy;
             if (monkEnergy != null && monkEnergy.TryParry()) return;
             if (AdminInvulnerability) { RegisterAcceptedHit(); return; }
-            float appliedDamage = Mathf.Min(maxHP * Mathf.Clamp01(fraction), HP);
+            ApplyIncomingDamage(maxHP * Mathf.Clamp01(fraction));
+        }
+
+        private void ApplyIncomingDamage(float damage)
+        {
+            float reduction = DamageReduction / 100f;
+            float appliedDamage = Mathf.Min(damage * (1f - reduction), HP);
             HP -= appliedDamage;
-            NotifyResolvedDamage(appliedDamage);
+            if (reduction > 0f) DamageReduced?.Invoke(damage * reduction);
+            if (appliedDamage > 0f) NotifyResolvedDamage(appliedDamage);
+            else RegisterAcceptedHit();
         }
 
         private void NotifyResolvedDamage(float appliedDamage)
@@ -304,6 +369,7 @@ namespace EasternFantasy.Player
 
             if (IsDead)
             {
+                ClearPotionBuffs();
                 EndCombat();
                 Died?.Invoke();
             }
@@ -324,6 +390,7 @@ namespace EasternFantasy.Player
                 Energy.ResetEnergy();
             isInvincible = false;
             isKnockback = false;
+            ClearPotionBuffs();
             activeDamageReduction = 0f;
             if (damageReductionRoutine != null)
             {
@@ -340,8 +407,17 @@ namespace EasternFantasy.Player
                 return;
 
             HP = 0f;
+            ClearPotionBuffs();
             StatsChanged?.Invoke();
             Died?.Invoke();
+        }
+
+        private void ClearPotionBuffs()
+        {
+            attackPotion = null;
+            attackPotionRemaining = 0f;
+            reductionPotion = null;
+            reductionPotionRemaining = 0f;
         }
 
         public void ActivateDamageReduction(float reductionRate, float duration)

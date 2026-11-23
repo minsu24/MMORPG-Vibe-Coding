@@ -12,6 +12,7 @@ public static class EnemyAttackAudio
     public static void PlayAt(GameObject context, string resource, float volume = .3f, float startSeconds = 0f)
     {
         if (context == null) return;
+        if (LocalAmbientAudio2D.GetPlayerVolumeAt(context.transform.position, volume) <= 0f) return;
         var clip = Resources.Load<AudioClip>(resource);
         if (clip == null) return;
         var root = new GameObject(context.name + " " + clip.name + " Audio");
@@ -21,7 +22,8 @@ public static class EnemyAttackAudio
         source.playOnAwake = false;
         source.loop = false;
         source.spatialBlend = 0f;
-        source.volume = Mathf.Clamp01(volume);
+        var distanceAudio = root.AddComponent<LocalAmbientAudio2D>();
+        distanceAudio.PrepareOneShot(volume, 1.5f, 10f);
         source.clip = clip;
         float start = Mathf.Clamp(startSeconds, 0f, Mathf.Max(0f, clip.length - .01f));
         source.time = start;

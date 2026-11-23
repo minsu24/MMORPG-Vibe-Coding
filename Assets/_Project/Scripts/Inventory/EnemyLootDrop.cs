@@ -28,6 +28,7 @@ namespace EasternFantasy.Inventory
         [SerializeField] private EnemyDropEntry[] drops = Array.Empty<EnemyDropEntry>();
         [SerializeField, Min(0f)] private float spawnHeight = 0.35f;
         [SerializeField, Min(0f)] private float horizontalScatter = 0.65f;
+        [SerializeField, Min(0f)] private float firstDropOffset;
 
         [Tooltip("Use only this drop table, skipping the global common material roll.")]
         [SerializeField] private bool overridesCommonLoot;
@@ -81,9 +82,9 @@ namespace EasternFantasy.Inventory
                 int minimum = Mathf.Max(1, drop.MinimumQuantity);
                 int maximum = Mathf.Max(minimum, drop.MaximumQuantity);
                 int quantity = UnityEngine.Random.Range(minimum, maximum + 1);
-                // Alternate right/left with a fixed gap, reserving one floor slot per drop.
+                // Start at the center unless this enemy sends even a single drop sideways.
                 float spacing = Mathf.Max(pickupPrefab.VisualWidth + 0.12f, horizontalScatter);
-                float scatter = dropIndex == 0 ? 0f : ((dropIndex + 1) / 2) * (dropIndex % 2 == 1 ? spacing : -spacing);
+                float scatter = dropIndex == 0 ? firstDropOffset : ((dropIndex + 1) / 2) * (dropIndex % 2 == 1 ? spacing : -spacing);
                 dropIndex++;
                 if (!DropPlacement2D.TryFindLanding(floor, transform.position,
                     transform.position.x + scatter, pickupPrefab.VisualWidth * 0.5f,
@@ -112,6 +113,7 @@ namespace EasternFantasy.Inventory
         {
             spawnHeight = Mathf.Max(0f, spawnHeight);
             horizontalScatter = Mathf.Max(0f, horizontalScatter);
+            firstDropOffset = Mathf.Max(0f, firstDropOffset);
         }
     }
 }

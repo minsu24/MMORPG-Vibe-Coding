@@ -18,6 +18,7 @@ namespace EasternFantasy.UI
         [SerializeField] private TMP_Text MPstatsText;
         [SerializeField] private TMP_Text AttackstatsText;
         [SerializeField] private TMP_Text DefensestatsText;
+        [SerializeField] private TMP_Text damageReductionText;
         [SerializeField] private TMP_Text LifeStealstatsText;
         [SerializeField] private TMP_Text CriticalChancestatsText;
         [SerializeField] private TMP_Text CriticalDamagestatsText;
@@ -173,8 +174,10 @@ namespace EasternFantasy.UI
             MPstatsText.text = monkEnergy != null
                 ? $"기력 {monkEnergy.Current:F0} / {monkEnergy.Maximum:F0}"
                 : $"{playerEntity.ResourceName} {playerEntity.MP:F0} / {playerEntity.maxMP:F0}";
-            AttackstatsText.text = $"공격력 {playerEntity.Attack_Power:F0}";
+            AttackstatsText.text = $"공격력 {playerEntity.AttackPower:F0}";
             DefensestatsText.text = $"방어력 {playerEntity.Defense:F0}";
+            if (damageReductionText != null)
+                damageReductionText.text = $"피해감면 {playerEntity.DamageReduction:0.#}%";
             LifeStealstatsText.text = $"흡혈 {playerEntity.LifeStealRate * 100f:F1}%";
             CriticalChancestatsText.text = $"치명타 확률 {playerEntity.CriticalChance * 100f:F1}%";
             CriticalDamagestatsText.text = $"치명타 피해 {playerEntity.CriticalDamageMultiplier * 100f:F0}%";

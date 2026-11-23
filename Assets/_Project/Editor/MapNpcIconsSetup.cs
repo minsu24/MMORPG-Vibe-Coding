@@ -33,7 +33,7 @@ namespace EasternFantasy.EditorTools
                     var data=new SerializedObject(component);
                     data.FindProperty("detailImage").objectReferenceValue=window.FindProperty("detailImage").objectReferenceValue;
                     data.FindProperty("font").objectReferenceValue=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/_Project/Fonts/GowunBatang-Bold SDF.asset");
-                    var entries=data.FindProperty("entries"); entries.arraySize=5;
+                    var entries=data.FindProperty("entries"); entries.arraySize=Mathf.Max(5,entries.arraySize);
                     string[] scenes={"PrologueVilage","SpiderCave","PrologueVilage","PrologueVilage","BrokenSeal"};
                     string[] names={"대장장이","다친 주민","상점 주인","촌장","금두꺼비"};
                     for(int i=0;i<5;i++)

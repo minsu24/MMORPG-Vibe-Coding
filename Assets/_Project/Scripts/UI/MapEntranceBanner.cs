@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using EasternFantasy.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -56,15 +57,29 @@ namespace EasternFantasy.UI
             if (animationRoutine != null) StopCoroutine(animationRoutine);
             animationRoutine = null;
             Hide();
-            string title = MapLocationNames.GetDisplayName(scene.name);
+            string title = MapLocationNames.GetEntranceDisplayName(scene.name);
             mapName.text = title;
-            if (!string.IsNullOrEmpty(title)) animationRoutine = StartCoroutine(ShowAfterTransition());
+            if (string.IsNullOrEmpty(title)) return;
+            bool firstMountainArrival = scene.name == MountainPassArrival.Destination && MountainPassArrival.IsPending;
+            animationRoutine = StartCoroutine(ShowAfterTransition(firstMountainArrival));
         }
-        private IEnumerator ShowAfterTransition()
+        private IEnumerator ShowAfterTransition(bool waitForFirstStep)
         {
-            // Start the readable duration after the portal's black overlay disappears.
+            // Start the readable duration after the loading overlay disappears.
             yield return null;
             while (PortalSceneTransition.IsTransitioning || SceneLoadingScreen.IsVisible) yield return null;
+            if (waitForFirstStep)
+            {
+                var player = FindFirstObjectByType<PlayerMovement2D>();
+                if (player != null)
+                {
+                    float initialX = player.transform.position.x;
+                    float deadline = Time.unscaledTime + 0.55f;
+                    while (player != null && Mathf.Abs(player.transform.position.x - initialX) < 0.34f
+                        && Time.unscaledTime < deadline)
+                        yield return null;
+                }
+            }
             bannerCanvas.enabled = true;
             yield return Fade(0f, 1f, fadeInSeconds);
             yield return new WaitForSecondsRealtime(holdSeconds);

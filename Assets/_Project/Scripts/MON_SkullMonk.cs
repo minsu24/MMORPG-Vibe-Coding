@@ -6,6 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public sealed partial class MON_SkullMonk : PersistentBossController
 {
+    [SerializeField] private EasternFantasy.Quest.QuestDefinition defeatQuest;
+    public EasternFantasy.Quest.QuestDefinition DefeatQuest => defeatQuest;
+
     [SerializeField, Min(.1f)] private float attackRange = 3.8f;
     [SerializeField, Min(.1f)] private float attackVerticalRange = 2f;
     [SerializeField, Min(.1f)] private float attackDownwardRange = 3.5f;
@@ -262,6 +265,13 @@ public sealed partial class MON_SkullMonk : PersistentBossController
         if (IsWaveAttacking || IsRingAttacking || IsPrayerAttacking || IsGiantStaffAttacking) return;
         FinishAttack(); base.ApplyKnockback(directionX);
     }
-    protected override void OnDefeated() { FinishAttack(); CancelGroundWaves(); CancelStaffRings(); base.OnDefeated(); }
+    protected override void OnDefeated()
+    {
+        FinishAttack();
+        CancelGroundWaves();
+        CancelStaffRings();
+        base.OnDefeated();
+        EasternFantasy.Quest.QuestManager.Instance?.AddProgress(defeatQuest);
+    }
     protected override void OnDisable() { UnbindIntroDialogue(); FinishAttack(); CancelGroundWaves(); CancelStaffRings(); base.OnDisable(); }
 }

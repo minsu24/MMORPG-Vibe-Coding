@@ -16,6 +16,7 @@ public partial class MON_Goblin
             : Resources.Load<AudioClip>("Audio/GoblinDeath");
         if (clip == null) return;
         disappearanceSoundPlayed = true;
+        if (LocalAmbientAudio2D.GetPlayerVolumeAt(transform.position, disappearanceVolume) <= 0f) return;
 
         // The corpse is removed before this sound's tail finishes. Keep a separate
         // scene-owned source so corpse cleanup cannot truncate the sound.
@@ -26,8 +27,9 @@ public partial class MON_Goblin
         source.playOnAwake = false;
         source.loop = false;
         source.spatialBlend = 0f;
+        var distanceAudio = root.AddComponent<LocalAmbientAudio2D>();
+        distanceAudio.PrepareOneShot(disappearanceVolume, 1.5f, 10f);
         source.clip = clip;
-        source.volume = disappearanceVolume;
         source.Play();
         Destroy(root, clip.length + .1f);
     }

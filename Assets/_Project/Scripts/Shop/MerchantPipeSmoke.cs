@@ -5,8 +5,7 @@ namespace EasternFantasy.Shop
 {
     public sealed class MerchantPipeSmoke : MonoBehaviour
     {
-        private SpriteRenderer visual;
-        private SpriteRenderer nextVisual;
+        private SpriteRenderer visual, blendVisual;
         private Sprite[] frames;
         private Vector3 origin, velocity;
         private Color initialColor;
@@ -14,32 +13,40 @@ namespace EasternFantasy.Shop
         public bool IsFinished { get; private set; }
 
         public static MerchantPipeSmoke Create(SpriteRenderer source, Sprite[] frames, Vector3 position,
-            Vector2 size, Vector3 velocity, float lifetime)
+            Vector2 size, Vector3 velocity, float lifetime, float delay = 0f, float opacity = 1f)
         {
             var go = new GameObject("Monkey Merchant Detached Pipe Smoke");
             SceneManager.MoveGameObjectToScene(go, source.gameObject.scene);
             go.transform.SetPositionAndRotation(position, source.transform.rotation);
             var smoke = go.AddComponent<MerchantPipeSmoke>();
-            smoke.frames = frames; smoke.origin = position; smoke.velocity = velocity;
+            smoke.frames = frames;
+            smoke.origin = position; smoke.velocity = velocity;
+            smoke.age = -Mathf.Max(0f, delay);
             smoke.lifetime = Mathf.Max(.1f, lifetime);
-            smoke.initialColor = source.color;
-            smoke.visual = go.AddComponent<SpriteRenderer>();
-            smoke.visual.sharedMaterial = source.sharedMaterial;
-            smoke.visual.sortingLayerID = source.sortingLayerID;
-            smoke.visual.sortingOrder = source.sortingOrder + 1;
-            smoke.visual.flipX = source.flipX ^ (source.transform.lossyScale.x < 0f);
-            smoke.visual.flipY = source.flipY ^ (source.transform.lossyScale.y < 0f);
-            var next = new GameObject("Smoke frame blend");
-            next.transform.SetParent(go.transform, false);
-            smoke.nextVisual = next.AddComponent<SpriteRenderer>();
-            smoke.nextVisual.sharedMaterial = source.sharedMaterial;
-            smoke.nextVisual.sortingLayerID = source.sortingLayerID;
-            smoke.nextVisual.sortingOrder = smoke.visual.sortingOrder + 1;
-            smoke.nextVisual.flipX = smoke.visual.flipX; smoke.nextVisual.flipY = smoke.visual.flipY;
-            // One constant scale preserves the source animation's gradual thinning.
-            go.transform.localScale = new Vector3(size.x / frames[0].bounds.size.x, size.y / frames[0].bounds.size.y, 1f);
+            var color = source.color;
+            color.a *= opacity;
+            smoke.initialColor = color;
+            smoke.visual = AddRenderer(go, source);
+            if (frames.Length > 1)
+            {
+                var blend = new GameObject("Next Smoke Frame");
+                blend.transform.SetParent(go.transform, false);
+                smoke.blendVisual = AddRenderer(blend, source);
+            }
+            var bounds = frames[0].bounds.size;
+            go.transform.localScale = new Vector3(size.x / bounds.x, size.y / bounds.y, 1f);
             smoke.Draw();
             return smoke;
+        }
+
+        private static SpriteRenderer AddRenderer(GameObject target, SpriteRenderer source)
+        {
+            var renderer = target.AddComponent<SpriteRenderer>();
+            renderer.sortingLayerID = source.sortingLayerID;
+            renderer.sortingOrder = source.sortingOrder + 1;
+            renderer.flipX = source.flipX ^ (source.transform.lossyScale.x < 0f);
+            renderer.flipY = source.flipY ^ (source.transform.lossyScale.y < 0f);
+            return renderer;
         }
 
         private void Update() => Advance(Time.deltaTime);
@@ -59,18 +66,27 @@ namespace EasternFantasy.Shop
 
         private void Draw()
         {
-            transform.position = origin + velocity * age;
-            float progress = age / lifetime * frames.Length;
-            int frame = Mathf.Clamp(Mathf.FloorToInt(progress), 0, frames.Length - 1);
-            int next = Mathf.Min(frame + 1, frames.Length - 1);
-            float blend = next == frame ? 0f : progress - frame;
-            visual.sprite = frames[frame];
-            nextVisual.sprite = frames[next];
+            float visibleAge = Mathf.Max(0f, age);
+            transform.position = origin + velocity * visibleAge;
+            float appear = Mathf.SmoothStep(0f, 1f, visibleAge / Mathf.Min(.18f, lifetime * .22f));
+            float dissipate = Mathf.SmoothStep(0f, 1f, (lifetime - age) / (lifetime * .28f));
             var color = initialColor;
-            color.a *= Mathf.Clamp01((lifetime - age) / (lifetime * .45f));
-            var nextColor = color; nextColor.a *= blend; color.a *= 1f - blend;
+            color.a *= appear * dissipate;
+            float playback = visibleAge / lifetime * frames.Length;
+            int index = Mathf.Min((int)playback, frames.Length - 1);
+            visual.sprite = frames[index];
+            if (blendVisual != null && index + 1 < frames.Length)
+            {
+                // Overlap consecutive drawings briefly while keeping both on the same drifting origin.
+                float mix = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(.6f, 1f, playback - index));
+                var nextColor = color;
+                nextColor.a *= mix;
+                blendVisual.sprite = frames[index + 1];
+                blendVisual.color = nextColor;
+                color.a *= 1f - mix;
+            }
+            else if (blendVisual != null) blendVisual.sprite = null;
             visual.color = color;
-            nextVisual.color = nextColor;
         }
     }
 }

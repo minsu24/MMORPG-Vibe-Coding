@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1556faa70b3ce43862d54865c7f42e, type: 3}
+  m_Name: TravelerWispAccepted
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dialogue.DialogueSequence
+  playerCharacter: {fileID: 0}
+  partnerCharacter: {fileID: 11400000, guid: 4813f7681cdd4374d911c43214df06ce, type: 2}
+  lines:
+  - speaker: 1
+    text: "\uace0\ub9d9\ub124. \uc0ac\ucc30\ub85c \uac00\ub294 \uae38\uc5d0\uc11c \ub3c4\uae68\ube44\ubd88\uc744 \ucc3e\uc544\ubcf4\uac8c. \ubd88\uc528\uac00 \uc0ac\ub77c\uc9c4 \uc790\ub9ac\uc5d0 \uc870\uac01\uc774 \ub0a8\uc73c\uba74 \ucc59\uaca8 \uc624\uac8c\ub098."
+    classOverrides: []
+    firstAdvancementText:
+  completionExperience: 0

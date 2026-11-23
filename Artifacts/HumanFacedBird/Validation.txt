@@ -11,12 +11,18 @@ PASS Uses common monster detection and walking chase
 PASS Nearby grounded player starts an attack
 PASS Faces right for a player on the right
 PASS Rises before claw damage; windup does not damage
-PASS Claw animation event damages player once
+PASS Dive sweep damages player once
 PASS Duplicate hit events cannot damage twice in one attack
 PASS Attack lands on the floor and restores gravity
 PASS Nearby grounded player starts an attack
 PASS Faces left for a player on the left
 PASS Mirrored claw attack damages on the left
+PASS Attack lands on the floor and restores gravity
+PASS Nearby grounded player starts an attack
+PASS Player can evade after takeoff; the dive keeps its committed direction
+PASS Attack lands on the floor and restores gravity
+PASS Nearby grounded player starts an attack
+PASS Wall stops the dive and blocks claw damage through terrain
 PASS Attack lands on the floor and restores gravity
 PASS Does not attack a distant player
 PASS Nearby grounded player starts an attack

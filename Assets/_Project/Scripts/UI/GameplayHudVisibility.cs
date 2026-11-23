@@ -15,7 +15,8 @@ namespace EasternFantasy.UI
             get
             {
                 string scene = SceneManager.GetActiveScene().name;
-                return scene == "MainScreen" || scene == "ChooseCharactor" || scene == "ChooseCharacter";
+                return scene == "MainScreen" || scene == "ChooseCharactor" || scene == "ChooseCharacter" ||
+                       scene == Opening.OpeningCutsceneManager.SceneName;
             }
         }
         public static void Attach(GameObject root)

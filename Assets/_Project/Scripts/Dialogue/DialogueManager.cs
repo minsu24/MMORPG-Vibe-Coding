@@ -110,6 +110,8 @@ namespace EasternFantasy.Dialogue
         public bool StartQuestCompletion(DialogueSequence sequence, QuestDefinition quest)
         {
             if (quest == null) return false;
+            if (quest.RewardEXP == 0 && quest.RewardYeopjeon == 0 && quest.RewardItems.Count == 0)
+                return StartDialogue(sequence);
             if (IsDialogueActive || !HasRequiredUi()) return false;
             completionQuest = quest;
             // Retain one final dialogue step, rendered as icons instead of typed reward text.

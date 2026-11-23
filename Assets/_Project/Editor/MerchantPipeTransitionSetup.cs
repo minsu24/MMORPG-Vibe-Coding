@@ -1,7 +1,5 @@
 using System;
-using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 using EasternFantasy.Shop;
 using UnityEngine;
 using UnityEditor;
@@ -13,108 +11,136 @@ namespace EasternFantasy.Editor
 {
     public static class MerchantPipeTransitionSetup
     {
-        public const string SheetPath = "Assets/_Project/Art/Old Temple/NPC/원숭이 상인 곰방대 연결.png";
-        public const string FramesFolder = "Assets/_Project/Art/Old Temple/NPC/MonkeyMerchantTransition";
-        public const float Duration = .64f;
+        private const string IdleSheet = TempleGateBlacksmithSetup.Art + "원숭이 상인 대기 선명화.png";
+        private const string BridgeSheet = TempleGateBlacksmithSetup.Art + "원숭이 상인 연결동작 선명화.png";
+        internal const string PipeSheet = TempleGateBlacksmithSetup.Art + "원숭이 상인 곰방대 8프레임.png";
+        internal const int ExhalePoseIndex = 7;
 
         [MenuItem("Eastern Fantasy/Old Temple/Configure Merchant Pipe Transitions")]
         public static string Apply()
         {
             if (Application.isPlaying) throw new InvalidOperationException("Stop play mode before editing the merchant.");
-            var idle = First("원숭이 상인 대기.png"); var pipe = First("원숭이 상인 곰방대.png");
-            var frames = ImportFrames(idle, pipe);
-            var poses = new[] { idle }.Concat(frames).Concat(new[] { pipe }).ToArray();
-            var enter = Clip(MonkeyMerchantAmbientAnimation.EnterPipeState, poses);
-            var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(TempleGateMerchantSetup.AnimationFolder + "/MonkeyMerchant.controller");
-            foreach (var clip in new[] { enter })
-            {
-                var machine = controller.layers[0].stateMachine;
-                var state = machine.states.Select(s => s.state).FirstOrDefault(s => s.name == clip.name) ?? machine.AddState(clip.name);
-                state.motion = clip; state.speed = 1f; EditorUtility.SetDirty(state); EditorUtility.SetDirty(machine);
-            }
-            EditorUtility.SetDirty(controller);
-            // Only the entry is extended. The established eighth-frame smoke/idle handoff stays immediate.
-            var unusedReturn = controller.layers[0].stateMachine.states.Select(s => s.state).FirstOrDefault(s => s.name == "MonkeyMerchantReturnFromPipe");
-            if (unusedReturn != null) controller.layers[0].stateMachine.RemoveState(unusedReturn);
-            string unusedReturnPath = TempleGateMerchantSetup.AnimationFolder + "/MonkeyMerchantReturnFromPipe.anim";
-            if (AssetDatabase.LoadAssetAtPath<AnimationClip>(unusedReturnPath) != null) AssetDatabase.DeleteAsset(unusedReturnPath);
             var scene = SceneManager.GetSceneByPath(TempleGateMerchantSetup.ScenePath); bool opened = !scene.isLoaded;
             if (opened) scene = EditorSceneManager.OpenScene(TempleGateMerchantSetup.ScenePath, OpenSceneMode.Additive);
             try
             {
+                if (scene.isDirty) throw new InvalidOperationException("Save TempleGate before rebuilding the merchant poses.");
+                var (idle, bridge, pipe) = ImportCharacterPoses();
+                TempleGateMerchantSetup.MakeIdleClip(idle);
+                ConfigureClips(idle[0], pipe, bridge);
                 var npc = scene.GetRootGameObjects().Single(g => g.name == TempleGateMerchantSetup.ObjectName);
+                var renderer = npc.GetComponent<SpriteRenderer>();
+                renderer.sprite = idle[0];
+                renderer.sharedMaterial = ToneMaterial(IdleSheet);
                 var data = new SerializedObject(npc.GetComponent<MonkeyMerchantAmbientAnimation>());
-                data.FindProperty("transitionDuration").floatValue = Duration;
-                data.FindProperty("idleAnchorFrame").objectReferenceValue = idle;
+                data.FindProperty("transitionDuration").floatValue = MonkeyMerchantAmbientAnimation.EnterPipeDuration;
+                data.FindProperty("pipeDuration").floatValue = MonkeyMerchantAmbientAnimation.PipeDuration;
+                data.FindProperty("idleAnchorFrame").objectReferenceValue = idle[0];
+                MerchantPipeSmokeSetup.Configure(data, pipe[ExhalePoseIndex]);
                 data.ApplyModifiedPropertiesWithoutUndo();
                 EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene); AssetDatabase.SaveAssets(); Selection.activeGameObject = npc;
-                return "Added six new in-between poses, exact original endpoint sprites, 0.64s entry, grounded individual pivots and source-matched sizes. Existing smoke/idle handoff preserved.";
+                return "Aligned the merchant idle, bridge, and pipe scale and color tone.";
             }
             finally { if (opened) EditorSceneManager.CloseScene(scene, true); }
         }
 
-        private static Sprite First(string name) => AssetDatabase.LoadAllAssetsAtPath("Assets/_Project/Art/Old Temple/NPC/" + name).OfType<Sprite>().OrderBy(s => s.name).First();
-
-        private static Sprite[] ImportFrames(Sprite idle, Sprite pipe)
+        internal static void ConfigureClips(Sprite idle, Sprite[] pipe, Sprite[] bridge)
         {
-            Directory.CreateDirectory(FramesFolder); AssetDatabase.Refresh();
-            var raw = new Texture2D(2, 2, TextureFormat.RGBA32, false);
-            try
+            // The sheet starts at the lips and ends in the resting pose.
+            var enter = Clip(MonkeyMerchantAmbientAnimation.EnterPipeState,
+                new[] { idle }.Concat(bridge.Reverse()).Concat(new[] { pipe[0] }).ToArray(),
+                new[] { 0f, .12f, .24f, .36f, .48f, .60f, .72f, .84f, .96f, 1.08f },
+                MonkeyMerchantAmbientAnimation.EnterPipeDuration);
+            // Skip the bridge's two mouth poses so the pipe keeps moving away after the exhale.
+            var exit = Clip(MonkeyMerchantAmbientAnimation.ReturnFromPipeState,
+                new[] { pipe[ExhalePoseIndex] }.Concat(bridge.Skip(2)).Concat(new[] { idle }).ToArray(),
+                new[] { 0f, .14f, .28f, .43f, .58f, .73f, .88f, 1.03f },
+                MonkeyMerchantAmbientAnimation.ReturnFromPipeDuration);
+            var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(TempleGateMerchantSetup.AnimationFolder + "/MonkeyMerchant.controller");
+            var machine = controller.layers[0].stateMachine;
+            foreach (var clip in new[] { enter, ConfigurePipeClip(pipe), exit })
             {
-                ImageConversion.LoadImage(raw, File.ReadAllBytes(SheetPath));
-                var result = new Sprite[6];
-                for (int i = 0; i < 6; i++)
-                {
-                    int x = Mathf.RoundToInt(i % 3 * raw.width / 3f), xEnd = Mathf.RoundToInt((i % 3 + 1) * raw.width / 3f);
-                    int y = Mathf.RoundToInt((1 - i / 3) * raw.height / 2f), yEnd = Mathf.RoundToInt((2 - i / 3) * raw.height / 2f);
-                    var cell = new Texture2D(xEnd - x, yEnd - y, TextureFormat.RGBA32, false);
-                    try
-                    {
-                        cell.SetPixels(raw.GetPixels(x, y, cell.width, cell.height)); cell.Apply();
-                        var pixels = cell.GetPixels32();
-                        int left = cell.width, right = 0, bottom = cell.height, top = 0;
-                        for (int cy = 0; cy < cell.height; cy++) for (int cx = 0; cx < cell.width; cx++)
-                            if (pixels[cy * cell.width + cx].a >= 64)
-                            { left = Mathf.Min(left, cx); right = Mathf.Max(right, cx); bottom = Mathf.Min(bottom, cy); top = Mathf.Max(top, cy); }
-                        if (right <= left || top <= bottom) throw new InvalidOperationException("Missing transition pose " + i);
-                        float t = (i + 1f) / 7f;
-                        // Individual import PPU matches the existing poses without changing the NPC transform or proportions.
-                        float desiredHeight = Mathf.Lerp(idle.bounds.size.y, pipe.bounds.size.y, t);
-                        float ppu = (top - bottom + 1) / desiredHeight;
-                        float footBand = 36f * ppu / 136f;
-                        var foot = new List<Vector2Int>();
-                        for (int cy = bottom; cy < bottom + footBand && cy < cell.height; cy++) for (int cx = left; cx <= right; cx++)
-                            if (cx > left + (right - left) * .65f && pixels[cy * cell.width + cx].a >= 128) foot.Add(new Vector2Int(cx, cy));
-                        if (foot.Count == 0) throw new InvalidOperationException("Missing planted foot in transition " + i);
-                        string path = FramesFolder + "/MonkeyMerchantBridge_" + i.ToString("D2") + ".png";
-                        File.WriteAllBytes(path, cell.EncodeToPNG()); AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
-                        var importer = (TextureImporter)AssetImporter.GetAtPath(path);
-                        importer.textureType = TextureImporterType.Sprite; importer.spriteImportMode = SpriteImportMode.Single;
-                        importer.spritePixelsPerUnit = ppu; importer.alphaIsTransparency = true; importer.mipmapEnabled = false;
-                        importer.maxTextureSize = 2048; importer.textureCompression = TextureImporterCompression.Uncompressed;
-                        importer.npotScale = TextureImporterNPOTScale.None; importer.filterMode = FilterMode.Bilinear; importer.wrapMode = TextureWrapMode.Clamp;
-                        var settings = new TextureImporterSettings(); importer.ReadTextureSettings(settings);
-                        settings.spriteMeshType = SpriteMeshType.Tight; settings.spriteAlignment = (int)SpriteAlignment.Custom;
-                        settings.spritePivot = new Vector2(((float)foot.Average(p => p.x) - 70f / 136f * ppu) / cell.width, (float)foot.Min(p => p.y) / cell.height);
-                        importer.SetTextureSettings(settings); importer.SaveAndReimport();
-                        result[i] = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-                    }
-                    finally { UnityEngine.Object.DestroyImmediate(cell); }
-                }
-                return result;
+                var state = machine.states.Select(s => s.state).FirstOrDefault(s => s.name == clip.name) ?? machine.AddState(clip.name);
+                state.motion = clip;
+                state.speed = 1f;
+                EditorUtility.SetDirty(state);
             }
-            finally { UnityEngine.Object.DestroyImmediate(raw); }
+            EditorUtility.SetDirty(machine);
+            EditorUtility.SetDirty(controller);
         }
 
-        private static AnimationClip Clip(string name, Sprite[] poses)
+        internal static AnimationClip ConfigurePipeClip(Sprite[] pipe)
+        {
+            // The bridge raises the pipe. These frames inhale, release the stem and exhale.
+            return Clip(MonkeyMerchantAmbientAnimation.PipeState, pipe,
+                new[] { 0f, .22f, .44f, .66f, .91f, 1.20f, 1.49f, 1.77f },
+                MonkeyMerchantAmbientAnimation.PipeDuration);
+        }
+
+        internal static (Sprite[] idle, Sprite[] bridge, Sprite[] pipe) ImportCharacterPoses()
+        {
+            return (TempleGateMerchantSetup.Slice(IdleSheet, rows: 2), TempleGateMerchantSetup.Slice(BridgeSheet, rows: 2),
+                TempleGateMerchantSetup.Slice(PipeSheet, rows: 2));
+        }
+
+        internal static Material IdleToneMaterial() => ToneMaterial(IdleSheet);
+
+        internal static void ApplyTone(AnimationClip clip, ObjectReferenceKeyframe[] spriteKeys)
+        {
+            var materials = new System.Collections.Generic.Dictionary<string, Material>();
+            var keys = spriteKeys.Select(key =>
+            {
+                string sheet = AssetDatabase.GetAssetPath(key.value);
+                if (!materials.TryGetValue(sheet, out var material))
+                {
+                    material = ToneMaterial(sheet);
+                    materials.Add(sheet, material);
+                }
+                return new ObjectReferenceKeyframe { time = key.time, value = material };
+            }).ToArray();
+            AnimationUtility.SetObjectReferenceCurve(clip,
+                EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Materials.Array.data[0]"), keys);
+        }
+
+        private static Material ToneMaterial(string sheet)
+        {
+            var (label, brightness, contrast, saturation, tint) = sheet switch
+            {
+                IdleSheet => ("Idle", 1f, 1f, 1f, Color.white),
+                BridgeSheet => ("Bridge", .975f, 1.05f, .96f, Color.white),
+                PipeSheet => ("Pipe", .82f, 1.13f, .94f, new Color(.97f, 1.02f, 1.04f).gamma),
+                _ => throw new InvalidOperationException("Unknown merchant sheet: " + sheet)
+            };
+            var path = TempleGateMerchantSetup.AnimationFolder + "/MonkeyMerchantTone" + label + ".mat";
+            var material = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (material == null)
+            {
+                var shader = Shader.Find("Eastern Fantasy/Village Harmony");
+                if (shader == null) throw new InvalidOperationException("Missing sprite color grading shader.");
+                material = new Material(shader);
+                AssetDatabase.CreateAsset(material, path);
+            }
+            material.SetFloat("_Brightness", brightness);
+            material.SetFloat("_Contrast", contrast);
+            material.SetFloat("_Saturation", saturation);
+            material.SetColor("_Color", tint);
+            EditorUtility.SetDirty(material);
+            return material;
+        }
+
+        private static AnimationClip Clip(string name, Sprite[] poses, float[] times, float duration)
         {
             string path = TempleGateMerchantSetup.AnimationFolder + "/" + name + ".anim";
             var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
             if (clip == null) { clip = new AnimationClip(); AssetDatabase.CreateAsset(clip, path); }
             clip.name = name; clip.frameRate = 100f;
-            var keys = poses.Select((s, i) => new ObjectReferenceKeyframe { time = i * Duration / poses.Length, value = s }).ToArray();
-            AnimationUtility.SetObjectReferenceCurve(clip, EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite"), keys);
-            var settings = AnimationUtility.GetAnimationClipSettings(clip); settings.loopTime = false; settings.startTime = 0f; settings.stopTime = Duration;
+            var keys = poses.Select((s, i) => new ObjectReferenceKeyframe { time = times[i], value = s }).ToList();
+            float lastSample = (Mathf.RoundToInt(duration * clip.frameRate) - 1) / clip.frameRate;
+            keys.Add(new ObjectReferenceKeyframe { time = lastSample, value = poses[poses.Length - 1] });
+            var spriteKeys = keys.ToArray();
+            AnimationUtility.SetObjectReferenceCurve(clip, EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite"), spriteKeys);
+            ApplyTone(clip, spriteKeys);
+            var settings = AnimationUtility.GetAnimationClipSettings(clip); settings.loopTime = false; settings.startTime = 0f; settings.stopTime = duration;
             AnimationUtility.SetAnimationClipSettings(clip, settings); EditorUtility.SetDirty(clip); return clip;
         }
     }

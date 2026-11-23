@@ -46,7 +46,7 @@ namespace EasternFantasy.UI
             icon.sprite = item != null ? item.Icon : null;
             icon.enabled = item != null && item.Icon != null;
             ItemGradeVisual.Apply(icon, item);
-            emptyLabel.gameObject.SetActive(item == null || item.Icon == null);
+            emptyLabel.gameObject.SetActive(slot == EquipmentSlot.Title || item == null || item.Icon == null);
             emptyLabel.text = item != null ? item.DisplayName : SlotName(slot);
         }
 
@@ -63,9 +63,8 @@ namespace EasternFantasy.UI
             ClearDropHighlight();
             InventorySlotUI source = eventData.pointerDrag != null
                 ? eventData.pointerDrag.GetComponent<InventorySlotUI>() : null;
-            if (source != null && source.Definition != null
-                && source.Definition.EquipmentSlot == slot)
-                inventory?.TryEquip(source.Definition);
+            if (source != null && source.Definition != null)
+                inventory?.TryEquip(source.Definition, slot);
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -139,9 +138,7 @@ namespace EasternFantasy.UI
                 && hoverPointer.pointerDrag != null
                 ? hoverPointer.pointerDrag.GetComponent<InventorySlotUI>() : null;
             ItemDefinition candidate = source != null ? source.Definition : null;
-            bool acceptsDrop = candidate != null && candidate.EquipmentSlot == slot
-                && inventory != null && inventory.CanEquip(candidate)
-                && inventory.GetQuantity(candidate) > 0;
+            bool acceptsDrop = inventory != null && inventory.CanEquipInSlot(candidate, slot);
             if (slotImage != null)
                 slotImage.overrideSprite = acceptsDrop ? dropHoverSprite : null;
         }
@@ -187,6 +184,8 @@ namespace EasternFantasy.UI
                 case EquipmentSlot.Gloves: return "장갑";
                 case EquipmentSlot.Shoes: return "신발";
                 case EquipmentSlot.Ring: return "반지";
+                case EquipmentSlot.Ring2: return "반지";
+                case EquipmentSlot.Title: return "칭호";
                 case EquipmentSlot.Necklace: return "목걸이";
                 case EquipmentSlot.Bracelet: return "팔찌";
                 default: return string.Empty;

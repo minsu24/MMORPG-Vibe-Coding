@@ -18,9 +18,9 @@ public sealed partial class MON_Frog
             movementAudio.playOnAwake = false;
             movementAudio.loop = true;
             movementAudio.spatialBlend = 0f;
-            movementAudio.volume = .2f;
             movementAudio.clip = clip;
         }
+        movementAudio.volume = LocalAmbientAudio2D.GetPlayerVolumeAt(transform.position, .2f);
         if (!movementAudio.isPlaying) movementAudio.Play();
     }
 

@@ -23,6 +23,15 @@ namespace EasternFantasy.UI
         [SerializeField] private Sprite tutorialFullMap;
         [SerializeField] private Button giantFarmButton;
         [SerializeField] private Sprite giantFarmFullMap;
+        [SerializeField] private Button oldTempleButton;
+        [SerializeField] private Sprite oldTempleFullMap;
+        [SerializeField] private Sprite oldTempleSidePathMap;
+        [SerializeField] private Sprite oldTemplePageArrow;
+        [SerializeField] private Texture2D oldTempleTransitionClouds;
+        private Button oldTemplePageButton;
+        private MapPageCloudGraphic detailPageClouds;
+        private Sequence detailPageSequence;
+        private const float DetailPageTransitionDuration = .46f;
         private MapInkRevealUI inkReveal;
         private MapPlayerLocationUI playerLocation;
         private CanvasGroup windowGroup;
@@ -34,19 +43,45 @@ namespace EasternFantasy.UI
         public bool IsShowingDetail => tutorialDetailRoot != null && tutorialDetailRoot.activeSelf;
         public bool IsShowingGiantFarm => IsShowingDetail && detailImage != null && detailImage.sprite == giantFarmFullMap;
         public bool IsShowingTutorial => IsShowingDetail && detailImage != null && detailImage.sprite == tutorialFullMap;
+        private bool IsShowingOldTempleSidePath => IsShowingDetail && detailImage != null
+            && oldTempleSidePathMap != null && detailImage.sprite == oldTempleSidePathMap;
+        internal string DetailRegion => !IsShowingDetail || detailImage == null ? null
+            : detailImage.sprite == oldTempleFullMap || IsShowingOldTempleSidePath ? MapRegionDiscovery.OldTemple
+            : IsShowingGiantFarm ? MapRegionDiscovery.GiantFarm
+            : IsShowingTutorial ? MapRegionDiscovery.Tutorial : null;
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
         internal RectTransform TutorialPanel => windowRoot != null ? windowRoot.transform as RectTransform : null;
         internal RectTransform TutorialOverview => mapBackground;
         internal RectTransform TutorialDetail => detailImage != null ? detailImage.rectTransform : null;
         internal RectTransform TutorialBackButton => backButton != null ? backButton.transform as RectTransform : null;
-        internal bool IsShowingCurrentRegionForTutorial => CurrentRegionIsGiantFarm ? IsShowingGiantFarm : IsShowingTutorial;
-        internal RectTransform TutorialIsland => CurrentRegionIsGiantFarm
-            ? giantFarmButton != null ? giantFarmButton.transform as RectTransform : null
-            : tutorialMapButton != null ? tutorialMapButton.transform as RectTransform : null;
-        private bool CurrentRegionIsGiantFarm => SceneManager.GetActiveScene().name.StartsWith("GiantFarm_");
+        internal bool IsShowingCurrentRegionForTutorial => IsShowingDetail && DetailRegion == CurrentRegion;
+        internal RectTransform TutorialIsland
+        {
+            get
+            {
+                Button button = CurrentRegion == MapRegionDiscovery.OldTemple ? oldTempleButton
+                    : CurrentRegion == MapRegionDiscovery.GiantFarm ? giantFarmButton : tutorialMapButton;
+                return button != null ? button.transform as RectTransform : null;
+            }
+        }
+        private static string CurrentRegion => MapRegionDiscovery.RegionForScene(SceneManager.GetActiveScene().name);
+        internal bool IsSceneOnDetailPage(string scene)
+        {
+            string region = DetailRegion;
+            return region != null && region == MapRegionDiscovery.RegionForScene(scene)
+                && (region != MapRegionDiscovery.OldTemple
+                    || MapRegionDiscovery.IsOldTempleSidePathScene(scene) == IsShowingOldTempleSidePath);
+        }
+
+        private Sprite GetOldTempleMapForScene(string scene)
+            => oldTempleSidePathMap != null && MapRegionDiscovery.IsOldTempleSidePathScene(scene)
+                ? oldTempleSidePathMap : oldTempleFullMap;
+
         internal void ShowCurrentRegionForTutorial()
         {
-            if (CurrentRegionIsGiantFarm) ShowGiantFarmMap(); else ShowTutorialMap();
+            if (CurrentRegion == MapRegionDiscovery.OldTemple) ShowOldTempleMap();
+            else if (CurrentRegion == MapRegionDiscovery.GiantFarm) ShowGiantFarmMap();
+            else ShowTutorialMap();
         }
 
         private void Awake()
@@ -56,6 +91,7 @@ namespace EasternFantasy.UI
             DontDestroyOnLoad(gameObject);
             HideUnavailableNotice();
             BindMapButtons();
+            CreateOldTemplePageButton();
             PreparePopup();
             GetComponent<MapDetailDiscoveryUI>()?.Initialize();
             CloseInstant();
@@ -110,7 +146,11 @@ namespace EasternFantasy.UI
                 if (mapBackground != null) mapBackground.localScale = backgroundScale;
             }
             windowRoot.SetActive(true);
-            RefreshPlayerLocation();
+            if (oldTempleSidePathMap != null && detailImage != null && tutorialDetailRoot != null
+                && MapRegionDiscovery.IsOldTempleSidePathScene(scene))
+                ApplyDetailMap(oldTempleSidePathMap);
+            else
+                RefreshPlayerLocation();
             windowGroup.blocksRaycasts = true;
             windowGroup.interactable = false;
             GameTimeController.SetPaused(this, true);
@@ -137,6 +177,11 @@ namespace EasternFantasy.UI
                 giantFarmButton.onClick.RemoveListener(ShowGiantFarmMap);
                 giantFarmButton.onClick.AddListener(ShowGiantFarmMap);
             }
+            if (oldTempleButton != null)
+            {
+                oldTempleButton.onClick.RemoveListener(ShowOldTempleMap);
+                oldTempleButton.onClick.AddListener(ShowOldTempleMap);
+            }
             if (backButton != null)
             {
                 backButton.onClick.RemoveListener(ShowOverview);
@@ -154,22 +199,106 @@ namespace EasternFantasy.UI
             if (Application.isPlaying && !MapRegionDiscovery.IsVisited(MapRegionDiscovery.GiantFarm)) return;
             ShowDetail(giantFarmFullMap);
         }
+        public void ShowOldTempleMap()
+        {
+            if (Application.isPlaying && !MapRegionDiscovery.IsVisited(MapRegionDiscovery.OldTemple)) return;
+            ShowDetail(GetOldTempleMapForScene(SceneManager.GetActiveScene().name));
+        }
 
         private void ShowDetail(Sprite fullMap)
         {
             if (!IsOpen || closing || tutorialDetailRoot == null || detailImage == null || fullMap == null) return;
+            StopDetailPageTransition();
             popupSequence?.Kill(); popupSequence = null;
             inkReveal?.Restore();
             if (windowGroup != null) { windowGroup.alpha = 1; windowGroup.interactable = true; }
+            ApplyDetailMap(fullMap);
+        }
+
+        private void ApplyDetailMap(Sprite fullMap, bool revealMap = true)
+        {
             detailImage.sprite = fullMap;
+            RefreshOldTemplePageButton();
             tutorialDetailRoot.SetActive(true);
-            GetComponent<MapDetailDiscoveryUI>()?.Refresh();
+            GetComponent<MapDetailDiscoveryUI>()?.Refresh(revealMap);
             if (mapBackground != null) mapBackground.gameObject.SetActive(false);
             RefreshPlayerLocation();
         }
 
+        private void CreateOldTemplePageButton()
+        {
+            if (tutorialDetailRoot == null || detailImage == null || oldTempleFullMap == null
+                || oldTempleSidePathMap == null || oldTemplePageArrow == null) return;
+
+            var buttonObject = new GameObject("Old Temple Page Arrow", typeof(RectTransform), typeof(Image), typeof(Button));
+            buttonObject.layer = tutorialDetailRoot.layer;
+            var arrow = buttonObject.GetComponent<Image>();
+            var rect = arrow.rectTransform;
+            rect.SetParent(tutorialDetailRoot.transform, false);
+            rect.anchorMin = rect.anchorMax = new Vector2(1f, .5f);
+            rect.anchoredPosition = new Vector2(-58f, 0f);
+            rect.sizeDelta = new Vector2(72f, 72f);
+            arrow.sprite = oldTemplePageArrow;
+            arrow.preserveAspect = true;
+            oldTemplePageButton = buttonObject.GetComponent<Button>();
+            oldTemplePageButton.targetGraphic = arrow;
+            oldTemplePageButton.onClick.AddListener(ChangeOldTemplePage);
+            buttonObject.SetActive(false);
+
+            var cloudObject = new GameObject("Old Temple Page Clouds", typeof(RectTransform), typeof(MapPageCloudGraphic));
+            cloudObject.layer = tutorialDetailRoot.layer;
+            detailPageClouds = cloudObject.GetComponent<MapPageCloudGraphic>();
+            detailPageClouds.raycastTarget = false;
+            detailPageClouds.SetTexture(oldTempleTransitionClouds);
+            var cloudRect = detailPageClouds.rectTransform;
+            cloudRect.SetParent(tutorialDetailRoot.transform, false);
+            cloudRect.anchorMin = Vector2.zero;
+            cloudRect.anchorMax = Vector2.one;
+            cloudRect.offsetMin = cloudRect.offsetMax = Vector2.zero;
+            cloudObject.SetActive(false);
+        }
+
+        private void RefreshOldTemplePageButton()
+        {
+            if (oldTemplePageButton == null) return;
+            bool sidePath = detailImage.sprite == oldTempleSidePathMap;
+            oldTemplePageButton.gameObject.SetActive(sidePath || detailImage.sprite == oldTempleFullMap);
+            oldTemplePageButton.transform.localRotation = Quaternion.Euler(0f, 0f, sidePath ? 180f : 0f);
+        }
+
+        private void ChangeOldTemplePage()
+        {
+            if (closing || detailPageSequence != null || DetailRegion != MapRegionDiscovery.OldTemple) return;
+
+            bool goingUp = !IsShowingOldTempleSidePath;
+            Sprite nextMap = goingUp ? oldTempleSidePathMap : oldTempleFullMap;
+            oldTemplePageButton.interactable = false;
+            detailPageClouds.SetFrame(0f, goingUp);
+            detailPageClouds.gameObject.SetActive(true);
+            detailPageSequence = DOTween.Sequence().SetUpdate(true);
+            detailPageSequence.Append(DOVirtual.Float(0f, 1f, DetailPageTransitionDuration,
+                progress => detailPageClouds.SetFrame(progress, goingUp)).SetEase(Ease.InOutSine));
+            detailPageSequence.InsertCallback(DetailPageTransitionDuration * .5f, () => ApplyDetailMap(nextMap, false));
+            detailPageSequence.OnComplete(FinishDetailPageTransition);
+        }
+
+        private void StopDetailPageTransition()
+        {
+            if (detailPageSequence == null) return;
+            detailPageSequence.Kill();
+            FinishDetailPageTransition();
+        }
+
+        private void FinishDetailPageTransition()
+        {
+            detailPageSequence = null;
+            detailPageClouds.gameObject.SetActive(false);
+            oldTemplePageButton.interactable = true;
+        }
+
         public void ShowOverview()
         {
+            StopDetailPageTransition();
             GetComponent<MapDetailDiscoveryUI>()?.StopPresentation();
             if (tutorialDetailRoot != null) tutorialDetailRoot.SetActive(false);
             if (mapBackground != null) mapBackground.gameObject.SetActive(true);
@@ -198,6 +327,7 @@ namespace EasternFantasy.UI
             if (!IsOpen || !isActiveAndEnabled) { CloseInstant(); return; }
             PreparePopup();
             popupSequence?.Kill();
+            StopDetailPageTransition();
             closing = true;
             GetComponent<MapDetailDiscoveryUI>()?.StopPresentation();
             windowGroup.interactable = false;
@@ -238,6 +368,7 @@ namespace EasternFantasy.UI
             CloseInstant();
             if (tutorialMapButton != null) tutorialMapButton.onClick.RemoveListener(ShowTutorialMap);
             if (giantFarmButton != null) giantFarmButton.onClick.RemoveListener(ShowGiantFarmMap);
+            if (oldTempleButton != null) oldTempleButton.onClick.RemoveListener(ShowOldTempleMap);
             if (backButton != null) backButton.onClick.RemoveListener(ShowOverview);
             SceneManager.activeSceneChanged -= SceneChanged;
             if (Instance == this) Instance = null;

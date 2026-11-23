@@ -1,4 +1,5 @@
 using System;
+using EasternFantasy.Quest;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,9 @@ namespace EasternFantasy.UI
         {
             public string sceneName, displayName;
             public MapNpcPortrait portrait;
+            public Sprite portraitSprite;
+            public QuestDefinition travelerRelocationQuest, travelerFinalQuest;
+            [NonSerialized] public MapPlayerLocationUI.Location VisibleLocation;
             [NonSerialized] public MapNpcPortraitGraphic Image;
             [NonSerialized] public CanvasGroup Group;
             [NonSerialized] public RectTransform Root;
@@ -42,10 +46,21 @@ namespace EasternFantasy.UI
                 entry.Root.anchorMin = entry.Root.anchorMax = entry.Root.pivot = new Vector2(.5f,.5f);
                 var badge = Child<MapNpcBadgeGraphic>("Ink Gold Badge",go.transform);
                 badge.raycastTarget=false; Fill(badge.rectTransform,Vector2.zero);
-                var portrait=Child<MapNpcPortraitGraphic>("Portrait",go.transform);
-                portrait.portrait=entry.portrait;portrait.raycastTarget=false;
-                Fill(portrait.rectTransform,new Vector2(-14,-14));
-                entry.Image=portrait;
+                if (entry.portraitSprite != null)
+                {
+                    var portrait = Child<Image>("Portrait", go.transform);
+                    portrait.sprite = entry.portraitSprite;
+                    portrait.preserveAspect = true;
+                    portrait.raycastTarget = false;
+                    Fill(portrait.rectTransform, new Vector2(-14, -14));
+                }
+                else
+                {
+                    var portrait=Child<MapNpcPortraitGraphic>("Portrait",go.transform);
+                    portrait.portrait=entry.portrait;portrait.raycastTarget=false;
+                    Fill(portrait.rectTransform,new Vector2(-14,-14));
+                    entry.Image=portrait;
+                }
                 var plate=Child<MapNpcBadgeGraphic>("NPC Name Plate",go.transform);
                 plate.namePlate=true;plate.raycastTarget=false;
                 plate.rectTransform.anchorMin=plate.rectTransform.anchorMax=new Vector2(.5f,0);
@@ -57,6 +72,12 @@ namespace EasternFantasy.UI
                 text.color=new Color(1,.93f,.76f);text.alignment=TextAlignmentOptions.Center;
                 text.textWrappingMode=TextWrappingModes.NoWrap;text.raycastTarget=false;
                 text.outlineWidth=.2f;Fill(text.rectTransform,Vector2.zero);
+                if (entry.portraitSprite != null)
+                {
+                    text.enableAutoSizing = true;
+                    text.fontSizeMin = 12;
+                    text.fontSizeMax = 20;
+                }
                 entry.Label=text;
                 go.SetActive(false);
             }
@@ -80,16 +101,24 @@ namespace EasternFantasy.UI
             float scale = drawn.height / 1080;
             foreach (var entry in entries)
             {
-                MapPlayerLocationUI.Location location = null;
-                foreach (var candidate in playerLocation.Locations)
-                    if (candidate.sceneName == entry.sceneName) { location = candidate; break; }
-                bool visible = window.IsOpen && window.IsShowingDetail && location != null
-                    && location.giantFarm == window.IsShowingGiantFarm && MapRegionDiscovery.IsSceneVisited(entry.sceneName);
-                entry.Root.gameObject.SetActive(visible);
-                if (!visible) continue;
+                entry.VisibleLocation = null;
+                if (window.IsOpen && window.IsShowingDetail)
+                {
+                    string scene = ResolveScene(entry);
+                    if (window.IsSceneOnDetailPage(scene) && MapRegionDiscovery.IsSceneVisited(scene))
+                        foreach (var candidate in playerLocation.Locations)
+                            if (candidate.sceneName == scene)
+                            { entry.VisibleLocation = candidate; break; }
+                }
+                entry.Root.gameObject.SetActive(entry.VisibleLocation != null);
+            }
+            foreach (var entry in entries)
+            {
+                var location = entry.VisibleLocation;
+                if (location == null) continue;
                 int index = 0, total = 0;
                 foreach (var other in entries)
-                    if (other.sceneName == entry.sceneName) { if (other == entry) index = total; total++; }
+                    if (other.VisibleLocation == location) { if (other == entry) index = total; total++; }
                 float left=float.MaxValue, right=float.MinValue, bottom=0;
                 foreach (var point in location.bannerOutline)
                 { left=Mathf.Min(left,point.x); right=Mathf.Max(right,point.x); bottom=Mathf.Max(bottom,point.y); }
@@ -101,6 +130,19 @@ namespace EasternFantasy.UI
                 rect.localScale = Vector3.one*scale;
                 entry.Group.alpha = playerLocation.DetailPresentationAlpha;
             }
+        }
+        private static string ResolveScene(Entry entry)
+        {
+            if (entry.travelerRelocationQuest == null) return entry.sceneName;
+
+            // This entry adds the quest destination while the gate keeps its own NPC icon.
+            var manager = QuestManager.Instance;
+            if (manager == null) return null;
+            var finalStatus = manager.FindProgress(entry.travelerFinalQuest)?.Status;
+            if (finalStatus == QuestStatus.ReadyToTurnIn) return "OldTemple - Center";
+            if (finalStatus != QuestStatus.Completed && manager.FindProgress(entry.travelerRelocationQuest) != null)
+                return "OldTemple - Outer Grounds";
+            return null;
         }
     }
 }

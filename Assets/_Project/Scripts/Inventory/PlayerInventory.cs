@@ -47,6 +47,34 @@ namespace EasternFantasy.Inventory
         private readonly List<InventoryStack> items = new List<InventoryStack>();
         private readonly Dictionary<EquipmentSlot, ItemDefinition> equippedItems =
             new Dictionary<EquipmentSlot, ItemDefinition>();
+        private bool caveBellTitleGranted;
+        private ItemDefinition pendingCaveBellTitle;
+        internal ItemDefinition CaveBellTitleTutorialItem { get; private set; }
+
+        internal void CompleteCaveBellTitleTutorial(ItemDefinition title)
+        {
+            if (title == null || CaveBellTitleTutorialItem != title) return;
+            CaveBellTitleTutorialItem = null;
+            InventoryChanged?.Invoke();
+        }
+
+        internal void GrantCaveBellTitle(ItemDefinition title)
+        {
+            if (caveBellTitleGranted || title == null) return;
+            pendingCaveBellTitle = title;
+            if (!TryCollectCaveBellTitle()) InventoryChanged?.Invoke();
+        }
+
+        private bool TryCollectCaveBellTitle()
+        {
+            ItemDefinition title = pendingCaveBellTitle;
+            if (title == null || !CanAdd(title)) return false;
+            caveBellTitleGranted = true;
+            pendingCaveBellTitle = null;
+            CaveBellTitleTutorialItem = title;
+            AddItem(title);
+            return true;
+        }
         private PlayerEntity playerEntity;
         private bool initialized;
         private float regenerationElapsed;
@@ -158,7 +186,8 @@ namespace EasternFantasy.Inventory
             if (set == null) return 0;
             int count = 0;
             foreach (var pair in equippedItems)
-                if (pair.Value != null && pair.Value.EquipmentSet == set && set.IncludesSlot(pair.Key))
+                if (pair.Value != null && pair.Value.EquipmentSet == set && set.IncludesSlot(pair.Value.EquipmentSlot)
+                    && (pair.Key != EquipmentSlot.Ring2 || GetEquipped(EquipmentSlot.Ring)?.EquipmentSet != set))
                     count++;
             return count;
         }
@@ -300,11 +329,14 @@ namespace EasternFantasy.Inventory
                 return false;
 
             stack.SetQuantity(stack.Quantity - amount);
+            if (item.EquipmentSlot == EquipmentSlot.Ring && EquippedCount(item) > stack.Quantity &&
+                GetEquipped(EquipmentSlot.Ring2) == item)
+                equippedItems.Remove(EquipmentSlot.Ring2);
             if (stack.Quantity <= 0)
             {
-                if (IsEquipped(item))
-                    equippedItems.Remove(item.EquipmentSlot);
+                equippedItems.Remove(GetEquippedSlot(item));
                 items.Remove(stack);
+                if (item.InventoryCategory == ItemCategory.Equipment && TryCollectCaveBellTitle()) return true;
             }
 
             InventoryChanged?.Invoke();
@@ -326,14 +358,15 @@ namespace EasternFantasy.Inventory
             if (target != null && target.Quantity >= replacement.MaximumStack) return false;
             if (target == null && source.Quantity > 1 && FindFirstEmptySlot(item.InventoryCategory) < 0) return false;
             int index = source.SlotIndex;
-            bool equipped = IsEquipped(item);
+            EquipmentSlot equippedSlot = GetEquippedSlot(item);
+            bool equipped = equippedSlot != EquipmentSlot.None;
             if (equipped && !CanEquip(replacement)) return false;
             source.SetQuantity(source.Quantity - 1);
             if (source.Quantity == 0) items.Remove(source);
             if (target != null) target.SetQuantity(target.Quantity + 1);
             else items.Add(new InventoryStack(replacement, 1,
                 source.Quantity == 0 ? index : FindFirstEmptySlot(item.InventoryCategory)));
-            if (equipped) equippedItems[item.EquipmentSlot] = replacement;
+            if (equipped) equippedItems[equippedSlot] = replacement;
             if (notify) InventoryChanged?.Invoke();
             return true;
         }
@@ -409,10 +442,28 @@ namespace EasternFantasy.Inventory
         public bool IsEquipped(ItemDefinition item)
         {
             EnsureInitialized();
-            return item != null
-                && item.EquipmentSlot != EquipmentSlot.None
-                && equippedItems.TryGetValue(item.EquipmentSlot, out ItemDefinition equipped)
-                && equipped == item;
+            return GetEquippedSlot(item) != EquipmentSlot.None;
+        }
+
+        private EquipmentSlot GetEquippedSlot(ItemDefinition item)
+        {
+            if (item == null || item.EquipmentSlot == EquipmentSlot.None) return EquipmentSlot.None;
+            if (GetEquipped(item.EquipmentSlot) == item) return item.EquipmentSlot;
+            return item.EquipmentSlot == EquipmentSlot.Ring && GetEquipped(EquipmentSlot.Ring2) == item
+                ? EquipmentSlot.Ring2 : EquipmentSlot.None;
+        }
+
+        private int EquippedCount(ItemDefinition item)
+        {
+            int count = GetEquipped(item.EquipmentSlot) == item ? 1 : 0;
+            if (item.EquipmentSlot == EquipmentSlot.Ring && GetEquipped(EquipmentSlot.Ring2) == item) count++;
+            return count;
+        }
+
+        private EquipmentSlot ChooseRingSlot()
+        {
+            if (GetEquipped(EquipmentSlot.Ring) == null) return EquipmentSlot.Ring;
+            return GetEquipped(EquipmentSlot.Ring2) == null ? EquipmentSlot.Ring2 : EquipmentSlot.Ring;
         }
 
         public ItemDefinition GetEquipped(EquipmentSlot slot)
@@ -423,16 +474,23 @@ namespace EasternFantasy.Inventory
 
         public bool TryEquip(ItemDefinition item)
         {
-            EnsureInitialized();
             if (!CanEquip(item)) return false;
-            if (item == null || !item.IsEquippable
-                || item.EquipmentSlot == EquipmentSlot.None || GetQuantity(item) <= 0)
-                return false;
-
-            if (IsEquipped(item))
+            if (IsEquipped(item) && (item.EquipmentSlot != EquipmentSlot.Ring || GetQuantity(item) <= EquippedCount(item) ||
+                (GetEquipped(EquipmentSlot.Ring) != null && GetEquipped(EquipmentSlot.Ring2) != null)))
                 return true;
+            return TryEquip(item, item.EquipmentSlot == EquipmentSlot.Ring ? ChooseRingSlot() : item.EquipmentSlot);
+        }
 
-            equippedItems[item.EquipmentSlot] = item;
+        public bool CanEquipInSlot(ItemDefinition item, EquipmentSlot slot) =>
+            CanEquip(item) && (item.EquipmentSlot == slot ||
+                (item.EquipmentSlot == EquipmentSlot.Ring && slot == EquipmentSlot.Ring2)) &&
+            (GetEquipped(slot) == item || GetQuantity(item) > EquippedCount(item));
+
+        public bool TryEquip(ItemDefinition item, EquipmentSlot slot)
+        {
+            if (!CanEquipInSlot(item, slot)) return false;
+            if (GetEquipped(slot) == item) return true;
+            equippedItems[slot] = item;
             InventoryChanged?.Invoke();
             EquipmentEquipped?.Invoke(item);
             return true;
@@ -542,20 +600,30 @@ namespace EasternFantasy.Inventory
                 return false;
 
             if (IsEquipped(item))
-                return TryUnequip(item.EquipmentSlot);
+            {
+                if (item.EquipmentSlot == EquipmentSlot.Ring && GetEquipped(ChooseRingSlot()) == null &&
+                    GetQuantity(item) > EquippedCount(item))
+                    return TryEquip(item);
+                return TryUnequip(GetEquippedSlot(item));
+            }
             return TryEquip(item);
         }
 
         private bool UseConsumable(ItemDefinition item)
         {
+            float amount = item.UseAmount;
             bool used;
             switch (item.ConsumableEffect)
             {
                 case ConsumableEffect.RestoreHealth:
-                    used = playerEntity.RestoreHealth(item.UseAmount);
+                    used = playerEntity.RestoreHealth(item.RestoreFractionOfMaximum ? amount * playerEntity.maxHP : amount);
                     break;
                 case ConsumableEffect.RestoreMana:
-                    used = playerEntity.RestoreMana(item.UseAmount);
+                    used = playerEntity.RestoreMana(item.RestoreFractionOfMaximum ? amount * playerEntity.maxMP : amount);
+                    break;
+                case ConsumableEffect.IncreaseAttackPower:
+                case ConsumableEffect.IncreaseDamageReduction:
+                    used = playerEntity.TryApplyPotionBuff(item);
                     break;
                 default:
                     return false;

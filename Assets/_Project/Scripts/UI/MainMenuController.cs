@@ -37,6 +37,12 @@ namespace EasternFantasy.UI
             settingsMenu.Open();
         }
 
+        public void ReplayOpening()
+        {
+            UIFeedbackAudio.Play(UIFeedbackCue.Confirm);
+            Opening.OpeningCutsceneManager.ReplayFromTitle();
+        }
+
         // Connect this method to the Quit button's On Click event.
         public void QuitGame()
         {

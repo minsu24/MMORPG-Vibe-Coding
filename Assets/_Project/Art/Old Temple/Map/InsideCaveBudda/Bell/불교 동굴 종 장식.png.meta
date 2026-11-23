@@ -1,0 +1,374 @@
+fileFormatVersion: 2
+guid: f43ba02d3da33134cabf3c82dfdcc36e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 321173736611478477
+    second: "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_0"
+  - first:
+      213: 6943678495828248465
+    second: "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_1"
+  - first:
+      213: -319357943546983809
+    second: "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_2"
+  - first:
+      213: -4717278563186312544
+    second: "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_3"
+  - first:
+      213: 5396896871623877308
+    second: "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_4"
+  - first:
+      213: -6573519217101792906
+    second: "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_5"
+  - first:
+      213: 3208377323901867405
+    second: "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_6"
+  - first:
+      213: -7567148453256115119
+    second: "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_7"
+  - first:
+      213: 6265962990020315832
+    second: "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_8"
+  - first:
+      213: -5789847140414969171
+    second: CaveBell_01
+  - first:
+      213: 8702499612965230738
+    second: CaveBell_02
+  - first:
+      213: 3291448065789488960
+    second: CaveBell_03
+  - first:
+      213: 5798979660024858095
+    second: CaveBell_04
+  - first:
+      213: -7002982560415367230
+    second: CaveBell_05
+  - first:
+      213: -3504161843796658064
+    second: CaveBell_06
+  - first:
+      213: 5248564524167253332
+    second: CaveBell_07
+  - first:
+      213: -7511228501666153177
+    second: CaveBell_08
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 170
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CaveBell_01
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 444
+        width: 444
+        height: 443
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daa21c3a3b456afa0800000000000000
+      internalID: -5789847140414969171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CaveBell_02
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 444
+        width: 443
+        height: 443
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29854c84a4d75c870800000000000000
+      internalID: 8702499612965230738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CaveBell_03
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 444
+        width: 443
+        height: 443
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04f6706b3929dad20800000000000000
+      internalID: 3291448065789488960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CaveBell_04
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 444
+        width: 444
+        height: 443
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe54f77c64d1a7050800000000000000
+      internalID: 5798979660024858095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CaveBell_05
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 444
+        height: 444
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cfbf26f67860de90800000000000000
+      internalID: -7002982560415367230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CaveBell_06
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 0
+        width: 443
+        height: 444
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 078b5017e57be5fc0800000000000000
+      internalID: -3504161843796658064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CaveBell_07
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 0
+        width: 443
+        height: 444
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45dc4bb60a5a6d840800000000000000
+      internalID: 5248564524167253332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CaveBell_08
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 0
+        width: 444
+        height: 444
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72d36635971c2c790800000000000000
+      internalID: -7511228501666153177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CaveBell_01: -5789847140414969171
+      CaveBell_02: 8702499612965230738
+      CaveBell_03: 3291448065789488960
+      CaveBell_04: 5798979660024858095
+      CaveBell_05: -7002982560415367230
+      CaveBell_06: -3504161843796658064
+      CaveBell_07: 5248564524167253332
+      CaveBell_08: -7511228501666153177
+      "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_0": 321173736611478477
+      "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_1": 6943678495828248465
+      "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_2": -319357943546983809
+      "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_3": -4717278563186312544
+      "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_4": 5396896871623877308
+      "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_5": -6573519217101792906
+      "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_6": 3208377323901867405
+      "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_7": -7567148453256115119
+      "\uBD88\uAD50 \uB3D9\uAD74 \uC885 \uC7A5\uC2DD_8": 6265962990020315832
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

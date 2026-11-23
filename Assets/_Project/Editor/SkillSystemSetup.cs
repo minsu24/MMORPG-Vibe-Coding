@@ -63,10 +63,19 @@ namespace EasternFantasy.Editor
             SkillDefinition tripleTalisman = GetOrCreateSkill(
                 "FirstTripleTalisman", "3단 부적 날리기",
                 "전방으로 부적 세 장을 날리는 공격 스킬입니다.",
-                "피해량, 투사체 간격과 재사용 대기시간은 여기에 작성하세요.",
-                SkillTier.FirstAdvancement, 1,
+                "부적 한 장당 1레벨에 공격력의 80% 피해를 줍니다. 레벨당 5%p 증가하여 10레벨에 125%가 됩니다. MP 40 소모, 재사용 대기시간 4초.",
+                SkillTier.FirstAdvancement, 10,
                 SkillActivationType.Active, 4f,
                 SkillEffectType.None, 0f, mana);
+            var talismanData = new SerializedObject(tripleTalisman);
+            talismanData.FindProperty("damageMultiplier").floatValue = 0.8f;
+            talismanData.FindProperty("damageMultiplierPerLevel").floatValue = 0.05f;
+            talismanData.FindProperty("damageHitCount").intValue = 3;
+            talismanData.FindProperty("manaCost").floatValue = 40f;
+            talismanData.FindProperty("requirements").GetArrayElementAtIndex(0)
+                .FindPropertyRelative("requiredLevel").intValue = 3;
+            talismanData.ApplyModifiedPropertiesWithoutUndo();
+
             SkillDefinition teleport = GetOrCreateSkill(
                 "FirstTeleport", "텔레포트",
                 "바라보는 방향으로 빠르게 이동하는 스킬입니다.",

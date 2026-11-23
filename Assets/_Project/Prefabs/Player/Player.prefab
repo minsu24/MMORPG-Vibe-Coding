@@ -648,6 +648,7 @@ GameObject:
   - component: {fileID: 1131388980964639355}
   - component: {fileID: 2632259794976353428}
   - component: {fileID: 1746542827209009511}
+  - component: {fileID: 3039644793981948424}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -843,6 +844,7 @@ MonoBehaviour:
   maximumMental: 100
   baseAttackPower: 25
   baseDefensePower: 3
+  baseDamageReduction: 0
   lifeStealRate: 0
   criticalChance: 0.05
   criticalDamageMultiplier: 1.5
@@ -957,7 +959,6 @@ MonoBehaviour:
   teleportSkill: {fileID: 11400000, guid: e916551652459d9429808841e39b8c81, type: 2}
   talismanShieldSkill: {fileID: 11400000, guid: 424a2df3e5122c94184b2b21e87266ae, type: 2}
   projectileVerticalSpacing: 0.28
-  damageMultiplier: 0.8
   talismanBurstSound: {fileID: 8300000, guid: 2f4cf50e3aaf4952982a9faeb335f752, type: 3}
   talismanSoundVolume: 0.7
   teleportEffectPrefab: {fileID: 8145390253291139497, guid: e1fe3dcb83812984fbba76320fd67801, type: 3}
@@ -1243,6 +1244,21 @@ MonoBehaviour:
   potionVolume: 0.3
   currencyVolume: 0.08
   itemVolume: 0.06
+--- !u!114 &3039644793981948424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769348460131052449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9bcfd41817f4c43a6812d40236337d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.UI.PlayerTitleUI
+  character: {fileID: 6749449187529274334}
+  font: {fileID: 11400000, guid: a6970fcf3cdaea146800c8032fb7178c, type: 2}
+  titleAnchorHeight: 1.3125
 --- !u!1 &7998046781919826993
 GameObject:
   m_ObjectHideFlags: 0

@@ -240,7 +240,7 @@ MonoBehaviour:
   patrolMinWait: 1.3
   patrolMaxWait: 2.5
   patrolMinSpeedFactor: 0.7
-  _reward_EXP: 25
+  _reward_EXP: 200
   _rewardYeopjeon: 5
   currencyPickupPrefab: {fileID: 2418306721129126886, guid: 829c1feb6fac8ac4797d80cee72e4053, type: 3}
   _playerLayer:
@@ -280,5 +280,6 @@ MonoBehaviour:
     maximumQuantity: 1
   spawnHeight: 0.35
   horizontalScatter: 0.65
+  firstDropOffset: 0
   overridesCommonLoot: 0
   filterWeaponsByPlayerClass: 0

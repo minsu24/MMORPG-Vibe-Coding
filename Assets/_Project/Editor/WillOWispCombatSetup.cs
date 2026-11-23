@@ -67,7 +67,13 @@ namespace EasternFantasy.Editor
                 if (loot != null)
                 {
                     var lootData = new SerializedObject(loot);
-                    lootData.FindProperty("drops").arraySize = 0; // Remove the copied ginseng-stem drop.
+                    var copiedStem = AssetDatabase.LoadAssetAtPath<EasternFantasy.Inventory.ItemDefinition>(GinsengCollectionSetup.StemPath);
+                    var drops = lootData.FindProperty("drops");
+                    for (int i = drops.arraySize - 1; i >= 0; i--)
+                    {
+                        var item = drops.GetArrayElementAtIndex(i).FindPropertyRelative("item").objectReferenceValue;
+                        if (copiedStem != null && item == copiedStem) drops.DeleteArrayElementAtIndex(i);
+                    }
                     lootData.ApplyModifiedPropertiesWithoutUndo();
                 }
                 PrefabUtility.SaveAsPrefabAsset(root, PrefabPath);

@@ -58,7 +58,7 @@ public static class PortalGroundedArrivalValidation
                 }
                 finally { UnityEngine.Object.DestroyImmediate(player); }
             }
-            if (MapLocationNames.GetDisplayName("SmogMountain") != "안개 낀 산") throw new Exception("Korean banner missing.");
+            if (MapLocationNames.GetDisplayName("SmogMountain") != "안개 낀 산길") throw new Exception("Korean banner missing.");
             checks++;
             string result = checks + " checks passed: three class arrivals on actual SmogMountain support, first-frame pose, velocity/interpolation reset, 0.4s physics stability, exact saved positions and Korean map name.";
             System.IO.Directory.CreateDirectory("Artifacts/PortalGroundedArrival");

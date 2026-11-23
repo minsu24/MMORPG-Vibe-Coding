@@ -17,7 +17,7 @@ namespace EasternFantasy.Player
         [SerializeField] private AudioClip landingSound;
         [SerializeField, Range(0f, 1f)] private float landingVolume = .3f;
         private AudioSource landingAudio;
-        private bool landingPending, landingAirborne;
+        private bool landingAirborne;
         private PlayerIdleAnimation playerIdleAnimation;
         private readonly RaycastHit2D[] groundHits = new RaycastHit2D[8];
         private RaycastHit2D[] dashHits = new RaycastHit2D[16];
@@ -33,6 +33,9 @@ namespace EasternFantasy.Player
         private float jumpExpiresAt = float.NegativeInfinity;
         private float lastGroundedAt = float.NegativeInfinity;
         private float lastJumpStartedAt = float.NegativeInfinity;
+        private bool isPadJumping;
+        private float padHorizontalSpeed;
+        public bool IsPadJumping => isPadJumping;
         private readonly List<Collider2D> ignoredPlatforms = new List<Collider2D>();
         private readonly List<Collider2D> ignoredPassThroughEnemies = new List<Collider2D>();
         private int groundHitCount;
@@ -102,11 +105,37 @@ namespace EasternFantasy.Player
         public void SetMoveInput(float value) => moveInput = Mathf.Clamp(value, -1f, 1f);
         public void RequestJump(bool dropThrough = false)
         {
+            if (isPadJumping) return;
             if (IsMovementLocked || IsDashing || IsGroundedAttackMovementLocked || (playerEntity != null
                 && (playerEntity.IsDead || playerEntity.isKnockback))) return;
             jumpRequested = true;
             dropThroughRequested = dropThrough;
             jumpExpiresAt = Time.time + settings.JumpBufferDuration;
+        }
+
+        public bool LaunchFromPad(Vector2 landingFeet, float clearance)
+        {
+            if (!isActiveAndEnabled || body == null || IsMovementLocked || IsDashing || isPadJumping
+                || IsGroundedAttackMovementLocked || (playerEntity != null
+                    && (playerEntity.IsDead || playerEntity.isKnockback))) return false;
+            float gravity = -Physics2D.gravity.y * body.gravityScale;
+            if (gravity <= 0f) return false;
+            Vector2 destination = landingFeet + Vector2.up * (body.position.y - bodyCollider.bounds.min.y);
+            float apex = Mathf.Max(body.position.y, destination.y) + Mathf.Max(.5f, clearance);
+            float upwardSpeed = Mathf.Sqrt(2f * gravity * (apex - body.position.y));
+            float duration = upwardSpeed / gravity + Mathf.Sqrt(2f * (apex - destination.y) / gravity);
+            ClearInput();
+            RestorePlatformCollisions(true);
+            padHorizontalSpeed = (destination.x - body.position.x) / duration;
+            body.linearVelocity = new Vector2(padHorizontalSpeed, upwardSpeed);
+            lastJumpStartedAt = Time.time;
+            landingAirborne = false;
+            IsGrounded = false;
+            isPadJumping = true;
+            if (playerIdleAnimation != null) playerIdleAnimation.SetJumping(true);
+            if (jumpAudio != null && jumpSound != null)
+                jumpAudio.PlayOneShot(jumpSound, jumpVolume);
+            return true;
         }
 
         public void StopMovementForGroundedAttack()
@@ -176,7 +205,7 @@ namespace EasternFantasy.Player
         }
 
         public bool CanDash => isActiveAndEnabled && body != null && bodyCollider != null
-            && !IsMovementLocked && !IsDashing && playerEntity != null
+            && !IsMovementLocked && !IsDashing && !isPadJumping && playerEntity != null
             && !playerEntity.IsDead && !playerEntity.isKnockback;
 
         public bool BeginDash(float direction, float distance, float duration)
@@ -371,8 +400,9 @@ namespace EasternFantasy.Player
 
         public void TeleportTo(Vector3 position, Quaternion rotation)
         {
+            isPadJumping = false;
             lastJumpStartedAt = float.NegativeInfinity;
-            landingPending = landingAirborne = false;
+            landingAirborne = false;
             if (landingAudio != null) landingAudio.Stop();
             Vector3 previousPosition = transform.position;
             EndDash();
@@ -405,6 +435,7 @@ namespace EasternFantasy.Player
             }
             if (IsMovementLocked)
             {
+                isPadJumping = false;
                 jumpRequested = false;
                 body.linearVelocity = Vector2.zero;
                 return;
@@ -428,6 +459,16 @@ namespace EasternFantasy.Player
             }
 
             UpdateLandingAudio();
+            if (isPadJumping)
+            {
+                if (IsGrounded || (playerEntity != null && (playerEntity.IsDead || playerEntity.isKnockback)))
+                    isPadJumping = false;
+                else
+                {
+                    body.linearVelocity = new Vector2(padHorizontalSpeed, body.linearVelocity.y);
+                    return;
+                }
+            }
             Vector2 velocity = body.linearVelocity;
             float moveSpeed = playerEntity != null ? playerEntity.Speed : settings.MoveSpeed;
             bool canMove = playerEntity == null || (!playerEntity.IsDead && !playerEntity.isKnockback);
@@ -455,7 +496,6 @@ namespace EasternFantasy.Player
             {
                 bool dropping = dropThroughRequested && TryDropThrough();
                 lastJumpStartedAt = dropping ? float.NegativeInfinity : Time.time;
-                landingPending = !dropping;
                 landingAirborne = false;
                 float heightBonus = inventory != null ? inventory.EquippedJumpHeightBonus : 0f;
                 velocity.y = dropping ? -settings.DropThroughSpeed
@@ -478,8 +518,9 @@ namespace EasternFantasy.Player
 
         private void OnDisable()
         {
+            isPadJumping = false;
             lastJumpStartedAt = float.NegativeInfinity;
-            landingPending = landingAirborne = false;
+            landingAirborne = false;
             if (landingAudio != null) landingAudio.Stop();
             RestoreEnemyPassThrough(true);
             EndDash();
@@ -491,11 +532,10 @@ namespace EasternFantasy.Player
 
         private void UpdateLandingAudio()
         {
-            if (!landingPending) return;
-            if (playerEntity != null && playerEntity.IsDead) { landingPending = false; return; }
+            if (playerEntity != null && playerEntity.IsDead) { landingAirborne = false; return; }
             if (!IsGrounded) { landingAirborne = true; return; }
             if (!landingAirborne) return;
-            landingPending = landingAirborne = false;
+            landingAirborne = false;
             if (landingSound == null) return;
             if (landingAudio == null)
             {

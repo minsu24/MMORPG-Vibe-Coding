@@ -26,8 +26,9 @@ namespace EasternFantasy.Inventory
         [SerializeField, Range(0f, 1f)] private float collectSoundVolume = 0.8f;
 
         private CircleCollider2D pickupCollider;
+        private SpriteRenderer iconRenderer;
         private Rigidbody2D dropBody;
-        private Vector3 landingPosition;
+        private Vector3 gatherOrigin, landingPosition;
         private float elapsed;
         private int amount;
         private bool collected;
@@ -37,16 +38,17 @@ namespace EasternFantasy.Inventory
         public int Amount => amount;
         public bool IsCollected => collected;
         public Vector3 LandingPosition => landingPosition;
+        internal float LandingCenterX => landingPosition.x + iconRenderer.bounds.center.x - transform.position.x;
         public float VisualWidth => visualWidth;
 
         private void Awake()
         {
-            SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+            iconRenderer = GetComponent<SpriteRenderer>();
             floating = GetComponent<DroppedItemFloat>();
             if (floating == null) floating = gameObject.AddComponent<DroppedItemFloat>();
-            if (renderer.sprite == null)
-                renderer.sprite = GetFallbackSprite();
-            renderer.sortingOrder = Mathf.Max(renderer.sortingOrder, 8);
+            if (iconRenderer.sprite == null)
+                iconRenderer.sprite = GetFallbackSprite();
+            iconRenderer.sortingOrder = Mathf.Max(iconRenderer.sortingOrder, 8);
             pickupCollider = GetComponent<CircleCollider2D>();
             pickupCollider.isTrigger = true;
             pickupCollider.enabled = false;
@@ -65,11 +67,11 @@ namespace EasternFantasy.Inventory
             name = $"Yeopjeon x{value}";
 
             landingPosition = landingPoint;
-            SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-            if (renderer.sprite != null)
-                landingPosition.y += renderer.bounds.extents.y;
+            landingPosition.x -= iconRenderer.bounds.center.x - transform.position.x;
+            landingPosition.y += transform.position.y - iconRenderer.bounds.min.y;
             elapsed = 0f;
-            dropBody = DropPlacement2D.LaunchPhysicalDrop(gameObject, renderer, landingPosition, tossDuration, tossHeight);
+            gatherOrigin = transform.position;
+            DropPlacement2D.GatherAtDropOrigin(transform, gatherOrigin, landingPosition, 0f);
             if (lifetime > 0f)
                 Destroy(gameObject, lifetime);
         }
@@ -80,6 +82,14 @@ namespace EasternFantasy.Inventory
                 return;
 
             elapsed += Time.deltaTime;
+            if (dropBody == null)
+            {
+                DropPlacement2D.GatherAtDropOrigin(transform, gatherOrigin, landingPosition, elapsed);
+                if (elapsed < DropPlacement2D.GatherDuration) return;
+
+                dropBody = DropPlacement2D.LaunchPhysicalDrop(gameObject, iconRenderer, landingPosition, tossDuration, tossHeight);
+                elapsed = 0f;
+            }
             if (!pickupCollider.enabled && elapsed >= pickupDelay)
                 pickupCollider.enabled = true;
         }
@@ -111,10 +121,10 @@ namespace EasternFantasy.Inventory
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (!collected && DropPlacement2D.StopOnLanding(dropBody, collision))
+            if (!collected && DropPlacement2D.TrySettleOnLanding(dropBody, iconRenderer, collision,
+                VisualWidth * .5f, landingPosition, out Vector3 position))
             {
-                landingPosition = transform.position;
-                DropPlacement2D.SettlePhysicalDrop(dropBody, gameObject);
+                landingPosition = position;
                 floating.Begin(landingPosition);
             }
         }

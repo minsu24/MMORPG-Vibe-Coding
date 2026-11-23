@@ -48,6 +48,10 @@ namespace EasternFantasy.Player
         [SerializeField] private Animator animator;
         [SerializeField] private PlayerEntity owner;
 
+        [Header("Ranged Basic Attack")]
+        [SerializeField] private WillOWispProjectile rangedProjectile;
+        [SerializeField] private Vector2 rangedMuzzleOffset;
+
         private PetCompanionProgress progress;
         private PlayerIdleAnimation ownerAnimation;
         private PlayerMovement2D movement;
@@ -72,7 +76,7 @@ namespace EasternFantasy.Player
         private void PlayAttackAudio(float elapsed, float hitTime, bool impact)
         {
             if (companionId != "goblin") return;
-            // Use the monster's clips and levels, aligned to the pet's shorter attack animations.
+            // Reuse the monster's clips and align them to the pet's shorter attack animations.
             if (!swingSoundPlayed && elapsed >= Mathf.Max(0f, hitTime - .1f))
             {
                 swingSoundPlayed = true;
@@ -81,7 +85,7 @@ namespace EasternFantasy.Player
             if (impact && !impactSoundPlayed)
             {
                 impactSoundPlayed = true;
-                EnemyAttackAudio.PlayAt(gameObject, "Audio/GoblinAttackImpact", .21f);
+                EnemyAttackAudio.PlayAt(gameObject, "Audio/GoblinAttackImpact", .15f);
             }
         }
 
@@ -370,6 +374,11 @@ namespace EasternFantasy.Player
                 cycle.CancelAttack();
             }
             Vector3 home = OwnerPosition();
+            if (rangedProjectile != null)
+            {
+                AdvanceRangedAttack(home);
+                return;
+            }
             if (target != null && cycle.State != PetCompanionCombatState.Attacking
                 && (cycle.State == PetCompanionCombatState.Waiting || approachTarget != target))
             {
@@ -444,13 +453,66 @@ namespace EasternFantasy.Player
             }
             else
             {
-                float speed = Vector3.Distance(transform.position, previousPosition) / Time.deltaTime;
-                if (speed > .2f) walking = true;
-                else if (speed < .05f) walking = false;
-                float horizontalStep = transform.position.x - previousPosition.x;
-                visual.flipX = walking && Mathf.Abs(horizontalStep) > .001f ? horizontalStep < 0f : facing < 0f;
-                PlayAnimation(walking ? "Companion_Walk" : "Companion_Idle");
+                PlayFollowAnimation(previousPosition);
             }
+        }
+
+        private void AdvanceRangedAttack(Vector3 home)
+        {
+            Vector3 previousPosition = transform.position;
+            SelectTarget(owner.LastAttackTarget);
+            var previousState = cycle.State;
+            var activeTarget = previousState == PetCompanionCombatState.Attacking ? attackTarget : target;
+            bool hasTarget = IsLiving(activeTarget) && activeTarget.gameObject.scene == gameObject.scene;
+            if (previousState == PetCompanionCombatState.Approaching && hasTarget)
+            {
+                if (!InAttackRange(activeTarget))
+                    MoveTo(RangedAimPoint(activeTarget), approachSpeed, false);
+            }
+            else if (previousState != PetCompanionCombatState.Attacking)
+            {
+                MoveTo(home, returnSpeed, false);
+            }
+
+            bool inRange = hasTarget && InAttackRange(activeTarget);
+            bool nearOwner = previousState != PetCompanionCombatState.Returning
+                || Vector2.Distance(transform.position, home) <= arrivalDistance;
+            bool hit = cycle.Tick(Time.deltaTime, hasTarget, inRange, nearOwner);
+            if (previousState != PetCompanionCombatState.Attacking && cycle.State == PetCompanionCombatState.Attacking)
+                attackTarget = activeTarget;
+
+            if (hit && inRange)
+            {
+                Vector2 aim = RangedAimPoint(attackTarget);
+                float direction = aim.x < transform.position.x ? -1f : 1f;
+                Vector3 muzzle = transform.position + new Vector3(direction * rangedMuzzleOffset.x, rangedMuzzleOffset.y);
+                var projectile = Instantiate(rangedProjectile, muzzle, Quaternion.identity);
+                UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(projectile.gameObject, gameObject.scene);
+                projectile.LaunchAtEnemy(aim, progress.Attack, visual, attackTarget);
+            }
+
+            if (cycle.State == PetCompanionCombatState.Attacking)
+            {
+                visual.flipX = attackTarget.transform.position.x < transform.position.x;
+                PlayAnimation("Companion_Attack");
+            }
+            else PlayFollowAnimation(previousPosition);
+        }
+
+        private static Vector3 RangedAimPoint(EnemyController enemy)
+        {
+            var collider = enemy.GetComponent<Collider2D>();
+            return collider != null ? collider.bounds.center : enemy.transform.position;
+        }
+
+        private void PlayFollowAnimation(Vector3 previousPosition)
+        {
+            Vector3 step = transform.position - previousPosition;
+            float speed = step.magnitude / Time.deltaTime;
+            if (speed > .2f) walking = true;
+            else if (speed < .05f) walking = false;
+            visual.flipX = walking && Mathf.Abs(step.x) > .001f ? step.x < 0f : facing < 0f;
+            PlayAnimation(walking ? "Companion_Walk" : "Companion_Idle");
         }
 
         private void MoveTo(Vector3 destination, float speed, bool updateFacing = true)

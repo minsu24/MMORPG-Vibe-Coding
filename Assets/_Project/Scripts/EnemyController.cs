@@ -448,6 +448,7 @@ public abstract class EnemyController : Entity
             {
                 WorldCurrencyPickup pickup = Instantiate(prefab,
                     transform.position + Vector3.up * 0.4f, Quaternion.identity);
+                UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(pickup.gameObject, gameObject.scene);
                 pickup.Initialize(_rewardYeopjeon, landing);
             }
             else if (playerCurrency != null)

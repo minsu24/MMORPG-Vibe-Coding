@@ -388,14 +388,17 @@ namespace EasternFantasy.UI
         private void SummonOrGrow()
         {
             if (!IsOpen || !IsUnlocked || inventory == null) return;
+            var prefab = SelectedPrefab;
+            if (prefab == null) return;
             var progress = CurrentProgress;
             bool wasSummoned = progress.IsSummoned;
-            bool success = wasSummoned ? progress.TryGrow(inventory, soulFragment) : progress.TrySummon(inventory, SelectedPrefab != null ? SelectedPrefab.SummonItem : null);
+            if (!wasSummoned && prefab.SummonItem == null) return;
+            bool success = wasSummoned ? progress.TryGrow(inventory, soulFragment) : progress.TrySummon(inventory, prefab.SummonItem);
             if (success && !wasSummoned) EquipSelected();
             RefreshSoulCount();
             if (hintText != null) hintText.text = success
-                ? (wasSummoned ? SelectedPrefab.DisplayName + " 성장 완료. 공격력 +1" : SelectedPrefab.DisplayName + " 소환 완료. 창을 닫으면 동행을 시작합니다.")
-                : (wasSummoned ? "성장에 필요한 영혼 조각이 부족합니다." : "도깨비의 영혼 1개가 필요합니다.");
+                ? (wasSummoned ? prefab.DisplayName + " 성장 완료. 공격력 +1" : prefab.DisplayName + " 소환 완료. 창을 닫으면 동행을 시작합니다.")
+                : (wasSummoned ? "성장에 필요한 영혼 조각이 부족합니다." : prefab.SummonItem.DisplayName + " 1개가 필요합니다.");
             if (success) { nextPlayerSearch = 0f; EnsureCompanionActor(); }
         }
 
@@ -470,11 +473,12 @@ namespace EasternFantasy.UI
         private void RefreshSoulCount()
         {
             var progress = CurrentProgress;
-            var material = progress.IsSummoned ? soulFragment : (SelectedPrefab != null ? SelectedPrefab.SummonItem : null);
+            var prefab = SelectedPrefab;
+            var material = progress.IsSummoned ? soulFragment : prefab != null ? prefab.SummonItem : null;
             int cost = progress.IsSummoned ? progress.GrowthCost : 1;
             int quantity = inventory != null && material != null ? inventory.GetMaterialQuantity(material) : 0;
             if (soulCountText != null) soulCountText.text = quantity + " / " + cost + " 개";
-            if (soulLabelText != null) soulLabelText.text = progress.IsSummoned ? "영혼 조각 · 성장 재료" : (material != null ? material.DisplayName + " · 소환 재료" : "소환 재료 없음");
+            if (soulLabelText != null) soulLabelText.text = progress.IsSummoned ? "영혼 조각 · 성장 재료" : (material != null ? material.DisplayName + " · 소환 재료" : "소환 재료 미정");
             if (soulIcon != null) soulIcon.sprite = material != null ? material.Icon : null;
             if (levelText != null) levelText.text = progress.IsSummoned ? "Lv. " + progress.Level : "미소환";
             if (statValuesText != null) statValuesText.text = progress.Attack + "\n\n일반";
@@ -485,13 +489,15 @@ namespace EasternFantasy.UI
                 state.TryUnlock(inventory, row.prefab.SummonItem);
                 if (row.portrait != null) row.portrait.color = state.IsUnlocked ? Color.white : new Color(.3f, .3f, .3f, .65f);
                 row.frame.color = state.IsUnlocked ? Color.white : new Color(.6f, .6f, .6f, 1f);
-                row.status.text = state.IsSummoned ? "Lv. " + state.Level + (state.IsEquipped ? "   동행 중" : "   장착 해제") : state.IsUnlocked ? "잠금 해제 · 소환 가능" : "잠김 · 전용 영혼 필요";
+                row.status.text = state.IsSummoned ? "Lv. " + state.Level + (state.IsEquipped ? "   동행 중" : "   장착 해제")
+                    : row.prefab.SummonItem == null ? "해금 예정" : state.IsUnlocked ? "잠금 해제 · 소환 가능" : "잠김 · 전용 영혼 필요";
                 if (selectedListFrame != null && normalListFrame != null)
                     row.frame.sprite = i == selectedCompanionIndex ? selectedListFrame : normalListFrame;
             }
             RefreshCompanionSkills(inventory != null ? inventory.GetComponent<PlayerEntity>() : FindFirstObjectByType<PlayerEntity>());
-            if (skillsStatusText != null) skillsStatusText.text = progress.IsSummoned ? "퀵슬롯에 드래그" : "소환 시 해금";
-            if (barLabelText != null) barLabelText.text = progress.IsSummoned ? "영혼 조각으로 성장" : (material != null ? material.DisplayName + " 1개로 소환" : "동행요괴 프리팹을 등록해 주세요.");
+            if (skillsStatusText != null) skillsStatusText.text = prefab == null || prefab.ActiveSkill == null ? "스킬 미정"
+                : progress.IsSummoned ? "퀵슬롯에 드래그" : "소환 시 해금";
+            if (barLabelText != null) barLabelText.text = progress.IsSummoned ? "영혼 조각으로 성장" : (material != null ? material.DisplayName + " 1개로 소환" : "해금 예정");
             if (equipButton != null)
             {
                 equipButton.interactable = SelectedPrefab != null && progress.IsSummoned;

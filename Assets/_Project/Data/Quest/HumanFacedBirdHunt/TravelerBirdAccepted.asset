@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1556faa70b3ce43862d54865c7f42e, type: 3}
+  m_Name: TravelerBirdAccepted
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dialogue.DialogueSequence
+  playerCharacter: {fileID: 0}
+  partnerCharacter: {fileID: 11400000, guid: 4813f7681cdd4374d911c43214df06ce, type: 2}
+  lines:
+  - speaker: 1
+    text: "\uACE0\uB9D9\uB124. \uB098\uB294 \uBA3C\uC800 \uC0AC\uCC30 \uC678\uACFD
+      \uAE38 \uC911\uAC04\uC5D0 \uAC00 \uC788\uACA0\uB124. \uC778\uBA74\uC870 \uC5F4
+      \uB9C8\uB9AC\uB97C \uCC98\uCE58\uD558\uACE0 \uAE43\uD138 \uB2E4\uC12F \uAC1C\uB97C
+      \uBAA8\uC73C\uBA74 \uADF8\uACF3\uC5D0\uC11C \uBCF4\uC138."
+    classOverrides: []
+    firstAdvancementText: 
+  completionExperience: 0

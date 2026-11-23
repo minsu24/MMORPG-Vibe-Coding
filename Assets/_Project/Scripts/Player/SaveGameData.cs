@@ -28,7 +28,11 @@ namespace EasternFantasy.Saving
         public string companionsJson;
         public bool shopTutorial, dungeonTutorial, upgradeTutorial;
         public bool dungeonDiscovered;
+        public bool mountainPassIntroSeen;
         public bool equipmentInventoryUnified;
+        public bool caveBellTitleGranted;
+        public string pendingCaveBellTitle;
+        public string caveBellTitleTutorialItem;
         public bool toadDefeated, toadHasPosition;
         public Vector3 toadPosition;
         public string dungeon;
@@ -46,6 +50,7 @@ namespace EasternFantasy.Saving
         public string id;
         public int quantity, slot;
         public bool equipped;
+        public bool secondRingEquipped;
     }
     [Serializable] public sealed class SavedSkill { public string id; public int level; }
     [Serializable] public sealed class SavedQuest { public string id; public int amount, status; }

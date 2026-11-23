@@ -80,6 +80,7 @@ namespace EasternFantasy.Saving
             IsAdminSession = false;
             Instance.protectedSave = false;
             Instance.loading = IsDemoSession ? null : Read(Instance.characterClass, out Instance.protectedSave);
+            MountainPassArrival.HasPlayed = Instance.loading?.mountainPassIntroSeen ?? false;
             LockedPortalSequence.RestoreSave(Instance.loading ?? new SaveGameData());
             SceneWorldState.ClearForNewCharacter();
             PersistentBossController.RestoreSave(Instance.loading ?? new SaveGameData());
@@ -174,6 +175,7 @@ namespace EasternFantasy.Saving
             LockedPortalSequence.RestoreSave(data);
             ShopWindowUI.RestoreSave(data); DungeonWindowUI.RestoreSave(data); EquipmentUpgradeWindowUI.RestoreSave(data);
             MapRegionDiscovery.RestoreSave(data); MonsterCodexDiscovery.RestoreSave(data.codex);
+            MountainPassArrival.HasPlayed = data.mountainPassIntroSeen;
             InventoryEquipmentTutorialUI.RestoreSave(data); StatsSkillTutorialUI.RestoreSave(data); MapTutorialUI.RestoreSave(data);
             PetCompanionWindowUI.Instance?.RestoreSave(data);
         }
@@ -262,6 +264,7 @@ namespace EasternFantasy.Saving
                 level = progression.CurrentLevel, experience = progression.CurrentExperience,
                 currency = player.GetComponent<PlayerCurrency>()?.Yeopjeon ?? 0,
                 firstDeathGuide = FirstDeathGuideCompleted,
+                mountainPassIntroSeen = MountainPassArrival.HasPlayed,
                 playedDialogues = DialogueTrigger.CaptureSave(), rewardedDialogues = DialogueManager.CaptureSave(),
                 unlockedPortalDialogues = LockedPortalSequence.CaptureSave(),
                 goblinDefeats = MON_Goblin.CaptureSave(), codex = MonsterCodexDiscovery.CaptureSave()
@@ -305,7 +308,9 @@ namespace EasternFantasy.Saving
             return null;
         }
         private static bool Finite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
-        private static bool IsGameplayScene(string scene) => !string.IsNullOrEmpty(scene) && scene != "MainScreen" && scene != "ChooseCharactor";
+        private static bool IsGameplayScene(string scene) =>
+            !string.IsNullOrEmpty(scene) && scene != "MainScreen" && scene != "ChooseCharactor" &&
+            scene != Opening.OpeningCutsceneManager.SceneName;
         public static void ResetForDemo()
         {
             if (Instance == null || IsRestoring || PortalSceneTransition.IsTransitioning) return;

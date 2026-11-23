@@ -21,6 +21,7 @@ namespace EasternFantasy.UI
         private readonly List<Banner> visible = new List<Banner>();
         private readonly List<string> pendingDiscoveries = new List<string>();
         private bool presenting;
+        private bool revealMap;
         private float presentationTime, inkReveal = 1;
         private const float OpenSeconds = .5f, DiscoverySeconds = 1.15f;
         private Rect previousRect;
@@ -73,14 +74,16 @@ namespace EasternFantasy.UI
                 banners.Add(new Banner { Location = location, Label = label, Body = body, NameRect = nameRect, NumberRect = numberRect, BodyRect = bodyRect, Center = center });
             }
         }
-        public void Refresh()
+        public void Refresh() => Refresh(true);
+
+        internal void Refresh(bool playMapReveal)
         {
             Initialize();
             if (!initialized || !window.IsShowingDetail) return;
             StopPresentation();
-            bool farm = window.IsShowingGiantFarm;
             visible.Clear();
-            visible.AddRange(banners.FindAll(b => b.Location.giantFarm == farm));
+            foreach (var banner in banners)
+                if (window.IsSceneOnDetailPage(banner.Location.sceneName)) visible.Add(banner);
             pendingDiscoveries.Clear();
             visible.Sort((a,b) => a.Center.CompareTo(b.Center));
             count = Mathf.Min(6, visible.Count);
@@ -101,7 +104,7 @@ namespace EasternFantasy.UI
                 if (!visited || banner.NewlyDiscovered)
                 {
                     bool known = MapRegionDiscovery.IsSceneNameKnown(banner.Location.sceneName);
-                    banner.Label.text = known ? Vertical(MapLocationNames.GetDisplayName(banner.Location.sceneName)) : "?\n?\n?";
+                    banner.Label.text = known ? Vertical(MapLocationNames.GetEntranceDisplayName(banner.Location.sceneName)) : "?\n?\n?";
                     banner.Body.gameObject.SetActive(true);
                     banner.Label.gameObject.SetActive(true);
                 }
@@ -110,7 +113,8 @@ namespace EasternFantasy.UI
             ApplyCurrentMaterial();
             previousRect = default;
             UpdateLayout();
-            presenting = Application.isPlaying;
+            revealMap = playMapReveal;
+            presenting = Application.isPlaying && (revealMap || pendingDiscoveries.Count > 0);
             presentationTime = 0;
             UpdatePresentation(0);
         }
@@ -133,11 +137,11 @@ namespace EasternFantasy.UI
         {
             if (!presenting) return;
             presentationTime += delta;
-            inkReveal = Mathf.Clamp01(presentationTime / OpenSeconds);
+            inkReveal = revealMap ? Mathf.Clamp01(presentationTime / OpenSeconds) : 1f;
             bool discovery = pendingDiscoveries.Count > 0;
             float progress = Mathf.Clamp01((presentationTime - .25f) / .7f);
             float labels = Mathf.SmoothStep(0, 1, Mathf.InverseLerp(.72f, .95f, presentationTime));
-            float openLabels = Mathf.SmoothStep(0, 1, Mathf.InverseLerp(.30f, .5f, presentationTime));
+            float openLabels = revealMap ? Mathf.SmoothStep(0, 1, Mathf.InverseLerp(.30f, .5f, presentationTime)) : 1f;
             for (int i = 0; i < visible.Count; i++)
             {
                 var banner = visible[i];

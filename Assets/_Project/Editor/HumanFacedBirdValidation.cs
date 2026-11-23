@@ -41,11 +41,21 @@ namespace EasternFantasy.Editor
             groundArt.sprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0, 0, 1, 1), Vector2.one * .5f, 1f);
             groundArt.color = new Color(.12f, .15f, .18f);
             groundArt.sortingOrder = -5;
-            var actor = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Player/Player.prefab"));
-            actor.transform.SetParent(fixture.transform); actor.transform.position = new Vector3(1003, .75f, 0);
+            var actor = new GameObject("Bird Attack Target");
+            actor.SetActive(false);
+            actor.layer = LayerMask.NameToLayer("Player");
+            actor.AddComponent<PlayerEntity>();
+            var movementData = new SerializedObject(actor.GetComponent<PlayerMovement2D>());
+            var movementTemplate = new SerializedObject(AssetDatabase.LoadAssetAtPath<GameObject>(
+                "Assets/_Project/Prefabs/Player/Player.prefab").GetComponent<PlayerMovement2D>());
+            movementData.CopyFromSerializedProperty(movementTemplate.FindProperty("settings"));
+            movementData.ApplyModifiedPropertiesWithoutUndo();
+            actor.GetComponent<CapsuleCollider2D>().size = new Vector2(.8f, 1.5f);
+            actor.transform.SetParent(fixture.transform); actor.transform.position = new Vector3(1004.9f, .75f, 0);
             foreach (var script in actor.GetComponents<MonoBehaviour>())
                 if (script is PlayerMovement2D || script is PlayerInputReader || script is PlayerAdminController || script is PlayerDeathController)
                     script.enabled = false;
+            actor.SetActive(true);
             var actorBody = actor.GetComponent<Rigidbody2D>(); actorBody.bodyType = RigidbodyType2D.Kinematic;
             player = actor.GetComponent<PlayerEntity>(); player.Damaged += CountHit;
             var enemy = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(HumanFacedBirdSetup.PrefabPath));
@@ -141,8 +151,8 @@ namespace EasternFantasy.Editor
             yield return new WaitForSeconds(.3f);
             Check(body.position.y > .4f && hits == 0, "Rises before claw damage; windup does not damage");
             Capture("Takeoff");
-            yield return new WaitForSeconds(.3f);
-            Check(hits == 1, "Claw animation event damages player once");
+            yield return new WaitForSeconds(.55f);
+            Check(hits == 1, "Dive sweep damages player once");
             Capture("Claw");
             bird.HumanFacedBirdClawHit(); bird.HumanFacedBirdClawHit();
             Check(hits == 1, "Duplicate hit events cannot damage twice in one attack");
@@ -151,9 +161,35 @@ namespace EasternFantasy.Editor
             AimPlayer(-1f);
             yield return WaitForAttack();
             Check(bird.transform.localScale.x > 0, "Faces left for a player on the left");
-            yield return new WaitForSeconds(.6f);
+            yield return new WaitForSeconds(.95f);
             Check(hits == 2, "Mirrored claw attack damages on the left");
             yield return WaitForLanding();
+            player.transform.position = new Vector3(body.position.x + 3.5f, .75f, 0);
+            Set(bird, "nextAttackAt", Time.time);
+            Physics2D.SyncTransforms();
+            yield return WaitForAttack();
+            yield return new WaitForSeconds(.73f);
+            Vector2 committedDirection = (Vector2)typeof(MON_HumanFacedBird).GetField("diveDirection", Hidden).GetValue(bird);
+            player.transform.position = new Vector3(body.position.x - 5f, .75f, 0);
+            Physics2D.SyncTransforms();
+            yield return new WaitForSeconds(.2f);
+            Vector2 currentDirection = (Vector2)typeof(MON_HumanFacedBird).GetField("diveDirection", Hidden).GetValue(bird);
+            Check(committedDirection.x > 0f && currentDirection == committedDirection && hits == 2,
+                "Player can evade after takeoff; the dive keeps its committed direction");
+            yield return WaitForLanding();
+            var wall = new GameObject("DiveValidationWall", typeof(BoxCollider2D));
+            wall.transform.SetParent(fixture.transform);
+            wall.transform.position = new Vector3(body.position.x + 1.7f, 3f, 0);
+            wall.GetComponent<BoxCollider2D>().size = new Vector2(.4f, 6f);
+            player.transform.position = new Vector3(body.position.x + 3.5f, .75f, 0);
+            Set(bird, "nextAttackAt", Time.time);
+            Physics2D.SyncTransforms();
+            yield return WaitForAttack();
+            yield return new WaitForSeconds(.95f);
+            Check(bird.GetComponent<CapsuleCollider2D>().bounds.max.x <= wall.GetComponent<BoxCollider2D>().bounds.min.x + .03f
+                && hits == 2, "Wall stops the dive and blocks claw damage through terrain");
+            yield return WaitForLanding();
+            UnityEngine.Object.Destroy(wall);
             player.transform.position = new Vector3(1010, .75f, 0); Physics2D.SyncTransforms();
             Set(bird, "nextAttackAt", Time.time);
             yield return new WaitForSeconds(.3f);

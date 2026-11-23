@@ -56,7 +56,7 @@ namespace EasternFantasy.Editor
                     root.transform.position = new Vector3(17f, floor.bounds.max.y + .015f, 0f);
                 }
                 var renderer = GetOrAdd<SpriteRenderer>(root);
-                renderer.sharedMaterial = traveler.sharedMaterial;
+                renderer.sharedMaterial = ForgeToneMaterial();
                 renderer.sortingLayerID = traveler.sortingLayerID;
                 renderer.sortingOrder = traveler.sortingOrder;
                 renderer.sprite = idle[0];
@@ -86,6 +86,41 @@ namespace EasternFantasy.Editor
                 return "TempleGate/GoblinBlacksmith: scene object, 8 idle + 8 hammer frames, 6-12 second intervals, T interaction and existing equipment-upgrade UI.";
             }
             finally { if (opened) EditorSceneManager.CloseScene(scene, true); }
+        }
+
+        [MenuItem("Eastern Fantasy/Old Temple/Apply Blacksmith Forge Tone")]
+        public static string ApplyForgeTone()
+        {
+            if (Application.isPlaying) throw new InvalidOperationException("Stop play mode before editing the blacksmith.");
+            var scene = SceneManager.GetSceneByPath(ScenePath);
+            bool opened = !scene.isLoaded;
+            if (opened) scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
+            try
+            {
+                if (scene.isDirty) throw new InvalidOperationException("Save TempleGate before editing the blacksmith.");
+                var blacksmith = scene.GetRootGameObjects().Single(root => root.name == ObjectName);
+                var renderer = blacksmith.GetComponent<SpriteRenderer>();
+                renderer.sharedMaterial = ForgeToneMaterial();
+                EditorSceneManager.MarkSceneDirty(scene);
+                if (!EditorSceneManager.SaveScene(scene)) throw new InvalidOperationException("Could not save TempleGate.");
+                AssetDatabase.SaveAssets();
+                return "Applied forge-side warmth and muted shadow reds to the TempleGate blacksmith.";
+            }
+            finally { if (opened) EditorSceneManager.CloseScene(scene, true); }
+        }
+
+        private static Material ForgeToneMaterial()
+        {
+            const string path = AnimationFolder + "/GoblinBlacksmithForgeTone.mat";
+            var material = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (material != null) return material;
+            var shader = Shader.Find("Eastern Fantasy/Village Harmony");
+            if (shader == null) throw new InvalidOperationException("Missing sprite color grading shader.");
+            material = new Material(shader);
+            material.SetFloat("_ForgeShade", 1f);
+            material.EnableKeyword("_FORGE_SHADE");
+            AssetDatabase.CreateAsset(material, path);
+            return material;
         }
 
         private static T GetOrAdd<T>(GameObject root) where T : Component
@@ -145,6 +180,10 @@ namespace EasternFantasy.Editor
             AnimationUtility.SetObjectReferenceCurve(clip, EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite"), keys.ToArray());
             var settings = AnimationUtility.GetAnimationClipSettings(clip); settings.loopTime = loop;
             settings.startTime = 0f; settings.stopTime = duration; AnimationUtility.SetAnimationClipSettings(clip, settings);
+            if (name == BlacksmithAmbientAnimation.HammerState)
+                AnimationUtility.SetAnimationEvents(clip, new[] {
+                    new AnimationEvent { time = duration * 5f / 8f, functionName = "PlayHammerImpact" }
+                });
             EditorUtility.SetDirty(clip); return clip;
         }
 

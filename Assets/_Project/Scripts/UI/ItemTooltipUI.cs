@@ -70,7 +70,8 @@ namespace EasternFantasy.UI
 
             titleText.text = item.GradedDisplayName;
             titleText.color = item.GradeColor;
-            categoryText.text = GetCategoryName(item.Category) + (item.IsAccessory ? " · " + AccessorySlotName(item.EquipmentSlot) : "")
+            categoryText.text = (item.EquipmentSlot == EquipmentSlot.Title ? "칭호" : GetCategoryName(item.Category))
+                + (item.IsAccessory ? " · " + AccessorySlotName(item.EquipmentSlot) : "")
                 + (item.CanSell ? "" : " · 판매불가");
             descriptionText.text = item.Description;
             effectText.text = BuildEffectText(item, inventory, shop);
@@ -92,6 +93,10 @@ namespace EasternFantasy.UI
                     : $"방어력 +{item.DefenseBonus:F0}";
                 if (item.IsAccessory && !string.IsNullOrEmpty(item.SpecialAbilityDescription))
                     value = item.SpecialAbilityDescription;
+                if (item.EquipmentSlot == EquipmentSlot.Title)
+                    value = item.TitleAttackBonusRate > 0f
+                        ? $"공격력 +{item.TitleAttackBonusRate * 100f:0.##}%"
+                        : "능력치 효과 없음";
                 string state = inventory.IsEquipped(item) ? "장착 중 · 더블클릭하여 해제" : "더블클릭하여 장착";
                 if (!inventory.CanEquip(item) && !inventory.IsEquipped(item))
                     state = "<color=#EF8888>현재 직업은 장착할 수 없습니다.</color>";
@@ -102,8 +107,16 @@ namespace EasternFantasy.UI
 
             if (item.Category == ItemCategory.Consumable)
             {
+                string useHint = shop ? "" : "\n클릭하여 사용";
+                if (item.ConsumableEffect == ConsumableEffect.IncreaseAttackPower)
+                    return $"공격력 {item.UseAmount:0.##%} 증가 · {item.BuffDuration:0.##}초" + useHint;
+                if (item.ConsumableEffect == ConsumableEffect.IncreaseDamageReduction)
+                    return $"피해감면 +{item.UseAmount:0.##%}p · {item.BuffDuration:0.##}초" + useHint;
                 string resource = item.ConsumableEffect == ConsumableEffect.RestoreHealth ? "체력" : "마나";
-                return $"{resource} {item.UseAmount:F0} 회복" + (shop ? "" : "\n클릭하여 사용");
+                string recovery = item.RestoreFractionOfMaximum
+                    ? $"최대 {resource}의 {item.UseAmount:0.##%}"
+                    : $"{resource} {item.UseAmount:F0}";
+                return recovery + " 회복" + useHint;
             }
 
             return "보유 수량 " + inventory.GetQuantity(item);

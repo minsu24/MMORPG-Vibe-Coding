@@ -36,7 +36,7 @@ public sealed class FarmCartPhaseAudio : MonoBehaviour
         source.pitch = Mathf.Clamp(Time.timeScale, .01f, 3f);
         if (paused) { source.UnPause(); paused = false; }
         elapsed += Time.deltaTime;
-        source.volume = volume * Mathf.Clamp01(elapsed / .025f);
+        source.volume = LocalAmbientAudio2D.GetPlayerVolumeAt(transform.position, volume) * Mathf.Clamp01(elapsed / .025f);
     }
 
     public void Stop()

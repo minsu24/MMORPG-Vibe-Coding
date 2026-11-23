@@ -23,7 +23,9 @@ namespace EasternFantasy.Inventory
         Shoes,
         Ring,
         Necklace,
-        Bracelet
+        Bracelet,
+        Ring2,
+        Title
     }
 
     public enum AccessoryAbility
@@ -37,7 +39,9 @@ namespace EasternFantasy.Inventory
     {
         None,
         RestoreHealth,
-        RestoreMana
+        RestoreMana,
+        IncreaseAttackPower,
+        IncreaseDamageReduction
     }
 
     [CreateAssetMenu(fileName = "ItemDefinition", menuName = "Eastern Fantasy/Inventory/Item Definition")]
@@ -58,6 +62,9 @@ namespace EasternFantasy.Inventory
         [SerializeField] private CharacterClassId[] allowedClasses = Array.Empty<CharacterClassId>();
         [SerializeField] private EquipmentSetDefinition equipmentSet;
         [SerializeField, Min(0f)] private float attackBonus;
+        [SerializeField, Min(0f), Tooltip("칭호 공격력 비율. 0.05 = 5%.")]
+        private float titleAttackBonusRate;
+        [SerializeField] private Sprite titleBanner;
         [SerializeField, Min(0f)] private float defenseBonus;
         [Header("Accessory special ability")]
         [SerializeField] private AccessoryAbility specialAbility;
@@ -65,6 +72,9 @@ namespace EasternFantasy.Inventory
         private float specialAbilityValue;
         [SerializeField] private ConsumableEffect consumableEffect;
         [SerializeField, Min(0f)] private float useAmount;
+        [SerializeField, Tooltip("Use Amount is a fraction of the maximum stat when enabled. For example, 0.3 restores 30%.")]
+        private bool restoreFractionOfMaximum;
+        [SerializeField, Min(0f)] private float buffDuration;
         [SerializeField, Min(1)] private int maximumStack = 99;
         [SerializeField, Min(0)] private int buyPrice;
         [SerializeField, Min(0)] private int sellPrice;
@@ -86,7 +96,7 @@ namespace EasternFantasy.Inventory
         public string Description => description;
         public Sprite Icon => HasGrade && gradeAppearance != null && gradeAppearance.GetIcon(Grade) != null
             ? gradeAppearance.GetIcon(Grade) : icon;
-        public bool HasGrade => grade != ItemGrade.None;
+        public bool HasGrade => equipmentSlot != EquipmentSlot.Title && grade != ItemGrade.None;
         public ItemGrade Grade => HasGrade ? grade : ItemGrade.None;
         private static ItemGradeAppearance sharedGradeFrames;
         public Sprite GradeFrame
@@ -145,9 +155,13 @@ namespace EasternFantasy.Inventory
             }
         }
         public float AttackBonus => attackBonus;
+        public float TitleAttackBonusRate => equipmentSlot == EquipmentSlot.Title ? titleAttackBonusRate : 0f;
+        public Sprite TitleBanner => titleBanner;
         public float DefenseBonus => defenseBonus;
         public ConsumableEffect ConsumableEffect => consumableEffect;
         public float UseAmount => useAmount;
+        public bool RestoreFractionOfMaximum => restoreFractionOfMaximum;
+        public float BuffDuration => buffDuration;
         public int MaximumStack => maximumStack;
         public int BuyPrice => buyPrice;
         public int SellPrice => sellPrice;
@@ -160,6 +174,7 @@ namespace EasternFantasy.Inventory
             attackBonus = Mathf.Max(0f, attackBonus);
             defenseBonus = Mathf.Max(0f, defenseBonus);
             useAmount = Mathf.Max(0f, useAmount);
+            buffDuration = Mathf.Max(0f, buffDuration);
             maximumStack = Mathf.Max(1, maximumStack);
             buyPrice = Mathf.Max(0, buyPrice);
             sellPrice = Mathf.Clamp(sellPrice, 0, buyPrice);

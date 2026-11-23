@@ -16,15 +16,54 @@ public sealed class MON_Ginseng : EnemyController
     [SerializeField, Min(0.1f)] private float attackDuration = 0.9f;
     private float nextAttackAt, attackEndsAt, attackDirection;
     private bool impactFired;
+    private AudioSource footstepAudio;
+    private float nextFootstepAt;
     private readonly Collider2D[] attackHits = new Collider2D[16];
     protected override string DeathAnimationState => "GinsengDefeated";
 
     private void LateUpdate()
     {
+        UpdateFootstepAudio();
         if (animator == null || rb == null || HP <= 0f) return;
         // Slow patrols take slower steps; chasing uses the normal authored stride.
         float rate = Mathf.Abs(rb.linearVelocity.x) / walkAnimationReferenceSpeed;
         animator.SetFloat(WalkCycleSpeed, Mathf.Clamp(rate, 0.2f, 2.5f));
+    }
+
+    private void UpdateFootstepAudio()
+    {
+        bool walking = HP > 0f && !isAttacking && !isKnockback && Time.timeScale > 0f
+            && rb != null && rb.simulated && Mathf.Abs(rb.linearVelocity.x) > .1f
+            && Mathf.Abs(rb.linearVelocity.y) < .2f;
+        if (!walking)
+        {
+            StopFootstepAudio();
+            return;
+        }
+        if (footstepAudio != null)
+            footstepAudio.volume = LocalAmbientAudio2D.GetPlayerVolumeAt(transform.position, .16f);
+        if (Time.time < nextFootstepAt) return;
+        if (footstepAudio == null)
+        {
+            var clip = Resources.Load<AudioClip>("Audio/GinsengStep");
+            if (clip == null) return;
+            footstepAudio = gameObject.AddComponent<AudioSource>();
+            footstepAudio.playOnAwake = false;
+            footstepAudio.loop = false;
+            footstepAudio.spatialBlend = 0f;
+            footstepAudio.volume = LocalAmbientAudio2D.GetPlayerVolumeAt(transform.position, .16f);
+            footstepAudio.clip = clip;
+        }
+        float strideRate = Mathf.Clamp(Mathf.Abs(rb.linearVelocity.x) / walkAnimationReferenceSpeed, .2f, 2.5f);
+        footstepAudio.pitch = Mathf.Clamp(strideRate, .85f, 1.2f);
+        if (!footstepAudio.isPlaying) footstepAudio.Play();
+        nextFootstepAt = Time.time + Mathf.Max(footstepAudio.clip.length / footstepAudio.pitch, .56f / strideRate);
+    }
+
+    private void StopFootstepAudio()
+    {
+        if (footstepAudio != null) footstepAudio.Stop();
+        nextFootstepAt = 0f;
     }
 
     protected override bool CanUseAbility() => isAttacking || base.CanUseAbility();
@@ -49,6 +88,8 @@ public sealed class MON_Ginseng : EnemyController
         scale.x = -Mathf.Abs(scale.x) * direction;
         transform.localScale = scale;
         isAttacking = true;
+        StopFootstepAudio();
+        EnemyAttackAudio.PlayAt(gameObject, "Audio/GinsengAttack", .5f);
         impactFired = false;
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         animator.SetBool("isMoving", false);
@@ -98,6 +139,8 @@ public sealed class MON_Ginseng : EnemyController
 
     protected override void OnDefeated()
     {
+        StopFootstepAudio();
+        EnemyDeathAudio.PlayFor(this, "Audio/GinsengDeath", .5f);
         FinishAttack(false);
         if (rb != null) rb.linearVelocity = Vector2.zero;
         if (animator != null) animator.SetBool("isMoving", false);
@@ -106,6 +149,7 @@ public sealed class MON_Ginseng : EnemyController
 
     protected override void OnDisable()
     {
+        StopFootstepAudio();
         FinishAttack(false);
         base.OnDisable();
     }

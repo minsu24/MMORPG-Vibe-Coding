@@ -71,6 +71,7 @@ public sealed partial class MON_WillOWisp : EnemyController
         if (!provoked || !isAttacking || volleyEmitted || isKnockback || !CanDealContactDamage
             || !HasLivingPlayer || projectilePrefab == null) return;
         volleyEmitted = true;
+        EnemyAttackAudio.PlayFor(this, "Audio/WispAttack", .45f);
         Vector2 mouth = (Vector2)transform.position + new Vector2(
             mouthOffset.x * attackDirection * Mathf.Abs(transform.lossyScale.x),
             mouthOffset.y * Mathf.Abs(transform.lossyScale.y));
@@ -108,6 +109,12 @@ public sealed partial class MON_WillOWisp : EnemyController
         rb.linearVelocity = Vector2.zero;
         animator.SetBool("isMoving", false);
         base.OnDefeated();
+    }
+
+    // Animation event on the frame where the face dissolves into scattered flame.
+    public void PlayWispDisappearanceSound()
+    {
+        EnemyDeathAudio.PlayFor(this, "Audio/WispDeath", .45f);
     }
 
     protected override void OnDisable()

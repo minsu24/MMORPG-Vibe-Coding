@@ -12,12 +12,24 @@ namespace EasternFantasy.Inventory
         internal void CaptureSave(SaveGameData data)
         {
             data.equipmentInventoryUnified = true;
-            foreach (var stack in Items) data.items.Add(new SavedItem { id = SaveAssetCatalog.Id(stack.Item), quantity = stack.Quantity, slot = stack.SlotIndex, equipped = IsEquipped(stack.Item) });
+            data.caveBellTitleGranted = caveBellTitleGranted;
+            data.pendingCaveBellTitle = SaveAssetCatalog.Id(pendingCaveBellTitle);
+            data.caveBellTitleTutorialItem = SaveAssetCatalog.Id(CaveBellTitleTutorialItem);
+            foreach (var stack in Items)
+                data.items.Add(new SavedItem
+                {
+                    id = SaveAssetCatalog.Id(stack.Item), quantity = stack.Quantity, slot = stack.SlotIndex,
+                    equipped = GetEquipped(stack.Item.EquipmentSlot) == stack.Item,
+                    secondRingEquipped = stack.Item.EquipmentSlot == EquipmentSlot.Ring && GetEquipped(EquipmentSlot.Ring2) == stack.Item
+                });
             data.consumableSlots = consumableSlots.Select(SaveAssetCatalog.Id).ToArray();
         }
         internal void RestoreSave(SaveGameData data)
         {
             initialized = true; items.Clear(); equippedItems.Clear();
+            caveBellTitleGranted = data.caveBellTitleGranted;
+            pendingCaveBellTitle = caveBellTitleGranted ? null : SaveAssetCatalog.Resolve<ItemDefinition>(data.pendingCaveBellTitle);
+            CaveBellTitleTutorialItem = SaveAssetCatalog.Resolve<ItemDefinition>(data.caveBellTitleTutorialItem);
             foreach (var entry in data.items)
             {
                 var item = SaveAssetCatalog.Resolve<ItemDefinition>(entry.id);
@@ -41,6 +53,9 @@ namespace EasternFantasy.Inventory
                 }
                 items.Add(new InventoryStack(item, entry.quantity, slot));
                 if (entry.equipped && CanEquip(item)) equippedItems[item.EquipmentSlot] = item;
+                if (entry.secondRingEquipped && item.EquipmentSlot == EquipmentSlot.Ring && CanEquip(item) &&
+                    (!entry.equipped || entry.quantity >= 2))
+                    equippedItems[EquipmentSlot.Ring2] = item;
             }
             consumableSlots = new ItemDefinition[ConsumableSlotCount];
             for (int i = 0; i < consumableSlots.Length && i < (data.consumableSlots?.Length ?? 0); i++)

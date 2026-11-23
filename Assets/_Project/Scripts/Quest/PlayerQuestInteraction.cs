@@ -43,7 +43,8 @@ namespace EasternFantasy.Quest
             nextPromptRefresh = Time.unscaledTime + 0.1f;
 
             PlayerEntity entity = GetComponent<PlayerEntity>();
-            if ((entity != null && entity.IsDead)
+            if (GetComponent<PlayerInputReader>().IsInputBlocked
+                || (entity != null && entity.IsDead)
                 || (DialogueManager.Instance != null && DialogueManager.Instance.IsDialogueActive)
                 || (EquipmentUpgradeWindowUI.Instance != null && EquipmentUpgradeWindowUI.Instance.IsOpen)
                 || (ShopWindowUI.Instance != null && ShopWindowUI.Instance.IsOpen)
@@ -67,8 +68,10 @@ namespace EasternFantasy.Quest
             EquipmentUpgradeBlacksmith blacksmith = dungeon == null ? FindNearestBlacksmith() : null;
             Shopkeeper shopkeeper = dungeon == null && blacksmith == null ? FindNearestShopkeeper() : null;
             QuestGiver questGiver = dungeon == null && blacksmith == null && shopkeeper == null ? FindNearestQuestGiver() : null;
+            CaveBellInteraction bell = dungeon == null && blacksmith == null && shopkeeper == null && questGiver == null
+                ? CaveBellInteraction.FindNear(transform, interactionRadius) : null;
             Transform target = relic != null ? relic.transform : dungeon != null ? dungeon.transform : blacksmith != null ? blacksmith.transform : shopkeeper != null ? shopkeeper.transform
-                : questGiver != null ? questGiver.transform : null;
+                : questGiver != null ? questGiver.transform : bell != null ? bell.transform : null;
             if (target == null)
             {
                 currentPromptTarget = null;
@@ -129,7 +132,10 @@ namespace EasternFantasy.Quest
 
             QuestGiver nearest = FindNearestQuestGiver();
             if (nearest == null)
-                return false;
+            {
+                CaveBellInteraction bell = CaveBellInteraction.FindNear(transform, interactionRadius);
+                return bell != null && bell.TryInteract(GetComponent<PlayerInputReader>());
+            }
 
             nearest.Interact();
             return true;

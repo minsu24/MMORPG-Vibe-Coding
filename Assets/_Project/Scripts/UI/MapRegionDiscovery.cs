@@ -10,6 +10,7 @@ namespace EasternFantasy.UI
     {
         public const string Tutorial = "tutorial";
         public const string GiantFarm = "giant-farm";
+        public const string OldTemple = "old-temple";
         public static event Action Changed;
         // Session memory only. A future save system can own persistence separately.
         private static readonly HashSet<string> visitedRegions = new HashSet<string>();
@@ -58,16 +59,22 @@ namespace EasternFantasy.UI
 
         private static void OnSceneChanged(Scene previous, Scene next) => RecordSceneEntry(next.name);
 
-        private static string RegionForScene(string scene)
+        internal static string RegionForScene(string scene)
         {
             switch (scene)
             {
                 case "MovementPrototype": case "PrologueVilage": case "Cemetery":
                 case "SpiderCave": case "Marshland": case "BrokenSeal": return Tutorial;
                 case "GiantFarm_01": case "GiantFarm_02": case "GiantFarm_03_Boss": return GiantFarm;
+                case "SmogMountain": case "TempleGate": case "TempleRoad":
+                case "OldTemple - Outer Grounds": case "OldTemple - Center":
+                case "RemoteMountainPath": case "InsideCaveBudda": return OldTemple;
                 default: return null;
             }
         }
+        internal static bool IsOldTempleSidePathScene(string scene)
+            => scene == "RemoteMountainPath" || scene == "InsideCaveBudda";
+
         public static void RecordSceneEntry(string scene)
         {
             string region = RegionForScene(scene);

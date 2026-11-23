@@ -148,6 +148,11 @@ namespace EasternFantasy.Editor
                 check(!monster.IsAttacking && animator.GetCurrentAnimatorStateInfo(0).IsName("Will-o Idle"), "Attack end event returns to idle");
 
                 var projectilePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(WillOWispCombatSetup.ProjectilePath).GetComponent<WillOWispProjectile>();
+                var wall = new GameObject("Thin terrain validation wall", typeof(BoxCollider2D));
+                SceneManager.MoveGameObjectToScene(wall, scene);
+                wall.transform.SetParent(root.transform);
+                wall.transform.position = new Vector3(2f, 1f, 0f);
+                wall.GetComponent<BoxCollider2D>().size = new Vector2(.03f, 4f);
                 playerCollider.enabled = true;
                 playerBody.position = new Vector2(4f, 1f);
                 var shot = UnityEngine.Object.Instantiate(projectilePrefab, new Vector3(0f, 1f, 0f), Quaternion.identity);
@@ -156,23 +161,21 @@ namespace EasternFantasy.Editor
                 float health = player.HP;
                 Physics2D.SyncTransforms();
                 for (int frame = 0; frame < 30 && !shot.HasImpacted; frame++) { step.Invoke(shot, null); physics.Simulate(.02f); }
-                check(shot.HasImpacted && player.HP < health, "Swept projectile collision damages the player");
+                check(shot.HasImpacted && shot.GetComponent<Rigidbody2D>().position.x > wall.transform.position.x &&
+                    player.HP < health, "Swept projectile passes through a terrain collider and damages the player");
                 float afterHit = player.HP;
                 shot.SendMessage("OnTriggerEnter2D", playerCollider);
                 check(Mathf.Approximately(player.HP, afterHit), "An impacted flame cannot deal repeated damage");
                 UnityEngine.Object.DestroyImmediate(shot.gameObject);
 
                 playerCollider.enabled = false;
-                var wall = new GameObject("Thin terrain validation wall", typeof(BoxCollider2D));
-                SceneManager.MoveGameObjectToScene(wall, scene);
-                wall.transform.position = new Vector3(2f, 1f, 0f);
-                wall.GetComponent<BoxCollider2D>().size = new Vector2(.03f, 4f);
                 shot = UnityEngine.Object.Instantiate(projectilePrefab, new Vector3(0f, 1f, 0f), Quaternion.identity);
                 SceneManager.MoveGameObjectToScene(shot.gameObject, scene);
                 shot.Launch(new Vector2(4f, 1f), .1f, .1f, 10f, monster);
                 Physics2D.SyncTransforms();
                 for (int frame = 0; frame < 8 && !shot.HasImpacted; frame++) { step.Invoke(shot, null); physics.Simulate(.02f); }
-                check(shot.HasImpacted && shot.GetComponent<Rigidbody2D>().position.x < 2.1f, "Fast flames collide with thin terrain");
+                check(shot.HasImpacted && Vector2.Distance(shot.GetComponent<Rigidbody2D>().position, shot.Destination) < .02f,
+                    "Fast flames pass through thin terrain and reach their destination when they miss the player");
                 UnityEngine.Object.DestroyImmediate(shot.gameObject);
                 UnityEngine.Object.DestroyImmediate(wall);
 

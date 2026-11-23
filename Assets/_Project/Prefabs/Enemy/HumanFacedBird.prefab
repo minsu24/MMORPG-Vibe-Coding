@@ -140,7 +140,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -197,9 +197,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.EnemyLootDrop
   pickupPrefab: {fileID: 1989097639827239875, guid: 554de1e741f28c1438da42f16684da6a, type: 3}
   floorCollider: {fileID: 0}
-  drops: []
-  spawnHeight: 0.35
+  drops:
+  - item: {fileID: 11400000, guid: 3534516af3094bbb9e2173fa04cd6a2d, type: 2}
+    dropChance: 0.3
+    minimumQuantity: 1
+    maximumQuantity: 1
+  spawnHeight: 0.95
   horizontalScatter: 0.65
+  firstDropOffset: 0.9
   overridesCommonLoot: 0
   filterWeaponsByPlayerClass: 0
 --- !u!114 &1759863386509798854
@@ -241,11 +246,15 @@ MonoBehaviour:
   damageTextPrefab: {fileID: 3890553193077931215, guid: ffe84f00c64695a48b630feb8433f6f6, type: 3}
   textSpawnPoint: {fileID: 2371624675331486229}
   isKnockback: 0
-  attackRange: 1.8
-  attackVerticalRange: 1.3
+  attackRange: 4.5
+  attackVerticalRange: 2.5
   attackCooldown: 1.5
-  attackLiftHeight: 0.65
-  attackDuration: 1
+  attackLiftHeight: 2
+  attackDuration: 0.7
+  diveSpeed: 13
+  diveDuration: 0.45
+  recoveryDuration: 0.55
+  landingTimeout: 2
   clawOffset: {x: 0.9, y: 0.05}
   clawSize: {x: 1.5, y: 1.2}
   groundLayers:
@@ -253,6 +262,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   groundCheckDistance: 0.12
   walkAnimationReferenceSpeed: 1.4
+  questDefinition: {fileID: 11400000, guid: c30f36bd9e4a81341bdfcd929cd60760, type: 2}
 --- !u!1 &8256196167682798089
 GameObject:
   m_ObjectHideFlags: 0

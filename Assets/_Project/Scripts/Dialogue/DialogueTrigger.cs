@@ -44,9 +44,18 @@ namespace EasternFantasy.Dialogue
                 return;
             }
 
-            // A busy dialogue manager must not consume this sequence's first playback.
-            if (DialogueManager.Instance.StartDialogue(sequence) && playOnlyOnce)
-                playedSequences.Add(sequence);
+            if (playOnlyOnce)
+                TryPlayOnce(DialogueManager.Instance, sequence);
+            else
+                DialogueManager.Instance.StartDialogue(sequence);
+        }
+
+        internal static bool TryPlayOnce(DialogueManager manager, DialogueSequence sequence)
+        {
+            if (playedSequences.Contains(sequence) || !manager.StartDialogue(sequence))
+                return false;
+            playedSequences.Add(sequence);
+            return true;
         }
 
         private void OnTriggerEnter2D(Collider2D other)

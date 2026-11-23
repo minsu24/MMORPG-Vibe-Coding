@@ -89,6 +89,12 @@ namespace EasternFantasy.UI
                     slot?.RefreshCooldown();
         }
 
+        private void LateUpdate()
+        {
+            // Read the countdown after the player's gameplay-time clock has advanced.
+            RefreshPotionBuffs(GameplayHudVisibility.IsMenuScene ? null : buffPlayer);
+        }
+
         private void TryUseSlot(int index)
         {
             if (skillSystem.TryUseQuickSlot(index))
@@ -123,6 +129,7 @@ namespace EasternFantasy.UI
                 currency = FindFirstObjectByType<PlayerCurrency>();
             if (inventory == null)
                 inventory = FindFirstObjectByType<PlayerInventory>();
+            buffPlayer = inventory != null ? inventory.GetComponent<PlayerEntity>() : null;
 
             if (skillSystem != null)
                 caster = skillSystem.ResolveSkillCaster();

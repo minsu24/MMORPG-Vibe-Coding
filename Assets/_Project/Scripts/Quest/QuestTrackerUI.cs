@@ -125,6 +125,10 @@ namespace EasternFantasy.Quest
                     foreach (var frog in FindObjectsByType<MON_Frog>(FindObjectsSortMode.None))
                         if (frog.HP > 0f) return frog.transform;
                 }
+                var boss = FindFirstObjectByType<MON_SkullMonk>();
+                if (boss != null && boss.DefeatQuest == progress.Definition && boss.HP > 0f)
+                    return boss.transform;
+
                 MON_Ghost[] ghosts = FindObjectsByType<MON_Ghost>(FindObjectsSortMode.None);
                 MON_Ghost nearest = null;
                 float nearestDistance = float.PositiveInfinity;
@@ -149,6 +153,14 @@ namespace EasternFantasy.Quest
                     if (distance >= nearestDistance) continue;
                     nearestDistance = distance;
                     nearestTarget = spider.transform;
+                }
+                foreach (MON_HumanFacedBird bird in FindObjectsByType<MON_HumanFacedBird>(FindObjectsSortMode.None))
+                {
+                    if (bird.Quest != progress.Definition || bird.HP <= 0f) continue;
+                    float distance = (bird.transform.position - origin).sqrMagnitude;
+                    if (distance >= nearestDistance) continue;
+                    nearestDistance = distance;
+                    nearestTarget = bird.transform;
                 }
                 return nearestTarget;
             }
@@ -177,7 +189,14 @@ namespace EasternFantasy.Quest
                 builder.Append(progress.Status == QuestStatus.ReadyToTurnIn
                     && !string.IsNullOrWhiteSpace(quest.TurnInDescription)
                     ? quest.TurnInDescription : quest.ObjectiveDescription);
-                builder.Append("  ").Append(progress.CurrentAmount).Append('/').Append(quest.RequiredAmount);
+                if (quest.HasCountObjective && quest.RequiredItem != null)
+                {
+                    builder.AppendLine().Append(quest.CountObjectiveLabel).Append("  ")
+                        .Append(progress.CurrentAmount).Append('/').Append(quest.RequiredAmount);
+                    builder.AppendLine().Append(quest.RequiredItem.DisplayName).Append("  ")
+                        .Append(progress.CollectedAmount).Append('/').Append(quest.RequiredItemAmount);
+                }
+                else builder.Append("  ").Append(progress.CurrentAmount).Append('/').Append(quest.RequiredAmount);
 
                 if (progress.Status == QuestStatus.ReadyToTurnIn)
                     builder.Append("  COMPLETE");

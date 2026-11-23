@@ -10,6 +10,8 @@ namespace EasternFantasy.Shop
     {
         [SerializeField] private ItemDefinition[] stock;
         [SerializeField] private DialogueSequence greetingDialogue;
+        [SerializeField] private string unvisitedRegion;
+        [SerializeField] private DialogueSequence unvisitedRegionDialogue;
         [Header("Optional existing UI prefabs for maps opened directly")]
         [SerializeField] private GameObject shopWindowPrefab;
         [SerializeField] private GameObject dialogueUiPrefab;
@@ -40,9 +42,14 @@ namespace EasternFantasy.Shop
 
             activeDialogueManager = manager;
             manager.DialogueEnded += OnGreetingEnded;
+            if (CanTellRegionRumor && DialogueTrigger.TryPlayOnce(manager, unvisitedRegionDialogue))
+                return;
             if (!manager.StartDialogue(greetingDialogue))
                 StopWaitingForDialogue();
         }
+
+        private bool CanTellRegionRumor => unvisitedRegionDialogue != null
+            && !string.IsNullOrEmpty(unvisitedRegion) && !MapRegionDiscovery.IsVisited(unvisitedRegion);
 
         private void OnGreetingEnded()
         {

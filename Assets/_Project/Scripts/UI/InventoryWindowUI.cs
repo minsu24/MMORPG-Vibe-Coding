@@ -38,6 +38,24 @@ namespace EasternFantasy.UI
             foreach (var slot in slots) if (slot != null && slot.Definition == item) return slot.transform as RectTransform;
             return TutorialTarget;
         }
+
+        internal void RevealTutorialItem(ItemDefinition item)
+        {
+            if (slotScroll == null || slotScroll.viewport == null || slotScroll.content == null) return;
+            RectTransform target = TutorialItemTargetFor(item);
+            if (target == null || !target.IsChildOf(slotScroll.content)) return;
+
+            RectTransform viewport = slotScroll.viewport;
+            Bounds targetBounds = RectTransformUtility.CalculateRelativeRectTransformBounds(viewport, target);
+            if (viewport.rect.yMin <= targetBounds.min.y && viewport.rect.yMax >= targetBounds.max.y) return;
+
+            Bounds contentBounds = RectTransformUtility.CalculateRelativeRectTransformBounds(viewport, slotScroll.content);
+            float scrollHeight = contentBounds.size.y - viewport.rect.height;
+            if (scrollHeight <= 0f) return;
+            slotScroll.StopMovement();
+            slotScroll.verticalNormalizedPosition = Mathf.Clamp01(1f -
+                (contentBounds.max.y - targetBounds.center.y - viewport.rect.height * .5f) / scrollHeight);
+        }
         public bool IsUnlocked => InventoryEquipmentTutorialUI.HasFinishedForCurrentClass;
         public bool IsOpen => windowRoot != null && windowRoot.activeSelf;
         public ItemCategory SelectedCategory => selectedCategory;

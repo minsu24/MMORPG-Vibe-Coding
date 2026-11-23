@@ -12,6 +12,7 @@ public sealed class GiantAudioCue : MonoBehaviour
     {
         var clip = Resources.Load<AudioClip>(resource);
         if (context == null || clip == null) return null;
+        if (!loop && LocalAmbientAudio2D.GetPlayerVolumeAt(context.transform.position, volume) <= 0f) return null;
         var go = new GameObject(context.name + " " + clip.name + " Audio");
         SceneManager.MoveGameObjectToScene(go, context.scene);
         go.transform.position = context.transform.position;
@@ -25,7 +26,7 @@ public sealed class GiantAudioCue : MonoBehaviour
         cue.source.playOnAwake = false;
         cue.source.loop = loop;
         cue.source.spatialBlend = 0f;
-        cue.source.volume = loop ? 0f : volume;
+        cue.source.volume = loop ? 0f : LocalAmbientAudio2D.GetPlayerVolumeAt(go.transform.position, volume);
         cue.source.clip = clip;
         cue.source.time = start;
         cue.source.pitch = Mathf.Clamp(Time.timeScale, .01f, 3f);
@@ -47,8 +48,9 @@ public sealed class GiantAudioCue : MonoBehaviour
         source.pitch = Mathf.Clamp(Time.timeScale, .01f, 3f);
         if (paused) { source.UnPause(); paused = false; }
         age += Mathf.Max(0f, deltaTime);
-        if (looping) source.volume = volume * Mathf.Clamp01(age / .02f);
-        else if (age >= duration) Stop();
+        source.volume = LocalAmbientAudio2D.GetPlayerVolumeAt(transform.position, volume)
+            * (looping ? Mathf.Clamp01(age / .02f) : 1f);
+        if (!looping && age >= duration) Stop();
     }
 
     public void Stop()

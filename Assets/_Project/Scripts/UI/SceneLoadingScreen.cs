@@ -16,6 +16,11 @@ namespace EasternFantasy.UI
         private static SceneLoadingScreen instance;
         private Canvas canvas;
         private CanvasGroup group;
+        private Image background;
+        private RawImage portalFog;
+        private Material portalFogMaterial;
+        private float fogStart;
+        private float coverage;
         private RectTransform artworkRoot;
         private Image progressFill;
         private TMP_Text percentage;
@@ -39,7 +44,7 @@ namespace EasternFantasy.UI
 
         public static bool IsArtworkVisible => IsVisible && instance.artworkVisible;
 
-        public static void Begin(bool immediately = false, bool showArtwork = true)
+        public static void Begin(bool immediately = false, bool showArtwork = true, float? mountainFogOrigin = null)
         {
             LoadingAudioGate.SetLoadingBlocked(true);
             if (instance == null)
@@ -55,9 +60,11 @@ namespace EasternFantasy.UI
                 {
                     instance.artworkVisible = true;
                     instance.artworkRoot.gameObject.SetActive(true);
+                    instance.SetCoverage(instance.coverage);
                 }
                 return;
             }
+            instance.ConfigurePortalFog(mountainFogOrigin);
             instance.visible = true;
             instance.HideOtherUI();
             instance.artworkVisible = showArtwork;
@@ -67,14 +74,18 @@ namespace EasternFantasy.UI
             instance.shownAt = Time.unscaledTime;
             instance.canvas.enabled = true;
             instance.group.blocksRaycasts = true;
-            instance.group.alpha = immediately ? 1f : 0f;
+            instance.SetCoverage(immediately ? 1f : 0f);
             GameTimeController.SetPaused(instance, true);
-            if (!immediately) instance.fadeIn = instance.StartCoroutine(instance.Fade(1f, 0.28f));
+            if (!immediately)
+            {
+                float duration = instance.portalFog.enabled ? 0.5f : 0.28f;
+                instance.fadeIn = instance.StartCoroutine(instance.Fade(1f, duration));
+            }
         }
 
         public static IEnumerator WaitUntilCovered()
         {
-            while (IsVisible && instance.group.alpha < 0.999f) yield return null;
+            while (IsVisible && instance.coverage < 1f) yield return null;
         }
 
         public static void Report(float progress)
@@ -96,8 +107,10 @@ namespace EasternFantasy.UI
                     yield return null;
                 yield return new WaitForSecondsRealtime(0.12f);
             }
+            bool usePortalFog = instance.portalFog.enabled;
+            if (usePortalFog) instance.portalFogMaterial.SetFloat("_Arrival", 1f);
             onReveal?.Invoke();
-            yield return instance.Fade(0f, 0.4f);
+            yield return instance.Fade(0f, usePortalFog ? 0.92f : 0.4f);
             Cancel();
         }
 
@@ -110,7 +123,8 @@ namespace EasternFantasy.UI
             }
             if (instance.fadeIn != null) instance.StopCoroutine(instance.fadeIn);
             instance.fadeIn = null;
-            instance.group.alpha = 0f;
+            instance.SetCoverage(0f);
+            instance.portalFog.enabled = false;
             instance.group.blocksRaycasts = false;
             instance.canvas.enabled = false;
             instance.visible = false;
@@ -186,6 +200,10 @@ namespace EasternFantasy.UI
         private void Update()
         {
             if (!visible) return;
+            if (portalFog.enabled)
+            {
+                portalFogMaterial.SetFloat("_Drift", Time.unscaledTime - fogStart);
+            }
             displayedProgress = Mathf.MoveTowards(displayedProgress, targetProgress, Time.unscaledDeltaTime * 1.15f);
             progressFill.fillAmount = displayedProgress;
             progressFill.rectTransform.anchorMax = new Vector2(displayedProgress, 1f);
@@ -202,13 +220,21 @@ namespace EasternFantasy.UI
 
         private IEnumerator Fade(float target, float seconds)
         {
-            float from = group.alpha;
+            float from = coverage;
             for (float elapsed = 0f; elapsed < seconds; elapsed += Time.unscaledDeltaTime)
             {
-                group.alpha = Mathf.Lerp(from, target, Mathf.SmoothStep(0f, 1f, elapsed / seconds));
+                SetCoverage(Mathf.Lerp(from, target, Mathf.SmoothStep(0f, 1f, elapsed / seconds)));
                 yield return null;
             }
-            group.alpha = target;
+            SetCoverage(target);
+        }
+
+        private void SetCoverage(float value)
+        {
+            coverage = value;
+            // Let the shader clear the scene spatially without a second fullscreen fade.
+            group.alpha = portalFog.enabled && !artworkVisible ? 1f : value;
+            if (portalFog.enabled) portalFogMaterial.SetFloat("_Coverage", value);
         }
 
         private IEnumerator SettleCamera()
@@ -296,9 +322,14 @@ namespace EasternFantasy.UI
             scaler.matchWidthOrHeight = 0.5f;
             group = gameObject.AddComponent<CanvasGroup>();
             gameObject.AddComponent<GraphicRaycaster>();
-            var background = gameObject.AddComponent<Image>();
+            background = gameObject.AddComponent<Image>();
             background.color = Color.black;
             background.raycastTarget = true;
+            var fogRect = Child("Mountain Portal Fog", transform);
+            Stretch(fogRect, Vector2.zero, Vector2.zero);
+            portalFog = fogRect.gameObject.AddComponent<RawImage>();
+            portalFog.raycastTarget = false;
+            portalFog.enabled = false;
             artworkRoot = Child("Loading Presentation", transform);
             Stretch(artworkRoot, Vector2.zero, Vector2.zero);
 
@@ -354,6 +385,28 @@ namespace EasternFantasy.UI
             canvas.enabled = false;
         }
 
+        private void ConfigurePortalFog(float? origin)
+        {
+            if (origin.HasValue && portalFogMaterial == null)
+            {
+                var shader = Resources.Load<Shader>("Loading/MountainPortalFog");
+                if (shader != null && shader.isSupported)
+                {
+                    portalFogMaterial = new Material(shader);
+                    portalFog.material = portalFogMaterial;
+                }
+            }
+
+            portalFog.enabled = origin.HasValue && portalFogMaterial != null;
+            background.color = portalFog.enabled ? Color.clear : Color.black;
+            if (!portalFog.enabled) return;
+            fogStart = Time.unscaledTime;
+            portalFogMaterial.SetFloat("_Coverage", 0f);
+            portalFogMaterial.SetFloat("_Drift", 0f);
+            portalFogMaterial.SetFloat("_Arrival", 0f);
+            portalFogMaterial.SetFloat("_Origin", Mathf.Clamp01(origin.Value));
+        }
+
         private void Shade(string name, Vector2 min, Vector2 max, bool flip)
         {
             var rect = Child(name, artworkRoot);
@@ -404,6 +457,7 @@ namespace EasternFantasy.UI
             if (instance != this) return;
             GameTimeController.SetPaused(this, false);
             if (gradient != null) Destroy(gradient);
+            if (portalFogMaterial != null) Destroy(portalFogMaterial);
             instance = null;
         }
     }

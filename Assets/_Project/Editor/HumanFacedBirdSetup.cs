@@ -194,7 +194,9 @@ namespace EasternFantasy.Editor
                     "horizontalKnockbackPower", "verticalKnockbackPower", "damageTextPrefab", "textSpawnPoint" })
                     data.CopyFromSerializedProperty(source.FindProperty(property));
                 data.FindProperty("monsterDisplayName").stringValue = "인면조";
-                data.FindProperty("attackDuration").floatValue = attackDuration;
+                data.FindProperty("attackDuration").floatValue = .7f;
+                data.FindProperty("questDefinition").objectReferenceValue = AssetDatabase.LoadAssetAtPath<EasternFantasy.Quest.QuestDefinition>(
+                    "Assets/_Project/Data/Quest/HumanFacedBirdHunt/HumanFacedBirdHunt.asset");
                 data.ApplyModifiedPropertiesWithoutUndo();
                 UnityEngine.Object.DestroyImmediate(old);
                 var animator = root.GetComponent<Animator>();
@@ -207,14 +209,24 @@ namespace EasternFantasy.Editor
                 body.interpolation = RigidbodyInterpolation2D.Interpolate;
                 var collider = root.GetComponent<CapsuleCollider2D>();
                 collider.offset = new Vector2(0f, .88f); collider.size = new Vector2(.85f, 1.76f);
-                collider.excludeLayers |= LayerMask.GetMask("Player");
+                collider.excludeLayers &= ~LayerMask.GetMask("Player");
                 var anchor = bird.textSpawnPoint;
                 if (anchor != null) anchor.localPosition = new Vector3(0f, 2.25f, 0f);
                 var loot = root.GetComponent<EasternFantasy.Inventory.EnemyLootDrop>();
                 if (loot != null)
                 {
                     var lootData = new SerializedObject(loot);
-                    lootData.FindProperty("drops").arraySize = 0;
+                    lootData.FindProperty("spawnHeight").floatValue = .95f;
+                    lootData.FindProperty("firstDropOffset").floatValue = .9f;
+                    var feather = AssetDatabase.LoadAssetAtPath<EasternFantasy.Inventory.ItemDefinition>("Assets/_Project/Data/Items/HumanFacedBirdFeather.asset");
+                    if (feather == null) throw new InvalidOperationException("Missing the human-faced bird's feather item.");
+                    var drops = lootData.FindProperty("drops");
+                    drops.arraySize = 1;
+                    var drop = drops.GetArrayElementAtIndex(0);
+                    drop.FindPropertyRelative("item").objectReferenceValue = feather;
+                    drop.FindPropertyRelative("dropChance").floatValue = .3f;
+                    drop.FindPropertyRelative("minimumQuantity").intValue = 1;
+                    drop.FindPropertyRelative("maximumQuantity").intValue = 1;
                     lootData.ApplyModifiedPropertiesWithoutUndo();
                 }
                 PrefabUtility.SaveAsPrefabAsset(root, PrefabPath);

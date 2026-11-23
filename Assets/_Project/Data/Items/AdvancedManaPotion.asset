@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ada75e50a69424c83357669e06485c, type: 3}
+  m_Name: AdvancedManaPotion
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemDefinition
+  itemId: advanced_mana_potion
+  displayName: "\uc0c1\uae09 \ub9c8\ub098 \ubb3c\uc57d"
+  description: "\ucd5c\ub300 \ub9c8\ub098\uc758 30%\ub97c \ud68c\ubcf5\ud558\ub294 \uc0c1\uae09 \ubb3c\uc57d\uc785\ub2c8\ub2e4."
+  icon: {fileID: -2365296533431940640, guid: ff789986c3168f74e8a62a4b63f1fa47, type: 3}
+  category: 1
+  grade: 0
+  gradeFrame: {fileID: 0}
+  gradeAppearance: {fileID: 11400000, guid: 817a93ca2f67b9444a4b9963bab93450, type: 2}
+  gradeVariants: []
+  equipmentSlot: 0
+  allowedClasses:
+  equipmentSet: {fileID: 0}
+  attackBonus: 0
+  defenseBonus: 0
+  specialAbility: 0
+  specialAbilityValue: 0
+  consumableEffect: 2
+  useAmount: 0.3
+  restoreFractionOfMaximum: 1
+  maximumStack: 99
+  buyPrice: 50
+  sellPrice: 12
+  cannotSell: 0
+  materialSource: {fileID: 0}

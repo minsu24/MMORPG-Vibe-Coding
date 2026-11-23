@@ -21,6 +21,7 @@ namespace EasternFantasy.UI
         public int CurrentStep => running && guide != null ? guide.CurrentStep : -1;
         public int StepCount => Titles.Length;
         private bool pending, running, inputWasEnabled;
+        private bool titleTutorial;
         private int openedFrame;
         private float nextRecoveryCheck;
         private CharacterClassId tutorialClass;
@@ -38,19 +39,27 @@ namespace EasternFantasy.UI
         private struct LayoutState { public Vector3 Position, Scale; }
         private static readonly string[] Titles = {
             "1. 인벤토리 직접 열기", "2. 직접 장착하기", "3. 장비창 직접 열기", "4. 장비창 확인" };
+        private static readonly string[] TitleTutorialTitles = {
+            "1. 새 칭호 획득", "2. 칭호 직접 장착", "3. 장비창 직접 열기", "4. 장착한 칭호 확인" };
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetSession() { shownClasses.Clear(); completedClasses.Clear(); active = null; }
         private void OnEnable() => PlayerInventory.ItemAcquired += OnItemCollected;
 
-        private bool IsPracticeEquipment(PlayerInventory owner, ItemDefinition item) =>
+        private bool CanPractice(PlayerInventory owner, ItemDefinition item) =>
             owner != null && owner.CurrentClass == CharacterSelectionState.SelectedClass
             && item != null && owner.CanEquip(item) && owner.GetQuantity(item) > 0;
 
         private void OnItemCollected(PlayerInventory owner, ItemDefinition item)
         {
             if (EasternFantasy.Saving.SaveGameService.IsRestoring || running || pending
-                || shownClasses.Contains(CharacterSelectionState.SelectedClass) || !IsPracticeEquipment(owner, item)) return;
+                || !CanPractice(owner, item)) return;
+            if (item.EquipmentSlot == EquipmentSlot.Title)
+            {
+                if (owner.CaveBellTitleTutorialItem == item) Queue(owner, item);
+                return;
+            }
+            if (shownClasses.Contains(CharacterSelectionState.SelectedClass)) return;
             Queue(owner, item);
         }
 
@@ -64,19 +73,33 @@ namespace EasternFantasy.UI
         private void RecoverUnfinishedTutorial()
         {
             // Save restoration does not raise acquisition events. Resume with real owned equipment.
-            if (Time.unscaledTime < nextRecoveryCheck || shownClasses.Contains(CharacterSelectionState.SelectedClass)) return;
+            if (Time.unscaledTime < nextRecoveryCheck) return;
             nextRecoveryCheck = Time.unscaledTime + .5f;
             var owner = FindFirstObjectByType<PlayerInventory>();
             if (owner == null) return;
+            if (CanPractice(owner, owner.CaveBellTitleTutorialItem))
+            {
+                Queue(owner, owner.CaveBellTitleTutorialItem);
+                return;
+            }
+            if (shownClasses.Contains(CharacterSelectionState.SelectedClass)) return;
             foreach (var stack in owner.Items)
-                if (IsPracticeEquipment(owner, stack.Item)) { Queue(owner, stack.Item); return; }
+                if (stack.Item.EquipmentSlot != EquipmentSlot.Title && CanPractice(owner, stack.Item))
+                { Queue(owner, stack.Item); return; }
         }
 
         private void Update()
         {
+            if (GameplayHudVisibility.IsMenuScene || SceneLoadingScreen.IsVisible)
+            {
+                Finish();
+                pending = false;
+                return;
+            }
             if (EasternFantasy.Saving.SaveGameService.IsRestoring || SoulstoneTutorialUI.IsRunning) return;
             if (!pending && !running) RecoverUnfinishedTutorial();
             if (pending && !running && !MapTutorialUI.IsRunning && !StatsSkillTutorialUI.IsRunning
+                && !CaveBellInteraction.IsViewing
                 && (DungeonWindowUI.Instance == null || !DungeonWindowUI.Instance.IsOpen)
                 && (ShopWindowUI.Instance == null || !ShopWindowUI.Instance.IsOpen)
                 && (DialogueManager.Instance == null || !DialogueManager.Instance.IsDialogueActive)
@@ -114,10 +137,11 @@ namespace EasternFantasy.UI
         {
             inventory = InventoryWindowUI.Instance; equipment = EquipmentWindowUI.Instance;
             if (inventory == null || equipment == null) return;
-            if (!IsPracticeEquipment(pendingInventory, practiceItem)) { pending = false; return; }
+            if (!CanPractice(pendingInventory, practiceItem)) { pending = false; return; }
             pending = false; running = true; active = this; openedFrame = Time.frameCount;
             tutorialClass = pendingInventory.CurrentClass;
-            shownClasses.Add(tutorialClass);
+            titleTutorial = practiceItem.EquipmentSlot == EquipmentSlot.Title;
+            if (!titleTutorial) shownClasses.Add(tutorialClass);
             originalCategory = inventory.SelectedCategory;
             Capture(inventory.TutorialTarget); Capture(equipment.TutorialTarget);
             equipment.CloseFromInventory();
@@ -139,8 +163,17 @@ namespace EasternFantasy.UI
                 $"‘{itemName}’을 더블클릭해 장착하세요.",
                 "장비를 장착했습니다!\nJ키로 장비창을 직접 열어 보세요.",
                 "I: 인벤토리 · J: 장비창\n두 창을 열고 장비를 알맞은 칸에 드래그 앤 드롭해도 착용돼요." };
+            if (titleTutorial)
+                messages = new[]
+                {
+                    $"종을 울려 ‘{itemName}’ 칭호를 얻었어요.\n장착하면 공격력이 {practiceItem.TitleAttackBonusRate:P0} 증가하고 머리 위에 칭호가 표시돼요.\nI키로 인벤토리를 열어 보세요.",
+                    $"강조된 종 아이콘 ‘{itemName}’을 더블클릭해 장착하세요.",
+                    "칭호를 장착했어요.\nJ키로 장비창을 열어 보세요.",
+                    "신발 아래 칭호 칸에 장착한 칭호가 표시돼요.\n칭호 칸을 더블클릭하면 해제할 수 있어요."
+                };
             guide.ShowCustom(PlayerStatsWindowUI.Instance != null ? PlayerStatsWindowUI.Instance.TutorialFont : TMPro.TMP_Settings.defaultFontAsset,
-                "인벤토리·장비 튜토리얼", Titles, messages, targets, PrepareStep, Complete, true, false);
+                titleTutorial ? "칭호 튜토리얼" : "인벤토리·장비 튜토리얼",
+                titleTutorial ? TitleTutorialTitles : Titles, messages, targets, PrepareStep, Complete, true, false);
         }
 
         private void Capture(RectTransform panel)
@@ -176,7 +209,9 @@ namespace EasternFantasy.UI
             {
                 equipment.CloseFromInventory();
                 inventory.SetOpenForTutorial(true);
-                guide.RequireAction(step == 1 ? "강조된 장비를 더블클릭하세요." : "J키를 직접 눌러 주세요.");
+                guide.RequireAction(step == 1
+                    ? titleTutorial ? "강조된 칭호를 더블클릭하세요." : "강조된 장비를 더블클릭하세요."
+                    : "J키를 직접 눌러 주세요.");
             }
             else
             {
@@ -196,14 +231,17 @@ namespace EasternFantasy.UI
             Canvas.ForceUpdateCanvases();
             int step = CurrentStep;
             if (step < 0) return;
-            targets[step] = step == 0 ? null : step == 3 ? equipment.TutorialTarget
+            if (step == 1) inventory.RevealTutorialItem(practiceItem);
+            targets[step] = step == 0 ? null : step == 3
+                ? titleTutorial ? equipment.TutorialSlotTarget(EquipmentSlot.Title) : equipment.TutorialTarget
                 : step == 1 ? inventory.TutorialItemTargetFor(practiceItem) : inventory.TutorialTarget;
         }
 
         public void Advance() { if (running) guide.Advance(); }
         private void Complete()
         {
-            completedClasses.Add(tutorialClass);
+            if (titleTutorial) pendingInventory?.CompleteCaveBellTitleTutorial(practiceItem);
+            else completedClasses.Add(tutorialClass);
             Finish();
         }
 
@@ -211,7 +249,7 @@ namespace EasternFantasy.UI
         {
             if (!running) return;
             running = false;
-            if (!completedClasses.Contains(tutorialClass)) shownClasses.Remove(tutorialClass);
+            if (!titleTutorial && !completedClasses.Contains(tutorialClass)) shownClasses.Remove(tutorialClass);
             if (guide != null) guide.Hide();
             inventory?.SetOpen(false);
             inventory?.SelectCategory(originalCategory);

@@ -20,29 +20,17 @@ namespace EasternFantasy.Editor
         public const string AnimationFolder = "Assets/_Project/Animations/Old Temple/MonkeyMerchant";
         private const string Art = TempleGateBlacksmithSetup.Art;
         private const string DataFolder = TempleGateBlacksmithSetup.DataFolder;
+        private const float IdleDuration = 2.4f;
+        // Keep the on-screen scale of the seated idle artwork as the reference.
+        private const float SeatedWidth = 258.375f / 134.4f;
+        private const float FootOffset = 70f / 136f;
+        private const float FootBandHeight = 36f / 136f;
 
         [MenuItem("Eastern Fantasy/Old Temple/Repair Monkey Merchant Sprite Frames")]
         public static string RepairSpriteFrames()
         {
             if (Application.isPlaying) throw new InvalidOperationException("Stop Play Mode before repairing sprites.");
-            var idle = Slice(Art + "원숭이 상인 대기.png");
-            var pipe = Slice(Art + "원숭이 상인 곰방대.png");
-            MakeClip(MonkeyMerchantAmbientAnimation.IdleState, idle, 1.6f, true);
-            MakeClip(MonkeyMerchantAmbientAnimation.PipeState, PipeWithSmokeHandoff(pipe, idle[0]), 2.4f, false);
-            var scene = SceneManager.GetSceneByPath(ScenePath); bool opened = !scene.isLoaded;
-            if (opened) scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
-            try
-            {
-                var root = scene.GetRootGameObjects().Single(g => g.name == ObjectName);
-                root.GetComponent<SpriteRenderer>().sprite = idle[0];
-                var data = new SerializedObject(root.GetComponent<MonkeyMerchantAmbientAnimation>());
-                data.FindProperty("pipeDuration").floatValue = 2.4f;
-                MerchantPipeSmokeSetup.Configure(data, pipe[7]); data.ApplyModifiedPropertiesWithoutUndo();
-                EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene); AssetDatabase.SaveAssets();
-                Selection.activeGameObject = root;
-                return "Repaired all 16 merchant frames: silhouette boundaries, isolated meshes, individually planted foot pivots, smoke offset updated.";
-            }
-            finally { if (opened) EditorSceneManager.CloseScene(scene, true); }
+            return MerchantPipeTransitionSetup.Apply();
         }
 
         [MenuItem("Eastern Fantasy/Old Temple/Configure Temple Gate Monkey Merchant")]
@@ -50,16 +38,14 @@ namespace EasternFantasy.Editor
         {
             if (Application.isPlaying) throw new InvalidOperationException("Stop Play Mode before configuring the scene.");
             EnsureFolder(AnimationFolder); EnsureFolder(DataFolder);
-            var idle = Slice(Art + "원숭이 상인 대기.png");
-            var pipe = Slice(Art + "원숭이 상인 곰방대.png");
-            var idleClip = MakeClip(MonkeyMerchantAmbientAnimation.IdleState, idle, 1.6f, true);
-            var pipeClip = MakeClip(MonkeyMerchantAmbientAnimation.PipeState, PipeWithSmokeHandoff(pipe, idle[0]), 2.4f, false);
+            var (idle, bridge, pipe) = MerchantPipeTransitionSetup.ImportCharacterPoses();
+            var idleClip = MakeIdleClip(idle);
             string controllerPath = AnimationFolder + "/MonkeyMerchant.controller";
             var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(controllerPath);
             if (controller == null) controller = AnimatorController.CreateAnimatorControllerAtPath(controllerPath);
             var machine = controller.layers[0].stateMachine;
             machine.defaultState = State(machine, MonkeyMerchantAmbientAnimation.IdleState, idleClip);
-            State(machine, MonkeyMerchantAmbientAnimation.PipeState, pipeClip);
+            MerchantPipeTransitionSetup.ConfigureClips(idle[0], pipe, bridge);
             EditorUtility.SetDirty(controller); EditorUtility.SetDirty(machine);
             var greeting = Greeting();
             var stock = VillageStock();
@@ -77,9 +63,10 @@ namespace EasternFantasy.Editor
                     root = new GameObject(ObjectName); SceneManager.MoveGameObjectToScene(root, scene);
                     Undo.RegisterCreatedObjectUndo(root, "Add TempleGate monkey merchant");
                     root.transform.position = new Vector3(2.5f, floor.bounds.max.y + .015f, 0f);
+                    root.transform.localScale = new Vector3(.8f, .8f, 1f);
                 }
                 var renderer = GetOrAdd<SpriteRenderer>(root);
-                renderer.sharedMaterial = traveler.sharedMaterial; renderer.sortingLayerID = traveler.sortingLayerID;
+                renderer.sharedMaterial = MerchantPipeTransitionSetup.IdleToneMaterial(); renderer.sortingLayerID = traveler.sortingLayerID;
                 renderer.sortingOrder = traveler.sortingOrder; renderer.sprite = idle[0];
                 var animator = GetOrAdd<Animator>(root); animator.runtimeAnimatorController = controller;
                 animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
@@ -88,6 +75,9 @@ namespace EasternFantasy.Editor
                 var merchant = GetOrAdd<Shopkeeper>(root);
                 var data = new SerializedObject(merchant);
                 data.FindProperty("greetingDialogue").objectReferenceValue = greeting;
+                data.FindProperty("unvisitedRegion").stringValue = EasternFantasy.UI.MapRegionDiscovery.GiantFarm;
+                data.FindProperty("unvisitedRegionDialogue").objectReferenceValue =
+                    AssetDatabase.LoadAssetAtPath<DialogueSequence>(DataFolder + "/MonkeyMerchantFarmRumor.asset");
                 data.FindProperty("shopWindowPrefab").objectReferenceValue = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/UI/ShopWindow.prefab");
                 data.FindProperty("dialogueUiPrefab").objectReferenceValue = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/UI/SkullMonkDialogueUI.prefab");
                 var list = data.FindProperty("stock"); list.arraySize = stock.Length;
@@ -96,13 +86,14 @@ namespace EasternFantasy.Editor
                 var ambient = GetOrAdd<MonkeyMerchantAmbientAnimation>(root);
                 data = new SerializedObject(ambient);
                 data.FindProperty("pipeInterval").vector2Value = new Vector2(8f, 14f);
-                data.FindProperty("pipeDuration").floatValue = 2.4f;
-                MerchantPipeSmokeSetup.Configure(data, pipe[7]);
+                data.FindProperty("pipeDuration").floatValue = MonkeyMerchantAmbientAnimation.PipeDuration;
+                data.FindProperty("idleAnchorFrame").objectReferenceValue = idle[0];
+                MerchantPipeSmokeSetup.Configure(data, pipe[MerchantPipeTransitionSetup.ExhalePoseIndex]);
                 data.ApplyModifiedPropertiesWithoutUndo();
                 EditorUtility.SetDirty(root); EditorSceneManager.MarkSceneDirty(scene);
                 if (!EditorSceneManager.SaveScene(scene)) throw new InvalidOperationException("Could not save TempleGate.");
                 AssetDatabase.SaveAssets(); Selection.activeGameObject = root;
-                return "TempleGate/MonkeyMerchant: scene object, 8 idle and 8 pipe frames, existing shop UI and village stock, T greeting with monkey portrait.";
+                return "TempleGate/MonkeyMerchant: seated idle and pipe animations, detached smoke, existing shop UI and village stock, T greeting.";
             }
             finally { if (opened) EditorSceneManager.CloseScene(scene, true); }
         }
@@ -112,7 +103,7 @@ namespace EasternFantasy.Editor
             var component = root.GetComponent<T>(); return component != null ? component : root.AddComponent<T>();
         }
 
-        private static Sprite[] Slice(string path)
+        internal static Sprite[] Slice(string path, int frameCount = 8, int rows = 1)
         {
             var raw = new Texture2D(2, 2, TextureFormat.RGBA32, false);
             try
@@ -141,54 +132,65 @@ namespace EasternFantasy.Editor
                     }
                     if (body.Count > 10000) bodies.Add(body);
                 }
-                bodies = bodies.OrderBy(body => body.Min(p => p.x)).ToList();
-                if (bodies.Count != 8) throw new InvalidOperationException("Expected eight separate merchant silhouettes: " + path);
-                var cells = new Rect[8]; var pivots = new Vector2[8];
+                if (bodies.Count != frameCount)
+                    throw new InvalidOperationException($"Expected {frameCount} separate merchant silhouettes: {path}");
+                int columns = bodies.Count / rows;
+                bodies = bodies.OrderByDescending(body => body.Min(p => p.y))
+                    .Select((body, index) => (body, row: index / columns)).GroupBy(entry => entry.row, entry => entry.body)
+                    .SelectMany(row => row.OrderBy(body => body.Min(p => p.x))).ToList();
+                // Measure the planted lower body so the raised pipe and head poses do not affect the scale.
+                float pixelsPerUnit = Mathf.Round(10f * bodies.Average(SeatedWidthInPixels) / SeatedWidth) / 10f;
+                var cells = new Rect[frameCount]; var pivots = new Vector2[frameCount];
                 for (int i = 0; i < bodies.Count; i++)
                 {
                     var body = bodies[i];
                     int left = body.Min(p => p.x), right = body.Max(p => p.x), bottom = body.Min(p => p.y), top = body.Max(p => p.y);
                     // Anchor the seated right foot, which remains planted in both motions.
-                    var foot = body.Where(p => p.x > left + (right - left) * .65f && p.y < bottom + 36 && pixels[p.y * raw.width + p.x].a >= 128).ToArray();
+                    var foot = body.Where(p => p.x > left + (right - left) * .65f && p.y < bottom + FootBandHeight * pixelsPerUnit && pixels[p.y * raw.width + p.x].a >= 128).ToArray();
                     float footX = (float)foot.Average(p => p.x), footY = foot.Min(p => p.y);
                     int xMin = Mathf.Max(0, left - 2), yMin = Mathf.Max(0, bottom - 2);
                     cells[i] = new Rect(xMin, yMin, Mathf.Min(raw.width, right + 3) - xMin, Mathf.Min(raw.height, top + 3) - yMin);
-                    pivots[i] = new Vector2((footX - 70f - xMin) / cells[i].width, (footY - yMin) / cells[i].height);
+                    pivots[i] = new Vector2((footX - FootOffset * pixelsPerUnit - xMin) / cells[i].width, (footY - yMin) / cells[i].height);
                 }
                 // Tight outlines omit the tiny neighboring fragments where silhouettes overlap in X.
-                SkullMonkMeleeSetup.Slice(path, cells, 136f, pivots, true);
+                SkullMonkMeleeSetup.Slice(path, cells, pixelsPerUnit, pivots, true);
                 var importer = (TextureImporter)AssetImporter.GetAtPath(path);
                 importer.filterMode = FilterMode.Bilinear; importer.npotScale = TextureImporterNPOTScale.None;
                 var settings = new TextureImporterSettings(); importer.ReadTextureSettings(settings);
                 settings.spriteMeshType = SpriteMeshType.Tight; importer.SetTextureSettings(settings); importer.SaveAndReimport();
+
+                float SeatedWidthInPixels(List<Vector2Int> body)
+                {
+                    var opaque = body.Where(p => pixels[p.y * raw.width + p.x].a >= 96).ToArray();
+                    int sole = opaque.Min(p => p.y);
+                    int height = opaque.Max(p => p.y) - sole;
+                    var lowerBody = opaque.Where(p => p.y >= sole + height * .15f && p.y <= sole + height * .42f);
+                    return lowerBody.Max(p => p.x) - lowerBody.Min(p => p.x) + 1;
+                }
             }
             finally { UnityEngine.Object.DestroyImmediate(raw); }
             var frames = AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>().OrderBy(s => s.name).ToArray();
-            if (frames.Length != 8) throw new InvalidOperationException("Expected eight frames: " + path);
+            if (frames.Length != frameCount) throw new InvalidOperationException($"Expected {frameCount} frames: {path}");
             return frames;
         }
 
-        private static Sprite[] PipeWithSmokeHandoff(Sprite[] frames, Sprite idle)
+        internal static AnimationClip MakeIdleClip(Sprite[] frames)
         {
-            var result = (Sprite[])frames.Clone();
-            // At frame eight the independent smoke starts and the merchant returns to idle.
-            // Do not display the sheet's baked cloud before the separate animation starts.
-            result[7] = idle;
-            return result;
-        }
-
-        private static AnimationClip MakeClip(string name, Sprite[] frames, float duration, bool loop)
-        {
+            string name = MonkeyMerchantAmbientAnimation.IdleState;
             string path = AnimationFolder + "/" + name + ".anim";
             var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
             if (clip == null) { clip = new AnimationClip(); AssetDatabase.CreateAsset(clip, path); }
-            // Both .2-second idle frames and .3-second pipe frames land exactly on this grid.
+            // The .3-second sprite holds land exactly on this grid.
             clip.name = name; clip.frameRate = 10f;
-            var keys = frames.Select((s, i) => new ObjectReferenceKeyframe { time = i * duration / frames.Length, value = s }).ToList();
-            keys.Add(new ObjectReferenceKeyframe { time = duration, value = loop ? frames[0] : frames[frames.Length - 1] });
-            AnimationUtility.SetObjectReferenceCurve(clip, EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite"), keys.ToArray());
-            var settings = AnimationUtility.GetAnimationClipSettings(clip); settings.loopTime = loop;
-            settings.startTime = 0f; settings.stopTime = duration; AnimationUtility.SetAnimationClipSettings(clip, settings);
+            var keys = frames.Select((s, i) => new ObjectReferenceKeyframe { time = i * IdleDuration / frames.Length, value = s }).ToList();
+            // Unity includes one sample after the final sprite key in the clip length.
+            float lastSample = (Mathf.RoundToInt(IdleDuration * clip.frameRate) - 1) / clip.frameRate;
+            keys.Add(new ObjectReferenceKeyframe { time = lastSample, value = frames[frames.Length - 1] });
+            var spriteKeys = keys.ToArray();
+            AnimationUtility.SetObjectReferenceCurve(clip, EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite"), spriteKeys);
+            MerchantPipeTransitionSetup.ApplyTone(clip, spriteKeys);
+            var settings = AnimationUtility.GetAnimationClipSettings(clip); settings.loopTime = true;
+            settings.startTime = 0f; settings.stopTime = IdleDuration; AnimationUtility.SetAnimationClipSettings(clip, settings);
             EditorUtility.SetDirty(clip); return clip;
         }
 
@@ -201,13 +203,21 @@ namespace EasternFantasy.Editor
 
         private static ItemDefinition[] VillageStock()
         {
+            const string itemFolder = "Assets/_Project/Data/Items/";
+            var health = AssetDatabase.LoadAssetAtPath<ItemDefinition>(itemFolder + "HealthPotion.asset");
+            var mana = AssetDatabase.LoadAssetAtPath<ItemDefinition>(itemFolder + "ManaPotion.asset");
+            var advancedHealth = AssetDatabase.LoadAssetAtPath<ItemDefinition>(itemFolder + "AdvancedHealthPotion.asset");
+            var advancedMana = AssetDatabase.LoadAssetAtPath<ItemDefinition>(itemFolder + "AdvancedManaPotion.asset");
+            if (!health || !mana || !advancedHealth || !advancedMana)
+                throw new InvalidOperationException("Missing a potion definition for the merchant stock.");
+
             const string path = "Assets/_Project/Scenes/TutorialMap/PrologueVilage.unity";
             var scene = SceneManager.GetSceneByPath(path); bool opened = !scene.isLoaded;
             if (opened) scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
             try
             {
                 var shop = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<Shopkeeper>(true)).First(s => s.Stock != null && s.Stock.Length > 0);
-                return shop.Stock.ToArray();
+                return shop.Stock.Select(item => item == health ? advancedHealth : item == mana ? advancedMana : item).ToArray();
             }
             finally { if (opened) EditorSceneManager.CloseScene(scene, true); }
         }

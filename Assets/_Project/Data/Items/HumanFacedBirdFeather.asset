@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ada75e50a69424c83357669e06485c, type: 3}
+  m_Name: HumanFacedBirdFeather
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Inventory.ItemDefinition
+  itemId: human_faced_bird_feather
+  displayName: "\uc778\uba74\uc870\uc758 \uae43\ud138"
+  description: "\uc778\uba74\uc870\uc758 \ub0a0\uac1c\uc5d0\uc11c \ub5a8\uc5b4\uc9c4 \uae43\ud138. \uc0c1\uc810\uc5d0 \ud314 \uc218 \uc788\ub2e4."
+  icon: {fileID: 21300000, guid: ab359a12b33d41048f626d87f2c9f1c4, type: 3}
+  category: 2
+  grade: 0
+  gradeFrame: {fileID: 0}
+  gradeAppearance: {fileID: 0}
+  gradeVariants: []
+  equipmentSlot: 0
+  allowedClasses:
+  equipmentSet: {fileID: 0}
+  attackBonus: 0
+  defenseBonus: 0
+  specialAbility: 0
+  specialAbilityValue: 0
+  consumableEffect: 0
+  useAmount: 0
+  maximumStack: 99
+  buyPrice: 40
+  sellPrice: 20
+  cannotSell: 0
+  materialSource: {fileID: 0}

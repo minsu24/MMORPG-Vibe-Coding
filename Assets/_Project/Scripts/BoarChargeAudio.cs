@@ -5,6 +5,7 @@ public sealed class BoarChargeAudio : MonoBehaviour
 {
     private readonly AudioSource[] sources = new AudioSource[5];
     private readonly float[] pitches = { 1f, 1f, 1f, 1f, 1f };
+    private readonly float[] volumes = new float[5];
     private readonly AudioClip[] steps = new AudioClip[4];
     private AudioClip scrape, grunt, impact, tuskSwing;
     private bool prepared, warningActive, chargingActive, paused, impactPlayed;
@@ -93,7 +94,8 @@ public sealed class BoarChargeAudio : MonoBehaviour
         var source = sources[index];
         source.Stop();
         source.clip = clip;
-        source.volume = volume;
+        volumes[index] = volume;
+        source.volume = LocalAmbientAudio2D.GetPlayerVolumeAt(transform.position, volume);
         pitches[index] = pitch;
         source.pitch = Mathf.Clamp(pitch * Time.timeScale, .01f, 3f);
         source.time = Mathf.Clamp(start, 0f, Mathf.Max(0f, clip.length - .01f));
@@ -112,6 +114,9 @@ public sealed class BoarChargeAudio : MonoBehaviour
     private void Tick(float deltaTime)
     {
         if (!prepared) return;
+        for (int i = 0; i < sources.Length; i++)
+            if (sources[i].isPlaying || paused)
+                sources[i].volume = LocalAmbientAudio2D.GetPlayerVolumeAt(transform.position, volumes[i]);
         if (Time.timeScale <= 0f)
         {
             if (!paused) { foreach (var source in sources) source.Pause(); paused = true; }

@@ -28,12 +28,32 @@ namespace EasternFantasy.Quest
         [SerializeField] private bool allowNextQuestTurnIn = true;
         [SerializeField] private bool allowNextQuestOffer = true;
 
+        [SerializeField] private QuestDialogueSet continuation;
+        [SerializeField] private bool continuationTurnInOnly;
+
+        [SerializeField] private QuestDialogueSet followUp;
+
+        private QuestDialogueSet CurrentDialogueSet
+        {
+            get
+            {
+                var manager = QuestManager.Instance;
+                if (followUp != null && followUp.Quest != null
+                    && manager?.FindProgress(followUp.Quest.PrerequisiteQuest)?.Status == QuestStatus.Completed)
+                    return followUp;
+                if (continuation != null && continuation.Quest != null
+                    && (continuationTurnInOnly || manager?.FindProgress(continuation.Quest.PrerequisiteQuest)?.Status == QuestStatus.Completed))
+                    return continuation;
+                return null;
+            }
+        }
         private bool IsNextQuest => nextQuest != null && QuestManager.Instance != null
             && QuestManager.Instance.FindProgress(quest)?.Status == QuestStatus.Completed;
-        public QuestDefinition Quest => IsNextQuest ? nextQuest : quest;
-        public bool CanTurnInCurrentQuest => IsNextQuest ? allowNextQuestTurnIn : allowQuestTurnIn;
-        private DialogueSequence OfferDialogue => IsNextQuest ? nextOfferDialogue : offerDialogue;
-        public bool CanOfferQuest => (IsNextQuest ? allowNextQuestOffer : allowQuestOffer) && Quest != null && OfferDialogue != null
+        public QuestDefinition Quest => CurrentDialogueSet != null ? CurrentDialogueSet.Quest : IsNextQuest ? nextQuest : quest;
+        public bool CanTurnInCurrentQuest => CurrentDialogueSet != null ? CurrentDialogueSet == continuation && continuationTurnInOnly : IsNextQuest ? allowNextQuestTurnIn : allowQuestTurnIn;
+        private DialogueSequence OfferDialogue => CurrentDialogueSet != null ? CurrentDialogueSet.Offer : IsNextQuest ? nextOfferDialogue : offerDialogue;
+        public bool CanOfferQuest => (CurrentDialogueSet != null ? CurrentDialogueSet != continuation || !continuationTurnInOnly : IsNextQuest ? allowNextQuestOffer : allowQuestOffer)
+            && Quest != null && OfferDialogue != null
             && QuestManager.Instance != null && QuestManager.Instance.CanAccept(Quest);
 
         public void OfferQuest()
@@ -44,8 +64,8 @@ namespace EasternFantasy.Quest
 
             // Capture the offered quest and its responses before opening the choice UI.
             QuestDefinition offeredQuest = Quest;
-            DialogueSequence accepted = IsNextQuest ? nextAcceptedDialogue : acceptedDialogue;
-            DialogueSequence declined = IsNextQuest ? nextDeclinedDialogue : declinedDialogue;
+            DialogueSequence accepted = CurrentDialogueSet != null ? CurrentDialogueSet.Accepted : IsNextQuest ? nextAcceptedDialogue : acceptedDialogue;
+            DialogueSequence declined = CurrentDialogueSet != null ? CurrentDialogueSet.Declined : IsNextQuest ? nextDeclinedDialogue : declinedDialogue;
             manager.StartQuestOffer(OfferDialogue, offeredQuest.Title, accept =>
             {
                 if (accept && !QuestManager.Instance.AcceptQuest(offeredQuest)) return;
@@ -71,18 +91,18 @@ namespace EasternFantasy.Quest
             if (progress.Status == QuestStatus.Active
                 || (progress.Status == QuestStatus.ReadyToTurnIn && !CanTurnInCurrentQuest))
             {
-                Play(IsNextQuest ? nextProgressDialogue : progressDialogue);
+                Play(CurrentDialogueSet != null ? CurrentDialogueSet.Progress : IsNextQuest ? nextProgressDialogue : progressDialogue);
                 return;
             }
             if (progress.Status == QuestStatus.ReadyToTurnIn)
             {
-                DialogueSequence completion = IsNextQuest ? nextCompletionDialogue : completionDialogue;
+                DialogueSequence completion = CurrentDialogueSet != null ? CurrentDialogueSet.Completion : IsNextQuest ? nextCompletionDialogue : completionDialogue;
                 QuestDefinition completedQuest = Quest;
                 if (manager.CompleteQuest(completedQuest))
                     dialogue.StartQuestCompletion(completion, completedQuest);
                 return;
             }
-            Play(IsNextQuest ? nextRegularDialogue : RegularDialogue);
+            Play(CurrentDialogueSet != null ? CurrentDialogueSet.Regular : IsNextQuest ? nextRegularDialogue : RegularDialogue);
         }
 
         private static void Play(DialogueSequence sequence)

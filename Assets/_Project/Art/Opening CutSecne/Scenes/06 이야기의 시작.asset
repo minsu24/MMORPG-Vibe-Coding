@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf9a1bcd656fb97438807697e3875861, type: 3}
+  m_Name: "06 \uC774\uC57C\uAE30\uC758 \uC2DC\uC791"
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Opening.OpeningSceneData
+  sceneName: "\uC774\uC57C\uAE30\uC758 \uC2DC\uC791"
+  media: 0
+  artwork: {fileID: 21300000, guid: 1cfed06b6b962384e95bb910176f1f7d, type: 3}
+  video: {fileID: 0}
+  duration: 7
+  motion: 2
+  zoom: 1.18
+  motionStart: 5.3
+  focus: {x: 0.52, y: 0.54}
+  effect: 5
+  effectStart: 5.3
+  revealSeconds: 0
+  exitSeconds: 0
+  fadeIn: 0.45
+  fadeOut: 0.7
+  subtitle: "\uADF8\uB9AC\uACE0 \uC624\uB79C \uC138\uC6D4 \uC7A0\uB4E4\uC5B4 \uC788\uB358
+    \uD798\uC774,\n\uB2E4\uC2DC\uAE08 \uAE68\uC5B4\uB098\uB824 \uD55C\uB2E4."
+  subtitleStart: 0.95000005
+  subtitleEnd: 5.25
+  narration: {fileID: 8300000, guid: 1d71e29c4d2d06c4794c6383b6b5eb7b, type: 3}
+  narrationAt: 1.1
+  subtitleCues:
+  - text: "\uADF8\uB9AC\uACE0 \uC624\uB79C \uC138\uC6D4 \uC7A0\uB4E4\uC5B4 \uC788\uB358
+      \uD798\uC774,"
+    start: 0.95000005
+    end: 3.65
+  - text: "\uB2E4\uC2DC\uAE08 \uAE68\uC5B4\uB098\uB824 \uD55C\uB2E4."
+    start: 3.71
+    end: 5.25
+  keepBgm: 0
+  newBgm: {fileID: 8300000, guid: 3db680231c8cff74ebc5c204bb3f1117, type: 3}
+  enableSfx: 1
+  sfx: {fileID: 8300000, guid: dab7794962754579bc48f4093d3b3d58, type: 3}
+  sfxAt: 5.15

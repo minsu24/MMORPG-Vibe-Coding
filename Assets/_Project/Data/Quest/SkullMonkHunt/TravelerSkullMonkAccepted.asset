@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1556faa70b3ce43862d54865c7f42e, type: 3}
+  m_Name: TravelerSkullMonkAccepted
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dialogue.DialogueSequence
+  playerCharacter: {fileID: 0}
+  partnerCharacter: {fileID: 11400000, guid: 4813f7681cdd4374d911c43214df06ce, type: 2}
+  lines:
+  - speaker: 1
+    text: "\uc0ac\ucc30 \uc911\uc2ec\ubd80\ub85c \uac00\uac8c. \ud574\uace8 \uc2b9\ub824\ub97c \uc4f0\ub7ec\ub728\ub9ac\uba74 \uadf8\uacf3\uc5d0\uc11c \ub9cc\ub098\uc138."
+    classOverrides: []
+    firstAdvancementText: 
+  completionExperience: 0

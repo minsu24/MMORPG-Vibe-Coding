@@ -9802,6 +9802,7 @@ GameObject:
   - component: {fileID: 2424639791980587899}
   - component: {fileID: 1588783029221783353}
   - component: {fileID: 4625590829429621076}
+  - component: {fileID: 2887045196676190364}
   m_Layer: 5
   m_Name: InventoryWindow
   m_TagString: Untagged
@@ -9933,6 +9934,18 @@ MonoBehaviour:
   tooltip: {fileID: 761508664095654469}
   inventory: {fileID: 0}
   currencyText: {fileID: 4540741887190981091}
+--- !u!114 &2887045196676190364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5498018302311580733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85f1a17014e99434d873ce553c48bccc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.UI.InventoryEquipmentTutorialUI
 --- !u!1 &5679544350987721073
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,16 @@ namespace EasternFantasy.Inventory
 {
     internal static class DropPlacement2D
     {
+        private const float LandingGap = 0.12f;
+        public const float GatherDuration = .16f;
+
+        public static void GatherAtDropOrigin(Transform pickup, Vector3 origin, Vector3 landingPoint, float elapsed)
+        {
+            float gather = Mathf.SmoothStep(0f, 1f, elapsed / GatherDuration);
+            float side = Mathf.Clamp((landingPoint.x - origin.x) * .085f, -.16f, .16f);
+            pickup.position = origin + new Vector3(side * (1f - gather), .10f * gather, 0f);
+        }
+
         public static Collider2D FindFloor(Scene scene, Vector3 origin)
         {
             Collider2D closest = null;
@@ -121,19 +131,54 @@ namespace EasternFantasy.Inventory
             if (collisionBody != null) collisionBody.enabled = false;
         }
 
-        public static bool StopOnLanding(Rigidbody2D body, Collision2D collision)
+        public static bool TrySettleOnLanding(Rigidbody2D body, SpriteRenderer renderer,
+            Collision2D collision, float halfWidth, Vector3 reservedPosition, out Vector3 position)
         {
+            position = default;
             if (body == null || !body.simulated) return false;
             for (int i = 0; i < collision.contactCount; i++)
             {
-                if (collision.GetContact(i).normal.y <= 0.5f) continue;
-                body.linearVelocity = new Vector2(0f, body.linearVelocity.y);
+                var contact = collision.GetContact(i);
+                if (contact.normal.y <= 0.5f) continue;
+                position = ResolveLanding(body, renderer, collision.collider, contact.point.y, halfWidth, reservedPosition);
+                SettlePhysicalDrop(body, body.gameObject);
+                body.position = position;
+                body.transform.position = position;
                 return true;
             }
             return false;
         }
+
+        internal static Vector3 ResolveLanding(Rigidbody2D body, SpriteRenderer renderer, Collider2D surface,
+            float floorY, float halfWidth, Vector3 reservedPosition)
+        {
+            Vector3 position = body.position;
+            position.z = body.transform.position.z;
+            Bounds bounds = renderer.bounds;
+            Vector3 origin = body.transform.position;
+            float centerOffset = bounds.center.x - origin.x;
+            if (!IsOccupied(body.gameObject.scene, position.x + centerOffset, halfWidth + LandingGap, floorY, body.gameObject))
+                return position;
+
+            // An earlier platform contact can interrupt the toss before the reserved slot.
+            // Check the surface we actually landed on before starting the idle float.
+            Vector3 searchOrigin = new Vector3(position.x, Mathf.Max(position.y, floorY), position.z);
+            if (!TryFindLanding(surface, searchOrigin, reservedPosition.x + centerOffset, halfWidth,
+                out Vector3 landing, body.gameObject))
+            {
+                // Small platforms may have no room. Use the main ground below if it has a free slot.
+                var ground = FindFloor(body.gameObject.scene, searchOrigin);
+                if (ground == null || ground == surface || ground.bounds.max.y > floorY + .1f ||
+                    !TryFindLanding(ground, searchOrigin, position.x + centerOffset, halfWidth, out landing, body.gameObject))
+                    return position;
+            }
+            landing.x -= centerOffset;
+            landing.y += origin.y - bounds.min.y;
+            return landing;
+        }
+
         public static bool TryFindLanding(Collider2D floor, Vector3 origin, float desiredX,
-            float halfWidth, out Vector3 landing)
+            float halfWidth, out Vector3 landing, GameObject ignored = null)
         {
             landing = default;
             if (floor == null || !floor.enabled)
@@ -146,13 +191,12 @@ namespace EasternFantasy.Inventory
                 return false;
 
             float center = Mathf.Clamp(desiredX, left, right);
-            const float spacing = 0.12f;
-            float stride = halfWidth * 2f + spacing;
+            float stride = halfWidth * 2f + LandingGap;
             int maximumSteps = Mathf.CeilToInt((right - left) / stride) * 2 + 1;
             for (int step = 0; step < maximumSteps; step++)
             {
                 float offset = step == 0 ? 0f : ((step + 1) / 2) * (step % 2 == 1 ? 1f : -1f);
-                float x = center + offset * (halfWidth * 2f + spacing);
+                float x = center + offset * stride;
                 if (x < left || x > right)
                     continue;
 
@@ -160,7 +204,8 @@ namespace EasternFantasy.Inventory
                     new Vector2(x, origin.y + 0.1f), Vector2.down, Mathf.Max(1f, origin.y - bounds.min.y + 1f));
                 foreach (RaycastHit2D hit in hits)
                 {
-                    if (hit.collider != floor || hit.normal.y <= 0f || IsOccupied(x, halfWidth + spacing, hit.point.y))
+                    if (hit.collider != floor || hit.normal.y <= 0f ||
+                        IsOccupied(floor.gameObject.scene, x, halfWidth + LandingGap, hit.point.y, ignored))
                         continue;
 
                     landing = new Vector3(x, hit.point.y + 0.02f, origin.z);
@@ -171,18 +216,22 @@ namespace EasternFantasy.Inventory
             return false;
         }
 
-        private static bool IsOccupied(float x, float halfWidth, float floorY)
+        private static bool IsOccupied(Scene scene, float x, float halfWidth, float floorY, GameObject ignored)
         {
             foreach (WorldItemPickup pickup in Object.FindObjectsByType<WorldItemPickup>(FindObjectsSortMode.None))
             {
+                if (pickup.gameObject == ignored || pickup.gameObject.scene != scene || pickup.IsCollected)
+                    continue;
                 if (pickup.Item != null && Mathf.Abs(pickup.LandingPosition.y - floorY) < pickup.VisualWidth + 0.1f &&
-                    Mathf.Abs(pickup.LandingPosition.x - x) < (pickup.VisualWidth * 0.5f + halfWidth))
+                    Mathf.Abs(pickup.LandingCenterX - x) < (pickup.VisualWidth * 0.5f + halfWidth))
                     return true;
             }
 
             foreach (WorldCurrencyPickup pickup in Object.FindObjectsByType<WorldCurrencyPickup>(FindObjectsSortMode.None))
             {
-                if (pickup.Amount > 0 && Mathf.Abs(pickup.LandingPosition.y - floorY) < pickup.VisualWidth + 0.1f && Mathf.Abs(pickup.LandingPosition.x - x) <
+                if (pickup.gameObject == ignored || pickup.gameObject.scene != scene || pickup.IsCollected)
+                    continue;
+                if (pickup.Amount > 0 && Mathf.Abs(pickup.LandingPosition.y - floorY) < pickup.VisualWidth + 0.1f && Mathf.Abs(pickup.LandingCenterX - x) <
                     (pickup.VisualWidth * 0.5f + halfWidth))
                     return true;
             }
