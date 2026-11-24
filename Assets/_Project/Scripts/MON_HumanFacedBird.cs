@@ -248,8 +248,8 @@ public sealed class MON_HumanFacedBird : EnemyController
 
     public override void ApplyKnockback(float directionX)
     {
-        FinishAttack(true);
-        base.ApplyKnockback(directionX);
+        if (!isAttacking)
+            base.ApplyKnockback(directionX);
     }
     protected override void OnDefeated()
     {

@@ -106,7 +106,7 @@ namespace EasternFantasy.Advancement
             while (CanAdvance(automaticAdvancement))
             {
                 DialogueManager manager = DialogueManager.Instance;
-                if (manager != null && !manager.IsDialogueActive)
+                if (manager != null && !manager.IsDialogueActive && !CaveBellInteraction.IsViewing)
                 {
                     TryStartAdvancement(automaticAdvancement);
                     break;

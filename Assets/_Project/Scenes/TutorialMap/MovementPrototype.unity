@@ -3788,7 +3788,7 @@ MonoBehaviour:
   _attackPower: 5
   _moveSpeed: 3
   detectionShape: 0
-  _detectRange: 6
+  _detectRange: 7
   detectionHalfHeight: 1.5
   patrolRange: 0
   patrolMinWait: 0.3
@@ -20040,7 +20040,7 @@ Transform:
   m_GameObject: {fileID: 914213596}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.42, y: -0.52005, z: 0}
+  m_LocalPosition: {x: 4.48, y: -0.52005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22461,6 +22461,8 @@ MonoBehaviour:
   inactivePortraitAlpha: 0.45
   questChoiceRoot: {fileID: 298368783}
   questChoiceTitleText: {fileID: 712837787}
+  acceptChoiceButton: {fileID: 815125002}
+  declineChoiceButton: {fileID: 720312623}
   playerInput: {fileID: 0}
 --- !u!4 &1080419427
 Transform:
@@ -29657,7 +29659,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4287090672
   m_fontColor: {r: 0.94, g: 0.81, b: 0.53, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -29670,7 +29672,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2

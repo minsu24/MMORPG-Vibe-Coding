@@ -16,7 +16,33 @@ MonoBehaviour:
   partnerCharacter: {fileID: 11400000, guid: 4813f7681cdd4374d911c43214df06ce, type: 2}
   lines:
   - speaker: 1
-    text: "\ud478\ub978 \ubd88\uc528\ub97c \uad6c\ud574 \uc654\uad70. \uc57d\uc18d\ud55c \ub3c4\uae68\ube44 \ubd88 \uc601\ud63c\uc870\uac01\uc77c\uc138. \uc774 \uc870\uac01\uc73c\ub85c \ub3c4\uae68\ube44\ubd88\uc744 \ub3d9\ud589\uc694\uad34\ub85c \uc18c\ud658\ud560 \uc218 \uc788\ub2e4\ub124."
+    text: "\uD478\uB978 \uBD88\uC528\uB97C \uAD6C\uD574 \uC654\uAD70. \uC57D\uC18D\uD55C
+      \uB3C4\uAE68\uBE44 \uBD88 \uC601\uD63C\uC870\uAC01\uC77C\uC138. \uC774 \uC870\uAC01\uC73C\uB85C
+      \uB3C4\uAE68\uBE44\uBD88\uC744 \uB3D9\uD589\uC694\uAD34\uB85C \uC18C\uD658\uD560
+      \uC218 \uC788\uB2E4\uB124."
     classOverrides: []
-    firstAdvancementText:
+    firstAdvancementText: 
+  - speaker: 0
+    text: "\uC815\uBCF4\uB294\uC694?"
+    classOverrides: []
+    firstAdvancementText: 
+  - speaker: 1
+    text: "\uC815\uBCF4\uB784 \uAC83\uB3C4 \uC5C6\uB124\uB9CC. \uC774 \uC138\uC0C1\uC5D0
+      \uBCC0\uD558\uC9C0 \uC54A\uB294 \uAC83\uC740 \uC5C6\uB124. \uADF8\uC800 \uC2DC\uAC04\uC774
+      \uD758\uB7EC \uAE68\uC9C4 \uAC83\uC77C \uBFD0\uC774\uC57C."
+    classOverrides: []
+    firstAdvancementText: 
+  - speaker: 0
+    text: "\uADF8\uAC8C \uB2E4\uB77C\uACE0?"
+    classOverrides:
+    - characterClass: 1
+      text: "\uADF8\uAC8C \uB05D\uC785\uB2C8\uAE4C?"
+    - characterClass: 2
+      text: "\uADF8\uAC8C \uB05D\uC774\uC5D0\uC694?"
+    firstAdvancementText: 
+  - speaker: 1
+    text: "\uADF8\uB098\uC800\uB098 \uB0B4 \uBD80\uD0C1\uD558\uB098\uB9CC \uB354
+      \uB4E4\uC5B4\uC904 \uC218 \uC788\uACA0\uB098?"
+    classOverrides: []
+    firstAdvancementText: 
   completionExperience: 0

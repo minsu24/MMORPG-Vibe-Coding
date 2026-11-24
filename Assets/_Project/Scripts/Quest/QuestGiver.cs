@@ -13,6 +13,8 @@ namespace EasternFantasy.Quest
         [SerializeField] private DialogueSequence progressDialogue;
         [SerializeField] private DialogueSequence completionDialogue;
         [SerializeField] private DialogueSequence RegularDialogue;
+        [Tooltip("Random conversations for an NPC without an assigned quest.")]
+        [SerializeField] private DialogueSequence[] ambientDialogues = System.Array.Empty<DialogueSequence>();
         [SerializeField] private DialogueSequence unavailableDialogue;
         [SerializeField] private bool allowQuestOffer = true;
         [SerializeField] private bool allowQuestTurnIn = true;
@@ -32,6 +34,9 @@ namespace EasternFantasy.Quest
         [SerializeField] private bool continuationTurnInOnly;
 
         [SerializeField] private QuestDialogueSet followUp;
+        private DialogueSequence lastAmbientDialogue;
+
+        private void Awake() => GroundContactShadow.AttachToNpc(gameObject);
 
         private QuestDialogueSet CurrentDialogueSet
         {
@@ -56,17 +61,17 @@ namespace EasternFantasy.Quest
             && Quest != null && OfferDialogue != null
             && QuestManager.Instance != null && QuestManager.Instance.CanAccept(Quest);
 
-        public void OfferQuest()
+        public bool OfferQuest()
         {
             var manager = DialogueManager.Instance;
             if (!CanOfferQuest || manager == null || manager.IsDialogueActive)
-                return;
+                return false;
 
             // Capture the offered quest and its responses before opening the choice UI.
             QuestDefinition offeredQuest = Quest;
             DialogueSequence accepted = CurrentDialogueSet != null ? CurrentDialogueSet.Accepted : IsNextQuest ? nextAcceptedDialogue : acceptedDialogue;
             DialogueSequence declined = CurrentDialogueSet != null ? CurrentDialogueSet.Declined : IsNextQuest ? nextDeclinedDialogue : declinedDialogue;
-            manager.StartQuestOffer(OfferDialogue, offeredQuest.Title, accept =>
+            return manager.StartQuestOffer(OfferDialogue, offeredQuest.Title, accept =>
             {
                 if (accept && !QuestManager.Instance.AcceptQuest(offeredQuest)) return;
                 DialogueSequence response = accept ? accepted : declined;
@@ -76,11 +81,17 @@ namespace EasternFantasy.Quest
 
         public void Interact()
         {
-            var manager = QuestManager.Instance;
             var dialogue = DialogueManager.Instance;
-            if (manager == null || dialogue == null || dialogue.IsDialogueActive)
+            if (dialogue == null || dialogue.IsDialogueActive)
                 return;
+            if (ambientDialogues.Length > 0 && Quest == null)
+            {
+                PlayAmbientDialogue(dialogue);
+                return;
+            }
 
+            var manager = QuestManager.Instance;
+            if (manager == null) return;
             QuestProgress progress = manager.FindProgress(Quest);
             if (progress == null)
             {
@@ -98,11 +109,27 @@ namespace EasternFantasy.Quest
             {
                 DialogueSequence completion = CurrentDialogueSet != null ? CurrentDialogueSet.Completion : IsNextQuest ? nextCompletionDialogue : completionDialogue;
                 QuestDefinition completedQuest = Quest;
-                if (manager.CompleteQuest(completedQuest))
+                if (completedQuest.CompleteAfterTurnInDialogue)
+                    dialogue.StartQuestCompletion(completion, completedQuest, completeAtRewardStep: true);
+                else if (manager.CompleteQuest(completedQuest))
                     dialogue.StartQuestCompletion(completion, completedQuest);
                 return;
             }
             Play(CurrentDialogueSet != null ? CurrentDialogueSet.Regular : IsNextQuest ? nextRegularDialogue : RegularDialogue);
+        }
+
+        private void PlayAmbientDialogue(DialogueManager dialogue)
+        {
+            DialogueSequence selected = null;
+            int eligibleCount = 0;
+            foreach (var sequence in ambientDialogues)
+            {
+                if (sequence == null || !sequence.HasLines || sequence == lastAmbientDialogue) continue;
+                if (Random.Range(0, ++eligibleCount) == 0) selected = sequence;
+            }
+
+            selected ??= lastAmbientDialogue ?? RegularDialogue;
+            if (selected != null && dialogue.StartDialogue(selected)) lastAmbientDialogue = selected;
         }
 
         private static void Play(DialogueSequence sequence)

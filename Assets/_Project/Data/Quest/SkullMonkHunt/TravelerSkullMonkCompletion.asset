@@ -16,7 +16,21 @@ MonoBehaviour:
   partnerCharacter: {fileID: 11400000, guid: 4813f7681cdd4374d911c43214df06ce, type: 2}
   lines:
   - speaker: 1
-    text: "\uadf8\ub7fc \uc774\ub9cc."
+    text: "\uADF8\uB7FC \uC774\uB9CC. \uACE0\uC0DD\uB9CE\uC558\uB124"
+    classOverrides: []
+    firstAdvancementText: 
+  - speaker: 0
+    text: "\uC7A0\uC2DC\uB9CC \uC774 \uB2E4\uC74C\uC740 \uC5B4\uB514\uB85C \uD5A5\uD558\uB294\uAC00? "
+    classOverrides:
+    - characterClass: 1
+      text: "\uC7A0\uC2DC\uB9CC \uAE30\uB2E4\uB9AC\uC2DC\uC624. \uC774 \uB108\uBA38\uC5D4
+        \uBB34\uC5C7\uC774 \uC788\uC18C?"
+    - characterClass: 2
+      text: "\uC7A0\uAE50\uB9CC\uC694! \uC774 \uB2E4\uC74C\uC5D4 \uBB50\uAC00 \uC788\uB098\uC694?"
+    firstAdvancementText: 
+  - speaker: 1
+    text: "\uC870\uAE09\uD574 \uD558\uC9C0 \uB9D0\uAC8C\uB098. \uD558\uD558\uD558
+      \uB54C\uAC00 \uB418\uBA74 \uBAA8\uB450 \uC54C\uAC8C \uB420\uAC78\uC138."
     classOverrides: []
     firstAdvancementText: 
   completionExperience: 0

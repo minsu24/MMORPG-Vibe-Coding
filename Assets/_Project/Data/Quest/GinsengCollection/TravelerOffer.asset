@@ -16,6 +16,27 @@ MonoBehaviour:
   partnerCharacter: {fileID: 11400000, guid: 4813f7681cdd4374d911c43214df06ce, type: 2}
   lines:
   - speaker: 1
+    text: "\uC624\uB79C\uB9CC\uC5D0 \uBCF4\uB294 \uC678\uC9C0\uC778\uC774\uAD70.
+      \uC5EC\uAE30\uAE4C\uC9C0 \uC5B4\uC5F0\uC77C\uC778\uAC00?"
+    classOverrides: []
+    firstAdvancementText: 
+  - speaker: 0
+    text: "\uBD09\uC778\uC758 \uD754\uC801\uC744 \uB530\uB77C\uAC00\uACE0 \uC788\uB124."
+    classOverrides:
+    - characterClass: 1
+      text: "\uBD09\uC778\uC774 \uAE68\uC9C4 \uAC83\uC744 \uD655\uC778\uD558\uC5EC
+        \uB2E4\uB978 \uBB38\uC81C\uB294 \uC5C6\uB098 \uD655\uC778\uC911\uC774\uC624"
+    - characterClass: 2
+      text: "\uBD09\uC778\uC774 \uAE68\uC838\uC11C \uC774\uACF3\uC800\uACF3 \uB3CC\uC544\uB2E4\uB2C8\uACE0
+        \uC788\uC5B4\uC694."
+    firstAdvancementText: 
+  - speaker: 1
+    text: "\uBD09\uC778\uC774 \uAE68\uC838? \uADF8\uB807\uAD6C\uB9CC \uD655\uC2E4\uD788
+      \uC694\uAD34\uAC00 \uB298\uAE34 \uD588\uC5B4. \uAD1C\uCC2E\uB2E4\uBA74 \uB0B4
+      \uBD80\uD0C1 \uC880 \uB4E4\uC5B4\uC8FC\uACA0\uB098?"
+    classOverrides: []
+    firstAdvancementText: 
+  - speaker: 1
     text: "\uC774 \uC0AC\uCC30\uC758 \uC778\uC0BC \uC904\uAE30\uB294 \uC57D\uD6A8\uAC00
       \uB6F0\uC5B4\uB098\uB2E4\uB124. \uC778\uC0BC \uBAAC\uC2A4\uD130\uC5D0\uAC8C\uC11C
       \uC904\uAE30 15\uAC1C\uB9CC \uAD6C\uD574 \uC8FC\uACA0\uB098? \uAC00\uC838\uC624\uBA74

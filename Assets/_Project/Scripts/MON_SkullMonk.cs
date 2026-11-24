@@ -230,6 +230,7 @@ public sealed partial class MON_SkullMonk : PersistentBossController
     {
         // All supplied monk art faces right; shared enemy locomotion expects left-facing art.
         if (spriteRenderer != null) spriteRenderer.flipX = true;
+        UpdateHitEffect();
         UpdateThrustEffect(Time.time - effectStarted);
         UpdateStaffRings();
     }
@@ -273,5 +274,13 @@ public sealed partial class MON_SkullMonk : PersistentBossController
         base.OnDefeated();
         EasternFantasy.Quest.QuestManager.Instance?.AddProgress(defeatQuest);
     }
-    protected override void OnDisable() { UnbindIntroDialogue(); FinishAttack(); CancelGroundWaves(); CancelStaffRings(); base.OnDisable(); }
+    protected override void OnDisable()
+    {
+        HideHitEffect();
+        UnbindIntroDialogue();
+        FinishAttack();
+        CancelGroundWaves();
+        CancelStaffRings();
+        base.OnDisable();
+    }
 }

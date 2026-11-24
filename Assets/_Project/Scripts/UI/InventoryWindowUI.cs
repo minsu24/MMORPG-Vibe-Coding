@@ -72,6 +72,8 @@ namespace EasternFantasy.UI
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            if (!TryGetComponent<InventoryEquipmentTutorialUI>(out _))
+                gameObject.AddComponent<InventoryEquipmentTutorialUI>();
             PrepareEquipmentSlots();
             if (accessoryTab != null) accessoryTab.gameObject.SetActive(false);
             if (windowRoot != null)

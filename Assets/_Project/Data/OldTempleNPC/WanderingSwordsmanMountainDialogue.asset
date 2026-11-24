@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1556faa70b3ce43862d54865c7f42e, type: 3}
+  m_Name: WanderingSwordsmanMountainDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dialogue.DialogueSequence
+  playerCharacter: {fileID: 0}
+  partnerCharacter: {fileID: 11400000, guid: 238eeac369be071a0a2f99ec71785989, type: 2}
+  lines:
+  - speaker: 1
+    text: "\uc774 \uc0b0\uc5d0 \ucc98\uc74c \uc654\uc744 \ub550 \uc548\uac1c \ub54c\ubb38\uc5d0 \uae38\uc744 \uc783\uc5c8\uc18c. \ud55c\ucc38 \uac77\uace0\uc11c\uc57c \uac19\uc740 \ub098\ubb34\ub97c \uc138 \ubc88\uc774\ub098 \uc9c0\ub0ac\ub2e4\ub294 \uac78 \uc54c\uc558\uc9c0."
+    classOverrides: []
+    firstAdvancementText:
+  completionExperience: 0

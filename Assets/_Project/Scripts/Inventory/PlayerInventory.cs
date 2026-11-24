@@ -58,11 +58,13 @@ namespace EasternFantasy.Inventory
             InventoryChanged?.Invoke();
         }
 
-        internal void GrantCaveBellTitle(ItemDefinition title)
+        internal bool GrantCaveBellTitle(ItemDefinition title)
         {
-            if (caveBellTitleGranted || title == null) return;
+            if (title == null || caveBellTitleGranted || pendingCaveBellTitle != null || GetQuantity(title) > 0)
+                return false;
             pendingCaveBellTitle = title;
             if (!TryCollectCaveBellTitle()) InventoryChanged?.Invoke();
+            return true;
         }
 
         private bool TryCollectCaveBellTitle()
@@ -77,40 +79,52 @@ namespace EasternFantasy.Inventory
         }
         private PlayerEntity playerEntity;
         private bool initialized;
-        private float regenerationElapsed;
-        private float previousRegenerationRate;
+        private float healthRegenerationElapsed;
+        private float previousHealthRegenerationRate;
+        private float manaRegenerationElapsed;
+        private float previousManaRegenerationRate;
 
-        public float EquippedHealthRegeneration
-        {
-            get
-            {
-                EnsureInitialized();
-                float total = 0f;
-                foreach (var item in equippedItems.Values)
-                    if (item != null && item.IsAccessory && item.SpecialAbility == AccessoryAbility.HealthRegeneration)
-                        total += item.SpecialAbilityValue;
-                return total;
-            }
-        }
+        public float EquippedHealthRegeneration => GetEquippedAccessoryBonus(AccessoryAbility.HealthRegeneration);
+        public float EquippedManaRegeneration => GetEquippedAccessoryBonus(AccessoryAbility.ManaRegeneration);
 
-        private void Update()
+        private void Update() => UpdateRegeneration(Time.deltaTime);
+
+        private void UpdateRegeneration(float deltaTime)
         {
-            float rate = EquippedHealthRegeneration;
-            if (rate != previousRegenerationRate)
+            EnsureInitialized();
+            if (playerEntity == null || playerEntity.IsDead)
             {
-                regenerationElapsed = 0f;
-                previousRegenerationRate = rate;
-            }
-            if (rate <= 0f || playerEntity == null || playerEntity.IsDead || playerEntity.HP >= playerEntity.maxHP)
-            {
-                regenerationElapsed = 0f;
+                healthRegenerationElapsed = 0f;
+                manaRegenerationElapsed = 0f;
                 return;
             }
-            regenerationElapsed += Time.deltaTime;
-            int ticks = Mathf.FloorToInt(regenerationElapsed);
-            if (ticks <= 0) return;
-            regenerationElapsed -= ticks;
-            playerEntity.RestoreHealth(rate * ticks);
+
+            float health = AdvanceRegeneration(EquippedHealthRegeneration, playerEntity.HP < playerEntity.maxHP,
+                deltaTime, ref healthRegenerationElapsed, ref previousHealthRegenerationRate);
+            if (health > 0f) playerEntity.RestoreHealth(health);
+
+            float mana = AdvanceRegeneration(EquippedManaRegeneration, playerEntity.MP < playerEntity.maxMP,
+                deltaTime, ref manaRegenerationElapsed, ref previousManaRegenerationRate);
+            if (mana > 0f) playerEntity.RestoreMana(mana);
+        }
+
+        private static float AdvanceRegeneration(float rate, bool resourceIsMissing, float deltaTime,
+            ref float elapsed, ref float previousRate)
+        {
+            if (rate != previousRate)
+            {
+                elapsed = 0f;
+                previousRate = rate;
+            }
+            if (rate <= 0f || !resourceIsMissing)
+            {
+                elapsed = 0f;
+                return 0f;
+            }
+            elapsed += deltaTime;
+            int ticks = Mathf.FloorToInt(elapsed);
+            elapsed -= ticks;
+            return rate * ticks;
         }
 
         public const int SlotsPerCategory = 20;
@@ -143,17 +157,16 @@ namespace EasternFantasy.Inventory
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetAcquisitionEvents() { ItemAcquired = null; }
 
-        public float EquippedJumpHeightBonus
+        public float EquippedJumpHeightBonus => GetEquippedAccessoryBonus(AccessoryAbility.JumpHeight);
+
+        private float GetEquippedAccessoryBonus(AccessoryAbility ability)
         {
-            get
-            {
-                EnsureInitialized();
-                float total = 0f;
-                foreach (ItemDefinition item in equippedItems.Values)
-                    if (item != null && item.IsAccessory && item.SpecialAbility == AccessoryAbility.JumpHeight)
-                        total += item.SpecialAbilityValue;
-                return total;
-            }
+            EnsureInitialized();
+            float total = 0f;
+            foreach (ItemDefinition item in equippedItems.Values)
+                if (item != null && item.IsAccessory && item.SpecialAbility == ability)
+                    total += item.SpecialAbilityValue;
+            return total;
         }
 
         public float EquippedAttackBonus

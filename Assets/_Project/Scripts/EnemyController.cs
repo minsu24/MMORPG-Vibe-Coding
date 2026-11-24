@@ -163,6 +163,7 @@ public abstract class EnemyController : Entity
         ResolvePlayer();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+        GroundContactShadow.AttachToEnemy(this, spriteRenderer, capsuleCollider2D);
         originalMaterial = spriteRenderer.sharedMaterial;
         var nameplate = GetComponent<EasternFantasy.UI.MonsterNameplateUI>();
         if (nameplate == null) nameplate = gameObject.AddComponent<EasternFantasy.UI.MonsterNameplateUI>();

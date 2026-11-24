@@ -16,7 +16,37 @@ MonoBehaviour:
   partnerCharacter: {fileID: 11400000, guid: 4813f7681cdd4374d911c43214df06ce, type: 2}
   lines:
   - speaker: 1
-    text: "\ubc18\uc9c0\ub294 \uc798 \ubc1b\uc558\ub294\uac00? \uc0ac\ucc30\ub85c \uac00\ub294 \uae38\uc758 \ub3c4\uae68\ube44\ubd88\uc740 \uac00\ub054 \ud478\ub978 \uc870\uac01\uc744 \ub0a8\uae34\ub2e4\ub124. \ub3c4\uae68\ube44 \ubd88 \uc870\uac01 \ud55c \uac1c\ub97c \uac00\uc838\ub2e4\uc8fc\uba74, \ub3c4\uae68\ube44\ubd88\uacfc \uc778\uc5f0\uc744 \ub9fa\uc744 \uc218 \uc788\ub294 \uc601\ud63c\uc870\uac01\uc744 \uc8fc\uaca0\ub124."
+    text: "\uBC18\uC9C0\uB294 \uC798 \uBC1B\uC558\uB294\uAC00? "
     classOverrides: []
-    firstAdvancementText:
+    firstAdvancementText: 
+  - speaker: 0
+    text: "\uD655\uC2E4\uD788 \uC694\uAE34\uD55C \uBB3C\uAC74\uC774\uB354\uAD70"
+    classOverrides:
+    - characterClass: 1
+      text: "\uB124 \uC720\uC6A9\uD560 \uAC70 \uAC19\uC2B5\uB2C8\uB2E4. "
+    - characterClass: 2
+      text: "\uB124 \uC720\uC6A9\uD560 \uAC70 \uAC19\uC544\uC694"
+    firstAdvancementText: 
+  - speaker: 0
+    text: "\uADF8\uB098\uC800\uB098 \uBD09\uC778\uC5D0 \uB300\uD574 \uC544\uB294
+      \uAC70 \uC788\uB098?"
+    classOverrides:
+    - characterClass: 1
+      text: "\uD639\uC2DC \uBD09\uC778\uC5D0 \uB300\uD574 \uC544\uB294 \uAC70 \uC5C6\uC73C\uC2DC\uC624."
+    - characterClass: 2
+      text: "\uBD09\uC778\uC5D0 \uB300\uD574 \uC544\uB294 \uAC70 \uC788\uC73C\uC138\uC694?"
+    firstAdvancementText: 
+  - speaker: 1
+    text: "\uAE68\uC9C4 \uC774\uC720\uB97C \uBB3B\uB294 \uAC83\uC778\uAC00? \uB0B4
+      \uBD80\uD0C1 \uD558\uB098\uB9CC \uB4E4\uC5B4\uC8FC\uBA74 \uC54C\uB824\uC90C\uC138"
+    classOverrides: []
+    firstAdvancementText: 
+  - speaker: 1
+    text: "\uC0AC\uCC30\uB85C \uAC00\uB294 \uAE38\uC758 \uB3C4\uAE68\uBE44\uBD88\uC740
+      \uAC00\uB054 \uD478\uB978 \uC870\uAC01\uC744 \uB0A8\uAE34\uB2E4\uB124. \uB3C4\uAE68\uBE44
+      \uBD88 \uC870\uAC01 \uD55C \uAC1C\uB97C \uAC00\uC838\uB2E4\uC8FC\uBA74, \uB3C4\uAE68\uBE44\uBD88\uACFC
+      \uC778\uC5F0\uC744 \uB9FA\uC744 \uC218 \uC788\uB294 \uC601\uD63C\uC870\uAC01\uC744
+      \uC8FC\uACA0\uB124."
+    classOverrides: []
+    firstAdvancementText: 
   completionExperience: 0

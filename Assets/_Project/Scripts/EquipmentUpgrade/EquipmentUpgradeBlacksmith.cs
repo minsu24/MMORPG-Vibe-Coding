@@ -13,6 +13,9 @@ namespace EasternFantasy.EquipmentUpgrade
         [SerializeField] private GameObject dialogueUiPrefab;
         private DialogueManager manager;
         public DialogueSequence GreetingDialogue => greetingDialogue;
+
+        private void Awake() => GroundContactShadow.AttachToNpc(gameObject);
+
         public void Interact()
         {
             // Reuse live services when arriving from another map; create the same UI only if absent.

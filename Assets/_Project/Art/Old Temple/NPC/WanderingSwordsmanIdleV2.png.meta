@@ -1,0 +1,338 @@
+fileFormatVersion: 2
+guid: bafac5ca02769260beb287ec9a65f761
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 81234001
+    second: WanderingSwordsmanV2Idle_00
+  - first:
+      213: 81234002
+    second: WanderingSwordsmanV2Idle_01
+  - first:
+      213: 81234003
+    second: WanderingSwordsmanV2Idle_02
+  - first:
+      213: 81234004
+    second: WanderingSwordsmanV2Idle_03
+  - first:
+      213: 81234005
+    second: WanderingSwordsmanV2Idle_04
+  - first:
+      213: 81234006
+    second: WanderingSwordsmanV2Idle_05
+  - first:
+      213: 81234007
+    second: WanderingSwordsmanV2Idle_06
+  - first:
+      213: 81234008
+    second: WanderingSwordsmanV2Idle_07
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 4096
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 184
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: WanderingSwordsmanV2Idle_00
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 444
+        width: 250
+        height: 440
+      alignment: 9
+      pivot: {x: 0.49972000, y: 0.01590909}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36a1258796c3be3aeb988c105d350c4e
+      internalID: 81234001
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WanderingSwordsmanV2Idle_01
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 444
+        width: 250
+        height: 440
+      alignment: 9
+      pivot: {x: 0.50168000, y: 0.01590909}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 694fb0bb834dec5b8bb3b469cdf5aae6
+      internalID: 81234002
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WanderingSwordsmanV2Idle_02
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 444
+        width: 250
+        height: 440
+      alignment: 9
+      pivot: {x: 0.49936000, y: 0.01590909}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8341fcbb59e18b503231f89cc70afaa
+      internalID: 81234003
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WanderingSwordsmanV2Idle_03
+      rect:
+        serializedVersion: 2
+        x: 1426
+        y: 444
+        width: 250
+        height: 440
+      alignment: 9
+      pivot: {x: 0.50032000, y: 0.01590909}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cef425cbb2b7ffddfb986d917c8820a5
+      internalID: 81234004
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WanderingSwordsmanV2Idle_04
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 0
+        width: 250
+        height: 440
+      alignment: 9
+      pivot: {x: 0.50044000, y: 0.01590909}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06115a2b7ad95d99694b3439d061c613
+      internalID: 81234005
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WanderingSwordsmanV2Idle_05
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 0
+        width: 250
+        height: 440
+      alignment: 9
+      pivot: {x: 0.50148000, y: 0.01590909}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e76f3c68d8a0f675e7e58dc6884618ae
+      internalID: 81234006
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WanderingSwordsmanV2Idle_06
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 0
+        width: 250
+        height: 440
+      alignment: 9
+      pivot: {x: 0.50060000, y: 0.01590909}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 894f93136ed7bebf038585ccef926b68
+      internalID: 81234007
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WanderingSwordsmanV2Idle_07
+      rect:
+        serializedVersion: 2
+        x: 1420
+        y: 0
+        width: 250
+        height: 440
+      alignment: 9
+      pivot: {x: 0.50124000, y: 0.01590909}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed1db217cbfacb0384a738ecf53a069b
+      internalID: 81234008
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    outline: []
+    customData:
+    physicsShape: []
+    bones: []
+    spriteID: c3650a87f8f4d52b4d111f8a6c2d2a04
+    internalID: 0
+    vertices: []
+    indices:
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      WanderingSwordsmanV2Idle_00: 81234001
+      WanderingSwordsmanV2Idle_01: 81234002
+      WanderingSwordsmanV2Idle_02: 81234003
+      WanderingSwordsmanV2Idle_03: 81234004
+      WanderingSwordsmanV2Idle_04: 81234005
+      WanderingSwordsmanV2Idle_05: 81234006
+      WanderingSwordsmanV2Idle_06: 81234007
+      WanderingSwordsmanV2Idle_07: 81234008
+  mipmapLimitGroupName:
+  pSDRemoveMatte: 0
+  userData:
+  assetBundleName:
+  assetBundleVariant:

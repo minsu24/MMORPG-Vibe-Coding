@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8509864fd7d5bb24fbb693fd80a56360, type: 3}
+  m_Name: NoviceMonkBell
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Quest.QuestDefinition
+  questId: novice_monk_cave_bell
+  questType: 1
+  title: "\ucc9c\ub144\ubd88\uad81\uc5d0 \uc6b8\ub9ac\ub294 \uc885\uc18c\ub9ac"
+  objectiveDescription: "\uc678\uc9c4 \uc0b0\uae38 \uc785\uad6c\uc5d0\uc11c \ub3d9\uc790\uc2b9 \ub9cc\ub098\uae30"
+  trackerObjectives:
+  - "\uc678\uc9c4 \uc0b0\uae38 \uc785\uad6c\uc5d0\uc11c \ub3d9\uc790\uc2b9 \ub9cc\ub098\uae30"
+  - "\uc678\uc9c4 \uc0b0\uae38 \uc785\uad6c\uc5d0\uc11c \ub3d9\uc790\uc2b9 \ub9cc\ub098\uae30"
+  - "\ucc9c\ub144\ubd88\uad81\uc758 \uc885 \uc6b8\ub9ac\uae30"
+  hideTrackerWhileQuestActive: {fileID: 11400000, guid: 2cce4c75bdc943098ffd719cdd549945, type: 2}
+  requiredAmount: 3
+  requiredItem: {fileID: 0}
+  requiredCollectionAmount: 0
+  countObjectiveLabel: "\uc9c4\ud589"
+  rewardYeopjeon: 20
+  rewardEXP: 100
+  rewardItems: []
+  prerequisiteQuest: {fileID: 0}
+  turnInDescription: "\ucc9c\ub144\ubd88\uad81\uc758 \uc885\uc744 \uc6b8\ub9ac\uae30"
+  revealedMapScenes:
+  - RemoteMountainPath
+  - InsideCaveBudda
+  mapOfferScene: TempleRoad
+  mapObjectiveScene: InsideCaveBudda
+  mapTurnInScene: InsideCaveBudda

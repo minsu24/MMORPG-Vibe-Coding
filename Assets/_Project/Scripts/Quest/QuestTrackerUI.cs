@@ -181,22 +181,27 @@ namespace EasternFantasy.Quest
                 if (progress.Status == QuestStatus.Completed)
                     continue;
 
+                QuestDefinition quest = progress.Definition;
+                if (manager.FindProgress(quest.HideTrackerWhileQuestActive) is { Status: not QuestStatus.Completed })
+                    continue;
+
                 if (builder.Length > 0)
                     builder.AppendLine().AppendLine();
 
-                QuestDefinition quest = progress.Definition;
                 builder.Append('[').Append(quest.TypeLabel).Append("] ").AppendLine(quest.Title);
+                string trackerObjective = quest.GetTrackerObjective(progress.CurrentAmount);
                 builder.Append(progress.Status == QuestStatus.ReadyToTurnIn
                     && !string.IsNullOrWhiteSpace(quest.TurnInDescription)
-                    ? quest.TurnInDescription : quest.ObjectiveDescription);
-                if (quest.HasCountObjective && quest.RequiredItem != null)
+                    ? quest.TurnInDescription : trackerObjective ?? quest.ObjectiveDescription);
+                if (trackerObjective == null && quest.HasCountObjective && quest.RequiredItem != null)
                 {
                     builder.AppendLine().Append(quest.CountObjectiveLabel).Append("  ")
                         .Append(progress.CurrentAmount).Append('/').Append(quest.RequiredAmount);
                     builder.AppendLine().Append(quest.RequiredItem.DisplayName).Append("  ")
                         .Append(progress.CollectedAmount).Append('/').Append(quest.RequiredItemAmount);
                 }
-                else builder.Append("  ").Append(progress.CurrentAmount).Append('/').Append(quest.RequiredAmount);
+                else if (trackerObjective == null)
+                    builder.Append("  ").Append(progress.CurrentAmount).Append('/').Append(quest.RequiredAmount);
 
                 if (progress.Status == QuestStatus.ReadyToTurnIn)
                     builder.Append("  COMPLETE");

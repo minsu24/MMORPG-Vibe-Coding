@@ -224,7 +224,7 @@ namespace EasternFantasy.Editor
                     drops.arraySize = 1;
                     var drop = drops.GetArrayElementAtIndex(0);
                     drop.FindPropertyRelative("item").objectReferenceValue = feather;
-                    drop.FindPropertyRelative("dropChance").floatValue = .3f;
+                    drop.FindPropertyRelative("dropChance").floatValue = 1f;
                     drop.FindPropertyRelative("minimumQuantity").intValue = 1;
                     drop.FindPropertyRelative("maximumQuantity").intValue = 1;
                     lootData.ApplyModifiedPropertiesWithoutUndo();

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8509864fd7d5bb24fbb693fd80a56360, type: 3}
+  m_Name: NoviceMonkWildCatHunt
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Quest.QuestDefinition
+  questId: novice_monk_wildcat_hunt
+  questType: 1
+  title: "\ub3d9\uc790\uc2b9\uc744 \uc704\ud55c \uc0b0\uae38 \uc218\uc0c9"
+  objectiveDescription: "\uc678\uc9c4 \uc0b0\uae38\uc5d0\uc11c \uc0b5 \ucc98\uce58"
+  requiredAmount: 5
+  requiredItem: {fileID: 0}
+  requiredCollectionAmount: 0
+  countObjectiveLabel: "\uc0b5 \ucc98\uce58"
+  rewardYeopjeon: 0
+  rewardEXP: 0
+  rewardItems: []
+  prerequisiteQuest: {fileID: 0}
+  turnInDescription: "\ub3d9\uc790\uc2b9\uc5d0\uac8c \ub3cc\uc544\uac00\uae30"
+  revealedMapScenes: []
+  mapOfferScene: RemoteMountainPath
+  mapObjectiveScene: RemoteMountainPath
+  mapTurnInScene: RemoteMountainPath

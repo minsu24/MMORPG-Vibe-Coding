@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1556faa70b3ce43862d54865c7f42e, type: 3}
+  m_Name: NoviceMonkHuntOffer
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Dialogue.DialogueSequence
+  playerCharacter: {fileID: 0}
+  partnerCharacter: {fileID: 11400000, guid: f0e282e5b16347d68e6fb811e7408634, type: 2}
+  lines:
+  - speaker: 1
+    text: "\uc55e\uc5d0 \uc0b5\ub4e4\uc774 \ub3cc\uc544\ub2e4\ub140\uc11c \ubb34\uc11c\uc6cc\uc694. \uc800 \ud63c\uc790\uc11c\ub294 \ubabb \uc9c0\ub098\uac00\uaca0\uc5b4\uc694."
+    classOverrides: []
+    firstAdvancementText:
+  - speaker: 1
+    text: "\uc0b0\uae38\uc5d0 \uc788\ub294 \uc0b5 \ub2e4\uc12f \ub9c8\ub9ac\ub97c \ucc98\uce58\ud574 \uc8fc\uc2e4\ub798\uc694? \uc800\ub294 \uc5ec\uae30\uc11c \uae30\ub2e4\ub9b4\uac8c\uc694."
+    classOverrides: []
+    firstAdvancementText:
+  completionExperience: 0

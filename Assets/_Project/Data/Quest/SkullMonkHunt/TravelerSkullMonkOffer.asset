@@ -16,7 +16,10 @@ MonoBehaviour:
   partnerCharacter: {fileID: 11400000, guid: 4813f7681cdd4374d911c43214df06ce, type: 2}
   lines:
   - speaker: 1
-    text: "\uc0ac\ucc30 \uc548\ucabd\uc5d0 \uc544\uc9c1 \ud574\uace8 \uc2b9\ub824\uac00 \ub0a8\uc544 \uc788\ub124. \uadf8\ub97c \uc4f0\ub7ec\ub728\ub824 \uc8fc\uaca0\ub098?"
+    text: "\uC774 \uC548\uC5D0\uC11C \uAC15\uB825\uD55C \uAE30\uC6B4\uC774 \uB290\uAEF4\uC9C0\uB294\uAD6C\uB9CC..
+      \uADF8\uB7EC\uB098 \uC790\uB124\uB77C\uBA74 \uD574\uB0BC \uC218 \uC788\uC744\uAC78\uC138.
+      \uC808 \uC548 \uCABD\uC73C\uB85C \uB4E4\uC5B4\uAC00 \uADF8\uB97C \uC4F0\uB7EC\uB728\uB824
+      \uC8FC\uACA0\uB098?"
     classOverrides: []
     firstAdvancementText: 
   completionExperience: 0

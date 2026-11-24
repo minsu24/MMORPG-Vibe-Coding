@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using EasternFantasy.Advancement;
 using EasternFantasy.CharacterSelection;
+using EasternFantasy.Inventory;
 using EasternFantasy.Player;
 using EasternFantasy.Quest;
 using TMPro;
@@ -36,6 +37,8 @@ namespace EasternFantasy.Dialogue
         [Header("Quest offer choice shown after the final line")]
         [SerializeField] private GameObject questChoiceRoot;
         [SerializeField] private TMP_Text questChoiceTitleText;
+        [SerializeField] private Button acceptChoiceButton;
+        [SerializeField] private Button declineChoiceButton;
 
         [Header("Player control disabled during dialogue")]
         [SerializeField] private PlayerInputReader playerInput;
@@ -45,6 +48,10 @@ namespace EasternFantasy.Dialogue
         private DialogueSequence currentSequence;
         private string completionRewardText;
         private QuestDefinition completionQuest;
+        private bool completeQuestAtRewardStep;
+        private ItemDefinition completionTitle;
+        private Func<ItemDefinition, bool> grantCompletionTitle;
+        private Action questCompletionCallback;
         private QuestRewardRowUI rewardRow;
         private Coroutine typingRoutine;
         private int lineIndex;
@@ -89,8 +96,14 @@ namespace EasternFantasy.Dialogue
 
         private void Update()
         {
-            if (!IsDialogueActive)
+            if (!IsDialogueActive || Time.frameCount == questChoiceResolvedFrame)
                 return;
+
+            if (isWaitingForQuestDecision)
+            {
+                UpdateQuestChoice();
+                return;
+            }
 
             if (advanceHint != null && advanceHint.gameObject.activeSelf)
             {
@@ -107,16 +120,26 @@ namespace EasternFantasy.Dialogue
             return BeginDialogue(sequence);
         }
 
-        public bool StartQuestCompletion(DialogueSequence sequence, QuestDefinition quest)
+        public bool StartQuestCompletion(DialogueSequence sequence, QuestDefinition quest, ItemDefinition title = null,
+            bool completeAtRewardStep = false, Func<ItemDefinition, bool> grantTitle = null, Action onCompleted = null)
         {
             if (quest == null) return false;
-            if (quest.RewardEXP == 0 && quest.RewardYeopjeon == 0 && quest.RewardItems.Count == 0)
+            if (!completeAtRewardStep && onCompleted == null && quest.RewardEXP == 0 && quest.RewardYeopjeon == 0
+                && quest.RewardItems.Count == 0 && title == null)
                 return StartDialogue(sequence);
             if (IsDialogueActive || !HasRequiredUi()) return false;
             completionQuest = quest;
+            completionTitle = title;
+            completeQuestAtRewardStep = completeAtRewardStep;
+            grantCompletionTitle = grantTitle;
+            questCompletionCallback = onCompleted;
             // Retain one final dialogue step, rendered as icons instead of typed reward text.
             if (BeginDialogue(sequence, "보상 획득")) return true;
             completionQuest = null;
+            completionTitle = null;
+            completeQuestAtRewardStep = false;
+            grantCompletionTitle = null;
+            questCompletionCallback = null;
             return false;
         }
 
@@ -208,9 +231,11 @@ namespace EasternFantasy.Dialogue
         private void CompleteDialogue()
         {
             DialogueSequence completed = currentSequence;
+            Action onCompleted = questCompletionCallback;
             EndDialogue();
             GrantCompletionExperience(completed);
             if (completed != null) DialogueCompleted?.Invoke(completed);
+            onCompleted?.Invoke();
         }
 
         private void GrantCompletionExperience(DialogueSequence completed)
@@ -238,10 +263,15 @@ namespace EasternFantasy.Dialogue
             currentSequence = null;
             completionRewardText = null;
             completionQuest = null;
+            completionTitle = null;
+            completeQuestAtRewardStep = false;
+            grantCompletionTitle = null;
+            questCompletionCallback = null;
             if (rewardRow != null) rewardRow.gameObject.SetActive(false);
             isWaitingForQuestDecision = false;
             pendingQuestDecision = null;
             pendingQuestTitle = null;
+            ClearQuestChoiceSelection();
 
             if (questChoiceRoot != null)
                 questChoiceRoot.SetActive(false);
@@ -268,13 +298,16 @@ namespace EasternFantasy.Dialogue
             if (questChoiceTitleText != null)
                 questChoiceTitleText.text = pendingQuestTitle ?? string.Empty;
             questChoiceRoot.SetActive(true);
+            BeginQuestChoiceSelection();
         }
 
         private void ResolveQuestDecision(bool accepted)
         {
-            if (!isWaitingForQuestDecision || pendingQuestDecision == null)
+            if (!isWaitingForQuestDecision || pendingQuestDecision == null
+                || Time.frameCount == questChoiceOpenedFrame)
                 return;
 
+            questChoiceResolvedFrame = Time.frameCount;
             Action<bool> decision = pendingQuestDecision;
             pendingQuestDecision = null;
             pendingQuestTitle = null;
@@ -287,6 +320,17 @@ namespace EasternFantasy.Dialogue
             if (!string.IsNullOrEmpty(completionRewardText)
                 && lineIndex >= (currentSequence?.Lines.Length ?? 0))
             {
+                if (completeQuestAtRewardStep)
+                {
+                    completeQuestAtRewardStep = false;
+                    if (QuestManager.Instance?.CompleteQuest(completionQuest) != true)
+                    {
+                        EndDialogue();
+                        return;
+                    }
+                }
+                if (completionTitle != null && grantCompletionTitle?.Invoke(completionTitle) == false)
+                    completionTitle = null;
                 // A system notice, rather than an NPC speaking the reward numbers.
                 StopTyping();
                 if (portraitRoot != null) portraitRoot.SetActive(false);
@@ -299,7 +343,7 @@ namespace EasternFantasy.Dialogue
                     dialogueText.text = string.Empty;
                     dialogueText.maxVisibleCharacters = int.MaxValue;
                     if (rewardRow == null) rewardRow = QuestRewardRowUI.Create(dialogueText);
-                    rewardRow.Show(completionQuest, dialogueText);
+                    rewardRow.Show(completionQuest, dialogueText, completionTitle);
                     if (continueIndicator != null) continueIndicator.SetActive(true);
                 }
                 else typingRoutine = StartCoroutine(TypeLine(completionRewardText));

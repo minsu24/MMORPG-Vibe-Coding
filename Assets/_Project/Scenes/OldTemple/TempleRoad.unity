@@ -1428,6 +1428,9 @@ GameObject:
   - component: {fileID: 705683805}
   - component: {fileID: 705683804}
   - component: {fileID: 705683803}
+  - component: {fileID: 705683806}
+  - component: {fileID: 705683807}
+  - component: {fileID: 705684001}
   m_Layer: 0
   m_Name: "\uB3D9\uC790\uC2B9"
   m_TagString: Untagged
@@ -1528,9 +1531,64 @@ Transform:
   m_LocalPosition: {x: 17.349998, y: -4.880969, z: 0}
   m_LocalScale: {x: 0.34, y: 0.34, z: 0.34}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 705684004}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &705683806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705683802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 792d3ef1a3332264f81854de636c2193, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Quest.QuestGiver
+  quest: {fileID: 11400000, guid: 38e62e27fd624058946203c8d160387e, type: 2}
+  offerDialogue: {fileID: 11400000, guid: b53b2dc3db34455a9db285052ba062c6, type: 2}
+  progressDialogue: {fileID: 11400000, guid: 0ceb70909a344511ae02b9c5be4f9ece, type: 2}
+  RegularDialogue: {fileID: 11400000, guid: 7b05ff11b01e46b38da570e073ff3eea, type: 2}
+  allowQuestOffer: 1
+  allowQuestTurnIn: 0
+--- !u!58 &705683807
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705683802}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 1.5}
+  m_Radius: 1.55
 --- !u!1 &754294198
 GameObject:
   m_ObjectHideFlags: 0
@@ -3592,6 +3650,113 @@ Transform:
   m_Children: []
   m_Father: {fileID: 754294200}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &714834156
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 714834157}
+  - component: {fileID: 714834159}
+  - component: {fileID: 714834158}
+  m_Layer: 0
+  m_Name: Quest Portal Guide
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &714834157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714834156}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000004371139}
+  m_LocalPosition: {x: 0, y: 1.95, z: 0}
+  m_LocalScale: {x: 0.055, y: 0.055, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1688369507}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &714834158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714834156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb007a239a5c1954ab8fc90743a28a9d, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Quest.QuestPortalGuide
+  quest: {fileID: 11400000, guid: 38e62e27fd624058946203c8d160387e, type: 2}
+  bobHeight: 0.16
+  bobPeriod: 1.35
+--- !u!212 &714834159
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714834156}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 10
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 21300000, guid: 6788c989d1194b28af03b6e8f7ed7d92, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 12.697599, y: 12.4}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
 --- !u!1001 &1688369506
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3677,6 +3842,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7851668189856598021, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
+      propertyPath: requiredAcceptedQuest
+      value:
+      objectReference: {fileID: 11400000, guid: 38e62e27fd624058946203c8d160387e, type: 2}
+    - target: {fileID: 7851668189856598021, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
+      propertyPath: questBlockedMessage
+      value: "\ud604\uc7ac\ub294 \uc785\uc7a5\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4. \ub3d9\uc790\uc2b9\uacfc \uba3c\uc800 \ub300\ud654\ud558\uc138\uc694."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7851668189856598021, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
       propertyPath: targetPointName
       value: In_RemoteMountainPath_Portal
       objectReference: {fileID: 0}
@@ -3690,9 +3863,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3928847235147732673, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 714834157}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
+--- !u!4 &1688369507 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3928847235147732673, guid: 12a317f2a7fb43849834d9075fdd8cd5, type: 3}
+  m_PrefabInstance: {fileID: 1688369506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1690454682
 GameObject:
   m_ObjectHideFlags: 0
@@ -5186,6 +5367,75 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2802355560455324492, guid: e1dae66579a5f4d4d9626ade7fec9fc4, type: 3}
   m_PrefabInstance: {fileID: 2128376521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &705684001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705683802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4420e7e8418e84e940796e584fee30, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::EasternFantasy.Quest.QuestAvailabilityIndicator
+  questGiver: {fileID: 705683806}
+  indicatorRoot: {fileID: 705684005}
+  indicatorImage: {fileID: 705684003}
+  availableSprite: {fileID: -8614750056782536577, guid: 8b2187c6069567042bd2b55b2acf8248, type: 3}
+  activeSprite: {fileID: -5322096615571189214, guid: 8b2187c6069567042bd2b55b2acf8248, type: 3}
+  readyToTurnInSprite: {fileID: -4344760452935800902, guid: 8b2187c6069567042bd2b55b2acf8248, type: 3}
+  heightOffset: 1
+--- !u!1001 &705684002
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 705683805}
+    m_Modifications:
+    - target: {fileID: 1716909405576555737, guid: 05179d6ec9b3a5548850599bcaf0f129, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.029411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 1716909405576555737, guid: 05179d6ec9b3a5548850599bcaf0f129, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.029411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 1716909405576555737, guid: 05179d6ec9b3a5548850599bcaf0f129, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.029411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 1716909405576555737, guid: 05179d6ec9b3a5548850599bcaf0f129, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 6.55
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 05179d6ec9b3a5548850599bcaf0f129, type: 3}
+--- !u!114 &705684003 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3229247838860159592, guid: 05179d6ec9b3a5548850599bcaf0f129, type: 3}
+  m_PrefabInstance: {fileID: 705684002}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!224 &705684004 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1716909405576555737, guid: 05179d6ec9b3a5548850599bcaf0f129, type: 3}
+  m_PrefabInstance: {fileID: 705684002}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &705684005 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1656733515011873444, guid: 05179d6ec9b3a5548850599bcaf0f129, type: 3}
+  m_PrefabInstance: {fileID: 705684002}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -13,6 +13,7 @@ namespace EasternFantasy.UI
     [DisallowMultipleComponent]
     public sealed partial class MapTutorialUI : MonoBehaviour
     {
+        private const string TutorialSceneName = "PrologueVilage";
         private static readonly HashSet<CharacterClassId> completedClasses = new HashSet<CharacterClassId>();
         private static MapTutorialUI active;
         public static bool IsRunning => active != null && active.running;
@@ -53,7 +54,8 @@ namespace EasternFantasy.UI
             if (EasternFantasy.Saving.SaveGameService.IsRestoring) return;
             if (!running)
             {
-                if (completedClasses.Contains(CharacterSelectionState.SelectedClass)
+                if (SceneManager.GetActiveScene().name != TutorialSceneName || SceneLoadingScreen.IsVisible
+                    || completedClasses.Contains(CharacterSelectionState.SelectedClass)
                     || map == null || location == null || !location.HasCurrentLocation
                     || PortalSceneTransition.IsTransitioning || StatsSkillTutorialUI.IsRunning
                     || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning

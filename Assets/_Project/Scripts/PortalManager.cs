@@ -1,6 +1,7 @@
 ﻿using EasternFantasy.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using EasternFantasy.Quest;
 
 [RequireComponent(typeof(Collider2D))]
 public sealed class PortalManager : MonoBehaviour
@@ -10,11 +11,28 @@ public sealed class PortalManager : MonoBehaviour
 
     [SerializeField] private bool startsLocked;
     [SerializeField] private bool requiresToadNecklace;
+    [SerializeField] private QuestDefinition requiredAcceptedQuest;
+    [SerializeField] private QuestDefinition requiredCompletedQuest;
+    [SerializeField] private QuestDefinition gateDuringQuest;
+    [SerializeField] private string questBlockedMessage;
     private bool isLocked;
     private bool NecklaceBlocked => requiresToadNecklace &&
         (EasternFantasy.Quest.ToadHuntQuestController.Instance == null ||
          !EasternFantasy.Quest.ToadHuntQuestController.Instance.NecklaceClaimed);
-    public bool IsLocked => isLocked || NecklaceBlocked;
+    private bool QuestBlocked
+    {
+        get
+        {
+            var manager = QuestManager.Instance;
+            if (requiredAcceptedQuest != null && manager?.FindProgress(requiredAcceptedQuest) == null)
+                return true;
+            return requiredCompletedQuest != null
+                && (gateDuringQuest == null
+                    || manager?.FindProgress(gateDuringQuest) is { Status: not QuestStatus.Completed })
+                && manager?.FindProgress(requiredCompletedQuest)?.Status != QuestStatus.Completed;
+        }
+    }
+    public bool IsLocked => isLocked || NecklaceBlocked || QuestBlocked;
     public void SetLocked(bool locked) => isLocked = locked;
     private void Awake() => isLocked = startsLocked;
 
@@ -26,17 +44,20 @@ public sealed class PortalManager : MonoBehaviour
         if (EasternFantasy.UI.SoulstoneWindowUI.IsOpen || EasternFantasy.UI.SoulstoneTutorialUI.IsRunning) return;
         if (EasternFantasy.Dungeon.DungeonRunController.Instance != null
             && EasternFantasy.Dungeon.DungeonRunController.Instance.IsExitPromptOpen) return;
-        if (Time.timeScale > 0f && playerInPortal != null && NecklaceBlocked
-            && Keyboard.current?.upArrowKey.wasPressedThisFrame == true)
-            EasternFantasy.UI.SystemNoticeUI.ShowFailure("목걸이를 T키로 조사해 획득한 뒤 이동하세요.", this);
-        if (IsLocked || Time.timeScale <= 0f || playerInPortal == null || isLoadingScene || (EasternFantasy.UI.DungeonWindowUI.Instance != null && EasternFantasy.UI.DungeonWindowUI.Instance.IsOpen))
+        if (Time.timeScale <= 0f || playerInPortal == null || isLoadingScene
+            || Keyboard.current?.upArrowKey.wasPressedThisFrame != true
+            || (EasternFantasy.UI.DungeonWindowUI.Instance != null && EasternFantasy.UI.DungeonWindowUI.Instance.IsOpen))
             return;
 
         PlayerEntity entity = playerInPortal.GetComponent<PlayerEntity>();
         if (entity != null && entity.IsDead)
             return;
 
-        if (Keyboard.current?.upArrowKey.wasPressedThisFrame == true)
+        if (NecklaceBlocked)
+            EasternFantasy.UI.SystemNoticeUI.ShowFailure("목걸이를 T키로 조사해 획득한 뒤 이동하세요.", this);
+        else if (QuestBlocked)
+            EasternFantasy.UI.SystemNoticeUI.ShowFailure(questBlockedMessage, this);
+        else if (!isLocked)
             MoveToScene();
     }
 

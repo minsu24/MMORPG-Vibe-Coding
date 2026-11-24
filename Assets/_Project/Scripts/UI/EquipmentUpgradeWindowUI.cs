@@ -104,9 +104,11 @@ namespace EasternFantasy.UI
         {
             if (committing) return;
             if (MapTutorialUI.IsRunning || StatsSkillTutorialUI.IsRunning || InventoryEquipmentTutorialUI.IsRunning || DungeonWindowUI.IsTutorialRunning || ShopWindowUI.IsTutorialRunning || IsTutorialRunning) return;
+            var owner = FindFirstObjectByType<PlayerInventory>();
+            var money = FindFirstObjectByType<PlayerCurrency>();
+            if (owner == null || money == null || HasTitleWithoutUpgradeTarget(owner)) return;
             Initialize();
-            BindPlayer(FindFirstObjectByType<PlayerInventory>(), FindFirstObjectByType<PlayerCurrency>());
-            if (inventory == null || currency == null) return;
+            BindPlayer(owner, money);
             InventoryWindowUI.Instance?.SetOpen(false);
             EquipmentWindowUI.Instance?.CloseFromInventory();
             ShopWindowUI.Instance?.Close();
@@ -118,6 +120,25 @@ namespace EasternFantasy.UI
             GameTimeController.SetPaused(this, true);
             Refresh();
         }
+        private bool HasTitleWithoutUpgradeTarget(PlayerInventory owner)
+        {
+            bool hasTitle = false;
+            foreach (var stack in owner.Items)
+            {
+                if (stack.Item.EquipmentSlot == EquipmentSlot.Title) hasTitle = true;
+                else if (FindRecipe(stack.Item) != null) return false;
+            }
+            return hasTitle;
+        }
+
+        private EquipmentUpgradeRecipe FindRecipe(ItemDefinition item)
+        {
+            if (item == null || recipes == null) return null;
+            foreach (var recipe in recipes)
+                if (recipe != null && recipe.Matches(item)) return recipe;
+            return null;
+        }
+
         private void PreparePopup()
         {
             if (windowGroup != null || windowRoot == null) return;
@@ -219,10 +240,11 @@ namespace EasternFantasy.UI
             var center = canvasRect.TransformPoint(canvasRect.rect.min + new Vector2(canvasRect.rect.width*.25f, canvasRect.rect.height*.53f));
             for (int i = 0; i < popupPanels.Length; i++) { popupPanels[i].position = center + (tutorialPositions[i]-oldCenter)*fit; popupPanels[i].localScale = tutorialScales[i]*fit; }
             // Preview owned equipment without moving or consuming any inventory item.
-            foreach (var stack in inventory.Items) {
-                if (stack.Item == null || stack.Item.Category != ItemCategory.Equipment) continue;
-                foreach (var recipe in recipes) if (recipe != null && recipe.Matches(stack.Item)) { target = stack.Item; break; }
-                if (target != null) break;
+            foreach (var stack in inventory.Items)
+            {
+                if (FindRecipe(stack.Item) == null) continue;
+                target = stack.Item;
+                break;
             }
             Refresh();
             var overlay = new GameObject("EquipmentUpgradeGuide", typeof(RectTransform), typeof(PetCompanionTutorialUI));
@@ -260,7 +282,7 @@ namespace EasternFantasy.UI
         public void SelectFromInventory(ItemDefinition item)
         {
             if (committing || IsTutorialRunning) return;
-            if (item == null) return;
+            if (item == null || item.EquipmentSlot == EquipmentSlot.Title) return;
             if (item.Category == ItemCategory.Equipment && item.EquipmentSlot != EquipmentSlot.None) DropItem(item, -1);
             else
             {
@@ -272,7 +294,8 @@ namespace EasternFantasy.UI
         public void DropItem(ItemDefinition item, int materialIndex)
         {
             if (committing || IsTutorialRunning) return;
-            if (inventory == null || item == null || inventory.GetQuantity(item) <= 0) return;
+            if (inventory == null || item == null || item.EquipmentSlot == EquipmentSlot.Title
+                || inventory.GetQuantity(item) <= 0) return;
             if (materialIndex < 0)
             {
                 if (item.Category != ItemCategory.Equipment || item.EquipmentSlot == EquipmentSlot.None) { messageText.text = "장비만 넣을 수 있습니다."; return; }
@@ -327,9 +350,7 @@ namespace EasternFantasy.UI
         {
             if (!initialized || inventory == null || currency == null || committing) return;
             if (target != null && inventory.GetQuantity(target) == 0) { target = null; insertedMaterials.Clear(); }
-            currentRecipe = null;
-            if (recipes != null) foreach (var recipe in recipes)
-                if (recipe != null && recipe.Matches(target)) { currentRecipe = recipe; break; }
+            currentRecipe = FindRecipe(target);
             requirements.Clear();
             string configError = null;
             if (currentRecipe != null && currentRecipe.TryGetRequirements(out var needed, out configError))
@@ -367,6 +388,7 @@ namespace EasternFantasy.UI
             int index = 0;
             foreach (var stack in inventory.Items)
             {
+                if (stack.Item.EquipmentSlot == EquipmentSlot.Title) continue;
                 if ((stack.Item.Category == ItemCategory.Equipment && stack.Item.EquipmentSlot != EquipmentSlot.None) != pickingEquipment) continue;
                 if (!pickingEquipment && requirements.Count > 0 && !requirements.Exists(pair => (pair.Key == stack.Item || pair.Key.MatchesMaterial(stack.Item)))) continue;
                 if (index < inventorySlots.Length) inventorySlots[index++].Bind(stack.Item, stack.Quantity);

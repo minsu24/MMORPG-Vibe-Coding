@@ -2,6 +2,8 @@ using UnityEngine;
 
 public sealed class MON_WildCat : EnemyController
 {
+    public static event System.Action<MON_WildCat> AnyDefeated;
+
     private static readonly int AttackState = Animator.StringToHash("Base Layer.Attack");
     private static readonly int LandingState = Animator.StringToHash("Base Layer.Landing");
     private static readonly int IdleState = Animator.StringToHash("Base Layer.Idle");
@@ -142,10 +144,22 @@ public sealed class MON_WildCat : EnemyController
             playerEntity.ApplyKnockback(pounceDirection);
     }
 
+    public override void ApplyKnockback(float directionX)
+    {
+        if (!isAttacking || phase == AttackPhase.Rest)
+            base.ApplyKnockback(directionX);
+    }
+
     protected override void OnDisable()
     {
         phase = AttackPhase.None;
         isAttacking = false;
         base.OnDisable();
+    }
+
+    protected override void OnDefeated()
+    {
+        base.OnDefeated();
+        AnyDefeated?.Invoke(this);
     }
 }

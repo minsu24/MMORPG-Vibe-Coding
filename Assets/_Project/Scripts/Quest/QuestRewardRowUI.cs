@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using EasternFantasy.Inventory;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +24,7 @@ namespace EasternFantasy.Quest
             return root.GetComponent<QuestRewardRowUI>();
         }
 
-        public void Show(QuestDefinition quest, TMP_Text source)
+        public void Show(QuestDefinition quest, TMP_Text source, ItemDefinition title = null)
         {
             gameObject.SetActive(true);
             foreach (var entry in entries) Destroy(entry);
@@ -45,13 +46,16 @@ namespace EasternFantasy.Quest
             var icons = Resources.Load<QuestRewardIcons>("UI/QuestRewards/Icons");
             float width = 0;
             if (quest.RewardYeopjeon > 0)
-                Add("Yeopjeon", icons != null ? icons.yeopjeon : null, quest.RewardYeopjeon, source, iconSize, ref width);
+                Add("Yeopjeon", icons != null ? icons.yeopjeon : null, $"× {quest.RewardYeopjeon:N0}", source, iconSize, ref width);
             if (quest.RewardEXP > 0)
-                Add("Experience", icons != null ? icons.experience : null, quest.RewardEXP, source, iconSize, ref width);
+                Add("Experience", icons != null ? icons.experience : null, $"× {quest.RewardEXP:N0}", source, iconSize, ref width);
             foreach (var reward in quest.RewardItems)
                 if (reward != null && reward.Item != null && reward.Quantity > 0)
                     Add(reward.Item.name, icons != null ? icons.GetItemIcon(reward.Item) : reward.Item.Icon,
-                        reward.Quantity, source, iconSize, ref width);
+                        $"× {reward.Quantity:N0}", source, iconSize, ref width);
+            if (title != null)
+                Add(title.name, icons != null ? icons.GetItemIcon(title) : title.Icon,
+                    $"칭호 · {title.DisplayName}", source, iconSize, ref width);
             float gap = fontSize * .9f;
             width = Mathf.Max(0, width - gap);
             row.sizeDelta = new Vector2(width, iconSize);
@@ -61,7 +65,7 @@ namespace EasternFantasy.Quest
             if (entries.Count == 0) heading.text = "퀘스트를 완료했습니다.";
         }
 
-        private void Add(string name, Sprite sprite, int amount, TMP_Text source, float iconSize, ref float x)
+        private void Add(string name, Sprite sprite, string label, TMP_Text source, float iconSize, ref float x)
         {
             var entry = new GameObject(name + " Reward", typeof(RectTransform));
             entry.transform.SetParent(row, false);
@@ -77,13 +81,13 @@ namespace EasternFantasy.Quest
             image.sprite = sprite;
             image.preserveAspect = true;
             image.raycastTarget = false;
-            var count = Label(entry.transform, "Quantity", source);
-            count.text = $"× {amount:N0}";
-            count.alignment = TextAlignmentOptions.MidlineLeft;
-            float textWidth = count.GetPreferredValues(count.text).x + 4;
-            count.rectTransform.anchorMin = count.rectTransform.anchorMax = count.rectTransform.pivot = new Vector2(0, .5f);
-            count.rectTransform.anchoredPosition = new Vector2(iconSize + source.fontSize * .25f, 0);
-            count.rectTransform.sizeDelta = new Vector2(textWidth, iconSize);
+            var text = Label(entry.transform, "Reward Label", source);
+            text.text = label;
+            text.alignment = TextAlignmentOptions.MidlineLeft;
+            float textWidth = text.GetPreferredValues(label).x + 4;
+            text.rectTransform.anchorMin = text.rectTransform.anchorMax = text.rectTransform.pivot = new Vector2(0, .5f);
+            text.rectTransform.anchoredPosition = new Vector2(iconSize + source.fontSize * .25f, 0);
+            text.rectTransform.sizeDelta = new Vector2(textWidth, iconSize);
             float width = iconSize + source.fontSize * .25f + textWidth;
             rect.sizeDelta = new Vector2(width, iconSize);
             x += width + source.fontSize * .9f;

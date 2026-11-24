@@ -1307,6 +1307,7 @@ MonoBehaviour:
   thrustTravel: 0.95
   hitOffset: {x: 3.5, y: -0.85}
   hitSize: {x: 5.2, y: 4.4}
+  hitEffectMaterial: {fileID: 2100000, guid: 2f0d9209680340d3a905cc5d8103c186, type: 2}
 --- !u!70 &751033156
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -3221,7 +3222,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 7
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1397596879, guid: ba74f5d111396a14b8a39687c128fb9a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

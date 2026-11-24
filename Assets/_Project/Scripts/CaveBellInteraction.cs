@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using EasternFantasy.Player;
 using EasternFantasy.Inventory;
+using EasternFantasy.Dialogue;
+using EasternFantasy.Quest;
+using EasternFantasy.UI;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,7 +21,11 @@ public sealed class CaveBellInteraction : MonoBehaviour
 
     [SerializeField] private Sprite[] frames;
     [SerializeField] private AudioClip bellSound;
-    [SerializeField] private ItemDefinition firstRingTitle;
+    [SerializeField] private QuestDefinition bellQuest;
+    [SerializeField] private ItemDefinition questCompletionTitle;
+    [SerializeField] private QuestDefinition requiredHunt;
+    [SerializeField] private GameObject noviceMonk;
+    [SerializeField] private DialogueSequence questCompletionDialogue;
     [SerializeField] private Vector2 backgroundCenter = new(9.83f, -5.93f);
     [SerializeField, Min(1f)] private float overviewSize = 9.4f;
     [SerializeField, Min(0.1f)] private float pullbackSeconds = 2f;
@@ -53,6 +60,7 @@ public sealed class CaveBellInteraction : MonoBehaviour
     private void Awake()
     {
         image = GetComponent<SpriteRenderer>();
+        GroundContactShadow.AttachToNpc(noviceMonk);
         sound = GetComponent<AudioSource>();
         sound.playOnAwake = false;
         sound.loop = false;
@@ -65,6 +73,14 @@ public sealed class CaveBellInteraction : MonoBehaviour
 
     private void Update()
     {
+        if (noviceMonk != null)
+        {
+            var manager = QuestManager.Instance;
+            var progress = manager?.FindProgress(bellQuest);
+            bool visible = progress != null
+                && (progress.Status == QuestStatus.Completed || IsHuntComplete(manager));
+            if (noviceMonk.activeSelf != visible) noviceMonk.SetActive(visible);
+        }
         if (IsPlaying && Keyboard.current?.escapeKey.wasPressedThisFrame == true)
             exitRequested = true;
     }
@@ -102,10 +118,42 @@ public sealed class CaveBellInteraction : MonoBehaviour
 
     public bool TryInteract(PlayerInputReader player)
     {
-        if (IsViewing || player == null || !player.CanControlGameplay || Time.timeScale <= 0f ||
-            bellSound == null || frames == null || frames.Length < 8 || Camera.main == null)
-            return false;
+        if (!CanStartSequence(player)) return false;
 
+        var manager = QuestManager.Instance;
+        var progress = manager?.FindProgress(bellQuest);
+        if (progress == null || progress.Status == QuestStatus.Completed)
+        {
+            StartSequence(player);
+            return true;
+        }
+        if (!IsHuntComplete(manager))
+        {
+            SystemNoticeUI.Show("외진 산길에서 동자승의 삵 사냥 부탁을 먼저 마쳐 주세요.", this);
+            return true;
+        }
+
+        var dialogue = DialogueManager.Instance;
+        if (dialogue == null) return false;
+        if (progress.Status == QuestStatus.Active)
+            manager.AddProgress(bellQuest, bellQuest.RequiredAmount - progress.CurrentAmount);
+
+        var inventory = player.GetComponent<PlayerInventory>();
+        return dialogue.StartQuestCompletion(questCompletionDialogue, bellQuest, questCompletionTitle,
+            completeAtRewardStep: true,
+            grantTitle: title => inventory != null && inventory.GrantCaveBellTitle(title),
+            onCompleted: () =>
+            {
+                if (this != null && CanStartSequence(player)) StartSequence(player);
+            });
+    }
+
+    private bool CanStartSequence(PlayerInputReader player) => isActiveAndEnabled && !IsViewing
+        && player != null && player.CanControlGameplay && Time.timeScale > 0f
+        && bellSound != null && frames != null && frames.Length >= 8 && Camera.main != null;
+
+    private void StartSequence(PlayerInputReader player)
+    {
         view = Camera.main;
         brain = view.GetComponent<CinemachineBrain>();
         originalPosition = view.transform.position;
@@ -124,7 +172,6 @@ public sealed class CaveBellInteraction : MonoBehaviour
         playerInput.SetInputBlocked(this, true);
         GameTimeController.SetPaused(this, true);
         sequence = StartCoroutine(PlaySequence());
-        return true;
     }
 
     private IEnumerator PlaySequence()
@@ -173,11 +220,12 @@ public sealed class CaveBellInteraction : MonoBehaviour
                 yield return null;
             }
         }
-        var inventory = playerInput != null ? playerInput.GetComponent<PlayerInventory>() : null;
         Restore();
         sequence = null;
-        if (exitRequested && inventory != null) inventory.GrantCaveBellTitle(firstRingTitle);
     }
+
+    private bool IsHuntComplete(QuestManager manager) => requiredHunt == null
+        || manager.FindProgress(requiredHunt)?.Status == QuestStatus.Completed;
 
     private static float Ease(float t) => Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t));
 

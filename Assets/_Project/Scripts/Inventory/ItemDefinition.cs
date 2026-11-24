@@ -32,7 +32,8 @@ namespace EasternFantasy.Inventory
     {
         None,
         JumpHeight,
-        HealthRegeneration
+        HealthRegeneration,
+        ManaRegeneration
     }
 
     public enum ConsumableEffect
@@ -68,7 +69,7 @@ namespace EasternFantasy.Inventory
         [SerializeField, Min(0f)] private float defenseBonus;
         [Header("Accessory special ability")]
         [SerializeField] private AccessoryAbility specialAbility;
-        [SerializeField, Min(0f), Tooltip("JumpHeight: fractional bonus (0.2 = 20%). HealthRegeneration: HP restored each second.")]
+        [SerializeField, Min(0f), Tooltip("JumpHeight uses a fractional bonus (0.2 = 20%). Regeneration uses the amount restored each second.")]
         private float specialAbilityValue;
         [SerializeField] private ConsumableEffect consumableEffect;
         [SerializeField, Min(0f)] private float useAmount;
@@ -133,10 +134,13 @@ namespace EasternFantasy.Inventory
                 (equipmentSlot == EquipmentSlot.Necklace || equipmentSlot == EquipmentSlot.Bracelet || equipmentSlot == EquipmentSlot.Ring)));
         public AccessoryAbility SpecialAbility => specialAbility;
         public float SpecialAbilityValue => Mathf.Max(0f, specialAbilityValue);
-        public string SpecialAbilityDescription => specialAbility == AccessoryAbility.JumpHeight
-            ? $"점프 높이 +{SpecialAbilityValue * 100f:0.#}%"
-            : specialAbility == AccessoryAbility.HealthRegeneration
-                ? $"1초마다 체력 {SpecialAbilityValue:0.#} 회복" : string.Empty;
+        public string SpecialAbilityDescription => specialAbility switch
+        {
+            AccessoryAbility.JumpHeight => $"점프 높이 +{SpecialAbilityValue * 100f:0.#}%",
+            AccessoryAbility.HealthRegeneration => $"1초마다 체력 {SpecialAbilityValue:0.#} 회복",
+            AccessoryAbility.ManaRegeneration => $"1초마다 마나 {SpecialAbilityValue:0.#} 회복",
+            _ => string.Empty
+        };
         public EquipmentSlot EquipmentSlot => equipmentSlot;
         public EquipmentSetDefinition EquipmentSet => category == ItemCategory.Equipment ? equipmentSet : null;
         public bool HasClassRestriction => allowedClasses != null && allowedClasses.Length > 0;

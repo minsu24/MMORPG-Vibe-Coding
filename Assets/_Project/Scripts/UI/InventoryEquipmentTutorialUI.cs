@@ -166,7 +166,7 @@ namespace EasternFantasy.UI
             if (titleTutorial)
                 messages = new[]
                 {
-                    $"종을 울려 ‘{itemName}’ 칭호를 얻었어요.\n장착하면 공격력이 {practiceItem.TitleAttackBonusRate:P0} 증가하고 머리 위에 칭호가 표시돼요.\nI키로 인벤토리를 열어 보세요.",
+                    $"동자승에게 ‘{itemName}’ 칭호를 받았어요.\n장착하면 공격력이 {practiceItem.TitleAttackBonusRate:P0} 증가하고 머리 위에 칭호가 표시돼요.\nI키로 인벤토리를 열어 보세요.",
                     $"강조된 종 아이콘 ‘{itemName}’을 더블클릭해 장착하세요.",
                     "칭호를 장착했어요.\nJ키로 장비창을 열어 보세요.",
                     "신발 아래 칭호 칸에 장착한 칭호가 표시돼요.\n칭호 칸을 더블클릭하면 해제할 수 있어요."

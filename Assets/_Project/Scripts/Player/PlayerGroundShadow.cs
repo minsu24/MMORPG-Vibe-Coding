@@ -12,6 +12,8 @@ namespace EasternFantasy.Player
         [SerializeField] private bool addCharacterEdge;
 
         private static Sprite shadowSprite;
+        internal static Sprite SharedSprite => shadowSprite != null
+            ? shadowSprite : (shadowSprite = CreateShadowSprite());
         private SpriteRenderer shadow;
         private SpriteRenderer character;
         private SpriteRenderer characterEdge;
@@ -21,13 +23,10 @@ namespace EasternFantasy.Player
         {
             entity = GetComponent<PlayerEntity>();
             character = GetComponentInChildren<SpriteRenderer>(true);
-            if (shadowSprite == null)
-                shadowSprite = CreateShadowSprite();
-
             GameObject child = new GameObject("Ground Shadow", typeof(SpriteRenderer));
             child.transform.SetParent(transform, false);
             shadow = child.GetComponent<SpriteRenderer>();
-            shadow.sprite = shadowSprite;
+            shadow.sprite = SharedSprite;
             shadow.color = new Color(0.02f, 0.025f, 0.03f, maximumOpacity);
             shadow.transform.localScale = new Vector3(width, 0.45f, 1f);
             if (character != null)

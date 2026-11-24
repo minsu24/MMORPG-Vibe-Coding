@@ -199,7 +199,7 @@ MonoBehaviour:
   floorCollider: {fileID: 0}
   drops:
   - item: {fileID: 11400000, guid: 3534516af3094bbb9e2173fa04cd6a2d, type: 2}
-    dropChance: 0.3
+    dropChance: 1
     minimumQuantity: 1
     maximumQuantity: 1
   spawnHeight: 0.95

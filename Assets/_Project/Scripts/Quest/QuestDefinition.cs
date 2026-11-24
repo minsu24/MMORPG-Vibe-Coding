@@ -42,8 +42,13 @@ namespace EasternFantasy.Quest
         [SerializeField, Min(0)] private int rewardYeopjeon = 20;
         [SerializeField, Min(0)] private int rewardEXP = 100;
         [SerializeField] private QuestItemReward[] rewardItems = Array.Empty<QuestItemReward>();
+        [SerializeField] private bool completeAfterTurnInDialogue;
         [SerializeField] private QuestDefinition prerequisiteQuest;
         [SerializeField, TextArea(1, 3)] private string turnInDescription;
+        [Tooltip("Optional HUD objectives indexed by current progress. Staged objectives omit the numeric counter.")]
+        [SerializeField] private string[] trackerObjectives = Array.Empty<string>();
+        [Tooltip("Hide this HUD entry while the linked quest is tracked.")]
+        [SerializeField] private QuestDefinition hideTrackerWhileQuestActive;
         [Tooltip("Scene names whose place names become known when this quest is accepted. This does not reveal their scenery.")]
         [SerializeField] private string[] revealedMapScenes = Array.Empty<string>();
         [Header("Detail map destinations")]
@@ -56,6 +61,10 @@ namespace EasternFantasy.Quest
         public IReadOnlyList<string> RevealedMapScenes => revealedMapScenes ?? Array.Empty<string>();
         public QuestDefinition PrerequisiteQuest => prerequisiteQuest;
         public string TurnInDescription => turnInDescription;
+        public QuestDefinition HideTrackerWhileQuestActive => hideTrackerWhileQuestActive;
+        public string GetTrackerObjective(int progress) => trackerObjectives != null && trackerObjectives.Length > 0
+            ? trackerObjectives[Mathf.Clamp(progress, 0, trackerObjectives.Length - 1)]
+            : null;
         public string QuestId => questId;
         public QuestType Type => questType;
         public string Title => title;
@@ -64,6 +73,7 @@ namespace EasternFantasy.Quest
         public int RewardYeopjeon => rewardYeopjeon;
         public int RewardEXP => rewardEXP;
         public IReadOnlyList<QuestItemReward> RewardItems => rewardItems ?? Array.Empty<QuestItemReward>();
+        public bool CompleteAfterTurnInDialogue => completeAfterTurnInDialogue;
 
         public string TypeLabel
         {

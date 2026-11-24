@@ -305,6 +305,8 @@ MonoBehaviour:
   inactivePortraitAlpha: 0.45
   questChoiceRoot: {fileID: 3149824277936213466}
   questChoiceTitleText: {fileID: 371186321097939775}
+  acceptChoiceButton: {fileID: 522664456302740012}
+  declineChoiceButton: {fileID: 279249021284193980}
   playerInput: {fileID: 0}
 --- !u!1 &1461667275575791629
 GameObject:

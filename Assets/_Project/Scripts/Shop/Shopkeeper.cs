@@ -20,6 +20,8 @@ namespace EasternFantasy.Shop
 
         public ItemDefinition[] Stock => stock;
 
+        private void Awake() => GroundContactShadow.AttachToNpc(gameObject);
+
         public void Interact()
         {
             if (ShopWindowUI.Instance != null && ShopWindowUI.Instance.IsOpen) return;

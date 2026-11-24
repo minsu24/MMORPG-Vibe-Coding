@@ -17,9 +17,9 @@ MonoBehaviour:
   title: "\uC0AC\uCC30 \uC678\uACFD\uC758 \uC778\uBA74\uC870"
   objectiveDescription: "\uC0AC\uCC30 \uC678\uACFD\uC758 \uC778\uBA74\uC870\uB97C
     \uCC98\uCE58\uD558\uACE0 \uAE43\uD138\uC744 \uBAA8\uC73C\uAE30"
-  requiredAmount: 10
+  requiredAmount: 12
   requiredItem: {fileID: 11400000, guid: 3534516af3094bbb9e2173fa04cd6a2d, type: 2}
-  requiredCollectionAmount: 5
+  requiredCollectionAmount: 12
   countObjectiveLabel: "\uC778\uBA74\uC870 \uCC98\uCE58"
   rewardYeopjeon: 20
   rewardEXP: 100
@@ -28,9 +28,12 @@ MonoBehaviour:
     quantity: 1
   - item: {fileID: 11400000, guid: 363f4c91383e4cbfa4d7288693212e7b, type: 2}
     quantity: 1
+  - item: {fileID: 11400000, guid: 865a3ebfc4004fcfb33a71e1348e5902, type: 2}
+    quantity: 1
+  completeAfterTurnInDialogue: 1
   prerequisiteQuest: {fileID: 11400000, guid: 6324dfa94f7e4de2963efcd8da645389, type: 2}
   turnInDescription: "\uC0AC\uCC30 \uC678\uACFD \uAE38 \uC911\uAC04\uC5D0 \uC788\uB294
-    \uB098\uADF8\uB124\uC5D0\uAC8C \uAE43\uD138 5\uAC1C \uC804\uB2EC"
+    \uB098\uADF8\uB124\uC5D0\uAC8C \uAE43\uD138 12\uAC1C \uC804\uB2EC"
   revealedMapScenes:
   - OldTemple - Outer Grounds
   mapOfferScene: TempleGate
